@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Blackstone Inc. (BX)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:19 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:30 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -353,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="BX_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="BX_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -418,15 +490,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$155.13</p>
+                <p>$$152.51</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$188.2B</p>
+                <p>$$185.0B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>47.0</p>
+                <p>46.2</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -438,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>72.2</p>
+                <p>76.4</p>
             </div>
         </div>
     </div>
@@ -452,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.76</p>
+                <p>0.75</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -482,71 +554,79 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Blackstone Inc. (Ticker: BX)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:19:33  </p>
+<strong>Analysis Date:</strong> 2025-07-07 12:29:48  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Blackstone Inc. (BX) demonstrates a consistently <strong>Safe Zone</strong> Altman Z-Score profile over the past eight quarters, with scores ranging from 4.55 to 5.15, well above the distress threshold of 1.8. This strong financial health is supported by a robust market capitalization of approximately <strong>$188.2 billion</strong> and a current share price of <strong>$155.13</strong>.  </p>
-<p><strong>AI Risk Analysis</strong> indicates a <strong>low overall risk level</strong>, consistent with the stable Z-Score trajectory, suggesting minimal bankruptcy risk and strong operational resilience. The risk trajectory is stable, with no significant negative inflection points detected.  </p>
-<p><strong>AI Peer Analysis</strong> places BX comfortably above the industry average Z-Score (typically around 3.0 for Financial Services/Asset Management), confirming its superior financial stability relative to peers. This is reinforced by the company’s leadership position in alternative asset management, including private equity and real estate sectors.  </p>
-<p><strong>AI Sentiment Analysis</strong> is limited due to anomalous market data (e.g., zero RSI, zero volume), but the extraordinarily high dividend yield reported at <strong>271%</strong> is likely a data anomaly and should be treated cautiously. Despite this, the P/E ratio of <strong>47.01</strong> suggests market expectations of strong future earnings growth, consistent with BX’s growth profile.  </p>
+<p>Blackstone Inc. (BX) demonstrates a consistently strong financial health profile with Altman Z-Scores firmly in the <strong>Safe Zone</strong> (Z &gt; 3.0) across the last eight quarters, ranging from 4.55 to 5.15. This robust Z-Score trajectory indicates a very low risk of bankruptcy or financial distress. Based on the <strong>AI Risk Analysis overall risk level of Low with high confidence</strong>, the company’s risk trajectory is stable and favorable.</p>
+<p><strong>AI Peer Analysis</strong> positions BX well above the industry average Z-Score (typically around 3.0 for Financial Services/Asset Management peers), confirming BX’s superior financial resilience and operational efficiency relative to competitors. The company’s <strong>Relative Position</strong> is strong, supported by its market cap of approximately $185 billion and a current share price of $153.61.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a highly positive overall sentiment with a strong dividend yield of 271.00% (likely reflecting special dividends or data anomaly), though volatility and beta are reported as zero, suggesting either data limitations or a highly stable stock price environment. The sentiment trend is stable and consistent with the company’s financial strength.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
+<th>Metric</th>
 <th>Value</th>
-<th>Notes</th>
+<th>Industry Benchmark / Peer Average</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
 <td>5.02</td>
-<td>Safe Zone, low bankruptcy risk</td>
+<td>~3.0</td>
+<td>Strong financial health</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$188.2B</td>
-<td>Large-cap, stable valuation</td>
+<td>$185.03B</td>
+<td>Large-cap asset managers</td>
+<td>Market leader</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$155.13</td>
-<td>Reflects premium valuation</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>47.01</td>
-<td>Growth-oriented valuation</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>271.00%</td>
-<td>Likely data anomaly; treat cautiously</td>
+<td>$153.61</td>
+<td>N/A</td>
+<td>Stable valuation</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.182</td>
-<td>Low liquidity buffer</td>
+<td>~0.15-0.20</td>
+<td>Adequate liquidity</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.007</td>
+<td>~0.01-0.05</td>
 <td>Low retained earnings relative to assets</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.032</td>
-<td>Modest operating profitability</td>
+<td>~0.03-0.05</td>
+<td>Moderate operational profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.065</td>
-<td>Low asset utilization typical for asset managers</td>
+<td>~0.05-0.10</td>
+<td>Efficient asset utilization</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>271.00% (anomaly)</td>
+<td>~2-5% typical</td>
+<td>Data anomaly or special dividend</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given BX’s strong Altman Z-Score, stable risk profile, and leadership in asset management, a <strong>HOLD to BUY</strong> stance is recommended for investors with moderate risk tolerance. Conservative investors should monitor liquidity ratios and data anomalies before increasing exposure. Growth investors may find BX attractive given its premium valuation and operational stability.</p>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Buy / Hold:</strong> Given the strong Z-Score stability, low risk profile, and market leadership, BX is recommended as a <strong>Buy</strong> for conservative and growth investors seeking stable financial health.</li>
+<li><strong>Monitor Dividend Data:</strong> The unusually high dividend yield requires verification; if confirmed, it may attract dividend-focused investors.</li>
+<li><strong>Watch for Market Volatility:</strong> Despite zero reported beta and volatility, investors should monitor for any changes in market dynamics given the asset management sector’s sensitivity to economic cycles.</li>
+</ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -562,40 +642,63 @@ Given BX’s strong Altman Z-Score, stable risk profile, and leadership in asset
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A (Working Capital Ratio: 0.182)</td>
-<td>Industry avg. Current Ratio ~1.0</td>
-<td>Weak liquidity buffer; below typical industry standards</td>
-<td>Stable but low</td>
+<td>Current Ratio: 0.182</td>
+<td>~0.15-0.20</td>
+<td>Adequate liquidity; working capital ratio slightly low but within industry norms</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Working Capital Ratio: 0.182</td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Data missing)</td>
-<td>Industry avg. Debt/Equity ~1.0</td>
-<td>Unable to assess leverage; caution advised</td>
-<td>Unknown</td>
+<td>Debt-to-Equity: Not provided</td>
+<td>~1.0-2.0 typical for sector</td>
+<td>Unable to assess fully; low retained earnings ratio (0.007) suggests conservative leverage</td>
+<td>Stable/Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.032; Asset Turnover: 0.065</td>
-<td>Industry EBIT Ratio ~0.04; Asset Turnover ~0.1</td>
-<td>Slightly below industry EBIT and asset turnover; typical for asset managers</td>
+<td>EBIT Ratio: 0.032</td>
+<td>~0.03-0.05</td>
+<td>Moderate profitability; asset turnover at 0.065 indicates efficient asset use</td>
 <td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Asset Turnover: 0.065</td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.007</td>
-<td>Industry avg. ~0.05</td>
-<td>Low retained earnings relative to assets; may reflect payout policies</td>
+<td>~0.01-0.05</td>
+<td>Low retained earnings relative to assets; may reflect dividend payouts or capital structure</td>
 <td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: Not provided</td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<p><strong>Interpretive Commentary:</strong><br />
-- <strong>Liquidity Position:</strong> The working capital ratio of <strong>0.182</strong> is low, indicating limited short-term liquidity. This is typical for asset management firms that rely more on capital inflows and asset valuations than on liquid working capital. However, it warrants monitoring for potential liquidity stress.<br />
-- <strong>Leverage Management:</strong> Debt-to-equity data is unavailable, limiting leverage risk assessment. Given BX’s business model, moderate leverage is expected but should be confirmed with further data.<br />
-- <strong>Operational Efficiency:</strong> EBIT ratio at <strong>3.2%</strong> and asset turnover at <strong>6.5%</strong> are modest but consistent with the asset management industry, where asset-heavy balance sheets and fee-based revenue models dominate.<br />
-- <strong>Financial Stability:</strong> Retained earnings ratio is low at <strong>0.7%</strong>, possibly reflecting significant dividend distributions or capital returns to shareholders, consistent with the firm’s profile.  </p>
-<p><strong>Data Quality Note:</strong> The AI Data Quality Assessment indicates no major anomalies in financial data completeness, but market data anomalies (e.g., dividend yield) reduce confidence in some valuation metrics. This lowers overall confidence in liquidity and dividend sustainability assessments.</p>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li><strong>Liquidity:</strong> The current ratio of 0.182 and working capital ratio of 0.182 indicate BX maintains sufficient short-term liquidity relative to industry benchmarks. This supports operational flexibility in the asset management sector, which typically requires less working capital than manufacturing firms.</li>
+<li><strong>Leverage:</strong> Although explicit debt-to-equity data is missing, the low retained earnings ratio (0.007) may indicate a conservative leverage approach or significant dividend distributions. This aligns with the company’s profile as an asset manager with diversified capital sources.</li>
+<li><strong>Operational Efficiency:</strong> EBIT ratio of 3.2% and asset turnover of 6.5% are consistent with industry norms, reflecting efficient use of assets and moderate profitability. This supports the high Z-Score values observed.</li>
+<li><strong>Financial Stability:</strong> The low retained earnings ratio suggests BX returns significant capital to shareholders, consistent with its high dividend yield, but this could limit internal reinvestment capacity.</li>
+</ul>
+<p><strong>Data Quality Note:</strong> The AI Data Quality Assessment indicates raw financial data injection is complete with no anomalies detected in financial ratios, supporting high confidence in these metrics.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -613,35 +716,64 @@ Given BX’s strong Altman Z-Score, stable risk profile, and leadership in asset
 <td>Current (Q8)</td>
 <td>5.02</td>
 <td>Safe</td>
-<td>Strong equity, stable EBIT</td>
-<td>Continued growth in alternative asset classes</td>
+<td>Strong working capital, EBIT, asset turnover</td>
+<td>Stable asset management operations, diversified portfolio</td>
 </tr>
 <tr>
-<td>Previous Quarter</td>
+<td>Q7</td>
 <td>4.89</td>
 <td>Safe</td>
-<td>Consistent profitability</td>
-<td>Stable fee income and asset valuations</td>
+<td>Consistent operational efficiency</td>
+<td>Continued market leadership</td>
 </tr>
 <tr>
 <td>Q6</td>
 <td>4.55</td>
 <td>Safe</td>
-<td>Slight dip in working capital</td>
-<td>Market volatility impact on asset valuations</td>
+<td>Slight dip in EBIT ratio</td>
+<td>Possible market or operational headwinds</td>
 </tr>
 <tr>
-<td>Q1-Q5</td>
-<td>4.92 - 5.15</td>
+<td>Q5</td>
+<td>4.92</td>
 <td>Safe</td>
-<td>Stable retained earnings &amp; EBIT</td>
-<td>Steady capital inflows and operational control</td>
+<td>Recovery in profitability</td>
+<td>Strategic investments or cost management</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>5.09</td>
+<td>Safe</td>
+<td>Stable financial ratios</td>
+<td>Strong capital markets environment</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>5.15</td>
+<td>Safe</td>
+<td>Peak operational efficiency</td>
+<td>Favorable market conditions</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>5.09</td>
+<td>Safe</td>
+<td>Sustained profitability</td>
+<td>Diversified asset classes</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>5.01</td>
+<td>Safe</td>
+<td>Stable liquidity and leverage</td>
+<td>Consistent business model</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-BX’s Z-Score has remained consistently above 4.5 for eight quarters, indicating a very low risk of financial distress. The slight dip to 4.55 in Q6 corresponds with market volatility periods but quickly recovered. The primary drivers are strong market capitalization and stable EBIT ratios, reflecting resilient fee-based revenue streams and asset appreciation.  </p>
-<p>Compared to the industry average Z-Score (~3.0), BX’s superior scores underscore its competitive advantage and operational strength in the asset management sector. The lack of detailed component data limits granular analysis, but the overall trend confirms a robust financial position aligned with business growth in alternative investments.</p>
+<h3 id="commentary_1">Commentary</h3>
+<p>BX’s Z-Score has remained consistently above 4.5 over the last eight quarters, well above the distress threshold of 1.8 and comfortably in the safe zone (&gt;3.0). The slight dip to 4.55 in Q6 appears temporary, with recovery in subsequent quarters. This trend correlates with BX’s diversified asset management business model, which buffers against sector-specific downturns.</p>
+<p>The company’s strong working capital, EBIT ratio, and asset turnover underpin the Z-Score stability. The absence of significant fluctuations in Z-Score aligns with steady market conditions and effective risk management.</p>
+<p><strong>Peer Benchmarking:</strong> The industry average Z-Score for asset managers hovers around 3.0, positioning BX as a top-tier financial entity with superior financial health and operational resilience.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -657,30 +789,31 @@ BX’s Z-Score has remained consistently above 4.5 for eight quarters, indicatin
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable, Safe Zone (5.02)</td>
-<td>Price stable at $155.13</td>
+<td>Stable, high Z-Score (~5.0)</td>
+<td>Price stable at $153.61</td>
 <td>Aligned</td>
-<td>Supports confidence in valuation</td>
+<td>Supports Buy/Hold recommendation</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral (limited data)</td>
-<td>P/E high at 47.01</td>
+<td>Positive (high dividend yield, stable ratios)</td>
+<td>Market data limited (zero volatility)</td>
 <td>Partially aligned</td>
-<td>Market expects growth; sentiment unclear</td>
+<td>Requires monitoring for anomalies</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Above industry average</td>
+<td>Outperforming peers (Z &gt; 4.5 vs ~3.0)</td>
 <td>Sector performance strong</td>
-<td>Outperforming</td>
-<td>BX positioned as sector leader</td>
+<td>Aligned</td>
+<td>Competitive advantage confirmed</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-BX’s Z-Score stability aligns well with its current price level, suggesting the market recognizes its financial strength. However, technical indicators such as RSI and volume are reported as zero, indicating data gaps or illiquidity in the dataset, which reduces confidence in short-term market timing signals.  </p>
-<p>The high P/E ratio of <strong>47.01</strong> indicates investor optimism about future earnings growth, consistent with BX’s strategic positioning in alternative asset management. Peer analysis confirms BX’s outperformance relative to sector averages, reinforcing its competitive advantage.</p>
+<h3 id="commentary_2">Commentary</h3>
+<p>The fundamental health indicated by the Z-Score aligns well with BX’s stable stock price around $153.61. The zero volatility and beta reported likely reflect data limitations or a highly stable trading environment, which requires cautious interpretation.</p>
+<p>The extremely high dividend yield (271%) is an anomaly compared to typical sector yields (2-5%) and should be verified. If accurate, it signals strong shareholder returns but may also indicate unsustainable payout levels.</p>
+<p>Peer comparison confirms BX’s superior financial standing and market positioning, reinforcing confidence in the investment thesis.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -698,30 +831,37 @@ BX’s Z-Score stability aligns well with its current price level, suggesting th
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential minor decline</td>
-<td>Diversify asset classes; enhance risk controls</td>
+<td>Potential slight dip (e.g., Q6 dip)</td>
+<td>Diversification, cost controls</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
-<td>Minor</td>
-<td>Minimal</td>
-<td>Maintain capital buffers; monitor liquidity</td>
+<td>Low</td>
+<td>Minimal given strong ratios</td>
+<td>Conservative leverage, capital reserves</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Possible volatility impact</td>
-<td>Hedge market exposures; dynamic asset allocation</td>
+<td>Could affect asset turnover &amp; EBIT</td>
+<td>Hedging, portfolio diversification</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Commentary:</strong><br />
-- <strong>Best Case:</strong> Continued growth in alternative assets and stable fee income could push Z-Score above 5.2, reinforcing financial safety.<br />
-- <strong>Base Case:</strong> Z-Score remains stable around 5.0, reflecting steady operations and market conditions.<br />
-- <strong>Worst Case:</strong> Market downturn or liquidity stress could reduce Z-Score toward 4.5, still within Safe Zone but signaling caution.  </p>
-<p>Based on AI Risk Analysis overall risk level of <strong>Low</strong> with <strong>high confidence</strong>, bankruptcy risk is negligible. Liquidity stress testing should focus on the low working capital ratio (0.182), which could constrain short-term flexibility.</p>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational Risks:</strong> Medium probability due to market cyclicality in asset management; moderate severity as reflected in minor Z-Score fluctuations. Mitigation includes maintaining diversified asset classes and cost discipline.</li>
+<li><strong>Financial Risks:</strong> Low probability and severity given BX’s strong liquidity and capital structure. The low retained earnings ratio suggests reliance on external capital or dividends, which should be monitored.</li>
+<li><strong>Market Risks:</strong> Medium probability due to macroeconomic factors affecting asset valuations and fee income. Moderate severity could impact EBIT and asset turnover, influencing Z-Score.</li>
+</ul>
+<p><strong>Scenario Analysis:</strong></p>
+<ul>
+<li><strong>Best Case:</strong> Continued stable or improving Z-Score above 5.0 with strong market conditions and operational efficiency.</li>
+<li><strong>Base Case:</strong> Z-Score remains in the 4.5-5.0 range with minor fluctuations due to market cycles.</li>
+<li><strong>Worst Case:</strong> Z-Score dips below 3.0 if operational or market risks materialize severely, signaling financial distress.</li>
+</ul>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -739,50 +879,52 @@ BX’s Z-Score stability aligns well with its current price level, suggesting th
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td>HOLD</td>
-<td>Z-Score stable ~5.0, low risk</td>
-<td>Monitor liquidity data</td>
-<td>6-12 months</td>
+<td><strong>BUY</strong></td>
+<td>Stable Z-Score &gt;5.0 indicating low bankruptcy risk</td>
+<td>Stable price, low volatility</td>
+<td>Immediate to 6 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>HOLD</td>
-<td>Dividend yield data unreliable</td>
-<td>Await data confirmation</td>
+<td><strong>HOLD</strong></td>
+<td>High dividend yield (271%) but requires verification</td>
+<td>Monitor dividend announcements</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>BUY</td>
-<td>Premium valuation justified by Z-Score</td>
-<td>Entry on dips</td>
-<td>Immediate to 6 months</td>
+<td><strong>BUY</strong></td>
+<td>Strong Z-Score vs peers suggests undervaluation risk low</td>
+<td>Entry favorable at current price</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>BUY</td>
-<td>High P/E supported by stable Z-Score</td>
-<td>Momentum positive</td>
-<td>Immediate</td>
+<td><strong>BUY</strong></td>
+<td>Consistent Z-Score growth and operational efficiency</td>
+<td>Positive momentum expected</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>HOLD</td>
-<td>Low volatility; limited upside</td>
-<td>Monitor market signals</td>
-<td>3-6 months</td>
+<td><strong>HOLD</strong></td>
+<td>Low volatility limits short-term trading opportunities</td>
+<td>Watch for volatility spikes</td>
+<td>Monitor quarterly</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-- Conservative investors should maintain positions given BX’s strong financial health but remain cautious due to low liquidity ratios and anomalous dividend data.<br />
-- Dividend investors should await clearer yield data before increasing exposure.<br />
-- Value and growth investors can capitalize on BX’s premium valuation supported by a robust Z-Score and market leadership.<br />
-- Aggressive investors may hold but should watch for volatility signals absent in current data.</p>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li>Conservative investors benefit from BX’s strong financial health and low risk.</li>
+<li>Dividend investors should verify the unusually high yield before increasing exposure.</li>
+<li>Value and growth investors can capitalize on BX’s market leadership and stable Z-Score.</li>
+<li>Aggressive investors may find limited volatility but should monitor for market shifts.</li>
+</ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -798,29 +940,29 @@ BX’s Z-Score stability aligns well with its current price level, suggesting th
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Growth in alternative assets</td>
-<td>Z-Score &gt; 5.0, EBIT ratio</td>
-<td>Expand asset classes; enhance fee structures</td>
-<td>Z-Score stability; revenue growth</td>
+<td>Maintain diversification</td>
+<td>Z-Score components, EBIT</td>
+<td>Continue diversified asset allocation and cost management</td>
+<td>Stable or improving Z-Score</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; capital efficiency</td>
-<td>Working Capital Ratio, Debt levels</td>
-<td>Improve liquidity buffers; optimize capital allocation</td>
-<td>Improved liquidity ratios; stable leverage</td>
+<td>Capital efficiency</td>
+<td>Working capital ratio, retained earnings ratio</td>
+<td>Optimize capital structure, monitor dividend policy</td>
+<td>Liquidity and leverage targets</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; compliance</td>
+<td>Risk oversight</td>
 <td>Risk factors, Z-Score trends</td>
-<td>Strengthen risk management frameworks</td>
-<td>Low risk incidents; compliance adherence</td>
+<td>Regular risk reviews, ensure compliance with financial policies</td>
+<td>Risk mitigation effectiveness</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-BX’s leadership should focus on sustaining the Z-Score above 5.0 by balancing growth initiatives with prudent liquidity management. The CFO must address the low working capital ratio (0.182) to ensure operational flexibility. The Board should maintain vigilant oversight of emerging market and operational risks, leveraging the low overall risk level as a foundation for strategic expansion.</p>
+<h3 id="commentary_5">Commentary</h3>
+<p>Executive leadership should leverage the strong Z-Score and operational metrics to sustain growth and market position. The CFO must balance capital returns with reinvestment needs, given the low retained earnings ratio. The Board should maintain vigilant risk oversight to preempt any emerging financial or market risks.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -836,35 +978,35 @@ BX’s leadership should focus on sustaining the Z-Score above 5.0 by balancing 
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable ~5.0</td>
-<td>Slight upward bias</td>
-<td>Asset growth, fee income expansion</td>
+<td>Stable (~5.0)</td>
+<td>Stable to slightly positive</td>
+<td>Market stability, operational efficiency</td>
 <td>Quarterly Z-Score updates</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Leading in sector</td>
+<td>Leading</td>
 <td>Maintain leadership</td>
-<td>Innovation in asset classes</td>
+<td>Asset class diversification, capital markets trends</td>
 <td>Market share, peer Z-Score</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low risk</td>
-<td>Stable to slightly increasing</td>
-<td>Market volatility, liquidity stress</td>
-<td>Liquidity ratios, risk events</td>
+<td>Low</td>
+<td>Stable</td>
+<td>Macroeconomic conditions, regulatory changes</td>
+<td>Risk factor incidence, volatility</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-BX’s Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, driven by continued growth in alternative asset classes and operational efficiencies. Key catalysts include successful capital deployment in private equity and real estate sectors.  </p>
-<p>Risk monitoring should focus on liquidity metrics and market volatility indicators to preempt any downward pressure on the Z-Score. Early warning systems should incorporate working capital trends and peer performance shifts to maintain proactive risk management.</p>
+<h3 id="commentary_6">Commentary</h3>
+<p>BX’s Z-Score momentum is expected to remain stable or improve slightly over the next 6-12 months, supported by its diversified portfolio and operational discipline. Key catalysts include favorable capital markets and continued innovation in asset management strategies.</p>
+<p>Risk profile monitoring should focus on macroeconomic shifts and regulatory developments that could impact asset valuations or fee structures. Early warning systems should track Z-Score components quarterly to detect any downward inflection.</p>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>Blackstone Inc. (BX) exhibits a robust financial profile with a consistently safe Altman Z-Score above 4.5, strong market capitalization, and leadership in the asset management industry. Despite some liquidity concerns and anomalous market data, the overall risk level is low, supporting a positive investment outlook. Investors with medium risk tolerance are advised to consider BX as a BUY or HOLD, while conservative investors should monitor liquidity and dividend data closely. Forward-looking indicators suggest stable to improving financial health, with strategic focus on growth and risk mitigation critical for sustained success.</p>
+<h1 id="summary"><strong>Summary</strong></h1>
+<p>Blackstone Inc. (BX) exhibits a robust financial profile with consistently high Altman Z-Scores (&gt;4.5), indicating very low bankruptcy risk and strong operational health. The company’s market leadership, stable liquidity, and moderate profitability underpin a confident <strong>Buy</strong> recommendation for most investor profiles, with a note to verify dividend yield anomalies. Risk remains low but should be monitored for market and operational shifts. Forward-looking indicators suggest continued stability and growth potential.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, market metrics, and AI risk/sentiment/peer analyses to provide actionable investment intelligence.</em></p></div></div>
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, peer, sentiment, and risk data for actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1207,78 +1349,41 @@ BX’s Z-Score momentum is expected to remain stable or improve modestly over th
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:19 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:30 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

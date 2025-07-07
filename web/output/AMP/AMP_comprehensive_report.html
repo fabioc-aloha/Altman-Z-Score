@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Ameriprise Financial, Inc. (AMP)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:09 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:38 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -341,9 +413,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="AMP_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="AMP_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -406,15 +478,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$543.30</p>
+                <p>$$542.52</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$51.7B</p>
+                <p>$$51.7B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>18.5</p>
+                <p>18.4</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -426,7 +498,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>70.3</p>
+                <p>86.9</p>
             </div>
         </div>
     </div>
@@ -440,7 +512,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.81</p>
+                <p>0.85</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -469,20 +541,19 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> AMP (Ameriprise Financial, Inc.)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:09:33  </p>
+<p><strong>Company:</strong> Ameriprise Financial, Inc. (Ticker: AMP)<br />
+<strong>Analysis Date:</strong> 2025-07-07 10:38:20  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Ameriprise Financial, Inc. (AMP) demonstrates a consistently strong financial position as evidenced by its Altman Z-Score trajectory firmly within the <strong>Safe Zone</strong> (Z &gt; 3.0) across the last eight quarters, with scores ranging from 3.21 to 5.09. The most recent Z-Score is <strong>4.59</strong>, indicating very low bankruptcy risk and robust financial health.</p>
-<p><strong>AI Risk Analysis</strong> indicates an overall risk level of <strong>Low</strong>, supported by stable financial ratios and a positive risk trajectory. The company operates in the <strong>Financial Services sector</strong>, specifically <strong>Asset Management</strong>, a sector characterized by moderate leverage and operational efficiency demands.</p>
-<p><strong>AI Peer Analysis</strong> places AMP above the industry average Z-Score (industry average not explicitly provided but inferred below 4.0), confirming AMP’s competitive strength relative to peers. Key peers include other asset management firms, where AMP’s Z-Score signals superior financial resilience.</p>
-<p><strong>AI Sentiment Analysis</strong> shows a highly positive overall sentiment with a strong sentiment trend, reinforcing market confidence. The dividend yield of <strong>120.00%</strong> (likely an anomaly or special dividend event) suggests aggressive shareholder returns, though this requires cautious interpretation given data anomalies.</p>
+<p>Ameriprise Financial, Inc. (AMP) demonstrates a consistently <strong>Safe Zone</strong> Altman Z-Score profile over the last eight quarters, with scores ranging from 3.21 to 5.09, well above the distress threshold of 1.8. The latest Z-Score stands at <strong>4.59</strong>, indicating strong financial health and low bankruptcy risk. The <strong>AI Risk Analysis</strong> (implicitly low risk given Z-Score and financials) suggests a stable risk trajectory, with no significant deterioration in financial stability.</p>
+<p><strong>AI Peer Analysis</strong> positions AMP comfortably above the industry average Z-Score (typically around 3.0 for Financial Services/Asset Management), confirming AMP’s competitive strength relative to peers. The company’s market capitalization of <strong>$51.66 billion</strong> and current share price of <strong>$541.69</strong> reflect strong market confidence.</p>
+<p><strong>AI Sentiment Analysis</strong> is limited by technical indicator data gaps (all zeros), but the exceptionally high <strong>Dividend Yield of 120%</strong> is an outlier that requires caution; it may indicate a special dividend or data anomaly. The <strong>P/E ratio of 18.42</strong> is reasonable for the sector, supporting a valuation consistent with stable earnings.</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
+<th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Commentary</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
@@ -493,38 +564,48 @@
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$51.73B</td>
+<td>$51.66B</td>
 <td>Large-cap, stable market presence</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$543.30</td>
+<td>$541.69</td>
 <td>Reflects strong valuation</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>18.42</td>
+<td>Moderate valuation</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>120.00%</td>
-<td>Unusually high, likely anomaly or special event</td>
+<td>Likely anomaly or special event</td>
 </tr>
 <tr>
-<td>AI Risk Level</td>
-<td>Low</td>
-<td>Confirms financial stability</td>
+<td>Working Capital Ratio</td>
+<td>0.042</td>
+<td>Very low liquidity buffer</td>
 </tr>
 <tr>
-<td>AI Sentiment Overall</td>
-<td>Positive</td>
-<td>Supports bullish market perception</td>
+<td>Retained Earnings Ratio</td>
+<td>0.140</td>
+<td>Moderate retained earnings</td>
 </tr>
 <tr>
-<td>AI Peer Relative Position</td>
-<td>Above Industry Avg</td>
-<td>Competitive advantage confirmed</td>
+<td>EBIT Ratio</td>
+<td>0.004</td>
+<td>Low operating profitability margin</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.024</td>
+<td>Low asset utilization</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Investment Recommendation:</strong><br />
-Given AMP’s strong Z-Score, low risk profile, and positive market sentiment, a <strong>BUY</strong> recommendation is warranted for investors with moderate to low risk tolerance. However, the anomalous dividend yield and zero volatility metrics suggest data quality limitations that temper confidence slightly. Monitoring for data updates and dividend sustainability is advised.</p>
+Given the strong Z-Score and market capitalization, AMP is a <strong>BUY</strong> candidate for conservative and value investors seeking stability in the Financial Services sector. However, the extremely high dividend yield and low liquidity ratios warrant further due diligence before aggressive position sizing. The risk level is low with a stable trajectory, supporting a medium-term hold with monitoring for liquidity and profitability improvements.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -532,7 +613,7 @@ Given AMP’s strong Z-Score, low risk profile, and positive market sentiment, a
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark (Asset Management)</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -540,40 +621,41 @@ Given AMP’s strong Z-Score, low risk profile, and positive market sentiment, a
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.042<br>Working Capital Ratio: 0.042</td>
-<td>Industry avg. ~1.0 (typical for financial firms)</td>
-<td><strong>Weak liquidity</strong>; ratio far below 1.0 indicates tight short-term liquidity, typical in financial services but warrants monitoring</td>
-<td>Stable (no trend data)</td>
+<td>Current Ratio: 0.042</td>
+<td>~1.0 (Financial Services)</td>
+<td><strong>Weak liquidity</strong>, below industry norms; potential short-term stress risk</td>
+<td>Stable/Low</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (not provided)<br>Interest Coverage: N/A</td>
-<td>Industry avg. moderate leverage</td>
-<td>Insufficient data; leverage unknown but Z-Score implies manageable debt</td>
+<td>Debt-to-Equity: N/A (not provided)</td>
+<td>Industry avg ~1.0-2.0</td>
+<td>Insufficient data; leverage unknown, caution advised</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.024<br>EBIT Ratio: 0.004</td>
-<td>Industry avg. Asset Turnover ~0.1-0.3; EBIT Ratio ~0.05-0.15</td>
-<td><strong>Low operational efficiency</strong>; asset turnover and EBIT ratio significantly below industry norms, possibly reflecting business model or data gaps</td>
-<td>Stable</td>
+<td>EBIT Ratio: 0.004, Asset Turnover: 0.024</td>
+<td>EBIT ~0.05-0.10, Asset Turnover ~0.5</td>
+<td><strong>Low profitability and asset utilization</strong>, below sector averages</td>
+<td>Stable/Low</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.140<br>Cash Position: N/A</td>
-<td>Industry avg. Retained Earnings Ratio ~0.2-0.4</td>
-<td>Moderate retained earnings; suggests steady profitability but room for improvement</td>
+<td>Retained Earnings Ratio: 0.140</td>
+<td>Industry avg ~0.20-0.30</td>
+<td>Moderate retained earnings, indicating some reinvestment</td>
 <td>Stable</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Interpretive Commentary:</strong><br />
-- The <strong>Current Ratio of 0.042</strong> and <strong>Working Capital Ratio of 0.042</strong> are unusually low, indicating minimal liquid assets relative to current liabilities. This is somewhat typical in financial services firms that rely on asset management fees rather than inventory or receivables, but it flags potential liquidity risk if market conditions deteriorate.<br />
-- The <strong>EBIT Ratio of 0.004</strong> and <strong>Asset Turnover of 0.024</strong> are low compared to typical asset management benchmarks, suggesting either conservative revenue recognition or data incompleteness.<br />
-- The <strong>Retained Earnings Ratio of 0.140</strong> indicates moderate reinvestment of earnings, consistent with a mature financial services firm balancing growth and shareholder returns.<br />
-- The <strong>AI Data Quality Assessment</strong> notes no anomalies detected but the zero values in market technicals and some financial ratios (e.g., Price/Book, EV/EBITDA) suggest incomplete market data, reducing confidence in valuation metrics.<br />
-- Sector context: Financial Services firms often have unique balance sheet structures, with lower liquidity ratios and higher reliance on intangible assets, which may explain some deviations.</p>
+- The <strong>liquidity position</strong> is notably weak with a working capital ratio of 0.042, far below the typical industry benchmark near 1.0, indicating AMP may have limited short-term liquidity buffers. This is a potential risk factor, though mitigated by the company’s large market cap and access to capital markets.<br />
+- <strong>Leverage data</strong> is missing, limiting full risk assessment; however, the high Z-Score suggests leverage is not currently a distress factor.<br />
+- <strong>Operational efficiency</strong> is low, with EBIT ratio at 0.004 and asset turnover at 0.024, both significantly below typical Financial Services benchmarks (EBIT ~5-10%, asset turnover ~0.5). This suggests AMP’s profitability and asset utilization are subdued, possibly due to business model characteristics or recent investments.<br />
+- <strong>Financial stability</strong> via retained earnings ratio is moderate at 0.14, indicating some earnings retention for growth or debt reduction but below industry norms.  </p>
+<p><strong>Data Quality Note:</strong><br />
+No anomalies detected in financial data completeness; however, the absence of leverage ratios and some liquidity metrics limits full diagnostic precision. The AI Data Quality Assessment indicates raw data completeness but lacks detailed reliability scores.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -592,22 +674,20 @@ Given AMP’s strong Z-Score, low risk profile, and positive market sentiment, a
 <td>4.59</td>
 <td>Safe</td>
 <td>Strong equity, low leverage</td>
-<td>Stable asset management revenues, low bankruptcy risk</td>
+<td>Stable asset base, consistent earnings</td>
 </tr>
 <tr>
-<td>Previous Quarters (Q1-Q7)</td>
+<td>Previous Quarters</td>
 <td>3.21 - 5.09</td>
 <td>Safe</td>
-<td>Consistent retained earnings, stable EBIT</td>
-<td>No major operational disruptions reported, steady growth</td>
+<td>Fluctuations in retained earnings and EBIT</td>
+<td>Reflects operational stability with minor earnings volatility</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-- AMP’s Z-Score has remained consistently above 3.0 for eight quarters, fluctuating between 3.21 and 5.09, indicating sustained financial health and low distress risk.<br />
-- The slight dip to 3.21 in one quarter suggests a transient operational or market impact, quickly recovered in subsequent periods.<br />
-- The absence of detailed component ratios (Working Capital/Total Assets, Retained Earnings/Total Assets, EBIT/Total Assets) limits granular driver analysis, but the overall trend confirms strong business fundamentals.<br />
-- Compared to AI Peer Analysis industry average Z-Score (assumed below 4.0), AMP’s position is favorable, reflecting competitive advantage and operational resilience.</p>
+AMP’s Z-Score has remained consistently in the <strong>Safe Zone (&gt;3.0)</strong> over the last eight quarters, with a slight dip to 3.21 in one quarter but quickly recovering to above 4.5. This stability reflects a resilient financial structure and low bankruptcy risk. The main Z-Score drivers—working capital, retained earnings, EBIT, market equity relative to debt, and sales—appear stable, although exact component ratios are not provided.</p>
+<p>The <strong>industry average Z-Score</strong> for Financial Services typically hovers around 3.0, positioning AMP well above peers and reinforcing its competitive strength. The Z-Score trajectory aligns with a mature, stable business cycle typical of asset management firms with steady cash flows.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -623,32 +703,30 @@ Given AMP’s strong Z-Score, low risk profile, and positive market sentiment, a
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable, Safe Zone</td>
-<td>Price stable at $543.30</td>
+<td>Stable, Safe Zone (4.59)</td>
+<td>Price stable at $541.69</td>
 <td>Aligned</td>
-<td>Supports long-term investment thesis</td>
+<td>Supports confidence in valuation</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Positive</td>
-<td>Dividend Yield anomalous (120%)</td>
-<td>Divergent</td>
-<td>Caution on dividend sustainability</td>
+<td>Limited data; Dividend Yield anomaly (120%)</td>
+<td>Unknown professional consensus</td>
+<td>Divergent (due to data anomaly)</td>
+<td>Requires caution; verify dividend data</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Above industry avg</td>
-<td>Sector performance steady</td>
-<td>Aligned</td>
-<td>Competitive positioning strong</td>
+<td>Above industry average Z-Score</td>
+<td>Sector performing steadily</td>
+<td>Outperforming</td>
+<td>Competitive advantage confirmed</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-- The <strong>Z-Score’s stable Safe Zone</strong> aligns well with AMP’s market price stability at $543.30, suggesting market recognition of financial strength.<br />
-- The <strong>extremely high dividend yield of 120%</strong> is inconsistent with typical payout ratios and market technicals (zero volatility, zero volume), indicating possible data anomalies or one-time special dividends. This divergence advises caution in relying solely on dividend yield for market timing.<br />
-- Peer comparison confirms AMP’s outperformance in financial health, reinforcing confidence in investment positioning.<br />
-- The lack of volatility and volume data limits short-term market timing insights but supports a buy-and-hold approach based on fundamentals.</p>
+The fundamental health indicated by the Z-Score aligns well with the current market price, suggesting no significant disconnect between financial stability and market valuation. However, the <strong>anomalous dividend yield of 120%</strong> is inconsistent with typical market signals and may reflect a special dividend, data error, or extraordinary event, warranting further investigation.</p>
+<p>Peer comparison confirms AMP’s strong relative positioning in the Asset Management industry, reinforcing the investment thesis of stability and competitive advantage.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -666,30 +744,30 @@ Given AMP’s strong Z-Score, low risk profile, and positive market sentiment, a
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential dip to ~3.0</td>
-<td>Enhance operational efficiency, monitor EBIT margins</td>
+<td>Potential EBIT decline could lower Z-Score</td>
+<td>Enhance operational efficiency, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
-<td>Minor</td>
-<td>Minimal impact due to strong equity</td>
-<td>Maintain conservative leverage, monitor liquidity ratios</td>
+<td>Moderate</td>
+<td>Low liquidity ratio may stress short-term solvency</td>
+<td>Improve working capital management, maintain credit lines</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Low</td>
+<td>Medium</td>
 <td>Moderate</td>
-<td>Possible valuation compression</td>
+<td>Market volatility could impact equity valuation</td>
 <td>Diversify revenue streams, hedge market exposure</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Continued stable Z-Score above 4.5 with improving EBIT ratio and asset turnover, supporting valuation premium and dividend sustainability.<br />
-- <strong>Base Case:</strong> Z-Score remains in Safe Zone (3.5-4.5), with minor fluctuations due to market cycles; liquidity remains tight but manageable.<br />
-- <strong>Worst Case:</strong> Operational setbacks reduce EBIT ratio, pushing Z-Score toward 3.0 threshold; liquidity stress could emerge, requiring capital infusion or asset sales.<br />
-- Bankruptcy risk remains low given current Z-Score and risk assessment, but vigilance on operational efficiency and liquidity is warranted.</p>
+- <strong>Best Case:</strong> Continued stable earnings and moderate improvements in liquidity could push Z-Score above 5.0, reinforcing safe status.<br />
+- <strong>Base Case:</strong> Current stable Z-Score around 4.5-4.6 maintained with steady operational performance.<br />
+- <strong>Worst Case:</strong> Operational setbacks or liquidity stress could reduce EBIT and working capital ratios, lowering Z-Score toward gray zone (~3.0), signaling caution.</p>
+<p>Bankruptcy risk remains low based on current Z-Score and market capitalization. Liquidity stress is the primary vulnerability, requiring monitoring.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -708,31 +786,31 @@ Given AMP’s strong Z-Score, low risk profile, and positive market sentiment, a
 <td>📊 Conservative</td>
 <td>Low</td>
 <td><strong>BUY</strong></td>
-<td>Z-Score stable &gt;4.5, low risk</td>
-<td>Price stable, low volatility</td>
+<td>Z-Score stable at 4.59, low bankruptcy risk</td>
+<td>Price stable, moderate P/E</td>
 <td>Immediate to 6 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td><strong>HOLD</strong></td>
-<td>Dividend yield anomaly; monitor</td>
+<td>Dividend yield anomaly; verify sustainability</td>
 <td>Await dividend confirmation</td>
-<td>3-6 months review</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td><strong>BUY</strong></td>
-<td>Strong Z-Score vs valuation</td>
-<td>Entry on minor price dips</td>
-<td>0-3 months</td>
+<td>Strong Z-Score vs. moderate P/E supports value</td>
+<td>Entry on minor dips</td>
+<td>1-3 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td><strong>HOLD</strong></td>
-<td>Low EBIT ratio limits growth thesis</td>
+<td>Low EBIT ratio limits growth upside</td>
 <td>Monitor operational improvements</td>
 <td>6-12 months</td>
 </tr>
@@ -740,16 +818,16 @@ Given AMP’s strong Z-Score, low risk profile, and positive market sentiment, a
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td><strong>HOLD</strong></td>
-<td>Low volatility limits trading opportunities</td>
-<td>Wait for volatility increase</td>
+<td>Low volatility but liquidity risk present</td>
+<td>Avoid until liquidity improves</td>
 <td>6-12 months</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Rationale:</strong><br />
-- Conservative and value investors benefit from AMP’s strong Z-Score and low bankruptcy risk, with immediate buy opportunities.<br />
-- Dividend investors should hold pending clarity on dividend sustainability given the anomalous 120% yield.<br />
-- Growth and aggressive profiles should await operational efficiency improvements and increased market volatility to justify higher risk positions.</p>
+- Conservative and value investors benefit from AMP’s strong Z-Score and market position.<br />
+- Dividend investors should confirm the legitimacy of the 120% yield before increasing exposure.<br />
+- Growth and aggressive investors should monitor operational efficiency improvements before committing.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -766,30 +844,28 @@ Given AMP’s strong Z-Score, low risk profile, and positive market sentiment, a
 <tr>
 <td>CEO Leadership</td>
 <td>Enhance operational efficiency</td>
-<td>EBIT Ratio (0.004), Asset Turnover (0.024)</td>
-<td>Drive revenue growth initiatives, cost optimization</td>
+<td>EBIT Ratio, Asset Turnover</td>
+<td>Implement cost optimization and revenue growth initiatives</td>
 <td>EBIT margin improvement, Z-Score stability</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Strengthen liquidity &amp; capital structure</td>
-<td>Current Ratio (0.042), Retained Earnings Ratio (0.140)</td>
-<td>Improve working capital management, prudent debt management</td>
-<td>Improved liquidity ratios, stable leverage</td>
+<td>Improve liquidity position</td>
+<td>Working Capital Ratio, Debt levels</td>
+<td>Strengthen cash reserves, optimize working capital</td>
+<td>Current ratio &gt; 1.0, stable debt ratios</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; compliance</td>
-<td>Z-Score trend, Risk level (Low)</td>
-<td>Monitor risk factors, ensure transparent reporting</td>
-<td>Compliance adherence, risk mitigation effectiveness</td>
+<td>Risk oversight and compliance</td>
+<td>Z-Score trends, Risk factors</td>
+<td>Regular risk reviews, ensure transparency</td>
+<td>No material risk escalations, compliance adherence</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-- The CEO should focus on improving operational efficiency to raise EBIT ratio and asset turnover, directly impacting future Z-Score improvements.<br />
-- The CFO must address liquidity constraints indicated by the low current ratio, ensuring sufficient short-term funding and capital flexibility.<br />
-- The Board should maintain oversight on risk factors, particularly operational and market risks, leveraging the low overall risk level to support strategic growth initiatives.</p>
+AMP’s leadership should prioritize improving operational efficiency to boost EBIT margins and asset turnover, which are currently below industry norms. The CFO must address liquidity constraints to mitigate short-term solvency risks. The Board should maintain vigilant oversight on risk factors, especially liquidity and operational risks highlighted in AI Risk Analysis.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -805,37 +881,34 @@ Given AMP’s strong Z-Score, low risk profile, and positive market sentiment, a
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable ~4.5</td>
-<td>Slight upward trend</td>
-<td>EBIT margin improvement, retained earnings growth</td>
-<td>Quarterly Z-Score updates, EBIT ratio</td>
+<td>Stable (~4.59)</td>
+<td>Slight Improvement</td>
+<td>Operational efficiency gains, liquidity improvements</td>
+<td>EBIT ratio, working capital ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Strong</td>
-<td>Maintain or improve</td>
-<td>Competitive positioning, market share gains</td>
-<td>Market cap, peer Z-Score comparisons</td>
+<td>Maintain/Improve</td>
+<td>Market share growth, sector performance</td>
+<td>Market cap, peer Z-Score comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low</td>
-<td>Stable to slightly higher</td>
-<td>Operational efficiency risks, liquidity stress</td>
+<td>Low to Medium</td>
+<td>Stable to Slight Increase</td>
+<td>Economic cycles, regulatory changes</td>
 <td>Liquidity ratios, risk factor alerts</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-- AMP’s Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, driven by operational improvements and steady retained earnings.<br />
-- Key catalysts include successful execution of growth initiatives and enhanced cost management to improve EBIT margins.<br />
-- Monitoring liquidity ratios and operational efficiency metrics will provide early warning signals for any deterioration in financial health.<br />
-- The investment thesis should evolve to incorporate any shifts in dividend policy or market conditions, with scenario planning updated accordingly.</p>
+AMP’s Z-Score momentum is expected to remain stable or improve modestly if operational and liquidity initiatives succeed. Key catalysts include improved EBIT margins and working capital management. Monitoring should focus on early warning signs such as declining EBIT ratio or liquidity stress. The investment thesis should evolve with these metrics, maintaining a cautious but optimistic outlook.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Ameriprise Financial, Inc. (AMP) exhibits strong financial health with a consistently safe Altman Z-Score above 3.0, low risk profile, and positive market sentiment. Despite some data anomalies (notably the dividend yield), the company’s fundamentals support a <strong>BUY</strong> recommendation for conservative and value investors, with cautious <strong>HOLD</strong> guidance for dividend and growth profiles pending further data validation. Operational efficiency and liquidity management remain key focus areas for sustaining and enhancing financial stability. Continuous monitoring of Z-Score trends and risk factors is essential to timely investment decision-making.</p>
+<p>Ameriprise Financial, Inc. (AMP) presents a financially stable investment opportunity with a consistently safe Altman Z-Score above 3.0, indicating low bankruptcy risk. Despite low liquidity and operational efficiency metrics, the company’s large market cap and strong peer positioning support a <strong>BUY</strong> recommendation for conservative and value investors. Dividend yield anomalies require further verification before dividend-focused investors increase exposure. Operational improvements and liquidity management are critical to sustaining and enhancing financial health. Monitoring key financial ratios and market signals will be essential for timely investment decisions.</p>
 <hr />
-<p><em>Analysis completed using injected financial data, AI risk and sentiment assessments, and peer benchmarking as of 2025-07-03.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to injected data: Z-Score values (4.59 latest), Market Cap ($51.66B), Current Price ($541.69), Financial Ratios (Working Capital Ratio 0.042, Retained Earnings Ratio 0.140, EBIT Ratio 0.004, Asset Turnover 0.024), and Market Metrics (P/E 18.42, Dividend Yield 120%).</em></p></div></div>
     </div>
     
 
@@ -1178,78 +1251,41 @@ Given AMP’s strong Z-Score, low risk profile, and positive market sentiment, a
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:09 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:38 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

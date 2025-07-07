@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -339,9 +411,9 @@
     {% if market_analysis %}
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="{{ ticker }}_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="{{ ticker }}_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -814,78 +886,93 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    {% if bankruptcy_info %}
+    <div class="section bankruptcy-section">
+        <h2>Pre-Bankruptcy Analysis</h2>
+        <p>This analysis examines the financial health of {{ company_name }} ({{ ticker }}) leading up to its bankruptcy
+            on {{ bankruptcy_info.bankruptcy_date }}.</p>
+
+        <div class="metrics">
+            <div class="metric">
+                <h3>Bankruptcy Date</h3>
+                <p>{{ bankruptcy_info.bankruptcy_date }}</p>
+            </div>
+            <div class="metric">
+                <h3>Analysis Type</h3>
+                <p>{{ bankruptcy_info.analysis_type }}</p>
+            </div>
+        </div>
+
+        <h3>Z-Score Progression Before Bankruptcy</h3>
+        <p>The table below shows how the Z-Score and financial metrics changed in the quarters leading up to bankruptcy.
+        </p>
+
+        {% if zscore_results|length > 1 %}
+        <table class="bankruptcy-table">
+            <thead>
+                <tr>
+                    <th>Quarter End Date</th>
+                    <th>Z-Score</th>
+                    <th>Risk Category</th>
+                    <th>Market Cap (USD)</th>
+                    <th>Stock Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in zscore_results %}
+                <tr>
+                    <td>{{ result.period_date if result.period_date else result.calculation_timestamp }}</td>
+                    <td>{{ result.z_score|round(2) }}</td>
+                    <td>{{ result.risk_category }}</td>
+                    <td>{{ result.market_cap|format_market_cap if result.market_cap else 'N/A' }}</td>
+                    <td>{{ ('$' + (result.price|round(2)|string)) if result.price else 'N/A' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="warning">No multi-quarter progression data available for this bankruptcy analysis.</p>
+        {% endif %}
+
+        <h3>Warning Signs Analysis</h3>
+        <p>Altman Z-Score is designed to predict potential bankruptcy 1-2 years in advance. This analysis helps identify
+            how early the model detected financial distress.</p>
+    </div>
+    {% endif %}
+
     <footer>
-        <p>Generated on {{ generation_date }} by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on {{ generation_date }} by Enhanced Altman Z-Score Analysis v4.7.1</p>
         {% if market_analysis %}
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         {% endif %}
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

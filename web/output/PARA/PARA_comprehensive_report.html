@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Paramount Global (PARA)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:39 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:06 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -357,9 +429,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="PARA_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="PARA_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -422,15 +494,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$12.90</p>
+                <p>$$12.74</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$9.1B</p>
+                <p>$$9.0B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>7.9</p>
+                <p>7.8</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -442,7 +514,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>74.4</p>
+                <p>70.6</p>
             </div>
         </div>
     </div>
@@ -456,7 +528,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.36</p>
+                <p>0.51</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -477,81 +549,68 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Paramount Global (Ticker: PARA)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:38:40  </p>
+<strong>Analysis Date:</strong> 2025-07-07 11:05:53  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Paramount Global (PARA) currently resides in the <strong>Gray Zone</strong> of financial distress with a latest Altman Z-Score of <strong>1.64</strong>, indicating moderate risk of financial distress but not immediate bankruptcy threat. The Z-Score trajectory over the past eight quarters shows oscillation within the Gray Zone, peaking at 2.04 but recently declining, signaling some volatility in financial health.</p>
-<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>moderate</strong>, with a risk trajectory that is <strong>declining</strong>, reflecting emerging vulnerabilities in liquidity and operational efficiency. The company’s <strong>market capitalization</strong> stands at approximately <strong>$9.11 billion</strong>, with a current share price of <strong>$12.90</strong> and <strong>633.45 million shares outstanding</strong>.</p>
-<p><strong>AI Peer Analysis</strong> places PARA below the <strong>industry average Z-Score</strong>, which is estimated above 3.0 for the Communication Services sector, indicating PARA is underperforming its peers in financial stability. Key peers in the Entertainment industry typically maintain Z-Scores in the Safe Zone (&gt;3.0), highlighting PARA’s relative weakness.</p>
-<p><strong>AI Sentiment Analysis</strong> reveals a <strong>mixed to negative market sentiment</strong>, with a <strong>divergent trend</strong> between fundamental valuation and market perception. The extremely high <strong>dividend yield of 155%</strong> is an anomaly, likely reflecting a special dividend or data irregularity, which may distort investor sentiment.</p>
-<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<p>Paramount Global (PARA) currently resides in the <strong>Gray Zone</strong> of financial distress risk with a latest Altman Z-Score of <strong>1.64</strong>, indicating moderate bankruptcy risk but not immediate distress. The Z-Score has fluctuated between <strong>1.54 and 2.04</strong> over the past eight quarters, showing volatility but no clear upward recovery trend. Based on the <strong>AI Risk Analysis</strong> (implicit from Z-Score and financial metrics), the overall risk level is <strong>moderate</strong>, with no significant improvement trajectory, suggesting caution.</p>
+<p><strong>AI Peer Analysis</strong> positions PARA below the typical industry average Z-Score (generally &gt; 2.5 for Communication Services/Entertainment peers), indicating PARA underperforms relative to competitors such as CBS, Netflix, or Disney in financial stability. This relative weakness is compounded by operational inefficiencies and low asset turnover.</p>
+<p><strong>AI Sentiment Analysis</strong> is constrained by limited market data (zero volume, zero price range), but the extremely high <strong>dividend yield of 155%</strong> is an anomaly signaling either a data irregularity or a distressed payout policy, which typically signals elevated risk and market skepticism.</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
+<th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Interpretation</th>
+<th>Industry Benchmark</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Altman Z-Score</td>
+<td>Latest Z-Score</td>
 <td>1.64</td>
-<td>Gray Zone; moderate distress risk</td>
+<td>&gt;3.0 (Safe Zone)</td>
+<td>Gray Zone risk, moderate distress</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$9.11 billion</td>
-<td>Mid-cap scale</td>
+<td>$8.99B</td>
+<td>N/A</td>
+<td>Mid-cap media company</td>
 </tr>
 <tr>
-<td>Current Price</td>
-<td>$12.90</td>
-<td>Stable price level</td>
-</tr>
-<tr>
-<td>Shares Outstanding</td>
-<td>633.45 million</td>
-<td>Large float</td>
-</tr>
-<tr>
-<td>Working Capital Ratio</td>
+<td>Current Ratio (Working Capital Ratio)</td>
 <td>0.059</td>
-<td>Very low liquidity</td>
+<td>&gt;1.0</td>
+<td>Severe liquidity weakness</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.168</td>
-<td>Low retained earnings</td>
+<td>~0.3+ typical</td>
+<td>Low retained earnings buffer</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.012</td>
-<td>Very thin operating profitability</td>
+<td>~0.05+ typical</td>
+<td>Low operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.158</td>
+<td>~0.5+ typical</td>
 <td>Low operational efficiency</td>
 </tr>
 <tr>
-<td>P/E Ratio</td>
-<td>7.91</td>
-<td>Low valuation multiple</td>
-</tr>
-<tr>
 <td>Dividend Yield</td>
-<td>155.00%</td>
-<td>Data anomaly; requires caution</td>
+<td>155%</td>
+<td>2-5% typical</td>
+<td>Likely unsustainable or anomalous</td>
 </tr>
 </tbody>
 </table>
-<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
-<ul>
-<li><strong>Cautious Hold:</strong> Given PARA’s Gray Zone Z-Score and declining trend, investors with low risk tolerance should hold and monitor for further deterioration or improvement.</li>
-<li><strong>Selective Value Entry:</strong> Value investors may consider selective entry points if Z-Score stabilizes above 1.8 and operational metrics improve.</li>
-<li><strong>Avoid Aggressive Positions:</strong> High-risk investors should avoid aggressive exposure until liquidity and profitability metrics show sustained recovery.</li>
-</ul>
+<p><strong>Investment Action Recommendation:</strong><br />
+Given PARA’s persistent Gray Zone Z-Score, weak liquidity (working capital ratio 0.059), low profitability, and anomalous dividend yield, a <strong>Conservative investor should HOLD with caution</strong>, awaiting clearer signs of financial stabilization. Growth or Aggressive investors should avoid new positions until Z-Score improves above 1.8 with improved operational metrics. Dividend investors should be wary of the unsustainable payout indicated by the 155% yield.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -568,69 +627,64 @@
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.059</td>
-<td>Industry avg ~1.2</td>
-<td><strong>Severe liquidity weakness</strong>; risk of cash shortfall</td>
-<td>Declining</td>
+<td>&gt;1.0</td>
+<td>Severe liquidity weakness; risk of short-term cash stress</td>
+<td>Declining/Weak</td>
 </tr>
 <tr>
 <td></td>
 <td>Working Capital Ratio: 0.059</td>
-<td>Industry avg ~0.2</td>
+<td>&gt;1.0</td>
 <td>Insufficient working capital buffer</td>
-<td>Declining</td>
+<td>Declining/Weak</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
 <td>Debt-to-Equity: N/A (not provided)</td>
 <td>Industry avg ~1.0</td>
-<td>Data unavailable; leverage risk unknown</td>
+<td>Unable to assess leverage; Z-Score suggests moderate leverage risk</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td></td>
-<td>Interest Coverage (EBIT Ratio): 0.012</td>
-<td>Industry avg ~0.10</td>
-<td><strong>Extremely low EBIT coverage</strong>; high financial risk</td>
-<td>Stable/Weak</td>
+<td>Interest Coverage: N/A</td>
+<td>&gt;3.0</td>
+<td>Not available; EBIT ratio low (0.012) implies weak coverage</td>
+<td>Weak</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.158</td>
-<td>Industry avg ~0.5</td>
-<td><strong>Low asset utilization</strong>; operational inefficiency</td>
-<td>Stable/Weak</td>
+<td>~0.5+</td>
+<td>Low asset utilization; inefficient revenue generation</td>
+<td>Weak</td>
 </tr>
 <tr>
 <td></td>
 <td>EBIT Ratio: 0.012</td>
-<td>Industry avg ~0.10</td>
-<td>Marginal profitability; operational strain</td>
-<td>Stable/Weak</td>
+<td>~0.05+</td>
+<td>Low operating profitability</td>
+<td>Weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.168</td>
-<td>Industry avg ~0.3</td>
-<td>Low retained earnings; limited reinvestment</td>
-<td>Stable/Weak</td>
+<td>~0.3+</td>
+<td>Low retained earnings; limited internal capital</td>
+<td>Weak</td>
 </tr>
 <tr>
 <td></td>
 <td>Cash Position: N/A</td>
-<td>Industry avg varies</td>
-<td>Data unavailable; liquidity concerns remain</td>
-<td>Unknown</td>
+<td>N/A</td>
+<td>Not provided; liquidity ratios imply low cash</td>
+<td>Weak</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary">Commentary</h3>
-<ul>
-<li><strong>Liquidity:</strong> The current ratio of <strong>0.059</strong> and working capital ratio of <strong>0.059</strong> are significantly below the industry standard (~1.2 and 0.2 respectively), indicating PARA is highly constrained in meeting short-term obligations. This is a critical weakness that aligns with the Gray Zone Z-Score classification.  </li>
-<li><strong>Leverage:</strong> Lack of explicit debt-to-equity data limits leverage risk assessment. However, the extremely low EBIT ratio of <strong>0.012</strong> suggests minimal earnings to cover interest expenses, implying potential financial distress if debt levels are significant.  </li>
-<li><strong>Operational Efficiency:</strong> Asset turnover at <strong>0.158</strong> is well below the entertainment industry average (~0.5), indicating inefficient use of assets to generate sales. EBIT ratio of <strong>0.012</strong> further confirms weak profitability, likely pressuring cash flows and reinvestment capacity.  </li>
-<li><strong>Financial Stability:</strong> Retained earnings ratio of <strong>0.168</strong> is low, suggesting limited accumulated profits to buffer against shocks or fund growth. This weakens long-term financial resilience.  </li>
-</ul>
-<p><strong>Data Quality Note:</strong> The AI Data Quality Assessment indicates no anomalies detected in financial data completeness, but the absence of some key ratios (e.g., debt-to-equity) limits full leverage analysis. The dividend yield anomaly (155%) suggests caution in interpreting market valuation metrics.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+Paramount Global’s liquidity position is critically weak, with a current ratio and working capital ratio of only 0.059, far below the industry standard of &gt;1.0, indicating potential short-term solvency issues. The EBIT ratio of 0.012 and asset turnover of 0.158 reflect poor operational efficiency and profitability, likely pressuring cash flows and debt servicing ability. The retained earnings ratio of 0.168 is below typical benchmarks, suggesting limited internal capital accumulation to buffer shocks.</p>
+<p>The <strong>AI Data Quality Assessment</strong> shows no anomalies in financial data completeness, but the lack of detailed leverage and interest coverage ratios limits full risk assessment. The sector context—Communication Services and Entertainment—typically demands strong cash flow and asset turnover for content production and distribution, which PARA currently underperforms.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -648,68 +702,42 @@
 <td>Current (Q8)</td>
 <td>1.64</td>
 <td>Gray Zone</td>
-<td>Declining liquidity, low EBIT</td>
-<td>Media industry disruption, competitive pressures</td>
+<td>Low working capital, EBIT</td>
+<td>Continued operational challenges</td>
 </tr>
 <tr>
 <td>Q7</td>
 <td>1.90</td>
 <td>Gray Zone</td>
-<td>Slightly improved liquidity</td>
-<td>Temporary operational improvements</td>
+<td>Slightly better EBIT</td>
+<td>Temporary improvement, not sustained</td>
 </tr>
 <tr>
 <td>Q6</td>
 <td>2.04</td>
 <td>Gray Zone</td>
-<td>Peak Z-Score; better working capital</td>
-<td>Possible one-time gains or cost control</td>
+<td>Peak Z-Score in period</td>
+<td>Marginally safer, but still Gray Zone</td>
 </tr>
 <tr>
 <td>Q5</td>
 <td>1.89</td>
 <td>Gray Zone</td>
-<td>Declining EBIT, asset turnover</td>
-<td>Increased content costs, market share pressure</td>
+<td>Declining working capital</td>
+<td>Operational pressures re-emerge</td>
 </tr>
 <tr>
-<td>Q4</td>
-<td>1.65</td>
+<td>Q4-Q1</td>
+<td>1.54-1.65</td>
 <td>Gray Zone</td>
-<td>Weak operational metrics</td>
-<td>Industry-wide challenges in entertainment sector</td>
-</tr>
-<tr>
-<td>Q3</td>
-<td>1.56</td>
-<td>Gray Zone</td>
-<td>Low retained earnings</td>
-<td>Limited reinvestment capacity</td>
-</tr>
-<tr>
-<td>Q2</td>
-<td>1.54</td>
-<td>Gray Zone</td>
-<td>Consistent liquidity issues</td>
-<td>Ongoing cash flow constraints</td>
-</tr>
-<tr>
-<td>Q1</td>
-<td>1.62</td>
-<td>Gray Zone</td>
-<td>Stable but weak fundamentals</td>
-<td>Market uncertainty, evolving consumer preferences</td>
+<td>Consistent low profitability</td>
+<td>Persistent financial stress</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_1">Commentary</h3>
-<ul>
-<li>PARA’s Z-Score has persistently remained in the <strong>Gray Zone (1.54 - 2.04)</strong> over the last eight quarters, reflecting ongoing financial stress without crossing into immediate distress (&lt;1.8) or safe (&gt;3.0) territory.  </li>
-<li>The peak Z-Score of <strong>2.04</strong> was not sustained, indicating transient improvements likely due to short-term operational or financial adjustments rather than structural recovery.  </li>
-<li>Declining asset turnover and EBIT ratios correlate with the downward Z-Score trend, suggesting operational inefficiencies are primary drivers of financial risk.  </li>
-<li>Industry context: The entertainment sector faces digital disruption and content cost inflation, which may pressure PARA’s margins and asset utilization, consistent with observed Z-Score trends.  </li>
-<li>Peer benchmark: Industry average Z-Score &gt;3.0 highlights PARA’s below-average financial health and competitive positioning.</li>
-</ul>
+<p><strong>Strategic Commentary:</strong><br />
+PARA’s Z-Score has oscillated within the Gray Zone (1.54 to 2.04) over the last eight quarters without breaking into the Safe Zone (&gt;3.0). The peak at 2.04 was not sustained, indicating fragile improvements possibly linked to short-term operational or market factors. The decline back to 1.64 in the latest quarter signals renewed financial stress.</p>
+<p>The lack of detailed component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) limits granular driver analysis, but the overall trend suggests weak liquidity and profitability are the main contributors to the suboptimal Z-Score. This aligns with the company’s sector challenges amid evolving media consumption patterns and competitive pressures.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -725,34 +753,30 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Declining Gray Zone (1.64)</td>
-<td>Flat price at $12.90, zero volatility</td>
+<td>Gray Zone, declining</td>
+<td>Price stable at $12.75</td>
 <td>Divergent</td>
-<td>Market not fully pricing risk; potential latent downside</td>
+<td>Market may not fully price risk</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Mixed/Negative</td>
-<td>Dividend anomaly (155%)</td>
+<td>Neutral/Negative (implied)</td>
+<td>Dividend yield anomaly</td>
 <td>Inconsistent</td>
-<td>Market confusion; sentiment unreliable</td>
+<td>Market skepticism not fully reflected</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
 <td>Below industry average</td>
-<td>Sector performance stable</td>
+<td>Sector performance mixed</td>
 <td>Underperforming</td>
-<td>Competitive disadvantage; caution advised</td>
+<td>Competitive disadvantage</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_2">Commentary</h3>
-<ul>
-<li>The <strong>Z-Score declining trend</strong> contrasts with a <strong>stable stock price</strong> at $12.90 and zero reported volatility, indicating a disconnect between fundamental risk and market pricing. This divergence suggests potential market complacency or data reporting issues (e.g., zero volume).  </li>
-<li>The <strong>extreme dividend yield of 155%</strong> is a significant anomaly, likely skewing investor sentiment and valuation metrics, reducing confidence in market signals.  </li>
-<li>Peer comparison confirms PARA is underperforming its sector peers, which typically maintain healthier Z-Scores and more stable market valuations.  </li>
-<li>Overall, the market validation indicates <strong>caution</strong>: fundamental risks are not fully reflected in market prices, presenting a potential risk for investors relying solely on market signals.</li>
-</ul>
+<p><strong>Market Validation Commentary:</strong><br />
+The fundamental health indicated by the Z-Score suggests moderate financial risk, yet the market price of $12.75 and stable market cap of $8.99B do not reflect a distressed valuation. The zero volume and zero price range data imply illiquidity or data gaps, limiting market signal reliability.</p>
+<p>The extraordinarily high dividend yield of 155% is a red flag, likely due to a collapsing stock price or payout anomaly, signaling market distrust. This divergence between fundamental risk and market signals suggests potential mispricing or delayed market reaction, presenting a timing opportunity for cautious investors.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -770,42 +794,30 @@
 <td>Operational Risks</td>
 <td>High</td>
 <td>Moderate</td>
-<td>-0.3 to -0.5</td>
-<td>Cost control, asset optimization</td>
+<td>Negative</td>
+<td>Cost control, operational efficiency improvements</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Medium</td>
-<td>Critical</td>
-<td>-0.5 to -0.7</td>
-<td>Debt restructuring, liquidity management</td>
+<td>High</td>
+<td>Significant</td>
+<td>Debt restructuring, liquidity enhancement</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>-0.2 to -0.4</td>
-<td>Hedging, diversification</td>
-</tr>
-<tr>
-<td>Data/Anomaly Risks</td>
-<td>Low</td>
-<td>Minor</td>
-<td>N/A</td>
-<td>Data validation, transparency</td>
+<td>Moderate</td>
+<td>Hedging content investments, diversification</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_3">Commentary</h3>
-<ul>
-<li><strong>Operational risks</strong> are high due to low asset turnover (0.158) and EBIT ratio (0.012), which could further depress the Z-Score if not addressed.  </li>
-<li><strong>Financial risks</strong> are medium but critical in severity, given the very low liquidity ratios and unknown leverage. A worsening liquidity crisis could push PARA into the Distress Zone (&lt;1.8).  </li>
-<li><strong>Market risks</strong> include sector volatility and digital disruption, with moderate probability and impact on valuation and operational cash flows.  </li>
-<li><strong>Scenario Planning:</strong>  </li>
-<li><strong>Best Case:</strong> Operational improvements and cost efficiencies raise Z-Score above 2.0, stabilizing financial health.  </li>
-<li><strong>Base Case:</strong> Z-Score remains in Gray Zone (~1.6-1.9), with ongoing moderate risk.  </li>
-<li><strong>Worst Case:</strong> Liquidity crisis and earnings decline push Z-Score below 1.8, triggering distress signals and potential bankruptcy risk.</li>
-</ul>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Z-Score improves above 2.0 with operational efficiencies and liquidity improvement, reducing bankruptcy risk.<br />
+- <strong>Base Case:</strong> Z-Score remains in Gray Zone (1.5-2.0), moderate risk persists, requiring active risk management.<br />
+- <strong>Worst Case:</strong> Z-Score falls below 1.8, entering Distress Zone, signaling imminent financial distress and potential bankruptcy risk.</p>
+<p>Liquidity stress testing indicates PARA’s working capital ratio of 0.059 is dangerously low, increasing short-term default risk. Mitigation should focus on improving cash flow and reducing debt exposure.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -824,51 +836,46 @@
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score 1.64 in Gray Zone; liquidity risk</td>
-<td>Wait for Z &gt; 1.8</td>
-<td>Monitor quarterly</td>
+<td>Z-Score 1.64 in Gray Zone; liquidity weak</td>
+<td>Await Z-Score &gt;1.8</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>HOLD</td>
-<td>Dividend yield anomaly; unsustainable</td>
-<td>Avoid entry until clarity</td>
-<td>Review next 2 quarters</td>
+<td>SELL</td>
+<td>Dividend yield 155% unsustainable</td>
+<td>Avoid until payout normalized</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>BUY (Selective)</td>
-<td>Low P/E (7.91) and undervalued vs Z-Score</td>
-<td>Enter if Z stabilizes &gt;1.8</td>
+<td>HOLD</td>
+<td>Valuation not compelling; Z-Score weak</td>
+<td>Monitor for Z-Score rebound</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>SELL</td>
-<td>Weak EBIT and asset turnover; no growth signals</td>
-<td>Avoid until operational turnaround</td>
-<td>Immediate</td>
+<td>AVOID</td>
+<td>Low EBIT ratio and asset turnover</td>
+<td>No momentum; avoid entry</td>
+<td>N/A</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>AVOID</td>
-<td>High risk of distress; volatile fundamentals</td>
-<td>Too risky currently</td>
+<td>High risk, volatile Z-Score</td>
+<td>No volatility data; avoid</td>
 <td>N/A</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_4">Commentary</h3>
-<ul>
-<li><strong>Conservative investors</strong> should hold and closely monitor liquidity and Z-Score trends before increasing exposure.  </li>
-<li><strong>Dividend investors</strong> face uncertainty due to the anomalous dividend yield; caution is warranted until dividend sustainability is confirmed.  </li>
-<li><strong>Value investors</strong> may find opportunity if operational improvements push Z-Score above 1.8, signaling reduced distress risk.  </li>
-<li><strong>Growth and aggressive investors</strong> should avoid new positions given weak profitability and operational inefficiencies.  </li>
-</ul>
+<p><strong>Rationale:</strong><br />
+Conservative investors should hold and monitor for improvement in liquidity and Z-Score above 1.8. Dividend investors should avoid due to unsustainable payout. Value investors may consider accumulation only if Z-Score and operational metrics improve. Growth and aggressive investors should avoid due to weak profitability and operational inefficiencies.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -884,33 +891,29 @@
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational turnaround</td>
-<td>EBIT Ratio (0.012), Asset Turnover (0.158)</td>
-<td>Implement cost controls, optimize content spend</td>
-<td>EBIT improvement, Z-Score &gt;1.8</td>
+<td>Stabilize liquidity and improve operational efficiency</td>
+<td>Working Capital Ratio, EBIT Ratio, Z-Score</td>
+<td>Implement cost controls, optimize content portfolio</td>
+<td>Z-Score &gt; 2.0, improved EBIT margin</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; Capital Structure</td>
-<td>Current Ratio (0.059), Retained Earnings (0.168)</td>
-<td>Improve working capital, manage debt levels</td>
-<td>Liquidity ratio &gt;0.5, stable cash flow</td>
+<td>Strengthen financial position</td>
+<td>Retained Earnings Ratio, Debt levels</td>
+<td>Restructure debt, improve cash flow management</td>
+<td>Liquidity ratio &gt; 1.0, reduced leverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight</td>
-<td>Z-Score trend, Dividend sustainability</td>
-<td>Enhance financial reporting transparency</td>
-<td>Risk mitigation, dividend policy clarity</td>
+<td>Risk oversight and transparency</td>
+<td>Risk factors, Z-Score trajectory</td>
+<td>Enhance risk reporting, monitor financial KPIs</td>
+<td>Timely risk mitigation, compliance adherence</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_5">Commentary</h3>
-<ul>
-<li>The CEO must prioritize operational efficiency to improve EBIT and asset turnover, directly impacting Z-Score and financial stability.  </li>
-<li>The CFO should focus on liquidity enhancement and prudent capital allocation to reduce financial distress risk.  </li>
-<li>The Board should oversee risk management and ensure transparent communication to restore investor confidence, especially given dividend anomalies and market sentiment divergence.</li>
-</ul>
+<p><strong>Executive Commentary:</strong><br />
+Management must prioritize liquidity stabilization and operational efficiency to move PARA out of the Gray Zone. The CFO should focus on capital structure optimization to reduce financial risk. The Board should enforce rigorous risk oversight given the moderate bankruptcy risk indicated by the Z-Score trajectory.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -926,39 +929,35 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Declining (1.64)</td>
-<td>Stabilization or slight improvement</td>
+<td>Declining/volatile</td>
+<td>Slight improvement possible</td>
 <td>Cost reduction, revenue growth</td>
-<td>Quarterly Z-Score, EBIT ratio</td>
+<td>Quarterly Z-Score updates, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Below peers</td>
-<td>Potential recovery if operational issues addressed</td>
+<td>Potential stabilization</td>
 <td>Content innovation, market share</td>
-<td>Peer Z-Score comparison, price trends</td>
+<td>Peer Z-Score comparison, market share data</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Moderate</td>
-<td>Potential increase if liquidity worsens</td>
-<td>Debt refinancing, macroeconomic factors</td>
-<td>Liquidity ratios, debt levels</td>
+<td>Moderate risk</td>
+<td>Risk reduction with improvements</td>
+<td>Debt restructuring, liquidity infusion</td>
+<td>Working capital ratio, debt ratios</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_6">Commentary</h3>
-<ul>
-<li>The Z-Score is expected to <strong>stabilize or modestly improve</strong> if operational and liquidity initiatives succeed, but remains vulnerable to sector headwinds.  </li>
-<li>Market position recovery depends on strategic content investments and competitive dynamics in the entertainment industry.  </li>
-<li>Risk profile requires close monitoring of liquidity and debt metrics to anticipate distress signals early.  </li>
-<li>Investors and management should track <strong>leading indicators</strong> such as EBIT margin improvements, working capital changes, and peer Z-Score movements to adjust strategy proactively.</li>
-</ul>
+<p><strong>Forward-Looking Commentary:</strong><br />
+PARA’s Z-Score momentum suggests a fragile financial state with potential for modest improvement if operational and liquidity initiatives succeed. Key catalysts include successful cost management and revenue growth from content innovation. Continuous monitoring of liquidity ratios and EBIT margins will provide early warning signals for risk escalation or improvement.</p>
 <hr />
-<h1 id="summary-conclusion"><strong>Summary Conclusion</strong></h1>
-<p>Paramount Global (PARA) currently faces <strong>moderate financial distress risk</strong>, reflected in a Gray Zone Altman Z-Score of <strong>1.64</strong> and weak liquidity and profitability metrics. While the market price remains stable, fundamental risks are underpriced, and operational inefficiencies persist. Investors should adopt a <strong>cautious stance</strong>, with conservative and dividend-focused profiles holding positions while value investors may consider selective entry upon signs of financial stabilization. Management must prioritize liquidity enhancement and operational turnaround to improve financial health and investor confidence. Continuous monitoring of Z-Score trends and key financial ratios is essential to timely risk mitigation and strategic decision-making.</p>
+<h1 id="summary">Summary</h1>
+<p>Paramount Global (PARA) is currently in a <strong>Gray Zone</strong> financial risk category with a Z-Score of <strong>1.64</strong>, reflecting moderate bankruptcy risk driven by weak liquidity (working capital ratio 0.059), low profitability (EBIT ratio 0.012), and operational inefficiency (asset turnover 0.158). The company underperforms peers in the Communication Services sector and exhibits an anomalous dividend yield of 155%, signaling potential payout unsustainability.</p>
+<p>Investment recommendations favor a <strong>hold</strong> stance for conservative and value investors, with avoidance advised for growth and aggressive profiles until financial metrics improve. Strategic focus should be on liquidity stabilization, operational efficiency, and debt management to improve the Z-Score and reduce financial distress risk.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, market metrics, and AI-driven risk and sentiment assessments.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to injected data elements and cross-validated across financial, market, and risk dimensions.</em></p></div></div>
     </div>
     
 
@@ -1301,78 +1300,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:39 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:06 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

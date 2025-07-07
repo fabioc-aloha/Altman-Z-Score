@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Intuitive Surgical, Inc. (ISRG)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:34 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:54 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -326,10 +398,6 @@
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
-                    Overbought conditions (RSI)</div>
-                
-                <div
-                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     Very high P/E ratio</div>
                 
                 <div
@@ -349,9 +417,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="ISRG_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="ISRG_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -365,7 +433,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">59.29</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">58.68</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -414,15 +482,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$544.47</p>
+                <p>$$538.72</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$195.1B</p>
+                <p>$$193.1B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>80.0</p>
+                <p>79.1</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -434,7 +502,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>73.4</p>
+                <p>68.4</p>
             </div>
         </div>
     </div>
@@ -444,11 +512,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Beta</h4>
-                <p>1.20</p>
+                <p>1.21</p>
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.64</p>
+                <p>0.60</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -469,75 +537,72 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Intuitive Surgical, Inc. (ISRG)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:33:40  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:54:08  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Intuitive Surgical, Inc. (ISRG) exhibits an exceptionally strong financial health profile as evidenced by its Altman Z-Score consistently well above the Safe Zone threshold of 3.0, with recent quarterly Z-Scores ranging between 54.00 and 66.86. This places ISRG in a uniquely secure position relative to typical industry peers, whose average Z-Scores generally fall below 5.0 in the Medical Instruments &amp; Supplies sector. The AI Risk Analysis indicates an overall <strong>risk level of Low</strong> with a stable risk trajectory, reinforcing confidence in the company’s financial resilience.</p>
-<p>AI Peer Analysis positions ISRG as a clear outperformer within its industry, with a relative Z-Score position significantly above the industry average (not explicitly provided but typically near 3.0-4.0 for peers). AI Sentiment Analysis shows a <strong>neutral to slightly positive sentiment trend</strong>, although market technical indicators (RSI, moving averages) are unavailable or zeroed, suggesting limited recent trading activity or data gaps.</p>
-<p><strong>Key Metrics Summary Table:</strong></p>
+<p>Intuitive Surgical, Inc. (ISRG) demonstrates an exceptionally strong financial position as evidenced by its Altman Z-Score consistently well above the safe zone threshold of 3.0, with recent values ranging between <strong>56.67 and 66.17</strong> over the last eight quarters. This places ISRG firmly in the <strong>Safe Zone</strong>, indicating an extremely low risk of bankruptcy or financial distress. Based on the AI Risk Analysis, the overall risk level is effectively <strong>Minimal</strong>, supported by a stable risk trajectory and absence of significant risk factors.</p>
+<p>From a peer perspective, ISRG’s Z-Score is <strong>significantly higher than typical industry averages</strong> for the Medical Instruments &amp; Supplies sector, which generally hover in the 3-5 range for healthy companies. This dominant relative position underscores ISRG’s superior financial health and operational efficiency compared to its key peers.</p>
+<p>AI Sentiment Analysis reveals a <strong>neutral to positive market sentiment</strong>, though technical indicators such as RSI and moving averages are unavailable or zeroed out, suggesting limited recent trading activity or data anomalies. The valuation metrics, including a high P/E ratio of <strong>79.11</strong> and EV/EBITDA of <strong>64.18</strong>, reflect market expectations of continued growth but also imply a premium valuation.</p>
+<p><strong>Investment Recommendation:</strong><br />
+Given ISRG’s robust financial health (Z-Score ~60+), minimal risk profile, and strong market capitalization of approximately <strong>$193 billion</strong>, a <strong>BUY</strong> recommendation is warranted for investors with a medium to long-term horizon. The premium valuation suggests cautious entry timing, ideally on minor price corrections or market dips, to optimize risk-adjusted returns.</p>
 <table>
 <thead>
 <tr>
-<th>Metric Category</th>
-<th>Key Value</th>
-<th>Interpretation</th>
+<th>Key Metrics Summary</th>
+<th>Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>61.45</td>
-<td>Extremely safe, minimal bankruptcy risk</td>
+<td>60.82 (Safe Zone)</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$195.15 billion</td>
-<td>Large-cap, market leader</td>
+<td>$193.1B</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$544.47</td>
-<td>High valuation reflecting growth expectations</td>
+<td>$539.27</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>79.11</td>
+</tr>
+<tr>
+<td>Debt-to-Equity</td>
+<td>Not explicitly provided, inferred low from Z-Score</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.318</td>
-<td>Moderate liquidity, below 1.0</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.371</td>
-<td>Strong earnings retention</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.030</td>
-<td>Modest operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.117</td>
-<td>Low asset efficiency typical for sector</td>
 </tr>
 <tr>
-<td>P/E Ratio</td>
-<td>79.95</td>
-<td>High valuation, growth premium</td>
+<td>AI Risk Level</td>
+<td>Minimal</td>
 </tr>
 <tr>
-<td>Dividend Yield</td>
-<td>0.00%</td>
-<td>No dividend, reinvestment focus</td>
+<td>AI Sentiment</td>
+<td>Neutral-Positive</td>
 </tr>
 <tr>
-<td>Beta</td>
-<td>0.00</td>
-<td>No market volatility data available</td>
+<td>Peer Positioning</td>
+<td>Significantly Outperforming</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given ISRG’s extraordinary Altman Z-Score safety margin, low risk profile, and dominant market capitalization, a <strong>BUY</strong> recommendation is warranted for investors with moderate to high risk tolerance seeking exposure to a financially robust healthcare technology leader. However, valuation multiples (P/E near 80) suggest entry timing should consider potential market corrections or valuation normalization. Conservative investors should monitor liquidity ratios and market signals before initiating positions.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -553,39 +618,41 @@ Given ISRG’s extraordinary Altman Z-Score safety margin, low risk profile, and
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.318<br>Working Capital Ratio: 0.318</td>
-<td>Industry avg. ~1.5-2.0</td>
-<td>Below industry norm; potential liquidity constraint but offset by strong cash flows</td>
+<td>Current Ratio: N/A (Working Capital Ratio: 0.318)</td>
+<td>Typical &gt;1.0 for healthcare sector</td>
+<td>Below ideal liquidity; working capital ratio low but offset by strong cash flows</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: Not provided (assumed low)<br>Interest Coverage: Not provided</td>
-<td>Peers moderate leverage</td>
-<td>Likely low leverage given high Z-Score and market cap</td>
+<td>Debt-to-Equity: Not provided (Inferred low)</td>
+<td>Industry avg ~0.5-1.0</td>
+<td>Low leverage implied by high Z-Score; low financial risk</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.117<br>EBIT Ratio: 0.030</td>
-<td>Industry avg. Asset Turnover ~0.3-0.5<br>EBIT margin ~0.1-0.15</td>
-<td>Lower asset turnover and EBIT margin; typical for capital-intensive medical equipment</td>
-<td>Stable</td>
+<td>EBIT Ratio: 0.030; Asset Turnover: 0.117</td>
+<td>EBIT avg ~0.05-0.10; Asset Turnover ~0.3</td>
+<td>EBIT ratio low; asset turnover below industry average, indicating conservative asset use</td>
+<td>Slightly Improving</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.371<br>Cash Position: Not provided</td>
-<td>Industry avg. Retained Earnings ~0.3-0.4</td>
-<td>Strong retained earnings supporting stability</td>
+<td>Retained Earnings Ratio: 0.371; Cash Position: N/A</td>
+<td>Retained Earnings typically &gt;0.2</td>
+<td>Strong retained earnings ratio indicates solid reinvestment and profitability</td>
 <td>Stable</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks approximate based on Medical Instruments &amp; Supplies sector data.</p>
+<p>*Industry benchmarks approximate based on healthcare medical instruments sector data.</p>
 <p><strong>Interpretive Commentary:</strong><br />
-ISRG’s liquidity position, with a working capital ratio of 0.318, is below typical industry standards (1.5-2.0), which may raise concerns about short-term liquidity. However, the company’s substantial market capitalization ($195B) and historically high Z-Scores suggest strong underlying cash generation and low financial distress risk. The EBIT ratio of 3.0% and asset turnover of 11.7% are modest but consistent with the capital-intensive nature of the surgical instruments industry, where high R&amp;D and fixed asset investments reduce turnover ratios.</p>
-<p>The retained earnings ratio of 37.1% indicates solid reinvestment of profits, supporting long-term financial stability. Absence of explicit debt-to-equity data limits leverage analysis, but the Altman Z-Score’s inclusion of market value of equity relative to book debt implies low leverage risk.</p>
-<p>AI Data Quality Assessment shows no anomalies detected, with complete financial data injection, enhancing confidence in these diagnostics.</p>
+- <strong>Liquidity:</strong> The working capital ratio of <strong>0.318</strong> is below the typical benchmark of 1.0, suggesting tighter short-term liquidity. However, ISRG’s historically strong cash flows and minimal debt reduce immediate liquidity concerns. The AI Data Quality Assessment shows no anomalies affecting liquidity data, supporting confidence in this metric.<br />
+- <strong>Leverage:</strong> Although explicit debt-to-equity data is missing, the Altman Z-Score’s reliance on market value of equity versus book debt and the extremely high Z-Score (&gt;50) strongly imply minimal leverage and excellent debt management. This aligns with the healthcare sector’s trend toward conservative capital structures.<br />
+- <strong>Operational Efficiency:</strong> EBIT ratio at <strong>3.0%</strong> and asset turnover at <strong>11.7%</strong> are below industry averages, indicating ISRG operates with high asset base relative to sales and modest operating margins. This may reflect significant R&amp;D investment and capital intensity in medical device manufacturing.<br />
+- <strong>Financial Stability:</strong> Retained earnings ratio of <strong>0.371</strong> is robust, indicating strong cumulative profitability and reinvestment capacity, which supports long-term stability and growth potential.</p>
+<p>The AI Data Quality Assessment reports no significant anomalies or inconsistencies in financial data, enhancing confidence in these conclusions.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -601,66 +668,66 @@ ISRG’s liquidity position, with a working capital ratio of 0.318, is below typ
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>61.45</td>
+<td>60.82</td>
 <td>Safe</td>
-<td>High market cap, strong retained earnings, low leverage</td>
-<td>Continued innovation in minimally invasive surgery</td>
+<td>Strong equity base, low debt, stable EBIT</td>
+<td>Continued innovation in surgical robotics</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>57.26</td>
+<td>56.67</td>
 <td>Safe</td>
-<td>Stable EBIT, consistent asset base</td>
-<td>Sustained product demand and market leadership</td>
+<td>Consistent profitability, retained earnings</td>
+<td>Expansion of da Vinci system adoption</td>
 </tr>
 <tr>
 <td>Q6</td>
-<td>58.41</td>
+<td>57.81</td>
 <td>Safe</td>
-<td>Earnings retention, equity strength</td>
-<td>Expansion in international markets</td>
+<td>Stable working capital, market cap growth</td>
+<td>Global market penetration</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>66.86</td>
+<td>66.17</td>
 <td>Safe</td>
-<td>Peak Z-Score, strong working capital</td>
-<td>Possible peak operational efficiency</td>
+<td>Peak Z-Score, high retained earnings</td>
+<td>Product lifecycle peak, strong sales</td>
 </tr>
 <tr>
 <td>Q4</td>
-<td>64.32</td>
+<td>63.65</td>
 <td>Safe</td>
-<td>Strong equity valuation</td>
-<td>New product launches and adoption</td>
+<td>High market value equity, low liabilities</td>
+<td>Strategic partnerships and upgrades</td>
 </tr>
 <tr>
 <td>Q3</td>
-<td>57.76</td>
+<td>57.16</td>
 <td>Safe</td>
-<td>Stable profitability</td>
-<td>Market expansion and R&amp;D investment</td>
+<td>EBIT stability, asset management</td>
+<td>R&amp;D investments and regulatory approvals</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>54.00</td>
+<td>53.45</td>
 <td>Safe</td>
-<td>Consistent financial ratios</td>
-<td>Steady revenue growth</td>
+<td>Equity growth, operational efficiency</td>
+<td>Market expansion in emerging economies</td>
 </tr>
 <tr>
 <td>Q1</td>
-<td>59.29</td>
+<td>58.68</td>
 <td>Safe</td>
-<td>High retained earnings</td>
-<td>Operational improvements</td>
+<td>Consistent financial ratios</td>
+<td>Stable demand for minimally invasive surgery</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-ISRG’s Z-Score has remained consistently in the Safe Zone, fluctuating between 54.00 and 66.86 over eight quarters, indicating exceptional financial health and negligible bankruptcy risk. The slight oscillations reflect normal business cycle variations and operational investments rather than distress signals.</p>
-<p>Key Z-Score drivers include strong retained earnings and market capitalization, which dominate the formula’s equity-to-debt component. The company’s business context—leading innovation in minimally invasive surgical systems—supports sustained profitability and asset base stability.</p>
-<p>Compared to the industry average Z-Score (typically near 3.0-4.0), ISRG’s values are extraordinary, underscoring its dominant competitive position.</p>
+ISRG’s Z-Score has remained <strong>consistently in the Safe Zone</strong>, fluctuating between approximately <strong>53 and 66</strong> over the last eight quarters, indicating sustained financial strength and minimal distress risk. The slight oscillations correspond with business cycles such as product launches, market expansions, and capital investments.</p>
+<p>The key drivers of the Z-Score stability are ISRG’s <strong>strong market capitalization ($193B)</strong>, <strong>robust retained earnings (0.371 ratio)</strong>, and <strong>low leverage</strong>, which collectively buffer against operational volatility. The company’s focus on the da Vinci Surgical System and expansion into minimally invasive surgery markets aligns with the positive Z-Score trajectory.</p>
+<p>Compared to the industry average Z-Score (typically 3-5 for safe companies), ISRG’s values are extraordinarily high, reflecting its dominant market position and financial resilience.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -677,30 +744,30 @@ ISRG’s Z-Score has remained consistently in the Safe Zone, fluctuating between
 <tr>
 <td>Fundamental Health</td>
 <td>Strong upward trend, Z &gt; 50</td>
-<td>Price stable at $544.47 (no volatility data)</td>
-<td>Divergent (due to missing market data)</td>
-<td>Potential undervaluation or data gap; fundamental strength not reflected in price movement</td>
+<td>Price stable at $539.27, no volatility data</td>
+<td>Divergent (due to missing price volatility)</td>
+<td>Opportunity for value capture on price stability</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
 <td>Neutral to positive</td>
-<td>No consensus data available</td>
-<td>Inconclusive</td>
-<td>Monitor for sentiment shifts</td>
+<td>P/E Ratio high at 79.11, no dividend yield</td>
+<td>Consistent</td>
+<td>Market expects growth; premium valuation justified</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
 <td>Outperforming peers</td>
-<td>Sector performance unknown</td>
-<td>Outperforming</td>
-<td>Competitive advantage confirmed</td>
+<td>Sector performance moderate</td>
+<td>Aligned</td>
+<td>Competitive advantage supports premium</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The Altman Z-Score’s strong fundamental signal contrasts with the absence of meaningful market technical data (RSI, moving averages, volume all zero), suggesting either data unavailability or low recent trading activity. This divergence calls for caution in market timing but highlights a potential opportunity if market prices lag intrinsic financial strength.</p>
-<p>AI Sentiment Analysis indicates neutral to slightly positive sentiment, consistent with a stable but cautious market perception. Peer comparison confirms ISRG’s superior financial health relative to sector competitors.</p>
-<p>Investors should watch for market re-engagement signals to capitalize on fundamental-price disconnects.</p>
+The fundamental health indicated by the Altman Z-Score is <strong>exceptionally strong</strong>, but market technical data is incomplete or zeroed out (e.g., RSI 0.0, zero volume), suggesting either data anomalies or low recent trading activity. This divergence requires caution in interpreting short-term market signals.</p>
+<p>The high P/E ratio of <strong>79.11</strong> and EV/EBITDA of <strong>64.18</strong> reflect strong growth expectations from investors, consistent with the positive AI Sentiment Analysis. The absence of dividend yield (0.00%) aligns with a growth-focused company reinvesting earnings.</p>
+<p>Peer comparison confirms ISRG’s <strong>superior financial health and market positioning</strong>, reinforcing confidence in its investment profile despite valuation premiums.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -719,30 +786,36 @@ The Altman Z-Score’s strong fundamental signal contrasts with the absence of m
 <td>Medium</td>
 <td>Moderate</td>
 <td>Potential EBIT ratio decline</td>
-<td>Continuous innovation, operational efficiency improvements</td>
+<td>Diversify product portfolio, enhance R&amp;D efficiency</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
 <td>Minor</td>
-<td>Minimal impact due to strong equity</td>
-<td>Maintain conservative leverage, monitor liquidity</td>
+<td>Minimal due to low leverage</td>
+<td>Maintain conservative debt levels, monitor liquidity</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
 <td>Valuation correction risk</td>
-<td>Diversify market exposure, hedge via options</td>
+<td>Hedge via options, monitor market sentiment</td>
+</tr>
+<tr>
+<td>Regulatory Risks</td>
+<td>Low-Medium</td>
+<td>Moderate</td>
+<td>Possible delays impacting sales</td>
+<td>Proactive compliance, engage with regulators</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-Based on AI Risk Analysis, ISRG faces low overall financial risk but moderate operational and market risks. Operational risks stem from the need to sustain innovation in a competitive healthcare technology environment, which could pressure EBIT margins and asset turnover.</p>
-<p>Financial risks are minimal given the company’s strong retained earnings and equity base, with low likelihood of distress. Market risks include potential valuation corrections given the high P/E ratio (79.95) and lack of dividend yield, which could affect investor sentiment.</p>
-<p><strong>Best Case:</strong> Z-Score remains above 50 with continued growth and margin expansion.<br />
-<strong>Base Case:</strong> Z-Score stabilizes near current levels with modest EBIT fluctuations.<br />
-<strong>Worst Case:</strong> Operational setbacks reduce EBIT ratio, lowering Z-Score toward 40-45 but still within Safe Zone.</p>
+<p><strong>Risk Commentary:</strong><br />
+Based on AI Risk Analysis, ISRG faces <strong>minimal financial risk</strong> due to its strong balance sheet and high Z-Score. Operational risks related to maintaining EBIT margins and asset efficiency are moderate, given the capital-intensive nature of medical device innovation.</p>
+<p>Market risks include potential valuation corrections given the high P/E ratio and premium multiples, which could impact stock price but have limited effect on Z-Score fundamentals.</p>
+<p>Regulatory risks remain a factor in healthcare but are mitigated by ISRG’s established compliance track record.</p>
+<p>Scenario analysis suggests that even in a <strong>worst-case EBIT decline scenario</strong>, the Z-Score would remain well within the Safe Zone, underscoring resilience.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -761,49 +834,49 @@ Based on AI Risk Analysis, ISRG faces low overall financial risk but moderate op
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score &gt; 50 indicates safety but liquidity below industry average advises caution</td>
-<td>Await market confirmation</td>
-<td>3-6 months</td>
+<td>Z-Score &gt; 50 indicates very low risk</td>
+<td>Await minor price dips</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>SELL</td>
-<td>No dividend yield; not suitable for income-focused investors</td>
-<td>N/A</td>
+<td>HOLD</td>
+<td>No dividend yield; focus on capital gains</td>
+<td>Not applicable</td>
 <td>N/A</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>BUY</td>
-<td>Exceptional Z-Score safety margin supports value buy despite high P/E</td>
-<td>Look for price dips or corrections</td>
-<td>Immediate to 3 months</td>
+<td>Premium valuation but strong fundamentals</td>
+<td>Buy on pullbacks</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>BUY</td>
-<td>Strong retained earnings and market cap support growth thesis</td>
-<td>Monitor momentum signals</td>
-<td>Immediate</td>
+<td>High Z-Score supports sustainable growth</td>
+<td>Enter gradually</td>
+<td>Immediate to 6 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>BUY</td>
-<td>Low risk of distress with high Z-Score; volatility data missing</td>
-<td>Position sizing recommended due to data gaps</td>
+<td>Low risk, high growth potential</td>
+<td>Monitor volatility</td>
 <td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Detailed Commentary:</strong><br />
-- Conservative investors should hold and monitor liquidity improvements and market signals before increasing exposure.<br />
-- Dividend investors should avoid due to zero yield.<br />
-- Value and growth investors are recommended to buy, leveraging the robust Z-Score (&gt;50) as evidence of financial strength and growth sustainability.<br />
-- Aggressive investors can capitalize on low distress risk but should be mindful of missing volatility data and potential market timing risks.</p>
+<p><strong>Rationale:</strong><br />
+- Conservative investors should <strong>hold</strong> due to premium valuation but strong financial safety net.<br />
+- Dividend investors have limited appeal due to zero yield.<br />
+- Value and growth investors are recommended to <strong>buy</strong>, leveraging ISRG’s robust Z-Score and market leadership, with timing focused on price pullbacks to optimize entry.<br />
+- Aggressive investors can initiate positions immediately, given minimal bankruptcy risk and growth prospects.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -821,27 +894,27 @@ Based on AI Risk Analysis, ISRG faces low overall financial risk but moderate op
 <td>CEO Leadership</td>
 <td>Innovation &amp; Market Expansion</td>
 <td>Retained Earnings Ratio (0.371), EBIT Ratio (0.030)</td>
-<td>Accelerate R&amp;D, expand minimally invasive surgery adoption</td>
-<td>Revenue growth, EBIT margin improvement</td>
+<td>Accelerate R&amp;D, expand minimally invasive surgery markets</td>
+<td>Revenue growth, market share</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; Capital Efficiency</td>
-<td>Working Capital Ratio (0.318), Asset Turnover (0.117)</td>
-<td>Optimize working capital, manage capital expenditures</td>
-<td>Improved liquidity ratios, asset utilization</td>
+<td>Capital Efficiency &amp; Risk Mgmt</td>
+<td>Working Capital Ratio (0.318), Debt Levels (Low)</td>
+<td>Optimize working capital, maintain low leverage</td>
+<td>Liquidity ratios, debt ratios</td>
 </tr>
 <tr>
 <td>Board Governance</td>
 <td>Risk Oversight &amp; Compliance</td>
-<td>Altman Z-Score (&gt;50), Risk Level (Low)</td>
-<td>Maintain conservative leverage, monitor operational risks</td>
-<td>Sustained Z-Score, risk mitigation effectiveness</td>
+<td>Z-Score Stability, Regulatory Risk</td>
+<td>Monitor risk factors, ensure compliance frameworks</td>
+<td>Risk reports, audit outcomes</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The leadership team should leverage the company’s strong financial foundation to invest in innovation and global market penetration. CFO focus on improving liquidity metrics will enhance operational flexibility. The Board should continue rigorous risk oversight to maintain the company’s exceptional financial health, as reflected in the Altman Z-Score and AI Risk Analysis.</p>
+The CEO should prioritize innovation to sustain EBIT margins and capitalize on market leadership. The CFO must focus on improving liquidity metrics while preserving the company’s conservative capital structure. The Board should maintain vigilant oversight of operational and regulatory risks, leveraging the company’s strong Z-Score as a buffer against volatility.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -857,35 +930,37 @@ The leadership team should leverage the company’s strong financial foundation 
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable, &gt;50</td>
-<td>Slightly upward</td>
+<td>Stable, high</td>
+<td>Stable to slightly improving</td>
 <td>New product launches, market expansion</td>
-<td>Quarterly Z-Score updates, EBIT margin</td>
+<td>Quarterly Z-Score updates</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Market leader</td>
-<td>Maintain/expand</td>
-<td>Adoption of minimally invasive surgery</td>
-<td>Market share, competitor Z-Scores</td>
+<td>Dominant</td>
+<td>Maintain leadership</td>
+<td>Regulatory approvals, competitor moves</td>
+<td>Market share, peer Z-Scores</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low risk</td>
-<td>Stable/low risk</td>
-<td>Regulatory changes, innovation pace</td>
-<td>Regulatory filings, R&amp;D pipeline status</td>
+<td>Minimal</td>
+<td>Stable</td>
+<td>Regulatory changes, macroeconomic shifts</td>
+<td>Risk factor tracking, compliance</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-ISRG’s Z-Score momentum is expected to remain stable or improve slightly over the next 6-12 months, driven by continued innovation and international market growth. Key catalysts include successful new product introductions and regulatory approvals. Risk profile remains low but should be monitored for operational execution and market valuation shifts.</p>
-<p>Investors should track leading indicators such as EBIT margin trends, working capital changes, and competitor performance to anticipate any inflection points. Early warning systems should focus on liquidity ratios and operational efficiency metrics to detect emerging risks.</p>
+ISRG’s Z-Score momentum is expected to remain stable or improve slightly over the next 6-12 months, driven by continued innovation and global market penetration. Key catalysts include new product introductions and regulatory approvals. Monitoring should focus on quarterly Z-Score updates, competitive positioning, and emerging risk factors.</p>
+<p>Early warning indicators include any significant EBIT margin compression or working capital deterioration, which historically have been minimal.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Intuitive Surgical, Inc. stands out as a financially robust leader in the healthcare technology sector with an Altman Z-Score consistently in the Safe Zone above 50, indicating negligible bankruptcy risk. Despite modest liquidity ratios and high valuation multiples, the company’s strong retained earnings, market capitalization, and operational stability support a <strong>BUY</strong> recommendation for value and growth investors, with a HOLD stance for conservative profiles pending improved liquidity signals. Market data gaps warrant cautious timing but do not diminish the fundamental strength reflected in the Z-Score and AI Risk Analysis.</p>
+<p>Intuitive Surgical, Inc. (ISRG) stands out as a <strong>financially robust, low-risk investment</strong> within the healthcare medical instruments sector, supported by an extraordinary Altman Z-Score consistently above 50. Despite a premium valuation, the company’s strong fundamentals, market leadership, and minimal risk profile justify a <strong>BUY recommendation</strong> for growth and value investors, with timing considerations favoring entry on price corrections.</p>
+<p>Liquidity metrics warrant monitoring but do not currently pose a threat. Operational efficiency improvements could enhance margins and asset turnover, further strengthening the investment case.</p>
+<p>This analysis integrates all injected data points, cross-validates financial and AI risk metrics, and provides actionable intelligence aligned with ISRG’s sector context and market environment.</p>
 <hr />
-<p><em>Analysis completed with explicit reference to all injected data elements and cross-validation across AI analytical components.</em></p></div></div>
+<p><em>End of AI-Powered Altman Z-Score Investment Analysis for ISRG</em></p></div></div>
     </div>
     
 
@@ -1228,78 +1303,41 @@ ISRG’s Z-Score momentum is expected to remain stable or improve slightly over 
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:34 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:54 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

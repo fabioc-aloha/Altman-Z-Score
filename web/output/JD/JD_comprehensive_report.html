@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>JD.com, Inc. (JD)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:34 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:54 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -365,9 +437,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="JD_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="JD_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -381,7 +453,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.15</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.14</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -430,11 +502,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$32.07</p>
+                <p>$$32.22</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$46.7B</p>
+                <p>$$46.5B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -450,7 +522,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>38.6</p>
+                <p>45.6</p>
             </div>
         </div>
     </div>
@@ -460,11 +532,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Beta</h4>
-                <p>0.73</p>
+                <p>0.72</p>
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.57</p>
+                <p>0.60</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -485,64 +557,96 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> JD.com, Inc. (Ticker: JD)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:34:04  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:54:08  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>JD.com’s Altman Z-Score trajectory over the past eight quarters persistently places the company in the <strong>Distress Zone</strong> (Z &lt; 1.8), with the latest score at <strong>1.34</strong>, indicating a high risk of financial distress. The risk level remains elevated with no significant upward trend, signaling ongoing solvency concerns. Based on the <strong>AI Risk Analysis overall risk level of Distress with high confidence</strong>, the company faces substantial operational and financial challenges.</p>
-<p><strong>AI Peer Analysis</strong> positions JD significantly below the <strong>Industry Average Z-Score</strong> (not explicitly provided but typically &gt; 2.5 for Specialty Retail), highlighting JD’s relative vulnerability compared to peers. This weak relative positioning suggests competitive disadvantages in financial stability.</p>
-<p><strong>AI Sentiment Analysis</strong> metrics are limited due to anomalous market data (e.g., zero RSI, zero volume), but the extremely high <strong>Dividend Yield of 306%</strong> is likely a data anomaly or special event, warranting caution. The <strong>P/E ratio of 7.78</strong> and <strong>EV/EBITDA of 1.20</strong> imply undervaluation or distressed pricing, consistent with the Z-Score distress signal.</p>
+<p>JD.com’s Altman Z-Score analysis over the past eight quarters consistently places the company in the <strong>Distress Zone (Z &lt; 1.8)</strong>, with the latest quarter’s Z-Score at <strong>1.34</strong>, indicating a high risk of financial distress. The Z-Score trajectory shows minor fluctuations but no meaningful recovery, signaling persistent financial vulnerability.</p>
+<p><strong>AI Risk Analysis</strong> (inferred from Z-Score and financials):<br />
+- <strong>Overall Risk Level:</strong> High (Distress Zone)<br />
+- <strong>Risk Trajectory:</strong> Slightly improving but remains critical<br />
+- <strong>Confidence:</strong> Moderate, given data completeness but lack of detailed component ratios  </p>
+<p><strong>AI Peer Analysis:</strong><br />
+- JD’s Z-Score of 1.34 is significantly below the typical <strong>industry average Z-Score of ~3.0</strong> for Specialty Retail in the Consumer Cyclical sector, indicating JD is underperforming its peers and facing elevated bankruptcy risk.<br />
+- Key peers (not explicitly named here) likely exhibit safer financial profiles, suggesting JD’s competitive position is weak.</p>
+<p><strong>AI Sentiment Analysis:</strong><br />
+- Market sentiment appears <strong>extremely cautious or negative</strong>, reflected in a <strong>306% dividend yield</strong>, which is likely an anomaly or data artifact but signals market distress or dividend cut expectations.<br />
+- Price and volume data are missing or zeroed out, indicating low market confidence or data reporting issues.</p>
+<hr />
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
+<th>Metric</th>
 <th>Value</th>
-<th>Interpretation</th>
+<th>Industry Benchmark / Peer Average</th>
+<th>Assessment</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
 <td>1.34</td>
-<td>Distress Zone, high bankruptcy risk</td>
+<td>~3.0</td>
+<td>Distress Zone, High Risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$46.7B</td>
-<td>Large-cap, but financial distress evident</td>
+<td>$46.46B</td>
+<td>N/A</td>
+<td>Large Cap, but risk-laden</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$32.07</td>
-<td>Price reflects distress discount</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>7.78</td>
-<td>Low valuation, possible value opportunity or risk</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>306%</td>
-<td>Likely anomaly, caution advised</td>
+<td>$32.23</td>
+<td>N/A</td>
+<td>Stable but low confidence</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.108</td>
-<td>Very low liquidity</td>
+<td>&gt;1.0</td>
+<td>Severely weak liquidity</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.000</td>
+<td>Positive</td>
+<td>No retained earnings growth</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.016</td>
-<td>Very thin operating profitability</td>
+<td>~0.05+ (industry avg)</td>
+<td>Very low profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.444</td>
-<td>Moderate operational efficiency</td>
+<td>~0.5-1.0 (retail avg)</td>
+<td>Below average efficiency</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>7.82</td>
+<td>~15-25 (typical retail)</td>
+<td>Low valuation, possible undervaluation or distress pricing</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>306.00% (likely anomaly)</td>
+<td>~2-4% typical</td>
+<td>Data anomaly or distress signal</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong> Given the persistent distress-level Z-Score, weak liquidity, and thin profitability, a <strong>Cautious Hold or Selective Sell</strong> is recommended for most investors. Only aggressive or value investors with high risk tolerance should consider speculative entry, pending further operational improvements and risk mitigation.</p>
+<hr />
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Short-Term:</strong> Exercise <strong>extreme caution</strong>; the company remains in distress with no clear turnaround signals.  </li>
+<li><strong>Medium-Term:</strong> Monitor for Z-Score improvement above 1.8 (Gray Zone) before considering accumulation.  </li>
+<li><strong>Long-Term:</strong> Potential <strong>value opportunity</strong> if operational improvements and liquidity strengthen, but high risk persists.  </li>
+<li><strong>Data Quality Note:</strong> Dividend yield and market technicals appear anomalous; validate with updated market data before trading decisions.</li>
+</ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -550,7 +654,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark*</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -559,66 +663,70 @@
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.108</td>
-<td>~1.5 - 2.0</td>
-<td>Severely weak liquidity, risk of cash shortfall</td>
-<td>Declining/Stable at low level</td>
+<td>&gt;1.0 (healthy)</td>
+<td>Severely weak liquidity; risk of cash crunch</td>
+<td>Declining/Weak</td>
 </tr>
 <tr>
 <td></td>
 <td>Working Capital Ratio: 0.108</td>
-<td>&gt;0.5</td>
-<td>Insufficient working capital buffer</td>
-<td></td>
+<td>&gt;1.0</td>
+<td>Insufficient working capital</td>
+<td>Stable but low</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A</td>
-<td>~1.0 (typical retail)</td>
-<td>Data unavailable; inferred high leverage risk due to distress Z-Score</td>
+<td>Debt-to-Equity: Not provided</td>
+<td>~1.0-2.0 typical</td>
+<td>Unable to assess; Z-Score distress implies high leverage risk</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td></td>
-<td>Interest Coverage (EBIT/Interest): N/A</td>
-<td>&gt;3.0</td>
-<td>EBIT Ratio 0.016 indicates minimal coverage</td>
-<td></td>
+<td>Interest Coverage (EBIT Ratio): 0.016</td>
+<td>&gt;1.5-2.0 healthy</td>
+<td>Very low EBIT coverage; risk of default</td>
+<td>Weak</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.444</td>
-<td>~0.6 - 1.0</td>
-<td>Below industry average, moderate asset use efficiency</td>
-<td>Stable</td>
+<td>~0.5-1.0 (retail avg)</td>
+<td>Below average asset utilization</td>
+<td>Stable/Low</td>
 </tr>
 <tr>
 <td></td>
 <td>EBIT Ratio: 0.016</td>
-<td>~0.05 - 0.10</td>
-<td>Very low profitability, operational strain</td>
-<td>Slightly improving but minimal</td>
+<td>~0.05+ typical</td>
+<td>Low profitability; operational strain</td>
+<td>Weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.000</td>
 <td>Positive expected</td>
-<td>No retained earnings, signaling no accumulated profits</td>
-<td>Stable/Weak</td>
+<td>No retained earnings growth; possible losses</td>
+<td>Negative</td>
 </tr>
 <tr>
 <td></td>
-<td>Cash Position: N/A</td>
-<td>Adequate cash reserves</td>
-<td>Data missing, liquidity concerns persist</td>
+<td>Cash Position: Not provided</td>
+<td>N/A</td>
+<td>Unknown; liquidity concerns remain</td>
 <td>Unknown</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks approximate for Consumer Cyclical / Specialty Retail sector.</p>
-<p><strong>Commentary:</strong><br />
-JD.com’s liquidity position is critically weak, with a <strong>Current Ratio and Working Capital Ratio at 0.108</strong>, far below the industry standard of around 1.5-2.0, indicating a high risk of short-term cash flow issues. The <strong>EBIT Ratio of 0.016</strong> reflects minimal operating profitability, insufficient to comfortably cover interest or reinvestment needs. The <strong>Asset Turnover of 0.444</strong> is moderate but below typical retail efficiency, suggesting room for operational improvement.</p>
-<p>The <strong>Retained Earnings Ratio of 0.000</strong> is alarming, indicating no accumulated profits to buffer against losses or fund growth, consistent with the distress Z-Score. The absence of detailed leverage data limits full assessment, but the persistent distress signals imply elevated financial risk.</p>
-<p><strong>AI Data Quality Assessment</strong> shows raw financial data completeness but lacks detailed leverage and cash position data, reducing confidence in full financial health diagnostics. No anomalies detected in ratios, but missing data is a limitation.</p>
+<hr />
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li><strong>Liquidity:</strong> The current ratio and working capital ratio at <strong>0.108</strong> are critically below industry norms (&gt;1.0), indicating JD.com may face short-term liquidity constraints. This aligns with the <strong>Distress Zone Z-Score</strong> and suggests potential difficulties meeting current obligations.  </li>
+<li><strong>Leverage:</strong> While explicit debt-to-equity data is missing, the low EBIT ratio of <strong>0.016</strong> signals poor interest coverage, implying high financial leverage or operational inefficiency. This weakens JD’s ability to service debt, increasing bankruptcy risk.  </li>
+<li><strong>Operational Efficiency:</strong> Asset turnover at <strong>0.444</strong> is below typical retail benchmarks, indicating suboptimal use of assets to generate sales. EBIT ratio also reflects low profitability, consistent with operational challenges.  </li>
+<li><strong>Financial Stability:</strong> Retained earnings ratio at zero suggests no accumulation of profits, possibly due to losses or dividend payouts. This undermines long-term financial resilience.  </li>
+<li><strong>Data Quality:</strong> AI Data Quality Assessment indicates raw financial data completeness but lacks detailed component ratios, limiting granularity. No anomalies detected in financial ratios, but market data anomalies exist.</li>
+</ul>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -636,63 +744,27 @@ JD.com’s liquidity position is critically weak, with a <strong>Current Ratio a
 <td>Current (Q8)</td>
 <td>1.34</td>
 <td>Distress</td>
-<td>Low Working Capital, EBIT</td>
-<td>Ongoing operational challenges, weak profitability</td>
+<td>Low working capital, EBIT, retained earnings</td>
+<td>Continued operational strain; no recovery signs</td>
 </tr>
 <tr>
-<td>Q7</td>
-<td>1.24</td>
+<td>Previous Quarters (Q1-Q7)</td>
+<td>1.12 - 1.31</td>
 <td>Distress</td>
-<td>Similar financial stress</td>
-<td>No significant recovery</td>
-</tr>
-<tr>
-<td>Q6</td>
-<td>1.31</td>
-<td>Distress</td>
-<td>Slight EBIT improvement</td>
-<td>Marginal operational gains</td>
-</tr>
-<tr>
-<td>Q5</td>
-<td>1.22</td>
-<td>Distress</td>
-<td>Consistent low liquidity</td>
-<td>Persistent cash flow constraints</td>
-</tr>
-<tr>
-<td>Q4</td>
-<td>1.19</td>
-<td>Distress</td>
-<td>Weak retained earnings</td>
-<td>No profit accumulation</td>
-</tr>
-<tr>
-<td>Q3</td>
-<td>1.12</td>
-<td>Distress</td>
-<td>Declining asset turnover</td>
-<td>Operational inefficiencies</td>
-</tr>
-<tr>
-<td>Q2</td>
-<td>1.27</td>
-<td>Distress</td>
-<td>Slight recovery in EBIT</td>
-<td>Temporary operational improvements</td>
-</tr>
-<tr>
-<td>Q1</td>
-<td>1.15</td>
-<td>Distress</td>
-<td>Low market equity relative to debt</td>
-<td>Market undervaluation or capital structure issues</td>
+<td>Persistently low liquidity and profitability</td>
+<td>No significant improvement; cyclical pressures</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-JD.com’s Z-Score has remained consistently below 1.8 over eight quarters, confirming a sustained distress risk. The slight fluctuations between 1.12 and 1.34 reflect minor operational or financial shifts but no meaningful recovery. The absence of working capital and retained earnings improvements suggests structural financial weaknesses.</p>
-<p>The <strong>AI Peer Analysis</strong> indicates JD’s Z-Score is well below the industry average (typically &gt; 2.5), underscoring competitive financial fragility. The lack of positive inflection points correlates with ongoing business challenges in the Consumer Cyclical sector, including supply chain pressures and margin compression.</p>
+<hr />
+<h3 id="commentary_1">Commentary</h3>
+<ul>
+<li>JD.com’s Z-Score has remained in the <strong>Distress Zone</strong> for all eight quarters analyzed, fluctuating narrowly between <strong>1.12 and 1.34</strong>. This persistent low Z-Score reflects ongoing financial distress without meaningful recovery.  </li>
+<li>The lack of improvement in working capital and EBIT components suggests operational and liquidity challenges are structural rather than cyclical.  </li>
+<li>Compared to the <strong>industry average Z-Score of ~3.0</strong>, JD.com is significantly weaker, indicating competitive disadvantage and elevated bankruptcy risk.  </li>
+<li>The business operates in the <strong>Consumer Cyclical sector, Specialty Retail industry</strong>, which typically requires strong liquidity and asset turnover to manage inventory and sales cycles. JD’s weak ratios imply operational inefficiencies and possible supply chain or market share pressures.  </li>
+<li>No major inflection points or positive trend drivers are evident, underscoring the need for strategic turnaround initiatives.</li>
+</ul>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -708,30 +780,35 @@ JD.com’s Z-Score has remained consistently below 1.8 over eight quarters, conf
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Persistently Distress (Z ~1.3)</td>
-<td>Price stable at $32.07, low volatility</td>
-<td>Divergent (price not collapsing)</td>
-<td>Possible market underpricing or investor caution</td>
+<td>Distress Zone (1.34)</td>
+<td>Price stable at $32.23, no volume data</td>
+<td>Divergent</td>
+<td>Market may be underestimating risk or data incomplete</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>N/A (AI Sentiment limited)</td>
-<td>Dividend Yield anomaly (306%)</td>
+<td>Negative (Distress)</td>
+<td>Dividend yield anomaly (306%)</td>
 <td>Inconsistent</td>
-<td>Data anomaly reduces confidence in sentiment</td>
+<td>Market sentiment unclear; caution warranted</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry average Z-Score</td>
-<td>Sector performance moderate</td>
 <td>Underperforming</td>
-<td>Competitive disadvantage confirmed</td>
+<td>Sector performance unknown</td>
+<td>Underperforming</td>
+<td>JD is lagging peers; competitive risk</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-JD.com’s fundamental distress signals contrast with a relatively stable stock price and zero volatility metrics, suggesting market inefficiency or data anomalies. The <strong>extreme dividend yield of 306%</strong> is likely a data error or special event, limiting sentiment reliability.</p>
-<p>The divergence between Z-Score distress and stable price may indicate market skepticism about JD’s financial health or anticipation of restructuring. Peer underperformance reinforces caution.</p>
+<hr />
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li>The <strong>Z-Score distress signal</strong> contrasts with a seemingly stable stock price of <strong>$32.23</strong>, but the absence of volume and technical indicators (all zero) suggests low liquidity or data reporting issues. This divergence calls for caution in interpreting market signals.  </li>
+<li>The <strong>extreme dividend yield of 306%</strong> is likely a data anomaly or reflects a special dividend or payout event; this inconsistency reduces confidence in market sentiment metrics.  </li>
+<li>Peer comparison confirms JD.com is underperforming relative to industry norms, reinforcing fundamental concerns.  </li>
+<li>Overall, market signals are <strong>not fully aligned</strong> with fundamental distress, indicating potential market inefficiencies or data gaps. Investors should prioritize fundamental analysis over technical signals here.</li>
+</ul>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -749,29 +826,36 @@ JD.com’s fundamental distress signals contrast with a relatively stable stock 
 <td>Operational Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Further Z-Score decline</td>
-<td>Cost optimization, supply chain resilience</td>
+<td>Significant decline</td>
+<td>Streamline operations, improve asset turnover</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Potential bankruptcy</td>
-<td>Debt restructuring, capital infusion</td>
+<td>Lower EBIT, liquidity stress</td>
+<td>Debt restructuring, cost control</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Price volatility, liquidity stress</td>
-<td>Hedging, diversification</td>
+<td>Price volatility, investor confidence</td>
+<td>Enhance transparency, investor relations</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning:</strong><br />
-- <strong>Best Case:</strong> Operational improvements raise EBIT ratio to 0.05, working capital improves to 0.5, Z-Score rises above 1.8 (Gray Zone), reducing bankruptcy risk.<br />
-- <strong>Base Case:</strong> Status quo persists, Z-Score remains ~1.3, continued distress risk, limited price appreciation.<br />
-- <strong>Worst Case:</strong> Liquidity worsens, EBIT ratio drops below 0.01, Z-Score falls below 1.0, triggering bankruptcy risk and severe price decline.</p>
+<hr />
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational Risks:</strong> High probability and critical severity due to low asset turnover and EBIT ratio (0.016). These factors directly depress the Z-Score and threaten solvency.  </li>
+<li><strong>Financial Risks:</strong> High likelihood of liquidity stress given working capital ratio of 0.108 and zero retained earnings. These risks could precipitate bankruptcy if unaddressed.  </li>
+<li><strong>Market Risks:</strong> Moderate probability; market data anomalies and low volume may cause price volatility and investor uncertainty.  </li>
+<li><strong>Scenario Planning:</strong>  </li>
+<li><strong>Best Case:</strong> Operational improvements raise EBIT ratio above 0.05, working capital improves &gt;1.0, Z-Score moves into Gray Zone (&gt;1.8).  </li>
+<li><strong>Base Case:</strong> Status quo persists, Z-Score remains in Distress Zone, risk of credit downgrades increases.  </li>
+<li><strong>Worst Case:</strong> Liquidity crisis triggers bankruptcy or restructuring, Z-Score falls below 1.0.  </li>
+</ul>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -789,47 +873,54 @@ JD.com’s fundamental distress signals contrast with a relatively stable stock 
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>SELL/HOLD</strong></td>
-<td>Z-Score 1.34 in Distress Zone signals high risk</td>
-<td>Avoid entry, consider exit</td>
-<td>Immediate to short-term</td>
+<td><strong>SELL / AVOID</strong></td>
+<td>Z-Score 1.34 in Distress Zone; liquidity risk</td>
+<td>Price stable but low confidence</td>
+<td>Immediate caution; avoid new positions</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>HOLD</strong></td>
-<td>Dividend yield data unreliable; caution advised</td>
+<td><strong>HOLD / MONITOR</strong></td>
+<td>Dividend yield anomaly; no retained earnings growth</td>
 <td>Monitor for dividend sustainability</td>
-<td>Short-term review</td>
+<td>Review quarterly</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>SPECULATIVE BUY</strong></td>
-<td>Low P/E (7.78) and EV/EBITDA (1.20) suggest undervaluation but distressed Z-Score</td>
-<td>Entry on operational improvement signals</td>
-<td>Medium-term</td>
+<td><strong>WATCH</strong></td>
+<td>Low P/E (7.82) suggests undervaluation but high risk</td>
+<td>Wait for Z-Score &gt;1.8 confirmation</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td><strong>AVOID</strong></td>
-<td>EBIT ratio low, no growth momentum</td>
-<td>Wait for clear operational turnaround</td>
+<td>Low EBIT ratio and asset turnover limit growth potential</td>
+<td>No momentum signals</td>
 <td>N/A</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td><strong>SPECULATIVE BUY</strong></td>
-<td>High risk/reward; Z-Score volatility low but distress evident</td>
-<td>Opportunistic entry with tight risk controls</td>
-<td>Short-term with active monitoring</td>
+<td>Potential turnaround if operational metrics improve</td>
+<td>High risk/reward; volatile</td>
+<td>Opportunistic entry on positive catalysts</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Conservative investors should avoid JD until Z-Score improves above 1.8. Value and aggressive investors may consider speculative entry given low valuation multiples but must monitor operational and liquidity improvements closely. Dividend investors should be cautious due to unreliable yield data.</p>
+<hr />
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li>Conservative investors should avoid or sell due to sustained distress signals and liquidity concerns.  </li>
+<li>Dividend investors must be cautious given the anomalous dividend yield and zero retained earnings; monitor for stability.  </li>
+<li>Value investors may consider JD as a speculative watchlist candidate if operational improvements emerge, given low valuation multiples.  </li>
+<li>Growth investors should avoid JD due to weak profitability and operational inefficiencies.  </li>
+<li>Aggressive investors might consider speculative entry if clear turnaround catalysts appear, but must be prepared for volatility and risk.</li>
+</ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -845,29 +936,35 @@ Conservative investors should avoid JD until Z-Score improves above 1.8. Value a
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Financial turnaround</td>
-<td>EBIT Ratio, Working Capital</td>
-<td>Enhance operational efficiency, reduce costs</td>
-<td>EBIT ratio &gt;0.05, working capital &gt;0.5</td>
+<td>Operational turnaround</td>
+<td>EBIT Ratio (0.016), Asset Turnover (0.444)</td>
+<td>Implement cost controls, optimize supply chain</td>
+<td>EBIT &gt;0.05, asset turnover &gt;0.5</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; solvency</td>
-<td>Current Ratio, Debt levels</td>
-<td>Restructure debt, improve cash flow</td>
-<td>Current ratio &gt;1.0, debt reduction</td>
+<td>Liquidity &amp; capital structure</td>
+<td>Working Capital Ratio (0.108), Debt levels</td>
+<td>Restructure debt, improve cash management</td>
+<td>Current ratio &gt;1.0, positive retained earnings</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight</td>
-<td>Z-Score, Risk Factors</td>
-<td>Monitor distress signals, enforce governance</td>
-<td>Z-Score improvement, risk mitigation</td>
+<td>Risk oversight &amp; transparency</td>
+<td>Z-Score trend, risk factors</td>
+<td>Enhance financial reporting, risk mitigation</td>
+<td>Z-Score &gt;1.8, risk reduction</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Executive focus must be on reversing liquidity and profitability weaknesses driving the distress Z-Score. CFO-led capital structure optimization and CEO-driven operational improvements are critical. Board oversight should prioritize risk management and transparent communication to restore investor confidence.</p>
+<hr />
+<h3 id="commentary_5">Commentary</h3>
+<ul>
+<li>The CEO must prioritize operational efficiency improvements to lift EBIT and asset turnover, critical to improving the Z-Score and financial health.  </li>
+<li>The CFO should focus on liquidity enhancement and debt restructuring to alleviate short-term financial pressures.  </li>
+<li>The Board should enforce rigorous risk management and transparency to restore investor confidence and guide strategic decisions.  </li>
+<li>Alignment of leadership actions with Z-Score improvements will be key to reversing distress signals.</li>
+</ul>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -883,36 +980,42 @@ Executive focus must be on reversing liquidity and profitability weaknesses driv
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable low (~1.3)</td>
-<td>Slight improvement possible</td>
-<td>Operational cost cuts, revenue growth</td>
-<td>EBIT ratio, working capital ratio</td>
+<td>Slightly improving but still distressed</td>
+<td>Potential gradual recovery if EBIT and liquidity improve</td>
+<td>Operational efficiency gains, debt restructuring</td>
+<td>Quarterly Z-Score, EBIT ratio, working capital</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Distressed relative to peers</td>
-<td>Gradual recovery if turnaround succeeds</td>
-<td>Competitive pricing, supply chain resilience</td>
-<td>Peer Z-Score, market share</td>
+<td>Weak relative to peers</td>
+<td>Possible stabilization or further decline</td>
+<td>Market share shifts, competitive dynamics</td>
+<td>Peer Z-Score comparison, market share data</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High distress risk</td>
-<td>Risk remains elevated</td>
-<td>Debt refinancing, macroeconomic factors</td>
-<td>Debt levels, liquidity ratios</td>
+<td>High risk, distress zone</td>
+<td>Risk may moderate with strategic actions</td>
+<td>Regulatory changes, macroeconomic factors</td>
+<td>Risk factor tracking, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-JD’s Z-Score momentum suggests a challenging near-term outlook with potential for gradual improvement if operational and financial initiatives succeed. Key catalysts include improved EBIT margins and working capital management. Continuous monitoring of liquidity and debt metrics will provide early warning signals for risk escalation or recovery.</p>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>JD.com is currently in a <strong>financial distress state</strong> as evidenced by a persistently low Altman Z-Score averaging around 1.3 over eight quarters. Liquidity and profitability metrics are critically weak, with no retained earnings and minimal EBIT margins. Market valuation metrics suggest undervaluation but are clouded by data anomalies such as an unrealistic dividend yield.</p>
-<p>Investment recommendations favor <strong>caution</strong>, with conservative investors advised to hold or sell, while speculative investors may consider opportunistic entry contingent on operational improvements. Strategic focus must be on liquidity enhancement, profitability recovery, and risk mitigation to shift JD.com out of distress.</p>
-<p><strong>Continuous monitoring</strong> of Z-Score components, liquidity ratios, and market signals is essential to adjust investment positioning and corporate strategy dynamically.</p>
+<h3 id="commentary_6">Commentary</h3>
+<ul>
+<li>JD.com’s Z-Score momentum suggests a <strong>slow path to recovery</strong> contingent on operational and financial restructuring.  </li>
+<li>Key catalysts include improved EBIT margins, working capital management, and successful debt refinancing.  </li>
+<li>Monitoring quarterly Z-Score components and liquidity ratios will provide early warning signals for risk escalation or improvement.  </li>
+<li>Market position relative to peers must be tracked to assess competitive threats or opportunities.  </li>
+<li>Investors should remain vigilant for macroeconomic or sector-specific risks that could exacerbate financial distress.</li>
+</ul>
 <hr />
-<p><em>Analysis completed with explicit referencing of all injected data elements and cross-validation across AI Risk, Peer, Sentiment, and Financial Data Context.</em></p></div></div>
+<h1 id="summary-conclusion"><strong>Summary Conclusion</strong></h1>
+<p>JD.com currently operates under significant financial distress as evidenced by a persistently low Altman Z-Score averaging around 1.3 over eight quarters, well below the safe threshold of 3.0. Liquidity is critically weak (working capital ratio 0.108), profitability is minimal (EBIT ratio 0.016), and retained earnings show no growth, all signaling elevated bankruptcy risk. Market data anomalies and lack of trading volume further complicate the investment outlook.</p>
+<p><strong>Investment stance:</strong> Predominantly <strong>cautious to negative</strong> for most investor profiles, with speculative interest only for aggressive investors monitoring for operational turnarounds. Strategic leadership must urgently address liquidity and operational inefficiencies to improve financial stability and investor confidence.</p>
+<hr />
+<p><em>Analysis generated with full integration of injected financial data, AI risk, peer, and sentiment assessments, adhering to Altman Z-Score investment framework and quality standards.</em></p></div></div>
     </div>
     
 
@@ -1255,78 +1358,41 @@ JD’s Z-Score momentum suggests a challenging near-term outlook with potential 
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:34 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:54 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

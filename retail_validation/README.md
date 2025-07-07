@@ -35,7 +35,7 @@ retail_validation/
 - Configurable validation thresholds and test criteria
 
 ### ✅ Comprehensive Testing Framework
-- **Bankruptcy Prediction Testing**: Validates accuracy on known retail failures
+- **Bankruptcy Prediction Testing**: Validates accuracy using the comprehensive bankruptcy database (139+ companies)
 - **Category Performance Analysis**: Tests across different retail company types
 - **Inventory Impact Analysis**: Measures effectiveness of X₆ component
 - **Model Comparison**: Benchmarks against traditional Z-Score models
@@ -49,6 +49,20 @@ retail_validation/
 
 ## 🚀 Quick Start
 
+### Using the Interactive Launcher (Recommended)
+```powershell
+# From the retail_validation directory
+.\retail_validation_launcher.ps1
+```
+
+The launcher provides a user-friendly menu with options for:
+- Quick Test (12 companies, ~7-10 minutes)
+- Full Validation (61 companies, ~2-3 hours)
+- Failed Company Analysis (Pre-Bankruptcy Quarters)
+- Visualize Results (Interactive Z-Score Charts)
+- Show Configuration
+- Help
+
 ### Prerequisites
 ```powershell
 # Ensure Python dependencies are installed
@@ -58,7 +72,7 @@ pip install -r requirements.txt
 cd c:\Development\Altman-Z-Score
 ```
 
-### Basic Usage
+### Direct Script Execution
 
 ```powershell
 # Show validation configuration
@@ -67,7 +81,7 @@ cd c:\Development\Altman-Z-Score
 # Quick development test (11 representative companies)
 .\retail_validation\scripts\run_retail_validation.ps1 -QuickTest
 
-# Full comprehensive validation (42 companies, academic quality)
+# Full comprehensive validation (61 companies, academic quality)
 .\retail_validation\scripts\run_retail_validation.ps1 -FullValidation
 
 # Model comparison analysis
@@ -180,7 +194,7 @@ portfolios/retail_backtest_portfolio.txt
 ```
 
 This external file contains:
-- 42 active retail companies
+- 61 retail companies (active and historical)
 - Multiple financial health categories
 - Comprehensive industry coverage
 - Comment-based documentation

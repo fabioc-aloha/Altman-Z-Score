@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Mastercard Incorporated (MA)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:36 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:28 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -349,9 +421,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="MA_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="MA_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -414,15 +486,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$569.24</p>
+                <p>$$563.67</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$516.9B</p>
+                <p>$$511.9B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>39.9</p>
+                <p>39.4</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -434,7 +506,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>42.7</p>
+                <p>50.7</p>
             </div>
         </div>
     </div>
@@ -448,7 +520,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.99</p>
+                <p>0.98</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -477,47 +549,46 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> Mastercard Incorporated (MA)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:35:50  </p>
+<p><strong>Company:</strong> Mastercard Incorporated (Ticker: MA)<br />
+<strong>Analysis Date:</strong> 2025-07-07 12:27:51  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Mastercard (MA) demonstrates an exceptionally robust financial position with an Altman Z-Score consistently in the <strong>Safe Zone</strong>, averaging approximately <strong>9.3</strong> over the last eight quarters (range: 8.98 to 9.66). This places MA well above the distress threshold of 1.8 and the gray zone upper bound of 3.0, indicating an extremely low bankruptcy risk and strong operational health.</p>
-<p><strong>AI Risk Analysis</strong> data is not explicitly provided with risk level or trajectory percentages, but the absence of anomalies and the consistently high Z-Score imply a <strong>Low Overall Risk Level</strong> with a stable or positive trajectory. The <strong>AI Peer Analysis</strong> positions MA significantly above the industry average Z-Score (not numerically specified but typical financial services firms average near 3-4), confirming MA’s superior credit and operational strength relative to peers in the Financial - Credit Services sector.</p>
-<p><strong>AI Sentiment Analysis</strong> metrics are limited due to zero volatility and zero RSI, but the extraordinarily high dividend yield of <strong>54.00%</strong> and a P/E ratio of <strong>39.92</strong> suggest market expectations of strong cash flow and growth, albeit with potential data anomalies in technical indicators (all zero values). The dividend yield figure is unusually high and likely reflects a data anomaly or special dividend event, warranting caution.</p>
-<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<p>Mastercard (MA) demonstrates a <strong>robust financial position</strong> with an Altman Z-Score consistently in the <strong>Safe Zone</strong> over the past eight quarters, ranging from 8.98 to 9.66, well above the distress threshold of 1.8. This indicates an extremely low risk of bankruptcy or financial distress. The AI Risk Analysis, while not explicitly quantified here, aligns with this low-risk profile given the stable and high Z-Scores.</p>
+<p><strong>AI Peer Analysis</strong> positions Mastercard significantly above the industry average Z-Score (not provided explicitly but typically in the 3-5 range for Financial - Credit Services), confirming Mastercard’s superior financial health relative to peers. This competitive advantage supports a confident investment stance.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are limited due to zero volatility and beta, but the exceptionally high dividend yield of 54.00% and a P/E ratio of 39.45 suggest strong market confidence and premium valuation, albeit with caution warranted on dividend sustainability.</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
+<th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Interpretation</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
 <td>9.20</td>
-<td>Very safe, minimal bankruptcy risk</td>
+<td>Safe Zone, very low distress risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$516.9B</td>
+<td>$511.86B</td>
 <td>Large-cap, stable market presence</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$569.24</td>
-<td>High valuation reflecting growth</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>39.92</td>
-<td>Premium valuation, growth expectations</td>
+<td>$564.87</td>
+<td>High valuation level</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>54.00%</td>
-<td>Likely anomaly; requires verification</td>
+<td>Exceptionally high, requires scrutiny</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>39.45</td>
+<td>Premium valuation</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
@@ -537,12 +608,14 @@
 <tr>
 <td>Asset Turnover</td>
 <td>0.150</td>
-<td>Efficient asset utilization</td>
+<td>Moderate asset efficiency</td>
 </tr>
 </tbody>
 </table>
-<h3 id="investment-recommendation">Investment Recommendation</h3>
-<p><strong>BUY with High Confidence</strong> for medium to long-term investors focused on financial services growth and stability. The Z-Score and financial fundamentals indicate minimal bankruptcy risk and strong operational efficiency. However, verify dividend yield data before income-focused positioning. The premium valuation suggests entry timing should consider market conditions but is justified by robust fundamentals.</p>
+<p><strong>Investment Action Recommendations:</strong><br />
+- <strong>Buy/Hold</strong> for conservative and growth investors due to strong financial health and industry leadership.<br />
+- Monitor dividend sustainability given the unusually high yield.<br />
+- Cautious on valuation multiples; consider timing entry on minor price corrections.  </p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -560,69 +633,67 @@
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.041</td>
 <td>~1.0 - 1.5</td>
-<td><strong>Weak liquidity buffer; below industry norm</strong></td>
-<td>Stable</td>
+<td><strong>Weak liquidity buffer; low working capital ratio</strong></td>
+<td>Stable/Low</td>
 </tr>
 <tr>
 <td></td>
 <td>Working Capital Ratio: 0.041</td>
-<td>~0.1 - 0.3</td>
-<td>Working capital low; may reflect capital efficiency</td>
-<td>Stable</td>
+<td>Industry avg ~0.1-0.2</td>
+<td>Potential short-term liquidity risk</td>
+<td></td>
 </tr>
 <tr>
 <td>Leverage Management</td>
 <td>Debt-to-Equity: Not provided</td>
-<td>~1.0 - 2.0 (typical sector)</td>
-<td>Data missing; Z-Score implies low financial distress</td>
-<td>Stable</td>
+<td>Industry avg ~1.0</td>
+<td>Unable to assess leverage; likely moderate</td>
+<td>Unknown</td>
 </tr>
 <tr>
 <td></td>
 <td>Interest Coverage (EBIT Ratio): 0.086</td>
-<td>~0.10 - 0.15</td>
-<td>Moderate EBIT margin; manageable interest coverage</td>
+<td>Industry avg ~0.10-0.15</td>
+<td>Slightly below average operating profitability</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.150</td>
-<td>~0.10 - 0.20</td>
-<td>Within industry norms; efficient asset use</td>
+<td>Industry avg ~0.20</td>
+<td>Moderate asset utilization</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>EBIT Ratio: 0.086</td>
-<td>~0.08 - 0.12</td>
-<td>Moderate profitability; consistent</td>
+<td>Industry avg ~0.10</td>
+<td>Marginally below industry average</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 1.558</td>
-<td>&gt;1.0</td>
-<td>Strong retained earnings; solid equity base</td>
+<td>Industry avg ~1.0</td>
+<td>Strong retained earnings, supports stability</td>
 <td>Improving</td>
 </tr>
 <tr>
 <td></td>
 <td>Cash Position: Not provided</td>
 <td>N/A</td>
-<td>Data missing; implied strong liquidity from Z-Score</td>
+<td>Data unavailable</td>
 <td>N/A</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks are approximate for Financial - Credit Services sector.</p>
-<h3 id="commentary">Commentary</h3>
-<ul>
-<li><strong>Liquidity:</strong> The current ratio of <strong>0.041</strong> is notably low compared to typical industry standards (~1.0), indicating Mastercard operates with minimal short-term liquidity buffer. This is common in financial technology firms that rely on transaction processing rather than inventory or receivables. The working capital ratio mirrors this low liquidity but does not indicate distress given the business model and strong Z-Score.</li>
-<li><strong>Leverage:</strong> While explicit debt-to-equity data is missing, the Altman Z-Score’s high value strongly suggests low financial leverage risk. The EBIT ratio of <strong>0.086</strong> supports moderate profitability sufficient to cover interest expenses comfortably.</li>
-<li><strong>Operational Efficiency:</strong> Asset turnover at <strong>0.150</strong> and EBIT ratio at <strong>0.086</strong> align well with industry norms, reflecting efficient use of assets and stable profitability.</li>
-<li><strong>Financial Stability:</strong> Retained earnings ratio of <strong>1.558</strong> indicates strong reinvestment and equity growth, supporting long-term stability.</li>
-</ul>
-<p><strong>AI Data Quality Assessment:</strong> No anomalies detected; data completeness is high, lending confidence to these interpretations.</p>
+<p>*Industry benchmarks estimated for Financial - Credit Services sector.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+- The <strong>liquidity position</strong> is notably low with a current ratio of 0.041, indicating minimal short-term asset coverage for liabilities. This is typical in financial services where working capital is less critical due to the nature of operations but warrants monitoring for stress scenarios.<br />
+- <strong>Leverage data is missing</strong>, limiting full risk assessment; however, the high Z-Score suggests leverage is well-managed.<br />
+- <strong>Operational efficiency</strong> metrics such as asset turnover (0.150) and EBIT ratio (0.086) are slightly below industry averages, reflecting moderate efficiency but not alarming given Mastercard’s business model focused on technology and transaction processing rather than asset-heavy operations.<br />
+- The <strong>retained earnings ratio of 1.558</strong> is strong, indicating robust reinvestment and earnings retention, which supports long-term financial stability.<br />
+- AI Data Quality Assessment indicates <strong>complete financial data injection</strong> with no anomalies detected, lending high confidence to these metrics.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -640,63 +711,24 @@
 <td>Current (Q8)</td>
 <td>9.20</td>
 <td>Safe</td>
-<td>Strong retained earnings, high market cap</td>
-<td>Continued dominance in payment processing</td>
+<td>Strong retained earnings, high market equity</td>
+<td>Stable transaction volumes, global expansion</td>
 </tr>
 <tr>
-<td>Q7</td>
-<td>9.47</td>
+<td>Previous Quarters</td>
+<td>9.34, 8.98, 9.56, 9.66, 9.24, 9.21, 9.47</td>
 <td>Safe</td>
-<td>Stable EBIT, asset turnover</td>
-<td>Consistent operational efficiency</td>
-</tr>
-<tr>
-<td>Q6</td>
-<td>9.21</td>
-<td>Safe</td>
-<td>Earnings retention</td>
-<td>Expansion in international markets</td>
-</tr>
-<tr>
-<td>Q5</td>
-<td>9.24</td>
-<td>Safe</td>
-<td>Profitability, equity growth</td>
-<td>New product launches</td>
-</tr>
-<tr>
-<td>Q4</td>
-<td>9.66</td>
-<td>Safe</td>
-<td>Peak EBIT margin</td>
-<td>Strategic partnerships</td>
-</tr>
-<tr>
-<td>Q3</td>
-<td>9.56</td>
-<td>Safe</td>
-<td>Market capitalization growth</td>
-<td>Increased transaction volumes</td>
-</tr>
-<tr>
-<td>Q2</td>
-<td>8.98</td>
-<td>Safe</td>
-<td>Stable asset turnover</td>
-<td>Regulatory compliance improvements</td>
-</tr>
-<tr>
-<td>Q1</td>
-<td>9.34</td>
-<td>Safe</td>
-<td>Consistent earnings</td>
-<td>Technology platform enhancements</td>
+<td>Consistent working capital and EBIT ratios</td>
+<td>Steady growth, minimal operational disruptions</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_1">Commentary</h3>
-<p>Mastercard’s Z-Score has remained consistently in the <strong>Safe Zone</strong> above 8.9 for eight consecutive quarters, reflecting exceptional financial health and minimal bankruptcy risk. The slight fluctuations between 8.98 and 9.66 are driven primarily by stable retained earnings and EBIT ratios, indicating steady profitability and equity growth. This stability correlates with Mastercard’s ongoing business expansion, technological innovation, and strong market positioning in the Financial Services sector.</p>
-<p>The Z-Score significantly outperforms the industry average (typically near 3-4 for financial services), underscoring Mastercard’s superior creditworthiness and operational resilience.</p>
+<p><strong>Strategic Commentary:</strong><br />
+- Mastercard’s Z-Score has remained <strong>consistently above 8.9 for eight quarters</strong>, indicating a <strong>stable and very low bankruptcy risk</strong>.<br />
+- The <strong>slight fluctuations</strong> (8.98 to 9.66) reflect normal operational and market variations but no material deterioration.<br />
+- The <strong>high retained earnings and market equity components</strong> are primary drivers of this strong Z-Score, reflecting solid profitability and investor confidence.<br />
+- Business context includes Mastercard’s ongoing technology investments and global payment network expansion, which support sustained financial strength.<br />
+- Compared to the industry average Z-Score (typically 3-5), Mastercard’s position is <strong>exceptionally strong</strong>, underscoring competitive advantage.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -712,31 +744,32 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable, high Z-Score (~9.2)</td>
-<td>Price stable at $569.24</td>
+<td>Stable, High (9.20)</td>
+<td>Price stable at $564.87</td>
 <td>Aligned</td>
-<td>Supports confidence in valuation</td>
+<td>Supports Buy/Hold recommendation</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Not explicitly provided</td>
-<td>P/E Ratio 39.92 (premium)</td>
-<td>Consistent</td>
-<td>Market expects growth; justified</td>
+<td>N/A (AI Sentiment unavailable)</td>
+<td>Dividend Yield 54%, P/E 39.45</td>
+<td>Divergent (High yield unusual)</td>
+<td>Caution on dividend sustainability</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
 <td>Superior Z-Score</td>
 <td>Sector performance strong</td>
 <td>Outperforming</td>
-<td>Competitive advantage confirmed</td>
+<td>Competitive positioning strong</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_2">Commentary</h3>
-<p>The Z-Score’s strong fundamental health signal aligns well with Mastercard’s current market price of <strong>$569.24</strong>, reflecting investor confidence. The premium P/E ratio of <strong>39.92</strong> indicates growth expectations consistent with Mastercard’s operational performance and industry leadership.</p>
-<p>The dividend yield of <strong>54.00%</strong> is an outlier and likely a data anomaly; typical dividend yields for Mastercard are much lower (~0.5-1.0%). This discrepancy should be verified before income-focused investment decisions.</p>
-<p>Peer comparison confirms Mastercard’s outperformance in credit services, reinforcing the investment thesis.</p>
+<p><strong>Market Validation Commentary:</strong><br />
+- The <strong>Z-Score’s strong fundamental signal aligns with Mastercard’s stable and high stock price</strong>, confirming market recognition of financial health.<br />
+- The <strong>exceptionally high dividend yield of 54.00%</strong> contrasts with a high P/E ratio of 39.45, suggesting either a special dividend event or data anomaly; this divergence calls for caution and further due diligence on dividend sustainability.<br />
+- Peer comparison confirms Mastercard’s <strong>outperformance in financial health and market position</strong>, reinforcing investment confidence.<br />
+- Lack of volatility and beta data (0.00) limits risk-return profiling but suggests low market price fluctuations recently.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -754,35 +787,34 @@
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential minor dip</td>
+<td>Minor</td>
 <td>Continuous technology upgrades, cybersecurity investments</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
-<td>Minor</td>
-<td>Minimal impact</td>
-<td>Maintain conservative leverage, monitor liquidity</td>
+<td>Low</td>
+<td>Minimal</td>
+<td>Maintain capital adequacy, monitor liquidity ratios</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium</td>
+<td>Low</td>
 <td>Moderate</td>
-<td>Possible valuation volatility</td>
+<td>Minor</td>
 <td>Diversify revenue streams, hedge currency exposure</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_3">Commentary</h3>
-<ul>
-<li><strong>Operational Risks:</strong> Moderate probability due to evolving payment technologies and cybersecurity threats. However, Mastercard’s strong retained earnings and EBIT margins provide buffers.</li>
-<li><strong>Financial Risks:</strong> Low probability given strong Z-Score and equity base; liquidity ratios are low but manageable within business model.</li>
-<li><strong>Market Risks:</strong> Medium probability due to macroeconomic factors affecting transaction volumes and valuation multiples.</li>
-</ul>
-<p><strong>Scenario Analysis:</strong><br />
-- <strong>Best Case:</strong> Continued Z-Score stability or improvement above 9.5 with expanding margins and market share.<br />
-- <strong>Base Case:</strong> Z-Score remains stable near 9.2, reflecting steady growth and low risk.<br />
-- <strong>Worst Case:</strong> Minor decline to ~8.5 due to operational disruptions or market downturn, still within Safe Zone.</p>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Operational risks</strong> such as technology disruptions or regulatory changes have medium probability but moderate severity; Mastercard’s investments in innovation mitigate these risks.<br />
+- <strong>Financial risks</strong> are low given the strong Z-Score and retained earnings, with minimal impact expected on solvency.<br />
+- <strong>Market risks</strong> including economic downturns or payment volume declines are low probability but could moderately affect profitability; diversification and global footprint reduce exposure.<br />
+- <strong>Bankruptcy risk is negligible</strong> given Z-Score &gt;9.<br />
+- <strong>Liquidity stress testing</strong> is recommended due to low working capital ratio but is unlikely to impact solvency materially.<br />
+- Best-case scenario: Z-Score remains stable or improves with continued growth.<br />
+- Base-case: Minor fluctuations within safe zone.<br />
+- Worst-case: Operational disruption reduces EBIT ratio, lowering Z-Score but likely remaining above distress threshold.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -801,51 +833,50 @@
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score &gt;9.0 indicates safety</td>
-<td>Monitor price stability</td>
+<td>Z-Score stable at 9.20, low risk</td>
+<td>Hold through stable price</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>VERIFY &amp; HOLD</td>
-<td>Dividend yield anomaly; confirm</td>
-<td>Await dividend clarity</td>
-<td>3-6 months</td>
+<td>CAUTION</td>
+<td>High dividend yield (54%) unusual</td>
+<td>Monitor dividend announcements</td>
+<td>Immediate review</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>BUY</td>
 <td>Premium valuation justified by Z-Score</td>
-<td>Enter on dips</td>
-<td>Immediate to 3 months</td>
+<td>Enter on minor price dips</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>BUY</td>
-<td>Strong operational momentum</td>
-<td>Favorable market conditions</td>
-<td>Immediate</td>
+<td>Strong Z-Score supports growth thesis</td>
+<td>Momentum stable, watch for catalysts</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>BUY</td>
-<td>Low bankruptcy risk, high growth</td>
-<td>Monitor volatility</td>
-<td>Immediate</td>
+<td>HOLD</td>
+<td>Low volatility, limited upside</td>
+<td>Wait for volatility increase</td>
+<td>6 months</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_4">Commentary</h3>
-<ul>
-<li><strong>Conservative investors</strong> should hold given the strong safety indicated by the Z-Score but watch for liquidity signals.  </li>
-<li><strong>Dividend investors</strong> must verify the unusually high dividend yield before committing.  </li>
-<li><strong>Value and Growth investors</strong> have a strong buy case supported by Z-Score stability and market positioning.  </li>
-<li><strong>Aggressive investors</strong> can capitalize on low risk and growth potential but should monitor market volatility.</li>
-</ul>
+<p><strong>Detailed Commentary:</strong><br />
+- <strong>Conservative investors</strong> should hold Mastercard given its very low bankruptcy risk and stable fundamentals.<br />
+- <strong>Dividend investors</strong> must exercise caution due to the unusually high 54% yield, which may not be sustainable; further investigation is warranted before increasing exposure.<br />
+- <strong>Value investors</strong> can consider buying on minor price corrections, supported by the strong Z-Score and retained earnings.<br />
+- <strong>Growth investors</strong> benefit from Mastercard’s consistent financial strength and industry leadership, with a buy recommendation aligned with momentum stability.<br />
+- <strong>Aggressive investors</strong> should hold and wait for increased volatility or clearer entry points given current low price movement.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -861,29 +892,31 @@
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Innovation &amp; Market Growth</td>
-<td>EBIT Ratio, Z-Score</td>
-<td>Invest in technology, expand partnerships</td>
+<td>Innovation &amp; Market Expansion</td>
+<td>Z-Score components, EBIT ratio</td>
+<td>Continue investment in technology and global markets</td>
 <td>Maintain Z-Score &gt;9, revenue growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital Efficiency</td>
-<td>Working Capital Ratio, Retained Earnings Ratio</td>
-<td>Optimize liquidity, manage leverage</td>
-<td>Stable liquidity, improved ratios</td>
+<td>Capital Efficiency &amp; Liquidity</td>
+<td>Working capital ratio, retained earnings</td>
+<td>Optimize working capital management, monitor dividend policy</td>
+<td>Improve liquidity ratios, stable dividend</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk Oversight</td>
-<td>Risk Factors, Z-Score Trend</td>
-<td>Monitor operational and market risks</td>
-<td>Low risk incidents, compliance</td>
+<td>Risk Oversight &amp; Compliance</td>
+<td>Risk factors, Z-Score trajectory</td>
+<td>Strengthen risk management frameworks, oversee dividend sustainability</td>
+<td>Low risk incidents, compliance adherence</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_5">Commentary</h3>
-<p>Executive leadership should leverage the strong Z-Score and retained earnings to fuel innovation and market expansion. The CFO must address liquidity management given the low current ratio, ensuring operational flexibility. The Board should maintain vigilance on emerging risks, especially operational and market-related, to sustain Mastercard’s financial health.</p>
+<p><strong>Executive Commentary:</strong><br />
+- The CEO should leverage Mastercard’s strong financial position (Z-Score &gt;9) to accelerate innovation and global expansion, ensuring EBIT ratio improvements.<br />
+- The CFO must address the low working capital ratio (0.041) by optimizing liquidity and carefully managing dividend payouts to sustain financial stability.<br />
+- The Board should focus on risk oversight, particularly monitoring operational and market risks identified in AI Risk Analysis, ensuring governance aligns with the company’s strong but evolving risk profile.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -900,33 +933,37 @@
 <tr>
 <td>Z-Score Momentum</td>
 <td>Stable (~9.2)</td>
-<td>Stable to improving</td>
-<td>New product launches, market expansion</td>
-<td>Quarterly Z-Score updates</td>
+<td>Stable to Slightly Up</td>
+<td>Continued earnings retention, market expansion</td>
+<td>Quarterly Z-Score updates, EBIT ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Leading</td>
-<td>Maintain leadership</td>
-<td>Regulatory environment, tech innovation</td>
-<td>Market share, competitor moves</td>
+<td>Maintain/Improve</td>
+<td>Innovation, regulatory environment</td>
+<td>Market share, peer Z-Score comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>Low</td>
 <td>Stable</td>
-<td>Cybersecurity, macroeconomic factors</td>
-<td>Risk incident reports, macro data</td>
+<td>Cybersecurity, economic cycles</td>
+<td>Risk incident reports, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_6">Commentary</h3>
-<p>Mastercard’s Z-Score momentum is expected to remain stable or improve over the next 6-12 months, driven by continued innovation and market penetration. Key catalysts include technological advancements and strategic partnerships. Risk profile remains low but requires monitoring of cybersecurity threats and macroeconomic shifts.</p>
+<p><strong>Forward-Looking Commentary:</strong><br />
+- Mastercard’s Z-Score momentum is expected to remain stable or improve slightly over the next 6-12 months, driven by strong retained earnings and operational stability.<br />
+- Key catalysts include continued innovation in payment technologies and expansion into emerging markets.<br />
+- Risk profile remains low but requires vigilance on cybersecurity threats and macroeconomic factors.<br />
+- Monitoring quarterly Z-Score components, EBIT ratio, and liquidity metrics will provide early warning signals for any deterioration.<br />
+- Investment thesis remains positive, with scenarios prepared for minor operational or market disruptions.</p>
 <hr />
-<h1 id="summary-conclusion"><strong>Summary Conclusion:</strong></h1>
-<p>Mastercard’s Altman Z-Score analysis reveals a company with exceptional financial strength and minimal bankruptcy risk. Despite a low liquidity ratio, operational efficiency and retained earnings underpin a robust financial foundation. Market valuation is premium but justified by growth prospects. Investors should consider a <strong>BUY</strong> position with confidence, while dividend-focused investors should verify yield data. Strategic leadership should focus on sustaining innovation and managing liquidity prudently to maintain Mastercard’s industry-leading position.</p>
+<h1 id="summary">Summary</h1>
+<p>Mastercard (MA) exhibits <strong>exceptional financial health</strong> with a consistently high Altman Z-Score (~9.2), indicating minimal bankruptcy risk and strong operational performance. Despite a low liquidity ratio, the company’s retained earnings and market capitalization underpin stability. Market signals align with fundamentals, though the unusually high dividend yield warrants caution. Investment recommendations favor <strong>Buy/Hold</strong> across most profiles, with close monitoring of dividend sustainability and liquidity metrics. Strategic focus on innovation and risk management will support continued leadership and financial resilience.</p>
 <hr />
-<p><em>Analysis generated with full integration of injected financial data, market metrics, and Altman Z-Score trends as of 2025-07-03.</em></p></div></div>
+<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Framework on 2025-07-07.</em></p></div></div>
     </div>
     
 
@@ -1269,78 +1306,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:36 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:28 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

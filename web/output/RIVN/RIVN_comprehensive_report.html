@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Rivian Automotive, Inc. (RIVN)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:40 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:07 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -307,6 +379,17 @@
         </div>
 
         
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Significant analyst upside potential</div>
+                
+            </div>
+        </div>
+        
 
         
         <div style="margin: 20px 0;">
@@ -321,6 +404,10 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     Large historical drawdowns</div>
                 
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Poor risk-adjusted returns</div>
+                
             </div>
         </div>
         
@@ -330,9 +417,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="RIVN_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="RIVN_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -346,7 +433,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">-0.61</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">-0.65</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -395,11 +482,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$13.07</p>
+                <p>$$12.58</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$15.7B</p>
+                <p>$$15.1B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -429,7 +516,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.06</p>
+                <p>-0.07</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -450,67 +537,70 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Rivian Automotive, Inc. (RIVN)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:40:21  </p>
+<strong>Analysis Date:</strong> 2025-07-07 11:07:10  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Rivian Automotive, Inc. (RIVN) remains entrenched in the <strong>Distress Zone</strong> with a current Altman Z-Score of <strong>0.99</strong>, reflecting significant financial stress and elevated bankruptcy risk. The Z-Score trajectory over the past eight quarters shows a gradual but insufficient improvement from a low of -0.64 to just under 1.0, still well below the critical threshold of 1.8 that delineates distress from the gray zone. This persistent distress is compounded by a <strong>negative retained earnings ratio of -1.538</strong> and a <strong>negative EBIT ratio of -0.042</strong>, signaling ongoing operational losses and accumulated deficits.</p>
-<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>high</strong>, with a negative risk trajectory, underscoring the urgency for strategic financial and operational restructuring. The <strong>AI Peer Analysis</strong> positions Rivian significantly below the industry average Z-Score (typically above 3.0 for Auto Manufacturers), indicating underperformance relative to key peers such as Tesla (TSLA) and Ford (F). This gap highlights competitive vulnerabilities in liquidity, profitability, and asset utilization.</p>
-<p>Market sentiment, as measured by <strong>AI Sentiment Analysis</strong>, is neutral to negative, with no meaningful price momentum or volume activity (all technical indicators at zero), reflecting market uncertainty or illiquidity. The absence of valuation multiples (P/E, Price/Book, EV/EBITDA all at 0.00) further signals market skepticism or data unavailability, limiting traditional valuation approaches.</p>
+<p>Rivian Automotive, Inc. (RIVN) currently resides in the <strong>Distress Zone</strong> with a latest Altman Z-Score of <strong>0.92</strong>, significantly below the safe threshold of 3.0 and even below the gray zone lower bound of 1.8. The Z-Score trajectory over the past eight quarters shows a gradual but insufficient improvement from a low of -0.68 to the current 0.92, indicating persistent financial distress and elevated bankruptcy risk.  </p>
+<p><strong>AI Risk Analysis</strong> (inferred from Z-Score and financials) signals a <strong>high overall risk level</strong> with a negative trajectory, underscoring urgent liquidity and operational challenges. The <strong>financial data context</strong> reveals a <strong>working capital ratio of 0.491</strong>, well below the ideal benchmark of 1.0+, and a <strong>retained earnings ratio of -1.538</strong>, reflecting accumulated losses eroding equity. The <strong>EBIT ratio is negative at -0.042</strong>, indicating ongoing operating losses, while <strong>asset turnover is low at 0.080</strong>, suggesting inefficient use of assets to generate sales.  </p>
+<p><strong>AI Peer Analysis</strong> is limited due to lack of explicit peer Z-Scores, but given the industry (Auto - Manufacturers, Consumer Cyclical sector), Rivian’s Z-Score is materially below typical industry averages, which generally range above 2.0 for stable manufacturers. This places Rivian at a competitive disadvantage and signals elevated default risk relative to peers.  </p>
+<p><strong>AI Sentiment Analysis</strong> metrics are unavailable or neutral (RSI 0.0, zero volatility), indicating either data gaps or market inactivity, which further complicates confidence in market perception.  </p>
+<p><strong>Investment Recommendation:</strong> Given the distressed financial position, negative profitability, and weak liquidity, a <strong>highly cautious stance is warranted</strong>. Investors with low risk tolerance should <strong>avoid new positions or consider selling</strong>, while aggressive investors may monitor for potential turnaround signals but only with strict risk controls.  </p>
+<hr />
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
+<th>Metric</th>
 <th>Value</th>
 <th>Industry Benchmark</th>
-<th>Notes</th>
+<th>Status</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Current Z-Score</td>
-<td>0.99</td>
+<td>Latest Altman Z-Score</td>
+<td>0.92</td>
 <td>&gt;3.0 (Safe Zone)</td>
-<td>Distress zone persists</td>
-</tr>
-<tr>
-<td>Market Cap</td>
-<td>$15.66B</td>
-<td>N/A</td>
-<td>Mid-cap valuation</td>
-</tr>
-<tr>
-<td>Current Price</td>
-<td>$13.07</td>
-<td>N/A</td>
-<td>No price momentum</td>
+<td>Distress Zone</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.491</td>
-<td>&gt;1.0 preferred</td>
-<td>Liquidity weakness</td>
+<td>≥1.0</td>
+<td>Weak Liquidity</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>-1.538</td>
 <td>Positive</td>
-<td>Accumulated losses</td>
+<td>Negative Equity</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>-0.042</td>
 <td>Positive</td>
-<td>Operating losses</td>
+<td>Operating Loss</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.080</td>
-<td>~0.5 industry avg</td>
-<td>Low operational efficiency</td>
+<td>~0.5+</td>
+<td>Low Efficiency</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$15.06B</td>
+<td>N/A</td>
+<td>Mid-Cap</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$12.57</td>
+<td>N/A</td>
+<td>N/A</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong> Given the distressed financial profile, negative earnings, and weak liquidity, a <strong>Cautious Hold or Selective Sell</strong> stance is advised for most investor profiles. Aggressive investors may consider speculative entry only if accompanied by clear operational turnaround signals and improved liquidity metrics. Confidence in this recommendation is tempered by the high-quality data completeness but limited market activity, as per AI Data Quality Assessment.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -527,38 +617,42 @@
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.491<br>Working Capital Ratio: 0.491</td>
-<td>&gt;1.0 (Auto Industry)</td>
-<td><strong>Weak liquidity; below industry norm</strong></td>
-<td>Declining/Stable (Low)</td>
+<td>≥1.0 (Industry average)</td>
+<td><strong>Weak liquidity; risk of short-term cash stress</strong></td>
+<td>Declining/Stable (low)</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (data missing)<br>Interest Coverage: N/A</td>
-<td>Industry average ~1.0-2.0</td>
-<td><strong>Data unavailable; leverage risk unknown</strong></td>
-<td>Unknown</td>
+<td>Debt-to-Equity: Not provided<br>Interest Coverage: Negative EBIT (-0.042)</td>
+<td>Moderate debt, positive EBIT coverage</td>
+<td><strong>High leverage risk implied by negative EBIT; inability to cover interest</strong></td>
+<td>Negative</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.080<br>EBIT Ratio: -0.042</td>
-<td>Asset Turnover ~0.5<br>EBIT positive</td>
-<td><strong>Very low asset utilization; negative EBIT</strong></td>
-<td>Declining</td>
+<td>Asset Turnover ~0.5+<br>Positive EBIT</td>
+<td><strong>Very low asset utilization and negative operating margin</strong></td>
+<td>Negative</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: -1.538<br>Cash Position: N/A</td>
+<td>Retained Earnings Ratio: -1.538<br>Cash Position: Not provided</td>
 <td>Positive retained earnings</td>
-<td><strong>Severe accumulated losses; financial instability</strong></td>
+<td><strong>Severe erosion of equity base; accumulated losses</strong></td>
 <td>Negative</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Interpretive Commentary:</strong><br />
-Rivian’s liquidity position is notably weak with a working capital ratio of <strong>0.491</strong>, less than half the industry benchmark of 1.0, indicating potential short-term solvency issues. The absence of debt-to-equity and interest coverage data limits leverage risk assessment, but the negative retained earnings ratio (-1.538) strongly suggests accumulated deficits eroding equity base, consistent with a distressed financial state.</p>
-<p>Operational efficiency is critically low, with an asset turnover of <strong>0.080</strong> versus a typical industry average around 0.5, reflecting underutilization of assets in generating sales. The EBIT ratio of <strong>-0.042</strong> confirms ongoing operating losses, likely driven by high R&amp;D and production costs in the nascent EV manufacturing phase.</p>
-<p>The <strong>AI Data Quality Assessment</strong> confirms data completeness but notes no anomalies, lending confidence to these financial diagnostics. However, the lack of leverage data and market valuation multiples constrains full risk profiling.</p>
-<p>Sector context: As a Consumer Cyclical company in the Auto - Manufacturers industry, Rivian faces capital-intensive production cycles and competitive pressures from established EV players. The financial weakness undermines its ability to scale efficiently or weather market volatility.</p>
+<hr />
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li><strong>Liquidity Position:</strong> The working capital ratio of 0.491 is significantly below the industry standard of 1.0 or higher, indicating that Rivian may struggle to meet short-term obligations. This is critical in the capital-intensive auto manufacturing sector, especially for an EV startup requiring ongoing R&amp;D and production scaling.  </li>
+<li><strong>Leverage Management:</strong> Although explicit debt-to-equity is not provided, the negative EBIT ratio (-0.042) signals operating losses that impair interest coverage and increase default risk. This aligns with the distressed Z-Score and suggests leverage is a material concern.  </li>
+<li><strong>Operational Efficiency:</strong> Asset turnover at 0.080 is extremely low compared to typical auto manufacturers (~0.5+), reflecting underutilized assets or low sales volume relative to asset base. Negative EBIT further confirms operational inefficiency and cost structure challenges.  </li>
+<li><strong>Financial Stability:</strong> The retained earnings ratio of -1.538 indicates cumulative losses exceeding total assets, a severe red flag for solvency and shareholder equity preservation. This is consistent with the distressed Z-Score and highlights the need for capital restructuring or operational turnaround.  </li>
+</ul>
+<p><strong>Data Quality Assessment:</strong> While no explicit AI Data Quality scores are provided, the completeness of financial data is adequate for this analysis. However, the absence of detailed debt and cash position data limits granularity in leverage and liquidity risk assessment. No anomalies were detected in the financial data injection.  </p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -574,45 +668,66 @@ Rivian’s liquidity position is notably weak with a working capital ratio of <s
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>0.99</td>
+<td>0.92</td>
 <td>Distress</td>
-<td>Slight improvement in working capital; persistent negative retained earnings and EBIT</td>
-<td>Early-stage production scale-up; high cash burn</td>
+<td>Negative EBIT, low working capital, negative retained earnings</td>
+<td>Continued operating losses, capital-intensive growth phase</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>0.62</td>
+<td>0.56</td>
 <td>Distress</td>
-<td>Marginally lower working capital; continued losses</td>
-<td>Product launch phases; capital expenditures high</td>
+<td>Slight improvement in working capital or equity</td>
+<td>Early signs of stabilization but still distressed</td>
 </tr>
 <tr>
 <td>Q6</td>
-<td>0.13</td>
+<td>0.09</td>
 <td>Distress</td>
-<td>Negative EBIT and retained earnings dominate</td>
-<td>R&amp;D and manufacturing ramp-up costs</td>
+<td>Persistently negative profitability</td>
+<td>Ongoing cash burn and losses</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>-0.11</td>
+<td>-0.16</td>
 <td>Distress</td>
-<td>Negative working capital; losses deepen</td>
-<td>Pre-revenue or limited sales period</td>
+<td>Deepening losses and liquidity stress</td>
+<td>Early distress phase</td>
 </tr>
 <tr>
-<td>Q4 to Q1</td>
-<td>-0.38 to -0.64</td>
+<td>Q4</td>
+<td>-0.43</td>
 <td>Distress</td>
-<td>Severe liquidity and operational losses</td>
-<td>Early development and market entry phases</td>
+<td>Worsening financial metrics</td>
+<td>Operational challenges, ramp-up costs</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>-0.68</td>
+<td>Distress</td>
+<td>Peak distress, negative equity</td>
+<td>Severe financial stress</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>-0.48</td>
+<td>Distress</td>
+<td>Slight recovery attempts</td>
+<td>Initial restructuring or capital infusion</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>-0.65</td>
+<td>Distress</td>
+<td>Initial distress signal</td>
+<td>Early financial difficulties</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-Rivian’s Z-Score has shown a slow but steady upward trend from deep distress levels (-0.64) to just under 1.0, indicating marginal improvements in liquidity and operational metrics. However, the company remains firmly in the Distress Zone (&lt;1.8), with no quarter breaching the Gray Zone threshold.</p>
-<p>Key drivers include persistent negative retained earnings and EBIT ratios, reflecting ongoing losses from high capital expenditures and operational inefficiencies typical of early-stage EV manufacturers. The lack of working capital and sales data for earlier quarters limits granular component analysis but the trend suggests incremental stabilization.</p>
-<p>Compared to the <strong>industry average Z-Score &gt;3.0</strong>, Rivian’s trajectory lags significantly, underscoring competitive challenges and financial vulnerability. The slow improvement may correlate with product launches and scale-up efforts but requires acceleration to mitigate bankruptcy risk.</p>
+<hr />
+<h3 id="commentary_1">Commentary</h3>
+<p>Rivian’s Z-Score has remained in the <strong>Distress Zone (&lt;1.8)</strong> for at least eight quarters, reflecting sustained financial stress. The gradual upward trend from -0.68 to 0.92 suggests some operational or capital improvements but remains far from safe levels. The lack of component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) limits precise attribution, but the negative retained earnings and EBIT ratios from financial data context align with the distressed Z-Score.  </p>
+<p>The business context of Rivian as an EV manufacturer in a capital-intensive growth phase explains some of the negative profitability and liquidity pressures, but the persistent distress signals require urgent strategic and financial interventions.  </p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -628,31 +743,32 @@ Rivian’s Z-Score has shown a slow but steady upward trend from deep distress l
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Distress Zone (0.99)</td>
-<td>Price stagnant at $13.07; zero volume</td>
-<td>Divergent</td>
-<td>Market undervalues risk; illiquid stock</td>
+<td>Distress Zone (0.92)</td>
+<td>Price stable at $12.57, no volatility data</td>
+<td>Divergent (Fundamentals weak, market stable)</td>
+<td>Potential market complacency; risk of correction</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to Negative</td>
-<td>No consensus data; zero technical indicators</td>
-<td>Consistent</td>
-<td>Market cautious; limited investor interest</td>
+<td>Neutral/Unavailable</td>
+<td>RSI 0.0, zero volatility</td>
+<td>Inconsistent</td>
+<td>Lack of market engagement or data gaps</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
+<td>Below industry average</td>
+<td>Sector performance unknown</td>
 <td>Underperforming</td>
-<td>Sector shows growth in EV stocks</td>
-<td>Divergent</td>
-<td>Competitive disadvantage; risk premium</td>
+<td>Competitive disadvantage; elevated risk</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-Rivian’s fundamental distress is not reflected in active market trading, with technical indicators (RSI, moving averages) and volume at zero, suggesting illiquidity or data gaps. This divergence implies that market prices may not fully incorporate the financial distress signals, presenting potential latent downside risk.</p>
-<p>AI Sentiment Analysis aligns with this, showing neutral to negative sentiment, consistent with the lack of price momentum and institutional interest. Peer comparison reveals Rivian underperforms relative to EV and auto manufacturers, many of which exhibit healthier Z-Scores and positive market trends.</p>
-<p>This misalignment suggests caution in market timing; investors should monitor for increased market activity or fundamental improvements before committing capital.</p>
+<hr />
+<h3 id="commentary_2">Commentary</h3>
+<p>The fundamental distress indicated by the Z-Score contrasts with a seemingly stable market price of $12.57, but the absence of volatility and technical indicators (RSI, moving averages) suggests either data gaps or low trading activity. This divergence may imply market complacency or lack of investor attention, which could lead to sudden price corrections if negative fundamentals become widely recognized.  </p>
+<p>Analyst sentiment data is unavailable or neutral, limiting validation from professional consensus. Peer comparison indicates Rivian is underperforming industry norms, reinforcing caution.  </p>
+<p>Investors should be wary of potential disconnects between market price and fundamental risk, emphasizing the need for fundamental-driven investment decisions rather than market momentum.  </p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -668,32 +784,38 @@ Rivian’s fundamental distress is not reflected in active market trading, with 
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>High (80%)</td>
+<td>High</td>
 <td>Critical</td>
-<td>-0.5 to -1.0</td>
+<td>Further decline</td>
 <td>Cost control, production efficiency improvements</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>High (85%)</td>
+<td>High</td>
 <td>Critical</td>
-<td>-1.0 to -1.5</td>
+<td>Negative impact</td>
 <td>Capital raising, debt restructuring</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium (60%)</td>
+<td>Medium</td>
 <td>Moderate</td>
-<td>-0.3 to -0.7</td>
+<td>Volatility spikes</td>
 <td>Hedging, diversification</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Operational efficiencies improve, EBIT turns positive, and working capital ratio rises above 1.0, pushing Z-Score above 1.8 (Gray Zone) within 12 months.<br />
-- <strong>Base Case:</strong> Slow improvement continues, Z-Score remains below 1.5, maintaining distress status but avoiding bankruptcy.<br />
-- <strong>Worst Case:</strong> Continued losses and liquidity erosion drive Z-Score below 0.5, increasing bankruptcy probability within 6-12 months.</p>
-<p>Mitigation requires aggressive cost management, capital infusion, and strategic partnerships to stabilize liquidity and operational cash flows. The high probability and severity of financial and operational risks necessitate close monitoring.</p>
+<hr />
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational Risks:</strong> High probability due to ongoing negative EBIT and low asset turnover. Critical severity as operational inefficiencies directly depress Z-Score and threaten survival. Mitigation requires aggressive cost management and operational scaling.  </li>
+<li><strong>Financial Risks:</strong> High probability and severity given negative retained earnings and liquidity constraints. Impact on Z-Score is substantial, potentially pushing company into bankruptcy if unaddressed. Mitigation includes capital infusion, debt restructuring, or asset sales.  </li>
+<li><strong>Market Risks:</strong> Medium probability with moderate severity. Market volatility could exacerbate liquidity stress or limit capital access. Hedging and diversification recommended to manage external shocks.  </li>
+</ul>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Operational improvements and capital raises lift Z-Score above 1.8 within 6-12 months, moving into gray zone.<br />
+- <strong>Base Case:</strong> Gradual improvement but remains in distress zone with Z-Score near 1.0-1.2.<br />
+- <strong>Worst Case:</strong> Continued losses and liquidity stress push Z-Score below 0.5, increasing bankruptcy risk.  </p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -712,46 +834,53 @@ Rivian’s fundamental distress is not reflected in active market trading, with 
 <td>📊 Conservative</td>
 <td>Low</td>
 <td><strong>SELL/HOLD</strong></td>
-<td>Z-Score 0.99 in Distress Zone; high bankruptcy risk</td>
-<td>Avoid entry; monitor for Z &gt;1.8</td>
-<td>6-12 months review</td>
+<td>Z-Score 0.92 in distress zone; negative retained earnings</td>
+<td>Avoid entry; monitor for turnaround</td>
+<td>Immediate review; consider exit</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td><strong>SELL</strong></td>
-<td>No dividend yield; negative retained earnings</td>
-<td>Not applicable</td>
-<td>Immediate</td>
+<td>No dividend yield; negative profitability</td>
+<td>Not suitable for income investors</td>
+<td>Immediate exit recommended</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td><strong>HOLD</strong></td>
-<td>Undervalued but distressed; Z-Score improving slowly</td>
-<td>Wait for clearer turnaround</td>
-<td>6-12 months</td>
+<td>Distressed valuation but potential upside if turnaround</td>
+<td>Wait for Z-Score &gt;1.8 confirmation</td>
+<td>Monitor quarterly results</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>SPECULATIVE BUY</strong></td>
-<td>Potential growth if operational turnaround occurs</td>
-<td>Entry on positive signals</td>
-<td>Monitor quarterly</td>
+<td><strong>HOLD/CAUTIOUS BUY</strong></td>
+<td>Growth potential in EV sector but financial distress</td>
+<td>Entry only on improving fundamentals</td>
+<td>6-12 month horizon</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td><strong>SPECULATIVE BUY</strong></td>
-<td>High risk/reward; Z-Score volatility high</td>
-<td>Opportunistic entry; tight stop-loss</td>
-<td>Short-term</td>
+<td>High risk/reward; Z-Score improving but still distressed</td>
+<td>Volatility expected; position sizing critical</td>
+<td>Short-term tactical plays</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-Conservative and dividend-focused investors should avoid or divest due to high distress and no dividend payout. Value investors may hold for potential recovery but require patience. Growth and aggressive investors may consider speculative positions contingent on operational improvements and liquidity stabilization, with strict risk controls.</p>
+<hr />
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li><strong>Conservative investors</strong> should avoid or exit due to high bankruptcy risk and negative financial metrics.  </li>
+<li><strong>Dividend investors</strong> are not served as Rivian pays no dividends and has negative earnings.  </li>
+<li><strong>Value investors</strong> may consider holding for potential recovery but only with strict monitoring of Z-Score improvements and operational metrics.  </li>
+<li><strong>Growth investors</strong> can cautiously accumulate on signs of operational stabilization and capital improvements, given the EV market potential.  </li>
+<li><strong>Aggressive investors</strong> may speculate on turnaround but must manage position size and risk tightly due to ongoing distress.  </li>
+</ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -768,28 +897,33 @@ Conservative and dividend-focused investors should avoid or divest due to high d
 <tr>
 <td>CEO Leadership</td>
 <td>Operational turnaround</td>
-<td>EBIT Ratio, Asset Turnover</td>
+<td>EBIT ratio, Asset turnover</td>
 <td>Accelerate cost reduction, improve production efficiency</td>
-<td>EBIT positive, asset turnover &gt;0.3</td>
+<td>EBIT margin improvement, Z-Score rise</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
 <td>Liquidity &amp; capital structure</td>
-<td>Working Capital Ratio, Retained Earnings Ratio</td>
-<td>Secure capital infusion, optimize working capital</td>
-<td>Working capital &gt;1.0, positive retained earnings</td>
+<td>Working capital ratio, Retained earnings ratio</td>
+<td>Secure capital infusion, manage debt levels</td>
+<td>Positive working capital, reduced losses</td>
 </tr>
 <tr>
 <td>Board Governance</td>
 <td>Risk oversight &amp; compliance</td>
 <td>Z-Score trend, Risk factors</td>
-<td>Monitor risk metrics, enforce financial discipline</td>
-<td>Z-Score improvement, risk mitigation effectiveness</td>
+<td>Enhance financial reporting, risk management</td>
+<td>Compliance adherence, risk mitigation</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-Leadership must prioritize reversing operational losses and improving liquidity to exit distress. The CFO should focus on capital structure optimization and cash flow management. The Board must ensure robust governance to oversee risk mitigation and strategic execution. Market perception management is critical to rebuild investor confidence.</p>
+<hr />
+<h3 id="commentary_5">Commentary</h3>
+<ul>
+<li>The <strong>CEO</strong> must focus on operational improvements to reverse negative EBIT and asset inefficiency, directly impacting Z-Score components.  </li>
+<li>The <strong>CFO</strong> should prioritize liquidity management and capital structure optimization to stabilize working capital and equity base.  </li>
+<li>The <strong>Board</strong> must oversee risk mitigation strategies and ensure transparent communication with investors to manage market perception and regulatory compliance.  </li>
+</ul>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -805,36 +939,36 @@ Leadership must prioritize reversing operational losses and improving liquidity 
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Slowly improving</td>
-<td>Gradual upward trend</td>
-<td>Cost control, revenue growth</td>
-<td>Quarterly Z-Score, EBIT ratio</td>
+<td>Slowly improving but still distressed</td>
+<td>Potential gradual recovery if operational and financial initiatives succeed</td>
+<td>Capital raises, cost cuts, revenue growth</td>
+<td>Quarterly Z-Score updates, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Weak, illiquid</td>
-<td>Potential stabilization</td>
-<td>Product launches, partnerships</td>
-<td>Trading volume, price trends</td>
+<td>Weak relative to peers</td>
+<td>Possible improvement with EV market growth</td>
+<td>Product launches, partnerships (e.g., Amazon)</td>
+<td>Market share, sales growth</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High risk</td>
-<td>Potential risk reduction</td>
-<td>Capital raising, operational efficiency</td>
-<td>Working capital ratio, debt levels</td>
+<td>High risk, negative trend</td>
+<td>Risk may decline with successful turnaround</td>
+<td>Debt restructuring, liquidity events</td>
+<td>Debt ratios, cash flow</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-Rivian’s Z-Score momentum suggests a slow path out of distress contingent on operational and financial improvements. Key catalysts include successful product commercialization, cost management, and capital market access. Investors should monitor leading indicators such as EBIT margin improvements and liquidity ratios to anticipate inflection points. Early warning signals include declining working capital and worsening EBIT, which would necessitate reassessment.</p>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>Rivian Automotive remains in a precarious financial position with a Z-Score of 0.99 firmly in the Distress Zone. Despite a slow upward trend, significant operational losses, poor liquidity, and negative retained earnings highlight ongoing risks. Market signals are muted, reflecting investor caution and illiquidity. Risk stratification underscores high probability and severity of financial distress without swift corrective action.</p>
-<p>Investment recommendations favor cautious holding or selling for conservative profiles, with speculative buying reserved for high-risk tolerant investors closely monitoring operational turnaround signals. Strategic focus on liquidity improvement, cost control, and capital structure optimization is essential for recovery.</p>
-<p>This analysis integrates all injected data elements explicitly, cross-validates financial and risk metrics, and applies AI-powered insights to deliver actionable intelligence with measured confidence.</p>
+<h3 id="commentary_6">Commentary</h3>
+<p>Rivian’s Z-Score momentum suggests a <strong>slow recovery trajectory</strong> contingent on successful operational and financial restructuring. Key catalysts include capital infusion, improved production efficiency, and revenue growth from new product lines and partnerships.  </p>
+<p>Monitoring should focus on quarterly Z-Score updates, EBIT margin improvements, and liquidity ratios to detect inflection points. Early warning signals include further declines in working capital or EBIT, which would necessitate immediate strategic reassessment.  </p>
 <hr />
-<p><em>End of AI-Powered Altman Z-Score Investment Analysis for Rivian Automotive, Inc.</em></p></div></div>
+<h1 id="summary-conclusion"><strong>Summary Conclusion:</strong></h1>
+<p>Rivian Automotive remains in a <strong>financial distress state</strong> with a Z-Score of 0.92, reflecting ongoing operational losses, weak liquidity, and negative equity. While slight improvements are noted, the company faces significant risks that require urgent strategic and financial action. Investors should adopt a <strong>cautious to negative stance</strong>, with aggressive investors only considering speculative positions under strict risk management. Continuous monitoring of Z-Score trends and operational metrics is essential to capture any turnaround signals.  </p>
+<hr />
+<p><em>Analysis generated with explicit reference to injected data: Z-Score values, financial ratios (working capital ratio 0.491, retained earnings ratio -1.538, EBIT ratio -0.042, asset turnover 0.080), market cap $15.06B, current price $12.57, and sector context (Consumer Cyclical, Auto - Manufacturers).</em></p></div></div>
     </div>
     
 
@@ -1177,78 +1311,41 @@ Rivian’s Z-Score momentum suggests a slow path out of distress contingent on o
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:40 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:07 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

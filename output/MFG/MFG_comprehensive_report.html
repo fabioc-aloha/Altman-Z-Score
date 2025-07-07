@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Mizuho Financial Group, Inc. (MFG)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:36 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:31 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -341,9 +413,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="MFG_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="MFG_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -406,15 +478,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$5.63</p>
+                <p>$$5.45</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$70.3B</p>
+                <p>$$68.0B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>11.5</p>
+                <p>11.1</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -426,7 +498,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>54.4</p>
+                <p>47.0</p>
             </div>
         </div>
     </div>
@@ -440,7 +512,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.73</p>
+                <p>0.69</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -470,82 +542,76 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> MFG (Mizuho Financial Group, Inc.)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:36:05  </p>
+<strong>Analysis Date:</strong> 2025-07-07 12:30:49  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Mizuho Financial Group (MFG) presents a compelling turnaround narrative in its Altman Z-Score trajectory, moving from a prolonged <strong>Distress Zone</strong> (Z &lt; 1.8) with scores as low as -0.36 to a sustained <strong>Safe Zone</strong> (Z &gt; 3.0) with recent scores around 4.79. This dramatic recovery signals a significant reduction in bankruptcy risk and improved financial stability.  </p>
-<p><strong>AI Risk Analysis</strong> indicates an overall risk level consistent with a <strong>Low to Moderate</strong> profile given the Z-Score recovery, though the <strong>Working Capital Ratio of -0.381</strong> flags liquidity concerns that warrant monitoring. The risk trajectory is positive, reflecting improving fundamentals and operational efficiency.  </p>
-<p><strong>AI Peer Analysis</strong> places MFG well above the industry average Z-Score (not explicitly provided but typically around 2.5-3.0 for regional banks), confirming a strong relative position versus peers such as Sumitomo Mitsui Financial Group (SMFG) and Mitsubishi UFJ Financial Group (MUFG). This competitive edge supports confidence in MFG’s creditworthiness and operational resilience.  </p>
-<p><strong>AI Sentiment Analysis</strong> is limited by technical indicator data gaps (RSI, moving averages at zero), but the <strong>P/E ratio of 11.49</strong> and an anomalously high <strong>Dividend Yield of 342%</strong> suggest market pricing inefficiencies or extraordinary dividend events, requiring cautious interpretation.  </p>
-<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<p>Mizuho Financial Group (MFG) presents a compelling turnaround narrative based on its Altman Z-Score trajectory and financial context. The company’s Z-Score has evolved from a <strong>Distress Zone</strong> (Z &lt; 1.8) with values as low as <strong>-0.36</strong> in earlier quarters to a sustained <strong>Safe Zone</strong> (Z &gt; 3.0) over the last four quarters, with the current Z-Score at <strong>4.79</strong>. This dramatic improvement signals a significant reduction in bankruptcy risk and enhanced financial stability.</p>
+<p><strong>AI Risk Analysis</strong> classifies MFG’s overall risk level as <strong>Moderate</strong>, with a positive risk trajectory reflecting improving operational and financial metrics. The <strong>AI Peer Analysis</strong> positions MFG favorably relative to the industry average Z-Score, which stands at approximately <strong>3.2</strong> for regional banks, indicating MFG is outperforming key peers such as MUFG and SMFG. The <strong>AI Sentiment Analysis</strong> reveals a cautiously optimistic market perception, with an overall sentiment score of <strong>+0.35</strong> trending upward, suggesting growing investor confidence.</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
+<th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Interpretation</th>
+<th>Industry Benchmark</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Z-Score</td>
+<td>Current Z-Score</td>
 <td>4.79</td>
-<td>Safe Zone, low bankruptcy risk</td>
+<td>3.2 (Industry Avg)</td>
+<td>Safe Zone, strong financial health</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$70.35 billion</td>
-<td>Large-cap, stable market presence</td>
+<td>$67.97B</td>
+<td>N/A</td>
+<td>Large-cap regional bank</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$5.63</td>
-<td>Stable price level</td>
+<td>$5.50</td>
+<td>N/A</td>
+<td>Stable price, low volatility</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.381</td>
-<td>Liquidity weakness</td>
+<td>Positive (&gt;0)</td>
+<td>Negative liquidity signal</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.021</td>
-<td>Low retained earnings relative to assets</td>
+<td>~0.05 (Industry)</td>
+<td>Low retained earnings</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.001</td>
-<td>Minimal operating profit margin</td>
+<td>~0.05 (Industry)</td>
+<td>Very low operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.007</td>
+<td>~0.1 (Industry)</td>
 <td>Low asset utilization</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>11.49</td>
-<td>Reasonable valuation</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>342.00%</td>
-<td>Likely anomaly or special dividend</td>
-</tr>
-<tr>
-<td>Beta</td>
-<td>0.00</td>
-<td>No market volatility correlation</td>
+<td>~3-5% (Industry)</td>
+<td>Data anomaly, likely error</td>
 </tr>
 </tbody>
 </table>
-<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
-<ul>
-<li><strong>Hold / Selective Buy:</strong> Given the strong Z-Score recovery and large market cap, MFG is positioned as a stable investment in the regional banking sector. However, liquidity concerns and anomalous dividend yield require cautious entry and monitoring.</li>
-<li><strong>Monitor liquidity metrics closely</strong> for signs of stress despite strong solvency.</li>
-<li><strong>Avoid aggressive growth positions</strong> until market technicals normalize.</li>
-<li><strong>Consider peer benchmarking</strong> for valuation and risk comparison.</li>
-</ul>
+<p><strong>Investment Action Recommendations:</strong><br />
+- <strong>Buy</strong> for conservative and value investors due to strong Z-Score and improving risk profile despite liquidity concerns.<br />
+- <strong>Hold</strong> for dividend-focused investors pending clarification on dividend yield anomaly.<br />
+- Monitor operational efficiency metrics closely for signs of sustainable growth.<br />
+- Caution advised for aggressive investors until liquidity and profitability improve.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -553,7 +619,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark (Regional Banks)</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -562,41 +628,39 @@
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: N/A (Working Capital Ratio: -0.381)</td>
-<td>Typically &gt;1.0</td>
+<td>Positive (&gt;0)</td>
 <td>Weak liquidity; negative working capital ratio signals potential short-term stress</td>
 <td>Declining/Weak</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Data not provided)</td>
-<td>Industry avg ~1.0-1.5</td>
-<td>Unable to assess leverage precisely; risk unknown</td>
-<td>Stable/Unknown</td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>Industry avg ~1.0</td>
+<td>Unable to assess leverage fully; caution warranted</td>
+<td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.001, Asset Turnover: 0.007</td>
-<td>EBIT Ratio ~0.02-0.05, Asset Turnover ~0.1</td>
-<td>Significantly below industry norms; operational inefficiency</td>
+<td>EBIT Ratio: 0.001; Asset Turnover: 0.007</td>
+<td>EBIT ~0.05; Asset Turnover ~0.1</td>
+<td>Very low profitability and asset utilization; operational inefficiency</td>
 <td>Stable/Low</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.021</td>
-<td>Typically &gt;0.1</td>
-<td>Low retained earnings relative to assets; potential for reinvestment constraints</td>
+<td>~0.05</td>
+<td>Low retained earnings; limited reinvestment capacity</td>
 <td>Stable/Low</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary">Commentary</h3>
-<ul>
-<li><strong>Liquidity Position:</strong> The <strong>Working Capital Ratio of -0.381</strong> is a critical weakness, indicating current liabilities exceed current assets. This is atypical for a large regional bank and suggests short-term liquidity risk despite strong solvency signals from the Z-Score. This could be due to timing of asset/liability recognition or off-balance sheet items.  </li>
-<li><strong>Leverage Management:</strong> Lack of explicit debt-to-equity data limits leverage risk assessment. However, the high Z-Score implies manageable leverage levels or strong equity buffers.  </li>
-<li><strong>Operational Efficiency:</strong> The <strong>EBIT Ratio of 0.001</strong> and <strong>Asset Turnover of 0.007</strong> are markedly low compared to industry averages, indicating minimal profitability and low asset utilization. This aligns with the financial services sector’s capital-intensive and low-margin nature but is a red flag for operational performance.  </li>
-<li><strong>Financial Stability:</strong> The <strong>Retained Earnings Ratio of 0.021</strong> is low, suggesting limited reinvestment capacity or recent dividend payouts impacting reserves. This is consistent with the extraordinarily high dividend yield reported, which may be a one-time event or data anomaly.  </li>
-</ul>
-<p><strong>AI Data Quality Assessment</strong> shows no anomalies flagged, but missing leverage and liquidity details reduce confidence in full financial health diagnostics. The sector context (Financial Services, Regional Banks) typically demands strong liquidity and capital adequacy, which should be prioritized in monitoring.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+- <strong>Liquidity:</strong> The negative working capital ratio (-0.381) is a significant red flag, indicating current liabilities exceed current assets. This is atypical for a bank but may reflect short-term funding strategies or accounting treatments. Based on the <strong>AI Data Quality Assessment</strong>, no anomalies were detected in this ratio, but the negative value lowers confidence in liquidity stability.<br />
+- <strong>Leverage:</strong> Debt-to-equity data is unavailable, limiting leverage risk assessment. Given the sector (Financial Services - Regional Banks), leverage is typically high but managed prudently.<br />
+- <strong>Operational Efficiency:</strong> EBIT ratio at 0.001 and asset turnover at 0.007 are substantially below industry averages, suggesting operational challenges or conservative accounting. This aligns with the <strong>AI Risk Analysis</strong> highlighting operational risk as a moderate concern.<br />
+- <strong>Financial Stability:</strong> Retained earnings ratio is low (0.021), indicating limited internal capital generation. This may constrain growth or buffer capacity in downturns.  </p>
+<p>Sector context: As a regional bank in Financial Services, MFG operates in a capital-intensive, highly regulated environment where liquidity and capital adequacy are critical. The negative working capital ratio contrasts with typical banking liquidity norms, warranting further investigation.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -615,35 +679,35 @@
 <td>4.79</td>
 <td>Safe</td>
 <td>Improved equity, reduced leverage</td>
-<td>Recovery from prior distress, stable operations</td>
+<td>Stabilization post prior distress periods</td>
 </tr>
 <tr>
 <td>Q7</td>
 <td>4.77</td>
 <td>Safe</td>
 <td>Consistent profitability</td>
-<td>Continued operational stability</td>
+<td>Operational improvements ongoing</td>
 </tr>
 <tr>
 <td>Q6</td>
 <td>4.90</td>
 <td>Safe</td>
 <td>Strong market capitalization</td>
-<td>Peak recovery phase</td>
+<td>Market confidence building</td>
 </tr>
 <tr>
 <td>Q5</td>
 <td>4.92</td>
 <td>Safe</td>
-<td>Asset quality improvement</td>
-<td>Post-distress turnaround</td>
+<td>Asset quality improvements</td>
+<td>Regulatory compliance enhanced</td>
 </tr>
 <tr>
 <td>Q4</td>
 <td>1.51</td>
 <td>Gray Zone</td>
 <td>Early recovery signs</td>
-<td>Transition from distress to stability</td>
+<td>Business restructuring underway</td>
 </tr>
 <tr>
 <td>Q3</td>
@@ -656,22 +720,21 @@
 <td>Q2</td>
 <td>-0.36</td>
 <td>Distress</td>
-<td>Operating losses</td>
-<td>Near insolvency risk</td>
+<td>Negative equity components</td>
+<td>Market uncertainty, operational losses</td>
 </tr>
 <tr>
 <td>Q1</td>
 <td>0.87</td>
 <td>Distress</td>
-<td>Severe liquidity issues</td>
-<td>Crisis phase</td>
+<td>Weak liquidity</td>
+<td>Preceding crisis phase</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_1">Commentary</h3>
-<p>MFG’s Z-Score evolution shows a <strong>dramatic inflection from distress (Z &lt; 1.8) to safe zone (Z &gt; 3.0)</strong> over the last eight quarters. The initial quarters reflect severe financial stress with negative Z-Scores, indicating high bankruptcy risk. The jump to 1.51 in Q4 signals the start of recovery, likely driven by capital injections, asset quality improvements, or operational restructuring.  </p>
-<p>The subsequent quarters maintain Z-Scores near 4.8-4.9, firmly in the safe zone, reflecting strong solvency and reduced financial distress risk. This aligns with MFG’s large market capitalization of $70.35 billion and stable stock price of $5.63, suggesting market recognition of improved fundamentals.  </p>
-<p>The lack of detailed component data (Working Capital/Total Assets, EBIT/Total Assets) limits granular driver analysis, but the overall trend is positive and consistent with a successful turnaround in the regional banking sector.</p>
+<p><strong>Strategic Commentary:</strong><br />
+MFG’s Z-Score trajectory shows a <strong>dramatic recovery</strong> from distress levels below zero to a stable safe zone above 4.7 in recent quarters. This reflects successful strategic initiatives, likely including capital injections, asset quality improvements, and operational restructuring. The jump from 1.51 (Gray Zone) to above 4.7 (Safe Zone) indicates a significant inflection point, coinciding with business stabilization and improved market confidence.</p>
+<p>The absence of detailed component ratios limits granular driver analysis, but the overall trend aligns with the <strong>AI Peer Analysis</strong> showing MFG outperforming industry peers with an average Z-Score of 3.2.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -687,31 +750,30 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Strong upward trend, Z=4.79 (Safe Zone)</td>
-<td>Price stable at $5.63, P/E 11.49</td>
-<td>Divergent (Liquidity concerns vs. price stability)</td>
-<td>Opportunity with caution on liquidity</td>
+<td>Strong upward trend; Z=4.79</td>
+<td>Price stable at $5.50; zero volatility</td>
+<td>Divergent (low volatility despite strong fundamentals)</td>
+<td>Opportunity for value investors; market may underappreciate fundamentals</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Not explicitly provided</td>
-<td>Dividend Yield 342% (anomaly), Beta 0.00</td>
-<td>Inconsistent</td>
-<td>Market may misprice risk; caution advised</td>
+<td>Positive (+0.35)</td>
+<td>Market neutral</td>
+<td>Consistent</td>
+<td>Supports cautious optimism</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Above industry average Z-Score</td>
-<td>Sector performance stable</td>
-<td>Outperforming</td>
+<td>Outperforming peers</td>
+<td>Sector performance mixed</td>
+<td>Aligned</td>
 <td>Competitive advantage confirmed</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_2">Commentary</h3>
-<p>The <strong>Z-Score’s strong fundamental signal</strong> contrasts with market technicals that show zero volatility, zero beta, and anomalous dividend yield, suggesting either data gaps or market inefficiencies. The <strong>P/E ratio of 11.49</strong> is reasonable for a regional bank, indicating fair valuation relative to earnings.  </p>
-<p>The <strong>extreme dividend yield of 342%</strong> is likely a data anomaly or a special dividend event, which distorts yield-based sentiment analysis and requires further verification. The zero beta and volatility imply low market sensitivity, possibly due to low trading volume or data reporting issues.  </p>
-<p>Peer benchmarking confirms MFG’s superior financial health relative to industry averages, supporting a positive investment thesis despite market signal inconsistencies.</p>
+<p><strong>Market Validation Commentary:</strong><br />
+While MFG’s Z-Score signals robust financial health, market technical indicators show zero volatility, zero average volume, and flat moving averages, which is unusual for a large-cap bank. This divergence suggests either data reporting anomalies or market inactivity. The <strong>AI Sentiment Analysis</strong> confirms a positive but moderate sentiment, consistent with the fundamental improvement but tempered by market uncertainty.</p>
+<p>The disconnect between strong Z-Score and stagnant price action indicates a potential <strong>market timing opportunity</strong> for investors to accumulate shares before broader recognition of financial strength.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -729,35 +791,30 @@
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential decline</td>
-<td>Enhance asset utilization, cost control</td>
+<td>Potential Z-Score decline by 0.5-1.0</td>
+<td>Enhance operational efficiency; cost controls</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Medium</td>
 <td>Critical</td>
-<td>Liquidity stress could lower Z-Score</td>
-<td>Strengthen working capital management, diversify funding</td>
+<td>Significant Z-Score drop if liquidity worsens</td>
+<td>Strengthen liquidity management; capital buffers</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Low</td>
 <td>Moderate</td>
-<td>Limited impact due to low beta</td>
-<td>Monitor macroeconomic conditions, hedge interest rate risk</td>
+<td>Minor Z-Score fluctuations</td>
+<td>Diversify revenue streams; hedging strategies</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_3">Commentary</h3>
-<ul>
-<li><strong>Operational Risks:</strong> Low EBIT ratio (0.001) and asset turnover (0.007) indicate operational inefficiency. Medium probability of moderate impact on profitability and Z-Score if not addressed.  </li>
-<li><strong>Financial Risks:</strong> Negative working capital ratio (-0.381) signals liquidity risk with potentially critical severity. This could erode Z-Score if liquidity crises emerge. Mitigation includes improving short-term asset management and securing stable funding sources.  </li>
-<li><strong>Market Risks:</strong> Beta of 0.00 suggests low market risk exposure, but this may reflect data limitations. Market shocks could still impact earnings and asset quality indirectly.  </li>
-</ul>
-<p><strong>Scenario Analysis:</strong><br />
-- <strong>Best Case:</strong> Continued operational improvements and liquidity stabilization maintain Z-Score &gt;4.5, supporting stable creditworthiness.<br />
-- <strong>Base Case:</strong> Liquidity remains tight but manageable; Z-Score stabilizes around 4.0-4.5.<br />
-- <strong>Worst Case:</strong> Liquidity stress triggers asset sales or capital erosion; Z-Score declines below 3.0, entering Gray Zone risk.  </p>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Continued operational improvements and capital strengthening push Z-Score above 5.0, solidifying safe zone status.<br />
+- <strong>Base Case:</strong> Z-Score stabilizes around current 4.7-4.8 with moderate volatility reflecting sector cyclicality.<br />
+- <strong>Worst Case:</strong> Liquidity stress or operational setbacks cause Z-Score to fall below 3.0, re-entering Gray Zone, signaling increased bankruptcy risk.</p>
+<p>Based on the <strong>AI Risk Analysis</strong> overall risk level of Moderate with 70% confidence, liquidity and operational risks are the top concerns. Proactive mitigation is essential to maintain the current positive trajectory.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -775,53 +832,47 @@
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td>HOLD</td>
-<td>Z-Score stable at 4.79 (Safe)</td>
-<td>Wait for liquidity normalization</td>
-<td>6-12 months</td>
+<td>BUY</td>
+<td>Z-Score stable in Safe Zone (4.79)</td>
+<td>Price undervalued; low volatility</td>
+<td>Immediate to 6 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>Dividend yield anomaly; verify sustainability</td>
-<td>Avoid until dividend clarity</td>
+<td>Dividend yield data anomalous (342%)</td>
+<td>Await clarification; monitor yield sustainability</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>BUY (Selective)</td>
-<td>Strong Z-Score rebound; P/E 11.49 favorable</td>
-<td>Entry on price dips or liquidity improvement</td>
-<td>3-6 months</td>
+<td>BUY</td>
+<td>Strong Z-Score rebound; undervalued price</td>
+<td>Entry point favorable due to market disconnect</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>HOLD</td>
-<td>Low EBIT and asset turnover limit growth potential</td>
+<td>Low EBIT and asset turnover limit growth</td>
 <td>Monitor operational improvements</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>SELL</td>
-<td>Liquidity risk and market anomalies increase volatility</td>
-<td>Avoid until risk mitigated</td>
-<td>Immediate</td>
+<td>CAUTION</td>
+<td>Liquidity risks and low profitability</td>
+<td>Wait for liquidity improvements</td>
+<td>6-12 months</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_4">Commentary</h3>
-<ul>
-<li><strong>Conservative investors</strong> should hold and monitor liquidity metrics before increasing exposure.  </li>
-<li><strong>Dividend investors</strong> must seek confirmation on dividend sustainability given the 342% yield anomaly.  </li>
-<li><strong>Value investors</strong> can selectively buy on dips, supported by strong solvency and reasonable valuation.  </li>
-<li><strong>Growth investors</strong> should wait for operational efficiency improvements before committing.  </li>
-<li><strong>Aggressive investors</strong> face elevated risk from liquidity and market data anomalies and should avoid new positions.</li>
-</ul>
+<p><strong>Rationale:</strong><br />
+Conservative and value investors are best positioned to capitalize on MFG’s strong Z-Score recovery and undervalued market price. Dividend investors should exercise caution due to the anomalous dividend yield figure (342%), likely a data error or special dividend event. Growth and aggressive investors should wait for operational efficiency improvements before increasing exposure.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -837,29 +888,29 @@
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Enhance liquidity and operational efficiency</td>
-<td>Working Capital Ratio, EBIT Ratio, Z-Score</td>
-<td>Implement cash flow optimization, cost reduction</td>
-<td>Improved liquidity ratios, EBIT growth</td>
+<td>Stabilize liquidity &amp; growth</td>
+<td>Z-Score, Working Capital Ratio</td>
+<td>Implement liquidity enhancement programs; focus on operational efficiency</td>
+<td>Z-Score &gt; 5.0; positive liquidity ratios</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital allocation and risk management</td>
-<td>Retained Earnings Ratio, Debt-to-Equity (if available)</td>
-<td>Strengthen capital buffers, diversify funding sources</td>
-<td>Stable or improving Z-Score, liquidity metrics</td>
+<td>Capital allocation &amp; risk</td>
+<td>Retained Earnings Ratio, EBIT Ratio</td>
+<td>Optimize capital structure; improve profitability</td>
+<td>EBIT ratio &gt; 0.03; retained earnings growth</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Oversight of financial health and risk</td>
-<td>Z-Score trend, Risk Assessment Matrix</td>
-<td>Monitor risk factors, enforce governance on dividend policy</td>
-<td>Compliance with risk limits, transparent reporting</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Risk Levels, Z-Score trends</td>
+<td>Strengthen risk management frameworks; monitor Z-Score quarterly</td>
+<td>Risk level reduction; compliance adherence</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_5">Commentary</h3>
-<p>Executive leadership should prioritize <strong>liquidity restoration and operational efficiency</strong> to sustain the Z-Score gains. The CFO must focus on <strong>capital management</strong> to mitigate liquidity risks highlighted by the negative working capital ratio. The Board should enforce <strong>governance controls</strong> to prevent unsustainable dividend policies that could impair retained earnings and financial stability.</p>
+<p><strong>Executive Commentary:</strong><br />
+The CEO should prioritize addressing liquidity weaknesses while maintaining the momentum in financial stability as reflected in the Z-Score. The CFO must focus on improving profitability and retained earnings to support sustainable growth. The Board should enforce rigorous risk oversight to prevent regression into distress zones, leveraging the positive risk trajectory identified in the AI Risk Analysis.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -875,35 +926,35 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable near 4.79 (Safe Zone)</td>
-<td>Slight improvement or stable</td>
-<td>Operational efficiency gains, capital injections</td>
-<td>Quarterly Z-Score updates, EBIT margin</td>
+<td>Stable at 4.79</td>
+<td>Slight upward</td>
+<td>Capital injections, operational gains</td>
+<td>Quarterly Z-Score updates</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Strong relative to peers</td>
-<td>Maintain or improve</td>
-<td>Market share growth, regulatory environment</td>
-<td>Market cap trends, peer Z-Scores</td>
+<td>Undervalued</td>
+<td>Improving</td>
+<td>Market recognition of fundamentals</td>
+<td>Price-volume trends, sentiment</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low to moderate</td>
-<td>Potential liquidity risk</td>
-<td>Funding environment, macroeconomic shocks</td>
-<td>Working capital ratio, liquidity ratios</td>
+<td>Moderate</td>
+<td>Decreasing</td>
+<td>Liquidity improvements, regulatory compliance</td>
+<td>Liquidity ratios, risk reports</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_6">Commentary</h3>
-<p>The <strong>Z-Score momentum is positive</strong>, with expectations for continued stability or gradual improvement if operational and liquidity issues are addressed. Key catalysts include enhanced asset utilization and capital management.  </p>
-<p>Monitoring should focus on <strong>quarterly Z-Score updates</strong>, <strong>EBIT margins</strong>, and <strong>working capital ratios</strong> as early warning indicators. The investment thesis will evolve with liquidity normalization and operational performance improvements, while vigilance on dividend policy and market anomalies remains critical.</p>
+<p><strong>Forward-Looking Commentary:</strong><br />
+MFG’s Z-Score momentum is expected to maintain or slightly improve over the next 6-12 months, driven by ongoing operational restructuring and capital adequacy measures. Market undervaluation presents an entry opportunity, but liquidity risks remain a critical monitoring point. Early warning indicators include working capital ratio trends and EBIT margin improvements. Investors should track quarterly Z-Score updates and market sentiment shifts to adjust positions proactively.</p>
 <hr />
-<h1 id="summary-conclusion"><strong>Summary Conclusion:</strong></h1>
-<p>MFG has successfully transitioned from financial distress to a safe solvency zone as evidenced by a current Z-Score of 4.79. Despite this, liquidity weaknesses and operational inefficiencies temper confidence, requiring cautious investment and active monitoring. The company’s large market cap and peer outperformance support a <strong>Hold to Selective Buy</strong> stance for medium-risk investors, while conservative and dividend-focused investors should await clearer liquidity and dividend signals. Aggressive investors should avoid exposure until risk factors abate.</p>
+<h1 id="summary">Summary</h1>
+<p>Mizuho Financial Group has demonstrated a remarkable recovery from distress to a safe financial zone as per Altman Z-Score analysis, supported by a strong market capitalization of $67.97B and a stable share price of $5.50. However, liquidity concerns and operational inefficiencies temper the outlook. Investment recommendations favor conservative and value investors, with a watchful eye on liquidity and profitability metrics for growth and aggressive profiles. Strategic leadership must focus on liquidity stabilization and operational improvements to sustain the positive trajectory.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, and risk data for actionable investment intelligence.</em></p></div></div>
+<p><strong>Analysis prepared by AI-Powered Altman Z-Score Investment Framework</strong><br />
+<strong>Date:</strong> 2025-07-07 12:30:49</p></div></div>
     </div>
     
 
@@ -1246,78 +1297,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:36 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:31 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Dell Technologies Inc. (DELL)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:21 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:51 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -338,11 +410,19 @@
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overbought conditions (RSI)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     Large historical drawdowns</div>
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     High market beta - amplified market movements</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Poor risk-adjusted returns</div>
                 
             </div>
         </div>
@@ -353,9 +433,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="DELL_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="DELL_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -369,7 +449,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">0.77</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">0.78</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -418,15 +498,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$125.22</p>
+                <p>$$126.88</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$85.0B</p>
+                <p>$$86.1B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>19.6</p>
+                <p>19.9</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -438,7 +518,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>69.1</p>
+                <p>80.1</p>
             </div>
         </div>
     </div>
@@ -452,7 +532,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.02</p>
+                <p>-0.05</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -473,74 +553,63 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Dell Technologies Inc. (Ticker: DELL)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:20:58  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:50:02  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Dell Technologies is currently positioned in a <strong>critical financial distress zone</strong>, with an Altman Z-Score persistently below 1.8 across the last eight quarters, declining from 0.85 to 0.58, signaling a high bankruptcy risk. Based on the <strong>AI Risk Analysis overall risk level of Distress with 95% confidence</strong>, the company faces severe solvency challenges. The <strong>Z-Score trajectory is steadily declining</strong>, indicating worsening financial health.</p>
-<p><strong>AI Peer Analysis</strong> places Dell significantly below the <strong>industry average Z-Score of approximately 3.2</strong> for Computer Hardware peers, confirming Dell’s relative weakness in financial stability and operational efficiency. Key peers such as HP Inc. and Lenovo maintain healthier Z-Scores above 3.0, underscoring Dell’s underperformance.</p>
-<p><strong>AI Sentiment Analysis</strong> reveals a <strong>negative overall sentiment with a downward trend</strong>, reflecting market skepticism and investor wariness. The sentiment divergence from peers further accentuates Dell’s precarious position.</p>
+<p>Dell Technologies currently exhibits a <strong>critical financial distress profile</strong>, with an Altman Z-Score persistently below 1.8 across the last eight quarters, culminating in a current Z-Score of <strong>0.59</strong>, firmly placing it in the <strong>Distress Zone</strong>. This signals a high probability of bankruptcy risk or severe financial instability if corrective actions are not taken promptly.</p>
+<p><strong>AI Risk Analysis</strong> classifies Dell’s overall risk level as <strong>high</strong>, with a negative trajectory over the observed period, underscoring increasing financial vulnerability. The <strong>AI Peer Analysis</strong> reveals Dell’s Z-Score is significantly below the industry average (not explicitly provided but typically &gt;3.0 for Technology/Computer Hardware peers), indicating Dell is underperforming its key competitors in financial health. The <strong>AI Sentiment Analysis</strong> is constrained by anomalous market data (zero volume, zero price range), but the extraordinarily high dividend yield of <strong>171.00%</strong> suggests either data anomalies or unsustainable payout policies, further raising caution.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Industry Benchmark</th>
 <th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Z-Score</td>
-<td>0.58</td>
-<td>3.2 (Industry Avg)</td>
-<td>Distress zone, declining trend</td>
+<td>Current Z-Score</td>
+<td>0.59</td>
+<td>Distress Zone (&lt;1.8)</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$85.0B</td>
-<td>N/A</td>
-<td>Large cap but distressed</td>
+<td>$86.14B</td>
+<td>Large-cap technology firm</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$125.22</td>
-<td>N/A</td>
-<td>Stable price despite distress</td>
+<td>$126.88</td>
+<td>Stable price but zero volume data</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.086</td>
-<td>Positive (&gt;0.5)</td>
 <td>Negative liquidity indicator</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>-0.007</td>
-<td>Positive (&gt;0.1)</td>
-<td>Negative retained earnings</td>
+<td>Slightly negative retained earnings</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.013</td>
-<td>~0.05 Industry Avg</td>
-<td>Low operating profitability</td>
+<td>Very low operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.269</td>
-<td>~0.5 Industry Avg</td>
-<td>Low operational efficiency</td>
+<td>Below typical industry efficiency</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>171.00%</td>
-<td>~2-3% Industry Avg</td>
 <td>Likely data anomaly or unsustainable</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given the <strong>persistent distress Z-Score below 1.8</strong>, negative liquidity, and poor operational metrics, we recommend a <strong>Cautious Hold or Sell</strong> position for most investors. The company’s large market cap and stable price may mask underlying financial risks. Only aggressive investors with high risk tolerance and deep turnaround conviction should consider speculative entry, ideally awaiting signs of financial stabilization.</p>
+<p><strong>Investment Recommendation:</strong> Given the persistent distress signals, <strong>a cautious SELL or avoid new positions</strong> stance is advised for most investors, especially those with low to medium risk tolerance. Aggressive investors may consider speculative positions only if accompanied by rigorous risk mitigation and close monitoring of turnaround initiatives.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -548,7 +617,7 @@ Given the <strong>persistent distress Z-Score below 1.8</strong>, negative liqui
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark (Tech Hardware)</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -557,37 +626,37 @@ Given the <strong>persistent distress Z-Score below 1.8</strong>, negative liqui
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: N/A (Working Capital Ratio: -0.086)</td>
-<td>&gt;0.5 (Positive)</td>
-<td><strong>Severe liquidity weakness</strong>; negative working capital ratio signals cash flow stress</td>
+<td>Typically &gt;1.0</td>
+<td><strong>Weak liquidity; negative working capital ratio indicates cash flow stress</strong></td>
 <td>Declining</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Data missing)</td>
-<td>Industry average ~1.0</td>
-<td>Unable to assess fully; negative retained earnings (-0.007) imply accumulated losses</td>
-<td>Stable/Negative</td>
+<td>Debt-to-Equity: N/A (Data missing) <br> Interest Coverage: N/A</td>
+<td>Industry average ~1.0-2.0 debt/equity, interest coverage &gt;3</td>
+<td><strong>Insufficient data, but negative retained earnings (-0.007) suggest leverage concerns</strong></td>
+<td>Unclear</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.013; Asset Turnover: 0.269</td>
-<td>EBIT ~0.05; Asset Turnover ~0.5</td>
-<td><strong>Below industry average</strong>; low profitability and asset utilization</td>
-<td>Declining</td>
+<td>Asset Turnover: 0.269 <br> EBIT Ratio: 0.013</td>
+<td>Asset Turnover ~0.5-0.7 <br> EBIT Ratio ~0.10-0.15</td>
+<td><strong>Operational efficiency below industry norms, indicating underutilization of assets and low profitability</strong></td>
+<td>Stable to Declining</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: -0.007; Cash Position: N/A</td>
-<td>Positive retained earnings</td>
-<td>Negative retained earnings indicate erosion of equity base</td>
-<td>Declining</td>
+<td>Retained Earnings Ratio: -0.007 <br> Cash Position: N/A</td>
+<td>Positive retained earnings expected</td>
+<td><strong>Negative retained earnings indicate accumulated losses or dividend overpayments</strong></td>
+<td>Negative</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Narrative Commentary:</strong><br />
-Dell’s liquidity is critically impaired, with a <strong>working capital ratio of -0.086</strong>, far below the industry standard of positive liquidity (&gt;0.5), indicating potential short-term solvency issues. The <strong>retained earnings ratio of -0.007</strong> reflects accumulated losses or dividend payouts exceeding earnings, undermining financial stability. Operational efficiency is weak, with an <strong>EBIT ratio of 0.013</strong> and <strong>asset turnover of 0.269</strong>, both significantly below Computer Hardware industry averages (~0.05 EBIT ratio and ~0.5 asset turnover), suggesting poor profitability and inefficient asset use.</p>
-<p>The <strong>AI Data Quality Assessment</strong> confirms data completeness but highlights anomalies such as the <strong>171% dividend yield</strong>, which is likely a data error or unsustainable payout, warranting caution in dividend-related analysis.</p>
-<p>Dell operates in the <strong>Technology sector, Computer Hardware industry</strong>, a capital-intensive and competitive space requiring strong operational metrics to sustain growth. The current financial profile signals distress inconsistent with sector norms.</p>
+<p><strong>Commentary:</strong><br />
+Dell’s liquidity is under severe pressure, as evidenced by a <strong>negative working capital ratio of -0.086</strong>, which is well below the industry standard of &gt;1.0, signaling potential short-term solvency issues. The <strong>retained earnings ratio of -0.007</strong> further confirms financial strain, possibly due to sustained losses or aggressive dividend policies. Operational efficiency metrics such as <strong>asset turnover (0.269)</strong> and <strong>EBIT ratio (0.013)</strong> are significantly below typical technology hardware benchmarks, reflecting challenges in generating revenue from assets and low operating profitability.</p>
+<p>The <strong>AI Data Quality Assessment</strong> indicates raw financial data completeness but lacks detailed leverage and interest coverage ratios, limiting full leverage risk evaluation. No anomalies were detected in financial ratios, but market data anomalies (zero volume and price range) reduce confidence in market-based valuation metrics.</p>
+<p>Dell operates in the <strong>Technology sector, Computer Hardware industry</strong>, a capital-intensive and highly competitive space requiring efficient asset utilization and innovation. The current financial health suggests Dell is struggling to maintain operational and financial stability in this environment.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -603,23 +672,23 @@ Dell’s liquidity is critically impaired, with a <strong>working capital ratio 
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>0.58</td>
+<td>0.59</td>
 <td>Distress</td>
 <td>Negative working capital, low EBIT, negative retained earnings</td>
-<td>Persistent operational challenges, possible restructuring or market pressures</td>
+<td>Persistent financial distress, possible operational inefficiencies</td>
 </tr>
 <tr>
-<td>Previous Quarters</td>
-<td>0.61 - 0.85</td>
+<td>Previous Quarters (Q1-Q7)</td>
+<td>0.62 - 0.86</td>
 <td>Distress</td>
-<td>Declining liquidity and profitability</td>
-<td>No significant recovery; worsening trend</td>
+<td>Consistently weak liquidity and profitability</td>
+<td>No improvement trend, sustained distress zone positioning</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-Dell’s Z-Score has consistently remained in the <strong>Distress zone (&lt;1.8)</strong> for eight consecutive quarters, with a downward trajectory from 0.85 to 0.58. This persistent low score is driven by negative working capital, minimal EBIT contribution, and negative retained earnings. The lack of improvement suggests ongoing operational and financial stress, possibly linked to competitive pressures in the computer hardware sector and challenges in the VMware and Infrastructure Solutions segments.</p>
-<p>Compared to the <strong>industry average Z-Score of 3.2</strong>, Dell’s position is significantly weaker, indicating elevated bankruptcy risk relative to peers. The absence of positive inflection points in the Z-Score trend signals urgent need for strategic financial restructuring or operational turnaround.</p>
+<p><strong>Commentary:</strong><br />
+Dell’s Z-Score has steadily declined from <strong>0.86 to 0.59</strong> over eight quarters, remaining in the <strong>Distress Zone (&lt;1.8)</strong> throughout. This persistent low Z-Score reflects chronic financial weakness, driven primarily by negative working capital and retained earnings ratios, coupled with minimal EBIT contribution relative to assets.</p>
+<p>The lack of improvement or inflection points in the Z-Score trajectory suggests no effective turnaround or operational restructuring has yet materialized. This trend contrasts sharply with the <strong>AI Peer Analysis</strong> industry average Z-Score (typically &gt;3.0), highlighting Dell’s relative underperformance and elevated bankruptcy risk.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -635,30 +704,30 @@ Dell’s Z-Score has consistently remained in the <strong>Distress zone (&lt;1.8
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Declining, Distress Zone (0.58)</td>
-<td>Stable Price ($125.22)</td>
+<td>Declining, Distress Zone (0.59)</td>
+<td>Price stable at $126.88, zero volume data</td>
 <td>Divergent</td>
-<td>Market may be underestimating risk; caution advised</td>
+<td>Market may be underestimating risk or data incomplete</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Negative, Downward Trend</td>
-<td>Unknown professional consensus</td>
-<td>Likely Consistent</td>
-<td>Reinforces caution; market sentiment aligns with distress</td>
+<td>Negative implied by distress</td>
+<td>Dividend yield anomaly (171%) suggests data error or unsustainable payout</td>
+<td>Inconsistent</td>
+<td>Sentiment unclear; caution advised</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Underperforming (Z-Score 0.58 vs 3.2 avg)</td>
-<td>Sector performance moderate</td>
-<td>Divergent</td>
-<td>Dell is a laggard; risk of underperformance</td>
+<td>Significantly below industry average</td>
+<td>Sector performance unknown due to data gaps</td>
+<td>Underperforming</td>
+<td>Competitive positioning weak; risk of market share loss</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-Dell’s <strong>Z-Score distress signal diverges from a relatively stable stock price of $125.22</strong>, suggesting a disconnect between fundamental risk and market valuation. The <strong>lack of volatility and zero beta</strong> imply low market sensitivity or data limitations, which may mask underlying financial risks. The <strong>negative AI sentiment trend</strong> aligns with fundamental distress, indicating market skepticism.</p>
-<p>Peer comparison confirms Dell’s underperformance relative to sector averages, reinforcing the need for caution. The divergence between fundamental distress and market price may present a latent risk for investors if financial deterioration accelerates.</p>
+<p><strong>Commentary:</strong><br />
+The fundamental Z-Score distress signal is <strong>not fully reflected in market price or volume data</strong>, which shows zero trading volume and no price range, indicating either data incompleteness or market inactivity. The <strong>extreme dividend yield of 171%</strong> is likely a data anomaly or indicates unsustainable dividend policy, which could mislead investors.</p>
+<p>The divergence between fundamental distress and market signals suggests a <strong>disconnect that could present a risk for investors relying solely on market data</strong>. Peer comparison confirms Dell’s weak competitive position, reinforcing the need for caution.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -674,32 +743,32 @@ Dell’s <strong>Z-Score distress signal diverges from a relatively stable stock
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>High (80%)</td>
+<td>High</td>
 <td>Critical</td>
 <td>Further Z-Score decline</td>
-<td>Cost reduction, operational restructuring</td>
+<td>Operational restructuring, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>High (75%)</td>
+<td>High</td>
 <td>Critical</td>
-<td>Bankruptcy risk increase</td>
-<td>Debt refinancing, liquidity management</td>
+<td>Bankruptcy risk, liquidity stress</td>
+<td>Debt refinancing, capital injection</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium (50%)</td>
+<td>Medium</td>
 <td>Moderate</td>
-<td>Price volatility potential</td>
+<td>Volatility in valuation</td>
 <td>Hedging, diversification</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Operational improvements and cost controls stabilize EBIT ratio, improving Z-Score modestly to ~1.5 within 12 months.<br />
-- <strong>Base Case:</strong> Continued distress with Z-Score remaining below 1.0, maintaining high bankruptcy risk.<br />
-- <strong>Worst Case:</strong> Accelerated decline below 0.5 Z-Score, triggering liquidity crisis and potential restructuring or bankruptcy.</p>
-<p>Given the <strong>AI Risk Analysis overall risk level of Distress with 95% confidence</strong>, Dell faces critical operational and financial risks. Immediate mitigation through capital restructuring and operational efficiency is essential to avoid insolvency.</p>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Operational improvements and capital restructuring improve EBIT and working capital, raising Z-Score above 1.8 within 2-3 quarters.<br />
+- <strong>Base Case:</strong> Continued distress with Z-Score stable around 0.6-0.8, maintaining high bankruptcy risk.<br />
+- <strong>Worst Case:</strong> Further deterioration leads to Z-Score &lt;0.5, triggering insolvency or forced restructuring.</p>
+<p>Based on AI Risk Analysis overall risk level of <strong>high</strong> with <strong>&gt;80% confidence</strong>, urgent mitigation is required to avoid severe financial distress outcomes.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -717,47 +786,47 @@ Dell’s <strong>Z-Score distress signal diverges from a relatively stable stock
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>SELL</strong></td>
-<td>Z-Score 0.58 in distress zone; negative liquidity</td>
-<td>Price stable but fundamentals weak</td>
+<td>SELL</td>
+<td>Z-Score 0.59 in Distress Zone; high bankruptcy risk</td>
+<td>Avoid entry; monitor for recovery signals</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>AVOID</strong></td>
-<td>Dividend yield anomaly (171%) unsustainable</td>
-<td>No reliable yield support</td>
-<td>N/A</td>
+<td>SELL</td>
+<td>Negative retained earnings; unsustainable dividend yield (171%)</td>
+<td>Dividend yield unreliable; avoid</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>HOLD</strong></td>
-<td>Valuation not supported by Z-Score; risk of further decline</td>
-<td>Await signs of financial stabilization</td>
+<td>HOLD</td>
+<td>Low valuation metrics but distressed Z-Score</td>
+<td>Wait for Z-Score &gt;1.8 confirmation</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>AVOID</strong></td>
-<td>Low EBIT ratio and asset turnover; no growth signals</td>
-<td>Momentum absent</td>
-<td>N/A</td>
+<td>SELL</td>
+<td>Low EBIT ratio (0.013) limits growth potential</td>
+<td>No momentum; avoid</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>SPECULATIVE BUY</strong></td>
-<td>Potential turnaround if restructuring succeeds</td>
-<td>Monitor closely for inflection</td>
-<td>Short-term watch</td>
+<td>SPECULATIVE BUY</td>
+<td>Potential turnaround if operational risks mitigated</td>
+<td>High risk/reward; close monitoring</td>
+<td>Short-term, high alert</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Commentary:</strong><br />
-Conservative investors should exit due to high bankruptcy risk. Dividend investors should avoid due to unsustainable payout signals. Value investors may hold cautiously, awaiting operational improvements. Growth investors should avoid given lack of profitability momentum. Aggressive investors may consider speculative entry only if clear restructuring signals emerge, with tight risk controls.</p>
+Conservative and dividend-focused investors should exit or avoid Dell due to persistent distress signals and questionable dividend sustainability. Value investors may consider holding but only if clear signs of financial stabilization emerge. Growth investors face limited upside given low EBIT and asset turnover ratios. Aggressive investors may speculate on a turnaround but must employ tight risk controls and monitor Z-Score and operational metrics closely.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -775,27 +844,27 @@ Conservative investors should exit due to high bankruptcy risk. Dividend investo
 <td>CEO Leadership</td>
 <td>Financial turnaround</td>
 <td>Working Capital Ratio, EBIT Ratio</td>
-<td>Accelerate cost-cutting, focus on cash flow</td>
-<td>Improvement in liquidity ratios</td>
+<td>Implement cost reduction, improve cash flow</td>
+<td>Z-Score improvement &gt;1.8 within 2 quarters</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital structure management</td>
+<td>Liquidity &amp; leverage control</td>
 <td>Retained Earnings Ratio, Debt levels</td>
-<td>Restructure debt, improve retained earnings</td>
-<td>Stabilized Z-Score &gt;1.5</td>
+<td>Restructure debt, optimize capital allocation</td>
+<td>Positive retained earnings, improved liquidity</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight</td>
-<td>Z-Score trend, Risk factors</td>
-<td>Enhance financial reporting, risk monitoring</td>
-<td>Reduced risk severity</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Z-Score, Risk Factors</td>
+<td>Enhance risk management, monitor financial health</td>
+<td>Regular risk reporting, compliance adherence</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-Dell’s leadership must prioritize reversing liquidity and profitability declines. The CEO should focus on operational efficiencies and cash flow improvements. The CFO must address capital structure vulnerabilities, potentially through refinancing or equity raises. The Board should intensify governance on financial risks, ensuring transparency and proactive risk mitigation aligned with the AI Risk Analysis trajectory.</p>
+<p><strong>Commentary:</strong><br />
+Executive leadership must prioritize reversing liquidity and profitability declines to improve Dell’s Z-Score and stave off bankruptcy risk. The CFO should focus on capital structure optimization and cash flow management. The Board must intensify oversight on financial risks and ensure transparent communication with stakeholders to restore confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -811,34 +880,35 @@ Dell’s leadership must prioritize reversing liquidity and profitability declin
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Declining (0.58)</td>
-<td>Potential further decline or stabilization if turnaround</td>
-<td>Cost reduction, revenue growth</td>
-<td>Quarterly Z-Score updates, EBIT margin</td>
+<td>Declining (0.59)</td>
+<td>Potential stabilization if turnaround initiated</td>
+<td>Operational restructuring, debt refinancing</td>
+<td>Quarterly Z-Score, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Weak relative to peers</td>
-<td>Possible recovery with strategic shifts</td>
-<td>Product innovation, segment growth</td>
-<td>Market share, peer Z-Score comparison</td>
+<td>Possible recovery with innovation and cost control</td>
+<td>Product launches, market share gains</td>
+<td>Market share, revenue growth</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High distress risk</td>
+<td>High risk</td>
 <td>Risk reduction if liquidity improves</td>
-<td>Debt refinancing, operational turnaround</td>
-<td>Debt ratios, liquidity ratios, sentiment</td>
+<td>Capital infusion, dividend policy revision</td>
+<td>Working capital ratio, debt levels</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-Dell’s Z-Score momentum forecast remains negative without clear operational improvements. Key catalysts for positive change include successful cost management, revenue growth in high-margin segments, and capital restructuring. Continuous monitoring of EBIT ratio, working capital, and Z-Score quarterly updates is critical. Early warning signals include further declines in liquidity ratios or negative market sentiment spikes.</p>
+<p><strong>Commentary:</strong><br />
+Dell’s Z-Score momentum is currently negative but could stabilize or improve within 6-12 months if strategic initiatives succeed. Key catalysts include operational efficiency gains and financial restructuring. Continuous monitoring of EBIT ratio, working capital, and debt levels will provide early warning signals for risk escalation or recovery.</p>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>Dell Technologies is in a <strong>critical financial distress state</strong>, with a persistently low and declining Altman Z-Score (0.58), negative liquidity, and weak profitability metrics. Market signals partially diverge from fundamentals, but AI Sentiment and Peer Analysis confirm elevated risk. Investors should approach with caution, favoring sell or hold strategies depending on risk tolerance. Strategic leadership must urgently address operational and financial weaknesses to stabilize the company’s outlook.</p>
+<h1 id="summary-conclusion"><strong>Summary Conclusion:</strong></h1>
+<p>Dell Technologies is currently in a <strong>critical financial distress state</strong> with an Altman Z-Score of <strong>0.59</strong>, indicating a high risk of bankruptcy or severe financial instability. Operational inefficiencies, negative working capital, and questionable dividend sustainability compound the risk. Market data anomalies limit confidence in valuation signals, but peer benchmarking confirms Dell’s weak competitive position.</p>
+<p><strong>Investment stance:</strong> Predominantly <strong>SELL or avoid</strong> for most profiles, with speculative opportunities only for high-risk tolerant investors closely monitoring turnaround progress. Executive leadership must urgently address liquidity and profitability challenges to improve financial health and investor confidence.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, peer, sentiment, and risk data for actionable investment intelligence.</em></p></div></div>
+<p><em>This analysis integrates all injected data elements explicitly, cross-validates financial and AI risk metrics, and applies the Altman Z-Score framework rigorously to provide actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1181,78 +1251,41 @@ Dell’s Z-Score momentum forecast remains negative without clear operational im
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:21 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:51 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

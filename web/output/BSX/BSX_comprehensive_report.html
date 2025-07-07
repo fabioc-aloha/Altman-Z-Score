@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Boston Scientific Corporation (BSX)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:19 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:29 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -334,10 +406,6 @@
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
-                    Overbought conditions (RSI)</div>
-                
-                <div
-                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     Very high P/E ratio</div>
                 
                 <div
@@ -348,6 +416,10 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     Overvalued relative to sector peers</div>
                 
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
             </div>
         </div>
         
@@ -357,9 +429,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="BSX_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="BSX_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -373,7 +445,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">5.61</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">5.58</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -422,15 +494,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$104.32</p>
+                <p>$$103.81</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$154.3B</p>
+                <p>$$153.6B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>76.1</p>
+                <p>75.8</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -442,7 +514,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>70.3</p>
+                <p>65.1</p>
             </div>
         </div>
     </div>
@@ -477,68 +549,81 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Boston Scientific Corporation (Ticker: BSX)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:19:32  </p>
+<strong>Analysis Date:</strong> 2025-07-07 12:28:54  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Boston Scientific Corporation (BSX) demonstrates a <strong>robust financial health profile</strong> with an Altman Z-Score consistently in the <strong>Safe Zone</strong>, ranging from 5.61 to 6.46 over the last eight quarters. This places BSX well above the distress threshold of 1.8 and the gray zone upper bound of 3.0, indicating a very low probability of bankruptcy risk in the near term.</p>
-<p><strong>AI Risk Analysis</strong> indicates an overall <strong>low risk level</strong> with a stable to slightly improving risk trajectory, supported by strong operational metrics and capital structure. The <strong>AI Peer Analysis</strong> positions BSX favorably within the Healthcare - Medical Devices industry, outperforming the industry average Z-Score (typically around 3.5-4.0 for this sector), reflecting superior financial stability and operational efficiency relative to peers.</p>
-<p><strong>AI Sentiment Analysis</strong> shows a neutral to slightly positive market sentiment, with no significant divergence from fundamental signals, suggesting market perception aligns with BSX’s strong financial footing. However, the lack of volatility and zero dividend yield may temper aggressive growth expectations.</p>
+<p>Boston Scientific (BSX) demonstrates a <strong>robust financial health profile</strong> with a consistently strong Altman Z-Score trajectory firmly in the <strong>Safe Zone</strong> (Z &gt; 3.0) over the last eight quarters, ranging from 5.58 to a peak of 6.43 and currently at 6.29. This indicates a very low risk of bankruptcy or financial distress. Based on the <strong>AI Risk Analysis overall risk level of Low with high confidence</strong>, the company’s risk trajectory is stable and favorable.</p>
+<p><strong>AI Peer Analysis</strong> positions BSX well above the industry average Z-Score (typically around 3.0 for Medical Devices), confirming its superior financial stability relative to key peers. The company’s <strong>relative position is strong</strong>, suggesting competitive advantage and resilience in the Healthcare sector.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics, while limited in volatility and volume data, imply a neutral to positive market perception, supported by a high P/E ratio of 75.77 reflecting growth expectations, albeit with zero dividend yield and low volatility, indicating a stable but growth-focused investment profile.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
-<th>Value</th>
-<th>Industry Benchmark</th>
-<th>Notes</th>
+<th>Metric Category</th>
+<th>Key Values</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Z-Score</td>
-<td>6.32</td>
-<td>~3.5-4.0 (Industry Avg)</td>
-<td>Well within Safe Zone</td>
+<td><strong>Altman Z-Score (Current)</strong></td>
+<td>6.29</td>
+<td>Very Safe Zone, minimal distress risk</td>
 </tr>
 <tr>
-<td>Market Cap</td>
-<td>$154.3B</td>
-<td>N/A</td>
-<td>Large-cap healthcare leader</td>
+<td><strong>Z-Score Trend (8 quarters)</strong></td>
+<td>5.58 → 6.43 (uptrend)</td>
+<td>Improving financial health</td>
 </tr>
 <tr>
-<td>Current Price</td>
-<td>$104.32</td>
-<td>N/A</td>
-<td>Stable price, low volatility</td>
+<td><strong>Market Cap</strong></td>
+<td>$153.57B</td>
+<td>Large-cap, stable market presence</td>
 </tr>
 <tr>
-<td>Working Capital Ratio</td>
+<td><strong>Current Price</strong></td>
+<td>$104.17</td>
+<td>Reflects growth valuation</td>
+</tr>
+<tr>
+<td><strong>P/E Ratio</strong></td>
+<td>75.77</td>
+<td>High growth expectations</td>
+</tr>
+<tr>
+<td><strong>Working Capital Ratio</strong></td>
 <td>0.057</td>
-<td>~0.05-0.10</td>
-<td>Adequate liquidity</td>
+<td>Low but manageable liquidity</td>
 </tr>
 <tr>
-<td>Retained Earnings Ratio</td>
+<td><strong>Retained Earnings Ratio</strong></td>
 <td>0.083</td>
-<td>~0.06-0.10</td>
-<td>Solid earnings retention</td>
+<td>Moderate reinvestment capacity</td>
 </tr>
 <tr>
-<td>EBIT Ratio</td>
+<td><strong>EBIT Ratio</strong></td>
 <td>0.023</td>
-<td>~0.02-0.03</td>
-<td>Operational profitability</td>
+<td>Modest operating profitability</td>
 </tr>
 <tr>
-<td>Asset Turnover</td>
+<td><strong>Asset Turnover</strong></td>
 <td>0.116</td>
-<td>~0.10-0.15</td>
-<td>Efficient asset use</td>
+<td>Moderate operational efficiency</td>
+</tr>
+<tr>
+<td><strong>Dividend Yield</strong></td>
+<td>0.00%</td>
+<td>No dividend, growth reinvestment focus</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given BSX’s strong Z-Score trajectory, low risk profile, and solid operational metrics, a <strong>BUY</strong> recommendation is warranted for investors with moderate risk tolerance seeking stable growth in the healthcare sector. Conservative investors may consider a <strong>HOLD</strong> due to the high valuation multiples (P/E 76.15, EV/EBITDA 37.51) indicating premium pricing. Aggressive investors should monitor for entry points aligned with potential market corrections or innovation-driven growth catalysts.</p>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Buy/Hold</strong> for <strong>Conservative to Growth Investors</strong>: Strong Z-Score and stable risk profile support confidence in financial stability and growth potential.</li>
+<li><strong>Monitor</strong> valuation multiples closely due to high P/E ratio indicating premium pricing.</li>
+<li><strong>Cautious on Aggressive Entry</strong>: Given zero volatility and volume data, liquidity risk exists for short-term traders.</li>
+<li><strong>No Dividend Play</strong>: Focus on capital appreciation rather than income.</li>
+</ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -546,47 +631,88 @@ Given BSX’s strong Z-Score trajectory, low risk profile, and solid operational
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark (Medical Devices)</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Liquidity Position</td>
-<td>Current Ratio: 1.057 (Working Capital Ratio 0.057)</td>
-<td>Industry ~1.05-1.10</td>
-<td>Adequate liquidity; meets industry norms</td>
+<td><strong>Liquidity Position</strong></td>
+<td>Current Ratio: 0.057</td>
+<td>~1.5 - 2.0</td>
+<td>Weak liquidity, below industry norm; potential short-term risk</td>
+<td>Stable/Low</td>
+</tr>
+<tr>
+<td></td>
+<td>Working Capital Ratio: 0.057</td>
+<td>~0.1 - 0.3</td>
+<td>Low working capital relative to assets</td>
 <td>Stable</td>
 </tr>
 <tr>
-<td>Leverage Management</td>
-<td>Debt-to-Equity: Not provided*; Interest Coverage: EBIT Ratio 0.023</td>
-<td>Industry Debt/Equity ~0.5-1.0</td>
-<td>Moderate leverage; EBIT supports interest</td>
+<td><strong>Leverage Management</strong></td>
+<td>Debt-to-Equity: Not provided</td>
+<td>~0.5 - 1.0 (typical)</td>
+<td>Data unavailable; inferred low risk from Z-Score and market cap</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td></td>
+<td>Interest Coverage (EBIT Ratio): 0.023</td>
+<td>~0.05 - 0.10</td>
+<td>Low EBIT margin suggests tight operating leverage</td>
 <td>Stable</td>
 </tr>
 <tr>
-<td>Operational Efficiency</td>
-<td>Asset Turnover: 0.116; EBIT Ratio: 0.023</td>
-<td>Industry Asset Turnover 0.10-0.15; EBIT Ratio 0.02-0.03</td>
-<td>Efficient asset use; profitability in line</td>
+<td><strong>Operational Efficiency</strong></td>
+<td>Asset Turnover: 0.116</td>
+<td>~0.15 - 0.25</td>
+<td>Below average asset utilization; room for improvement</td>
 <td>Slightly Improving</td>
 </tr>
 <tr>
-<td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.083; Cash Position: Not provided</td>
-<td>Industry Retained Earnings ~0.06-0.10</td>
-<td>Solid earnings retention; stable equity base</td>
+<td></td>
+<td>EBIT Ratio: 0.023</td>
+<td>~0.05 - 0.10</td>
+<td>Low profitability margin; consistent but modest</td>
 <td>Stable</td>
+</tr>
+<tr>
+<td><strong>Financial Stability</strong></td>
+<td>Retained Earnings Ratio: 0.083</td>
+<td>~0.1 - 0.3</td>
+<td>Moderate retained earnings; reinvestment ongoing</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: Not provided</td>
+<td>N/A</td>
+<td>No direct data; inferred stable from Z-Score</td>
+<td>Unknown</td>
 </tr>
 </tbody>
 </table>
-<p>*Note: Debt-to-Equity ratio not explicitly provided; inferred moderate leverage from EBIT ratio and Z-Score.</p>
-<p><strong>Interpretive Commentary:</strong><br />
-Boston Scientific’s liquidity, as indicated by a working capital ratio of 0.057 (implying a current ratio of ~1.057), aligns well with healthcare industry standards, ensuring sufficient short-term asset coverage. The EBIT ratio of 0.023 reflects operational profitability supporting interest obligations and debt servicing, consistent with a low-risk profile.</p>
-<p>Asset turnover at 0.116 suggests efficient utilization of assets to generate sales, slightly above the industry average, indicating operational effectiveness. Retained earnings ratio of 0.083 confirms a stable reinvestment strategy supporting long-term growth and financial stability.</p>
-<p>AI Data Quality Assessment shows <strong>complete and consistent financial data</strong> with no anomalies detected, reinforcing confidence in these metrics. The healthcare sector context, particularly in Medical Devices, demands strong R&amp;D and capital investment, which BSX appears to manage prudently.</p>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li>
+<p><strong>Liquidity Position:</strong> The current ratio of 0.057 is significantly below typical industry standards (1.5-2.0), indicating <strong>potential short-term liquidity constraints</strong>. However, the very high Altman Z-Score suggests this is not an immediate distress factor, possibly due to strong market capitalization and access to capital markets. The <strong>AI Data Quality Assessment shows no anomalies</strong>, so this low liquidity ratio is likely accurate and should be monitored.</p>
+</li>
+<li>
+<p><strong>Leverage Management:</strong> Debt-to-equity data is missing, but the <strong>high Z-Score (6.29)</strong> and market cap ($153.57B) imply conservative leverage or strong equity base. The EBIT ratio of 0.023 is low, indicating tight operating margins but sufficient to cover interest expenses given the safe risk zone.</p>
+</li>
+<li>
+<p><strong>Operational Efficiency:</strong> Asset turnover at 0.116 is below the industry average, suggesting <strong>opportunities to improve asset utilization</strong>. EBIT ratio also reflects modest profitability, consistent with a medical device company investing heavily in R&amp;D and growth.</p>
+</li>
+<li>
+<p><strong>Financial Stability:</strong> Retained earnings ratio at 0.083 indicates <strong>moderate reinvestment</strong> into the business, supporting sustainable growth. The absence of dividend yield aligns with reinvestment strategy.</p>
+</li>
+<li>
+<p><strong>Data Quality:</strong> No anomalies detected in financial data; completeness and consistency scores are high, supporting confidence in these assessments.</p>
+</li>
+</ul>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -602,65 +728,77 @@ Boston Scientific’s liquidity, as indicated by a working capital ratio of 0.05
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>6.32</td>
+<td>6.29</td>
 <td>Safe</td>
-<td>Strong working capital, retained earnings, EBIT</td>
-<td>Stable product portfolio; steady market demand</td>
+<td>Strong equity base, stable EBIT</td>
+<td>Continued growth in MedSurg and Cardiovascular segments</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>6.46</td>
+<td>6.43</td>
 <td>Safe</td>
-<td>Peak Z-Score driven by operational efficiency</td>
-<td>Continued innovation and market expansion</td>
+<td>Peak Z-Score, improved margins</td>
+<td>Likely operational efficiencies or capital structure optimization</td>
 </tr>
 <tr>
 <td>Q6</td>
-<td>6.18</td>
+<td>6.15</td>
 <td>Safe</td>
-<td>Consistent profitability and asset management</td>
-<td>Solid segment performance across MedSurg, Rhythm</td>
+<td>Consistent profitability</td>
+<td>Stable product demand and R&amp;D investment</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>5.93</td>
+<td>5.91</td>
 <td>Safe</td>
-<td>Stable capital structure and earnings retention</td>
-<td>Sustained R&amp;D investment</td>
+<td>Solid working capital</td>
+<td>Expansion in Rhythm and Neuro segment</td>
 </tr>
 <tr>
 <td>Q4</td>
-<td>5.94</td>
+<td>5.91</td>
 <td>Safe</td>
-<td>Operational improvements; working capital management</td>
-<td>Incremental product launches</td>
+<td>Stable asset turnover</td>
+<td>Market share gains in key geographies</td>
 </tr>
 <tr>
 <td>Q3</td>
-<td>5.75</td>
+<td>5.72</td>
 <td>Safe</td>
-<td>EBIT growth and asset turnover improvements</td>
-<td>Market share gains in cardiovascular devices</td>
+<td>EBIT improvements</td>
+<td>New product launches and regulatory approvals</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>5.61</td>
+<td>5.58</td>
 <td>Safe</td>
-<td>Early signs of operational momentum</td>
-<td>Expansion in neuro and rhythm segments</td>
+<td>Baseline financial strength</td>
+<td>Steady revenue growth</td>
 </tr>
 <tr>
 <td>Q1</td>
-<td>5.61</td>
+<td>5.58</td>
 <td>Safe</td>
-<td>Baseline financial strength</td>
-<td>Stable healthcare demand and regulatory environment</td>
+<td>Initial baseline</td>
+<td>Stable macroeconomic environment</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-BSX’s Z-Score has steadily increased from 5.61 to a peak of 6.46 before a slight normalization to 6.32, maintaining a strong Safe Zone status throughout. The upward trajectory correlates with operational improvements, particularly in EBIT and asset turnover, reflecting successful execution of business strategies across its diversified medical device segments.</p>
-<p>The absence of significant volatility in the Z-Score suggests stable business cycles and effective risk management. Compared to the industry average Z-Score (~3.5-4.0), BSX’s superior positioning underscores competitive advantages in product innovation and financial discipline.</p>
+<h3 id="commentary_1">Commentary</h3>
+<ul>
+<li>
+<p>The <strong>Z-Score has shown a steady upward trend from 5.58 to 6.29</strong> over eight quarters, indicating <strong>improving financial health and reduced bankruptcy risk</strong>. This is well above the industry average Z-Score (~3.0), confirming BSX’s strong competitive position.</p>
+</li>
+<li>
+<p>Key drivers include <strong>strong equity capitalization, consistent EBIT margins, and stable working capital</strong>, despite low liquidity ratios. The company’s diversified business segments (MedSurg, Rhythm and Neuro, Cardiovascular) contribute to resilience.</p>
+</li>
+<li>
+<p>The <strong>business context of ongoing product innovation and market expansion</strong> aligns with the improving Z-Score, suggesting operational execution is translating into financial strength.</p>
+</li>
+<li>
+<p>The <strong>absence of detailed component ratios (Working Capital/Total Assets, Retained Earnings/Total Assets, etc.)</strong> limits granular attribution but does not detract from the overall positive trend.</p>
+</li>
+</ul>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -676,30 +814,42 @@ BSX’s Z-Score has steadily increased from 5.61 to a peak of 6.46 before a slig
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Strong upward trend; Z &gt; 6.0</td>
-<td>Price stable at $104.32; zero volatility</td>
-<td>Aligned</td>
-<td>Supports confidence in valuation</td>
+<td>Strong upward trend</td>
+<td>Stable price at $104.17</td>
+<td>Divergent</td>
+<td>Potential undervaluation or market lag</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to slightly positive</td>
-<td>P/E Ratio high at 76.15; EV/EBITDA 37.51</td>
+<td>Neutral-Positive</td>
+<td>High P/E (75.77)</td>
 <td>Consistent</td>
-<td>Market pricing reflects growth expectations</td>
+<td>Market expects growth, aligns with fundamentals</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Outperforming peers (Z ~3.5-4.0)</td>
-<td>Sector performance steady</td>
 <td>Outperforming</td>
+<td>Sector stable</td>
+<td>Aligned</td>
 <td>Competitive advantage confirmed</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-The Z-Score’s strong signal of financial health aligns with BSX’s stable stock price and low volatility, indicating market confidence in the company’s fundamentals. The high valuation multiples (P/E 76.15, EV/EBITDA 37.51) reflect investor expectations for sustained growth, consistent with the positive AI Sentiment Analysis.</p>
-<p>No divergence between fundamental and market signals is detected, reducing risk of mispricing. Peer benchmarking confirms BSX’s superior financial position, enhancing its attractiveness relative to sector competitors.</p>
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li>
+<p>The <strong>Z-Score’s strong upward trend signals robust fundamentals</strong>, but the <strong>market price stability and zero volatility data suggest limited trading activity or market inefficiency</strong>. This divergence may indicate a <strong>latent opportunity for investors to capitalize on fundamental strength before price appreciation</strong>.</p>
+</li>
+<li>
+<p>The <strong>high P/E ratio (75.77)</strong> reflects market expectations of future growth, consistent with the company’s reinvestment strategy and zero dividend yield.</p>
+</li>
+<li>
+<p><strong>Peer comparison confirms BSX’s outperformance</strong> in financial health, supporting a positive investment thesis.</p>
+</li>
+<li>
+<p><strong>Technical indicators are unavailable or zeroed out</strong>, limiting short-term market timing analysis. Investors should rely on fundamental signals and monitor for volume and price changes.</p>
+</li>
+</ul>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -717,32 +867,57 @@ The Z-Score’s strong signal of financial health aligns with BSX’s stable sto
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential 0.3-0.5 decrease</td>
+<td>Potential EBIT decline</td>
 <td>Diversify product portfolio; R&amp;D investment</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
 <td>Minor</td>
-<td>Minimal (&lt;0.2)</td>
-<td>Maintain conservative leverage; monitor cash flows</td>
+<td>Minimal due to strong equity</td>
+<td>Maintain conservative leverage; monitor liquidity</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>0.4-0.6 decrease</td>
-<td>Hedge currency and interest rate exposure; monitor regulatory changes</td>
+<td>Valuation correction risk</td>
+<td>Hedge via options; monitor market sentiment</td>
+</tr>
+<tr>
+<td>Regulatory Risks</td>
+<td>Medium</td>
+<td>Critical</td>
+<td>Possible delays impacting revenue</td>
+<td>Proactive compliance and lobbying</td>
+</tr>
+<tr>
+<td>Liquidity Risks</td>
+<td>Low</td>
+<td>Minor</td>
+<td>Short-term cash flow stress</td>
+<td>Maintain credit lines; optimize working capital</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Risk Commentary:</strong><br />
-Based on AI Risk Analysis, BSX faces moderate operational risks primarily from competitive pressures and innovation cycles, which could moderately impact the Z-Score by up to 0.5 points. Financial risks are low due to strong capital structure and liquidity, minimizing bankruptcy risk.</p>
-<p>Market risks, including regulatory shifts and macroeconomic factors, have a medium probability and moderate severity, potentially affecting valuation and operational margins. Mitigation strategies include continued innovation, prudent financial management, and active risk hedging.</p>
-<p><strong>Scenario Outlook:</strong><br />
-- <strong>Best Case:</strong> Z-Score rises above 6.5 driven by innovation and market expansion.<br />
-- <strong>Base Case:</strong> Z-Score remains stable around 6.3 reflecting steady operations.<br />
-- <strong>Worst Case:</strong> Z-Score dips to ~5.5 due to operational setbacks or market headwinds, still within Safe Zone.</p>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li>
+<p><strong>Operational risks</strong> such as product development delays or competitive pressures could moderately impact EBIT and thus the Z-Score, but the company’s diversified segments mitigate this.</p>
+</li>
+<li>
+<p><strong>Financial risks are low</strong> given the strong Altman Z-Score and large market cap, though the low liquidity ratio warrants monitoring.</p>
+</li>
+<li>
+<p><strong>Market risks include potential valuation corrections</strong> due to the high P/E ratio and low trading volume, which could affect investor sentiment.</p>
+</li>
+<li>
+<p><strong>Regulatory risks remain critical</strong> in the healthcare sector; any adverse rulings could materially impact financials.</p>
+</li>
+<li>
+<p>Scenario analysis suggests that even in a <strong>worst-case EBIT decline scenario, the Z-Score would likely remain in the Safe Zone</strong>, given the strong equity base.</p>
+</li>
+</ul>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -760,49 +935,63 @@ Based on AI Risk Analysis, BSX faces moderate operational risks primarily from c
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td>HOLD</td>
-<td>Z-Score stable &gt;6.0; low risk</td>
-<td>Wait for valuation dips</td>
+<td><strong>HOLD</strong></td>
+<td>Z-Score 6.29 indicates very low risk</td>
+<td>Stable price; monitor liquidity</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>HOLD</td>
-<td>Dividend yield 0%; no income focus</td>
-<td>Monitor for yield changes</td>
-<td>6-12 months</td>
+<td><strong>SELL/HOLD</strong></td>
+<td>No dividend yield; reinvestment focus</td>
+<td>Not suitable for income</td>
+<td>N/A</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>BUY</td>
-<td>Strong Z-Score vs high valuation</td>
-<td>Enter on price corrections</td>
+<td><strong>HOLD</strong></td>
+<td>Premium valuation; strong fundamentals</td>
+<td>Wait for price correction</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>BUY</td>
-<td>Z-Score momentum positive; growth potential</td>
-<td>Buy on momentum continuation</td>
-<td>0-3 months</td>
+<td><strong>BUY</strong></td>
+<td>High P/E justified by Z-Score growth</td>
+<td>Entry on dips preferred</td>
+<td>Immediate to 6 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>BUY</td>
-<td>High Z-Score with moderate risk</td>
-<td>Monitor volatility spikes</td>
-<td>Immediate to 3 months</td>
+<td><strong>HOLD</strong></td>
+<td>Low volatility; limited trading data</td>
+<td>Avoid short-term speculation</td>
+<td>Monitor quarterly</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-- Conservative investors should HOLD due to premium valuation and low dividend yield, awaiting better entry points.<br />
-- Value and Growth investors are encouraged to BUY, leveraging BSX’s strong Z-Score and operational momentum, with timing focused on market dips or continued positive momentum.<br />
-- Aggressive investors can initiate positions immediately, capitalizing on low risk and stable fundamentals, but should monitor for volatility given the high valuation multiples.</p>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li>
+<p><strong>Conservative investors</strong> should hold BSX for stable capital preservation given the very safe Z-Score and low risk profile.</p>
+</li>
+<li>
+<p><strong>Dividend investors</strong> are advised to avoid BSX due to zero dividend yield.</p>
+</li>
+<li>
+<p><strong>Value investors</strong> should monitor for potential price dips to enter, as the current high valuation tempers immediate buying enthusiasm despite strong fundamentals.</p>
+</li>
+<li>
+<p><strong>Growth investors</strong> can consider buying on dips, supported by the upward Z-Score trend and reinvestment strategy.</p>
+</li>
+<li>
+<p><strong>Aggressive traders</strong> should be cautious due to low volatility and volume, which may limit liquidity and increase execution risk.</p>
+</li>
+</ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -818,29 +1007,42 @@ Based on AI Risk Analysis, BSX faces moderate operational risks primarily from c
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Innovation and Market Expansion</td>
-<td>EBIT Ratio, Asset Turnover</td>
-<td>Accelerate R&D; expand into emerging markets</td>
-<td>EBIT growth; market share gains</td>
+<td>Innovation &amp; Market Expansion</td>
+<td>Z-Score components, EBIT ratio</td>
+<td>Accelerate R&amp;D in Rhythm and Neuro segments</td>
+<td>Z-Score stability &gt;6.0; EBIT growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital Efficiency and Risk Management</td>
-<td>Working Capital Ratio, Debt-to-Equity</td>
-<td>Optimize working capital; maintain conservative leverage</td>
-<td>Stable liquidity; low debt risk</td>
+<td>Liquidity &amp; Capital Structure</td>
+<td>Working Capital Ratio, Debt levels</td>
+<td>Improve liquidity management; optimize capital allocation</td>
+<td>Current ratio &gt;0.1; maintain low leverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Oversight of Risk and Compliance</td>
-<td>Z-Score, Risk Factors</td>
-<td>Strengthen governance on operational risks</td>
-<td>Compliance adherence; risk reduction</td>
+<td>Risk Oversight &amp; Compliance</td>
+<td>Risk factors, Z-Score trajectory</td>
+<td>Enhance regulatory compliance frameworks</td>
+<td>Zero regulatory penalties; stable risk profile</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-BSX’s leadership should prioritize sustaining innovation pipelines and operational efficiency to maintain the strong Z-Score trajectory. CFO focus on capital allocation and liquidity management will support financial stability amid growth initiatives. The Board must oversee risk mitigation strategies aligned with AI Risk Analysis themes to preserve long-term value and market confidence.</p>
+<h3 id="commentary_5">Commentary</h3>
+<ul>
+<li>
+<p>The <strong>CEO should focus on sustaining innovation and operational efficiency</strong> to maintain the strong Z-Score and EBIT margins.</p>
+</li>
+<li>
+<p>The <strong>CFO must address liquidity constraints</strong> by improving working capital management while preserving the strong equity base.</p>
+</li>
+<li>
+<p>The <strong>Board should prioritize regulatory risk management</strong> to safeguard the company’s financial stability and market reputation.</p>
+</li>
+<li>
+<p>These strategic initiatives align with the <strong>AI Risk Analysis low overall risk level and stable trajectory</strong>, ensuring continued financial health.</p>
+</li>
+</ul>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -856,36 +1058,51 @@ BSX’s leadership should prioritize sustaining innovation pipelines and operati
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable to slightly improving</td>
-<td>Maintain or improve</td>
-<td>New product launches; market expansion</td>
-<td>Quarterly Z-Score updates; EBIT trends</td>
+<td>Upward (6.29)</td>
+<td>Stable to improving</td>
+<td>New product launches, margin expansion</td>
+<td>Quarterly Z-Score updates, EBIT ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Strong</td>
-<td>Strengthen</td>
-<td>Regulatory approvals; competitor dynamics</td>
-<td>Market share; peer Z-Score comparison</td>
+<td>Maintain/Improve</td>
+<td>Market share gains, regulatory approvals</td>
+<td>Market share data, peer Z-Scores</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>Low</td>
 <td>Stable</td>
-<td>Regulatory environment; innovation success</td>
-<td>Risk factor incidence; cash flow stability</td>
+<td>Regulatory environment, macroeconomic factors</td>
+<td>Regulatory filings, macro indicators</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-BSX’s Z-Score momentum is expected to remain stable or improve over the next 6-12 months, driven by continued innovation and market penetration. Key catalysts include successful product launches and favorable regulatory outcomes. Monitoring leading indicators such as EBIT growth, working capital changes, and peer performance will provide early signals for investment thesis adjustments.</p>
-<p>Risk profile remains low but requires vigilance on operational and market risks. Early warning systems should focus on shifts in liquidity ratios, EBIT margins, and emerging regulatory challenges.</p>
+<h3 id="commentary_6">Commentary</h3>
+<ul>
+<li>
+<p>The <strong>Z-Score momentum is positive</strong>, with expectations to remain stable or improve over the next 6-12 months, driven by operational execution and market expansion.</p>
+</li>
+<li>
+<p><strong>Key catalysts include successful product innovations and regulatory approvals</strong> in the medical device space.</p>
+</li>
+<li>
+<p><strong>Monitoring quarterly Z-Score components and EBIT margins</strong> will provide early warning of any deterioration.</p>
+</li>
+<li>
+<p>The <strong>risk profile is expected to remain low</strong>, but vigilance on regulatory and market risks is essential.</p>
+</li>
+<li>
+<p>Investors should <strong>track valuation multiples and liquidity metrics</strong> to optimize entry and exit timing.</p>
+</li>
+</ul>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>Boston Scientific Corporation (BSX) presents a compelling investment opportunity characterized by a <strong>strong Altman Z-Score well within the Safe Zone</strong>, stable financial health, and favorable market positioning. While valuation multiples are elevated, the company’s operational efficiency, risk management, and innovation pipeline support a <strong>BUY recommendation for growth and value investors</strong>, with conservative investors advised to HOLD pending more attractive entry points.</p>
-<p>Continuous monitoring of financial ratios, Z-Score trends, and market conditions is essential to optimize timing and risk-adjusted returns.</p>
+<h1 id="summary-conclusion"><strong>Summary Conclusion</strong></h1>
+<p>Boston Scientific (BSX) is a financially robust company with a <strong>very strong Altman Z-Score consistently in the Safe Zone (6.29 current)</strong>, indicating minimal bankruptcy risk and solid operational health. Despite low liquidity ratios, the company’s large market capitalization and stable EBIT margins support a <strong>low overall risk profile</strong>. The <strong>high P/E ratio reflects market expectations of growth</strong>, consistent with the company’s reinvestment strategy and zero dividend yield.</p>
+<p>Investment recommendations favor <strong>growth and conservative investors holding or buying on dips</strong>, while dividend-focused and aggressive short-term traders should exercise caution due to lack of income and low trading volume. Strategic focus on liquidity improvement and regulatory risk management will be critical to sustaining this positive outlook.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, risk, and sentiment data for actionable intelligence.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, market valuation, and risk assessments to provide actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1228,78 +1445,41 @@ BSX’s Z-Score momentum is expected to remain stable or improve over the next 6
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:19 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:29 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

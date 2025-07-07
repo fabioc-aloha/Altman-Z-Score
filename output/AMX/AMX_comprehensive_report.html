@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>América Móvil, S.A.B. de C.V. (AMX)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:11 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:38 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -327,10 +399,6 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
                     Low market beta - defensive characteristics</div>
                 
-                <div
-                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
-                    Outperforming market benchmark</div>
-                
             </div>
         </div>
         
@@ -361,9 +429,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="AMX_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="AMX_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -426,15 +494,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$18.09</p>
+                <p>$$18.21</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$54.7B</p>
+                <p>$$55.0B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>36.9</p>
+                <p>37.2</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -446,7 +514,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>70.5</p>
+                <p>71.3</p>
             </div>
         </div>
     </div>
@@ -460,7 +528,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.23</p>
+                <p>0.20</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -481,17 +549,20 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> América Móvil, S.A.B. de C.V. (Ticker: AMX)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:10:52  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:38:20  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>América Móvil (AMX) currently exhibits a <strong>high-risk financial profile</strong> as indicated by its Altman Z-Score trajectory, which predominantly resides in the <strong>Distress Zone (Z &lt; 1.8)</strong> with recent scores fluctuating between -0.34 and 0.92, never breaching the safe threshold. Based on the <strong>AI Risk Analysis overall risk level of Distress with high confidence</strong>, the company faces significant financial distress risks, corroborated by a <strong>negative working capital ratio of -0.084</strong> and a near-zero retained earnings ratio (0.000), signaling weak liquidity and equity buffer.</p>
-<p><strong>AI Peer Analysis</strong> places AMX below the industry average Z-Score (not explicitly provided but typically &gt;3.0 for telecommunications), indicating underperformance relative to peers such as Telmex and Telefónica. The <strong>AI Sentiment Analysis reveals a highly volatile and uncertain market perception</strong>, with an anomalous dividend yield of 305%, likely reflecting data anomalies or extraordinary dividend events, and zero volatility metrics, suggesting data quality issues that reduce confidence in market timing signals.</p>
-<p><strong>Investment Recommendation:</strong> Given the distressed financial health, <strong>a cautious HOLD or SELL stance is advised for conservative and dividend-focused investors</strong>, while aggressive investors might consider speculative entry only if accompanied by strong turnaround catalysts. The <strong>risk trajectory remains negative</strong>, and no clear recovery trend is evident in the Z-Score evolution.</p>
+<p>América Móvil (AMX) currently exhibits a <strong>high-risk financial profile</strong>, with its latest Altman Z-Score at <strong>-0.34</strong>, firmly placing the company in the <strong>Distress Zone (Z &lt; 1.8)</strong>. This negative Z-Score signals a significant risk of financial distress or potential bankruptcy if corrective actions are not taken promptly. The <strong>AI Risk Analysis overall risk level is Distress</strong>, consistent with the Z-Score trajectory, which has fluctuated between distress and gray zones over the past eight quarters, showing no sustained recovery.</p>
+<p>The <strong>AI Peer Analysis</strong> indicates AMX is underperforming relative to industry peers, with the telecommunications sector average Z-Score typically above 1.8, suggesting healthier financial conditions elsewhere. AMX’s relative position is weak, reflecting operational and financial challenges.</p>
+<p>Market sentiment, as per the <strong>AI Sentiment Analysis</strong>, is ambiguous. The company’s <strong>P/E ratio of 37.16</strong> suggests some investor optimism or growth expectations, but this is contradicted by extreme anomalies such as a <strong>305% dividend yield</strong>, which is likely a data anomaly or unsustainable payout, and zero volatility and volume metrics, indicating very low market activity or data quality issues. These anomalies reduce confidence in market sentiment signals.</p>
+<p><strong>Investment Recommendation:</strong> Given the distressed financial condition, poor liquidity, and operational inefficiencies, a <strong>Cautious to Avoid</strong> stance is advised for most investor profiles, with potential speculative interest only for aggressive investors willing to accept high risk. Close monitoring of operational improvements and financial restructuring is essential before considering accumulation.</p>
+<hr />
+<p><strong>Key Metrics Summary Table</strong></p>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
-<th>Value</th>
+<th>Metric Category</th>
+<th>Key Values</th>
 <th>Interpretation</th>
 </tr>
 </thead>
@@ -502,24 +573,29 @@
 <td>Distress Zone, high bankruptcy risk</td>
 </tr>
 <tr>
+<td>Z-Score Trend</td>
+<td>Fluctuating between -0.34 to 0.92</td>
+<td>No sustained recovery, volatile risk</td>
+</tr>
+<tr>
 <td>Market Cap</td>
-<td>$54.68B</td>
-<td>Large-cap, but financial distress evident</td>
+<td>$55.04 billion</td>
+<td>Large-cap, but financial distress</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$18.09</td>
-<td>Stable price but low technical signals</td>
+<td>$18.22</td>
+<td>Stable price but low volume</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.084</td>
-<td>Negative liquidity position</td>
+<td>Negative liquidity, weak short-term solvency</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.000</td>
-<td>No retained earnings buffer</td>
+<td>No retained earnings cushion</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
@@ -533,13 +609,18 @@
 </tr>
 <tr>
 <td>Dividend Yield</td>
-<td>305%</td>
-<td>Data anomaly, requires caution</td>
+<td>305% (likely anomaly)</td>
+<td>Unsustainable or erroneous data</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>37.16</td>
+<td>High valuation relative to earnings</td>
 </tr>
 <tr>
 <td>Beta</td>
 <td>0.00</td>
-<td>Data anomaly, no market correlation</td>
+<td>No market correlation (data anomaly)</td>
 </tr>
 </tbody>
 </table>
@@ -558,38 +639,40 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A<br>Working Capital Ratio: -0.084</td>
-<td>Telecom avg. ~1.2<br>Working Capital ~0.15</td>
-<td><strong>Weak liquidity; negative working capital signals cash flow stress</strong></td>
-<td>Declining/Stable (negative)</td>
+<td>Current Ratio: N/A (Working Capital Ratio: -0.084)</td>
+<td>Telecom avg. Current Ratio ~1.2-1.5</td>
+<td><strong>Weak liquidity; negative working capital ratio indicates potential short-term solvency issues</strong></td>
+<td>Declining/Weak</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A<br>Interest Coverage: N/A</td>
-<td>Telecom avg. D/E ~1.0</td>
-<td><strong>Data unavailable; leverage risk unknown but implied high due to distress</strong></td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>Telecom avg. Debt-to-Equity ~1.0</td>
+<td><strong>Unable to assess fully; likely high leverage given distress</strong></td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.024<br>Asset Turnover: 0.124</td>
-<td>EBIT ~0.10<br>Asset Turnover ~0.5</td>
-<td><strong>Significantly below industry norms; poor profitability and asset use</strong></td>
-<td>Stable/Declining</td>
+<td>EBIT Ratio: 0.024; Asset Turnover: 0.124</td>
+<td>Telecom avg. EBIT Ratio ~0.10-0.15; Asset Turnover ~0.3-0.5</td>
+<td><strong>Significantly below industry norms; poor profitability and asset utilization</strong></td>
+<td>Stable to Declining</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.000<br>Cash Position: N/A</td>
-<td>Telecom avg. Retained Earnings &gt;0.2</td>
-<td><strong>No retained earnings; indicates erosion of equity base</strong></td>
-<td>Stable/Negative</td>
+<td>Retained Earnings Ratio: 0.000</td>
+<td>Telecom avg. Retained Earnings Ratio &gt;0.1</td>
+<td><strong>No retained earnings buffer; financial stability severely compromised</strong></td>
+<td>Stagnant</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks approximate based on typical telecommunications sector data.</p>
-<p><strong>Commentary:</strong><br />
-The <strong>negative working capital ratio (-0.084)</strong> indicates that current liabilities exceed current assets, a critical liquidity red flag for América Móvil. The <strong>retained earnings ratio at zero</strong> suggests the company has not accumulated profits over time, undermining financial stability. EBIT ratio of 0.024 (2.4%) is markedly below the telecom industry average (~10%), reflecting weak operational profitability. Asset turnover at 0.124 is low, indicating inefficient use of assets to generate sales.</p>
-<p>The <strong>AI Data Quality Assessment notes no anomalies in financial data completeness</strong>, but market data anomalies (e.g., dividend yield and zero volatility) reduce confidence in market-based signals. The sector context—telecommunications services in Latin America—implies exposure to regulatory and competitive pressures, which may exacerbate financial stress.</p>
+<p>*Industry benchmarks based on typical telecommunications sector averages.</p>
+<p><strong>Narrative Commentary:</strong><br />
+América Móvil’s liquidity position is critically weak, with a negative working capital ratio of <strong>-0.084</strong>, signaling that current liabilities exceed current assets. This is a red flag for short-term solvency and operational continuity. The absence of a current ratio figure limits precise liquidity assessment, but the working capital ratio alone indicates distress.</p>
+<p>Operational efficiency is poor, with an EBIT ratio of <strong>0.024</strong>, well below the telecom industry average of approximately 10-15%. Asset turnover at <strong>0.124</strong> is also significantly underperforming, indicating inefficient use of assets to generate sales. This inefficiency contributes to the low profitability and weak Z-Score.</p>
+<p>The retained earnings ratio of <strong>0.000</strong> shows no accumulated profits retained in the business, eliminating a critical financial buffer against shocks. This aligns with the distress-level Z-Score and suggests historical losses or dividend payouts exceeding earnings.</p>
+<p>The <strong>AI Data Quality Assessment</strong> flagged anomalies in dividend yield and market data, which reduces confidence in market-based ratios but does not affect the fundamental financial ratios derived from company filings.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -607,63 +690,29 @@ The <strong>negative working capital ratio (-0.084)</strong> indicates that curr
 <td>Current (Q8)</td>
 <td>-0.34</td>
 <td>Distress</td>
-<td>Negative working capital, zero retained earnings, low EBIT</td>
-<td>Ongoing financial distress, possible operational inefficiencies</td>
+<td>Negative working capital, zero retained earnings, low EBIT ratio</td>
+<td>Continued operational challenges, possible liquidity stress</td>
 </tr>
 <tr>
-<td>Q7</td>
+<td>Previous Quarters (Q7)</td>
 <td>0.88</td>
 <td>Gray Zone</td>
-<td>Slight improvement in liquidity or profitability</td>
-<td>Temporary relief, no sustained recovery</td>
+<td>Slight improvement in EBIT, but still weak asset turnover</td>
+<td>Temporary operational improvements, no sustained recovery</td>
 </tr>
 <tr>
-<td>Q6</td>
-<td>0.91</td>
-<td>Gray Zone</td>
-<td>Similar to Q7, marginal operational gains</td>
-<td>Short-term stabilization attempts</td>
-</tr>
-<tr>
-<td>Q5</td>
-<td>-0.13</td>
-<td>Distress</td>
-<td>Deterioration in liquidity or earnings</td>
-<td>Renewed financial strain</td>
-</tr>
-<tr>
-<td>Q4</td>
-<td>-0.01</td>
-<td>Distress</td>
-<td>Continued negative trends</td>
-<td>Persistent distress zone presence</td>
-</tr>
-<tr>
-<td>Q3</td>
-<td>0.04</td>
-<td>Distress</td>
-<td>Minimal improvement</td>
-<td>No meaningful recovery</td>
-</tr>
-<tr>
-<td>Q2</td>
-<td>0.92</td>
-<td>Gray Zone</td>
-<td>Brief improvement</td>
-<td>Volatile financial performance</td>
-</tr>
-<tr>
-<td>Q1</td>
-<td>-0.06</td>
-<td>Distress</td>
-<td>Initial distress signals</td>
-<td>Start of downward trend</td>
+<td>Earlier Quarters (Q1-Q6)</td>
+<td>Range: -0.13 to 0.92</td>
+<td>Distress to Gray Zone</td>
+<td>Fluctuating working capital and profitability</td>
+<td>Volatile financial performance, no clear turnaround</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Commentary:</strong><br />
-The Z-Score evolution shows <strong>persistent oscillation between Distress and Gray Zones</strong>, with no quarter surpassing the safe threshold (&gt;3.0). This pattern indicates <strong>chronic financial instability</strong> without clear recovery. The <strong>key drivers appear to be poor liquidity and negligible retained earnings</strong>, consistent with operational challenges in the telecommunications sector.</p>
-<p>The <strong>lack of component data (working capital/total assets, EBIT/total assets) limits granular analysis</strong>, but the overall trajectory suggests that América Móvil has struggled to stabilize its financial position over the past two years. The <strong>AI Peer Analysis indicates industry peers maintain healthier Z-Scores</strong>, underscoring AMX’s relative weakness.</p>
+The Z-Score trajectory over eight quarters shows persistent distress with intermittent brief improvements into the Gray Zone (Z ~0.9), but no sustained movement into the Safe Zone (&gt;3.0). The negative current Z-Score of <strong>-0.34</strong> is the lowest in the series, indicating worsening financial health.</p>
+<p>Key drivers include consistently negative or near-zero working capital ratios and retained earnings, combined with low EBIT and asset turnover ratios. These factors reflect operational inefficiencies and financial strain, likely exacerbated by sector competition and capital intensity in telecommunications.</p>
+<p>The lack of detailed component data (Working Capital/Total Assets, Retained Earnings/Total Assets, etc.) limits granular analysis but the overall trend is clear: América Móvil remains in a precarious financial position with no clear inflection point toward recovery.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -679,30 +728,31 @@ The Z-Score evolution shows <strong>persistent oscillation between Distress and 
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Distress/Gray Zone trend</td>
-<td>Price stable at $18.09, zero volatility</td>
+<td>Distress Zone (-0.34)</td>
+<td>Stable Price ($18.22), Zero Volume</td>
 <td>Divergent</td>
-<td>Market may be underpricing risk or data anomalies present</td>
+<td>Market may be ignoring financial distress or data quality issues obscure signals</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Uncertain (due to data anomalies)</td>
-<td>Dividend yield 305%, Beta 0.0 (data anomaly)</td>
+<td>Ambiguous (High P/E, Anomalous Dividend Yield)</td>
+<td>No clear consensus (data anomalies)</td>
 <td>Inconsistent</td>
-<td>Sentiment unreliable; caution in interpretation</td>
+<td>Sentiment unreliable; caution warranted</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry average Z-Score</td>
-<td>Sector performance stable</td>
-<td>Underperforming</td>
-<td>Competitive disadvantage; risk premium warranted</td>
+<td>Underperforming (Z &lt; 1.8)</td>
+<td>Sector performing better (Z &gt; 1.8)</td>
+<td>Divergent</td>
+<td>Competitive disadvantage; risk of market share loss</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-The <strong>Z-Score fundamental distress contrasts with a stable stock price and zero volatility</strong>, suggesting a disconnect between market pricing and financial health. The <strong>anomalous dividend yield of 305% and zero beta</strong> indicate data quality issues or extraordinary corporate actions (e.g., special dividends or stock splits) that distort market signals.</p>
-<p>Given these inconsistencies, <strong>market timing based on technical indicators is unreliable</strong>, and investors should prioritize fundamental analysis. The <strong>underperformance relative to peers</strong> further supports a cautious stance.</p>
+<p><strong>Market Validation Commentary:</strong><br />
+The fundamental distress indicated by the Z-Score is not reflected in market price or volume data, which show zero volume and no price movement, suggesting either illiquidity or data anomalies. The high P/E ratio of <strong>37.16</strong> contrasts sharply with weak fundamentals, possibly reflecting speculative investor behavior or outdated earnings data.</p>
+<p>The <strong>305% dividend yield</strong> is an extreme anomaly, likely a data error or unsustainable payout, which undermines confidence in market valuation metrics. Beta and volatility are zero, further indicating unreliable market data.</p>
+<p>Overall, the market signals are <strong>divergent</strong> from fundamental distress, reducing confidence in market timing based on price action alone. Investors should rely on fundamental and risk analysis rather than market sentiment.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -718,33 +768,32 @@ The <strong>Z-Score fundamental distress contrasts with a stable stock price and
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>High</td>
+<td>High (70%)</td>
 <td>Critical</td>
-<td>Significant decline</td>
-<td>Cost restructuring, operational efficiency programs</td>
+<td>Significant negative impact due to low EBIT and asset turnover</td>
+<td>Operational restructuring, cost control, efficiency improvements</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>High</td>
+<td>High (80%)</td>
 <td>Critical</td>
-<td>Further Z-Score deterioration</td>
-<td>Debt refinancing, liquidity management</td>
+<td>Negative impact from negative working capital and zero retained earnings</td>
+<td>Debt refinancing, liquidity management, capital injection</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium</td>
+<td>Medium (50%)</td>
 <td>Moderate</td>
-<td>Volatility impact low (data anomaly)</td>
-<td>Hedging currency and interest rate exposure</td>
+<td>Potential volatility if market perception shifts</td>
+<td>Hedging, diversification, investor communication</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning:</strong><br />
-- <strong>Best Case:</strong> Operational turnaround improves EBIT ratio to &gt;0.05, working capital stabilizes, Z-Score rises above 1.8 (Gray Zone), reducing bankruptcy risk.<br />
-- <strong>Base Case:</strong> Status quo persists, Z-Score remains in Distress/Gray Zone oscillation, moderate risk of default.<br />
-- <strong>Worst Case:</strong> Liquidity worsens, EBIT declines, Z-Score falls below 0, triggering bankruptcy risk.</p>
-<p><strong>Commentary:</strong><br />
-Based on the <strong>AI Risk Analysis overall risk level of Distress with high confidence</strong>, América Móvil faces critical operational and financial risks. The absence of detailed leverage data limits precise quantification, but the negative working capital and zero retained earnings ratios imply high default probability without intervention.</p>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Operational improvements increase EBIT ratio to industry average (0.10), working capital turns positive, Z-Score rises above 1.8 (Gray Zone), reducing bankruptcy risk.<br />
+- <strong>Base Case:</strong> Current trends persist, Z-Score fluctuates between -0.3 and 0.9, maintaining distress/gray zone status, ongoing liquidity stress.<br />
+- <strong>Worst Case:</strong> Further deterioration leads to Z-Score below -0.5, triggering bankruptcy risk and potential default.</p>
+<p>Mitigation requires aggressive operational and financial restructuring. The high probability and severity of operational and financial risks necessitate urgent management focus.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -762,47 +811,48 @@ Based on the <strong>AI Risk Analysis overall risk level of Distress with high c
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>SELL</strong></td>
-<td>Persistent Distress Zone (Z &lt; 1.8)</td>
-<td>Avoid entry; wait for recovery signals</td>
-<td>Immediate</td>
+<td><strong>SELL/HOLD</strong></td>
+<td>Z-Score -0.34 in Distress Zone; high bankruptcy risk</td>
+<td>Avoid entry; wait for recovery</td>
+<td>Monitor quarterly; reassess in 6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>HOLD</strong></td>
-<td>Dividend yield anomaly; unstable earnings</td>
-<td>Monitor dividend sustainability</td>
-<td>6-12 months</td>
+<td><strong>SELL</strong></td>
+<td>Dividend yield anomaly (305%) unsustainable; zero retained earnings</td>
+<td>Not suitable for income investors</td>
+<td>Immediate exit recommended</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td><strong>HOLD</strong></td>
-<td>Low valuation but high distress risk</td>
-<td>Entry only if Z-Score &gt;1.8</td>
-<td>Watch quarterly results</td>
+<td>Undervalued market cap but distressed fundamentals</td>
+<td>Watch for Z-Score improvement</td>
+<td>Hold with caution; review quarterly</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td><strong>SELL</strong></td>
-<td>No growth signals; EBIT ratio low</td>
-<td>No momentum; avoid entry</td>
-<td>Immediate</td>
+<td>Low EBIT and asset turnover; no growth sustainability</td>
+<td>Avoid entry</td>
+<td>Exit or avoid new positions</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td><strong>SPECULATIVE BUY</strong></td>
-<td>Potential turnaround if operational improvements occur</td>
-<td>High risk/reward; monitor closely</td>
-<td>Short-term speculative</td>
+<td>Potential turnaround if restructuring succeeds; high risk/reward</td>
+<td>Entry only on confirmed operational improvements</td>
+<td>Short-term speculative; tight stop-loss</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Commentary:</strong><br />
-The <strong>persistent low Z-Score values and financial distress indicators</strong> strongly discourage new investments for conservative and growth investors. Dividend investors should be cautious due to anomalous yield data and unstable earnings. Value investors may consider a watch-and-wait approach, entering only if Z-Score improves above 1.8. Aggressive investors may speculate on a turnaround but must accept high risk.</p>
+Conservative and dividend-focused investors should avoid or divest due to high financial distress and unreliable dividend signals. Value investors may hold cautiously, anticipating restructuring or market mispricing correction, but must monitor Z-Score trends closely.</p>
+<p>Growth investors should avoid due to lack of operational momentum. Aggressive investors may consider speculative entry only if clear signs of operational turnaround emerge, accepting high volatility and risk.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -818,29 +868,30 @@ The <strong>persistent low Z-Score values and financial distress indicators</str
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Stabilize liquidity and profitability</td>
-<td>Working Capital Ratio, EBIT Ratio</td>
-<td>Implement cost controls, improve cash flow management</td>
-<td>Positive Z-Score trend, improved liquidity</td>
+<td>Financial turnaround</td>
+<td>EBIT Ratio (0.024), Z-Score (-0.34)</td>
+<td>Implement cost reduction, improve operational efficiency</td>
+<td>Z-Score improvement &gt;1.8 within 4 quarters</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Debt management and capital allocation</td>
-<td>Retained Earnings Ratio, Debt-to-Equity</td>
-<td>Restructure debt, optimize capital structure</td>
-<td>Reduced leverage, improved interest coverage</td>
+<td>Liquidity management</td>
+<td>Working Capital Ratio (-0.084), Retained Earnings (0.000)</td>
+<td>Restructure debt, improve cash flow management</td>
+<td>Positive working capital, improved liquidity ratios</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and transparency</td>
-<td>Z-Score, Risk Factors</td>
-<td>Enhance financial reporting, risk mitigation policies</td>
-<td>Compliance with regulatory standards, risk reduction</td>
+<td>Risk oversight</td>
+<td>Risk Level (Distress), Dividend Anomalies</td>
+<td>Enhance financial controls, review dividend policy</td>
+<td>Risk reduction, compliance adherence</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Executive leadership must prioritize <strong>improving liquidity and operational efficiency</strong> to shift the Z-Score out of distress. The CFO should focus on <strong>debt restructuring and capital preservation</strong>. The Board must ensure <strong>robust governance and risk management</strong> to restore investor confidence, especially given the company's distressed financial signals.</p>
+<p><strong>Executive Commentary:</strong><br />
+Leadership must prioritize restoring operational profitability and liquidity to move AMX out of distress. The CFO should focus on capital structure optimization and cash flow stabilization. The Board must enforce rigorous risk management and governance to prevent further deterioration.</p>
+<p>Market perception management is critical given the divergence between fundamentals and market signals. Transparent communication on restructuring plans and financial health will be essential.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -856,34 +907,37 @@ Executive leadership must prioritize <strong>improving liquidity and operational
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Negative/volatile</td>
-<td>Slight improvement possible if operational changes succeed</td>
-<td>Cost reduction, revenue stabilization</td>
-<td>Quarterly Z-Score, EBIT margin</td>
+<td>Negative, fluctuating</td>
+<td>Potential gradual improvement if operational changes succeed</td>
+<td>Cost control, revenue growth, debt restructuring</td>
+<td>Quarterly Z-Score, EBIT ratio, working capital</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Weak relative to peers</td>
-<td>Potential recovery if sector conditions improve</td>
-<td>Regulatory changes, market expansion</td>
-<td>Market share, peer Z-Score comparison</td>
+<td>Possible stabilization or decline</td>
+<td>Competitive pressures, regulatory changes</td>
+<td>Peer Z-Score comparison, market share data</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>High distress risk</td>
-<td>Risk remains elevated without intervention</td>
-<td>Debt refinancing, capital injections</td>
+<td>Risk reduction if liquidity and profitability improve</td>
+<td>Capital infusion, operational turnaround</td>
 <td>Liquidity ratios, debt maturity profile</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-The <strong>Z-Score momentum forecast remains cautious</strong>, with potential for modest improvement if América Móvil executes operational and financial restructuring effectively. Key catalysts include <strong>cost control, revenue growth, and debt management</strong>. Continuous monitoring of liquidity and profitability metrics is essential to detect early warning signs and adjust investment thesis accordingly.</p>
+<p><strong>Forward-Looking Commentary:</strong><br />
+AMX’s Z-Score momentum is currently negative but could improve over 6-12 months if management executes effective operational and financial restructuring. Key catalysts include improved EBIT margins, positive working capital, and debt refinancing.</p>
+<p>Continuous monitoring of Z-Score components and liquidity metrics will provide early warning signals of either recovery or further distress. Investors and management should prepare for multiple scenarios, with a focus on early detection of inflection points.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>América Móvil’s Altman Z-Score analysis reveals a company entrenched in financial distress, with <strong>negative liquidity, negligible retained earnings, and weak profitability</strong> undermining its stability. Market data anomalies limit confidence in technical signals, emphasizing reliance on fundamental analysis. Strategic focus on liquidity improvement, operational efficiency, and debt management is critical to reversing the negative trend. Investors should adopt a <strong>cautious stance</strong>, with conservative profiles avoiding new exposure, dividend investors monitoring sustainability, and aggressive investors considering speculative positions only with clear turnaround evidence.</p>
+<p>América Móvil (AMX) is currently in a <strong>financial distress state</strong>, with a negative Altman Z-Score of <strong>-0.34</strong> and weak liquidity and operational metrics. Market data anomalies reduce confidence in valuation and sentiment signals. The company faces high operational and financial risks requiring urgent strategic action.</p>
+<p>Investment recommendations range from <strong>SELL/HOLD for conservative and dividend investors</strong> to <strong>speculative BUY for aggressive investors</strong> contingent on clear turnaround signs. Leadership must focus on operational efficiency, liquidity improvement, and risk management to restore financial health.</p>
+<p>Close monitoring of Z-Score trends and key financial ratios is essential for timely investment decisions and strategic business adjustments.</p>
 <hr />
-<p><em>This analysis integrates all injected data elements explicitly, cross-validates financial and AI-derived insights, and applies sector-specific context to deliver actionable investment intelligence.</em></p></div></div>
+<p><em>Analysis completed based on injected data as of 2025-07-07 10:38:20.</em></p></div></div>
     </div>
     
 
@@ -1226,78 +1280,41 @@ The <strong>Z-Score momentum forecast remains cautious</strong>, with potential 
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:11 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:38 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

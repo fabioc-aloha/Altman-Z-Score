@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Barclays PLC (BCS)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:18 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:39 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -329,6 +401,10 @@
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Outperforming market benchmark</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
                     Good risk-adjusted returns</div>
                 
             </div>
@@ -342,9 +418,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="BCS_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="BCS_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -407,11 +483,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$18.26</p>
+                <p>$$18.31</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$65.4B</p>
+                <p>$$64.8B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -427,7 +503,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>57.1</p>
+                <p>64.5</p>
             </div>
         </div>
     </div>
@@ -441,7 +517,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>1.47</p>
+                <p>1.45</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -471,15 +547,17 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Barclays PLC (Ticker: BCS)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:18:08  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:38:38  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Barclays PLC currently exhibits a <strong>moderate financial distress risk profile</strong>, with its latest Altman Z-Score at <strong>2.56</strong>, placing it firmly in the <strong>Gray Zone (1.8 - 3.0)</strong>. This signals a balanced but cautious outlook, where the company is neither clearly safe nor distressed. The Z-Score trajectory over the past eight quarters shows oscillation between the Gray and Safe Zones, with a peak at 2.98 and lows at 2.56, indicating <strong>volatility in financial health but no immediate distress</strong>.</p>
-<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>moderate</strong>, with a stable risk trajectory and no severe anomalies detected in the financial data quality. The <strong>AI Peer Analysis</strong> positions Barclays slightly below the industry average Z-Score (industry average not explicitly provided but implied higher than 2.56), suggesting <strong>competitive pressure within the diversified banking sector</strong>. The <strong>AI Sentiment Analysis</strong> reveals a <strong>neutral to slightly positive market sentiment</strong>, supported by a very high dividend yield of <strong>227.00%</strong>, which is an outlier and likely indicative of special dividend events or data anomalies, warranting caution.</p>
+<p>Barclays PLC currently operates within the <strong>Gray Zone</strong> of financial distress risk, with a <strong>latest Altman Z-Score of 2.56</strong>, indicating moderate financial health but with caution warranted. The Z-Score trajectory over the past eight quarters has fluctuated between 2.56 and 2.98, oscillating between the Gray Zone and Safe Zone thresholds. This volatility suggests underlying operational and financial challenges that require close monitoring.</p>
+<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>moderate</strong>, with a stable-to-slightly declining risk trajectory, reflecting persistent but manageable financial pressures. The <strong>AI Peer Analysis</strong> positions Barclays slightly below the industry average Z-Score (industry average not explicitly provided but implied higher given Safe Zone benchmarks), indicating a competitive disadvantage relative to key peers in the diversified banking sector.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are limited due to data anomalies (e.g., zero RSI, zero volume), but the extremely high dividend yield of <strong>227.00%</strong> is an outlier likely reflecting data irregularities or extraordinary dividend events, which introduces caution in interpreting market sentiment.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
+<th>Metric</th>
 <th>Value</th>
 <th>Interpretation</th>
 </tr>
@@ -488,17 +566,22 @@
 <tr>
 <td>Latest Z-Score</td>
 <td>2.56</td>
-<td>Gray Zone, moderate risk</td>
+<td>Gray Zone: moderate distress risk</td>
+</tr>
+<tr>
+<td>Z-Score Range (8 Quarters)</td>
+<td>2.56 - 2.98</td>
+<td>Fluctuating between Gray and Safe Zone</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$65.45B</td>
+<td>$64.76B</td>
 <td>Large-cap financial institution</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$18.26</td>
-<td>Stable pricing</td>
+<td>$18.29</td>
+<td>Stable price level (no volume data)</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
@@ -518,22 +601,31 @@
 <tr>
 <td>Asset Turnover</td>
 <td>0.005</td>
-<td>Extremely low operational efficiency</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>227.00%</td>
-<td>Unusually high, likely data anomaly</td>
+<td>Extremely low asset utilization</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>8.86</td>
-<td>Low valuation, potential value opportunity</td>
+<td>8.89</td>
+<td>Relatively low valuation multiple</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>227.00% (anomalous)</td>
+<td>Data anomaly; interpret with caution</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>0.00</td>
+<td>No market volatility captured</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given Barclays’ <strong>Gray Zone Z-Score</strong>, moderate risk profile, and mixed financial health indicators, a <strong>cautious HOLD</strong> is recommended for conservative investors, with a watchful eye on liquidity and profitability improvements. For value investors, the low P/E ratio and market cap suggest potential upside if operational efficiencies improve. Aggressive investors should monitor for Z-Score inflection points signaling movement into the Safe Zone before initiating new positions.</p>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Hold with Caution:</strong> Given the Gray Zone Z-Score and weak liquidity (working capital ratio -0.132), Barclays shows moderate financial risk. Investors should monitor for improvements in operational efficiency and liquidity before increasing exposure.</li>
+<li><strong>Avoid Aggressive Positions:</strong> The low EBIT ratio (0.004) and asset turnover (0.005) suggest operational inefficiencies that could pressure future earnings.</li>
+<li><strong>Watch for Data Anomalies:</strong> Dividend yield and market technicals show anomalies; validate with updated market data before dividend-focused investment decisions.</li>
+</ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -550,38 +642,55 @@ Given Barclays’ <strong>Gray Zone Z-Score</strong>, moderate risk profile, and
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: N/A; Working Capital Ratio: -0.132</td>
-<td>Industry avg. ~1.0+</td>
-<td><strong>Weak liquidity; negative working capital ratio signals potential short-term stress</strong></td>
+<td>Industry avg. ~1.0+; Banks typically &gt;1.0</td>
+<td><strong>Weak liquidity</strong>; negative working capital ratio signals potential short-term funding stress</td>
 <td>Declining/Weak</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
 <td>Debt-to-Equity: N/A; Interest Coverage: N/A</td>
-<td>Industry avg. moderate</td>
-<td>Data unavailable; leverage risk unclear but implied moderate due to Z-Score</td>
-<td>Stable/Unknown</td>
+<td>Banks: moderate leverage; Interest coverage typically &gt;3x</td>
+<td>Data unavailable; leverage unknown; risk assessment limited</td>
+<td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.005; EBIT Ratio: 0.004</td>
-<td>Industry avg. ~0.1+</td>
-<td><strong>Extremely low asset turnover and EBIT ratio indicate poor operational efficiency</strong></td>
-<td>Declining/Weak</td>
+<td>EBIT Ratio: 0.004; Asset Turnover: 0.005</td>
+<td>Industry EBIT ~0.02-0.05; Asset Turnover ~0.1+</td>
+<td><strong>Extremely low profitability and asset utilization</strong>; operational inefficiency evident</td>
+<td>Stable but weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.036; Cash Position: N/A</td>
-<td>Industry avg. ~0.1+</td>
-<td><strong>Low retained earnings ratio suggests limited reinvestment capacity</strong></td>
-<td>Stable/Weak</td>
+<td>Banks: higher retained earnings ratio preferred (&gt;0.1)</td>
+<td><strong>Low retained earnings</strong> relative to assets; potential capital buffer concerns</td>
+<td>Stable but low</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks approximate for diversified banks sector.</p>
-<p><strong>Interpretive Commentary:</strong><br />
-Barclays’ <strong>negative working capital ratio (-0.132)</strong> is a significant red flag, indicating current liabilities exceed current assets, which may pressure liquidity. The <strong>retained earnings ratio at 3.6%</strong> is low, reflecting limited accumulated profits relative to total assets, constraining internal funding for growth or debt reduction. The <strong>EBIT ratio of 0.4% and asset turnover of 0.5%</strong> are well below industry norms, highlighting operational inefficiencies possibly due to legacy costs or market challenges in the banking sector.</p>
-<p>The <strong>AI Data Quality Assessment</strong> reports no anomalies or inconsistencies, lending confidence to these financial metrics despite their weakness. However, the <strong>extreme dividend yield (227%)</strong> is likely a data anomaly or special event and should be treated cautiously in valuation.</p>
-<p>Sector context: As a <strong>diversified bank in Financial Services</strong>, Barclays operates in a highly regulated, capital-intensive environment where liquidity and operational efficiency are critical. The current financial health signals a need for strategic focus on improving asset utilization and liquidity management.</p>
+<p>*Industry benchmarks derived from typical diversified banking sector standards.</p>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li>
+<p><strong>Liquidity Position:</strong> Barclays’ working capital ratio of <strong>-0.132</strong> is a significant red flag, indicating current liabilities exceed current assets. This contrasts with typical banking industry standards where liquidity ratios are maintained above 1.0 to meet regulatory and operational needs. The absence of a current ratio figure limits full liquidity assessment but the negative working capital ratio suggests potential short-term liquidity stress. This aligns with the AI Risk Analysis moderate risk level and suggests a need for liquidity management focus.</p>
+</li>
+<li>
+<p><strong>Leverage Management:</strong> Due to missing debt-to-equity and interest coverage data, leverage risk cannot be fully assessed. However, given Barclays’ large market cap ($64.76B) and banking sector norms, moderate leverage is expected. The lack of data introduces uncertainty, reducing confidence in leverage risk evaluation.</p>
+</li>
+<li>
+<p><strong>Operational Efficiency:</strong> The EBIT ratio of <strong>0.004</strong> and asset turnover of <strong>0.005</strong> are markedly below industry averages, indicating Barclays is generating minimal operating profit and utilizing assets inefficiently. This operational inefficiency is a key driver of the Gray Zone Z-Score classification and suggests challenges in revenue generation and cost control.</p>
+</li>
+<li>
+<p><strong>Financial Stability:</strong> The retained earnings ratio of <strong>0.036</strong> is low compared to typical banking benchmarks, implying limited internal capital accumulation to absorb shocks or fund growth. This weak capital buffer contributes to the moderate risk profile.</p>
+</li>
+<li>
+<p><strong>Data Quality Impact:</strong> The AI Data Quality Assessment indicates no anomalies detected in financial data completeness, but market data anomalies (e.g., zero volume, zero RSI) reduce confidence in market timing signals.</p>
+</li>
+<li>
+<p><strong>Sector Context:</strong> As a diversified bank operating globally, Barclays faces regulatory, credit, and market risks that require strong liquidity and capital management. The current financial ratios suggest Barclays is underperforming relative to sector expectations, warranting cautious investment stance.</p>
+</li>
+</ul>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -596,66 +705,81 @@ Barclays’ <strong>negative working capital ratio (-0.132)</strong> is a signif
 </thead>
 <tbody>
 <tr>
-<td>Current</td>
+<td>Current (Q8)</td>
 <td>2.56</td>
 <td>Gray Zone</td>
-<td>Moderate working capital, low EBIT, low retained earnings</td>
-<td>Stable but weak profitability; ongoing restructuring?</td>
+<td>Low EBIT, negative working capital</td>
+<td>Operational inefficiencies, liquidity pressure</td>
 </tr>
 <tr>
-<td>Previous Q1</td>
+<td>Q7</td>
 <td>2.56</td>
 <td>Gray Zone</td>
-<td>Similar drivers</td>
-<td>No significant improvement</td>
+<td>Similar drivers as current</td>
+<td>Stable but weak financial performance</td>
 </tr>
 <tr>
-<td>Previous Q2</td>
+<td>Q6</td>
 <td>2.98</td>
 <td>Safe Zone</td>
-<td>Slightly improved asset turnover</td>
-<td>Temporary operational gains</td>
+<td>Slight improvement in profitability</td>
+<td>Possible temporary operational gains</td>
 </tr>
 <tr>
-<td>Previous Q3</td>
+<td>Q5</td>
 <td>2.71</td>
 <td>Safe Zone</td>
-<td>Improved liquidity?</td>
-<td>Possible capital injections or cost controls</td>
+<td>Moderate EBIT and asset turnover</td>
+<td>Stable business conditions</td>
 </tr>
 <tr>
-<td>Previous Q4</td>
+<td>Q4</td>
 <td>2.71</td>
 <td>Safe Zone</td>
-<td>Stable operational metrics</td>
-<td>Consistent performance</td>
+<td>Consistent operational metrics</td>
+<td>No major business disruptions</td>
 </tr>
 <tr>
-<td>Earlier Q5</td>
+<td>Q3</td>
 <td>2.57</td>
 <td>Gray Zone</td>
-<td>Declining EBIT and working capital</td>
-<td>Market pressures or increased liabilities</td>
+<td>Decline in working capital</td>
+<td>Emerging liquidity concerns</td>
 </tr>
 <tr>
-<td>Earlier Q6</td>
+<td>Q2</td>
 <td>2.77</td>
 <td>Safe Zone</td>
-<td>Stronger retained earnings</td>
-<td>Favorable market conditions</td>
+<td>Improved capital structure</td>
+<td>Positive business cycle phase</td>
 </tr>
 <tr>
-<td>Earliest Q7</td>
+<td>Q1</td>
 <td>2.58</td>
 <td>Gray Zone</td>
-<td>Weak operational efficiency</td>
-<td>Early signs of stress</td>
+<td>Early signs of operational stress</td>
+<td>Market or regulatory headwinds</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-Barclays’ Z-Score has fluctuated between <strong>2.56 and 2.98</strong>, oscillating near the Gray-Safe boundary. The <strong>lack of sustained improvement above 3.0</strong> suggests the company has not fully stabilized its financial health. The <strong>key drivers</strong>—working capital, EBIT, and retained earnings—have shown limited positive momentum, reflecting operational and liquidity challenges.</p>
-<p>The <strong>AI Peer Analysis</strong> indicates Barclays is slightly below the industry average Z-Score, implying competitive pressures and potential vulnerability relative to peers. The <strong>business context</strong> of ongoing restructuring, regulatory challenges, and market volatility in the banking sector likely contribute to this pattern.</p>
+<h3 id="commentary_1">Commentary</h3>
+<ul>
+<li>
+<p>Barclays’ Z-Score has oscillated between <strong>2.56 and 2.98</strong> over the last eight quarters, reflecting a <strong>Gray to Safe Zone</strong> risk profile. The <strong>latest score of 2.56</strong> places the company just below the safe threshold of 3.0, indicating moderate financial distress risk.</p>
+</li>
+<li>
+<p>The <strong>key drivers</strong> of Z-Score fluctuations appear to be operational efficiency (EBIT ratio) and liquidity (working capital ratio), both of which have weakened recently. The absence of detailed component ratios limits precise attribution but the negative working capital ratio and low EBIT ratio strongly influence the score.</p>
+</li>
+<li>
+<p>The <strong>business context</strong> includes Barclays’ exposure to global financial markets and regulatory environments, which may contribute to episodic performance variability.</p>
+</li>
+<li>
+<p>Comparing to the <strong>AI Peer Analysis</strong> (industry average Z-Score implied above 3.0), Barclays is underperforming peers, suggesting competitive pressures or internal challenges.</p>
+</li>
+<li>
+<p>The Z-Score trend indicates <strong>no clear upward momentum</strong>, emphasizing the need for strategic operational improvements to regain a Safe Zone status.</p>
+</li>
+</ul>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -672,29 +796,41 @@ Barclays’ Z-Score has fluctuated between <strong>2.56 and 2.98</strong>, oscil
 <tr>
 <td>Fundamental Health</td>
 <td>Gray Zone (2.56)</td>
-<td>Stable price at $18.26</td>
-<td>Aligned</td>
-<td>Cautious optimism; watch liquidity</td>
+<td>Price stable at $18.29</td>
+<td>Divergent</td>
+<td>Market may be underestimating risk</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to Slightly Positive</td>
-<td>Dividend yield anomaly (227%)</td>
-<td>Divergent</td>
-<td>Data anomaly; sentiment cautious</td>
+<td>Neutral (data limited)</td>
+<td>Dividend yield anomalous (227%)</td>
+<td>Inconsistent</td>
+<td>Sentiment unclear; caution advised</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry avg Z-Score</td>
-<td>Market Cap $65.45B, P/E 8.86</td>
+<td>Below industry avg.</td>
+<td>Sector performance unknown</td>
 <td>Underperforming</td>
-<td>Potential value play if fundamentals improve</td>
+<td>Competitive disadvantage; watch peers</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-The <strong>Z-Score trend aligns moderately with the stable stock price</strong> of $18.26, suggesting the market is pricing in Barclays’ moderate risk profile. However, the <strong>extreme dividend yield (227%)</strong> is inconsistent with typical market signals and likely reflects a data anomaly or special dividend event, reducing confidence in yield-based valuation.</p>
-<p>The <strong>low P/E ratio of 8.86</strong> indicates the market may be undervaluing Barclays relative to earnings, consistent with the company’s Gray Zone Z-Score and operational challenges. Peer comparison suggests Barclays is slightly underperforming its sector, highlighting a potential <strong>value opportunity if operational and liquidity metrics improve</strong>.</p>
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li>
+<p>The <strong>Z-Score fundamental health</strong> signal indicates moderate financial risk, while the <strong>market price</strong> remains stable at $18.29 with no volume or volatility data available. This divergence suggests the market may not be fully pricing in Barclays’ financial risks or that data anomalies obscure true market sentiment.</p>
+</li>
+<li>
+<p>The <strong>anomalous dividend yield of 227%</strong> is likely a data error or extraordinary event, reducing confidence in dividend-based valuation or sentiment analysis.</p>
+</li>
+<li>
+<p><strong>Peer comparison</strong> indicates Barclays is underperforming relative to industry averages, which may not be fully reflected in current market pricing.</p>
+</li>
+<li>
+<p>Overall, <strong>market validation is weak</strong> due to data anomalies, limiting the ability to time investments based on market signals. Investors should rely more heavily on fundamental Z-Score and financial ratio analysis.</p>
+</li>
+</ul>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -712,30 +848,49 @@ The <strong>Z-Score trend aligns moderately with the stable stock price</strong>
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>-0.2 to -0.4</td>
-<td>Cost optimization, process automation</td>
+<td>-0.3 to -0.5</td>
+<td>Enhance cost controls, improve asset utilization</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Medium</td>
 <td>High</td>
 <td>-0.5 to -0.7</td>
-<td>Strengthen liquidity, reduce leverage</td>
+<td>Strengthen liquidity, optimize capital structure</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium</td>
+<td>Low-Medium</td>
 <td>Moderate</td>
-<td>-0.3 to -0.5</td>
-<td>Hedging interest rate and credit risk</td>
+<td>-0.2 to -0.4</td>
+<td>Hedge interest rate and credit exposures</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Operational improvements and liquidity management raise Z-Score above 3.0, moving Barclays into the Safe Zone within 6-12 months.<br />
-- <strong>Base Case:</strong> Z-Score remains in Gray Zone (2.5-2.8), reflecting ongoing moderate risk but no distress.<br />
-- <strong>Worst Case:</strong> Continued operational inefficiencies and liquidity stress push Z-Score below 1.8, entering Distress Zone, triggering urgent restructuring or capital raises.</p>
-<p>Based on AI Risk Analysis overall risk level of <strong>moderate</strong> with <strong>75% confidence</strong>, Barclays faces manageable but material risks primarily from operational inefficiencies and liquidity constraints. Mitigation should focus on improving working capital and EBIT margins.</p>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li>
+<p><strong>Operational Risks:</strong> Barclays’ extremely low EBIT ratio and asset turnover expose it to operational risk. Probability is medium with moderate severity, potentially reducing Z-Score by up to 0.5 if unaddressed.</p>
+</li>
+<li>
+<p><strong>Financial Risks:</strong> Negative working capital ratio signals liquidity risk, with high severity due to potential solvency issues. This risk could depress Z-Score by up to 0.7 in adverse scenarios.</p>
+</li>
+<li>
+<p><strong>Market Risks:</strong> Given Barclays’ global banking exposure, market risks such as interest rate fluctuations and credit market volatility have moderate impact but lower probability currently.</p>
+</li>
+<li>
+<p><strong>Scenario Planning:</strong></p>
+</li>
+<li>
+<p><strong>Best Case:</strong> Operational improvements and liquidity management raise Z-Score above 3.0 (Safe Zone) within 2-3 quarters.</p>
+</li>
+<li>
+<p><strong>Base Case:</strong> Status quo maintained, Z-Score remains in Gray Zone (~2.5-2.7).</p>
+</li>
+<li>
+<p><strong>Worst Case:</strong> Liquidity stress and operational decline push Z-Score below 1.8 (Distress Zone), triggering urgent risk mitigation.</p>
+</li>
+</ul>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -754,46 +909,59 @@ The <strong>Z-Score trend aligns moderately with the stable stock price</strong>
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score stable at 2.56 (Gray Zone), liquidity concerns</td>
-<td>Monitor for Z-Score &gt; 3.0</td>
-<td>Review quarterly</td>
+<td>Z-Score 2.56 in Gray Zone; liquidity concerns</td>
+<td>Price stable but data limited</td>
+<td>Monitor quarterly; reassess in 3-6 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>Dividend yield anomaly; verify sustainability</td>
-<td>Await clarity on dividend policy</td>
-<td>6 months</td>
+<td>Dividend yield data anomalous; payout sustainability unclear</td>
+<td>Avoid new positions until clarity</td>
+<td>Review after next earnings release</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>BUY</td>
-<td>Low P/E (8.86), undervalued relative to Z-Score</td>
+<td>HOLD</td>
+<td>P/E 8.89 low; Z-Score below Safe Zone; undervaluation possible</td>
 <td>Entry on operational improvement signals</td>
-<td>3-6 months</td>
+<td>Watch for Z-Score &gt; 2.8</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>HOLD</td>
-<td>Low EBIT ratio (0.004) limits growth potential</td>
-<td>Monitor EBIT and asset turnover</td>
-<td>6-12 months</td>
+<td>SELL</td>
+<td>Low EBIT and asset turnover limit growth potential</td>
+<td>Weak momentum; avoid entry</td>
+<td>Exit or avoid new positions</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>SPECULATIVE BUY</td>
-<td>Potential rebound if Z-Score improves above 3.0</td>
-<td>High volatility expected</td>
-<td>Opportunistic</td>
+<td>SELL</td>
+<td>High operational and liquidity risk; Z-Score volatility</td>
+<td>High risk, low reward profile</td>
+<td>Avoid until clear turnaround</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-Conservative investors should hold and monitor liquidity improvements. Value investors may consider buying on signs of operational turnaround, given the low valuation. Growth investors should wait for EBIT and asset turnover improvements before committing. Aggressive investors can speculate on potential rebounds but must manage downside risk carefully.</p>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li>
+<p><strong>Conservative investors</strong> should maintain current positions, focusing on monitoring liquidity and operational metrics.</p>
+</li>
+<li>
+<p><strong>Dividend investors</strong> should be cautious due to unreliable dividend yield data and uncertain payout sustainability.</p>
+</li>
+<li>
+<p><strong>Value investors</strong> may consider accumulation if Z-Score and operational metrics improve, indicating undervaluation.</p>
+</li>
+<li>
+<p><strong>Growth and aggressive investors</strong> should avoid or exit positions given weak profitability and liquidity risks.</p>
+</li>
+</ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -809,29 +977,42 @@ Conservative investors should hold and monitor liquidity improvements. Value inv
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational efficiency</td>
+<td>Operational Efficiency</td>
 <td>EBIT Ratio (0.004), Asset Turnover (0.005)</td>
-<td>Drive cost reduction, digital transformation</td>
-<td>EBIT margin improvement, Z-Score &gt; 3.0</td>
+<td>Implement cost optimization, asset utilization programs</td>
+<td>EBIT ratio improvement &gt;0.01 in 2 quarters</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; capital structure</td>
+<td>Liquidity &amp; Capital Management</td>
 <td>Working Capital Ratio (-0.132), Retained Earnings Ratio (0.036)</td>
-<td>Optimize working capital, manage debt levels</td>
-<td>Positive working capital, improved ratios</td>
+<td>Strengthen liquidity buffers, optimize capital allocation</td>
+<td>Working capital ratio &gt;0; retained earnings growth</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; compliance</td>
-<td>Z-Score trajectory, Risk factors</td>
-<td>Enhance risk management frameworks, monitor financial health</td>
-<td>Stable or improving Z-Score, risk mitigation</td>
+<td>Risk Oversight &amp; Compliance</td>
+<td>Z-Score trend, Risk Assessment Matrix</td>
+<td>Enhance risk monitoring, stress testing</td>
+<td>Maintain Z-Score &gt;2.5; no regulatory breaches</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-Barclays’ leadership must prioritize <strong>operational turnaround and liquidity stabilization</strong> to move the company into the Safe Zone. The CFO should focus on <strong>working capital management and capital allocation</strong> to reduce financial risk. The Board must ensure <strong>robust governance and risk oversight</strong> given the moderate risk profile and sector volatility.</p>
+<h3 id="commentary_5">Commentary</h3>
+<ul>
+<li>
+<p>The <strong>CEO</strong> should prioritize operational turnaround initiatives to improve profitability and asset use.</p>
+</li>
+<li>
+<p>The <strong>CFO</strong> must address liquidity shortfalls and capital adequacy to stabilize financial health.</p>
+</li>
+<li>
+<p>The <strong>Board</strong> should enforce rigorous risk governance, ensuring early detection of distress signals and compliance adherence.</p>
+</li>
+<li>
+<p>Coordinated leadership action is critical to shift Barclays back into the Safe Zone and restore investor confidence.</p>
+</li>
+</ul>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -847,37 +1028,50 @@ Barclays’ leadership must prioritize <strong>operational turnaround and liquid
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable near 2.56</td>
-<td>Slight upward potential</td>
-<td>Operational improvements, capital injections</td>
-<td>Quarterly Z-Score updates, EBIT margin</td>
+<td>Stable in Gray Zone (2.56)</td>
+<td>Slight improvement possible</td>
+<td>Operational efficiency gains, liquidity management</td>
+<td>Quarterly Z-Score, EBIT ratio, working capital ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Slightly below peers</td>
-<td>Potential catch-up</td>
-<td>Regulatory easing, market recovery</td>
+<td>Below industry average</td>
+<td>Potential recovery if operational issues addressed</td>
+<td>Regulatory environment, market conditions</td>
 <td>Peer Z-Score comparison, market share</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>Moderate risk</td>
-<td>Stable to improving</td>
-<td>Improved liquidity, cost controls</td>
-<td>Working capital ratio, debt levels</td>
+<td>Risk reduction with capital strengthening</td>
+<td>Capital raising, cost controls</td>
+<td>Liquidity ratios, risk factor incidence</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-Barclays’ Z-Score momentum suggests a <strong>potential gradual improvement</strong> if operational efficiencies and liquidity management are enhanced. Key catalysts include <strong>cost optimization, digital banking initiatives, and regulatory developments</strong>. Monitoring quarterly Z-Score changes and EBIT margins will provide early signals of financial health shifts.</p>
-<p>Investors should watch for <strong>early warning signs</strong> such as worsening working capital or EBIT declines, which could signal a shift toward distress. Conversely, sustained improvements could validate a shift to a more aggressive investment stance.</p>
+<h3 id="commentary_6">Commentary</h3>
+<ul>
+<li>
+<p>Barclays’ <strong>Z-Score momentum</strong> is currently stable but below Safe Zone, with potential for gradual improvement if operational and liquidity issues are addressed.</p>
+</li>
+<li>
+<p><strong>Key catalysts</strong> include successful cost reduction programs, improved asset utilization, and capital structure optimization.</p>
+</li>
+<li>
+<p><strong>Monitoring</strong> should focus on quarterly Z-Score updates, EBIT ratio trends, and liquidity metrics to detect inflection points.</p>
+</li>
+<li>
+<p>Early warning systems should incorporate working capital ratio thresholds and operational profitability signals to preempt distress.</p>
+</li>
+</ul>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Barclays PLC currently occupies a <strong>Gray Zone risk profile</strong> with moderate financial distress risk. Key weaknesses lie in <strong>liquidity (negative working capital ratio), operational efficiency (very low EBIT and asset turnover), and limited retained earnings</strong>. Market valuation metrics suggest potential undervaluation, but data anomalies (notably the dividend yield) require cautious interpretation.</p>
-<p>Investment recommendations range from <strong>HOLD for conservative and dividend investors</strong> to <strong>BUY for value investors</strong> on signs of operational improvement. Aggressive investors may consider speculative positions contingent on Z-Score improvements.</p>
-<p>Strategic focus on <strong>operational turnaround, liquidity management, and risk mitigation</strong> is essential to improve Barclays’ financial health and investment appeal. Forward-looking monitoring of Z-Score momentum and key financial ratios will be critical for timely investment decisions.</p>
+<p>Barclays PLC exhibits a <strong>Gray Zone Altman Z-Score of 2.56</strong>, reflecting moderate financial distress risk primarily driven by weak liquidity (working capital ratio -0.132) and operational inefficiency (EBIT ratio 0.004, asset turnover 0.005). The company’s Z-Score has fluctuated near the Gray/Safe boundary over the past eight quarters, indicating persistent but manageable challenges.</p>
+<p>Market data anomalies limit confidence in sentiment and timing signals, while peer analysis suggests Barclays underperforms industry benchmarks. Risk stratification highlights operational and financial risks with medium probability and moderate to high severity, necessitating focused management action.</p>
+<p>Investment recommendations favor a <strong>hold with caution</strong> stance for conservative and dividend investors, while growth and aggressive profiles are advised to avoid or exit positions. Strategic leadership must prioritize operational turnaround and liquidity strengthening to restore financial health and investor confidence.</p>
+<p>Forward-looking analysis anticipates potential Z-Score improvement contingent on successful execution of efficiency and capital management initiatives, with continuous monitoring essential to detect early warning signs.</p>
 <hr />
-<p><em>Analysis completed with full integration of injected data elements, cross-validation across AI components, and adherence to analytical standards.</em></p></div></div>
+<p><em>This analysis integrates all injected data elements explicitly, cross-validates financial and AI-driven insights, and applies a risk-aware, time-sensitive investment framework aligned with Barclays PLC’s sector context.</em></p></div></div>
     </div>
     
 
@@ -1220,78 +1414,41 @@ Barclays’ Z-Score momentum suggests a <strong>potential gradual improvement</s
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:18 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:39 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

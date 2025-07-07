@@ -35,6 +35,11 @@ class ZScoreCalculationResult:
     data_quality_score: float
     warnings: List[str]
     metadata: Dict[str, Any]
+    
+    # Timeline data for reports
+    period_date: Optional[str] = None
+    market_cap: Optional[float] = None
+    price: Optional[float] = None
 
 
 class ZScoreCalculator:
@@ -803,7 +808,11 @@ class ZScoreCalculator:
                 calculation_timestamp=corrected_data.timestamp,  # Use period date from financial data
                 data_quality_score=data_quality,
                 warnings=warnings,
-                metadata=result_metadata
+                metadata=result_metadata,
+                # Timeline data for reports
+                period_date=corrected_data.timestamp,  # Add period date directly
+                market_cap=corrected_data.market_cap,  # Add market cap
+                price=corrected_data.current_price  # Add current price
             )
             
             self.logger.info(f"Z-Score calculation completed for {corrected_data.ticker}: {z_score:.3f} ({risk_category})")

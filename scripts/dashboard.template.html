@@ -189,15 +189,9 @@
             width: 90px;
         }
 
-        /* Quality */
+        /* Analysis Date */
         .stock-table td:nth-child(8),
         .stock-table th:nth-child(8) {
-            width: 80px;
-        }
-
-        /* Analysis Date */
-        .stock-table td:nth-child(9),
-        .stock-table th:nth-child(9) {
             width: 120px;
         }
 
@@ -359,7 +353,6 @@
                         <th data-sort="recommendation">Recommendation</th>
                         <th data-sort="confidence">Confidence</th>
                         <th data-sort="model">Model</th>
-                        <th data-sort="quality">Quality</th>
                         <th data-sort="analysisdate">Analysis Date</th>
                     </tr>
                 </thead>
@@ -425,9 +418,6 @@
                     </td>
                     <td>
                         <div class="model-type">${stock.Model || 'N/A'}</div>
-                    </td>
-                    <td>
-                        <div class="data-quality">${stock.Quality || 'N/A'}</div>
                     </td>
                     <td>
                         <div class="analysis-date">${stock.AnalysisDate || 'N/A'}</div>
@@ -521,7 +511,7 @@
         }
 
         // Handle sort clicks
-        let currentSort = { column: 'symbol', ascending: true };
+        let currentSort = { column: '', ascending: true };
 
         function sortData(column) {
             if (currentSort.column === column) {
@@ -558,11 +548,6 @@
                         // Convert confidence percentage to number for proper sorting
                         valueA = parseFloat(a.Confidence) || 0;
                         valueB = parseFloat(b.Confidence) || 0;
-                        break;
-                    case 'quality':
-                        // Convert quality percentage to number for proper sorting
-                        valueA = parseFloat(a.Quality) || 0;
-                        valueB = parseFloat(b.Quality) || 0;
                         break;
                     case 'model':
                         valueA = a.Model || '';
@@ -629,8 +614,8 @@
             try {
                 console.log('Populating filters...');
                 populateFilters();
-                console.log('Updating table...');
-                updateTable(stockData);
+                console.log('Sorting by company name...');
+                sortData('name');  // This will also call updateTable with sorted data
                 console.log('Initial table update complete');
             } catch (error) {
                 console.error('Error during initialization:', error);

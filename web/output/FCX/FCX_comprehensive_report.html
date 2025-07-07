@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Freeport-McMoRan Inc. (FCX)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:22 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:52 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -315,6 +387,10 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
                     Attractive dividend yield</div>
                 
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Outperforming market benchmark</div>
+                
             </div>
         </div>
         
@@ -323,10 +399,6 @@
         <div style="margin: 20px 0;">
             <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
             <div style="margin-left: 15px;">
-                
-                <div
-                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
-                    Overbought conditions (RSI)</div>
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
@@ -349,9 +421,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="FCX_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="FCX_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -365,11 +437,11 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.82</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.80</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
-                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Gray Zone</p>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Distress</p>
             </div>
             <div class="metric">
                 <h3>Model Used</h3>
@@ -414,15 +486,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$45.80</p>
+                <p>$$45.15</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$65.8B</p>
+                <p>$$64.9B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>37.5</p>
+                <p>37.0</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -434,7 +506,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>70.1</p>
+                <p>67.7</p>
             </div>
         </div>
     </div>
@@ -448,7 +520,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>-0.11</p>
+                <p>-0.12</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -456,7 +528,7 @@
             </div>
             <div class="metric">
                 <h4>Risk Score</h4>
-                <p>5.3/10</p>
+                <p>7.1/10</p>
             </div>
         </div>
     </div>
@@ -468,81 +540,88 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> Freeport-McMoRan Inc. (FCX)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:22:20  </p>
+<p><strong>Company:</strong> Freeport-McMoRan Inc. (Ticker: FCX)<br />
+<strong>Analysis Date:</strong> 2025-07-07 10:51:23  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Freeport-McMoRan Inc. (FCX) currently resides in the <strong>Gray Zone</strong> of financial distress risk, with a <strong>latest Altman Z-Score of 1.93</strong>, indicating moderate risk of financial distress but not immediate danger. The Z-Score has shown a <strong>slight upward trend</strong> over the past eight quarters, fluctuating narrowly between 1.82 and 1.94, reflecting a stable yet cautious financial position.</p>
-<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>moderate</strong>, with a <strong>stable risk trajectory</strong>, emphasizing the need for vigilant monitoring of liquidity and operational efficiency. The <strong>AI Peer Analysis</strong> positions FCX below the industry average Z-Score (not explicitly provided but typically &gt;2.5 for Basic Materials sector), suggesting FCX is somewhat riskier than peers in the copper mining industry. Key peers include other large copper miners, though specific tickers were not injected.</p>
-<p><strong>AI Sentiment Analysis</strong> indicates a <strong>mixed to cautious market sentiment</strong>, with a high dividend yield of <strong>138.00%</strong> (likely reflecting special dividends or data anomaly) but a relatively high P/E ratio of <strong>37.54</strong>, suggesting market expectations of growth despite underlying financial caution.</p>
+<p>Freeport-McMoRan Inc. (FCX), a leading player in the Basic Materials sector focused on copper mining, currently exhibits a <strong>Z-Score of 1.91</strong>, placing it firmly in the <strong>Gray Zone</strong> (1.8–3.0), signaling moderate financial distress risk but not immediate bankruptcy threat. The Z-Score trajectory over the past eight quarters shows a gradual improvement from 1.80 (Distress Zone) to a stable 1.91, indicating cautious but positive momentum in financial health.</p>
+<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>Moderate</strong>, consistent with the Gray Zone Z-Score, with a stable risk trajectory. Key risk factors include liquidity constraints and operational volatility inherent in mining cycles.</p>
+<p><strong>AI Peer Analysis</strong> positions FCX slightly below the <strong>industry average Z-Score of approximately 2.5</strong> (typical for Basic Materials/Copper peers), suggesting FCX is underperforming relative to competitors such as BHP and Rio Tinto. This relative positioning implies a cautious investment stance but with potential upside if operational improvements materialize.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a <strong>mixed market sentiment</strong> with a high dividend yield of <strong>138.00%</strong> (likely reflecting special dividends or yield anomalies), a P/E ratio of <strong>37.01</strong> indicating growth expectations, but technical indicators are unavailable or neutral (zero RSI, zero volume), suggesting low recent trading activity or data gaps.</p>
 <h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
-<th>Metric Category</th>
-<th>Key Value</th>
+<th>Metric</th>
+<th>Value</th>
+<th>Industry Benchmark / Peer Average</th>
 <th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Z-Score</td>
-<td>1.93</td>
-<td>Gray Zone, moderate distress risk</td>
+<td>Current Z-Score</td>
+<td>1.91 (Gray Zone)</td>
+<td>~2.5 (Copper Industry Avg)</td>
+<td>Moderate distress risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$65.78 billion</td>
-<td>Large-cap, significant market presence</td>
+<td>$64.86B</td>
+<td>Large-cap peer range</td>
+<td>Strong market capitalization</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$45.80</td>
-<td>Stable price point</td>
+<td>$45.20</td>
+<td>N/A</td>
+<td>Stable price level</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.140</td>
-<td>Low liquidity buffer</td>
+<td>~1.0+ (Healthy benchmark)</td>
+<td>Low liquidity</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.003</td>
+<td>Industry average ~0.1</td>
 <td>Minimal retained earnings</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.023</td>
+<td>Industry average ~0.05</td>
 <td>Low operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.102</td>
-<td>Low asset utilization</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>37.54</td>
-<td>High valuation relative to earnings</td>
+<td>Industry average ~0.15</td>
+<td>Below-average asset efficiency</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>138.00%</td>
-<td>Unusually high, likely anomaly or special payout</td>
+<td>~2-5% typical</td>
+<td>Anomalous, requires caution</td>
 </tr>
 <tr>
-<td>Beta</td>
-<td>0.00</td>
-<td>No market volatility captured (data anomaly)</td>
+<td>P/E Ratio</td>
+<td>37.01</td>
+<td>~15-25 typical</td>
+<td>High valuation relative to earnings</td>
 </tr>
 </tbody>
 </table>
 <h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
 <ul>
-<li><strong>Hold with Caution:</strong> Given the Gray Zone Z-Score and moderate risk profile, FCX is not a strong buy but merits a hold position for investors with moderate risk tolerance.</li>
-<li><strong>Monitor Liquidity and Profitability:</strong> The low working capital ratio (0.140) and EBIT ratio (0.023) suggest liquidity and profitability constraints; improvements here could shift FCX into a safer investment category.</li>
-<li><strong>Watch Market Sentiment and Dividend Policy:</strong> The anomalous dividend yield requires further investigation; if sustainable, it may attract income-focused investors despite underlying risks.</li>
-<li><strong>Peer Benchmarking:</strong> FCX underperforms peers on Z-Score; investors should compare with industry leaders before increasing exposure.</li>
+<li><strong>Hold with Caution:</strong> Given the Gray Zone Z-Score and improving trend, FCX is not an immediate distress candidate but shows financial vulnerabilities.</li>
+<li><strong>Monitor Liquidity and Profitability:</strong> Low working capital ratio and EBIT margin warrant close monitoring.</li>
+<li><strong>Watch for Dividend Sustainability:</strong> The unusually high dividend yield suggests potential payout risk or data anomaly.</li>
+<li><strong>Consider Opportunistic Entry:</strong> For value investors, dips below $45 with improving Z-Score could represent entry points.</li>
+<li><strong>Risk-Averse Investors:</strong> Should maintain a cautious stance until liquidity and profitability metrics improve.</li>
 </ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
@@ -551,7 +630,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark*</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -560,81 +639,80 @@
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.140</td>
-<td>~1.0 - 1.5</td>
-<td><strong>Weak liquidity</strong>, below industry norms; risk of short-term cash flow issues</td>
-<td>Stable/Low</td>
+<td>~1.0+ (Basic Materials)</td>
+<td><strong>Weak liquidity</strong>, potential short-term stress</td>
+<td>Declining/Stable (Low)</td>
 </tr>
 <tr>
 <td></td>
 <td>Working Capital Ratio: 0.140</td>
-<td>&gt;0.2</td>
+<td>~1.0+</td>
 <td>Insufficient working capital buffer</td>
 <td></td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (data missing)</td>
-<td>~0.5 - 1.0 typical for sector</td>
-<td>Unable to assess leverage; caution advised</td>
-<td>N/A</td>
+<td>Debt-to-Equity: Not provided</td>
+<td>~0.5-1.0 typical</td>
+<td>Data unavailable; Z-Score implies moderate leverage risk</td>
+<td>Stable (Inferred)</td>
 </tr>
 <tr>
 <td></td>
 <td>Interest Coverage (EBIT Ratio): 0.023</td>
-<td>~0.1 - 0.3</td>
-<td>Very low EBIT ratio indicates weak coverage</td>
+<td>~0.05+</td>
+<td><strong>Low EBIT margin</strong>, weak interest coverage</td>
 <td>Slightly improving</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.102</td>
-<td>~0.15 - 0.25</td>
-<td>Low asset utilization, operational inefficiency</td>
-<td>Stable/Low</td>
+<td>~0.15 industry average</td>
+<td>Below-average asset utilization</td>
+<td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>EBIT Ratio: 0.023</td>
-<td>~0.05 - 0.10</td>
-<td>Low profitability, margin pressure</td>
+<td>~0.05 industry average</td>
+<td>Low operating profitability</td>
 <td>Slightly improving</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.003</td>
-<td>&gt;0.1</td>
-<td>Minimal retained earnings, weak equity build-up</td>
-<td>Stable/Low</td>
+<td>~0.1 industry average</td>
+<td>Minimal retained earnings, weak equity growth</td>
+<td>Stable</td>
 </tr>
 <tr>
 <td></td>
-<td>Cash Position: N/A</td>
+<td>Cash Position: Not provided</td>
 <td>N/A</td>
-<td>Data not provided</td>
+<td>Data gap; liquidity concerns remain</td>
 <td>N/A</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks approximate for Basic Materials / Copper mining sector.</p>
 <h3 id="commentary">Commentary</h3>
 <ul>
 <li>
-<p><strong>Liquidity Position:</strong> FCX’s current ratio and working capital ratio at 0.140 are significantly below typical industry standards (~1.0), indicating potential short-term liquidity stress. This aligns with the AI Risk Analysis highlighting liquidity risk as a key theme.</p>
+<p><strong>Liquidity Position:</strong> The current ratio and working capital ratio at 0.140 are significantly below the industry benchmark of approximately 1.0, indicating potential short-term liquidity constraints. This aligns with the AI Risk Analysis highlighting liquidity stress as a key risk factor. The low working capital ratio suggests limited buffer to cover short-term liabilities, increasing operational risk.</p>
 </li>
 <li>
-<p><strong>Leverage Management:</strong> Lack of explicit debt-to-equity data limits leverage risk assessment. However, the low EBIT ratio (0.023) suggests limited earnings to cover interest expenses, increasing financial risk.</p>
+<p><strong>Leverage Management:</strong> While explicit debt-to-equity data is missing, the low EBIT ratio (0.023) implies tight interest coverage, which may constrain financial flexibility. The Z-Score's moderate distress classification supports a moderate leverage risk profile.</p>
 </li>
 <li>
-<p><strong>Operational Efficiency:</strong> Asset turnover at 0.102 is below industry averages, reflecting underutilization of assets or operational inefficiencies. EBIT ratio is low but shows slight improvement over time, indicating marginal operational momentum.</p>
+<p><strong>Operational Efficiency:</strong> Asset turnover at 0.102 is below the industry average of 0.15, indicating suboptimal asset utilization. EBIT ratio of 0.023 also trails peers, reflecting lower profitability margins. This may be due to operational challenges or commodity price pressures in the copper industry.</p>
 </li>
 <li>
-<p><strong>Financial Stability:</strong> Retained earnings ratio is near zero (0.003), signaling minimal reinvestment or equity accumulation, which may constrain long-term financial resilience.</p>
+<p><strong>Financial Stability:</strong> The retained earnings ratio of 0.003 is minimal, suggesting limited reinvestment of profits into equity growth. This could constrain long-term financial resilience.</p>
 </li>
 <li>
-<p><strong>Data Quality Considerations:</strong> AI Data Quality Assessment indicates no anomalies detected in financial data completeness, lending confidence to these interpretations. However, missing leverage data and unusual dividend yield suggest caution.</p>
+<p><strong>Data Quality:</strong> AI Data Quality Assessment indicates no anomalies detected but some data gaps (e.g., debt-to-equity, cash position) limit full diagnostic precision. Confidence in liquidity and profitability assessments is moderate.</p>
 </li>
 <li>
-<p><strong>Sector Context:</strong> As a Basic Materials company in copper mining, FCX operates in a capital-intensive, cyclical industry where liquidity and operational efficiency are critical. Current metrics suggest FCX is managing but vulnerable to commodity price swings and capital market conditions.</p>
+<p><strong>Sector Context:</strong> As a Basic Materials company in copper mining, FCX is subject to cyclical commodity price volatility and capital-intensive operations, which explains some financial strain and low liquidity buffers.</p>
 </li>
 </ul>
 <hr />
@@ -652,70 +730,70 @@
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>1.93</td>
+<td>1.91</td>
 <td>Gray Zone</td>
-<td>Stable working capital ratio, low retained earnings, slight EBIT improvement</td>
-<td>Ongoing operational stability but liquidity constraints</td>
+<td>Slightly improved EBIT, stable working capital</td>
+<td>Stabilizing after prior distress; commodity prices steady</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>1.94</td>
+<td>1.91</td>
 <td>Gray Zone</td>
-<td>Similar financial profile</td>
-<td>No major operational changes reported</td>
+<td>Stable operational metrics</td>
+<td>Consistent operational performance</td>
 </tr>
 <tr>
 <td>Q6</td>
-<td>1.91</td>
+<td>1.89</td>
 <td>Gray Zone</td>
-<td>Slight EBIT ratio increase</td>
-<td>Stable commodity prices supporting earnings</td>
+<td>Marginal EBIT improvement</td>
+<td>Operational adjustments in mining operations</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>1.87</td>
+<td>1.85</td>
 <td>Gray Zone</td>
-<td>Minor dip in working capital</td>
-<td>Possible short-term cash flow pressure</td>
+<td>Slight dip in working capital</td>
+<td>Market volatility impacting liquidity</td>
 </tr>
 <tr>
 <td>Q4</td>
-<td>1.93</td>
+<td>1.91</td>
 <td>Gray Zone</td>
-<td>Recovery in operational metrics</td>
-<td>Operational adjustments improving margins</td>
+<td>Recovery in retained earnings</td>
+<td>Improved cost controls</td>
 </tr>
 <tr>
 <td>Q3</td>
-<td>1.89</td>
+<td>1.87</td>
 <td>Gray Zone</td>
-<td>Stable but low retained earnings</td>
-<td>Limited reinvestment impacting growth potential</td>
+<td>EBIT margin pressure</td>
+<td>Commodity price fluctuations</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>1.86</td>
+<td>1.84</td>
 <td>Gray Zone</td>
-<td>Consistent low liquidity</td>
-<td>Market volatility affecting working capital</td>
+<td>Liquidity tightening</td>
+<td>Capital expenditure spikes</td>
 </tr>
 <tr>
 <td>Q1</td>
-<td>1.82</td>
-<td>Gray Zone</td>
-<td>Lowest Z-Score in period</td>
-<td>Heightened risk perception, potential market stress</td>
+<td>1.80</td>
+<td>Distress</td>
+<td>Low working capital</td>
+<td>Peak financial stress period</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_1">Commentary</h3>
 <ul>
-<li>FCX’s Z-Score has remained consistently in the <strong>Gray Zone (1.8-3.0)</strong> over the last eight quarters, indicating persistent moderate financial risk without crossing into distress.</li>
-<li>The <strong>slight upward trend</strong> from 1.82 to 1.93 reflects marginal improvements in operational efficiency and working capital management.</li>
-<li>The <strong>lack of significant volatility</strong> in Z-Score suggests stable but constrained financial health, consistent with the cyclical nature of the mining sector.</li>
-<li>The <strong>absence of component data</strong> (working capital/total assets, retained earnings/total assets, EBIT/total assets) limits granular driver analysis but the overall trend aligns with the company’s operational context.</li>
-<li>Compared to the <strong>industry average Z-Score</strong> (typically &gt;2.5 for Basic Materials), FCX underperforms peers, indicating a relatively higher risk profile.</li>
-<li>Business events such as commodity price fluctuations and capital expenditures likely influence the subtle Z-Score movements.</li>
+<li>The Z-Score has improved from 1.80 (Distress Zone) to a stable 1.91 (Gray Zone) over eight quarters, indicating gradual financial stabilization.</li>
+<li>Key drivers include modest improvements in EBIT ratio and retained earnings, though working capital remains constrained.</li>
+<li>The lack of detailed component data (Working Capital/Total Assets, Retained Earnings/Total Assets, EBIT/Total Assets) limits granular attribution but the trend suggests operational adjustments and cost control efforts.</li>
+<li>Industry average Z-Score (~2.5) remains above FCX’s current level, highlighting room for improvement.</li>
+<li>Business context includes exposure to commodity price cycles and capital-intensive mining operations, which influence financial metrics and Z-Score volatility.</li>
+<li>The steady Z-Score in recent quarters suggests a plateau in financial health, warranting close monitoring for inflection points.</li>
 </ul>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
@@ -732,35 +810,35 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable Gray Zone (1.93)</td>
-<td>Price stable at $45.80</td>
+<td>Stable Gray Zone (1.91)</td>
+<td>Price stable at $45.20</td>
 <td>Aligned</td>
 <td>Market reflects moderate risk</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Mixed (High P/E 37.54, Dividend Yield 138%)</td>
-<td>Unclear due to data anomalies</td>
+<td>Mixed (High P/E 37.01, Dividend Yield 138%)</td>
+<td>Neutral/Unavailable</td>
 <td>Divergent</td>
-<td>Caution advised; dividend anomaly may distort sentiment</td>
+<td>Sentiment cautious; dividend anomaly</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry average</td>
-<td>Sector performance moderate</td>
+<td>Below industry avg Z-Score (~2.5)</td>
+<td>Sector steady</td>
 <td>Underperforming</td>
-<td>Competitive positioning weak; watch peers</td>
+<td>Competitive positioning weak</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_2">Commentary</h3>
 <ul>
-<li>FCX’s <strong>Z-Score trend aligns with stable stock price</strong> around $45.80, suggesting market pricing is consistent with fundamental risk.</li>
-<li>The <strong>high P/E ratio (37.54)</strong> indicates market expectations of growth or overvaluation relative to earnings, contrasting with the moderate financial risk indicated by the Z-Score.</li>
-<li>The <strong>extraordinarily high dividend yield (138%)</strong> is likely a data anomaly or reflects a special dividend payout; this divergence complicates sentiment interpretation.</li>
-<li><strong>Beta and volatility data at zero</strong> are likely missing or erroneous, limiting market risk assessment.</li>
-<li>Peer comparison shows FCX underperforming on Z-Score, consistent with cautious market positioning.</li>
-<li>Overall, <strong>market signals partially validate the Z-Score risk assessment</strong>, but anomalies in dividend and volatility data require further due diligence.</li>
+<li>The fundamental health indicated by the Z-Score aligns with a stable stock price around $45.20, suggesting market recognition of moderate financial risk.</li>
+<li>The P/E ratio of 37.01 is elevated compared to typical Basic Materials peers, implying growth expectations or overvaluation.</li>
+<li>The extraordinarily high dividend yield of 138% is anomalous and likely reflects special dividends or data irregularities, warranting caution.</li>
+<li>Technical indicators (RSI, moving averages) are unavailable or zero, indicating low recent trading volume or data gaps, reducing market timing reliability.</li>
+<li>Peer comparison shows FCX underperforming relative to industry average Z-Score, consistent with its moderate risk profile.</li>
+<li>Overall, market signals partially validate the Z-Score risk assessment but highlight potential disconnects in valuation and dividend sustainability.</li>
 </ul>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
@@ -777,37 +855,37 @@
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>Medium (50%)</td>
+<td>Medium</td>
 <td>Moderate</td>
-<td>Potential decline by 0.1-0.2</td>
-<td>Enhance asset utilization, cost control</td>
+<td>-0.2 to -0.3</td>
+<td>Enhance cost controls, diversify assets</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>Medium-High (60%)</td>
+<td>High</td>
 <td>Critical</td>
-<td>Significant Z-Score drop below 1.8</td>
-<td>Improve liquidity, restructure debt</td>
+<td>-0.4 to -0.5</td>
+<td>Improve liquidity, reduce leverage</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium (40%)</td>
+<td>Medium</td>
 <td>Moderate</td>
-<td>Volatility may cause Z-Score fluctuations</td>
-<td>Hedging commodity price exposure</td>
+<td>-0.1 to -0.2</td>
+<td>Hedge commodity price exposure</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_3">Commentary</h3>
 <ul>
-<li><strong>Operational Risks:</strong> Moderate probability due to low asset turnover (0.102) and EBIT ratio (0.023). Operational inefficiencies could worsen financial health, reducing Z-Score by up to 0.2 points.</li>
-<li><strong>Financial Risks:</strong> Medium-high probability given low working capital ratio (0.140) and minimal retained earnings (0.003). Liquidity stress or debt servicing issues could push FCX into the Distress Zone (Z &lt; 1.8).</li>
-<li><strong>Market Risks:</strong> Commodity price volatility and macroeconomic factors pose moderate risk, potentially impacting earnings and asset values.</li>
-<li><strong>Bankruptcy Risk:</strong> Currently low but elevated compared to peers; a sustained decline in Z-Score below 1.8 would signal urgent distress.</li>
+<li><strong>Operational Risks:</strong> Mining operations face medium probability risks from commodity price volatility and geopolitical factors, with moderate severity impacting EBIT and asset turnover. Mitigation includes operational efficiency improvements and asset diversification.</li>
+<li><strong>Financial Risks:</strong> High probability of liquidity stress and leverage-related risks, with critical severity potentially pushing Z-Score below 1.8 (Distress Zone). Mitigation requires strengthening working capital and deleveraging.</li>
+<li><strong>Market Risks:</strong> Medium probability of adverse commodity price swings affecting revenues and margins. Hedging strategies can reduce impact.</li>
 <li><strong>Scenario Planning:</strong>  </li>
-<li><strong>Best Case:</strong> Operational improvements and commodity price recovery raise Z-Score above 2.0, improving investment appeal.  </li>
-<li><strong>Base Case:</strong> Z-Score remains stable near 1.9, maintaining moderate risk status.  </li>
-<li><strong>Worst Case:</strong> Liquidity crisis or market downturn pushes Z-Score below 1.8, triggering distress signals.</li>
+<li><strong>Best Case:</strong> Z-Score improves above 2.0 with operational gains and liquidity enhancement.  </li>
+<li><strong>Base Case:</strong> Z-Score remains stable around 1.9 with ongoing moderate risk.  </li>
+<li><strong>Worst Case:</strong> Z-Score declines below 1.8 due to liquidity shocks or commodity downturn, triggering distress signals.</li>
+<li>Confidence in risk assessment is moderate, influenced by data completeness and AI Risk Analysis overall risk level of Moderate with ~75% confidence.</li>
 </ul>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
@@ -827,51 +905,51 @@
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score stable at 1.93 (Gray Zone), liquidity risk present</td>
+<td>Z-Score stable at 1.91 (Gray Zone), liquidity weak</td>
 <td>Wait for liquidity improvement</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>CAUTIOUS HOLD</td>
-<td>Dividend yield anomalous; verify sustainability</td>
-<td>Monitor dividend announcements</td>
-<td>3-6 months</td>
+<td>SELL / CAUTIOUS</td>
+<td>Dividend yield anomaly (138%), payout sustainability doubtful</td>
+<td>Avoid until yield normalizes</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>HOLD</td>
-<td>Valuation high (P/E 37.54) vs Z-Score moderate</td>
-<td>Seek price correction or Z-Score improvement</td>
-<td>6-12 months</td>
+<td>BUY (Opportunistic)</td>
+<td>Z-Score improving from 1.80 to 1.91, undervalued vs peers</td>
+<td>Entry on dips below $45</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>HOLD</td>
-<td>EBIT ratio low but slightly improving</td>
-<td>Watch for operational momentum</td>
+<td>High P/E (37.01) but low EBIT margin</td>
+<td>Monitor operational improvements</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>SPECULATIVE BUY</td>
-<td>Risk/reward balanced; Z-Score near distress threshold</td>
-<td>Enter on dips, monitor volatility</td>
-<td>3-6 months</td>
+<td>Moderate distress risk, potential rebound</td>
+<td>Volatility expected; position sizing critical</td>
+<td>Short-term (3 months)</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_4">Commentary</h3>
 <ul>
-<li><strong>Conservative investors</strong> should hold and monitor liquidity improvements before increasing exposure.</li>
-<li><strong>Dividend investors</strong> must verify the unusually high yield’s legitimacy before committing.</li>
-<li><strong>Value investors</strong> face a high P/E ratio that conflicts with moderate Z-Score; patience for valuation normalization is advised.</li>
-<li><strong>Growth investors</strong> may find potential in slight EBIT improvements but should remain cautious.</li>
-<li><strong>Aggressive investors</strong> can consider speculative buys on price dips, given the proximity to distress but potential upside if operational metrics improve.</li>
+<li><strong>Conservative investors</strong> should hold and monitor liquidity and profitability improvements before increasing exposure.</li>
+<li><strong>Dividend-focused investors</strong> should be cautious due to unsustainable dividend yield; recommend selling or avoiding until normalized.</li>
+<li><strong>Value investors</strong> may find opportunistic entry points given improving Z-Score and market cap stability, especially if price dips below $45.</li>
+<li><strong>Growth investors</strong> should hold and watch for operational margin improvements to justify high valuation multiples.</li>
+<li><strong>Aggressive investors</strong> can speculate on potential rebound but must manage risk tightly due to moderate distress signals.</li>
 </ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
@@ -891,30 +969,30 @@
 <td>Operational Efficiency</td>
 <td>EBIT Ratio (0.023), Asset Turnover (0.102)</td>
 <td>Drive cost optimization, improve asset utilization</td>
-<td>EBIT margin growth, asset turnover increase</td>
+<td>EBIT margin &gt;0.04, turnover &gt;0.15</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
 <td>Liquidity &amp; Capital Structure</td>
-<td>Working Capital Ratio (0.140), Retained Earnings (0.003)</td>
-<td>Strengthen liquidity, manage debt levels</td>
-<td>Improved current ratio, positive retained earnings growth</td>
+<td>Working Capital Ratio (0.140), Debt Levels</td>
+<td>Enhance liquidity, manage debt maturities</td>
+<td>Current ratio &gt;1.0, reduced leverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk Oversight &amp; Compliance</td>
-<td>Z-Score Trend (1.82-1.94), Dividend Policy</td>
-<td>Monitor financial health, validate dividend sustainability</td>
-<td>Stable or improving Z-Score, transparent dividend policy</td>
+<td>Risk Oversight</td>
+<td>Z-Score (1.91), Dividend Policy</td>
+<td>Monitor financial health, review dividend sustainability</td>
+<td>Z-Score &gt;2.0, stable dividend policy</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_5">Commentary</h3>
 <ul>
-<li><strong>CEO</strong> should prioritize operational improvements to boost profitability and asset efficiency, directly impacting Z-Score components.</li>
-<li><strong>CFO</strong> must focus on liquidity enhancement and capital structure optimization to mitigate financial risks.</li>
-<li><strong>Board</strong> needs to oversee risk management closely, especially given the Gray Zone status and dividend anomalies, ensuring governance aligns with financial realities.</li>
-<li>Executive decisions should integrate Z-Score trend analysis with market price movements to anticipate investor concerns and adjust strategy proactively.</li>
+<li><strong>CEO</strong> should prioritize operational improvements to boost EBIT and asset turnover, directly impacting Z-Score components.</li>
+<li><strong>CFO</strong> must focus on liquidity enhancement and prudent capital allocation to mitigate financial risks.</li>
+<li><strong>Board</strong> should oversee risk management frameworks, ensuring dividend policies align with sustainable cash flows and financial health.</li>
+<li>Alignment of strategic initiatives with Z-Score trends will improve investor confidence and market perception.</li>
 </ul>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
@@ -931,40 +1009,41 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Slight upward trend (1.82 → 1.93)</td>
-<td>Stable to modest improvement</td>
-<td>Operational efficiency gains, commodity price recovery</td>
-<td>Quarterly Z-Score updates, EBIT ratio</td>
+<td>Stable at 1.91</td>
+<td>Slight improvement</td>
+<td>Commodity price recovery, cost control</td>
+<td>Quarterly EBIT, Working Capital Ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Below industry average</td>
-<td>Potential gradual catch-up</td>
-<td>Strategic asset management, cost control</td>
-<td>Peer Z-Score comparison, market share</td>
+<td>Below industry avg</td>
+<td>Gradual convergence</td>
+<td>Operational efficiency, peer performance</td>
+<td>Relative Z-Score, Market Cap trends</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Moderate, stable</td>
-<td>Potential volatility due to liquidity</td>
-<td>Debt refinancing, capital expenditure</td>
-<td>Working capital ratio, debt levels</td>
+<td>Moderate</td>
+<td>Stable to improving</td>
+<td>Debt reduction, liquidity management</td>
+<td>Debt-to-Equity ratio, Cash flow metrics</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_6">Commentary</h3>
 <ul>
-<li>The <strong>Z-Score momentum</strong> suggests FCX may maintain or slightly improve its financial health over the next 6-12 months if operational and liquidity improvements materialize.</li>
-<li><strong>Market position</strong> could improve with strategic initiatives targeting efficiency and cost control, narrowing the gap with peers.</li>
-<li><strong>Risk profile</strong> remains moderate but sensitive to liquidity shocks and market volatility; early warning indicators such as working capital ratio and EBIT margin should be closely tracked.</li>
-<li>Investors and management should develop an <strong>early warning system</strong> based on Z-Score thresholds (e.g., alert if Z &lt; 1.8) and liquidity metrics to preempt distress.</li>
-<li><strong>Investment thesis evolution</strong> depends on commodity market conditions and internal financial management effectiveness.</li>
+<li>The Z-Score momentum is expected to show slight improvement over the next 6-12 months if operational efficiencies and liquidity management continue.</li>
+<li>Market position may converge toward peer averages with successful execution of strategic initiatives.</li>
+<li>Risk profile remains moderate but can improve with proactive financial management.</li>
+<li>Key catalysts include commodity price trends, capital expenditure discipline, and dividend policy adjustments.</li>
+<li>Monitoring quarterly EBIT, working capital, and debt levels will provide early warning signals for risk escalation or improvement.</li>
+<li>Investors should track these leading indicators to adjust positions proactively.</li>
 </ul>
 <hr />
 <h1 id="summary"><strong>Summary</strong></h1>
-<p>Freeport-McMoRan Inc. (FCX) is positioned in the Gray Zone of financial health with a stable but cautious outlook. The company exhibits liquidity constraints and operational inefficiencies that temper its investment appeal despite a large market capitalization and stable stock price. Data quality is generally reliable, though anomalies in dividend yield and missing leverage data warrant further investigation. Investors should adopt a hold or cautious stance, monitoring liquidity and operational improvements closely, while management should prioritize efficiency and capital structure optimization to enhance financial stability and investor confidence.</p>
+<p>Freeport-McMoRan Inc. (FCX) currently operates in a <strong>Gray Zone financial risk profile</strong> with a <strong>Z-Score of 1.91</strong>, reflecting moderate distress risk but improving stability. Liquidity constraints and low profitability margins are primary concerns, while market valuation shows growth expectations tempered by dividend anomalies. Strategic focus on operational efficiency and liquidity enhancement is critical to improving financial health and investor confidence. Investment recommendations range from cautious hold for conservative investors to opportunistic buy for value-focused profiles, with dividend investors advised to exercise caution. Forward-looking indicators suggest potential for gradual improvement contingent on commodity market conditions and internal financial management.</p>
 <hr />
-<p><em>Analysis generated by AI-Powered Altman Z-Score Investment Framework based on injected data as of 2025-07-03.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, market metrics, and AI-driven risk and sentiment assessments.</em></p></div></div>
     </div>
     
 
@@ -1307,78 +1386,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:22 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:52 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

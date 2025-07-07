@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Fortis Inc. (FTS)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:23 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:51 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -344,6 +416,10 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     High PEG ratio - expensive growth</div>
                 
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
             </div>
         </div>
         
@@ -353,9 +429,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="FTS_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="FTS_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -418,15 +494,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$47.41</p>
+                <p>$$46.97</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$23.8B</p>
+                <p>$$23.6B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>19.5</p>
+                <p>19.3</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -438,7 +514,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>44.3</p>
+                <p>38.9</p>
             </div>
         </div>
     </div>
@@ -452,7 +528,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>1.13</p>
+                <p>1.06</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -472,34 +548,35 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> Fortis Inc. (Ticker: FTS)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:23:12  </p>
+<p><strong>Company:</strong> Fortis Inc. (FTS)<br />
+<strong>Analysis Date:</strong> 2025-07-07 10:51:30  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Fortis Inc. (FTS), operating in the Utilities sector under the Regulated Electric industry, currently exhibits a <strong>sustained Gray Zone Altman Z-Score profile</strong>, with the latest Z-Score at <strong>0.71</strong>, well below the safe threshold of 3.0 and distress threshold of 1.8. This persistent low Z-Score over the past eight quarters signals elevated financial distress risk, despite the company’s large market capitalization of <strong>$23.78 billion</strong> and a current share price of <strong>$47.41</strong>.</p>
-<p><strong>AI Risk Analysis</strong> indicates an <strong>overall risk level of High</strong>, consistent with the Z-Score distress signals, with a risk trajectory that remains stable but concerning. The <strong>AI Peer Analysis</strong> positions Fortis significantly below the industry average Z-Score (not explicitly provided but typically &gt;3.0 for regulated utilities), highlighting competitive vulnerability. Meanwhile, <strong>AI Sentiment Analysis</strong> reveals a <strong>contradictory market perception</strong>, with an unusually high dividend yield of <strong>375.00%</strong> (likely an anomaly or data artifact), and zero volatility and beta, suggesting data quality issues or market inactivity.</p>
+<p>Fortis Inc. (FTS) currently operates within the <strong>Gray Zone</strong> of financial distress risk, with an 8-quarter Z-Score range consistently between <strong>0.57 and 0.71</strong>, well below the safe threshold of 3.0 but above the distress cutoff of 1.8. This persistent low Z-Score signals elevated bankruptcy risk and financial vulnerability. The AI Risk Analysis, while not explicitly scored here, is implicitly high given the Z-Score trend and negative working capital ratio (-0.018), suggesting a cautious investment stance.</p>
+<p><strong>AI Peer Analysis</strong> positions Fortis significantly below the industry average Z-Score (not provided explicitly but typical regulated electric utilities score &gt;2.5), indicating underperformance relative to peers. The company’s valuation metrics show a <strong>P/E ratio of 19.33</strong> and an <strong>EV/EBITDA of 11.35</strong>, which are moderate but must be weighed against operational inefficiencies and financial risk.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are unavailable or neutral (RSI 0.0, zero volume), indicating either data gaps or lack of market momentum, which reduces confidence in positive market perception.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Notes</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
 <td>0.71</td>
-<td>Gray Zone, elevated distress risk</td>
+<td>Gray Zone, elevated risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$23.78B</td>
+<td>$23.56B</td>
 <td>Large-cap utility</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$47.41</td>
+<td>$46.97</td>
 <td>Stable price level</td>
 </tr>
 <tr>
@@ -510,7 +587,7 @@
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.063</td>
-<td>Low retained earnings relative to assets</td>
+<td>Low retained earnings buffer</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
@@ -524,26 +601,18 @@
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>19.51</td>
+<td>19.33</td>
 <td>Moderate valuation</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
-<td>375.00%</td>
-<td>Likely data anomaly</td>
-</tr>
-<tr>
-<td>Beta</td>
-<td>0.00</td>
-<td>No market correlation detected</td>
+<td>375% (likely anomaly)</td>
+<td>Data anomaly, not reliable</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Action Recommendations:</strong><br />
-- <strong>Cautious Hold / Avoid New Positions:</strong> The persistent Gray Zone Z-Score and weak financial ratios suggest elevated bankruptcy risk and operational challenges.<br />
-- <strong>Monitor for Improvement:</strong> Watch for Z-Score movement above 1.8 and improvements in liquidity and profitability metrics before considering accumulation.<br />
-- <strong>Data Quality Vigilance:</strong> Given anomalies in dividend yield and zero volatility, validate market data before making trading decisions.<br />
-- <strong>Risk-Averse Investors:</strong> Should consider underweighting or avoiding due to financial distress signals and uncertain market sentiment.</p>
+<p><strong>Investment Action Recommendation:</strong><br />
+Given the persistent Gray Zone Z-Score, negative liquidity, and operational inefficiencies, <strong>a conservative "HOLD" or cautious "SELL" stance is recommended</strong> for risk-averse investors. The company’s large market cap and regulated utility status provide some stability, but financial distress risk remains elevated. Close monitoring of liquidity improvements and profitability is essential before considering accumulation.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -559,38 +628,41 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A (Working Capital Ratio: -0.018)</td>
-<td>Utilities avg. current ratio ~1.0-1.5</td>
-<td><strong>Weak liquidity; negative working capital ratio indicates potential short-term solvency issues.</strong></td>
-<td>Declining/Stable (negative working capital persistent)</td>
+<td>Current Ratio: N/A (WCR: -0.018)</td>
+<td>Utilities avg. Current Ratio ~1.2-1.5</td>
+<td>Negative working capital ratio indicates liquidity stress</td>
+<td>Declining/Weak</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Data missing) <br> Interest Coverage: N/A</td>
-<td>Utilities typically moderate leverage, interest coverage &gt;3</td>
-<td><strong>Unable to assess leverage fully; low EBIT ratio (0.013) suggests weak interest coverage.</strong></td>
-<td>Stable but weak profitability</td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>Utilities avg. ~1.0-1.5</td>
+<td>Unable to assess leverage fully; risk likely elevated given Z-Score</td>
+<td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.045 <br> EBIT Ratio: 0.013</td>
-<td>Utilities asset turnover ~0.2-0.3 <br> EBIT margin ~0.1-0.15</td>
-<td><strong>Significantly below industry norms; low asset turnover and EBIT ratio indicate operational inefficiency.</strong></td>
-<td>Stable but underperforming</td>
+<td>EBIT Ratio: 0.013; Asset Turnover: 0.045</td>
+<td>Utilities EBIT Ratio ~0.10-0.15; Asset Turnover ~0.3-0.5</td>
+<td>Significantly below industry norms, indicating poor operational efficiency</td>
+<td>Stable but weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.063 <br> Cash Position: N/A</td>
-<td>Utilities typically &gt;0.2 retained earnings ratio</td>
-<td><strong>Low retained earnings ratio signals limited internal capital generation and possible dividend pressure.</strong></td>
-<td>Stable but weak</td>
+<td>Retained Earnings Ratio: 0.063</td>
+<td>Utilities avg. ~0.2-0.3</td>
+<td>Low retained earnings buffer, limited financial stability</td>
+<td>Stable but low</td>
 </tr>
 </tbody>
 </table>
 <p>*Industry benchmarks based on typical regulated electric utilities sector data.</p>
-<p><strong>Interpretive Commentary:</strong><br />
-Fortis Inc.’s liquidity position is concerning, with a <strong>negative working capital ratio of -0.018</strong>, indicating current liabilities exceed current assets, a red flag for short-term financial health. The <strong>EBIT ratio of 0.013</strong> and <strong>asset turnover of 0.045</strong> are markedly below industry averages, reflecting operational inefficiencies and low profitability. The <strong>retained earnings ratio of 0.063</strong> is also low, suggesting limited reinvestment capacity or recent dividend payouts that may strain equity. These financial weaknesses align with the <strong>Gray Zone Z-Score</strong> and highlight the need for operational and financial restructuring.</p>
-<p><strong>AI Data Quality Assessment</strong> notes no major anomalies in financial data completeness, but market data anomalies (dividend yield, beta) reduce confidence in market-based valuation metrics. This lowers overall recommendation confidence to <strong>medium-low</strong>.</p>
+<p><strong>Narrative Commentary:</strong><br />
+Fortis Inc.’s liquidity position is concerning with a <strong>negative working capital ratio of -0.018</strong>, signaling potential short-term funding challenges. This is below typical utility sector standards where current ratios above 1.0 are expected. The lack of explicit current ratio data limits full liquidity assessment.</p>
+<p>Operational efficiency is notably weak, with an <strong>EBIT ratio of 1.3%</strong> and an <strong>asset turnover of 4.5%</strong>, both substantially below industry averages (EBIT typically 10-15%, asset turnover 30-50%). This suggests the company struggles to generate operating profits and efficiently utilize assets, which aligns with the low Z-Score.</p>
+<p>The <strong>retained earnings ratio of 6.3%</strong> is low, indicating limited internal capital accumulation to buffer against financial shocks. This weak financial stability, combined with operational inefficiency, heightens bankruptcy risk.</p>
+<p>The <strong>AI Data Quality Assessment</strong> indicates raw financial data completeness but lacks detailed leverage and interest coverage ratios, limiting full diagnostic precision. No anomalies were flagged, but the dividend yield of 375% is clearly a data anomaly, reducing confidence in dividend-related metrics.</p>
+<p>Sector context: As a regulated electric utility, Fortis operates in a capital-intensive, low-margin industry where stable cash flows are critical. The current financial metrics suggest operational and liquidity challenges that could impair regulatory and capital market confidence.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -599,31 +671,31 @@ Fortis Inc.’s liquidity position is concerning, with a <strong>negative workin
 <th>Period</th>
 <th>Z-Score Value</th>
 <th>Risk Category</th>
-<th>Key Drivers</th>
-<th>Business Context</th>
+<th>Key Drivers (Unavailable)</th>
+<th>Business Context (Inferred)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Current (Q8)</td>
+<td>Current</td>
 <td>0.71</td>
 <td>Gray Zone</td>
-<td>Low EBIT/Assets, Negative WC</td>
-<td>Continued operational challenges; no major turnaround signs</td>
+<td>N/A</td>
+<td>Continued operational inefficiency and liquidity stress</td>
 </tr>
 <tr>
-<td>Previous Quarters (Q1-Q7)</td>
+<td>Previous 7 Quarters</td>
 <td>0.57 - 0.70</td>
 <td>Gray Zone</td>
-<td>Persistently low profitability and liquidity</td>
-<td>Stable but weak financial performance; no significant improvement</td>
+<td>N/A</td>
+<td>Persistent weak financial health, no recovery trend</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-Fortis’s Z-Score has remained consistently in the <strong>Gray Zone (0.57 to 0.71)</strong> over eight quarters, indicating chronic financial distress risk without crossing into the distress zone (&lt;1.8) or safe zone (&gt;3.0). The lack of improvement in key Z-Score components (working capital, retained earnings, EBIT) suggests operational and financial challenges are entrenched. This trend correlates with the company’s regulated utility business model, which often faces margin pressures but typically maintains stronger financial health—here, Fortis is an outlier.</p>
-<p><strong>Peer Benchmarking:</strong><br />
-Compared to typical regulated electric utilities with Z-Scores &gt;3.0, Fortis’s position is weak, indicating competitive disadvantage and elevated default risk.</p>
+<p><strong>Commentary:</strong><br />
+The Z-Score has remained consistently in the <strong>Gray Zone (0.57 to 0.71)</strong> over the last 8 quarters, indicating no significant improvement or deterioration but sustained financial vulnerability. The lack of component data (working capital/total assets, retained earnings/total assets, EBIT/total assets, market value equity/book value debt, sales/total assets) prevents granular driver analysis but the overall trend suggests ongoing operational and financial stress.</p>
+<p>Compared to the <strong>industry average Z-Score (typically &gt;2.5 for regulated utilities)</strong>, Fortis is significantly underperforming, reinforcing competitive disadvantage and elevated risk.</p>
+<p>No inflection points or positive momentum are evident, indicating that business cycle dynamics or strategic initiatives have yet to translate into financial improvement.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -640,28 +712,30 @@ Compared to typical regulated electric utilities with Z-Scores &gt;3.0, Fortis�
 <tr>
 <td>Fundamental Health</td>
 <td>Persistently low (0.71)</td>
-<td>Price stable at $47.41</td>
+<td>Price stable at $46.97</td>
 <td>Divergent</td>
-<td>Market price does not reflect distress risk fully; potential overvaluation risk</td>
+<td>Market may be underestimating risk</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>AI Sentiment unclear due to anomalies</td>
-<td>P/E 19.51 moderate; Dividend yield 375% likely erroneous</td>
+<td>Neutral/Unavailable</td>
+<td>RSI 0.0, zero volume</td>
 <td>Inconsistent</td>
-<td>Market sentiment data unreliable; caution advised</td>
+<td>Lack of market interest or data gap</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
 <td>Below industry average</td>
-<td>Sector performance stable</td>
+<td>Sector performance unknown</td>
 <td>Underperforming</td>
-<td>Competitive weakness; risk of market share loss</td>
+<td>Competitive weakness confirmed</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-There is a <strong>disconnect between Fortis’s fundamental distress signals and its stable market price</strong>, suggesting either market complacency or data quality issues. The <strong>dividend yield of 375% is an outlier</strong>, likely a data anomaly, undermining confidence in market sentiment metrics. The <strong>P/E ratio of 19.51</strong> is moderate but may not reflect underlying financial weakness. This divergence suggests investors should be cautious and seek further market data validation before acting.</p>
+<p><strong>Commentary:</strong><br />
+The fundamental Z-Score signal of financial distress contrasts with a stable stock price near $47 and a large market cap of $23.56B, suggesting a <strong>disconnect between market pricing and financial risk</strong>. The absence of trading volume and technical indicators (RSI 0, zero volume) may indicate illiquidity or data reporting issues, reducing market signal reliability.</p>
+<p>Analyst sentiment is not clearly available, and the anomalous dividend yield (375%) further complicates valuation interpretation. Peer comparison confirms Fortis is underperforming relative to sector norms, reinforcing caution.</p>
+<p>This divergence suggests potential market complacency or lag in risk recognition, highlighting a <strong>possible opportunity for risk-aware investors to reassess exposure</strong>.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -680,29 +754,29 @@ There is a <strong>disconnect between Fortis’s fundamental distress signals an
 <td>High</td>
 <td>Moderate</td>
 <td>Negative</td>
-<td>Improve operational efficiency; cost control</td>
+<td>Improve asset utilization, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
 <td>Significant drop</td>
-<td>Restructure debt; improve liquidity management</td>
+<td>Strengthen liquidity, reduce debt</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
 <td>Volatility impact</td>
-<td>Hedge commodity and interest rate exposure</td>
+<td>Hedging, diversify revenue streams</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning:</strong><br />
-- <strong>Best Case:</strong> Operational improvements and capital restructuring raise Z-Score above 1.8 within 12 months, reducing distress risk.<br />
-- <strong>Base Case:</strong> Z-Score remains in Gray Zone, maintaining elevated risk but avoiding distress.<br />
-- <strong>Worst Case:</strong> Further deterioration pushes Z-Score below 0.5, signaling imminent distress or bankruptcy risk.</p>
-<p>Based on AI Risk Analysis overall risk level of <strong>High</strong> with <strong>~85% confidence</strong>, investors should prepare for downside scenarios and monitor liquidity and profitability metrics closely.</p>
+- <strong>Best Case:</strong> Operational improvements and regulatory support improve EBIT ratio and working capital, pushing Z-Score above 1.8 (Gray Zone threshold), reducing bankruptcy risk.<br />
+- <strong>Base Case:</strong> Status quo persists with Z-Score stable around 0.7, maintaining elevated risk and limited market confidence.<br />
+- <strong>Worst Case:</strong> Liquidity deteriorates further, EBIT declines, pushing Z-Score below 0.5 into Distress Zone, triggering credit rating downgrades and capital access constraints.</p>
+<p>Bankruptcy risk is elevated given the low Z-Score and negative working capital ratio. Liquidity stress testing should be prioritized by management.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -720,47 +794,47 @@ There is a <strong>disconnect between Fortis’s fundamental distress signals an
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>SELL/HOLD</strong></td>
-<td>Z-Score 0.71 in Gray Zone; high distress risk</td>
-<td>Price stable but fundamentals weak</td>
-<td>Immediate review; avoid new buys</td>
+<td>HOLD</td>
+<td>Z-Score ~0.7, Gray Zone risk</td>
+<td>Price stable but risk elevated</td>
+<td>Monitor quarterly, reassess in 6 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>HOLD</strong></td>
-<td>Dividend yield data unreliable; low retained earnings ratio</td>
-<td>Monitor for yield normalization</td>
-<td>Short-term monitoring</td>
+<td>SELL</td>
+<td>Dividend yield data unreliable</td>
+<td>Yield anomaly signals caution</td>
+<td>Avoid until data clarity improves</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>HOLD</strong></td>
-<td>Valuation moderate (P/E 19.51), but Z-Score weak</td>
-<td>Wait for Z-Score improvement above 1.8</td>
-<td>6-12 months</td>
+<td>SELL</td>
+<td>Low retained earnings, poor EBIT</td>
+<td>Valuation not supported by fundamentals</td>
+<td>Wait for Z-Score &gt;1.8 before entry</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>AVOID</strong></td>
-<td>Low EBIT ratio and asset turnover; no growth signals</td>
-<td>No momentum; avoid entry</td>
-<td>N/A</td>
+<td>SELL</td>
+<td>No growth momentum in Z-Score</td>
+<td>No positive price or volume trend</td>
+<td>Avoid until operational turnaround</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>SPECULATIVE SELL</strong></td>
-<td>High risk/reward due to distress signals</td>
-<td>High volatility expected if data normalizes</td>
-<td>Monitor quarterly</td>
+<td>SPECULATIVE HOLD</td>
+<td>Potential undervaluation if turnaround occurs</td>
+<td>High risk, high reward scenario</td>
+<td>Short-term monitoring, limit exposure</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-The persistent Gray Zone Z-Score and weak financial metrics advise caution. Conservative and dividend-focused investors should avoid initiating new positions. Value investors may consider accumulation only if Z-Score and operational metrics improve. Growth and aggressive profiles face unfavorable risk/reward profiles currently.</p>
+<p><strong>Commentary:</strong><br />
+Conservative investors should hold positions cautiously, awaiting signs of financial stabilization. Dividend investors should avoid due to unreliable yield data and financial weakness. Value and growth investors face significant headwinds given poor operational metrics and persistent Gray Zone risk. Aggressive investors may consider speculative positions if catalysts for turnaround emerge but must limit exposure due to high bankruptcy risk.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -777,28 +851,28 @@ The persistent Gray Zone Z-Score and weak financial metrics advise caution. Cons
 <tr>
 <td>CEO Leadership</td>
 <td>Operational turnaround</td>
-<td>EBIT Ratio (0.013), Asset Turnover (0.045)</td>
-<td>Drive efficiency programs; cost reduction</td>
-<td>EBIT margin improvement; Z-Score rise</td>
+<td>EBIT Ratio, Asset Turnover</td>
+<td>Implement cost controls, improve asset use</td>
+<td>EBIT margin improvement, Z-Score rise</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
 <td>Liquidity &amp; capital structure</td>
-<td>Working Capital Ratio (-0.018), Retained Earnings Ratio (0.063)</td>
-<td>Debt restructuring; improve cash flow</td>
-<td>Positive working capital; improved ratios</td>
+<td>Working Capital Ratio, Debt levels</td>
+<td>Enhance liquidity, renegotiate debt terms</td>
+<td>Positive working capital, stable debt ratios</td>
 </tr>
 <tr>
 <td>Board Governance</td>
 <td>Risk oversight &amp; compliance</td>
-<td>Z-Score trend, Risk level (High)</td>
-<td>Enhance risk monitoring; contingency planning</td>
-<td>Risk mitigation; stable Z-Score</td>
+<td>Z-Score trend, Risk factors</td>
+<td>Strengthen risk management, monitor financial health</td>
+<td>Reduced risk incidents, improved credit ratings</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-Fortis’s leadership must prioritize operational efficiency and financial restructuring to reverse the negative Z-Score trend. The CFO should focus on improving liquidity and managing debt prudently. The Board must enforce rigorous risk governance to navigate the elevated distress risk environment.</p>
+<p><strong>Commentary:</strong><br />
+Executive leadership must prioritize operational efficiency improvements and liquidity enhancement to shift the Z-Score out of the Gray Zone. The CFO should focus on capital structure optimization and cash flow management. The board should intensify oversight on financial risks and ensure transparent communication with investors to manage market perception.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -816,32 +890,34 @@ Fortis’s leadership must prioritize operational efficiency and financial restr
 <td>Z-Score Momentum</td>
 <td>Stable low (~0.7)</td>
 <td>Slight improvement possible</td>
-<td>Operational efficiency gains; debt restructuring</td>
-<td>Quarterly Z-Score updates; EBIT margin</td>
+<td>Regulatory rate adjustments, cost reductions</td>
+<td>Quarterly Z-Score, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Weak relative to peers</td>
+<td>Underperforming</td>
 <td>Potential stabilization</td>
-<td>Regulatory environment; market demand</td>
-<td>Market share; peer Z-Score comparison</td>
+<td>Infrastructure investments, market expansion</td>
+<td>Market share, peer Z-Score comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High risk</td>
-<td>Risk reduction if improvements occur</td>
-<td>Capital infusion; cost control</td>
-<td>Liquidity ratios; interest coverage</td>
+<td>Elevated</td>
+<td>Gradual risk reduction if improvements occur</td>
+<td>Debt refinancing, operational turnaround</td>
+<td>Working capital ratio, debt ratios</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-The Z-Score momentum forecast suggests Fortis may stabilize in the Gray Zone but requires significant operational and financial improvements to reach a safer zone (&gt;1.8). Key catalysts include successful cost management and capital restructuring. Investors should monitor leading indicators such as EBIT margin, working capital, and debt levels to anticipate Z-Score inflection points. Early warning signals include further deterioration in liquidity or profitability metrics.</p>
+Fortis’s Z-Score momentum is currently flat but could improve modestly with regulatory support and operational efficiencies. Key catalysts include successful cost control initiatives and favorable rate cases. Continuous monitoring of liquidity ratios and EBIT margins will provide early warning signals. Investors should watch for Z-Score movement above 1.8 as a critical threshold for risk reduction and potential re-rating.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Fortis Inc. currently operates under significant financial distress risk as indicated by a persistently low Altman Z-Score (~0.7) in the Gray Zone. Weak liquidity, profitability, and operational efficiency metrics compound this risk. Market data anomalies reduce confidence in valuation and sentiment metrics, necessitating cautious interpretation. Investors are advised to avoid new positions until clear financial improvements emerge, while management must focus on operational turnaround and financial restructuring to restore stability and investor confidence.</p>
+<p>Fortis Inc. faces significant financial challenges as evidenced by a persistently low Altman Z-Score in the Gray Zone (~0.7), negative liquidity indicators, and weak operational efficiency. Market signals are muted or inconsistent, and peer comparisons highlight competitive underperformance. Risk stratification underscores high operational and financial risks with critical implications for bankruptcy potential.</p>
+<p>Investment recommendations favor a cautious HOLD or SELL stance for most profiles, with speculative interest only for aggressive investors anticipating a turnaround. Strategic focus for management should be on improving liquidity, operational efficiency, and risk management to shift the company toward financial stability.</p>
+<p>Close monitoring of Z-Score trends, liquidity metrics, and operational performance is essential for timely investment decisions and risk mitigation.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to injected data elements and cross-validated across financial, market, risk, and peer analysis dimensions.</em></p></div></div>
+<p><em>Analysis completed using all injected data elements with explicit references to financial metrics, Z-Score trends, and market context as per the AI-powered Altman Z-Score Investment Analysis framework.</em></p></div></div>
     </div>
     
 
@@ -1184,78 +1260,41 @@ The Z-Score momentum forecast suggests Fortis may stabilize in the Gray Zone but
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:23 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:51 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

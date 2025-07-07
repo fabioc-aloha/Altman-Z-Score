@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>ING Groep N.V. (ING)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:33 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:53 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -340,6 +412,10 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     High bankruptcy risk based on Z-Score</div>
                 
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overbought conditions (RSI)</div>
+                
             </div>
         </div>
         
@@ -349,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="ING_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="ING_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -414,15 +490,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$22.50</p>
+                <p>$$22.45</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$66.9B</p>
+                <p>$$67.0B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>9.7</p>
+                <p>9.6</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -434,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>66.6</p>
+                <p>72.4</p>
             </div>
         </div>
     </div>
@@ -448,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.90</p>
+                <p>0.89</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -478,11 +554,13 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> ING Groep N.V. (Ticker: ING)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:33:33  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:53:23  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>ING Groep N.V. currently exhibits a <strong>Gray Zone</strong> Altman Z-Score risk profile with a recent score of <strong>2.22</strong>, indicating moderate financial distress risk but improved stability compared to prior quarters dominated by <strong>Distress Zone</strong> scores (ranging from -0.70 to 0.67). The Z-Score trajectory shows a positive inflection over the last two quarters, moving from distress levels below 1.8 to the gray zone range of 1.8-3.0, signaling a tentative recovery in financial health.</p>
-<p><strong>AI Risk Analysis</strong> (inferred from Z-Score and financial ratios) suggests a <strong>moderate overall risk level</strong> with a positive risk trajectory, reflecting improving operational and liquidity conditions but still vulnerable to shocks. The <strong>AI Peer Analysis</strong> positions ING below the industry average Z-Score (not explicitly provided but typical for diversified banks &gt;3.0), indicating ING is underperforming relative to peers such as BNP Paribas (BNP), Deutsche Bank (DB), and Santander (SAN). The <strong>AI Sentiment Analysis</strong> is neutral to slightly positive, supported by a strong dividend yield of <strong>526.00%</strong> (likely an anomaly or special dividend event) and a low P/E ratio of <strong>9.70</strong>, suggesting market undervaluation or distress pricing.</p>
+<p>ING Groep N.V. currently exhibits a <strong>Gray Zone</strong> Altman Z-Score risk profile with a recent score of <strong>2.22</strong>, indicating moderate financial distress risk but improved stability compared to prior quarters dominated by distress-level scores below 1.8. The Z-Score trajectory shows a notable recovery from deep distress (negative Z-Scores as low as -0.70) to a more stable but cautious position.  </p>
+<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>Elevated</strong>, with a trajectory trending upward but still within cautionary bounds. This is consistent with the financial data context showing weak liquidity (Working Capital Ratio: <strong>-0.588</strong>) and minimal operational profitability (EBIT Ratio: <strong>0.002</strong>).  </p>
+<p><strong>AI Peer Analysis</strong> places ING below the industry average Z-Score for diversified banks, which typically hover above 3.0 (Safe Zone), signaling competitive challenges. Key peers in the diversified banking sector maintain healthier financial buffers, underscoring ING’s relative vulnerability.  </p>
+<p><strong>AI Sentiment Analysis</strong> reveals a <strong>mixed to negative market sentiment</strong>, with an anomalously high dividend yield reported at <strong>526.00%</strong>—likely a data anomaly or special dividend event—contrasted by zero volatility and zero beta, indicating market inactivity or data gaps. This divergence suggests market uncertainty or data quality issues impacting confidence.  </p>
 <table>
 <thead>
 <tr>
@@ -499,48 +577,47 @@
 </tr>
 <tr>
 <td>Z-Score Trend</td>
-<td>+0.26 (from 1.96)</td>
+<td>Upward</td>
 <td>Improving financial health</td>
-</tr>
-<tr>
-<td>Market Cap</td>
-<td>$66.9B</td>
-<td>Large-cap financial institution</td>
-</tr>
-<tr>
-<td>Current Price</td>
-<td>$22.50</td>
-<td>Stable price level</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>9.70</td>
-<td>Low valuation relative to earnings</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>526.00%</td>
-<td>Likely anomaly; indicates special event or data issue</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.588</td>
-<td>Negative liquidity indicator</td>
+<td>Liquidity weakness</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.002</td>
-<td>Very low operating profitability</td>
+<td>Near breakeven operationally</td>
 </tr>
 <tr>
-<td>Asset Turnover</td>
-<td>0.005</td>
-<td>Extremely low operational efficiency</td>
+<td>Market Cap</td>
+<td>$67.08B</td>
+<td>Large-cap financial institution</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>526.00% (anomaly)</td>
+<td>Data anomaly; interpret cautiously</td>
+</tr>
+<tr>
+<td>AI Risk Level</td>
+<td>Elevated</td>
+<td>Requires cautious monitoring</td>
+</tr>
+<tr>
+<td>AI Peer Position</td>
+<td>Below industry avg</td>
+<td>Competitive disadvantage</td>
+</tr>
+<tr>
+<td>AI Sentiment</td>
+<td>Mixed/Negative</td>
+<td>Market uncertainty or data issues</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Action Recommendation:</strong><br />
-Given the improving Z-Score trend from distress to gray zone, but persistent liquidity and profitability weaknesses, a <strong>cautious HOLD</strong> is recommended for conservative investors, with selective BUY consideration for value investors anticipating further recovery. Aggressive investors should await clearer signs of financial stabilization and operational improvement before increasing exposure.</p>
+<p><strong>Investment Recommendation:</strong> Given the improving but still fragile Z-Score, weak liquidity, and operational challenges, a <strong>cautious HOLD</strong> is advised for conservative investors, with close monitoring for further Z-Score improvements or deterioration. Aggressive investors should await clearer signs of financial stabilization before initiating new positions.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -548,7 +625,7 @@ Given the improving Z-Score trend from distress to gray zone, but persistent liq
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark*</th>
+<th>Industry Benchmark (Banks - Diversified)</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -556,39 +633,41 @@ Given the improving Z-Score trend from distress to gray zone, but persistent liq
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A; Working Capital Ratio: -0.588</td>
-<td>Industry avg. current ratio ~1.2-1.5; Working Capital Ratio &gt;0</td>
-<td>Weak liquidity; negative working capital ratio signals potential short-term solvency issues</td>
+<td>Current Ratio: N/A (Working Capital Ratio: -0.588)</td>
+<td>Typically &gt;1.0 (positive working capital)</td>
+<td><strong>Weak liquidity; negative working capital indicates potential short-term solvency issues</strong></td>
 <td>Declining/Weak</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A; Interest Coverage: N/A</td>
-<td>Typical bank leverage high but manageable</td>
-<td>Data unavailable; leverage likely high due to banking sector norms</td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>Industry average ~1.0-2.0 (moderate leverage)</td>
+<td><strong>Insufficient data; leverage unknown, risk assessment limited</strong></td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.005; EBIT Ratio: 0.002</td>
-<td>Industry avg. asset turnover ~0.3-0.5; EBIT margin ~10-15%</td>
-<td>Severely underperforming operational efficiency and profitability</td>
-<td>Declining</td>
+<td>EBIT Ratio: 0.002; Asset Turnover: 0.005</td>
+<td>EBIT Ratio ~0.05-0.10; Asset Turnover ~0.1-0.3</td>
+<td><strong>Extremely low profitability and asset utilization; operational inefficiency</strong></td>
+<td>Stable but very weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.000; Cash Position: N/A</td>
+<td>Retained Earnings Ratio: 0.000</td>
 <td>Positive retained earnings typical</td>
-<td>No retained earnings growth; stability concerns</td>
-<td>Stable but weak</td>
+<td><strong>No retained earnings accumulation; signals stagnation or losses</strong></td>
+<td>Stable but concerning</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks based on diversified banking sector norms.</p>
 <p><strong>Interpretive Commentary:</strong><br />
-The <strong>negative working capital ratio (-0.588)</strong> is a critical liquidity red flag, indicating current liabilities exceed current assets significantly, which is atypical even for banks that rely on short-term funding. The <strong>EBIT ratio of 0.002</strong> and <strong>asset turnover of 0.005</strong> reflect extremely low profitability and operational efficiency, far below industry averages, suggesting operational challenges or accounting anomalies. The <strong>retained earnings ratio at zero</strong> indicates no accumulated profits, further stressing financial stability.</p>
-<p>The <strong>AI Data Quality Assessment</strong> indicates raw data completeness but lacks detailed component ratios, limiting leverage and interest coverage analysis. No anomalies were flagged, but the extreme dividend yield (526%) and zero volatility metrics suggest data irregularities or extraordinary events requiring caution in interpretation.</p>
-<p>The sector context—<strong>Financial Services, Banks - Diversified</strong>—implies ING operates in a highly regulated, capital-intensive environment with inherent leverage and liquidity management challenges. The negative working capital ratio may be partially explained by banking business models but remains a concern.</p>
+- The <strong>Working Capital Ratio of -0.588</strong> starkly contrasts with industry norms, indicating ING’s current liabilities exceed current assets significantly, raising liquidity risk. This aligns with the AI Risk Analysis elevated risk level and suggests potential short-term funding stress.<br />
+- The <strong>EBIT Ratio of 0.002</strong> reflects near-zero operating profitability, far below typical banking sector margins, signaling operational challenges or extraordinary expenses.<br />
+- The <strong>Asset Turnover of 0.005</strong> is extremely low, suggesting poor utilization of assets to generate revenue, which is atypical for diversified banks that usually manage assets more efficiently.<br />
+- The <strong>Retained Earnings Ratio at zero</strong> indicates no net accumulation of earnings, possibly due to dividend payouts, losses, or accounting adjustments.<br />
+- Data quality is limited by missing leverage ratios and interest coverage, reducing confidence in full financial health assessment. However, the <strong>AI Data Quality Assessment</strong> notes no critical anomalies beyond dividend yield and market data gaps, supporting cautious interpretation.<br />
+- Sector context: As a diversified bank operating across multiple geographies, ING faces regulatory capital requirements and competitive pressures that heighten the importance of liquidity and profitability metrics.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -606,29 +685,31 @@ The <strong>negative working capital ratio (-0.588)</strong> is a critical liqui
 <td>Current (Q8)</td>
 <td>2.22</td>
 <td>Gray Zone</td>
-<td>Slight improvement in working capital and EBIT components</td>
-<td>Signs of operational stabilization post-distress</td>
+<td>Slightly improved working capital, marginal EBIT</td>
+<td>Signs of recovery from prior distress; cautious optimism</td>
 </tr>
 <tr>
 <td>Previous (Q7)</td>
 <td>1.96</td>
 <td>Gray Zone</td>
-<td>Marginal improvement from prior distress levels</td>
-<td>Early recovery phase</td>
+<td>Marginal EBIT improvement</td>
+<td>Early recovery phase after prolonged distress</td>
 </tr>
 <tr>
-<td>Q6 to Q1</td>
-<td>-0.68 to 0.67</td>
-<td>Distress</td>
-<td>Negative working capital, negligible EBIT, zero retained earnings</td>
-<td>Period of financial distress and operational weakness</td>
+<td>Prior 6 Quarters</td>
+<td>Range: -0.70 to 0.67</td>
+<td>Distress Zone</td>
+<td>Negative working capital, negligible EBIT</td>
+<td>Prolonged financial stress, operational challenges</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-The Z-Score evolution from <strong>-0.70 (Q2)</strong> through <strong>0.67 (Q5)</strong> to <strong>2.22 (Q8)</strong> shows a significant upward trend, moving ING from a <strong>Distress Zone</strong> to the <strong>Gray Zone</strong>. This suggests improving financial fundamentals, possibly due to restructuring, capital injections, or operational improvements. However, the Z-Score remains below the <strong>Safe Zone threshold of 3.0</strong>, indicating ongoing vulnerability.</p>
-<p>The lack of detailed component data (working capital/total assets, EBIT/total assets, etc.) limits granular driver analysis, but the positive trajectory aligns with potential business cycle recovery or successful risk mitigation strategies in the banking sector.</p>
-<p>Benchmarking against peers (industry average Z-Score typically &gt;3.0 for stable banks) confirms ING is still lagging but closing the gap.</p>
+- ING’s Z-Score has transitioned from a <strong>prolonged Distress Zone</strong> (Z &lt; 1.8) with negative values indicating severe financial stress, to the <strong>Gray Zone</strong> (1.8-3.0), reflecting improved but still vulnerable financial health.<br />
+- The upward trajectory from -0.70 (distress) to 2.22 (gray) over recent quarters suggests effective management actions or market conditions improving working capital and EBIT components, though absolute values remain weak.<br />
+- Lack of detailed component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) limits granular attribution but the trend is positive.<br />
+- This recovery aligns with the business context of ING’s diversified banking operations, which may have benefited from restructuring, cost control, or improved credit conditions.<br />
+- Compared to industry peers with Z-Scores typically &gt;3.0, ING remains at risk but is moving in the right direction.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -644,30 +725,32 @@ The Z-Score evolution from <strong>-0.70 (Q2)</strong> through <strong>0.67 (Q5)
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Improving (2.22, Gray Zone)</td>
-<td>Price stable at $22.50; low volatility</td>
-<td>Divergent (Z-Score improving, price flat)</td>
-<td>Potential undervaluation; opportunity for entry</td>
+<td>Upward Z-Score trend (2.22)</td>
+<td>Flat price performance; zero volatility</td>
+<td>Divergent</td>
+<td>Fundamental improvement not yet reflected in market price</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to positive</td>
-<td>P/E 9.70 (low), Dividend Yield 526% (anomaly)</td>
-<td>Inconsistent (dividend anomaly)</td>
-<td>Market cautious; possible special dividend event</td>
+<td>Mixed/Negative (AI Sentiment)</td>
+<td>Data gaps; anomalous dividend yield</td>
+<td>Inconsistent</td>
+<td>Market uncertainty; possible data quality issues</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry avg.</td>
-<td>Sector performance moderate</td>
+<td>Below industry average Z-Score</td>
+<td>Sector performance stable</td>
 <td>Underperforming</td>
-<td>Competitive disadvantage; watch peer moves</td>
+<td>Competitive disadvantage; risk premium warranted</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The <strong>Z-Score improvement</strong> contrasts with a <strong>flat stock price and zero volatility</strong>, suggesting market skepticism or delayed reaction to improving fundamentals. The <strong>low P/E ratio (9.70)</strong> supports undervaluation, but the <strong>extraordinarily high dividend yield (526%)</strong> is likely a data anomaly or reflects a one-time special dividend, which could distort investor perception.</p>
-<p>Peer comparison indicates ING is underperforming relative to diversified banking peers, reinforcing the need for cautious optimism. The divergence between improving Z-Score and stagnant market price suggests a potential <strong>market timing opportunity</strong> for value investors anticipating a re-rating.</p>
+- The <strong>Z-Score improvement</strong> is not mirrored in market price or volatility data, which show zero movement and zero beta, indicating either market inactivity or data reporting issues.<br />
+- The <strong>anomalous dividend yield of 526%</strong> is likely a data anomaly or extraordinary event, undermining confidence in market data and complicating timing decisions.<br />
+- The divergence between improving fundamentals and stagnant market signals suggests a <strong>potential market mispricing opportunity</strong> if data quality issues are resolved.<br />
+- Peer underperformance in Z-Score terms suggests ING may be undervalued relative to risk, but investors should be cautious given liquidity and operational weaknesses.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -683,32 +766,32 @@ The <strong>Z-Score improvement</strong> contrasts with a <strong>flat stock pri
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>Medium</td>
-<td>Moderate</td>
-<td>Negative if EBIT remains low</td>
-<td>Enhance operational efficiency; cost control</td>
+<td>High</td>
+<td>Critical</td>
+<td>Potential Z-Score decline below 1.8</td>
+<td>Enhance cost controls, improve asset utilization</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>High</td>
-<td>Critical</td>
-<td>Significant decline if liquidity worsens</td>
-<td>Strengthen capital buffers; improve working capital</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Liquidity stress could lower Z-Score</td>
+<td>Strengthen capital buffers, improve working capital management</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Volatility may affect market valuation</td>
-<td>Hedging strategies; diversify revenue streams</td>
+<td>Market volatility may affect equity valuation</td>
+<td>Hedging strategies, diversify funding sources</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Continued operational improvements and liquidity management push Z-Score above 3.0, entering Safe Zone within 6-12 months.<br />
-- <strong>Base Case:</strong> Z-Score stabilizes in Gray Zone (1.8-3.0) with moderate risk exposure; cautious market sentiment persists.<br />
-- <strong>Worst Case:</strong> Liquidity stress or operational setbacks push Z-Score back below 1.8, increasing bankruptcy risk.</p>
-<p>Based on AI Risk Analysis overall risk level of <strong>moderate with improving trajectory</strong>, confidence in mitigation success is approximately <strong>60-70%</strong>, tempered by liquidity concerns.</p>
+- <strong>Best Case:</strong> Continued operational improvements and liquidity management push Z-Score above 3.0 within 6-12 months, moving ING into the Safe Zone.<br />
+- <strong>Base Case:</strong> Z-Score stabilizes in the Gray Zone (1.8-3.0), reflecting moderate risk but manageable distress with ongoing monitoring.<br />
+- <strong>Worst Case:</strong> Liquidity or operational shocks push Z-Score below 1.8, signaling distress and potential bankruptcy risk, requiring urgent intervention.  </p>
+<p>Based on AI Risk Analysis indicating elevated risk with improving trajectory, mitigation efforts should prioritize liquidity enhancement and operational efficiency to avoid regression.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -727,46 +810,50 @@ The <strong>Z-Score improvement</strong> contrasts with a <strong>flat stock pri
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score improving but still &lt;3.0; liquidity concerns</td>
-<td>Wait for Z-Score &gt;2.5 confirmation</td>
-<td>3-6 months</td>
+<td>Z-Score 2.22 in Gray Zone; improving but fragile</td>
+<td>Wait for Z-Score &gt; 2.5 and liquidity improvement</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>Dividend yield anomaly; sustainability questionable</td>
-<td>Monitor dividend announcements</td>
-<td>3 months</td>
+<td>Dividend yield data anomalous; sustainability unclear</td>
+<td>Monitor dividend policy clarity</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>BUY</td>
-<td>Low P/E (9.70) and improving Z-Score (2.22)</td>
-<td>Entry on price dips or Z-Score rise</td>
-<td>Immediate to 3 months</td>
+<td>HOLD/CAUTIOUS BUY</td>
+<td>Valuation reasonable (P/E 9.64); Z-Score improving</td>
+<td>Entry on confirmed Z-Score stability</td>
+<td>6-9 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>HOLD</td>
-<td>EBIT and asset turnover very low; growth uncertain</td>
-<td>Await operational improvement</td>
-<td>6-12 months</td>
+<td>SELL/WAIT</td>
+<td>Low EBIT ratio and asset turnover limit growth potential</td>
+<td>Await operational turnaround</td>
+<td>12+ months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>SPECULATIVE BUY</td>
-<td>High risk/reward; Z-Score volatile historically</td>
-<td>Opportunistic entry on volatility</td>
-<td>Immediate</td>
+<td>Potential upside if Z-Score improves; high risk</td>
+<td>Opportunistic entry with tight stops</td>
+<td>Immediate with caution</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-Value investors can capitalize on the improving Z-Score and low valuation, while conservative investors should wait for stronger liquidity signals. Growth investors face challenges due to weak operational metrics. Aggressive investors may speculate on turnaround potential but must manage downside risk.</p>
+<p><strong>Commentary:</strong><br />
+- Conservative investors should hold and monitor for further Z-Score improvement and liquidity stabilization before increasing exposure.<br />
+- Dividend investors face uncertainty due to anomalous yield data; clarity on dividend sustainability is needed.<br />
+- Value investors may consider cautious entry if valuation remains attractive and Z-Score stabilizes above 2.0.<br />
+- Growth investors should avoid or sell due to weak operational metrics limiting expansion.<br />
+- Aggressive investors may speculate on turnaround potential but must manage downside risk carefully.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -782,29 +869,32 @@ Value investors can capitalize on the improving Z-Score and low valuation, while
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Financial stabilization</td>
-<td>Z-Score components, EBIT ratio</td>
-<td>Drive operational efficiency, improve working capital</td>
-<td>Z-Score &gt; 3.0, EBIT margin &gt;5%</td>
+<td>Financial Stabilization</td>
+<td>Z-Score components, EBIT Ratio</td>
+<td>Focus on operational efficiency, cost reduction</td>
+<td>Z-Score &gt; 2.5; EBIT margin improvement</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity and capital management</td>
-<td>Working capital ratio, debt levels</td>
-<td>Optimize balance sheet, reduce short-term liabilities</td>
-<td>Positive working capital ratio</td>
+<td>Liquidity &amp; Capital Management</td>
+<td>Working Capital Ratio, Debt levels</td>
+<td>Enhance liquidity, optimize capital structure</td>
+<td>Positive working capital; stable leverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and compliance</td>
-<td>Risk indicators, Z-Score trend</td>
-<td>Enhance risk management frameworks, monitor distress signals</td>
-<td>Stable or improving risk profile</td>
+<td>Risk Oversight &amp; Compliance</td>
+<td>Risk indicators, Z-Score trajectory</td>
+<td>Strengthen risk management frameworks</td>
+<td>Risk level reduction; regulatory compliance</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-ING’s leadership must prioritize reversing liquidity deficits and boosting profitability to transition fully into the Safe Zone. The CFO should focus on capital structure optimization, while the Board must ensure robust risk governance to prevent relapse into distress. Market perception management is critical given the current valuation disconnect.</p>
+- The CEO should prioritize operational turnaround initiatives to improve EBIT and asset utilization, directly impacting Z-Score components.<br />
+- The CFO must address liquidity deficits indicated by the negative working capital ratio, ensuring sufficient short-term funding and capital adequacy.<br />
+- The Board should intensify oversight on risk factors highlighted by AI Risk Analysis, ensuring governance aligns with elevated risk levels and recovery plans.<br />
+- Coordinated leadership action is critical to transition ING from Gray Zone to Safe Zone, restoring market confidence and competitive positioning.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -820,34 +910,39 @@ ING’s leadership must prioritize reversing liquidity deficits and boosting pro
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Upward (2.22)</td>
+<td>Upward</td>
 <td>Gradual improvement</td>
-<td>Operational restructuring, capital injections</td>
+<td>Operational efficiency gains, liquidity improvement</td>
 <td>Quarterly Z-Score, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Undervalued</td>
-<td>Potential re-rating</td>
-<td>Dividend policy clarity, earnings growth</td>
-<td>Price/Earnings ratio, dividend announcements</td>
+<td>Below peers</td>
+<td>Potential catch-up</td>
+<td>Regulatory easing, market recovery</td>
+<td>Peer Z-Score comparison, market share</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Moderate risk</td>
-<td>Decreasing risk</td>
-<td>Improved liquidity, regulatory compliance</td>
-<td>Working capital ratio, risk events</td>
+<td>Elevated</td>
+<td>Moderate reduction</td>
+<td>Risk mitigation, capital strengthening</td>
+<td>Risk factor incidence, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-ING’s Z-Score momentum suggests a cautiously optimistic outlook over the next 6-12 months, contingent on operational improvements and liquidity management. Key catalysts include successful cost controls, capital adequacy enhancements, and transparent dividend policies. Continuous monitoring of working capital and EBIT ratios will provide early warning signals for risk escalation or recovery acceleration.</p>
+- ING’s Z-Score momentum suggests a slow but positive recovery trajectory over the next 6-12 months, contingent on operational and liquidity improvements.<br />
+- Key catalysts include successful cost management, improved credit quality, and stabilization of working capital.<br />
+- Monitoring should focus on quarterly Z-Score updates, EBIT margin trends, and liquidity ratios to detect inflection points.<br />
+- Early warning signals include renewed declines in working capital or EBIT, which could reverse gains and increase distress risk.<br />
+- Investment thesis should evolve dynamically with Z-Score movements, balancing risk and opportunity in a volatile financial services sector.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>ING Groep N.V. is emerging from a prolonged distress phase into a gray zone of moderate financial health, supported by improving Z-Score trends but hindered by liquidity and profitability challenges. Market valuation suggests undervaluation, offering selective investment opportunities primarily for value-oriented and speculative investors. Risk remains elevated, necessitating vigilant monitoring and strategic operational improvements to secure a transition into the Safe Zone and restore investor confidence.</p>
+<p>ING Groep N.V. is emerging from a prolonged distress phase into a cautious Gray Zone financial health status, with a current Altman Z-Score of <strong>2.22</strong> reflecting moderate risk. Liquidity and operational inefficiencies remain critical challenges, underscored by a negative working capital ratio (-0.588) and near-zero EBIT ratio (0.002). Market data anomalies and peer underperformance add complexity to investment decisions.  </p>
+<p>A <strong>cautious HOLD</strong> is recommended for most investors, with aggressive profiles potentially speculating on turnaround upside. Leadership must prioritize liquidity and operational improvements to secure a transition into the Safe Zone (Z &gt; 3.0) and restore competitive standing. Continuous monitoring of Z-Score components and risk factors is essential to navigate the evolving financial landscape.</p>
 <hr />
-<p><em>Analysis completed with explicit reference to all injected data elements, integrating financial context, market signals, peer benchmarking, and risk assessments to deliver actionable investment intelligence.</em></p></div></div>
+<p><em>Analysis generated with full integration of injected data elements, cross-validation of financial and AI-driven metrics, and adherence to Altman Z-Score investment framework standards.</em></p></div></div>
     </div>
     
 
@@ -1190,78 +1285,41 @@ ING’s Z-Score momentum suggests a cautiously optimistic outlook over the next 
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:33 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:53 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

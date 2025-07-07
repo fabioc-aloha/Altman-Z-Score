@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Ecopetrol S.A. (EC)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:22 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:50 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -357,9 +429,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="EC_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="EC_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -422,15 +494,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$9.17</p>
+                <p>$$8.98</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$18.9B</p>
+                <p>$$18.5B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>6.0</p>
+                <p>5.9</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -442,7 +514,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>46.6</p>
+                <p>34.5</p>
             </div>
         </div>
     </div>
@@ -452,11 +524,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Beta</h4>
-                <p>0.84</p>
+                <p>0.85</p>
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>-0.46</p>
+                <p>-0.51</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -476,76 +548,73 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> EC (Ecopetrol S.A.)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:22:05  </p>
+<p><strong>Company:</strong> Ecopetrol S.A. (Ticker: EC)<br />
+<strong>Analysis Date:</strong> 2025-07-07 10:50:18  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Ecopetrol S.A. (Ticker: EC) currently resides deeply within the <strong>Distress Zone</strong> with an Altman Z-Score of <strong>0.30</strong> (latest quarter), significantly below the critical threshold of 1.8. This persistent low Z-Score over the past eight quarters, ranging narrowly between 0.10 and 0.50, signals a sustained high bankruptcy risk and financial distress. The Z-Score trajectory is slightly declining, indicating no meaningful recovery trend.</p>
-<p><strong>AI Risk Analysis</strong> categorizes the overall risk level as <strong>Critical</strong>, with a trajectory that remains negative, underscoring urgent financial vulnerability. The company's <strong>Working Capital Ratio of -0.078</strong> and <strong>Retained Earnings Ratio of 0.000</strong> further confirm liquidity and capital retention challenges.</p>
-<p><strong>AI Peer Analysis</strong> places EC well below the industry average Z-Score (typically &gt;3.0 for Oil &amp; Gas Integrated peers), indicating severe underperformance relative to competitors such as [Key Peers: ExxonMobil (XOM), Chevron (CVX), Shell (SHEL)]. This relative positioning signals a distressed competitive stance with limited operational flexibility.</p>
-<p><strong>AI Sentiment Analysis</strong> is constrained by anomalous market data (zero volume, zero price range), but the extremely high <strong>Dividend Yield of 2702%</strong> is a red flag, likely reflecting data anomalies or unsustainable dividend policies, further eroding confidence.</p>
+<p>Ecopetrol S.A. (EC), operating in the Energy sector within the Oil &amp; Gas Integrated industry, currently exhibits a <strong>critical financial distress profile</strong> as indicated by its Altman Z-Score consistently below 1.8 across the last eight quarters, with the latest Z-Score at <strong>0.30</strong>, firmly in the <strong>Distress Zone</strong>. This signals a high probability of bankruptcy or severe financial distress without immediate corrective action.</p>
+<ul>
+<li><strong>AI Risk Analysis:</strong> The overall risk level is <strong>extreme</strong>, with a persistent downward trajectory in Z-Score values from 0.50 to 0.30 over the observed period, indicating deteriorating financial health.</li>
+<li><strong>AI Peer Analysis:</strong> EC’s Z-Score is significantly below the industry average (not explicitly provided but typically &gt;3.0 for Oil &amp; Gas Integrated peers), positioning EC as an outlier on the distressed end of the spectrum. Key peers in the sector likely maintain healthier Z-Scores, underscoring EC’s competitive vulnerability.</li>
+<li><strong>AI Sentiment Analysis:</strong> Market sentiment appears severely negative or neutral, with technical indicators such as RSI at 0.0 and zero trading volume, suggesting either market inactivity or delisting risk. The extraordinarily high dividend yield of <strong>2702.00%</strong> is likely a data anomaly or reflects a collapsing stock price, further signaling market distrust.</li>
+</ul>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
+<th>Metric</th>
 <th>Value</th>
-<th>Industry Benchmark</th>
-<th>Notes</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
 <td>0.30</td>
-<td>&gt;3.0 (Safe Zone)</td>
-<td>Deep Distress Zone</td>
+<td>Distress Zone - High bankruptcy risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$18.85B</td>
-<td>Peer average varies</td>
-<td>Moderate size</td>
+<td>$18.47 billion</td>
+<td>Large-cap but distressed</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$9.17</td>
-<td>N/A</td>
-<td>Stable but low liquidity</td>
+<td>$8.99</td>
+<td>Low price relative to market cap</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.078</td>
-<td>&gt;1.0</td>
 <td>Negative liquidity</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.000</td>
-<td>Positive</td>
-<td>No retained earnings</td>
+<td>No retained earnings accumulation</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.028</td>
-<td>~0.10+</td>
-<td>Low profitability</td>
+<td>Very low operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.105</td>
-<td>~0.20+</td>
-<td>Low efficiency</td>
+<td>Low operational efficiency</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>5.91</td>
+<td>Low valuation, possibly undervalued</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
-<td>2702%</td>
-<td>~2-5%</td>
-<td>Data anomaly or unsustainable</td>
+<td>2702.00%</td>
+<td>Likely data anomaly or distress sign</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given the critical financial distress, poor liquidity, and operational inefficiencies, <strong>a SELL or avoid new investment position is strongly advised</strong> for all but the most aggressive, high-risk tolerant investors. The absence of positive Z-Score momentum and severe peer underperformance suggest limited near-term recovery prospects. Close monitoring of liquidity and restructuring efforts is essential before reconsidering investment.</p>
+<p><strong>Investment Recommendation:</strong> Given the severe distress signals, <strong>a cautious SELL or avoid stance is warranted for most investor profiles</strong>, with potential speculative interest only for aggressive investors with high risk tolerance and deep turnaround conviction. Immediate risk mitigation and operational restructuring are critical for EC’s survival.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -553,7 +622,7 @@ Given the critical financial distress, poor liquidity, and operational inefficie
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark*</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -562,40 +631,41 @@ Given the critical financial distress, poor liquidity, and operational inefficie
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: N/A (Working Capital Ratio: -0.078)</td>
-<td>&gt;1.0 (Positive)</td>
-<td><strong>Severe liquidity weakness; negative working capital</strong></td>
-<td>Declining/Stable at low level</td>
+<td>Oil &amp; Gas avg. Current Ratio ~1.2-1.5</td>
+<td><strong>Severe liquidity weakness</strong>; negative working capital ratio signals inability to cover short-term liabilities</td>
+<td>Declining</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
 <td>Debt-to-Equity: N/A (Data missing)</td>
-<td>Industry average ~0.5-1.5</td>
-<td>Unable to assess leverage directly; likely high given distress</td>
+<td>Industry avg. ~0.5-1.0</td>
+<td>Unable to assess fully; likely high leverage given distress</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>EBIT Ratio: 0.028; Asset Turnover: 0.105</td>
-<td>EBIT ~0.10+; Asset Turnover ~0.20+</td>
-<td><strong>Low profitability and asset utilization</strong></td>
-<td>Stable low</td>
+<td>Industry EBIT ~0.10-0.15; Asset Turnover ~0.3-0.5</td>
+<td><strong>Significantly below industry norms</strong>, indicating poor profitability and asset utilization</td>
+<td>Declining</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.000</td>
-<td>Positive retained earnings</td>
-<td><strong>No retained earnings; signals erosion of equity base</strong></td>
-<td>Stable low</td>
+<td>Industry avg. positive</td>
+<td>No retained earnings accumulation; signals losses or dividend payouts exceeding earnings</td>
+<td>Stable but weak</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Interpretive Commentary:</strong><br />
-- <strong>Liquidity:</strong> The negative working capital ratio (-0.078) indicates that current liabilities exceed current assets, a critical red flag for short-term solvency. This is well below the industry standard of &gt;1.0, suggesting potential cash flow stress.<br />
-- <strong>Leverage:</strong> While explicit debt-to-equity data is unavailable, the distressed Z-Score and negative liquidity imply elevated leverage or debt servicing difficulties.<br />
-- <strong>Operational Efficiency:</strong> EBIT ratio at 2.8% and asset turnover at 10.5% are significantly below typical Oil &amp; Gas Integrated industry averages (~10% EBIT, 20% asset turnover), indicating weak operational performance and inefficient asset use.<br />
-- <strong>Financial Stability:</strong> Retained earnings ratio at zero signals no accumulated profits retained within the company, reflecting either recent losses or dividend payouts exceeding earnings, consistent with distress signals.</p>
-<p><strong>Data Quality Considerations:</strong><br />
-The AI Data Quality Assessment notes no anomalies in financial data completeness; however, market data anomalies (zero volume, zero price range) reduce confidence in market-based valuation metrics. This lowers overall confidence in market timing recommendations but does not affect core financial ratio reliability.</p>
+<p>*Industry benchmarks approximate based on Oil &amp; Gas Integrated sector norms.</p>
+<p><strong>Commentary:</strong><br />
+- The <strong>negative working capital ratio (-0.078)</strong> indicates EC is unable to meet short-term obligations, a critical liquidity red flag.<br />
+- EBIT ratio at <strong>2.8%</strong> is drastically below the typical industry EBIT margin (~10-15%), reflecting operational inefficiency or margin compression.<br />
+- Asset turnover at <strong>0.105</strong> is low, suggesting underutilization of assets or declining sales efficiency.<br />
+- Retained earnings ratio at zero implies no reinvestment or accumulated profits, consistent with financial distress.<br />
+- The absence of debt-to-equity data limits leverage assessment but distress signals imply elevated financial risk.</p>
+<p><strong>Data Quality Note:</strong> The AI Data Quality Assessment reports no anomalies in financial data completeness; however, market data anomalies (e.g., dividend yield) reduce confidence in market valuation metrics.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -613,22 +683,23 @@ The AI Data Quality Assessment notes no anomalies in financial data completeness
 <td>Current (Q8)</td>
 <td>0.30</td>
 <td>Distress</td>
-<td>Negative working capital, zero retained earnings, low EBIT</td>
-<td>Ongoing financial distress, no recovery signs</td>
+<td>Persistently negative working capital, low EBIT, zero retained earnings</td>
+<td>Continued operational and liquidity challenges</td>
 </tr>
 <tr>
 <td>Previous Quarters (Q1-Q7)</td>
 <td>0.10 - 0.50</td>
 <td>Distress</td>
-<td>Persistently negative liquidity, low profitability</td>
-<td>Prolonged operational challenges, no inflection</td>
+<td>Declining EBIT, poor asset turnover, no retained earnings</td>
+<td>No recovery signs; worsening financial health</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-The Z-Score has remained consistently below 0.5 for eight quarters, indicating entrenched financial distress without meaningful improvement. The lack of positive inflection points or upward momentum in key Z-Score components (working capital, retained earnings, EBIT) suggests ongoing operational and financial challenges. This aligns with the company's sector pressures in Energy/Oil &amp; Gas Integrated, where capital intensity and commodity price volatility exacerbate financial risk.</p>
-<p><strong>Peer Benchmarking:</strong><br />
-The industry average Z-Score for Oil &amp; Gas Integrated companies typically exceeds 3.0 (Safe Zone), highlighting EC’s severe underperformance relative to peers. This gap suggests competitive disadvantages and elevated bankruptcy risk compared to industry norms.</p>
+<p><strong>Commentary:</strong><br />
+- The Z-Score has remained in the <strong>Distress Zone (&lt;1.8)</strong> for at least eight quarters, with a slight downward trend from 0.50 to 0.30, indicating <strong>no meaningful financial recovery</strong>.<br />
+- Key Z-Score components such as working capital and retained earnings are either negative or zero, driving the low score.<br />
+- The lack of improvement correlates with operational inefficiencies and possibly adverse market conditions in the Oil &amp; Gas sector.<br />
+- Compared to industry peers (average Z-Score typically &gt;3.0), EC is severely underperforming, highlighting competitive and financial vulnerability.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -645,28 +716,30 @@ The industry average Z-Score for Oil &amp; Gas Integrated companies typically ex
 <tr>
 <td>Fundamental Health</td>
 <td>Declining, Distress Zone (0.30)</td>
-<td>Price stable at $9.17, zero volume</td>
-<td>Divergent</td>
-<td>Market may be ignoring distress or illiquid</td>
+<td>Price stable at $8.99, zero volume, RSI 0.0</td>
+<td>Divergent (fundamental distress not reflected in price movement)</td>
+<td>High risk; potential illiquidity</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
 <td>Negative implied by Z-Score</td>
-<td>Dividend yield anomaly (2702%)</td>
-<td>Inconsistent</td>
-<td>Market data unreliable, sentiment unclear</td>
+<td>Market sentiment neutral/absent (no volume)</td>
+<td>Consistent with distress</td>
+<td>Market likely ignoring or sidelining stock</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Significantly underperforming</td>
-<td>Sector performance stronger</td>
-<td>Divergent</td>
-<td>Competitive weakness confirmed</td>
+<td>Lowest quartile Z-Score</td>
+<td>Sector performance stable or better</td>
+<td>Underperforming</td>
+<td>Competitive disadvantage</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-The fundamental distress indicated by the Z-Score is not reflected in active market trading signals, as volume and price movement are effectively zero, suggesting illiquidity or data reporting issues. The anomalous dividend yield of 2702% likely reflects a data error or unsustainable dividend policy, undermining market confidence. This divergence between fundamental distress and market signals indicates a lack of reliable market validation and suggests caution in relying on price-based signals for timing.</p>
+<p><strong>Commentary:</strong><br />
+- The <strong>lack of trading volume and zero RSI</strong> suggest market inactivity or potential delisting, which undermines price discovery and investor confidence.<br />
+- The <strong>low P/E ratio (5.91)</strong> may reflect undervaluation or earnings collapse; however, market signals are muted, limiting actionable timing insights.<br />
+- The divergence between fundamental distress and market price stability implies <strong>market inefficiency or information asymmetry</strong>, increasing investment risk.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -685,29 +758,28 @@ The fundamental distress indicated by the Z-Score is not reflected in active mar
 <td>High</td>
 <td>Critical</td>
 <td>Further Z-Score decline</td>
-<td>Cost reduction, operational restructuring</td>
+<td>Restructure operations, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Bankruptcy risk elevated</td>
-<td>Debt restructuring, capital infusion</td>
+<td>Bankruptcy risk imminent</td>
+<td>Debt restructuring, liquidity infusion</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Commodity price volatility</td>
-<td>Hedging strategies, diversification</td>
+<td>Price volatility, illiquidity</td>
+<td>Investor relations, market re-engagement</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Successful operational turnaround and capital restructuring could stabilize Z-Score near 1.5 (Gray Zone), reducing bankruptcy risk but still below safe thresholds.<br />
-- <strong>Base Case:</strong> Continued distress with Z-Score stable around 0.3-0.5, maintaining high risk and limited recovery.<br />
-- <strong>Worst Case:</strong> Further deterioration leading to Z-Score &lt;0.1, indicating imminent bankruptcy risk.</p>
-<p>Given the <strong>AI Risk Analysis overall risk level of Critical with high confidence</strong>, urgent mitigation is required to avoid insolvency.</p>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Operational turnaround improves EBIT ratio to 0.10, working capital stabilizes, Z-Score rises above 1.8 within 12 months.<br />
+- <strong>Base Case:</strong> Status quo persists, Z-Score remains below 0.5, risk of bankruptcy remains high.<br />
+- <strong>Worst Case:</strong> Further deterioration leads to Z-Score &lt;0.1, triggering insolvency or forced restructuring.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -725,47 +797,50 @@ The fundamental distress indicated by the Z-Score is not reflected in active mar
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>SELL</strong></td>
-<td>Z-Score 0.30 in Distress Zone; no recovery trend</td>
+<td>SELL</td>
+<td>Z-Score 0.30 in Distress Zone; high bankruptcy risk</td>
 <td>Avoid entry; exit positions</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>SELL</strong></td>
-<td>Dividend yield anomaly; zero retained earnings</td>
-<td>Unsustainable dividends</td>
+<td>SELL</td>
+<td>Dividend yield anomaly (2702%) signals unsustainability</td>
+<td>Avoid due to risk</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>SELL</strong></td>
-<td>Valuation unsupported by fundamentals; low EBIT</td>
-<td>No entry recommended</td>
-<td>N/A</td>
+<td>HOLD/AVOID</td>
+<td>Low P/E (5.91) but distressed fundamentals</td>
+<td>Wait for Z-Score recovery</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>SELL</strong></td>
-<td>Negative growth signals; low asset turnover</td>
-<td>No momentum</td>
-<td>N/A</td>
+<td>SELL</td>
+<td>No growth signals; EBIT ratio 0.028 too low</td>
+<td>No momentum; avoid</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>HOLD/AVOID</strong></td>
-<td>High risk/reward; potential turnaround speculative</td>
-<td>Monitor restructuring</td>
-<td>Short-term monitoring</td>
+<td>SPECULATIVE BUY</td>
+<td>Potential turnaround if restructuring occurs</td>
+<td>High risk/high reward</td>
+<td>Monitor quarterly</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-All profiles except possibly aggressive risk takers should avoid or divest. The Z-Score evidence strongly supports a sell stance due to critical distress and no signs of operational recovery. Aggressive investors may monitor for restructuring catalysts but should size positions cautiously given volatility and bankruptcy risk.</p>
+<p><strong>Commentary:</strong><br />
+- Conservative and dividend-focused investors should <strong>exit or avoid</strong> due to high distress and unsustainable dividend signals.<br />
+- Value investors may consider <strong>holding with caution</strong>, awaiting operational improvements and Z-Score recovery.<br />
+- Growth investors should <strong>avoid</strong> given lack of positive momentum.<br />
+- Aggressive investors might speculate on a turnaround but must monitor quarterly Z-Score and operational metrics closely.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -781,29 +856,31 @@ All profiles except possibly aggressive risk takers should avoid or divest. The 
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Financial turnaround, liquidity</td>
-<td>Working Capital Ratio, EBIT</td>
-<td>Implement cost controls, improve cash flow</td>
-<td>Positive liquidity trend, EBIT growth</td>
+<td>Stabilize liquidity and operations</td>
+<td>Working Capital Ratio, EBIT Ratio</td>
+<td>Implement cost reduction, asset optimization</td>
+<td>Improved liquidity, EBIT growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital structure optimization</td>
-<td>Debt levels, Retained Earnings</td>
-<td>Negotiate debt restructuring, preserve equity</td>
-<td>Reduced leverage, positive retained earnings</td>
+<td>Manage financial distress</td>
+<td>Debt levels, Retained Earnings Ratio</td>
+<td>Negotiate debt restructuring, improve cash flow</td>
+<td>Debt reduction, positive cash flow</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight, transparency</td>
-<td>Z-Score, Risk factors</td>
-<td>Enhance disclosure, monitor risk metrics</td>
-<td>Compliance, risk reduction</td>
+<td>Oversight of turnaround plan</td>
+<td>Z-Score trajectory, Risk factors</td>
+<td>Enhance governance, monitor risk mitigation</td>
+<td>Z-Score improvement, risk reduction</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-The CEO and CFO must prioritize liquidity restoration and operational efficiency improvements to arrest the downward Z-Score trend. The Board should enforce rigorous governance to manage elevated bankruptcy risk. Strategic initiatives should focus on asset optimization and capital restructuring to restore financial stability.</p>
+<p><strong>Commentary:</strong><br />
+- Executive leadership must prioritize <strong>immediate liquidity stabilization and operational efficiency improvements</strong> to arrest financial decline.<br />
+- CFO should focus on <strong>debt restructuring and cash management</strong> to avoid insolvency.<br />
+- Board oversight is critical to ensure <strong>effective governance and risk management</strong> aligned with turnaround objectives.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -820,33 +897,36 @@ The CEO and CFO must prioritize liquidity restoration and operational efficiency
 <tr>
 <td>Z-Score Momentum</td>
 <td>Declining (0.30)</td>
-<td>Stable to declining</td>
-<td>Commodity prices, restructuring</td>
-<td>Quarterly Z-Score, EBIT ratio</td>
+<td>Potential stabilization if turnaround succeeds</td>
+<td>Operational restructuring, oil price recovery</td>
+<td>Quarterly Z-Score, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Distressed</td>
-<td>Potential deterioration</td>
-<td>Peer performance, market liquidity</td>
+<td>Possible recovery or delisting risk</td>
+<td>Sector recovery, capital infusion</td>
 <td>Market cap, trading volume</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Critical</td>
-<td>High risk persists</td>
-<td>Debt maturities, operational risks</td>
+<td>Extreme</td>
+<td>High risk persists unless mitigated</td>
+<td>Debt restructuring success, liquidity events</td>
 <td>Debt ratios, working capital</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-Absent significant operational or financial restructuring, EC’s Z-Score is unlikely to improve materially in the next 6-12 months. Key catalysts to watch include commodity price recovery, successful debt renegotiation, and operational cost reductions. Early warning indicators include further declines in working capital and EBIT ratios. Investors should maintain vigilant monitoring of these metrics to adjust investment stance accordingly.</p>
+- The <strong>Z-Score momentum is negative but could stabilize</strong> if EC executes operational and financial restructuring effectively.<br />
+- Key catalysts include <strong>oil price environment improvements, cost control, and capital structure optimization</strong>.<br />
+- Investors and management should monitor <strong>quarterly Z-Score changes, EBIT margins, and liquidity ratios</strong> as early warning indicators.<br />
+- Failure to improve these metrics may lead to <strong>delisting or bankruptcy</strong>, underscoring the urgency of strategic action.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Ecopetrol S.A. is currently in a <strong>critical financial distress state</strong> as evidenced by a persistently low Altman Z-Score of <strong>0.30</strong>, negative liquidity, and operational inefficiencies. Market data anomalies limit confidence in price-based signals, but fundamental analysis strongly supports a <strong>SELL recommendation</strong> for most investor profiles. Strategic focus on liquidity restoration and capital restructuring is essential to avoid bankruptcy risk. Forward-looking indicators suggest continued risk without significant intervention.</p>
+<p>Ecopetrol S.A. is currently in a <strong>critical financial distress state</strong>, with an Altman Z-Score of 0.30 signaling high bankruptcy risk. Liquidity and operational inefficiencies dominate the financial profile, compounded by market inactivity and anomalous dividend data. Immediate strategic and financial restructuring is essential. Investment recommendations range from <strong>SELL for conservative and dividend investors</strong> to <strong>speculative BUY for aggressive investors</strong> with a high-risk appetite. Continuous monitoring of Z-Score and operational metrics is vital for all stakeholders.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to injected data elements including Z-Score historical values, financial ratios, market metrics, and AI risk assessments.</em></p></div></div>
+<p><em>This analysis integrates all injected data elements explicitly, cross-validates financial and market signals, and applies AI-powered risk and sentiment assessments to deliver actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1189,78 +1269,41 @@ Absent significant operational or financial restructuring, EC’s Z-Score is unl
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:22 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:50 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

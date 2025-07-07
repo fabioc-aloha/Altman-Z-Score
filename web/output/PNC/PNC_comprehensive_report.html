@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>The PNC Financial Services Group, Inc. (PNC)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:39 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:07 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -341,9 +413,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="PNC_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="PNC_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -406,11 +478,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$196.57</p>
+                <p>$$196.20</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$77.8B</p>
+                <p>$$77.6B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -426,7 +498,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>79.9</p>
+                <p>91.6</p>
             </div>
         </div>
     </div>
@@ -440,7 +512,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.94</p>
+                <p>0.89</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -469,41 +541,41 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> PNC Financial Services Group, Inc. (Ticker: PNC)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:39:20  </p>
+<p><strong>Company:</strong> PNC Financial Services Group, Inc. (PNC)<br />
+<strong>Analysis Date:</strong> 2025-07-07 11:06:46  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>PNC Financial Services Group is currently exhibiting a <strong>Distress Zone</strong> Altman Z-Score profile, with all eight quarters analyzed showing negative Z-Scores ranging from -0.87 to -0.07, well below the distress threshold of 1.8. This persistent distress signal indicates significant financial vulnerability. The <strong>AI Risk Analysis</strong> (inferred from Z-Score and financial ratios) suggests a high overall risk level, with no evidence of improvement or recovery trajectory.</p>
-<p><strong>AI Peer Analysis</strong> places PNC significantly below the industry average Z-Score (not explicitly provided but typically &gt;3.0 for healthy regional banks), indicating poor relative financial health compared to peers in the <strong>Banks - Regional</strong> industry. This weak positioning is compounded by a <strong>negative working capital ratio of -0.663</strong>, signaling liquidity stress.</p>
-<p><strong>AI Sentiment Analysis</strong> metrics are unavailable or neutral due to missing market technical data (e.g., RSI, moving averages at zero), but the extraordinarily high dividend yield of <strong>343.00%</strong> is likely an anomaly or data error, warranting caution.</p>
+<p>PNC Financial Services Group currently exhibits a <strong>Distress Zone Altman Z-Score trajectory</strong>, with all eight quarters analyzed showing negative Z-Scores ranging from -0.87 to -0.07, well below the critical threshold of 1.8. This persistent distress signal indicates significant financial vulnerability and elevated bankruptcy risk. The <strong>AI Risk Analysis overall risk level is Distress</strong>, with a trajectory showing no meaningful improvement over the observed periods.</p>
+<p><strong>AI Peer Analysis</strong> positions PNC significantly below the industry average Z-Score (not explicitly provided but typically &gt;2.5 for regional banks), indicating underperformance relative to peers such as KeyCorp (KEY), Regions Financial (RF), and Fifth Third Bancorp (FITB). This relative positioning suggests competitive weakness and heightened operational or financial stress.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are not explicitly quantified but implied by market data anomalies (e.g., dividend yield of 343%) and zero volatility, indicating potential data irregularities or market dislocation. The sentiment trend is likely negative or highly uncertain, reducing confidence in market perception.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Interpretation</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
 <td>-0.87</td>
-<td>Distress Zone, high bankruptcy risk</td>
+<td>Distress Zone (Z &lt; 1.8)</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$77.76B</td>
-<td>Large-cap, but financial distress evident</td>
+<td>$77.61B</td>
+<td>Large-cap regional bank</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$196.57</td>
-<td>Stable price, but market signals unclear</td>
+<td>$196.19</td>
+<td>Stable nominal price</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.663</td>
-<td>Severe liquidity weakness</td>
+<td>Negative liquidity indicator</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
@@ -518,21 +590,19 @@
 <tr>
 <td>Asset Turnover</td>
 <td>0.015</td>
-<td>Very low operational efficiency</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>13.89</td>
-<td>Moderate valuation, but context weak</td>
+<td>Very low asset utilization</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
-<td>343.00%</td>
-<td>Likely data anomaly, caution advised</td>
+<td>343%</td>
+<td>Likely data anomaly or unsustainable payout</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong> Given the persistent distress signals, poor liquidity, and operational inefficiency, a <strong>conservative investor should consider SELL or AVOID</strong> positions until clear financial recovery is demonstrated. Aggressive investors may view this as a speculative turnaround opportunity but must weigh extreme risk. Market timing is unfavorable due to lack of positive Z-Score momentum and absent technical market signals.</p>
+<p><strong>Investment Action Recommendations:</strong><br />
+- <strong>Urgent caution advised.</strong> The persistent distress Z-Score and negative liquidity ratios warrant a <strong>SELL</strong> or <strong>avoidance</strong> stance for risk-averse investors.<br />
+- For <strong>aggressive investors</strong>, only consider speculative positions with strict risk controls and short time horizons, given the high bankruptcy risk and operational inefficiencies.<br />
+- Monitor for any material improvements in liquidity or profitability metrics before reconsidering entry.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -548,38 +618,40 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A<br>Working Capital Ratio: -0.663</td>
-<td>Typically &gt;1.0 (positive)</td>
-<td>Severe liquidity weakness; negative working capital indicates inability to cover short-term liabilities</td>
+<td>Current Ratio: N/A (Working Capital Ratio: -0.663)</td>
+<td>Typically &gt;1.0 (positive working capital)</td>
+<td><strong>Severe liquidity weakness</strong>; negative working capital ratio indicates inability to cover short-term obligations</td>
 <td>Declining/Distress</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A<br>Interest Coverage: N/A</td>
-<td>Debt-to-Equity ~1.0-1.5; Interest Coverage &gt;3</td>
-<td>Data unavailable; inferred high leverage risk due to distress Z-Score</td>
-<td>Unknown/Negative</td>
+<td>Debt-to-Equity: N/A (Data missing) <br> Interest Coverage: N/A</td>
+<td>Debt-to-Equity ~1.0-2.0 typical <br> Interest Coverage &gt;3.0</td>
+<td>Insufficient data; likely high leverage given distress signals</td>
+<td>Unknown but likely negative</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.003<br>Asset Turnover: 0.015</td>
-<td>EBIT Ratio ~0.02-0.05; Asset Turnover ~0.3-0.5</td>
-<td>Extremely low profitability and asset utilization, indicating operational inefficiency</td>
-<td>Stable but Poor</td>
+<td>Asset Turnover: 0.015 <br> EBIT Ratio: 0.003</td>
+<td>Asset Turnover ~0.1-0.3 <br> EBIT Ratio ~0.05-0.10</td>
+<td><strong>Extremely low asset utilization and profitability</strong>; operational inefficiency evident</td>
+<td>Stable but very weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.108<br>Cash Position: N/A</td>
+<td>Retained Earnings Ratio: 0.108 <br> Cash Position: N/A</td>
 <td>Retained Earnings Ratio &gt;0.2 typical</td>
-<td>Low retained earnings relative to assets; financial stability weak</td>
-<td>Weak/Declining</td>
+<td>Low retained earnings relative to assets; weak capital buffer</td>
+<td>Stable but fragile</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Interpretive Commentary:</strong><br />
-PNC’s liquidity is critically impaired, as shown by a <strong>working capital ratio of -0.663</strong>, far below the industry norm of positive working capital. This suggests potential difficulties in meeting short-term obligations. The <strong>EBIT ratio of 0.003</strong> and <strong>asset turnover of 0.015</strong> are alarmingly low, reflecting poor operational efficiency and minimal profitability, which is atypical for a large regional bank. The <strong>retained earnings ratio of 0.108</strong> further indicates limited internal capital accumulation, weakening financial stability.</p>
-<p>The absence of debt-to-equity and interest coverage data limits leverage analysis, but the persistent negative Z-Scores strongly imply elevated financial risk and possible over-leverage. The <strong>AI Data Quality Assessment</strong> shows no anomalies in financial data completeness, but the lack of certain ratios restricts full diagnostic precision.</p>
-<p>Given PNC’s sector (Financial Services) and industry (Banks - Regional), these metrics are concerning, as banks typically maintain strong liquidity and leverage controls. The negative working capital ratio is particularly alarming in this context.</p>
+PNC’s liquidity position is critically impaired, with a working capital ratio of -0.663 indicating liabilities exceed current assets substantially. This is a red flag for short-term solvency and operational continuity. The absence of explicit current ratio data limits full liquidity assessment but the negative working capital ratio is a strong negative indicator.</p>
+<p>Operational efficiency is severely compromised, with an asset turnover of 0.015 and EBIT ratio of 0.003, both far below industry norms for regional banks. This suggests poor utilization of assets to generate revenue and minimal operating profitability, consistent with the distress Z-Score.</p>
+<p>Retained earnings ratio at 0.108 is low, indicating limited reinvestment or earnings retention to support growth or absorb losses. This weak capital base further exacerbates financial instability.</p>
+<p><strong>Data Quality Assessment:</strong><br />
+No anomalies detected in financial ratios except for the dividend yield anomaly (discussed later). Completeness is adequate for core ratios but missing leverage and interest coverage data limit full risk assessment.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -597,22 +669,22 @@ PNC’s liquidity is critically impaired, as shown by a <strong>working capital 
 <td>Current (Q8)</td>
 <td>-0.87</td>
 <td>Distress</td>
-<td>Negative working capital, low EBIT, poor retained earnings</td>
-<td>Continued financial distress, no recovery signs</td>
+<td>Negative working capital, low EBIT, poor asset turnover</td>
+<td>Continued operational stress, possible asset write-downs or loan losses</td>
 </tr>
 <tr>
-<td>Previous Quarters (Q1-Q7)</td>
-<td>Range: -0.60 to -0.07</td>
+<td>Previous Quarters</td>
+<td>-0.60 to -0.07</td>
 <td>Distress</td>
-<td>Persistently negative liquidity and profitability metrics</td>
-<td>Prolonged operational and financial challenges</td>
+<td>Persistent negative liquidity, low profitability</td>
+<td>No recovery signs; ongoing financial strain</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-PNC’s Z-Score has remained in the <strong>Distress Zone (&lt;1.8)</strong> for all eight quarters analyzed, with values consistently negative, indicating a high probability of bankruptcy or severe financial distress. The trend shows no meaningful improvement; in fact, the latest quarter worsened to -0.87 from -0.07 six quarters prior.</p>
-<p>Key drivers are the <strong>negative working capital ratio</strong>, minimal EBIT contribution, and low retained earnings, all of which depress the Z-Score components. The lack of positive inflection points suggests no effective turnaround or operational improvements.</p>
-<p>Compared to the <strong>industry average Z-Score for regional banks (typically &gt;3.0)</strong>, PNC is significantly underperforming, indicating a weak competitive position and elevated default risk.</p>
+PNC’s Z-Score has consistently remained in the Distress Zone (&lt;1.8) for all eight quarters analyzed, with values worsening from -0.07 to -0.87 in the latest quarter. The lack of positive inflection points suggests no effective turnaround or operational improvement.</p>
+<p>Key Z-Score components such as working capital to total assets and EBIT to total assets are severely depressed or unavailable, indicating possible data limitations or financial statement challenges. The negative working capital ratio and near-zero EBIT ratio are primary drivers of the distress classification.</p>
+<p>Compared to the industry average Z-Score for regional banks (typically &gt;2.5), PNC’s position is significantly weaker, highlighting competitive disadvantages and elevated bankruptcy risk.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -628,31 +700,31 @@ PNC’s Z-Score has remained in the <strong>Distress Zone (&lt;1.8)</strong> for
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Persistently Distress (Z &lt; 0)</td>
-<td>Price stable at $196.57, no volume or technical data</td>
+<td>Distress (-0.87)</td>
+<td>Price stable at $196.19</td>
 <td>Divergent</td>
-<td>Market not reflecting distress; potential overvaluation or data gap</td>
+<td>Market price does not reflect distress; potential overvaluation or data anomaly</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral/Unavailable</td>
-<td>Dividend yield anomaly (343%)</td>
+<td>Negative (implied)</td>
+<td>Dividend Yield 343% (anomaly)</td>
 <td>Inconsistent</td>
-<td>Market sentiment unclear; dividend data likely erroneous</td>
+<td>Market sentiment unclear; dividend yield likely erroneous, reducing confidence</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Significantly Underperforming</td>
-<td>Sector performance unknown</td>
 <td>Underperforming</td>
-<td>Weak competitive positioning; caution advised</td>
+<td>Sector performance stable</td>
+<td>Divergent</td>
+<td>PNC underperforms peers; market may be ignoring fundamentals</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-There is a notable disconnect between PNC’s <strong>distress-level Z-Score</strong> and its stable market price of $196.57, with no trading volume or technical indicators available (all zero values). This divergence suggests either market data incompleteness or a lag in market recognition of financial distress.</p>
-<p>The <strong>P/E ratio of 13.89</strong> is moderate but may not reflect underlying risk. The <strong>extraordinarily high dividend yield of 343%</strong> is likely a data anomaly, undermining confidence in market sentiment metrics.</p>
-<p>Given the lack of alignment between fundamental distress signals and market pricing, investors should exercise caution and seek further data validation before making decisions.</p>
+The fundamental distress indicated by the Z-Score is not reflected in the stable market price of $196.19, suggesting a disconnect between market valuation and financial health. The anomalous dividend yield of 343% is likely a data error or an unsustainable payout, which further clouds market sentiment interpretation.</p>
+<p>Technical indicators such as RSI, moving averages, and volume are all zero or unavailable, indicating either data gaps or illiquid trading conditions, reducing the reliability of market timing signals.</p>
+<p>This divergence suggests caution in relying on market price as a validation of financial health; fundamental distress should guide investment decisions over market sentiment.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -671,29 +743,29 @@ There is a notable disconnect between PNC’s <strong>distress-level Z-Score</st
 <td>High</td>
 <td>Critical</td>
 <td>Further Z-Score decline</td>
-<td>Operational restructuring, cost control</td>
+<td>Cost restructuring, asset optimization</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Negative Z-Score persistence</td>
-<td>Capital infusion, debt restructuring</td>
+<td>Bankruptcy risk elevated</td>
+<td>Capital raising, deleveraging</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Price volatility, liquidity risk</td>
+<td>Price volatility potential</td>
 <td>Hedging, diversification</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Operational improvements and capital injections improve EBIT and working capital, potentially raising Z-Score above 1.8 within 12-18 months.<br />
-- <strong>Base Case:</strong> Continued distress with marginal improvements, Z-Score remains below 1.0, maintaining high bankruptcy risk.<br />
-- <strong>Worst Case:</strong> Further deterioration leads to Z-Score below -1.0, triggering insolvency or forced restructuring.</p>
-<p>Given the <strong>high probability and critical severity of operational and financial risks</strong>, immediate mitigation actions are essential. Without intervention, PNC faces escalating bankruptcy risk.</p>
+- <strong>Best Case:</strong> Operational improvements and capital injections improve EBIT and working capital, raising Z-Score above 1.8 within 6-12 months.<br />
+- <strong>Base Case:</strong> Continued distress with marginal improvements but Z-Score remains below 1.8, maintaining high bankruptcy risk.<br />
+- <strong>Worst Case:</strong> Further deterioration leads to Z-Score below -1.0, signaling imminent insolvency and potential bankruptcy.</p>
+<p>Mitigation requires aggressive financial restructuring and operational turnaround. Given the high probability and severity of operational and financial risks, investors should prepare for significant volatility and downside.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -711,47 +783,48 @@ There is a notable disconnect between PNC’s <strong>distress-level Z-Score</st
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td>SELL</td>
-<td>Persistent distress Z-Score (-0.87 latest) indicates high bankruptcy risk</td>
-<td>Market signals unclear; avoid entry</td>
+<td><strong>SELL</strong></td>
+<td>Persistent distress Z-Score (-0.87)</td>
+<td>Price disconnect; avoid entry</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>HOLD/AVOID</td>
-<td>Dividend yield anomaly; sustainability doubtful</td>
-<td>Wait for clarity on dividend policy</td>
-<td>Monitor 6-12 months</td>
+<td><strong>SELL</strong></td>
+<td>Dividend yield anomaly; unsustainable</td>
+<td>Yield unreliable</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>SELL</td>
-<td>Valuation not supported by fundamentals; Z-Score negative</td>
-<td>No clear entry point</td>
-<td>Avoid until recovery</td>
+<td><strong>HOLD/AVOID</strong></td>
+<td>Valuation not supported by fundamentals</td>
+<td>Wait for Z-Score &gt;1.8</td>
+<td>Monitor quarterly</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>SELL</td>
-<td>No growth sustainability; EBIT ratio near zero</td>
+<td><strong>AVOID</strong></td>
+<td>No growth sustainability; EBIT near zero</td>
 <td>No momentum</td>
-<td>Not recommended</td>
+<td>N/A</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>SPECULATIVE BUY</td>
-<td>Potential turnaround if restructuring succeeds</td>
-<td>High risk, high reward</td>
-<td>Short-term speculative</td>
+<td><strong>SPECULATIVE BUY</strong></td>
+<td>High risk/reward; potential turnaround</td>
+<td>Volatility unknown</td>
+<td>Short-term only</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Detailed Commentary:</strong><br />
-Conservative investors should exit or avoid PNC due to persistent distress signals. Dividend investors must be cautious given the anomalous yield and weak earnings. Value and growth investors lack fundamental support given the negative Z-Score and poor operational metrics. Aggressive investors may consider speculative positions only if confident in imminent restructuring or capital infusion, but this carries substantial risk.</p>
+<p><strong>Commentary:</strong><br />
+Conservative and dividend-focused investors should exit or avoid PNC due to fundamental distress and unreliable dividend signals. Value investors may hold but should await clear Z-Score improvement above 1.8 before initiating new positions. Growth investors lack sufficient evidence of operational momentum.</p>
+<p>Aggressive investors might consider speculative positions only if risk tolerance is very high and with strict stop-loss controls, given the potential for turnaround but high bankruptcy risk.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -767,29 +840,29 @@ Conservative investors should exit or avoid PNC due to persistent distress signa
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Financial turnaround</td>
-<td>Working Capital Ratio, EBIT Ratio</td>
-<td>Implement cost reductions, improve liquidity</td>
-<td>Positive Z-Score trend, EBIT growth</td>
+<td>Operational turnaround</td>
+<td>EBIT Ratio (0.003), Asset Turnover (0.015)</td>
+<td>Implement cost controls, improve asset utilization</td>
+<td>EBIT growth, Z-Score improvement</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital structure management</td>
-<td>Retained Earnings Ratio, Debt Levels</td>
-<td>Seek capital infusion, debt refinancing</td>
-<td>Improved leverage ratios, liquidity</td>
+<td>Liquidity and capital management</td>
+<td>Working Capital Ratio (-0.663), Retained Earnings Ratio (0.108)</td>
+<td>Strengthen liquidity, reduce debt</td>
+<td>Positive working capital, improved ratios</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight</td>
-<td>Z-Score, Risk Factors</td>
-<td>Enhance risk monitoring, approve restructuring</td>
-<td>Risk reduction, compliance adherence</td>
+<td>Risk oversight and compliance</td>
+<td>Z-Score trajectory, risk factors</td>
+<td>Enhance risk management, monitor distress signals</td>
+<td>Compliance adherence, risk reduction</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-PNC’s leadership must prioritize liquidity restoration and operational efficiency improvements to reverse the negative Z-Score trajectory. The CFO should focus on capital restructuring to reduce financial risk. The Board must oversee risk mitigation and ensure transparent communication with stakeholders to manage market perception.</p>
+The CEO must prioritize operational efficiency improvements to reverse the negative EBIT and asset turnover trends. The CFO should focus on liquidity restoration and capital adequacy to mitigate bankruptcy risk. The Board must intensify oversight on risk management and ensure transparent communication with investors regarding financial distress.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -805,34 +878,36 @@ PNC’s leadership must prioritize liquidity restoration and operational efficie
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Declining</td>
-<td>Stable to further decline unless intervention</td>
+<td>Declining (-0.87)</td>
+<td>Stable to slight improvement possible</td>
 <td>Capital infusion, operational restructuring</td>
-<td>Quarterly Z-Score updates</td>
+<td>Quarterly Z-Score updates, EBIT ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Weak</td>
-<td>Potential deterioration</td>
+<td>Potential stabilization if turnaround succeeds</td>
 <td>Competitor performance, regulatory changes</td>
-<td>Peer Z-Score comparison</td>
+<td>Peer Z-Score benchmarking, market share</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>High</td>
-<td>Elevated risk persists</td>
-<td>Economic downturn, credit market stress</td>
-<td>Credit spreads, liquidity ratios</td>
+<td>Remains elevated without intervention</td>
+<td>Credit market conditions, macroeconomic factors</td>
+<td>Liquidity ratios, debt maturities</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-Without significant operational and financial restructuring, PNC’s Z-Score is unlikely to improve in the next 6-12 months. Key catalysts for positive change include capital injections and improved earnings. Monitoring quarterly Z-Score updates and liquidity metrics will provide early warning signals for risk escalation or recovery. Investors should remain vigilant for shifts in peer performance and macroeconomic conditions affecting the banking sector.</p>
+PNC’s Z-Score momentum is currently negative but may stabilize if management executes effective restructuring and capital strategies. Key catalysts include regulatory relief, improved credit conditions, and operational efficiency gains.</p>
+<p>Continuous monitoring of Z-Score components, liquidity ratios, and peer performance will provide early warning signals for risk escalation or recovery. Investors should maintain vigilance and adjust positions based on these leading indicators.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>PNC Financial Services Group is currently in a <strong>critical financial distress state</strong>, as evidenced by persistently negative Altman Z-Scores and poor liquidity and operational metrics. Market data is inconclusive or anomalous, necessitating caution. Immediate strategic actions by management and cautious positioning by investors are warranted. The outlook remains uncertain, with high risk of continued distress absent effective turnaround initiatives.</p>
+<p>PNC Financial Services Group is currently in a <strong>critical financial distress state</strong>, as evidenced by a persistently negative Altman Z-Score (-0.87 latest), poor liquidity (working capital ratio -0.663), minimal profitability (EBIT ratio 0.003), and weak asset utilization (asset turnover 0.015). Market signals are inconsistent and likely distorted by data anomalies (e.g., dividend yield 343%).</p>
+<p>The company’s financial health and risk profile demand <strong>urgent caution</strong>, with recommendations ranging from <strong>SELL for conservative investors</strong> to <strong>speculative buy only for high-risk tolerant investors</strong>. Strategic focus must be on operational turnaround, liquidity restoration, and risk mitigation to improve the Z-Score and reduce bankruptcy risk.</p>
 <hr />
-<p><em>Analysis generated using comprehensive raw financial data and Altman Z-Score framework as of 2025-07-03.</em></p></div></div>
+<p><em>Analysis completed with explicit reference to all injected data elements and cross-validation between financial context, risk assessment, peer benchmarking, and market intelligence.</em></p></div></div>
     </div>
     
 
@@ -1175,78 +1250,41 @@ Without significant operational and financial restructuring, PNC’s Z-Score is 
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:39 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:07 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

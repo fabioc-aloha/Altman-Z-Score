@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Lucid Group, Inc. (LCID)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:35 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:30 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -353,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="LCID_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="LCID_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -369,7 +441,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">-1.18</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">-1.21</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -418,11 +490,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$2.16</p>
+                <p>$$2.08</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$6.6B</p>
+                <p>$$6.3B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -438,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>50.0</p>
+                <p>48.1</p>
             </div>
         </div>
     </div>
@@ -452,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>-0.07</p>
+                <p>-0.22</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -473,70 +545,69 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Lucid Group, Inc. (Ticker: LCID)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:34:49  </p>
+<strong>Analysis Date:</strong> 2025-07-07 12:29:39  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Lucid Group, Inc. (LCID) remains entrenched in the <strong>Distress Zone</strong> with a current Altman Z-Score of <strong>0.23</strong>, reflecting a high bankruptcy risk and financial instability. The Z-Score trajectory over the past eight quarters shows a gradual but insufficient improvement from a low of -1.18 to 0.23, still well below the distress threshold of 1.8. This persistent distress signals ongoing operational and financial challenges despite some positive momentum.</p>
-<p><strong>AI Risk Analysis</strong> indicates a <strong>high overall risk level</strong> consistent with the distress Z-Score, with no mitigating data quality anomalies but a lack of positive financial ratio improvements. The risk trajectory remains stable but unfavorable, emphasizing liquidity and leverage concerns.</p>
-<p><strong>AI Peer Analysis</strong> places LCID significantly below the <strong>industry average Z-Score</strong>, which typically exceeds 3.0 in the Auto - Manufacturers sector, indicating LCID is underperforming its peers such as Tesla (TSLA) and Ford (F). This relative positioning underscores competitive and operational weaknesses.</p>
-<p><strong>AI Sentiment Analysis</strong> is neutral to negative, with no available market momentum or valuation signals (all technical indicators and valuation multiples are zero or unavailable), reflecting market uncertainty or inactivity.</p>
+<p>Lucid Group, Inc. (LCID) remains in the <strong>Distress Zone</strong> with a current Altman Z-Score of <strong>0.18</strong>, reflecting significant financial distress and elevated bankruptcy risk. The Z-Score trajectory over the past eight quarters shows a gradual but insufficient improvement from a low of -1.21 to the current 0.18, still well below the critical threshold of 1.8 that separates distress from the gray zone. This persistent distress signals ongoing operational and financial challenges.</p>
+<p><strong>AI Risk Analysis</strong> indicates an overall <strong>high risk level</strong> consistent with the distress Z-Score, with no detected improvement in key financial health metrics. The risk trajectory is flat to marginally positive but remains in a critical zone, suggesting that immediate risk mitigation and restructuring are imperative.</p>
+<p><strong>AI Peer Analysis</strong> places LCID significantly below the industry average Z-Score (typically &gt;3.0 for Auto - Manufacturers), indicating that LCID is underperforming its peers such as Tesla (TSLA), Ford (F), and General Motors (GM). This relative positioning highlights competitive vulnerabilities and elevated default risk compared to industry standards.</p>
+<p><strong>AI Sentiment Analysis</strong> is constrained by the absence of market trading data (zero volume, zero price range), indicating extremely low market confidence or trading suspension. This lack of market validation further compounds investment risk and limits confidence in near-term recovery.</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
+<th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Commentary</th>
+<th>Industry Benchmark</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Current Z-Score</td>
-<td>0.23</td>
-<td>Distress zone; bankruptcy risk high</td>
-</tr>
-<tr>
-<td>Z-Score Trend (8 quarters)</td>
-<td>-1.18 to 0.23</td>
-<td>Slight upward trend but remains distressed</td>
+<td>0.18</td>
+<td>&gt;3.0 (Safe Zone)</td>
+<td>Distress zone, urgent caution</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$6.59B</td>
-<td>Moderate size but valuation concerns</td>
+<td>$6.31B</td>
+<td>Varies widely</td>
+<td>Moderate market cap for EV sector</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$2.16</td>
-<td>Low price reflecting distress</td>
+<td>$2.08</td>
+<td>N/A</td>
+<td>Low price, limited liquidity</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.335</td>
-<td>Very low liquidity</td>
+<td>&gt;1.0 preferred</td>
+<td>Liquidity concerns</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>-1.441</td>
-<td>Negative retained earnings, financial strain</td>
+<td>Positive preferred</td>
+<td>Negative retained earnings</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>-0.075</td>
-<td>Negative operating profitability</td>
+<td>Positive preferred</td>
+<td>Operating losses</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.025</td>
-<td>Extremely low operational efficiency</td>
-</tr>
-<tr>
-<td>Industry Average Z-Score</td>
-<td>&gt;3.0</td>
-<td>LCID significantly below industry benchmark</td>
+<td>~0.5+ typical</td>
+<td>Very low operational efficiency</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong> Given the distressed financial condition, negative profitability, and poor liquidity, <strong>a cautious stance is warranted</strong>. The company is not currently a buy candidate for conservative or dividend investors. Aggressive investors may consider speculative positions only if accompanied by strong turnaround catalysts and risk mitigation strategies. Monitoring for a sustained Z-Score above 1.8 is critical before increasing exposure.</p>
+<p><strong>Investment Recommendation:</strong><br />
+Given the <strong>high risk level</strong>, persistent distress Z-Score, and poor financial health metrics, <strong>a cautious HOLD or SELL stance is advised for most investors</strong>. Only aggressive investors with high risk tolerance and a long-term turnaround thesis should consider limited exposure, contingent on substantial operational improvements and capital restructuring.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -553,66 +624,65 @@
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.335</td>
-<td>&gt;1.5 (Auto Industry Avg.)</td>
-<td>Severe liquidity weakness; risk of cash shortfall</td>
-<td>Declining/Stable (very low)</td>
+<td>&gt;1.0</td>
+<td>Severe liquidity weakness; working capital insufficient to cover short-term liabilities</td>
+<td>Declining/Weak</td>
 </tr>
 <tr>
 <td></td>
 <td>Working Capital Ratio: 0.335</td>
-<td>~1.0</td>
-<td>Insufficient working capital</td>
+<td>&gt;1.0</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A</td>
-<td>~1.0 - 2.0</td>
-<td>Data unavailable; likely high given negative retained earnings</td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>Industry average ~1.0-2.0</td>
+<td>Unable to assess leverage precisely; negative retained earnings imply high leverage risk</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td></td>
-<td>Interest Coverage (EBIT Ratio): -0.075</td>
-<td>Positive (&gt;1.5)</td>
-<td>Negative EBIT indicates inability to cover interest</td>
-<td>Declining</td>
+<td>Interest Coverage: N/A</td>
+<td>&gt;1.5</td>
+<td>EBIT negative (-7.5%), no coverage</td>
+<td>Negative Trend</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.025</td>
-<td>~0.5 - 1.0</td>
-<td>Extremely low asset utilization</td>
-<td>Stable/Weak</td>
+<td>~0.5+</td>
+<td>Extremely low asset utilization; poor sales generation from assets</td>
+<td>Declining</td>
 </tr>
 <tr>
 <td></td>
 <td>EBIT Ratio: -0.075</td>
-<td>Positive (&gt;0)</td>
-<td>Negative profitability; operational losses</td>
-<td>Declining</td>
+<td>Positive</td>
+<td>Operating losses persist</td>
+<td>Negative Trend</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: -1.441</td>
-<td>Positive (&gt;0)</td>
-<td>Negative retained earnings; accumulated losses</td>
-<td>Declining</td>
+<td>Positive</td>
+<td>Negative retained earnings indicate accumulated losses and erosion of equity</td>
+<td>Deteriorating</td>
 </tr>
 <tr>
 <td></td>
 <td>Cash Position: N/A</td>
-<td>Adequate cash reserves</td>
-<td>Data unavailable; liquidity ratios suggest weakness</td>
+<td>Positive</td>
+<td>Data unavailable; liquidity concerns implied</td>
 <td>Unknown</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Interpretive Commentary:</strong><br />
-LCID’s liquidity position is critically weak with a current ratio of 0.335, far below the industry standard of 1.5 or higher, indicating potential difficulties meeting short-term obligations. The negative EBIT ratio (-0.075) signals ongoing operational losses, which coupled with a severely negative retained earnings ratio (-1.441), reflects sustained financial strain and erosion of shareholder equity.</p>
-<p>Asset turnover at 0.025 is drastically below the industry norm (~0.5-1.0), highlighting inefficient use of assets to generate sales, consistent with the company’s early-stage or capital-intensive EV manufacturing profile. The absence of debt-to-equity data limits leverage analysis, but negative retained earnings imply high leverage or losses.</p>
-<p>The <strong>AI Data Quality Assessment</strong> confirms completeness of financial data but highlights the absence of some leverage metrics, which constrains full risk quantification. No anomalies were detected, so confidence in the reported ratios is high.</p>
-<p>Given the <strong>Consumer Cyclical sector and Auto - Manufacturers industry</strong>, where capital intensity and operational scale are critical, LCID’s financial health is precarious, requiring urgent liquidity and profitability improvements.</p>
+Lucid’s liquidity position is critically weak with a current ratio of 0.335, well below the industry standard of &gt;1.0, indicating an inability to meet short-term obligations without additional financing. The negative retained earnings ratio (-1.441) signals accumulated deficits eroding shareholder equity, consistent with ongoing losses reflected in the EBIT ratio of -7.5%. Asset turnover at 0.025 is drastically below typical automotive industry levels (~0.5+), highlighting poor operational efficiency and underutilization of assets.</p>
+<p>The absence of debt-to-equity and interest coverage data limits precise leverage assessment, but negative earnings and retained earnings strongly imply high financial risk and potential over-leverage. These financial weaknesses are consistent with the distress-level Z-Score and the company’s sector challenges in the competitive EV market.</p>
+<p>AI Data Quality Assessment shows <strong>complete raw financial data</strong> but lacks detailed leverage and cash position metrics, reducing confidence in full financial health diagnostics. No anomalies detected, but data gaps limit leverage and liquidity stress testing.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -628,66 +698,65 @@ LCID’s liquidity position is critically weak with a current ratio of 0.335, fa
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>0.23</td>
+<td>0.18</td>
 <td>Distress</td>
-<td>Negative retained earnings, poor liquidity, negative EBIT</td>
-<td>Continued operational losses, capital-intensive EV production</td>
+<td>Negative retained earnings, poor EBIT, low asset turnover</td>
+<td>Continued operational losses, capital strain</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>-0.05</td>
+<td>-0.10</td>
 <td>Distress</td>
-<td>Slight improvement in working capital but still negative EBIT</td>
-<td>Early signs of stabilization but insufficient</td>
+<td>Slight improvement but still negative earnings</td>
+<td>Marginal operational progress</td>
 </tr>
 <tr>
 <td>Q6</td>
-<td>-0.34</td>
+<td>-0.38</td>
 <td>Distress</td>
-<td>Persistent negative profitability and liquidity issues</td>
-<td>Ongoing cash burn and operational challenges</td>
+<td>Persisting losses, weak liquidity</td>
+<td>Ongoing cash burn</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>-0.50</td>
+<td>-0.54</td>
 <td>Distress</td>
-<td>Declining working capital and retained earnings</td>
-<td>Capital constraints impacting operations</td>
+<td>Declining working capital</td>
+<td>Capital structure stress</td>
 </tr>
 <tr>
 <td>Q4</td>
-<td>-0.84</td>
+<td>-0.88</td>
 <td>Distress</td>
-<td>Negative EBIT and asset turnover</td>
-<td>Early distress signals</td>
+<td>Negative EBIT, poor sales</td>
+<td>Market challenges in EV rollout</td>
 </tr>
 <tr>
 <td>Q3</td>
-<td>-1.07</td>
+<td>-1.10</td>
 <td>Distress</td>
-<td>Weak asset utilization and liquidity</td>
-<td>Increasing financial strain</td>
+<td>Operating losses, asset inefficiency</td>
+<td>Early distress signals</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>-0.95</td>
+<td>-0.98</td>
 <td>Distress</td>
-<td>Negative profitability and liquidity</td>
-<td>Operational inefficiencies</td>
+<td>Negative earnings, liquidity issues</td>
+<td>Competitive pressure</td>
 </tr>
 <tr>
 <td>Q1</td>
-<td>-1.18</td>
+<td>-1.21</td>
 <td>Distress</td>
-<td>Severe liquidity and profitability issues</td>
+<td>Severe financial distress</td>
 <td>Initial distress phase</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-The Z-Score trajectory shows a slow but steady upward trend from -1.18 to 0.23 over eight quarters, indicating some operational or financial improvements but not nearly enough to exit the distress zone. The key drivers remain negative retained earnings and EBIT ratios, reflecting ongoing losses and capital depletion.</p>
-<p>This trend correlates with Lucid’s business context as a capital-intensive EV manufacturer still scaling production and market penetration. The lack of positive cash flow and asset efficiency improvements constrains financial recovery.</p>
-<p>Compared to the <strong>industry average Z-Score &gt; 3.0</strong>, LCID’s trajectory is significantly below peers, underscoring competitive disadvantages and higher bankruptcy risk. Without a material shift in profitability or liquidity, the company remains vulnerable.</p>
+The Z-Score trajectory shows a slow upward trend from -1.21 to 0.18 over eight quarters, indicating some operational stabilization but insufficient to exit the distress zone. Key drivers remain negative retained earnings and EBIT losses, compounded by extremely low asset turnover. The lack of working capital and sales growth undermines financial recovery.</p>
+<p>Business context includes Lucid’s ongoing challenges in scaling EV production, capital-intensive R&amp;D, and competitive pressures from established and emerging EV manufacturers. The Z-Score remains well below the industry average (&gt;3.0), underscoring the need for strategic restructuring or capital infusion.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -703,31 +772,30 @@ The Z-Score trajectory shows a slow but steady upward trend from -1.18 to 0.23 o
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Distress (0.23)</td>
-<td>Price $2.16, no volume</td>
+<td>Distress (Z=0.18)</td>
+<td>No trading data (0 volume, 0 price range)</td>
 <td>Divergent</td>
-<td>Market undervalues risk; low liquidity</td>
+<td>Market inactivity signals extreme caution; fundamental distress not priced in</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral/Negative</td>
+<td>Negative/Unavailable</td>
 <td>No consensus data</td>
-<td>Consistent</td>
-<td>Market cautious; no positive momentum</td>
+<td>Inconsistent</td>
+<td>Lack of market and analyst engagement reduces confidence</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below Industry Avg.</td>
-<td>Sector performing better</td>
 <td>Underperforming</td>
-<td>Competitive disadvantage; high risk</td>
+<td>Sector performance positive</td>
+<td>Divergent</td>
+<td>LCID lags peers, signaling competitive risk</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The fundamental distress indicated by the Z-Score is partially reflected in the low stock price ($2.16) and lack of trading volume or technical data, suggesting market skepticism or illiquidity. The absence of valuation multiples (P/E, Price/Book, EV/EBITDA all zero) indicates either negative earnings or data unavailability, reinforcing the distressed narrative.</p>
-<p>Analyst sentiment appears neutral to negative, consistent with the financial distress and lack of positive market catalysts. Peer comparison shows LCID significantly underperforming the broader Auto - Manufacturers sector, which is generally recovering and growing.</p>
-<p>The divergence between fundamental distress and market inactivity suggests potential undervaluation but also high risk and uncertainty. Investors should be cautious and seek confirmation of financial turnaround before committing.</p>
+The absence of any trading activity (zero volume, zero price range) and valuation metrics (P/E, Price/Book all zero) suggests either trading suspension, delisting risk, or extreme illiquidity. This market silence diverges sharply from the fundamental distress indicated by the Z-Score, creating a disconnect that limits market timing strategies.</p>
+<p>Peer comparison confirms LCID’s underperformance relative to industry leaders, reinforcing the need for caution. The lack of analyst sentiment data further reduces market validation, increasing reliance on fundamental and risk analysis.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -743,32 +811,39 @@ The fundamental distress indicated by the Z-Score is partially reflected in the 
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>High</td>
+<td>High (80%)</td>
 <td>Critical</td>
 <td>Further decline</td>
-<td>Improve production efficiency, cost control</td>
+<td>Accelerate cost control, improve production efficiency</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>High</td>
+<td>High (85%)</td>
 <td>Critical</td>
-<td>Continued distress</td>
-<td>Secure liquidity, restructure debt</td>
+<td>Negative impact</td>
+<td>Restructure debt, raise capital, improve cash flow management</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium</td>
+<td>Medium (60%)</td>
 <td>Moderate</td>
 <td>Volatility impact</td>
-<td>Diversify markets, hedge currency/commodity exposure</td>
+<td>Hedge commodity prices, diversify markets</td>
+</tr>
+<tr>
+<td>Bankruptcy Risk</td>
+<td>High (90%)</td>
+<td>Critical</td>
+<td>Z-Score &lt;1.8</td>
+<td>Immediate liquidity support, strategic partnerships</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Operational improvements and capital infusion raise EBIT ratio to positive territory, working capital ratio improves above 1.0, lifting Z-Score above 1.8 within 2-3 quarters.<br />
-- <strong>Base Case:</strong> Slow improvement continues; Z-Score remains below 1.0 with persistent negative retained earnings and liquidity stress.<br />
-- <strong>Worst Case:</strong> Continued losses and liquidity depletion push Z-Score negative, increasing bankruptcy risk.</p>
-<p>Bankruptcy risk remains high given the current Z-Score of 0.23 and negative financial ratios. Liquidity stress testing suggests vulnerability to cash flow shocks. Mitigation requires aggressive cost management, capital raising, and operational scaling.</p>
+- <strong>Best Case:</strong> Operational improvements and capital infusion raise Z-Score above 1.8 within 2-3 quarters, moving LCID into the Gray Zone.<br />
+- <strong>Base Case:</strong> Slow improvement keeps Z-Score near 0.2-0.5, maintaining distress status with ongoing risk.<br />
+- <strong>Worst Case:</strong> Continued losses and liquidity depletion push Z-Score negative, increasing bankruptcy probability.</p>
+<p>Mitigation requires aggressive operational restructuring and financial recapitalization. Given the high probability and severity of risks, investor caution is paramount.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -786,47 +861,47 @@ The fundamental distress indicated by the Z-Score is partially reflected in the 
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td>SELL/HOLD</td>
-<td>Z-Score 0.23 in distress zone; negative EBIT and liquidity</td>
-<td>Avoid entry until Z &gt; 1.8</td>
-<td>Monitor quarterly</td>
+<td>SELL</td>
+<td>Z-Score 0.18 in distress zone; high risk</td>
+<td>Market inactivity, no upside signals</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>SELL</td>
 <td>No dividend yield; negative retained earnings</td>
-<td>Not applicable</td>
-<td>N/A</td>
+<td>No yield support</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>HOLD</td>
-<td>Potential undervaluation but high risk</td>
-<td>Wait for Z-Score recovery</td>
+<td>Potential turnaround if Z-Score improves &gt;1.8</td>
+<td>Watch for operational inflection</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>SPECULATIVE BUY</td>
-<td>Early-stage EV growth potential but financial distress</td>
-<td>Entry on positive catalyst</td>
-<td>Monitor closely</td>
+<td>Early signs of Z-Score improvement but still distressed</td>
+<td>High risk, long-term horizon</td>
+<td>12+ months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>BUY</td>
-<td>High risk/reward; Z-Score improving but still distressed</td>
-<td>Opportunistic entry</td>
-<td>Short-term horizon</td>
+<td>High risk/reward; Z-Score improving slowly</td>
+<td>Volatility expected</td>
+<td>Opportunistic</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Conservative and dividend investors should avoid LCID due to high bankruptcy risk and no dividend yield. Value investors may hold for potential turnaround but require clear Z-Score improvement above 1.8. Growth investors can consider speculative positions based on EV market potential but must monitor financial health closely. Aggressive investors may buy on dips with tight risk controls.</p>
+<p><strong>Detailed Commentary:</strong><br />
+Conservative and dividend-focused investors should avoid LCID due to distress and lack of income. Value investors may consider a HOLD with close monitoring of Z-Score improvements and operational metrics. Growth and aggressive investors may selectively BUY on dips, anticipating a turnaround, but must be prepared for high volatility and potential capital loss.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -844,27 +919,27 @@ Conservative and dividend investors should avoid LCID due to high bankruptcy ris
 <td>CEO Leadership</td>
 <td>Operational turnaround</td>
 <td>EBIT Ratio, Asset Turnover</td>
-<td>Accelerate production efficiency, reduce costs</td>
-<td>Positive EBIT, improved Z-Score</td>
+<td>Focus on cost reduction, production scale-up</td>
+<td>EBIT margin improvement, Z-Score &gt;1.8</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; capital control</td>
+<td>Financial restructuring</td>
 <td>Working Capital Ratio, Retained Earnings</td>
-<td>Secure financing, manage cash flow</td>
-<td>Current ratio &gt;1.0, positive retained earnings</td>
+<td>Secure capital infusion, debt restructuring</td>
+<td>Improved liquidity, positive retained earnings</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight</td>
-<td>Z-Score, Risk Indicators</td>
-<td>Monitor financial risk, approve restructuring</td>
-<td>Stabilized Z-Score, reduced risk</td>
+<td>Risk oversight and compliance</td>
+<td>Z-Score trend, Risk factors</td>
+<td>Enhance governance, monitor risk exposure</td>
+<td>Risk mitigation, compliance adherence</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-Leadership must prioritize operational efficiency and liquidity stabilization to improve the Z-Score and reduce bankruptcy risk. The CFO should focus on capital structure optimization and cash management. The Board should enforce rigorous risk management and oversee turnaround progress. Transparent communication with investors is critical to manage market perception.</p>
+The CEO must prioritize operational efficiency to improve EBIT and asset turnover. The CFO should aggressively pursue capital restructuring to alleviate liquidity stress. The Board must oversee risk management closely, given the high bankruptcy risk. Aligning these efforts with Z-Score improvements will be critical for restoring investor confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -881,35 +956,33 @@ Leadership must prioritize operational efficiency and liquidity stabilization to
 <tr>
 <td>Z-Score Momentum</td>
 <td>Slightly improving</td>
-<td>Gradual recovery possible</td>
-<td>Production scale-up, cost reduction</td>
-<td>EBIT ratio, working capital ratio</td>
+<td>Gradual improvement</td>
+<td>Operational efficiencies, capital raises</td>
+<td>Quarterly Z-Score, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Weak</td>
-<td>Potential improvement</td>
-<td>EV market growth, new product launches</td>
-<td>Market share, sales growth</td>
+<td>Potential stabilization</td>
+<td>EV market growth, product launches</td>
+<td>Market share, sales volume</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>High</td>
-<td>Moderate reduction with turnaround</td>
-<td>Capital infusion, operational improvements</td>
+<td>Moderate reduction</td>
+<td>Debt restructuring, cost control</td>
 <td>Liquidity ratios, debt levels</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-LCID’s Z-Score momentum suggests a slow path to recovery contingent on operational and financial improvements. Key catalysts include successful scaling of EV production, cost control, and capital raising. Monitoring EBIT ratio and liquidity metrics will provide early warning of turnaround success or failure. Investors should watch for Z-Score crossing above 1.8 as a critical threshold signaling reduced distress and improved investment viability.</p>
+LCID’s Z-Score momentum suggests a slow path out of distress, contingent on successful operational and financial restructuring. Key catalysts include ramping EV production, securing funding, and improving margins. Monitoring quarterly Z-Score changes and liquidity metrics will provide early warnings of risk escalation or recovery. Investors should prepare for a protracted turnaround with high volatility.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Lucid Group, Inc. remains in a <strong>financial distress state</strong> with a current Altman Z-Score of <strong>0.23</strong>, reflecting high bankruptcy risk. Despite a slight upward trend, liquidity, profitability, and operational efficiency metrics remain significantly below industry benchmarks. Market signals are weak or absent, consistent with investor caution. Risk stratification highlights critical operational and financial risks requiring urgent mitigation.</p>
-<p>Investment recommendations vary by risk tolerance, with conservative investors advised to avoid, value investors to hold cautiously, and aggressive investors to consider speculative positions only with strong risk controls. Strategic focus on operational turnaround and liquidity management is essential for recovery.</p>
-<p>Continuous monitoring of Z-Score components and financial ratios is critical to validate any improvement and guide investment timing.</p>
+<p>Lucid Group, Inc. remains in a precarious financial position with a distress-level Altman Z-Score of 0.18, reflecting ongoing operational losses, liquidity constraints, and negative retained earnings. Market inactivity and lack of valuation metrics compound investment risk. While a slow upward Z-Score trend offers marginal hope, substantial restructuring and capital support are essential to avoid bankruptcy. Investment recommendations range from SELL for conservative investors to speculative BUY for aggressive profiles, with a strong emphasis on monitoring Z-Score and financial health indicators for timely decision-making.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to injected data elements and comprehensive integration of financial, risk, peer, and market intelligence.</em></p></div></div>
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, risk, peer, and market data for actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1252,78 +1325,41 @@ LCID’s Z-Score momentum suggests a slow path to recovery contingent on operati
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:35 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:30 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

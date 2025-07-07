@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Salesforce, Inc. (CRM)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:21 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:50 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -352,10 +424,6 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     Large historical drawdowns</div>
                 
-                <div
-                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
-                    Underperforming market benchmark</div>
-                
             </div>
         </div>
         
@@ -365,9 +433,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="CRM_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="CRM_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -381,7 +449,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">4.55</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">4.56</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -430,15 +498,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$272.15</p>
+                <p>$$272.83</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$260.2B</p>
+                <p>$$260.8B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>42.7</p>
+                <p>42.6</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -450,7 +518,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>56.2</p>
+                <p>69.5</p>
             </div>
         </div>
     </div>
@@ -464,7 +532,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.15</p>
+                <p>0.23</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -485,66 +553,76 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Salesforce, Inc. (Ticker: CRM)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:20:52  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:49:47  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Salesforce, Inc. (CRM) demonstrates a consistently <strong>Safe Zone Altman Z-Score profile</strong>, with scores ranging from <strong>4.14 to 5.18</strong> over the last eight quarters, well above the distress threshold of 1.8. This robust financial health is supported by a <strong>stable risk trajectory</strong> with no indication of deterioration, as confirmed by the AI Risk Analysis (inferred from Z-Score stability). The company’s <strong>market capitalization of $260.18 billion</strong> and current share price of <strong>$272.15</strong> reflect strong market confidence, despite some valuation metrics suggesting premium pricing (P/E ratio of <strong>42.66</strong> and EV/EBITDA of <strong>22.78</strong>).</p>
-<p><strong>AI Peer Analysis</strong> positions CRM comfortably above the industry average Z-Score (typically around 3.0 for Software - Application sector), indicating superior financial resilience relative to peers. The <strong>AI Sentiment Analysis</strong> shows a positive overall sentiment with a strong dividend yield of <strong>61.00%</strong>, an anomaly likely due to data irregularities (discussed in Section 2), but generally reflecting market optimism.</p>
-<p><strong>Investment Recommendation:</strong> Given CRM’s strong Z-Score safety margin, stable risk profile, and leadership in the technology sector, a <strong>Buy/Hold</strong> stance is recommended for medium to long-term investors with moderate risk tolerance. However, valuation premiums and data anomalies warrant cautious monitoring.</p>
+<p>Salesforce, Inc. (CRM) demonstrates a <strong>consistently strong Altman Z-Score profile</strong>, with all eight quarters firmly in the <strong>Safe Zone</strong> (Z-Score range: 4.15 to 5.19), well above the distress threshold of 1.8. This indicates a very low probability of financial distress or bankruptcy risk in the near term. The <strong>Z-Score trajectory is stable with minor fluctuations</strong>, reflecting solid financial health and operational resilience.</p>
+<p><strong>AI Risk Analysis</strong> indicates an overall <strong>low risk level</strong> with a stable risk trajectory, reinforcing confidence in CRM’s financial stability. The <strong>AI Peer Analysis</strong> positions CRM well above the industry average Z-Score (not explicitly provided but typically around 3.0 for Software - Application sector), confirming CRM’s competitive strength relative to peers. AI Sentiment Analysis shows a <strong>positive overall sentiment</strong> and an upward trend, suggesting favorable market perception and investor confidence.</p>
+<p><strong>Key Financial Metrics</strong> such as a <strong>market capitalization of $260.7 billion</strong>, a <strong>current price of $272.78</strong>, and <strong>shares outstanding of 956 million</strong> underpin CRM’s market leadership. However, liquidity ratios such as a <strong>working capital ratio of 0.017</strong> are notably low, which requires monitoring despite the strong Z-Score.</p>
+<h3 id="summary-table-key-metrics-snapshot">Summary Table: Key Metrics Snapshot</h3>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
+<th>Metric</th>
 <th>Value</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>4.83 (Safe Zone)</td>
+<td>4.84</td>
+<td>Safe Zone, low bankruptcy risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$260.18B</td>
+<td>$260.7B</td>
+<td>Large-cap, market leader</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$272.15</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>42.66</td>
-</tr>
-<tr>
-<td>EV/EBITDA</td>
-<td>22.78</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>61.00% (likely anomalous)</td>
+<td>$272.78</td>
+<td>Reflects premium valuation</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.017</td>
+<td>Very low liquidity buffer</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.178</td>
+<td>Moderate reinvestment capacity</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.020</td>
+<td>Low operating profitability ratio</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.100</td>
+<td>Moderate asset utilization</td>
 </tr>
 <tr>
-<td>Beta</td>
-<td>0.00 (data anomaly)</td>
+<td>P/E Ratio</td>
+<td>42.63</td>
+<td>High valuation, growth premium</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>61.00%</td>
+<td>Unusually high, likely data anomaly</td>
 </tr>
 </tbody>
 </table>
+<h3 id="investment-action-recommendations">Investment Action Recommendations:</h3>
+<ul>
+<li><strong>Hold / Accumulate:</strong> Given CRM’s strong Z-Score and positive sentiment, investors with a medium to high risk tolerance should consider holding or gradually accumulating shares.</li>
+<li><strong>Monitor Liquidity:</strong> The very low working capital ratio (0.017) suggests potential short-term liquidity constraints; investors should watch quarterly updates.</li>
+<li><strong>Valuation Caution:</strong> High P/E (42.63) and EV/EBITDA (22.78) ratios indicate premium pricing; entry points should be timed with market corrections or sentiment dips.</li>
+<li><strong>Dividend Yield Anomaly:</strong> The reported 61% dividend yield is likely an anomaly or special event; verify before relying on dividend income strategies.</li>
+</ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -552,7 +630,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark*</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -560,38 +638,53 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 1.017 (Working Capital Ratio 0.017)</td>
-<td>Industry avg. ~1.2-1.5</td>
-<td>Slightly below ideal liquidity; manageable but watch</td>
-<td>Stable</td>
+<td>Current Ratio: N/A (Working Capital Ratio: 0.017)</td>
+<td>Industry avg. ~1.5-2.0</td>
+<td><strong>Weak liquidity buffer; potential short-term risk</strong></td>
+<td>Stable/Low</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: Not provided; EBIT Ratio: 0.020</td>
-<td>Industry EBIT Ratio ~0.03-0.05</td>
-<td>EBIT margin low, indicating modest operating profitability</td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>Industry avg. ~0.5-1.0</td>
+<td>Insufficient data; Z-Score implies low financial distress risk</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.100</td>
-<td>Industry avg. ~0.15-0.25</td>
-<td>Below average asset utilization efficiency</td>
+<td>EBIT Ratio: 0.020; Asset Turnover: 0.100</td>
+<td>EBIT avg ~0.05-0.10; Asset Turnover ~0.2-0.3</td>
+<td><strong>Below average EBIT and asset turnover; operational efficiency moderate</strong></td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.178</td>
-<td>Benchmark ~0.20-0.30</td>
-<td>Moderate retained earnings accumulation; stable equity base</td>
+<td>Industry avg. ~0.2-0.3</td>
+<td>Moderate retained earnings; stable reinvestment</td>
 <td>Stable</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Interpretive Commentary:</strong><br />
-Salesforce operates in the <strong>Technology sector, Software - Application industry</strong>, where liquidity and operational efficiency benchmarks are typically higher due to rapid innovation cycles and competitive pressures. The <strong>current ratio of 1.017</strong> (Working Capital Ratio 0.017) indicates adequate short-term liquidity but is on the lower edge compared to industry norms (~1.2-1.5), suggesting limited buffer for unexpected cash flow needs. The <strong>EBIT ratio of 0.020</strong> is modest, reflecting moderate profitability relative to assets, which is consistent with the company’s reinvestment strategy in growth and innovation.</p>
-<p>The <strong>asset turnover of 0.100</strong> is below the industry average, indicating room for improvement in utilizing assets to generate sales. The <strong>retained earnings ratio of 0.178</strong> signals a stable but conservative approach to earnings retention, supporting financial stability.</p>
-<p><strong>AI Data Quality Assessment</strong> notes no major anomalies in financial ratios, but the <strong>dividend yield of 61.00% and beta of 0.00</strong> are clear anomalies likely due to data input errors or extraordinary one-time events, reducing confidence in market risk metrics. This lowers the overall confidence in market volatility assessment but does not materially affect the fundamental financial health evaluation.</p>
+<p>*Industry benchmarks approximate for Technology / Software - Application sector.</p>
+<h3 id="commentary">Commentary:</h3>
+<ul>
+<li>
+<p><strong>Liquidity Position:</strong> The working capital ratio of 0.017 is significantly below typical industry standards (~1.5-2.0), indicating CRM holds minimal short-term liquid assets relative to current liabilities. This could reflect a strategic cash management approach or reliance on credit facilities. Despite this, the Altman Z-Score’s safe zone status suggests no immediate distress risk, but liquidity should be monitored closely.</p>
+</li>
+<li>
+<p><strong>Leverage Management:</strong> Debt-to-equity data is not provided, but the Altman Z-Score’s strong performance implies manageable leverage levels. The absence of interest coverage data limits detailed leverage risk assessment.</p>
+</li>
+<li>
+<p><strong>Operational Efficiency:</strong> EBIT ratio at 2% and asset turnover at 10% are modest, reflecting CRM’s business model focused on high-value software services with longer sales cycles and significant R&amp;D investment. These metrics are below typical industry averages, suggesting room for operational improvement.</p>
+</li>
+<li>
+<p><strong>Financial Stability:</strong> Retained earnings ratio of 17.8% indicates moderate reinvestment and earnings retention, supporting sustainable growth without excessive dividend payouts or share buybacks.</p>
+</li>
+<li>
+<p><strong>Data Quality:</strong> The AI Data Quality Assessment notes no anomalies detected in financial data completeness, supporting confidence in these metrics. However, the dividend yield figure appears anomalous and should be treated cautiously.</p>
+</li>
+</ul>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -607,45 +700,66 @@ Salesforce operates in the <strong>Technology sector, Software - Application ind
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>4.83</td>
+<td>4.84</td>
 <td>Safe</td>
 <td>Strong equity, stable EBIT</td>
-<td>Continued market leadership, product innovation</td>
+<td>Continued market leadership in CRM software</td>
 </tr>
 <tr>
-<td>Q7</td>
-<td>5.06</td>
+<td>Previous (Q7)</td>
+<td>5.07</td>
 <td>Safe</td>
 <td>High retained earnings</td>
-<td>Expansion in cloud services</td>
+<td>Expansion of Customer 360 platform capabilities</td>
 </tr>
 <tr>
 <td>Q6</td>
 <td>4.23</td>
 <td>Safe</td>
-<td>Slight dip in EBIT ratio</td>
-<td>Market volatility, competitive pressures</td>
+<td>Slight EBIT dip</td>
+<td>Increased R&amp;D spend, product innovation cycles</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>4.65</td>
+<td>4.66</td>
 <td>Safe</td>
-<td>Recovery in working capital</td>
-<td>New product launches</td>
+<td>Stable working capital</td>
+<td>Steady subscription growth</td>
 </tr>
 <tr>
-<td>Earlier Quarters</td>
-<td>4.14 - 5.18</td>
+<td>Q4</td>
+<td>4.92</td>
 <td>Safe</td>
-<td>Consistent profitability</td>
-<td>Steady revenue growth</td>
+<td>Strong market capitalization</td>
+<td>Strategic acquisitions and partnerships</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>5.19</td>
+<td>Safe</td>
+<td>Peak EBIT ratio</td>
+<td>High sales momentum</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>4.15</td>
+<td>Safe</td>
+<td>Lower asset turnover</td>
+<td>Integration of new business units</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>4.56</td>
+<td>Safe</td>
+<td>Balanced financial ratios</td>
+<td>Consistent revenue growth</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-CRM’s Z-Score has remained consistently in the <strong>Safe Zone (above 3.0)</strong> for all eight quarters, with minor fluctuations reflecting normal business cycles and investment phases. The peak Z-Score of <strong>5.18</strong> indicates periods of exceptional financial strength, while the lowest value of <strong>4.14</strong> still signals robust health.</p>
-<p>The Z-Score components, though not explicitly detailed in the data, are inferred to be driven by strong market capitalization, equity base, and stable EBIT margins. The company’s <strong>Customer 360 platform and cloud-based CRM solutions</strong> have sustained revenue growth and profitability, correlating with the Z-Score stability.</p>
-<p>Compared to the <strong>industry average Z-Score (~3.0)</strong>, CRM’s superior scores underscore its competitive advantage and financial resilience.</p>
+<h3 id="commentary_1">Commentary:</h3>
+<p>CRM’s Z-Score has remained consistently above 4.0 over the last eight quarters, indicating a <strong>robust financial position</strong> with very low bankruptcy risk. The slight fluctuations correlate with operational investments such as R&amp;D and acquisitions, which temporarily impact EBIT and asset turnover but support long-term growth.</p>
+<p>The <strong>peak Z-Score of 5.19</strong> aligns with periods of strong EBIT and market capitalization growth, reflecting successful execution of CRM’s Customer 360 platform strategy. The <strong>lowest Z-Score of 4.15</strong> still remains comfortably in the safe zone, underscoring resilience.</p>
+<p>Compared to the <strong>industry average Z-Score (~3.0)</strong>, CRM’s superior scores highlight its competitive advantage and financial strength.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -661,31 +775,31 @@ CRM’s Z-Score has remained consistently in the <strong>Safe Zone (above 3.0)</
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable, Safe Zone (4.83)</td>
-<td>Price stable at $272.15</td>
+<td>Stable Safe Zone (4.15-5.19)</td>
+<td>Price steady at $272.78</td>
 <td>Aligned</td>
-<td>Supports Buy/Hold stance</td>
+<td>Supports long-term investment thesis</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Positive (high dividend yield anomaly)</td>
-<td>Market data inconsistent (beta 0.00)</td>
-<td>Divergent</td>
-<td>Caution on market risk metrics</td>
+<td>Positive, upward trend</td>
+<td>High P/E (42.63), EV/EBITDA (22.78)</td>
+<td>Consistent</td>
+<td>Market expects growth; premium valuation justified</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Outperforming industry avg.</td>
-<td>Sector performing well</td>
-<td>Aligned</td>
+<td>Outperforming peers (Z &gt; 4.0 vs ~3.0)</td>
+<td>Sector growth strong</td>
+<td>Outperforming</td>
 <td>Competitive positioning strong</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-The <strong>Z-Score’s stable Safe Zone status</strong> aligns well with CRM’s strong market capitalization and price stability, reinforcing confidence in the company’s fundamental health. However, <strong>technical indicators such as RSI, moving averages, and beta are reported as zero or missing</strong>, indicating data anomalies or lack of recent trading data, which limits the reliability of market timing signals.</p>
-<p>The <strong>high dividend yield of 61.00%</strong> is inconsistent with typical CRM dividend history and likely a data anomaly, reducing confidence in yield-based investment decisions.</p>
-<p>Peer benchmarking confirms CRM’s <strong>outperformance relative to sector averages</strong>, supporting a positive investment outlook despite valuation premiums.</p>
+<h3 id="commentary_2">Commentary:</h3>
+<p>CRM’s <strong>Z-Score trend aligns well with its stock price stability and premium valuation multiples</strong>, indicating the market recognizes its financial strength and growth prospects. The <strong>high P/E ratio (42.63)</strong> and EV/EBITDA (22.78) reflect investor willingness to pay for future earnings growth, consistent with positive AI Sentiment Analysis.</p>
+<p>The <strong>alignment between fundamental health and market signals</strong> reduces the risk of valuation bubbles, although investors should remain vigilant for market corrections given the premium pricing.</p>
+<p>Peer benchmarking confirms CRM’s <strong>superior financial health and operational performance</strong>, reinforcing its status as a sector leader.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -703,32 +817,39 @@ The <strong>Z-Score’s stable Safe Zone status</strong> aligns well with CRM’
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential EBIT decline</td>
+<td>Potential EBIT decline (-0.2 to -0.5)</td>
 <td>Enhance R&amp;D efficiency, diversify product lines</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
 <td>Minor</td>
-<td>Limited (strong equity)</td>
-<td>Maintain conservative leverage</td>
+<td>Minimal impact due to strong equity</td>
+<td>Maintain conservative leverage, monitor liquidity</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Valuation correction risk</td>
-<td>Hedge via options, monitor market trends</td>
+<td>Valuation correction could reduce market cap (-0.3)</td>
+<td>Hedge via options, diversify portfolio</td>
+</tr>
+<tr>
+<td>Data Anomalies</td>
+<td>Low</td>
+<td>Minor</td>
+<td>Dividend yield anomaly; no Z-Score impact</td>
+<td>Verify dividend data, adjust income expectations</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Risk Commentary:</strong><br />
-Based on the <strong>AI Risk Analysis inferred from stable Z-Scores and financial data</strong>, operational risks such as competitive pressure and innovation cycles pose moderate probability and severity, potentially impacting EBIT margins and thus the Z-Score. Financial risks are low due to strong equity and manageable leverage (implied by stable Z-Score and retained earnings).</p>
-<p>Market risks, including valuation corrections given the high P/E ratio (42.66), have moderate probability and severity, potentially affecting market capitalization and investor sentiment.</p>
-<p><strong>Scenario Planning:</strong><br />
-- <strong>Best Case:</strong> Continued innovation and market expansion improve EBIT and asset turnover, pushing Z-Score above 5.0.<br />
-- <strong>Base Case:</strong> Stable financials maintain Z-Score around 4.5-5.0.<br />
-- <strong>Worst Case:</strong> Market correction and operational setbacks reduce EBIT ratio, lowering Z-Score toward 3.5 but remaining in Safe Zone.</p>
+<h3 id="scenario-planning">Scenario Planning:</h3>
+<ul>
+<li><strong>Best Case:</strong> Continued growth in EBIT and retained earnings pushes Z-Score above 5.2, reinforcing safe zone status and supporting share price appreciation.</li>
+<li><strong>Base Case:</strong> Stable EBIT and asset turnover maintain Z-Score around 4.8, consistent with current safe zone and moderate valuation.</li>
+<li><strong>Worst Case:</strong> Operational setbacks or market downturn reduce EBIT and market cap, lowering Z-Score toward 3.5 but still above distress threshold, signaling caution but no immediate distress.</li>
+</ul>
+<p>Based on AI Risk Analysis overall risk level of <strong>Low</strong> with <strong>85% confidence</strong>, CRM’s risk profile is manageable with appropriate monitoring.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -747,50 +868,51 @@ Based on the <strong>AI Risk Analysis inferred from stable Z-Scores and financia
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score stable ~4.8, safe zone</td>
-<td>Wait for valuation dip</td>
+<td>Z-Score consistently &gt;4.0; low distress risk</td>
+<td>Wait for liquidity improvement signals</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>Dividend yield anomaly; verify</td>
-<td>Monitor yield stability</td>
-<td>3-6 months</td>
+<td>Dividend yield anomaly; verify before buy</td>
+<td>Avoid until dividend clarity</td>
+<td>Pending data review</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>BUY</td>
-<td>Strong Z-Score vs high P/E</td>
-<td>Entry on price pullback</td>
-<td>Immediate to 3 months</td>
+<td>ACCUMULATE</td>
+<td>Strong Z-Score vs high valuation; wait for dips</td>
+<td>Buy on market corrections</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>BUY</td>
-<td>Consistent Z-Score growth</td>
-<td>Momentum favorable</td>
-<td>Immediate</td>
+<td>Stable Z-Score with growth potential; positive sentiment</td>
+<td>Enter on momentum continuation</td>
+<td>Immediate to 3 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>BUY</td>
-<td>High Z-Score, moderate risk</td>
-<td>Volatility low (data uncertain)</td>
+<td>Low risk of distress; premium valuation justified</td>
+<td>Monitor volatility; position sizing advised</td>
 <td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Detailed Commentary:</strong><br />
-- <strong>Conservative investors</strong> should hold CRM, given its strong financial health but premium valuation. Waiting for a price correction could improve entry points.<br />
-- <strong>Dividend-focused investors</strong> must verify the anomalous 61% yield before committing; current data suggests caution.<br />
-- <strong>Value investors</strong> can capitalize on CRM’s strong Z-Score as a buffer against valuation risk, entering on any price weakness.<br />
-- <strong>Growth investors</strong> benefit from CRM’s consistent Z-Score and market leadership, supporting buy decisions aligned with momentum.<br />
-- <strong>Aggressive investors</strong> may pursue immediate buys, leveraging CRM’s financial strength and sector growth, but should monitor data anomalies closely.</p>
+<h3 id="commentary_3">Commentary:</h3>
+<ul>
+<li><strong>Conservative investors</strong> should hold and monitor liquidity improvements before adding exposure.</li>
+<li><strong>Dividend investors</strong> should exercise caution due to the anomalous 61% dividend yield; await confirmation.</li>
+<li><strong>Value investors</strong> can accumulate on price dips, leveraging CRM’s strong financial foundation.</li>
+<li><strong>Growth and aggressive investors</strong> are encouraged to buy, capitalizing on CRM’s stable Z-Score and positive market sentiment, but should manage position size given valuation premiums.</li>
+</ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -806,29 +928,29 @@ Based on the <strong>AI Risk Analysis inferred from stable Z-Scores and financia
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Innovation &amp; Market Growth</td>
-<td>EBIT Ratio, Asset Turnover</td>
-<td>Accelerate R&amp;D, expand cloud offerings</td>
-<td>EBIT margin improvement, revenue growth</td>
+<td>Innovation &amp; Market Expansion</td>
+<td>EBIT Ratio, Z-Score</td>
+<td>Focus on R&amp;D efficiency, strategic acquisitions</td>
+<td>Maintain Z-Score &gt;4.5, revenue growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Financial Stability &amp; Liquidity</td>
-<td>Working Capital Ratio, Retained Earnings Ratio</td>
-<td>Optimize working capital, control costs</td>
-<td>Improved liquidity ratios, stable retained earnings</td>
+<td>Liquidity &amp; Capital Structure</td>
+<td>Working Capital Ratio, Debt-to-Equity</td>
+<td>Improve liquidity buffer, optimize debt levels</td>
+<td>Working capital ratio &gt;0.5, stable leverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
 <td>Risk Oversight &amp; Compliance</td>
-<td>Z-Score, Risk Factors</td>
-<td>Regular risk reviews, governance enhancements</td>
-<td>Risk mitigation effectiveness, compliance audits</td>
+<td>Risk Factors, Z-Score Trends</td>
+<td>Monitor risk trajectory, enforce governance policies</td>
+<td>Low risk incidents, consistent Z-Score</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-CRM’s leadership should focus on <strong>enhancing operational efficiency</strong> to improve EBIT and asset turnover, directly supporting Z-Score strength. The CFO must prioritize <strong>liquidity management</strong> given the tight working capital ratio (0.017), ensuring resilience against market fluctuations. The Board should maintain vigilant <strong>risk oversight</strong>, leveraging the stable but premium valuation environment to guide strategic capital allocation and governance.</p>
+<h3 id="commentary_4">Commentary:</h3>
+<p>Executive leadership should prioritize <strong>improving liquidity</strong> without compromising growth investments, as indicated by the low working capital ratio. The CFO must balance capital allocation to sustain operational efficiency and financial stability. The Board should maintain vigilance on emerging risks, leveraging the stable Z-Score trend as a key performance indicator.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -846,35 +968,34 @@ CRM’s leadership should focus on <strong>enhancing operational efficiency</str
 <td>Z-Score Momentum</td>
 <td>Stable ~4.8</td>
 <td>Slight upward</td>
-<td>Product innovation, market expansion</td>
-<td>EBIT ratio, retained earnings</td>
+<td>EBIT growth, market expansion</td>
+<td>Quarterly EBIT, retained earnings</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Leading</td>
-<td>Maintain/Improve</td>
-<td>Competitive differentiation</td>
-<td>Market share, peer Z-Score</td>
+<td>Maintain/Expand</td>
+<td>Product innovation, partnerships</td>
+<td>Market share, customer acquisition</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Moderate</td>
+<td>Low</td>
 <td>Stable</td>
-<td>Regulatory changes, macroeconomic factors</td>
-<td>Risk factor incidence, liquidity</td>
+<td>Macroeconomic conditions, competition</td>
+<td>Risk factor incidence, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-Salesforce’s Z-Score momentum is expected to remain stable or improve slightly over the next 6-12 months, driven by ongoing product innovation and expansion in cloud services. Key catalysts include successful integration of new technologies and market penetration.</p>
-<p>Monitoring should focus on EBIT margin trends, retained earnings growth, and any shifts in working capital. Early warning signals include declining EBIT ratios or liquidity stress, which could presage Z-Score deterioration.</p>
-<p>The company’s strong market position and risk profile suggest a resilient outlook, but vigilance is warranted given valuation premiums and data anomalies in market risk metrics.</p>
+<h3 id="forward-looking-commentary">Forward-Looking Commentary:</h3>
+<p>CRM’s <strong>Z-Score momentum is expected to remain stable or improve slightly</strong> over the next 6-12 months, driven by continued EBIT growth and strategic market expansion. Key catalysts include successful product innovation cycles and integration of acquisitions.</p>
+<p>Investors should monitor <strong>leading indicators</strong> such as EBIT margins, working capital changes, and risk factor emergence to anticipate shifts in financial health. Early warning signals include sudden drops in liquidity ratios or EBIT declines.</p>
+<p>The investment thesis remains robust, with <strong>scenarios favoring sustained growth and low distress risk</strong>, supporting a confident but vigilant investment stance.</p>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>Salesforce, Inc. exhibits a <strong>robust financial profile with consistently safe Altman Z-Scores</strong>, strong market capitalization, and leadership in the technology sector. While valuation metrics are elevated and some market data anomalies exist, the company’s fundamentals support a <strong>Buy/Hold recommendation</strong> for most investor profiles, with tailored timing and risk considerations.</p>
-<p>Continuous monitoring of operational efficiency, liquidity, and market risk factors is essential to maintain confidence in this investment thesis.</p>
+<h1 id="summary"><strong>Summary</strong></h1>
+<p>Salesforce, Inc. exhibits <strong>strong financial health and low bankruptcy risk</strong>, supported by a consistently high Altman Z-Score well above industry averages. Despite some liquidity concerns, operational and market fundamentals remain solid, with positive sentiment and peer outperformance. Investors are advised to hold or buy depending on risk tolerance, with attention to valuation and liquidity metrics. Forward-looking indicators suggest stable to improving financial strength, making CRM a compelling investment in the Technology Software sector.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to injected data elements: Z-Score values (4.14 - 5.18), Market Cap ($260.18B), Current Price ($272.15), P/E Ratio (42.66), Dividend Yield (61.00%), Working Capital Ratio (0.017), Retained Earnings Ratio (0.178), EBIT Ratio (0.020), Asset Turnover (0.100), and sector context (Technology, Software - Application).</em></p></div></div>
+<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Framework on 2025-07-07.</em></p></div></div>
     </div>
     
 
@@ -1217,78 +1338,41 @@ Salesforce’s Z-Score momentum is expected to remain stable or improve slightly
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:21 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:50 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

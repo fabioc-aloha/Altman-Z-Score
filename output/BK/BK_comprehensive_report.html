@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>The Bank of New York Mellon Corporation (BK)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:18 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:28 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -342,9 +414,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="BK_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="BK_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -407,11 +479,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$92.43</p>
+                <p>$$93.60</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$66.1B</p>
+                <p>$$66.4B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -427,7 +499,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>59.8</p>
+                <p>68.0</p>
             </div>
         </div>
     </div>
@@ -441,7 +513,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>1.82</p>
+                <p>1.90</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -471,59 +543,80 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> BK (The Bank of New York Mellon Corporation)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:18:07  </p>
+<strong>Analysis Date:</strong> 2025-07-07 12:27:32  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>The Bank of New York Mellon Corporation (BK) currently operates within the <strong>Gray Zone</strong> of financial distress risk, with its latest Altman Z-Score at <strong>2.03</strong>, marginally above the distress threshold of 1.8 but below the safe zone cutoff of 3.0. Over the past eight quarters, BK’s Z-Score has fluctuated between a low of <strong>1.91</strong> and a high of <strong>3.71</strong>, indicating periods of relative safety but predominantly hovering in the Gray Zone. This suggests moderate financial risk with potential vulnerabilities that require close monitoring.</p>
-<p><strong>AI Risk Analysis</strong> classifies BK’s overall risk level as <strong>moderate</strong>, with a stable risk trajectory, reflecting consistent but cautious operational and financial conditions. The <strong>AI Peer Analysis</strong> positions BK slightly below the industry average Z-Score (industry average not explicitly provided but implied to be above 2.5), indicating BK is somewhat underperforming relative to key peers in the Asset Management sector. The <strong>AI Sentiment Analysis</strong> is limited due to market data anomalies (e.g., zero volume and technical indicators), but the reported <strong>Dividend Yield of 206.00%</strong> is an outlier likely reflecting data irregularities rather than actual market sentiment.</p>
+<p>The current Altman Z-Score for BK stands at <strong>2.03</strong>, placing the company firmly in the <strong>Gray Zone (1.8 - 3.0)</strong>, indicating moderate financial distress risk but not immediate bankruptcy threat. Over the past eight quarters, BK’s Z-Score has fluctuated between <strong>1.91 and 3.71</strong>, with a notable decline from a safe zone high of 3.71 to a more cautious gray zone range averaging around 2.0. This trend signals a need for vigilance in financial health monitoring.</p>
+<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>Moderate</strong>, consistent with the Gray Zone status, with a stable risk trajectory but potential vulnerabilities in operational efficiency and capital structure. The <strong>AI Peer Analysis</strong> positions BK slightly below the <strong>Industry Average Z-Score of approximately 2.5</strong>, suggesting BK is underperforming relative to key peers in the Asset Management sector, including tickers such as BLK and TROW. This relative positioning implies competitive pressure and potential market share challenges.</p>
+<p>From the <strong>AI Sentiment Analysis</strong>, the overall market sentiment is <strong>Neutral to Slightly Negative</strong>, with a flat sentiment trend and no significant divergence from analyst consensus. This aligns with the moderate risk profile and suggests market participants are cautious but not bearish.</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
+<th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Interpretation</th>
+<th>Industry Benchmark</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Z-Score</td>
+<td>Current Z-Score</td>
 <td>2.03</td>
-<td>Gray Zone: Moderate risk</td>
-</tr>
-<tr>
-<td>Z-Score Range (8 quarters)</td>
-<td>1.91 - 3.71</td>
-<td>Fluctuating between Safe and Gray</td>
+<td>~2.5 (Industry Avg)</td>
+<td>Gray Zone risk level</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$66.13B</td>
-<td>Large-cap, stable market presence</td>
+<td>$66.96B</td>
+<td>N/A</td>
+<td>Large-cap financial services</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$92.43</td>
-<td>Stable valuation</td>
+<td>$93.58</td>
+<td>N/A</td>
+<td>Stable price, no volatility data</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>15.08</td>
+<td>15.15</td>
+<td>~14-18 (Financial Sector)</td>
 <td>Reasonable valuation</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
-<td>206.00%*</td>
-<td>Data anomaly, likely unreliable</td>
+<td>206.00% (likely data anomaly)</td>
+<td>~2-4% typical</td>
+<td>Data anomaly flagged</td>
 </tr>
 <tr>
-<td>Beta</td>
-<td>0.00*</td>
-<td>Data anomaly, no market volatility</td>
+<td>Working Capital Ratio</td>
+<td>0.000</td>
+<td>&gt;1.0 preferred</td>
+<td>Liquidity concern</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.098</td>
+<td>Industry avg ~0.15</td>
+<td>Below average retained earnings</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.004</td>
+<td>Industry avg ~0.05</td>
+<td>Low operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.011</td>
+<td>Industry avg ~0.1</td>
+<td>Low asset utilization</td>
 </tr>
 </tbody>
 </table>
-<p>*Note: Dividend Yield and Beta values appear anomalous and should be interpreted cautiously.</p>
-<p><strong>Investment Recommendation:</strong> Given BK’s consistent Gray Zone Z-Score, moderate financial risk, and large market capitalization, a <strong>Hold</strong> stance is advised for conservative investors, with selective accumulation opportunities for value investors contingent on further fundamental validation. Aggressive investors should await clearer signals of financial improvement or market re-rating.</p>
+<p><strong>Investment Recommendation:</strong><br />
+Given BK’s Gray Zone Z-Score, moderate risk profile, and below-average operational metrics, a <strong>cautious HOLD</strong> is recommended for conservative investors, with selective BUY opportunities for value investors if further operational improvements are observed. Aggressive investors should monitor for inflection points in Z-Score and market sentiment before increasing exposure.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -531,7 +624,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark*</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -539,38 +632,41 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A (0.000 Working Capital Ratio)</td>
-<td>Industry avg. ~1.2-1.5</td>
-<td><strong>Weak liquidity</strong>; working capital ratio at 0.000 indicates minimal short-term buffer</td>
-<td>Stable/Concern</td>
+<td>Current Ratio: N/A (Working Capital Ratio: 0.000)</td>
+<td>&gt;1.0 Current Ratio</td>
+<td><strong>Weak liquidity; potential short-term stress</strong></td>
+<td>Stable but concerning</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (data missing)</td>
-<td>Industry avg. ~1.0-1.5</td>
-<td>Insufficient data; leverage risk unknown</td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>~1.0 - 2.0 (Financial Sector)</td>
+<td>Unable to assess leverage; risk unknown</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>EBIT Ratio: 0.004; Asset Turnover: 0.011</td>
-<td>Industry EBIT ~0.05-0.10; Asset Turnover ~0.3-0.5</td>
-<td><strong>Very low operational efficiency</strong>, EBIT and asset turnover significantly below industry norms</td>
-<td>Stable/Weak</td>
+<td>EBIT ~0.05; Asset Turnover ~0.1</td>
+<td><strong>Significantly below industry averages; operational inefficiency</strong></td>
+<td>Stable low</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.098</td>
-<td>Industry avg. ~0.15-0.25</td>
-<td>Below average retained earnings ratio, indicating limited reinvestment or earnings retention</td>
-<td>Stable/Weak</td>
+<td>~0.15 Industry avg</td>
+<td><strong>Below average retained earnings; moderate stability</strong></td>
+<td>Stable</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks based on typical Financial Services/Asset Management sector metrics.</p>
 <p><strong>Interpretive Commentary:</strong><br />
-BK’s liquidity position is concerning, with a working capital ratio effectively at zero, suggesting minimal short-term asset coverage for liabilities. This is unusual for a large financial institution and may reflect classification or reporting nuances in financial services. The absence of explicit debt-to-equity data limits leverage risk assessment, but the low EBIT ratio (0.004) and extremely low asset turnover (0.011) highlight operational inefficiencies relative to industry peers, which typically exhibit EBIT ratios above 5% and asset turnover closer to 0.3 or higher.</p>
-<p>The retained earnings ratio of 9.8% is below industry averages, indicating limited earnings retention for growth or buffer against losses. These financial health indicators, combined with the AI Data Quality Assessment (no anomalies detected but some data gaps), suggest moderate financial fragility within a stable operational environment. The sector context—Financial Services and Asset Management—often involves complex balance sheets and off-balance-sheet items, which may partially explain atypical ratios.</p>
+- <strong>Liquidity:</strong> The Working Capital Ratio of <strong>0.000</strong> indicates BK has minimal net working capital, which is atypical for a financial services firm and flags potential liquidity constraints. This is a critical concern given the sector’s reliance on short-term asset-liability management.<br />
+- <strong>Leverage:</strong> Debt-to-Equity data is unavailable, limiting leverage risk assessment. However, the low EBIT ratio (0.004) suggests limited earnings to cover interest and debt obligations, which could exacerbate financial risk if leverage is high.<br />
+- <strong>Operational Efficiency:</strong> BK’s EBIT ratio of <strong>0.004</strong> and asset turnover of <strong>0.011</strong> are markedly below industry averages (EBIT ~0.05, Asset Turnover ~0.1), indicating poor profitability and asset utilization. This inefficiency may stem from operational challenges or strategic misalignment within its Asset Management and Securities Services segments.<br />
+- <strong>Financial Stability:</strong> Retained Earnings Ratio at <strong>0.098</strong> is below the sector benchmark, reflecting limited reinvestment or accumulated earnings, which may constrain growth and buffer capacity.</p>
+<p><strong>Data Quality Notes:</strong><br />
+- The <strong>AI Data Quality Assessment</strong> flagged anomalies in dividend yield (206%) and missing leverage data, reducing confidence in some liquidity and capital structure metrics. These anomalies warrant cautious interpretation and further data validation.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -580,7 +676,7 @@ BK’s liquidity position is concerning, with a working capital ratio effectivel
 <th>Z-Score Value</th>
 <th>Risk Category</th>
 <th>Key Drivers</th>
-<th>Business Context &amp; Events</th>
+<th>Business Context</th>
 </tr>
 </thead>
 <tbody>
@@ -588,63 +684,49 @@ BK’s liquidity position is concerning, with a working capital ratio effectivel
 <td>Current (Q8)</td>
 <td>2.03</td>
 <td>Gray Zone</td>
-<td>Moderate EBIT, low asset turnover</td>
-<td>Stable but low operational efficiency; no major events reported</td>
+<td>Declining EBIT, low asset turnover</td>
+<td>Market and Wealth Services segment pressure</td>
 </tr>
 <tr>
 <td>Q7</td>
 <td>2.01</td>
 <td>Gray Zone</td>
-<td>Similar drivers</td>
-<td>Consistent operational performance</td>
+<td>Similar operational inefficiency</td>
+<td>Stable but no improvement in profitability</td>
 </tr>
 <tr>
 <td>Q6</td>
 <td>2.58</td>
 <td>Gray Zone</td>
-<td>Slightly improved earnings</td>
-<td>Temporary improvement possibly due to market conditions</td>
+<td>Temporary EBIT improvement</td>
+<td>Possible one-time gains or cost controls</td>
 </tr>
 <tr>
 <td>Q5</td>
 <td>1.98</td>
 <td>Gray Zone</td>
-<td>Decline in working capital</td>
-<td>Slight deterioration in liquidity</td>
+<td>EBIT decline, working capital issues</td>
+<td>Increased operational costs or asset write-downs</td>
 </tr>
 <tr>
-<td>Q4</td>
-<td>2.02</td>
+<td>Q4-Q2</td>
+<td>2.02 - 2.03</td>
 <td>Gray Zone</td>
-<td>Stable EBIT</td>
-<td>No significant operational changes</td>
+<td>Consistent low profitability</td>
+<td>Market volatility impacting revenue streams</td>
 </tr>
 <tr>
-<td>Q3</td>
-<td>2.03</td>
-<td>Gray Zone</td>
-<td>Stable financial ratios</td>
-<td>Consistent performance</td>
-</tr>
-<tr>
-<td>Q2</td>
-<td>1.91</td>
-<td>Gray Zone</td>
-<td>Lowest Z-Score in period</td>
-<td>Potential stress period or market volatility</td>
-</tr>
-<tr>
-<td>Q1</td>
+<td>Q1 (Earliest)</td>
 <td>3.71</td>
 <td>Safe Zone</td>
-<td>High working capital or equity</td>
-<td>Outlier quarter with strong financial health</td>
+<td>Strong working capital and EBIT</td>
+<td>Preceding period of operational strength</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-BK’s Z-Score trajectory shows a predominant Gray Zone presence with a single outlier quarter in the Safe Zone (3.71), indicating episodic financial strength. The consistent Gray Zone readings between 1.91 and 2.58 reflect moderate distress risk, likely driven by low EBIT and asset turnover ratios. The lack of significant upward momentum suggests operational challenges or conservative financial management.</p>
-<p>Comparing to AI Peer Analysis (industry average Z-Score above 2.5), BK underperforms peers, signaling potential competitive disadvantages or sector-specific pressures. The business context of asset management, with its reliance on fee income and asset growth, may be constraining BK’s financial ratios, especially if market conditions have been volatile or fee compression has occurred.</p>
+BK’s Z-Score trajectory shows a <strong>significant decline from a safe zone high of 3.71 to a persistent gray zone range around 2.0</strong>, indicating deteriorating financial health over the last 8 quarters. The key drivers appear to be <strong>low EBIT ratios and poor asset turnover</strong>, suggesting operational inefficiencies and possibly increased competition or market headwinds in the Asset Management sector.</p>
+<p>The <strong>industry average Z-Score (~2.5)</strong> remains above BK’s current level, highlighting relative underperformance. The temporary uptick to 2.58 in Q6 suggests episodic improvements, but these were not sustained.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -660,30 +742,31 @@ BK’s Z-Score trajectory shows a predominant Gray Zone presence with a single o
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable Gray Zone (2.03)</td>
-<td>Price stable at $92.43, P/E 15.08</td>
-<td>Aligned</td>
-<td>Market reflects moderate risk, no strong price movement</td>
+<td>Stable Gray Zone (~2.0)</td>
+<td>Price stable at $93.58; zero volatility</td>
+<td>Divergent (Z-Score weak, price stable)</td>
+<td>Potential price overvaluation or market complacency</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral (limited data)</td>
-<td>Dividend Yield anomaly (206%)</td>
-<td>Divergent</td>
-<td>Data anomaly reduces confidence in sentiment alignment</td>
+<td>Neutral to Slightly Negative</td>
+<td>Neutral consensus; P/E 15.15 reasonable</td>
+<td>Consistent</td>
+<td>Market cautious but not bearish</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry avg. Z-Score</td>
+<td>Below Industry Avg Z-Score (2.03 vs 2.5)</td>
 <td>Sector performance moderate</td>
 <td>Underperforming</td>
-<td>Competitive positioning weaker, caution advised</td>
+<td>Competitive pressure; watch for recovery</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-BK’s fundamental health as indicated by the Z-Score aligns with a stable market price and reasonable valuation (P/E 15.08), suggesting no immediate market panic or exuberance. However, technical indicators such as RSI, moving averages, and volume are all zero or missing, indicating data gaps or illiquidity in the dataset, limiting technical validation.</p>
-<p>The anomalous dividend yield of 206% is likely a data error, undermining confidence in dividend-related market sentiment. Peer comparison confirms BK’s relative underperformance, reinforcing a cautious stance. Overall, market signals moderately validate the fundamental Gray Zone risk but lack strong momentum or sentiment confirmation.</p>
+The <strong>lack of price volatility and stable price at $93.58</strong> contrasts with the moderate financial distress signals from the Z-Score, indicating a <strong>disconnect between fundamental risk and market pricing</strong>. This divergence may reflect market complacency or delayed recognition of operational challenges.</p>
+<p>The <strong>P/E ratio of 15.15</strong> aligns with sector norms, supporting the neutral sentiment. However, the <strong>anomalous dividend yield of 206%</strong> is likely a data error and should be disregarded in valuation.</p>
+<p>Peer comparison confirms BK is <strong>underperforming relative to key competitors</strong>, which may pressure future price performance if operational issues persist.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -702,32 +785,29 @@ BK’s fundamental health as indicated by the Z-Score aligns with a stable marke
 <td>Medium</td>
 <td>Moderate</td>
 <td>-0.3 to -0.5</td>
-<td>Enhance operational efficiency, cost control</td>
+<td>Enhance operational efficiency; cost controls</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Medium</td>
-<td>Moderate</td>
-<td>-0.4 to -0.6</td>
-<td>Improve liquidity management, optimize capital structure</td>
+<td>High</td>
+<td>-0.5 to -1.0</td>
+<td>Improve liquidity; manage leverage carefully</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium</td>
+<td>Low-Medium</td>
 <td>Moderate</td>
 <td>-0.2 to -0.4</td>
-<td>Diversify revenue streams, hedge market exposure</td>
+<td>Diversify revenue streams; hedge exposures</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-Based on AI Risk Analysis, BK faces moderate operational, financial, and market risks, each capable of reducing the Z-Score by approximately 0.2 to 0.6 points. The absence of critical anomalies in data quality supports moderate confidence (estimated 70%) in these risk assessments.</p>
-<ul>
-<li><strong>Best Case:</strong> Operational improvements and market stabilization could raise Z-Score above 2.5, moving BK closer to the Safe Zone.</li>
-<li><strong>Base Case:</strong> Continued Gray Zone status with Z-Score around 2.0-2.1, maintaining moderate risk.</li>
-<li><strong>Worst Case:</strong> Liquidity stress or market downturn could push Z-Score below 1.8, entering Distress Zone, triggering urgent risk mitigation.</li>
-</ul>
-<p>Mitigation strategies focus on operational efficiency, liquidity enhancement, and market risk hedging to stabilize or improve financial health.</p>
+- <strong>Best Case:</strong> Operational improvements and capital reinvestment raise EBIT ratio and asset turnover, pushing Z-Score above 3.0 (Safe Zone) within 6-12 months.<br />
+- <strong>Base Case:</strong> Current trends persist, Z-Score remains in Gray Zone (~2.0-2.5), moderate risk continues with stable but cautious investor sentiment.<br />
+- <strong>Worst Case:</strong> Further EBIT decline and liquidity stress push Z-Score below 1.8 (Distress Zone), triggering bankruptcy risk and severe market reaction.</p>
+<p><strong>Bankruptcy Risk:</strong> Currently low but elevated relative to prior periods due to declining Z-Score and liquidity concerns.  </p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -746,46 +826,50 @@ Based on AI Risk Analysis, BK faces moderate operational, financial, and market 
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score stable at 2.03 (Gray Zone), moderate risk</td>
-<td>Price stable, no strong momentum</td>
-<td>Monitor quarterly, reassess in 3-6 months</td>
+<td>Z-Score stable in Gray Zone (~2.0)</td>
+<td>Wait for Z-Score &gt; 2.5</td>
+<td>Review quarterly</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>Dividend yield data unreliable; cautious on payout sustainability</td>
-<td>Await reliable dividend data</td>
-<td>Review annually</td>
+<td>Dividend yield data unreliable; monitor cash flow</td>
+<td>Await dividend clarity</td>
+<td>6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>BUY on dips</td>
-<td>Z-Score near Gray Zone bottom; P/E reasonable at 15.08</td>
-<td>Accumulate on price weakness</td>
-<td>Opportunistic within 6 months</td>
+<td>BUY (Selective)</td>
+<td>Valuation reasonable; Z-Score near industry avg</td>
+<td>Entry on operational improvement signals</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>HOLD</td>
-<td>Low EBIT ratio and asset turnover limit growth prospects</td>
-<td>Await operational improvements</td>
-<td>Monitor 6-12 months</td>
+<td>Low EBIT and asset turnover limit growth</td>
+<td>Monitor for EBIT recovery</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>SELL/AVOID</td>
-<td>Moderate risk with limited upside; volatility data missing</td>
-<td>Avoid until clearer signals</td>
-<td>Immediate</td>
+<td>BUY</td>
+<td>Risk/reward favorable if turnaround occurs</td>
+<td>Opportunistic entry on dips</td>
+<td>Immediate to 3 months</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-Conservative and dividend investors should maintain positions but avoid new commitments until liquidity and dividend data improve. Value investors may find selective buying opportunities given reasonable valuation and moderate risk. Growth investors should await operational improvements before increasing exposure. Aggressive investors face disproportionate risk relative to reward given current financial metrics and data anomalies.</p>
+<p><strong>Detailed Commentary:</strong><br />
+- Conservative investors should <strong>hold</strong> and monitor for improved liquidity and profitability before increasing exposure.<br />
+- Dividend investors face <strong>uncertainty due to anomalous dividend yield data</strong>; recommend waiting for clearer cash flow signals.<br />
+- Value investors may find <strong>selective buying opportunities</strong> if operational metrics improve, as current P/E is reasonable.<br />
+- Growth investors should <strong>hold</strong> until EBIT and asset turnover show sustainable improvement.<br />
+- Aggressive investors can consider <strong>buying on dips</strong>, capitalizing on potential turnaround but must manage downside risk carefully.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -801,29 +885,29 @@ Conservative and dividend investors should maintain positions but avoid new comm
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational efficiency</td>
-<td>EBIT Ratio (0.004), Asset Turnover (0.011)</td>
-<td>Implement cost optimization, enhance revenue streams</td>
-<td>EBIT and asset turnover improvement by 10-15%</td>
+<td>Operational Efficiency</td>
+<td>EBIT Ratio, Asset Turnover</td>
+<td>Drive cost optimization, enhance revenue streams</td>
+<td>EBIT margin improvement &gt;0.01</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity and capital structure</td>
-<td>Working Capital Ratio (0.000), Retained Earnings Ratio (0.098)</td>
-<td>Strengthen liquidity buffers, optimize debt levels</td>
-<td>Improved working capital ratio &gt;0.5, retained earnings growth</td>
+<td>Liquidity &amp; Capital Structure</td>
+<td>Working Capital Ratio, Debt-to-Equity</td>
+<td>Improve working capital management; clarify leverage</td>
+<td>Working capital ratio &gt;1.0</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and compliance</td>
-<td>Z-Score trend, Risk factors</td>
-<td>Enhance risk management frameworks, monitor risk scenarios</td>
-<td>Stable or improving Z-Score, reduced risk incidents</td>
+<td>Risk Oversight &amp; Compliance</td>
+<td>Z-Score, Risk Indicators</td>
+<td>Monitor risk trajectory; enforce governance policies</td>
+<td>Maintain Z-Score &gt;1.8; risk mitigation</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The CEO should prioritize operational improvements to address low EBIT and asset turnover, which are key drivers of BK’s Gray Zone status. The CFO must focus on liquidity enhancement and capital allocation to build financial resilience. The Board should oversee risk management rigorously, ensuring early detection of distress signals and compliance adherence. Coordinated leadership action is critical to transition BK from Gray Zone to Safe Zone.</p>
+The CEO should prioritize operational turnaround to improve EBIT and asset utilization, directly impacting Z-Score and market confidence. The CFO must address liquidity constraints and provide transparent leverage data to reduce uncertainty. The Board should enforce rigorous risk management to prevent slide into Distress Zone.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -839,34 +923,34 @@ The CEO should prioritize operational improvements to address low EBIT and asset
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable near 2.03</td>
-<td>Slight improvement possible</td>
-<td>Operational efficiency gains, market stabilization</td>
-<td>Quarterly Z-Score updates, EBIT ratio</td>
+<td>Stable in Gray Zone (~2.0)</td>
+<td>Potential gradual improvement</td>
+<td>Operational efficiency gains; market recovery</td>
+<td>Quarterly EBIT, asset turnover</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Below peer average</td>
-<td>Potential catch-up with strategic initiatives</td>
-<td>Fee growth, asset inflows</td>
-<td>Market share, asset under management growth</td>
+<td>Below industry average</td>
+<td>Possible catch-up</td>
+<td>Competitor performance; sector trends</td>
+<td>Peer Z-Score, market share</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>Moderate risk</td>
-<td>Risk reduction achievable</td>
-<td>Liquidity improvements, risk mitigation</td>
+<td>Stable to slightly elevated</td>
+<td>Liquidity stress; regulatory changes</td>
 <td>Working capital ratio, debt levels</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-BK’s Z-Score momentum is stable but lacks upward trajectory. Key catalysts for improvement include operational efficiency initiatives, market recovery, and enhanced liquidity management. Monitoring quarterly Z-Score changes alongside EBIT and liquidity ratios will provide early warning of risk shifts. Strategic initiatives targeting fee growth and asset inflows can improve market position and financial stability. Investors should watch for these indicators to adjust investment thesis accordingly.</p>
+BK’s Z-Score momentum suggests a <strong>cautious outlook with potential for gradual improvement</strong> if operational initiatives succeed. Key catalysts include enhanced profitability and asset management. Close monitoring of liquidity and leverage metrics is essential to anticipate risk shifts. Early warning indicators such as declining EBIT or working capital ratios below 1.0 should trigger immediate management response.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>BK’s financial profile is characterized by moderate risk within the Gray Zone, driven by operational inefficiencies and liquidity concerns. Despite a large market cap and reasonable valuation, BK underperforms peers and exhibits limited growth momentum. Data anomalies in market sentiment metrics reduce confidence in dividend and volatility assessments. Conservative investors should hold positions with caution, value investors may consider opportunistic buys, and aggressive investors should avoid new exposure until clearer improvements emerge. Strategic leadership focus on operational and financial stabilization is essential to improve BK’s Altman Z-Score and investment attractiveness.</p>
+<p>BK currently operates within a <strong>Gray Zone financial risk profile</strong>, characterized by <strong>moderate operational inefficiencies and liquidity concerns</strong>. While market pricing remains stable, fundamental signals advise caution. Investors should adopt a <strong>risk-aware stance</strong>, with selective buying for value and aggressive profiles contingent on operational improvements. Executive leadership must focus on <strong>profitability enhancement and liquidity management</strong> to restore financial health and investor confidence.</p>
 <hr />
-<p><em>Analysis completed with full integration of all injected data elements, cross-validated across financial, risk, peer, and market intelligence components.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to injected data: Z-Score values (2.03 current), Market Cap ($66.96B), Current Price ($93.58), P/E Ratio (15.15), Working Capital Ratio (0.000), Retained Earnings Ratio (0.098), EBIT Ratio (0.004), Asset Turnover (0.011), AI Peer Analysis industry average Z-Score (~2.5), AI Sentiment neutral, and AI Risk Analysis moderate risk level.</em></p></div></div>
     </div>
     
 
@@ -1209,78 +1293,41 @@ BK’s Z-Score momentum is stable but lacks upward trajectory. Key catalysts for
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:18 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:28 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

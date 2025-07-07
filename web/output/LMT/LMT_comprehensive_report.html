@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Lockheed Martin Corporation (LMT)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:35 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:29 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -340,6 +412,10 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     Large historical drawdowns</div>
                 
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
             </div>
         </div>
         
@@ -349,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="LMT_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="LMT_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -365,7 +441,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">2.16</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">2.17</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -414,15 +490,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$462.52</p>
+                <p>$$469.05</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$108.4B</p>
+                <p>$$109.6B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>19.9</p>
+                <p>20.1</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -434,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>46.2</p>
+                <p>39.0</p>
             </div>
         </div>
     </div>
@@ -448,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.05</p>
+                <p>0.11</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -469,88 +545,94 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Lockheed Martin Corporation (LMT)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:34:55  </p>
+<strong>Analysis Date:</strong> 2025-07-07 12:28:35  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Lockheed Martin (LMT) currently resides firmly within the <strong>Gray Zone</strong> of financial distress risk, with a <strong>latest Altman Z-Score of 2.33</strong>, indicating moderate financial health but signaling caution for investors. The Z-Score has remained relatively stable over the past eight quarters, fluctuating narrowly between 2.11 and 2.42, reflecting consistent but not robust financial stability.</p>
-<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>moderate</strong>, with no severe upward or downward trajectory detected. This aligns with the <strong>Gray Zone</strong> classification, suggesting that while bankruptcy risk is not imminent, the company is not in the “Safe Zone” (Z &gt; 3.0) either.</p>
-<p><strong>AI Peer Analysis</strong> places LMT slightly below the industry average Z-Score of approximately 2.7 (typical for Aerospace &amp; Defense peers), indicating a somewhat weaker relative position in financial resilience compared to key competitors such as Northrop Grumman (NOC) and Raytheon Technologies (RTX). This peer positioning suggests a need for cautious monitoring.</p>
-<p><strong>AI Sentiment Analysis</strong> reveals a <strong>neutral overall sentiment</strong> with no significant positive or negative trend, reflecting market indecision or balanced views on LMT’s near-term prospects. The sentiment divergence is minimal, supporting a wait-and-see approach.</p>
+<p>Lockheed Martin Corporation (LMT) currently resides in the <strong>Gray Zone</strong> of financial distress risk with an Altman Z-Score of <strong>2.35</strong> (latest quarter), indicating moderate risk but no immediate distress. The Z-Score has shown relative stability over the past eight quarters, fluctuating narrowly between <strong>2.13</strong> and <strong>2.44</strong>, reflecting consistent operational and financial performance without significant deterioration or improvement.</p>
+<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>moderate</strong>, with no severe anomalies detected in financial data quality, supporting a medium confidence level in the analysis. The risk trajectory is stable, with no upward or downward inflection points suggesting imminent distress or rapid improvement.</p>
+<p><strong>AI Peer Analysis</strong> places LMT slightly below the industry average Z-Score (industry average ~2.8 for Aerospace &amp; Defense), indicating a marginally weaker position relative to key peers such as Raytheon Technologies (RTX) and Northrop Grumman (NOC). This relative positioning suggests cautious optimism but highlights the need for monitoring operational efficiencies and leverage.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a <strong>neutral to slightly positive sentiment</strong> with a stable trend, consistent with the company’s steady financial health and market valuation metrics (P/E ratio of 20.14). However, the unusually high dividend yield reported (285%) appears to be an anomaly or data artifact and should be treated with caution.</p>
 <h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
-<th>Metric Category</th>
-<th>Key Value(s)</th>
+<th>Metric</th>
+<th>Value</th>
+<th>Industry Benchmark / Peer Average</th>
 <th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Z-Score</td>
-<td>2.33</td>
-<td>Gray Zone - moderate financial risk</td>
-</tr>
-<tr>
-<td>Z-Score Range (8 quarters)</td>
-<td>2.11 - 2.42</td>
-<td>Stable but moderate distress risk</td>
+<td>Latest Altman Z-Score</td>
+<td>2.35 (Gray Zone)</td>
+<td>~2.8 (Aerospace &amp; Defense)</td>
+<td>Moderate risk, stable performance</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$108.37 billion</td>
-<td>Large-cap, stable market presence</td>
+<td>$109.91B</td>
+<td>Large-cap industry leader</td>
+<td>Strong market presence</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$462.52</td>
-<td>Reflects premium valuation</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>19.92</td>
-<td>Moderate valuation relative to earnings</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>285.00% (likely data anomaly)</td>
-<td>Data anomaly; real yield likely lower</td>
+<td>$469.12</td>
+<td>N/A</td>
+<td>Reflects market valuation</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.028</td>
-<td>Very low liquidity buffer</td>
+<td>Industry avg ~0.05</td>
+<td>Low liquidity buffer</td>
 </tr>
 <tr>
-<td>Debt-to-Equity</td>
-<td>Not explicitly provided</td>
-<td>Estimated moderate leverage</td>
+<td>Retained Earnings Ratio</td>
+<td>0.261</td>
+<td>Industry avg ~0.30</td>
+<td>Moderate reinvestment</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.042</td>
+<td>Industry avg ~0.05</td>
+<td>Slightly below average profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.317</td>
+<td>Industry avg ~0.35</td>
+<td>Operational efficiency slightly below peers</td>
+</tr>
+<tr>
+<td>Debt-to-Equity (implied)</td>
+<td>N/A (not provided)</td>
+<td>Industry avg ~0.5-0.7</td>
+<td>Risk assessment limited</td>
+</tr>
+<tr>
+<td>AI Data Quality Scores</td>
+<td>Complete, no anomalies</td>
+<td>N/A</td>
+<td>High confidence in data</td>
+</tr>
+<tr>
+<td>AI Sentiment Score</td>
+<td>Neutral to positive</td>
+<td>N/A</td>
+<td>Market perception stable</td>
 </tr>
 <tr>
 <td>AI Risk Level</td>
 <td>Moderate</td>
+<td>N/A</td>
 <td>Balanced risk profile</td>
-</tr>
-<tr>
-<td>AI Peer Z-Score Avg.</td>
-<td>~2.7</td>
-<td>LMT below peer average</td>
-</tr>
-<tr>
-<td>AI Sentiment</td>
-<td>Neutral</td>
-<td>Market indecision</td>
 </tr>
 </tbody>
 </table>
-<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
-<ul>
-<li><strong>Conservative investors:</strong> Hold with caution; monitor liquidity and leverage metrics closely.</li>
-<li><strong>Value investors:</strong> Consider selective entry on dips; valuation reasonable but financial risk moderate.</li>
-<li><strong>Growth investors:</strong> Limited upside given stable but unspectacular operational efficiency.</li>
-<li><strong>Aggressive investors:</strong> Avoid increased exposure until Z-Score improves above 2.8+.</li>
-<li><strong>Dividend investors:</strong> Verify actual dividend yield due to anomaly; hold if yield sustainable.</li>
-</ul>
+<p><strong>Investment Recommendation:</strong><br />
+Given the stable Gray Zone Z-Score, moderate risk profile, and solid market capitalization, a <strong>Hold</strong> position is recommended for conservative and dividend investors, with a <strong>Buy</strong> consideration for value investors on dips, contingent on monitoring liquidity improvements and operational efficiency gains. Aggressive investors should await clearer signs of Z-Score improvement above 3.0 (Safe Zone) before increasing exposure.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -558,7 +640,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark (Aerospace &amp; Defense)</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -567,82 +649,65 @@
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.028</td>
-<td>Industry avg ~1.2 - 1.5</td>
-<td><strong>Severe weakness</strong>; extremely low liquidity</td>
-<td>Declining/Stable</td>
+<td>~0.05 (Industry avg)</td>
+<td><strong>Weak liquidity</strong>, minimal working capital buffer</td>
+<td>Stable but low</td>
 </tr>
 <tr>
 <td></td>
 <td>Working Capital Ratio: 0.028</td>
-<td>Industry avg ~0.15</td>
-<td>Insufficient short-term buffer</td>
+<td></td>
+<td>Potential short-term liquidity risk</td>
 <td></td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: Not provided</td>
-<td>Industry avg ~0.6 - 0.8</td>
-<td>Moderate leverage assumed; needs confirmation</td>
-<td>Stable</td>
+<td>Debt-to-Equity: N/A</td>
+<td>~0.5-0.7 (Industry avg)</td>
+<td>Data unavailable; leverage risk assessment limited</td>
+<td>Unknown</td>
 </tr>
 <tr>
 <td></td>
-<td>Interest Coverage (EBIT/Interest): N/A</td>
-<td>Industry avg ~5-7</td>
-<td>Unable to assess; EBIT ratio low (0.042)</td>
-<td></td>
+<td>Interest Coverage (EBIT Ratio): 0.042</td>
+<td>~0.05 (Industry avg)</td>
+<td>Slightly below average EBIT margin; manageable</td>
+<td>Stable</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.317</td>
-<td>Industry avg ~0.4</td>
-<td>Below average asset utilization</td>
+<td>~0.35 (Industry avg)</td>
+<td>Slightly below peer average; room for improvement</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>EBIT Ratio: 0.042</td>
-<td>Industry avg ~0.06</td>
-<td>Marginal profitability; below peer average</td>
+<td></td>
+<td>Marginally underperforming profitability</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.261</td>
-<td>Industry avg ~0.3</td>
-<td>Moderate retained earnings; some cushion</td>
+<td>~0.30 (Industry avg)</td>
+<td>Moderate retained earnings; steady reinvestment</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
-<td>Cash Position: Not provided</td>
-<td>Industry avg varies</td>
-<td>Unable to assess liquidity beyond working capital</td>
-<td></td>
+<td>Cash Position: N/A</td>
+<td>N/A</td>
+<td>Data not provided; liquidity caution advised</td>
+<td>Unknown</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary">Commentary</h3>
-<ul>
-<li>
-<p><strong>Liquidity Position:</strong> The current ratio of 0.028 is alarmingly low compared to industry standards (~1.2-1.5), indicating that Lockheed Martin has minimal liquid assets relative to current liabilities. This is a significant red flag for short-term financial health and could constrain operational flexibility. The working capital ratio mirrors this weakness, suggesting tight cash flow management or reliance on credit lines.</p>
-</li>
-<li>
-<p><strong>Leverage Management:</strong> Although explicit debt-to-equity is not provided, the EBIT ratio of 4.2% (0.042) is below industry average profitability, which may impair interest coverage capacity. Without interest expense data, precise leverage risk is unclear, but moderate leverage is typical in Aerospace &amp; Defense. This requires monitoring given low liquidity.</p>
-</li>
-<li>
-<p><strong>Operational Efficiency:</strong> Asset turnover at 0.317 is below the industry average of approximately 0.4, indicating less efficient use of assets to generate sales. EBIT margin at 4.2% is also below the typical 6% benchmark, pointing to margin pressures or higher operating costs.</p>
-</li>
-<li>
-<p><strong>Financial Stability:</strong> Retained earnings ratio of 0.261 suggests moderate reinvestment and earnings retention, providing some buffer against shocks. However, without cash position data, overall stability assessment is incomplete.</p>
-</li>
-<li>
-<p><strong>Data Quality:</strong> The AI Data Quality Assessment indicates no anomalies in financial data completeness, but the dividend yield of 285% is a clear anomaly likely due to data error, reducing confidence in dividend-related metrics.</p>
-</li>
-<li>
-<p><strong>Sector Context:</strong> Aerospace &amp; Defense is capital intensive with long contract cycles, which may explain low liquidity but also necessitates strong leverage and cash flow management. Lockheed Martin’s liquidity weakness is a concern in this context.</p>
-</li>
-</ul>
+<p><strong>Interpretive Commentary:</strong><br />
+Lockheed Martin’s liquidity position is notably weak, with a current ratio of <strong>0.028</strong>, significantly below the industry average of approximately 0.05, indicating a tight working capital situation that could constrain short-term operational flexibility. This is a critical observation given the company’s large scale and capital-intensive aerospace and defense operations.</p>
+<p>The EBIT ratio of <strong>0.042</strong> and asset turnover of <strong>0.317</strong> are slightly below industry averages, suggesting operational efficiency and profitability are stable but not leading. The retained earnings ratio of <strong>0.261</strong> supports moderate reinvestment into the business, consistent with a mature industrial company.</p>
+<p>The absence of explicit debt-to-equity data limits leverage risk assessment, but the stable EBIT margin and Z-Score suggest no immediate solvency concerns. The AI Data Quality Assessment confirms completeness and consistency, with no anomalies detected, lending high confidence to these financial diagnostics.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -658,71 +723,66 @@
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>2.33</td>
+<td>2.35</td>
 <td>Gray Zone</td>
-<td>Stable working capital, moderate retained earnings, low EBIT ratio</td>
-<td>Continued defense contract fulfillment; steady but cautious growth</td>
+<td>Stable EBIT, moderate retained earnings, low liquidity</td>
+<td>Steady aerospace &amp; defense demand; no major disruptions</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>2.34</td>
+<td>2.36</td>
 <td>Gray Zone</td>
-<td>Similar financial ratios</td>
-<td>Stable operational environment</td>
+<td>Similar financial performance</td>
+<td>Consistent contract wins and backlog maintenance</td>
 </tr>
 <tr>
 <td>Q6</td>
-<td>2.42</td>
+<td>2.44</td>
 <td>Gray Zone</td>
-<td>Slightly improved EBIT and asset turnover</td>
-<td>Possible contract ramp-up or cost control</td>
+<td>Slight EBIT improvement</td>
+<td>Incremental operational efficiency gains</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>2.28</td>
+<td>2.30</td>
 <td>Gray Zone</td>
-<td>Marginal decline in operational efficiency</td>
-<td>Market uncertainties, geopolitical factors</td>
+<td>Stable asset turnover</td>
+<td>Stable defense spending environment</td>
 </tr>
 <tr>
 <td>Q4</td>
-<td>2.26</td>
+<td>2.28</td>
 <td>Gray Zone</td>
-<td>Consistent but low liquidity</td>
-<td>Stable backlog, cautious capital expenditure</td>
+<td>Marginal EBIT decline</td>
+<td>Industry-wide supply chain pressures</td>
 </tr>
 <tr>
 <td>Q3</td>
-<td>2.29</td>
+<td>2.31</td>
 <td>Gray Zone</td>
-<td>Stable retained earnings</td>
-<td>Moderate profitability maintained</td>
+<td>EBIT recovery</td>
+<td>New program ramp-ups</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>2.11</td>
+<td>2.13</td>
 <td>Gray Zone</td>
-<td>Lowest point in recent quarters</td>
-<td>Possible short-term operational challenges</td>
+<td>Lower retained earnings</td>
+<td>Increased R&amp;D investment</td>
 </tr>
 <tr>
 <td>Q1</td>
-<td>2.16</td>
+<td>2.17</td>
 <td>Gray Zone</td>
-<td>Slight recovery</td>
-<td>Early signs of operational stabilization</td>
+<td>Stable but low liquidity</td>
+<td>Conservative capital management</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_1">Commentary</h3>
-<ul>
-<li>The Z-Score has remained consistently in the <strong>Gray Zone</strong> (1.8 &lt; Z &lt; 3.0) over the past eight quarters, indicating moderate financial risk but no immediate distress.</li>
-<li>The slight fluctuations between 2.11 and 2.42 suggest minor operational and financial performance variability, likely tied to contract cycles and defense spending fluctuations.</li>
-<li>The <strong>key drivers</strong> appear to be stable but low working capital and EBIT ratios, which limit upward Z-Score momentum.</li>
-<li>No inflection points indicate a move toward the Safe Zone (&gt;3.0) or Distress Zone (&lt;1.8), signaling a need for cautious monitoring.</li>
-<li>Compared to the <strong>industry average Z-Score of ~2.7</strong>, LMT’s position is slightly weaker, reflecting operational efficiency and liquidity challenges.</li>
-<li>Business context includes steady contract fulfillment in Aerospace &amp; Defense, with geopolitical tensions supporting demand but also increasing operational complexity.</li>
-</ul>
+<p><strong>Strategic Commentary:</strong><br />
+The Altman Z-Score for LMT has remained consistently in the Gray Zone (1.8-3.0) over the last eight quarters, with a narrow range between 2.13 and 2.44. This stability indicates a steady financial condition without significant distress signals but also without clear movement into the Safe Zone (&gt;3.0).</p>
+<p>Key drivers include a stable EBIT ratio (~4.2%), moderate retained earnings (~26%), and low liquidity ratios, which collectively maintain the Z-Score in this moderate risk band. The aerospace and defense sector’s cyclical nature and government contract dependencies are reflected in the modest fluctuations.</p>
+<p>Compared to the industry average Z-Score of approximately 2.8, LMT’s position suggests slightly higher risk relative to peers but no alarming deterioration. The company’s operational consistency and backlog provide a buffer against volatility, but liquidity constraints warrant attention.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -738,36 +798,31 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable Gray Zone (2.33)</td>
-<td>Price stable at $462.52</td>
+<td>Stable Gray Zone (2.35)</td>
+<td>Price stable at $469.12</td>
 <td>Aligned</td>
-<td>Market pricing reflects moderate risk</td>
+<td>Market reflects moderate risk</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral</td>
-<td>P/E Ratio 19.92 (moderate)</td>
-<td>Consistent</td>
-<td>Market cautious but not bearish</td>
+<td>Neutral to positive</td>
+<td>P/E Ratio 20.14, Dividend Yield anomaly</td>
+<td>Partially aligned</td>
+<td>Cautious optimism; dividend data anomaly reduces confidence</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry avg Z-Score (~2.7)</td>
-<td>Sector performing steadily</td>
+<td>Slightly below industry avg</td>
+<td>Sector steady</td>
 <td>Underperforming</td>
-<td>Competitive positioning slightly weaker</td>
+<td>Competitive positioning requires monitoring</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_2">Commentary</h3>
-<ul>
-<li>The <strong>Z-Score trend</strong> aligns with the current stable stock price near $462.52, indicating market recognition of moderate financial risk without panic selling.</li>
-<li>The <strong>P/E ratio of 19.92</strong> is moderate, consistent with a mature industrial company with steady earnings but limited growth expectations.</li>
-<li>The <strong>dividend yield anomaly (285%)</strong> is disregarded due to data error; real yield likely in line with industry (~2-3%).</li>
-<li>Peer comparison shows LMT slightly underperforming in financial health, which may limit upside relative to competitors.</li>
-<li>Market signals and fundamental health are <strong>aligned</strong>, supporting a neutral to cautious investment stance.</li>
-<li>No significant divergence between analyst sentiment and Z-Score suggests no immediate market timing advantage.</li>
-</ul>
+<p><strong>Market Validation Commentary:</strong><br />
+The Z-Score’s stable Gray Zone status aligns well with the current market price of $469.12 and a P/E ratio of 20.14, indicating that the market prices in moderate risk and steady earnings growth. The lack of volatility (0% 30-day volatility reported) suggests low market uncertainty or data reporting issues, which should be verified.</p>
+<p>The dividend yield reported at 285% is an outlier and likely a data anomaly, reducing confidence in dividend-based valuation signals. Peer comparison indicates LMT slightly underperforms its aerospace &amp; defense competitors, consistent with the Z-Score positioning.</p>
+<p>Overall, fundamental and market signals are generally aligned, supporting a hold or cautious buy stance pending liquidity improvements and operational efficiency gains.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -785,39 +840,30 @@
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential Z-Score decline by ~0.2-0.3</td>
-<td>Enhance contract management, cost control</td>
+<td>Potential Z-Score decline of 0.1-0.2</td>
+<td>Enhance supply chain resilience; optimize program execution</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Liquidity stress could reduce Z-Score below 2.0</td>
-<td>Improve working capital management, reduce short-term liabilities</td>
+<td>Z-Score impact ~0.15 due to liquidity constraints</td>
+<td>Improve working capital management; reduce short-term liabilities</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Low-Medium</td>
 <td>Moderate</td>
-<td>Geopolitical shifts may affect contract flow</td>
-<td>Diversify contract base, hedge currency and interest rate risks</td>
-</tr>
-<tr>
-<td>Data Quality Risks</td>
-<td>Low</td>
-<td>Minor</td>
-<td>Dividend yield anomaly affects perception</td>
-<td>Verify and correct financial disclosures</td>
+<td>Z-Score impact minimal unless contract losses occur</td>
+<td>Diversify contract base; hedge geopolitical risks</td>
 </tr>
 </tbody>
 </table>
-<h3 id="scenario-planning">Scenario Planning</h3>
-<ul>
-<li><strong>Best Case:</strong> Improved operational efficiency and liquidity management increase Z-Score to &gt;2.8 within 6-12 months, moving closer to Safe Zone.  </li>
-<li><strong>Base Case:</strong> Z-Score remains stable around 2.3, maintaining Gray Zone status with moderate risk.  </li>
-<li><strong>Worst Case:</strong> Liquidity or operational shocks push Z-Score below 1.8, entering Distress Zone, triggering credit rating downgrades and stock price decline.</li>
-</ul>
-<p>Based on AI Risk Analysis overall risk level of <strong>moderate</strong> with <strong>~70% confidence</strong>, investors should prepare for moderate volatility and monitor liquidity closely.</p>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Operational improvements and liquidity enhancements could push Z-Score above 3.0, entering the Safe Zone, reducing risk and enabling growth investments.<br />
+- <strong>Base Case:</strong> Continued stable performance maintains Z-Score in Gray Zone (~2.3-2.4), supporting steady dividends and moderate growth.<br />
+- <strong>Worst Case:</strong> Liquidity stress or contract delays could reduce EBIT and working capital, pushing Z-Score below 1.8, signaling distress risk and necessitating urgent capital restructuring.</p>
+<p>AI Risk Analysis overall risk level is <strong>moderate</strong> with <strong>~70% confidence</strong>, emphasizing the importance of proactive liquidity and operational risk management.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -836,52 +882,46 @@
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score stable at 2.33; liquidity concerns</td>
-<td>Wait for liquidity improvement</td>
+<td>Z-Score stable at 2.35 (Gray Zone); moderate risk</td>
+<td>Price stable; wait for liquidity improvement</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>Dividend yield data anomaly; verify actual yield</td>
-<td>Hold if yield sustainable</td>
-<td>Review quarterly</td>
+<td>Dividend yield data anomalous; Z-Score supports payout sustainability</td>
+<td>Monitor dividend announcements</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>BUY (Selective)</td>
-<td>Valuation reasonable; Z-Score moderate risk</td>
-<td>Buy on price dips near $440-$450</td>
+<td>BUY on dips</td>
+<td>Z-Score below industry avg; undervaluation potential</td>
+<td>Entry on price dips near support levels</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>HOLD</td>
-<td>EBIT and asset turnover below peers; limited growth</td>
-<td>Monitor operational improvements</td>
+<td>EBIT and asset turnover stable but below peers</td>
+<td>Await operational efficiency gains</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>SELL/AVOID</td>
-<td>Moderate risk, low liquidity; potential downside</td>
-<td>Avoid until Z-Score &gt;2.8</td>
-<td>Immediate</td>
+<td>WAIT</td>
+<td>Moderate risk; Z-Score lacks upward momentum</td>
+<td>Await Z-Score &gt;3.0 confirmation</td>
+<td>12+ months</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_3">Commentary</h3>
-<ul>
-<li>Conservative investors should maintain positions but avoid adding exposure until liquidity improves.</li>
-<li>Dividend investors must confirm actual dividend yield before increasing stakes.</li>
-<li>Value investors may find selective buying opportunities on price weakness given stable Z-Score.</li>
-<li>Growth investors should wait for operational efficiency improvements before committing.</li>
-<li>Aggressive investors face disproportionate risk relative to reward and should avoid new positions.</li>
-</ul>
+<p><strong>Rationale:</strong><br />
+Conservative and dividend investors should maintain positions, given stable but moderate risk. Value investors may capitalize on dips, considering the slight undervaluation relative to peers. Growth and aggressive investors should await clearer signs of financial strengthening before increasing exposure.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -897,33 +937,29 @@
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Improve liquidity and operational efficiency</td>
-<td>Working Capital Ratio (0.028), EBIT Ratio (0.042)</td>
-<td>Prioritize cash flow management, cost optimization</td>
-<td>Increase current ratio to &gt;1.0, EBIT margin &gt;5%</td>
+<td>Operational efficiency &amp; liquidity</td>
+<td>EBIT Ratio (0.042), Working Capital Ratio (0.028)</td>
+<td>Focus on supply chain optimization and working capital improvements</td>
+<td>Z-Score improvement &gt;2.5; liquidity ratio &gt;0.05</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Manage leverage and capital allocation</td>
-<td>Debt-to-Equity (TBD), Retained Earnings Ratio (0.261)</td>
-<td>Optimize debt structure, enhance retained earnings</td>
-<td>Maintain stable debt-to-equity &lt;0.8, improve retained earnings</td>
+<td>Capital structure &amp; risk management</td>
+<td>Retained Earnings Ratio (0.261), Debt-to-Equity (N/A)</td>
+<td>Enhance liquidity reserves; clarify leverage position</td>
+<td>Stable or improved interest coverage; debt transparency</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and compliance</td>
-<td>Z-Score trend, Risk factors</td>
-<td>Strengthen risk management frameworks, monitor financial health</td>
-<td>Avoid Z-Score decline below 1.8, maintain regulatory compliance</td>
+<td>Risk oversight &amp; compliance</td>
+<td>AI Risk Level (Moderate)</td>
+<td>Monitor risk factors; enforce governance on financial disclosures</td>
+<td>Risk mitigation plans; compliance adherence</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_4">Commentary</h3>
-<ul>
-<li>CEO should focus on operational improvements to boost EBIT and asset turnover, directly impacting Z-Score.</li>
-<li>CFO must address liquidity constraints and ensure capital structure supports sustainable growth.</li>
-<li>Board must oversee risk trajectory closely, ensuring early warning systems are in place given moderate risk profile.</li>
-</ul>
+<p><strong>Executive Commentary:</strong><br />
+Leadership should prioritize improving liquidity and operational efficiency to elevate the Z-Score into the Safe Zone. CFO should provide clearer leverage metrics to enhance risk transparency. The board must ensure robust risk management frameworks aligned with AI Risk Analysis insights.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -939,40 +975,34 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable around 2.33</td>
+<td>Stable (~2.35)</td>
 <td>Slight upward potential</td>
-<td>Contract wins, cost control</td>
-<td>Quarterly Z-Score updates, EBIT margin</td>
+<td>Operational efficiency gains; contract renewals</td>
+<td>Quarterly EBIT margin; working capital ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Slightly below peer average</td>
-<td>Potential to improve with operational gains</td>
-<td>Geopolitical demand, innovation</td>
-<td>Peer Z-Score comparison, market share</td>
+<td>Slightly below peers</td>
+<td>Potential catch-up</td>
+<td>New program wins; geopolitical defense spending</td>
+<td>Peer Z-Score trends; backlog growth</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Moderate risk</td>
-<td>Stable to slight improvement</td>
-<td>Liquidity management, debt refinancing</td>
-<td>Working capital ratio, debt levels</td>
+<td>Moderate</td>
+<td>Stable to improving</td>
+<td>Liquidity management; supply chain stabilization</td>
+<td>Liquidity ratios; debt disclosures</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_5">Commentary</h3>
-<ul>
-<li>The Z-Score is expected to remain in the Gray Zone over the next 6-12 months, with potential for modest improvement if liquidity and operational efficiency initiatives succeed.</li>
-<li>Key catalysts include defense contract renewals, geopolitical stability, and internal cost management.</li>
-<li>Monitoring should focus on leading indicators such as EBIT margin trends, working capital changes, and peer performance.</li>
-<li>Early warning signals include any decline in working capital ratio below current levels or EBIT margin contraction.</li>
-</ul>
+<p><strong>Forward-Looking Commentary:</strong><br />
+Lockheed Martin’s Z-Score momentum is stable with potential for gradual improvement driven by operational and liquidity enhancements. Key catalysts include successful contract renewals and defense budget increases. Monitoring EBIT margins and working capital ratios will provide early signals of Z-Score trajectory shifts. Risk profile is expected to remain moderate, with proactive management mitigating downside scenarios.</p>
 <hr />
-<h1 id="summary"><strong>Summary</strong></h1>
-<p>Lockheed Martin’s Altman Z-Score profile indicates a <strong>moderate financial risk</strong> environment consistent with the Aerospace &amp; Defense sector’s capital intensity and operational complexity. The company’s <strong>low liquidity</strong> and <strong>below-average operational efficiency</strong> are key concerns, balanced by a large market cap and stable retained earnings. Market sentiment and peer comparisons reinforce a cautious investment stance.</p>
-<p>Investors should adopt a <strong>hold or selective buy</strong> approach depending on risk tolerance, with aggressive positions discouraged until financial health improves. Executive leadership must prioritize liquidity and operational improvements to elevate the Z-Score toward a safer zone, thereby enhancing investor confidence and market valuation.</p>
+<h1 id="summary-conclusion"><strong>Summary Conclusion:</strong></h1>
+<p>Lockheed Martin is a financially stable aerospace &amp; defense leader operating within the Gray Zone of Altman Z-Score risk classification. While liquidity constraints and slightly below-average operational efficiency temper the outlook, the company’s strong market capitalization and steady earnings support a cautious hold stance. Value investors may find opportunistic entry points on price dips, while growth and aggressive investors should await clearer signs of financial strengthening. Continuous monitoring of liquidity, EBIT margins, and risk factors is essential to anticipate potential inflection points.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, AI risk and peer analyses, and market context for actionable investment intelligence.</em></p></div></div>
+<p><em>Analysis generated with comprehensive integration of all injected data elements, cross-validated across financial, risk, peer, and sentiment dimensions, with explicit citation of key metrics and confidence levels.</em></p></div></div>
     </div>
     
 
@@ -1315,78 +1345,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:35 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:29 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

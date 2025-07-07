@@ -1,0 +1,836 @@
+{
+  "TOY": {
+    "error": "Data merger failed for TOY: SEC EDGAR data retrieval failed for TOY: No SEC EDGAR financial data available for TOY",
+    "category": "failed",
+    "bankruptcy_date": "2017-09-18",
+    "data_source": "error"
+  },
+  "SHLDQ": {
+    "error": "Data merger failed for SHLDQ: SEC EDGAR data retrieval failed for SHLDQ: No SEC EDGAR financial data available for SHLDQ",
+    "category": "failed",
+    "bankruptcy_date": "2018-10-15",
+    "data_source": "error"
+  },
+  "JCPNQ": {
+    "error": "Data merger failed for JCPNQ: SEC EDGAR data retrieval failed for JCPNQ: No SEC EDGAR financial data available for JCPNQ",
+    "category": "failed",
+    "bankruptcy_date": "2020-05-15",
+    "data_source": "error"
+  },
+  "NMRCQ": {
+    "error": "Data merger failed for NMRCQ: SEC EDGAR data retrieval failed for NMRCQ: No SEC EDGAR financial data available for NMRCQ",
+    "category": "failed",
+    "bankruptcy_date": "2020-05-07",
+    "data_source": "error"
+  },
+  "BRKSQ": {
+    "error": "Data merger failed for BRKSQ: SEC EDGAR data retrieval failed for BRKSQ: No SEC EDGAR financial data available for BRKSQ",
+    "category": "failed",
+    "bankruptcy_date": "2020-07-08",
+    "data_source": "error"
+  },
+  "PIRRQ": {
+    "error": "Data merger failed for PIRRQ: SEC EDGAR data retrieval failed for PIRRQ: No SEC EDGAR financial data available for PIRRQ",
+    "category": "failed",
+    "bankruptcy_date": "2020-05-18",
+    "data_source": "error"
+  },
+  "BONTQ": {
+    "error": "Data merger failed for BONTQ: SEC EDGAR data retrieval failed for BONTQ: No SEC EDGAR financial data available for BONTQ",
+    "category": "failed",
+    "bankruptcy_date": "2018-02-04",
+    "data_source": "error"
+  },
+  "RSHCQ": {
+    "error": "Data merger failed for RSHCQ: SEC EDGAR data retrieval failed for RSHCQ: No SEC EDGAR financial data available for RSHCQ",
+    "category": "failed",
+    "bankruptcy_date": "2015-02-05",
+    "data_source": "error"
+  },
+  "TSAQ": {
+    "error": "Data merger failed for TSAQ: SEC EDGAR data retrieval failed for TSAQ: No SEC EDGAR financial data available for TSAQ",
+    "category": "failed",
+    "bankruptcy_date": "2016-05-18",
+    "data_source": "error"
+  },
+  "PSDSQ": {
+    "error": "Data merger failed for PSDSQ: SEC EDGAR data retrieval failed for PSDSQ: No SEC EDGAR financial data available for PSDSQ",
+    "category": "failed",
+    "bankruptcy_date": "2017-04-04",
+    "data_source": "error"
+  },
+  "F21Q": {
+    "error": "Data merger failed for F21Q: SEC EDGAR data retrieval failed for F21Q: No SEC EDGAR financial data available for F21Q",
+    "category": "failed",
+    "bankruptcy_date": "2019-09-29",
+    "data_source": "error"
+  },
+  "GYMQ": {
+    "error": "Data merger failed for GYMQ: SEC EDGAR data retrieval failed for GYMQ: No SEC EDGAR financial data available for GYMQ",
+    "category": "failed",
+    "bankruptcy_date": "2017-06-11",
+    "data_source": "error"
+  },
+  "MODIQ": {
+    "error": "Data merger failed for MODIQ: SEC EDGAR data retrieval failed for MODIQ: No SEC EDGAR financial data available for MODIQ",
+    "category": "failed",
+    "bankruptcy_date": "2020-03-18",
+    "data_source": "error"
+  },
+  "STHC": {
+    "error": "Data merger failed for STHC: SEC EDGAR data retrieval failed for STHC: No SEC EDGAR financial data available for STHC",
+    "category": "other",
+    "bankruptcy_date": "2020-05-13",
+    "data_source": "error"
+  },
+  "PETSQ": {
+    "error": "Data merger failed for PETSQ: SEC EDGAR data retrieval failed for PETSQ: No SEC EDGAR financial data available for PETSQ",
+    "category": "other",
+    "bankruptcy_date": "2020-05-19",
+    "data_source": "error"
+  },
+  "RITEQ": {
+    "error": "Data merger failed for RITEQ: SEC EDGAR data retrieval failed for RITEQ: No SEC EDGAR financial data available for RITEQ",
+    "category": "other",
+    "bankruptcy_date": "2020-10-04",
+    "data_source": "error"
+  },
+  "BBBYQ": {
+    "error": "Data merger failed for BBBYQ: SEC EDGAR data retrieval failed for BBBYQ: No SEC EDGAR financial data available for BBBYQ",
+    "category": "failed",
+    "bankruptcy_date": "2023-04-23",
+    "data_source": "error"
+  },
+  "REVQ": {
+    "error": "Data merger failed for REVQ: SEC EDGAR data retrieval failed for REVQ: No SEC EDGAR financial data available for REVQ",
+    "category": "failed",
+    "bankruptcy_date": "2020-05-17",
+    "data_source": "error"
+  },
+  "PRTIQ": {
+    "error": "Data merger failed for PRTIQ: SEC EDGAR data retrieval failed for PRTIQ: No SEC EDGAR financial data available for PRTIQ",
+    "category": "failed",
+    "bankruptcy_date": "2020-05-14",
+    "data_source": "error"
+  },
+  "EXPR": {
+    "error": "Data merger failed for EXPR: SEC EDGAR data retrieval failed for EXPR: No SEC EDGAR financial data available for EXPR",
+    "category": "distressed",
+    "bankruptcy_date": "2023-04-20",
+    "data_source": "error"
+  },
+  "DNOW": {
+    "error": "Data merger failed for DNOW: SEC EDGAR data retrieval failed for DNOW: No SEC EDGAR financial data available for DNOW",
+    "category": "other",
+    "bankruptcy_date": "2020-06-22",
+    "data_source": "error"
+  },
+  "WLL": {
+    "error": "Data merger failed for WLL: SEC EDGAR data retrieval failed for WLL: No SEC EDGAR financial data available for WLL",
+    "category": "other",
+    "bankruptcy_date": "2020-04-01",
+    "data_source": "error"
+  },
+  "CHK": {
+    "error": "Data merger failed for CHK: SEC EDGAR data retrieval failed for CHK: No SEC EDGAR financial data available for CHK",
+    "category": "other",
+    "bankruptcy_date": "2020-06-28",
+    "data_source": "error"
+  },
+  "PCGQ": {
+    "error": "Data merger failed for PCGQ: SEC EDGAR data retrieval failed for PCGQ: No SEC EDGAR financial data available for PCGQ",
+    "category": "other",
+    "bankruptcy_date": "2019-01-29",
+    "data_source": "error"
+  },
+  "LONEQ": {
+    "error": "Data merger failed for LONEQ: SEC EDGAR data retrieval failed for LONEQ: No SEC EDGAR financial data available for LONEQ",
+    "category": "other",
+    "bankruptcy_date": "2020-05-01",
+    "data_source": "error"
+  },
+  "NBLXQ": {
+    "error": "Data merger failed for NBLXQ: SEC EDGAR data retrieval failed for NBLXQ: No SEC EDGAR financial data available for NBLXQ",
+    "category": "other",
+    "bankruptcy_date": "2020-08-12",
+    "data_source": "error"
+  },
+  "CPGQ": {
+    "error": "Data merger failed for CPGQ: SEC EDGAR data retrieval failed for CPGQ: No SEC EDGAR financial data available for CPGQ",
+    "category": "other",
+    "bankruptcy_date": "2020-07-05",
+    "data_source": "error"
+  },
+  "OASQ": {
+    "error": "Data merger failed for OASQ: SEC EDGAR data retrieval failed for OASQ: No SEC EDGAR financial data available for OASQ",
+    "category": "other",
+    "bankruptcy_date": "2020-09-29",
+    "data_source": "error"
+  },
+  "RRCQ": {
+    "error": "Data merger failed for RRCQ: SEC EDGAR data retrieval failed for RRCQ: No SEC EDGAR financial data available for RRCQ",
+    "category": "other",
+    "bankruptcy_date": "2020-05-27",
+    "data_source": "error"
+  },
+  "MTDRQ": {
+    "error": "Data merger failed for MTDRQ: SEC EDGAR data retrieval failed for MTDRQ: No SEC EDGAR financial data available for MTDRQ",
+    "category": "other",
+    "bankruptcy_date": "2020-06-17",
+    "data_source": "error"
+  },
+  "FUELQ": {
+    "error": "Data merger failed for FUELQ: SEC EDGAR data retrieval failed for FUELQ: No SEC EDGAR financial data available for FUELQ",
+    "category": "other",
+    "bankruptcy_date": "2020-06-15",
+    "data_source": "error"
+  },
+  "CDEVQ": {
+    "error": "Data merger failed for CDEVQ: SEC EDGAR data retrieval failed for CDEVQ: No SEC EDGAR financial data available for CDEVQ",
+    "category": "other",
+    "bankruptcy_date": "2020-12-31",
+    "data_source": "error"
+  },
+  "PEMQ": {
+    "error": "Data merger failed for PEMQ: SEC EDGAR data retrieval failed for PEMQ: No SEC EDGAR financial data available for PEMQ",
+    "category": "other",
+    "bankruptcy_date": "2020-05-29",
+    "data_source": "error"
+  },
+  "ARNC": {
+    "error": "Data merger failed for ARNC: SEC EDGAR data retrieval failed for ARNC: No SEC EDGAR financial data available for ARNC",
+    "category": "other",
+    "bankruptcy_date": "2020-05-08",
+    "data_source": "error"
+  },
+  "CCIV": {
+    "error": "Data merger failed for CCIV: SEC EDGAR data retrieval failed for CCIV: No SEC EDGAR financial data available for CCIV",
+    "category": "other",
+    "bankruptcy_date": "2020-11-16",
+    "data_source": "error"
+  },
+  "FTX": {
+    "error": "Data merger failed for FTX: SEC EDGAR data retrieval failed for FTX: No SEC EDGAR financial data available for FTX",
+    "category": "other",
+    "bankruptcy_date": "2022-11-11",
+    "data_source": "error"
+  },
+  "RTLNQ": {
+    "error": "Data merger failed for RTLNQ: SEC EDGAR data retrieval failed for RTLNQ: No SEC EDGAR financial data available for RTLNQ",
+    "category": "other",
+    "bankruptcy_date": "2022-05-15",
+    "data_source": "error"
+  },
+  "NEOQ": {
+    "error": "Data merger failed for NEOQ: SEC EDGAR data retrieval failed for NEOQ: No SEC EDGAR financial data available for NEOQ",
+    "category": "other",
+    "bankruptcy_date": "2020-04-13",
+    "data_source": "error"
+  },
+  "MKTAY": {
+    "error": "Data merger failed for MKTAY: SEC EDGAR data retrieval failed for MKTAY: No SEC EDGAR financial data available for MKTAY",
+    "category": "other",
+    "bankruptcy_date": "2020-08-24",
+    "data_source": "error"
+  },
+  "YHOO": {
+    "error": "Data merger failed for YHOO: SEC EDGAR data retrieval failed for YHOO: No SEC EDGAR financial data available for YHOO",
+    "category": "other",
+    "bankruptcy_date": "2017-06-13",
+    "data_source": "error"
+  },
+  "TWTRQ": {
+    "error": "Data merger failed for TWTRQ: SEC EDGAR data retrieval failed for TWTRQ: No SEC EDGAR financial data available for TWTRQ",
+    "category": "other",
+    "bankruptcy_date": "2022-10-27",
+    "data_source": "error"
+  },
+  "GPRO": {
+    "error": "Data merger failed for GPRO: SEC EDGAR data retrieval failed for GPRO: No SEC EDGAR financial data available for GPRO",
+    "category": "other",
+    "bankruptcy_date": "2022-09-28",
+    "data_source": "error"
+  },
+  "FITBQ": {
+    "error": "Data merger failed for FITBQ: SEC EDGAR data retrieval failed for FITBQ: No SEC EDGAR financial data available for FITBQ",
+    "category": "other",
+    "bankruptcy_date": "2021-01-14",
+    "data_source": "error"
+  },
+  "PANDQ": {
+    "error": "Data merger failed for PANDQ: SEC EDGAR data retrieval failed for PANDQ: No SEC EDGAR financial data available for PANDQ",
+    "category": "other",
+    "bankruptcy_date": "2020-05-01",
+    "data_source": "error"
+  },
+  "SNAP": {
+    "error": "Data merger failed for SNAP: SEC EDGAR data retrieval failed for SNAP: No SEC EDGAR financial data available for SNAP",
+    "category": "other",
+    "bankruptcy_date": "2022-10-20",
+    "data_source": "error"
+  },
+  "NFLX": {
+    "error": "Data merger failed for NFLX: SEC EDGAR data retrieval failed for NFLX: No SEC EDGAR financial data available for NFLX",
+    "category": "other",
+    "bankruptcy_date": "2022-04-19",
+    "data_source": "error"
+  },
+  "ZOOMQ": {
+    "error": "Data merger failed for ZOOMQ: SEC EDGAR data retrieval failed for ZOOMQ: No SEC EDGAR financial data available for ZOOMQ",
+    "category": "other",
+    "bankruptcy_date": "2023-03-09",
+    "data_source": "error"
+  },
+  "PLTRQ": {
+    "error": "Data merger failed for PLTRQ: SEC EDGAR data retrieval failed for PLTRQ: No SEC EDGAR financial data available for PLTRQ",
+    "category": "other",
+    "bankruptcy_date": "2023-05-08",
+    "data_source": "error"
+  },
+  "CRPTQ": {
+    "error": "Data merger failed for CRPTQ: SEC EDGAR data retrieval failed for CRPTQ: No SEC EDGAR financial data available for CRPTQ",
+    "category": "other",
+    "bankruptcy_date": "2023-01-25",
+    "data_source": "error"
+  },
+  "CELH": {
+    "error": "Data merger failed for CELH: SEC EDGAR data retrieval failed for CELH: No SEC EDGAR financial data available for CELH",
+    "category": "other",
+    "bankruptcy_date": "2020-03-23",
+    "data_source": "error"
+  },
+  "LATAM": {
+    "error": "Data merger failed for LATAM: SEC EDGAR data retrieval failed for LATAM: No SEC EDGAR financial data available for LATAM",
+    "category": "other",
+    "bankruptcy_date": "2020-05-26",
+    "data_source": "error"
+  },
+  "HTZ": {
+    "error": "Data merger failed for HTZ: SEC EDGAR data retrieval failed for HTZ: No SEC EDGAR financial data available for HTZ",
+    "category": "other",
+    "bankruptcy_date": "2020-05-22",
+    "data_source": "error"
+  },
+  "JBLUE": {
+    "error": "Data merger failed for JBLUE: SEC EDGAR data retrieval failed for JBLUE: No SEC EDGAR financial data available for JBLUE",
+    "category": "other",
+    "bankruptcy_date": "2020-05-12",
+    "data_source": "error"
+  },
+  "AALQ": {
+    "error": "Data merger failed for AALQ: SEC EDGAR data retrieval failed for AALQ: No SEC EDGAR financial data available for AALQ",
+    "category": "other",
+    "bankruptcy_date": "2020-12-02",
+    "data_source": "error"
+  },
+  "DALQ": {
+    "error": "Data merger failed for DALQ: SEC EDGAR data retrieval failed for DALQ: No SEC EDGAR financial data available for DALQ",
+    "category": "other",
+    "bankruptcy_date": "2020-09-14",
+    "data_source": "error"
+  },
+  "UAVS": {
+    "error": "Data merger failed for UAVS: SEC EDGAR data retrieval failed for UAVS: No SEC EDGAR financial data available for UAVS",
+    "category": "other",
+    "bankruptcy_date": "2020-05-01",
+    "data_source": "error"
+  },
+  "SKYW": {
+    "error": "Data merger failed for SKYW: SEC EDGAR data retrieval failed for SKYW: No SEC EDGAR financial data available for SKYW",
+    "category": "other",
+    "bankruptcy_date": "2020-06-08",
+    "data_source": "error"
+  },
+  "SPIR": {
+    "error": "Data merger failed for SPIR: SEC EDGAR data retrieval failed for SPIR: No SEC EDGAR financial data available for SPIR",
+    "category": "other",
+    "bankruptcy_date": "2020-04-29",
+    "data_source": "error"
+  },
+  "ALGT": {
+    "error": "Data merger failed for ALGT: SEC EDGAR data retrieval failed for ALGT: No SEC EDGAR financial data available for ALGT",
+    "category": "other",
+    "bankruptcy_date": "2020-05-18",
+    "data_source": "error"
+  },
+  "MESA": {
+    "error": "Data merger failed for MESA: SEC EDGAR data retrieval failed for MESA: No SEC EDGAR financial data available for MESA",
+    "category": "other",
+    "bankruptcy_date": "2020-05-01",
+    "data_source": "error"
+  },
+  "GRMN": {
+    "error": "Data merger failed for GRMN: SEC EDGAR data retrieval failed for GRMN: No SEC EDGAR financial data available for GRMN",
+    "category": "other",
+    "bankruptcy_date": "2020-05-15",
+    "data_source": "error"
+  },
+  "AVISQ": {
+    "error": "Data merger failed for AVISQ: SEC EDGAR data retrieval failed for AVISQ: No SEC EDGAR financial data available for AVISQ",
+    "category": "other",
+    "bankruptcy_date": "2020-05-20",
+    "data_source": "error"
+  },
+  "CARQ": {
+    "error": "Data merger failed for CARQ: SEC EDGAR data retrieval failed for CARQ: No SEC EDGAR financial data available for CARQ",
+    "category": "other",
+    "bankruptcy_date": "2020-05-18",
+    "data_source": "error"
+  },
+  "CVNAQ": {
+    "error": "Data merger failed for CVNAQ: SEC EDGAR data retrieval failed for CVNAQ: No SEC EDGAR financial data available for CVNAQ",
+    "category": "other",
+    "bankruptcy_date": "2020-05-17",
+    "data_source": "error"
+  },
+  "VROOM": {
+    "error": "Data merger failed for VROOM: SEC EDGAR data retrieval failed for VROOM: No SEC EDGAR financial data available for VROOM",
+    "category": "other",
+    "bankruptcy_date": "2023-02-21",
+    "data_source": "error"
+  },
+  "GOEV": {
+    "error": "Data merger failed for GOEV: SEC EDGAR data retrieval failed for GOEV: No SEC EDGAR financial data available for GOEV",
+    "category": "other",
+    "bankruptcy_date": "2023-01-15",
+    "data_source": "error"
+  },
+  "RIDE": {
+    "error": "Data merger failed for RIDE: SEC EDGAR data retrieval failed for RIDE: No SEC EDGAR financial data available for RIDE",
+    "category": "other",
+    "bankruptcy_date": "2023-06-27",
+    "data_source": "error"
+  },
+  "NKLA": {
+    "error": "Data merger failed for NKLA: SEC EDGAR data retrieval failed for NKLA: No SEC EDGAR financial data available for NKLA",
+    "category": "other",
+    "bankruptcy_date": "2022-12-05",
+    "data_source": "error"
+  },
+  "ENDPQ": {
+    "error": "Data merger failed for ENDPQ: SEC EDGAR data retrieval failed for ENDPQ: No SEC EDGAR financial data available for ENDPQ",
+    "category": "other",
+    "bankruptcy_date": "2020-08-16",
+    "data_source": "error"
+  },
+  "MALNQ": {
+    "error": "Data merger failed for MALNQ: SEC EDGAR data retrieval failed for MALNQ: No SEC EDGAR financial data available for MALNQ",
+    "category": "other",
+    "bankruptcy_date": "2020-10-05",
+    "data_source": "error"
+  },
+  "INSYQ": {
+    "error": "Data merger failed for INSYQ: SEC EDGAR data retrieval failed for INSYQ: No SEC EDGAR financial data available for INSYQ",
+    "category": "other",
+    "bankruptcy_date": "2019-06-10",
+    "data_source": "error"
+  },
+  "AKRNQ": {
+    "error": "Data merger failed for AKRNQ: SEC EDGAR data retrieval failed for AKRNQ: No SEC EDGAR financial data available for AKRNQ",
+    "category": "other",
+    "bankruptcy_date": "2020-05-11",
+    "data_source": "error"
+  },
+  "CLDXQ": {
+    "error": "Data merger failed for CLDXQ: SEC EDGAR data retrieval failed for CLDXQ: No SEC EDGAR financial data available for CLDXQ",
+    "category": "other",
+    "bankruptcy_date": "2020-12-29",
+    "data_source": "error"
+  },
+  "PGNX": {
+    "error": "Data merger failed for PGNX: SEC EDGAR data retrieval failed for PGNX: No SEC EDGAR financial data available for PGNX",
+    "category": "other",
+    "bankruptcy_date": "2020-05-04",
+    "data_source": "error"
+  },
+  "VRTX": {
+    "error": "Data merger failed for VRTX: SEC EDGAR data retrieval failed for VRTX: No SEC EDGAR financial data available for VRTX",
+    "category": "other",
+    "bankruptcy_date": "2020-05-25",
+    "data_source": "error"
+  },
+  "BIIB": {
+    "error": "Data merger failed for BIIB: SEC EDGAR data retrieval failed for BIIB: No SEC EDGAR financial data available for BIIB",
+    "category": "other",
+    "bankruptcy_date": "2022-03-21",
+    "data_source": "error"
+  },
+  "GILD": {
+    "error": "Data merger failed for GILD: SEC EDGAR data retrieval failed for GILD: No SEC EDGAR financial data available for GILD",
+    "category": "other",
+    "bankruptcy_date": "2020-05-18",
+    "data_source": "error"
+  },
+  "MRNA": {
+    "error": "Data merger failed for MRNA: SEC EDGAR data retrieval failed for MRNA: No SEC EDGAR financial data available for MRNA",
+    "category": "other",
+    "bankruptcy_date": "2023-04-10",
+    "data_source": "error"
+  },
+  "BNTX": {
+    "error": "Data merger failed for BNTX: SEC EDGAR data retrieval failed for BNTX: No SEC EDGAR financial data available for BNTX",
+    "category": "other",
+    "bankruptcy_date": "2023-03-15",
+    "data_source": "error"
+  },
+  "PFE": {
+    "error": "Data merger failed for PFE: SEC EDGAR data retrieval failed for PFE: No SEC EDGAR financial data available for PFE",
+    "category": "other",
+    "bankruptcy_date": "2023-02-28",
+    "data_source": "error"
+  },
+  "JNJ": {
+    "error": "Data merger failed for JNJ: SEC EDGAR data retrieval failed for JNJ: No SEC EDGAR financial data available for JNJ",
+    "category": "other",
+    "bankruptcy_date": "2023-01-18",
+    "data_source": "error"
+  },
+  "ABBV": {
+    "error": "Data merger failed for ABBV: SEC EDGAR data retrieval failed for ABBV: No SEC EDGAR financial data available for ABBV",
+    "category": "other",
+    "bankruptcy_date": "2022-11-14",
+    "data_source": "error"
+  },
+  "CBRE": {
+    "error": "Data merger failed for CBRE: SEC EDGAR data retrieval failed for CBRE: No SEC EDGAR financial data available for CBRE",
+    "category": "other",
+    "bankruptcy_date": "2020-05-08",
+    "data_source": "error"
+  },
+  "JLL": {
+    "error": "Data merger failed for JLL: SEC EDGAR data retrieval failed for JLL: No SEC EDGAR financial data available for JLL",
+    "category": "other",
+    "bankruptcy_date": "2020-05-12",
+    "data_source": "error"
+  },
+  "CWH": {
+    "error": "Data merger failed for CWH: SEC EDGAR data retrieval failed for CWH: No SEC EDGAR financial data available for CWH",
+    "category": "seasonal",
+    "bankruptcy_date": "2020-05-07",
+    "data_source": "error"
+  },
+  "RMAX": {
+    "error": "Data merger failed for RMAX: SEC EDGAR data retrieval failed for RMAX: No SEC EDGAR financial data available for RMAX",
+    "category": "other",
+    "bankruptcy_date": "2020-05-14",
+    "data_source": "error"
+  },
+  "ZILLQ": {
+    "error": "Data merger failed for ZILLQ: SEC EDGAR data retrieval failed for ZILLQ: No SEC EDGAR financial data available for ZILLQ",
+    "category": "other",
+    "bankruptcy_date": "2022-11-01",
+    "data_source": "error"
+  },
+  "OPEN": {
+    "error": "Data merger failed for OPEN: SEC EDGAR data retrieval failed for OPEN: No SEC EDGAR financial data available for OPEN",
+    "category": "other",
+    "bankruptcy_date": "2022-10-18",
+    "data_source": "error"
+  },
+  "RDFN": {
+    "error": "Data merger failed for RDFN: SEC EDGAR data retrieval failed for RDFN: No SEC EDGAR financial data available for RDFN",
+    "category": "other",
+    "bankruptcy_date": "2022-11-08",
+    "data_source": "error"
+  },
+  "COMP": {
+    "error": "Data merger failed for COMP: SEC EDGAR data retrieval failed for COMP: No SEC EDGAR financial data available for COMP",
+    "category": "other",
+    "bankruptcy_date": "2022-09-27",
+    "data_source": "error"
+  },
+  "EXPI": {
+    "error": "Data merger failed for EXPI: SEC EDGAR data retrieval failed for EXPI: No SEC EDGAR financial data available for EXPI",
+    "category": "other",
+    "bankruptcy_date": "2022-08-15",
+    "data_source": "error"
+  },
+  "HOUS": {
+    "error": "Data merger failed for HOUS: SEC EDGAR data retrieval failed for HOUS: No SEC EDGAR financial data available for HOUS",
+    "category": "other",
+    "bankruptcy_date": "2020-05-11",
+    "data_source": "error"
+  },
+  "CSGP": {
+    "error": "Data merger failed for CSGP: SEC EDGAR data retrieval failed for CSGP: No SEC EDGAR financial data available for CSGP",
+    "category": "other",
+    "bankruptcy_date": "2020-05-19",
+    "data_source": "error"
+  },
+  "REIT": {
+    "error": "Data merger failed for REIT: SEC EDGAR data retrieval failed for REIT: No SEC EDGAR financial data available for REIT",
+    "category": "other",
+    "bankruptcy_date": "2020-05-25",
+    "data_source": "error"
+  },
+  "PLD": {
+    "error": "Data merger failed for PLD: SEC EDGAR data retrieval failed for PLD: No SEC EDGAR financial data available for PLD",
+    "category": "other",
+    "bankruptcy_date": "2020-05-21",
+    "data_source": "error"
+  },
+  "AMT": {
+    "error": "Data merger failed for AMT: SEC EDGAR data retrieval failed for AMT: No SEC EDGAR financial data available for AMT",
+    "category": "other",
+    "bankruptcy_date": "2020-05-28",
+    "data_source": "error"
+  },
+  "CCI": {
+    "error": "Data merger failed for CCI: SEC EDGAR data retrieval failed for CCI: No SEC EDGAR financial data available for CCI",
+    "category": "other",
+    "bankruptcy_date": "2020-05-30",
+    "data_source": "error"
+  },
+  "LCID": {
+    "error": "Data merger failed for LCID: SEC EDGAR data retrieval failed for LCID: No SEC EDGAR financial data available for LCID",
+    "category": "other",
+    "bankruptcy_date": "2023-02-14",
+    "data_source": "error"
+  },
+  "SOFI": {
+    "error": "Data merger failed for SOFI: SEC EDGAR data retrieval failed for SOFI: No SEC EDGAR financial data available for SOFI",
+    "category": "other",
+    "bankruptcy_date": "2022-10-25",
+    "data_source": "error"
+  },
+  "AFRM": {
+    "error": "Data merger failed for AFRM: SEC EDGAR data retrieval failed for AFRM: No SEC EDGAR financial data available for AFRM",
+    "category": "other",
+    "bankruptcy_date": "2022-11-09",
+    "data_source": "error"
+  },
+  "UPST": {
+    "error": "Data merger failed for UPST: SEC EDGAR data retrieval failed for UPST: No SEC EDGAR financial data available for UPST",
+    "category": "other",
+    "bankruptcy_date": "2022-08-09",
+    "data_source": "error"
+  },
+  "LENDQ": {
+    "error": "Data merger failed for LENDQ: SEC EDGAR data retrieval failed for LENDQ: No SEC EDGAR financial data available for LENDQ",
+    "category": "other",
+    "bankruptcy_date": "2020-05-14",
+    "data_source": "error"
+  },
+  "PYPL": {
+    "error": "Data merger failed for PYPL: SEC EDGAR data retrieval failed for PYPL: No SEC EDGAR financial data available for PYPL",
+    "category": "other",
+    "bankruptcy_date": "2022-07-26",
+    "data_source": "error"
+  },
+  "SQ": {
+    "error": "Data merger failed for SQ: SEC EDGAR data retrieval failed for SQ: No SEC EDGAR financial data available for SQ",
+    "category": "other",
+    "bankruptcy_date": "2022-05-05",
+    "data_source": "error"
+  },
+  "COIN": {
+    "error": "Data merger failed for COIN: SEC EDGAR data retrieval failed for COIN: No SEC EDGAR financial data available for COIN",
+    "category": "other",
+    "bankruptcy_date": "2022-06-13",
+    "data_source": "error"
+  },
+  "HOOD": {
+    "error": "Data merger failed for HOOD: SEC EDGAR data retrieval failed for HOOD: No SEC EDGAR financial data available for HOOD",
+    "category": "other",
+    "bankruptcy_date": "2022-07-28",
+    "data_source": "error"
+  },
+  "NRDSQ": {
+    "error": "Data merger failed for NRDSQ: SEC EDGAR data retrieval failed for NRDSQ: No SEC EDGAR financial data available for NRDSQ",
+    "category": "other",
+    "bankruptcy_date": "2020-05-21",
+    "data_source": "error"
+  },
+  "TREE": {
+    "error": "Data merger failed for TREE: SEC EDGAR data retrieval failed for TREE: No SEC EDGAR financial data available for TREE",
+    "category": "other",
+    "bankruptcy_date": "2020-05-18",
+    "data_source": "error"
+  },
+  "ENVA": {
+    "error": "Data merger failed for ENVA: SEC EDGAR data retrieval failed for ENVA: No SEC EDGAR financial data available for ENVA",
+    "category": "other",
+    "bankruptcy_date": "2020-05-25",
+    "data_source": "error"
+  },
+  "WRLD": {
+    "error": "Data merger failed for WRLD: SEC EDGAR data retrieval failed for WRLD: No SEC EDGAR financial data available for WRLD",
+    "category": "other",
+    "bankruptcy_date": "2020-05-22",
+    "data_source": "error"
+  },
+  "FCFS": {
+    "error": "Data merger failed for FCFS: SEC EDGAR data retrieval failed for FCFS: No SEC EDGAR financial data available for FCFS",
+    "category": "other",
+    "bankruptcy_date": "2020-05-27",
+    "data_source": "error"
+  },
+  "EZPW": {
+    "error": "Data merger failed for EZPW: SEC EDGAR data retrieval failed for EZPW: No SEC EDGAR financial data available for EZPW",
+    "category": "other",
+    "bankruptcy_date": "2020-05-24",
+    "data_source": "error"
+  },
+  "QFIN": {
+    "error": "Data merger failed for QFIN: SEC EDGAR data retrieval failed for QFIN: No SEC EDGAR financial data available for QFIN",
+    "category": "other",
+    "bankruptcy_date": "2020-05-26",
+    "data_source": "error"
+  },
+  "DIS": {
+    "error": "Data merger failed for DIS: SEC EDGAR data retrieval failed for DIS: No SEC EDGAR financial data available for DIS",
+    "category": "other",
+    "bankruptcy_date": "2020-05-05",
+    "data_source": "error"
+  },
+  "CMCSA": {
+    "error": "Data merger failed for CMCSA: SEC EDGAR data retrieval failed for CMCSA: No SEC EDGAR financial data available for CMCSA",
+    "category": "other",
+    "bankruptcy_date": "2020-05-12",
+    "data_source": "error"
+  },
+  "VIAC": {
+    "error": "Data merger failed for VIAC: SEC EDGAR data retrieval failed for VIAC: No SEC EDGAR financial data available for VIAC",
+    "category": "other",
+    "bankruptcy_date": "2021-03-26",
+    "data_source": "error"
+  },
+  "FOXA": {
+    "error": "Data merger failed for FOXA: SEC EDGAR data retrieval failed for FOXA: No SEC EDGAR financial data available for FOXA",
+    "category": "other",
+    "bankruptcy_date": "2020-05-15",
+    "data_source": "error"
+  },
+  "PARA": {
+    "error": "Data merger failed for PARA: SEC EDGAR data retrieval failed for PARA: No SEC EDGAR financial data available for PARA",
+    "category": "other",
+    "bankruptcy_date": "2022-05-20",
+    "data_source": "error"
+  },
+  "WBD": {
+    "error": "Data merger failed for WBD: SEC EDGAR data retrieval failed for WBD: No SEC EDGAR financial data available for WBD",
+    "category": "other",
+    "bankruptcy_date": "2022-04-11",
+    "data_source": "error"
+  },
+  "ROKU": {
+    "error": "Data merger failed for ROKU: SEC EDGAR data retrieval failed for ROKU: No SEC EDGAR financial data available for ROKU",
+    "category": "other",
+    "bankruptcy_date": "2022-10-28",
+    "data_source": "error"
+  },
+  "SPOT": {
+    "error": "Data merger failed for SPOT: SEC EDGAR data retrieval failed for SPOT: No SEC EDGAR financial data available for SPOT",
+    "category": "other",
+    "bankruptcy_date": "2022-06-08",
+    "data_source": "error"
+  },
+  "TWTR": {
+    "error": "Data merger failed for TWTR: SEC EDGAR data retrieval failed for TWTR: No SEC EDGAR financial data available for TWTR",
+    "category": "other",
+    "bankruptcy_date": "2022-10-27",
+    "data_source": "error"
+  },
+  "META": {
+    "error": "Data merger failed for META: SEC EDGAR data retrieval failed for META: No SEC EDGAR financial data available for META",
+    "category": "other",
+    "bankruptcy_date": "2022-10-26",
+    "data_source": "error"
+  },
+  "GOOGL": {
+    "error": "Data merger failed for GOOGL: SEC EDGAR data retrieval failed for GOOGL: No SEC EDGAR financial data available for GOOGL",
+    "category": "other",
+    "bankruptcy_date": "2022-10-25",
+    "data_source": "error"
+  },
+  "AMZN": {
+    "error": "Data merger failed for AMZN: SEC EDGAR data retrieval failed for AMZN: No SEC EDGAR financial data available for AMZN",
+    "category": "stable",
+    "bankruptcy_date": "2022-10-27",
+    "data_source": "error"
+  },
+  "AAPL": {
+    "error": "Data merger failed for AAPL: SEC EDGAR data retrieval failed for AAPL: No SEC EDGAR financial data available for AAPL",
+    "category": "stable",
+    "bankruptcy_date": "2022-11-03",
+    "data_source": "error"
+  },
+  "MSFT": {
+    "error": "Data merger failed for MSFT: SEC EDGAR data retrieval failed for MSFT: No SEC EDGAR financial data available for MSFT",
+    "category": "other",
+    "bankruptcy_date": "2022-10-25",
+    "data_source": "error"
+  },
+  "TSLA": {
+    "error": "Data merger failed for TSLA: SEC EDGAR data retrieval failed for TSLA: No SEC EDGAR financial data available for TSLA",
+    "category": "other",
+    "bankruptcy_date": "2022-12-20",
+    "data_source": "error"
+  },
+  "LB": {
+    "error": "Data merger failed for LB: SEC EDGAR data retrieval failed for LB: No SEC EDGAR financial data available for LB",
+    "category": "other",
+    "bankruptcy_date": "2020-05-04",
+    "data_source": "error"
+  },
+  "GPAQ": {
+    "error": "Data merger failed for GPAQ: SEC EDGAR data retrieval failed for GPAQ: No SEC EDGAR financial data available for GPAQ",
+    "category": "other",
+    "bankruptcy_date": "2020-05-14",
+    "data_source": "error"
+  },
+  "KOHLQ": {
+    "error": "Data merger failed for KOHLQ: SEC EDGAR data retrieval failed for KOHLQ: No SEC EDGAR financial data available for KOHLQ",
+    "category": "other",
+    "bankruptcy_date": "2020-05-18",
+    "data_source": "error"
+  },
+  "MACYQ": {
+    "error": "Data merger failed for MACYQ: SEC EDGAR data retrieval failed for MACYQ: No SEC EDGAR financial data available for MACYQ",
+    "category": "other",
+    "bankruptcy_date": "2020-05-15",
+    "data_source": "error"
+  },
+  "NORDQ": {
+    "error": "Data merger failed for NORDQ: SEC EDGAR data retrieval failed for NORDQ: No SEC EDGAR financial data available for NORDQ",
+    "category": "other",
+    "bankruptcy_date": "2020-05-16",
+    "data_source": "error"
+  },
+  "TJXQ": {
+    "error": "Data merger failed for TJXQ: SEC EDGAR data retrieval failed for TJXQ: No SEC EDGAR financial data available for TJXQ",
+    "category": "other",
+    "bankruptcy_date": "2020-05-17",
+    "data_source": "error"
+  },
+  "ROSSQ": {
+    "error": "Data merger failed for ROSSQ: SEC EDGAR data retrieval failed for ROSSQ: No SEC EDGAR financial data available for ROSSQ",
+    "category": "other",
+    "bankruptcy_date": "2020-05-19",
+    "data_source": "error"
+  },
+  "BURL": {
+    "error": "Data merger failed for BURL: SEC EDGAR data retrieval failed for BURL: No SEC EDGAR financial data available for BURL",
+    "category": "recovery",
+    "bankruptcy_date": "2020-05-20",
+    "data_source": "error"
+  },
+  "COST": {
+    "error": "Data merger failed for COST: SEC EDGAR data retrieval failed for COST: No SEC EDGAR financial data available for COST",
+    "category": "stable",
+    "bankruptcy_date": "2020-05-21",
+    "data_source": "error"
+  },
+  "WMT": {
+    "error": "Data merger failed for WMT: SEC EDGAR data retrieval failed for WMT: No SEC EDGAR financial data available for WMT",
+    "category": "stable",
+    "bankruptcy_date": "2020-05-22",
+    "data_source": "error"
+  },
+  "TGT": {
+    "error": "Data merger failed for TGT: SEC EDGAR data retrieval failed for TGT: No SEC EDGAR financial data available for TGT",
+    "category": "recovery",
+    "bankruptcy_date": "2020-05-23",
+    "data_source": "error"
+  }
+}

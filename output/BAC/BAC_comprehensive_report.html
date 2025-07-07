@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Bank of America Corporation (BAC)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:18 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:38 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -319,6 +391,10 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
                     Attractive dividend yield</div>
                 
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Outperforming market benchmark</div>
+                
             </div>
         </div>
         
@@ -345,9 +421,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="BAC_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="BAC_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -410,11 +486,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$48.93</p>
+                <p>$$49.06</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$368.5B</p>
+                <p>$$369.5B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -430,7 +506,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>83.6</p>
+                <p>91.3</p>
             </div>
         </div>
     </div>
@@ -444,7 +520,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.74</p>
+                <p>0.73</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -474,34 +550,37 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Bank of America Corporation (BAC)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:18:08  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:38:35  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Bank of America (BAC) currently resides deep within the <strong>Distress Zone</strong> of the Altman Z-Score framework, with a latest Z-Score of <strong>0.16</strong>, well below the critical threshold of 1.8. This distress signal has persisted consistently over the last eight quarters, with Z-Scores fluctuating narrowly between <strong>-0.41 and 0.23</strong>, indicating sustained financial vulnerability. The <strong>AI Risk Analysis</strong> (inferred from Z-Score and financial metrics) suggests a <strong>high overall risk level</strong>, with no signs of recovery trajectory.</p>
-<p><strong>AI Peer Analysis</strong> positions BAC significantly below the industry average Z-Score (not explicitly provided but typical for diversified banks is &gt;2.5), indicating BAC is underperforming its peers such as JPM, C, and WFC. This relative weakness signals competitive and operational challenges.</p>
-<p><strong>AI Sentiment Analysis</strong> metrics are unavailable directly but inferred market signals show extremely low technical activity (zero volume, zero volatility), and an anomalously high dividend yield of <strong>220%</strong>, which is likely a data anomaly or unsustainable payout, further undermining confidence.</p>
+<p>Bank of America (BAC) currently exhibits a <strong>critical financial distress profile</strong>, with all eight quarters of Altman Z-Score data firmly in the <strong>Distress Zone (Z &lt; 1.8)</strong>, ranging from a low of -0.41 to a high of 0.23. This persistent distress signal is alarming given the company’s size and market presence, with a <strong>market capitalization of $369.46 billion</strong> and a current share price of <strong>$49.05</strong>.</p>
+<p><strong>AI Risk Analysis</strong> (inferred from Z-Score and financial ratios) indicates a <strong>high overall risk level</strong>, with no improvement trajectory visible in the Z-Score trend. The <strong>risk trajectory remains negative</strong>, signaling ongoing financial vulnerability.  </p>
+<p><strong>AI Peer Analysis</strong> is limited by lack of explicit peer Z-Scores, but given BAC’s industry (Banks - Diversified), the distress Z-Scores are significantly below typical industry averages, which generally fall in the <strong>Gray Zone (1.8-3.0)</strong> or <strong>Safe Zone (&gt;3.0)</strong> for large diversified banks. This suggests BAC is underperforming its peers substantially.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are unavailable or neutral, but the <strong>extreme dividend yield of 220%</strong> is an outlier and likely unsustainable, indicating market skepticism or data anomalies. Technical indicators (RSI, moving averages) are all zero or missing, suggesting low trading activity or data gaps.</p>
+<hr />
+<h3 id="key-metrics-table">Key Metrics Table</h3>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
+<th>Metric</th>
 <th>Value</th>
-<th>Notes</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>0.16</td>
-<td>Distress Zone (&lt;1.8)</td>
+<td>0.23</td>
+<td>Distress Zone, high bankruptcy risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$368.5B</td>
+<td>$369.46 billion</td>
 <td>Large-cap financial institution</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$48.93</td>
+<td>$49.05</td>
 <td>Stable price despite distress signals</td>
 </tr>
 <tr>
@@ -512,12 +591,12 @@
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.074</td>
-<td>Very low retained earnings relative to assets</td>
+<td>Low retained earnings relative to assets</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.002</td>
-<td>Near zero operating profitability</td>
+<td>Minimal operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
@@ -527,12 +606,18 @@
 <tr>
 <td>Dividend Yield</td>
 <td>220%</td>
-<td>Likely data anomaly or unsustainable</td>
+<td>Likely unsustainable or data anomaly</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given the persistent distress signals, poor financial health metrics, and anomalous market data, a <strong>conservative investor should avoid initiating new positions</strong>. For existing holders, a <strong>hold with caution</strong> or <strong>risk mitigation strategies</strong> is advised until clear signs of financial stabilization emerge. Aggressive investors may consider speculative positions only with tight risk controls and short time horizons.</p>
+<hr />
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Urgent Caution:</strong> The persistent distress Z-Scores and negative liquidity ratios warrant a <strong>SELL</strong> or <strong>avoid new investments</strong> stance for risk-averse and conservative investors.</li>
+<li><strong>Speculative Opportunity:</strong> Aggressive investors may consider <strong>short positions</strong> or hedging strategies given the high bankruptcy risk.</li>
+<li><strong>Monitor for Recovery:</strong> Watch for any Z-Score improvement above 1.8 before reconsidering entry points.</li>
+<li><strong>Data Quality Caveat:</strong> Dividend yield and technical indicators appear anomalous; verify with updated market data before final decisions.</li>
+</ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -540,7 +625,7 @@ Given the persistent distress signals, poor financial health metrics, and anomal
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark (Banks)</th>
+<th>Industry Benchmark (Banks - Diversified)</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -549,39 +634,42 @@ Given the persistent distress signals, poor financial health metrics, and anomal
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: N/A (Working Capital Ratio: -0.525)</td>
-<td>Typically &gt;1.0</td>
-<td><strong>Severe liquidity weakness</strong>; negative working capital ratio indicates potential short-term solvency issues</td>
+<td>Typically &gt;1.0 (positive working capital)</td>
+<td><strong>Severe liquidity weakness</strong>; negative working capital ratio signals potential cash flow stress</td>
 <td>Declining/Stable at low level</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Not provided) <br> Interest Coverage: N/A</td>
-<td>Debt-to-Equity ~1-2 typical</td>
-<td>Data missing; likely high leverage given distress zone</td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>Industry average ~1.0-1.5</td>
+<td>Cannot assess leverage fully; risk likely elevated given distress Z-Score</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.014 <br> EBIT Ratio: 0.002</td>
-<td>Asset Turnover ~0.5-1.0 <br> EBIT Ratio ~0.1-0.15</td>
-<td><strong>Extremely low asset utilization and profitability</strong>; operational inefficiency is critical</td>
-<td>Stable at low level</td>
+<td>EBIT Ratio: 0.002, Asset Turnover: 0.014</td>
+<td>EBIT Ratio ~0.05-0.10, Asset Turnover ~0.5</td>
+<td><strong>Extremely low profitability and asset utilization</strong></td>
+<td>Stable but critically low</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.074 <br> Cash Position: N/A</td>
-<td>Retained Earnings Ratio &gt;0.2 typical</td>
-<td><strong>Low retained earnings relative to assets</strong>; weak capital buffer</td>
-<td>Stable/Weak</td>
+<td>Retained Earnings Ratio: 0.074</td>
+<td>Typically &gt;0.2</td>
+<td><strong>Low retained earnings relative to assets</strong>; weak equity buffer</td>
+<td>Stable but weak</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Interpretive Commentary:</strong><br />
-- The <strong>negative working capital ratio (-0.525)</strong> is alarming for a bank, indicating liabilities exceed current assets, which may reflect liquidity stress or accounting classification issues.<br />
-- The <strong>EBIT ratio of 0.002</strong> suggests near-breakeven operating income, insufficient to cover interest and other obligations comfortably.<br />
-- The <strong>asset turnover of 0.014</strong> is extraordinarily low, reflecting poor utilization of assets to generate revenue, which is atypical even for banks and may indicate operational inefficiencies or data quality issues.<br />
-- The <strong>retained earnings ratio at 7.4%</strong> is low, signaling limited reinvestment or accumulated profits to buffer against losses.<br />
-- <strong>Data Quality Assessment:</strong> No explicit AI Data Quality scores were provided, but anomalies such as dividend yield of 220% and zero trading volumes suggest potential data inconsistencies impacting confidence. These anomalies reduce the reliability of some financial ratios and market metrics, warranting cautious interpretation.</p>
+<hr />
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li><strong>Liquidity:</strong> The negative working capital ratio (-0.525) is a red flag, indicating liabilities exceed current assets, which is atypical and risky for a bank expected to maintain strong liquidity buffers. This aligns with the distress Z-Score readings.</li>
+<li><strong>Leverage:</strong> Absence of debt-to-equity data limits leverage risk assessment; however, the distress signals imply high leverage or poor capital structure.</li>
+<li><strong>Operational Efficiency:</strong> EBIT ratio at 0.002 and asset turnover at 0.014 are drastically below industry norms, reflecting poor earnings generation and inefficient asset use. This severely undermines profitability and growth potential.</li>
+<li><strong>Financial Stability:</strong> Retained earnings ratio at 0.074 is low, indicating limited reinvested earnings to support growth or absorb losses, increasing bankruptcy risk.</li>
+</ul>
+<p><strong>AI Data Quality Assessment</strong> notes no anomalies in financial data completeness, but the lack of detailed leverage and liquidity ratios constrains full diagnostic precision. The sector context (Financial Services, Banks - Diversified) typically demands robust liquidity and capital adequacy, which BAC currently lacks.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -597,25 +685,28 @@ Given the persistent distress signals, poor financial health metrics, and anomal
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>0.16</td>
+<td>0.23</td>
 <td>Distress</td>
 <td>Negative working capital, low EBIT, poor asset turnover</td>
-<td>Ongoing financial distress, possible liquidity constraints</td>
+<td>Persistent financial distress despite large market cap</td>
 </tr>
 <tr>
-<td>Previous Quarters</td>
-<td>0.21, 0.17, 0.17, 0.20, 0.23, -0.39, -0.41</td>
+<td>Previous Quarters (Q1-Q7)</td>
+<td>0.16 to 0.23 (except Q7: -0.39, Q8: -0.41)</td>
 <td>Distress</td>
-<td>Persistently negative liquidity and profitability metrics</td>
-<td>No recovery trend; possible operational or market headwinds</td>
+<td>Consistently negative liquidity and profitability metrics</td>
+<td>No recovery signs; possible worsening in last two quarters</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-- BAC’s Z-Score has remained <strong>consistently below 1.8 for at least 8 quarters</strong>, indicating chronic financial distress without meaningful improvement.<br />
-- The <strong>negative Z-Scores in two quarters (-0.39, -0.41)</strong> highlight episodes of extreme financial stress, possibly linked to extraordinary losses or asset write-downs.<br />
-- The lack of component data (Working Capital/Total Assets, Retained Earnings/Total Assets, etc.) limits granular driver analysis but the overall trend is unmistakably negative.<br />
-- Compared to the <strong>industry average Z-Score for diversified banks (typically &gt;2.5)</strong>, BAC is significantly underperforming, which may reflect sector-specific challenges or company-specific issues such as credit losses or operational inefficiencies.</p>
+<hr />
+<h3 id="commentary_1">Commentary</h3>
+<ul>
+<li>The Z-Score trajectory is flat to slightly negative, with the last two quarters showing negative Z-Scores (-0.39 and -0.41), indicating <strong>worsening financial distress</strong>.</li>
+<li>Key drivers include <strong>negative working capital</strong>, <strong>minimal EBIT contribution</strong>, and <strong>extremely low asset turnover</strong>, all pointing to operational inefficiencies and capital structure issues.</li>
+<li>No inflection points or improvements are evident, contrasting with typical industry peers who maintain Z-Scores above 1.8.</li>
+<li>The business context of a large diversified bank suggests these distress signals are unusual and may reflect extraordinary operational or market challenges.</li>
+</ul>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -631,32 +722,35 @@ Given the persistent distress signals, poor financial health metrics, and anomal
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Distress Zone (0.16)</td>
-<td>Stable price ~$48.93, zero volume and volatility</td>
+<td>Distress (Z ~0.23)</td>
+<td>Stable price at $49.05</td>
 <td>Divergent</td>
-<td>Market may be ignoring distress; potential risk of sudden correction</td>
+<td>Market price not reflecting distress; potential overvaluation risk</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Not explicitly provided</td>
-<td>Dividend yield 220% (likely anomaly), P/E 14.61</td>
+<td>Neutral/Unavailable</td>
+<td>Dividend yield anomaly (220%)</td>
 <td>Inconsistent</td>
-<td>Market sentiment unclear; data anomalies reduce confidence</td>
+<td>Market sentiment unclear; dividend yield likely data anomaly</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry average</td>
+<td>Underperforming</td>
 <td>Sector performance unknown</td>
 <td>Underperforming</td>
-<td>BAC is competitively weak; caution advised</td>
+<td>BAC lags peers significantly; competitive risk elevated</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-- The <strong>lack of trading volume and volatility (0%)</strong> is highly unusual for a large-cap stock, suggesting either data feed issues or market inactivity, which undermines confidence in market signals.<br />
-- The <strong>P/E ratio of 14.61</strong> is within a reasonable range for banks but contrasts sharply with the distress Z-Score, indicating a disconnect between market valuation and fundamental risk.<br />
-- The <strong>anomalous dividend yield of 220%</strong> is likely a data error or reflects an unsustainable payout, which could mislead investors if taken at face value.<br />
-- Overall, the <strong>market signals are inconsistent with fundamental distress</strong>, suggesting either market complacency or data quality issues. Investors should prioritize fundamental analysis over market sentiment in this case.</p>
+<hr />
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li>The <strong>Z-Score distress signals diverge from the stable stock price</strong>, suggesting a disconnect between fundamental risk and market valuation.</li>
+<li>The <strong>extreme dividend yield of 220% is likely a data anomaly or unsustainable payout</strong>, which may mislead investors about company health.</li>
+<li>Lack of technical indicator data (RSI, moving averages) limits market timing analysis.</li>
+<li>The divergence suggests potential <strong>market complacency or delayed risk recognition</strong>, warranting caution and further due diligence.</li>
+</ul>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -674,30 +768,33 @@ Given the persistent distress signals, poor financial health metrics, and anomal
 <td>Operational Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Further Z-Score decline</td>
-<td>Improve asset utilization, cost control</td>
+<td>Significant negative impact</td>
+<td>Restructure operations, improve asset utilization</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Potential bankruptcy risk</td>
-<td>Strengthen capital base, reduce leverage</td>
+<td>Drives distress zone Z-Score</td>
+<td>Capital raising, debt restructuring</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Volatility spikes impacting valuation</td>
+<td>Potential volatility impact</td>
 <td>Hedging, diversification</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Operational turnaround improves EBIT ratio to &gt;0.05, working capital stabilizes, Z-Score rises above 1.8 within 2-3 quarters.<br />
-- <strong>Base Case:</strong> Status quo persists, Z-Score remains below 1.8, continued distress zone classification, moderate risk of credit rating downgrades.<br />
-- <strong>Worst Case:</strong> Further asset impairments or liquidity shocks push Z-Score below zero, triggering bankruptcy risk and severe market value erosion.  </p>
-<p><strong>Based on AI Risk Analysis overall risk level of high with &gt;80% confidence</strong>, immediate risk mitigation and capital restructuring are critical to avoid insolvency.</p>
+<hr />
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational risks</strong> dominate due to poor asset turnover and EBIT ratios, threatening ongoing viability.</li>
+<li><strong>Financial risks</strong> are critical, given negative working capital and low retained earnings, increasing bankruptcy probability.</li>
+<li><strong>Market risks</strong> are moderate but could exacerbate financial distress if liquidity tightens.</li>
+<li>Scenario analysis suggests <strong>best case</strong> Z-Score remains below 1.8 without significant operational or capital improvements; <strong>worst case</strong> includes further decline into negative Z-Scores, indicating imminent insolvency risk.</li>
+</ul>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -715,50 +812,54 @@ Given the persistent distress signals, poor financial health metrics, and anomal
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>SELL/HOLD</strong></td>
-<td>Z-Score 0.16 in distress zone; no recovery signs</td>
-<td>Avoid entry; monitor for improvement</td>
-<td>6-12 months</td>
+<td>SELL</td>
+<td>Persistent distress Z &lt; 1.8</td>
+<td>Avoid entry until Z &gt; 1.8</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>SELL</strong></td>
-<td>Dividend yield anomaly (220%) undermines sustainability</td>
-<td>Avoid due to payout risk</td>
-<td>Immediate</td>
+<td>HOLD/AVOID</td>
+<td>Dividend yield anomaly; unsustainable</td>
+<td>Monitor yield normalization</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>HOLD</strong></td>
-<td>Valuation disconnected from distress signals; potential value trap</td>
-<td>Wait for Z-Score &gt;1.8 confirmation</td>
-<td>6-12 months</td>
+<td>SELL</td>
+<td>Low retained earnings, poor asset turnover</td>
+<td>No value entry signal</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>AVOID</strong></td>
-<td>No growth sustainability; EBIT near zero</td>
-<td>No momentum; avoid</td>
+<td>AVOID</td>
+<td>No growth in EBIT or asset turnover</td>
+<td>No momentum present</td>
 <td>N/A</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>SPECULATIVE BUY</strong> (Very high risk)</td>
-<td>Potential for turnaround but high bankruptcy risk</td>
-<td>Only with risk controls</td>
-<td>Short-term, &lt;6 months</td>
+<td>SHORT/AVOID</td>
+<td>High bankruptcy risk, negative Z-Score</td>
+<td>Potential short opportunity</td>
+<td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-- The <strong>persistent distress Z-Score and poor financial metrics</strong> argue against new long-term investments.<br />
-- Dividend investors should be wary of the <strong>unsustainable payout ratio</strong> implied by the 220% yield figure.<br />
-- Value investors may consider a <strong>watch-and-wait approach</strong> for signs of financial stabilization.<br />
-- Aggressive traders might exploit volatility if market data normalizes but must apply strict risk management.</p>
+<hr />
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li>Conservative and value investors should <strong>avoid or exit</strong> positions given the distress signals.</li>
+<li>Dividend investors should be cautious due to the <strong>likely unsustainable dividend yield</strong>.</li>
+<li>Growth investors find no evidence of operational momentum.</li>
+<li>Aggressive investors may consider <strong>shorting</strong> or hedging strategies due to high bankruptcy risk.</li>
+<li>All investors should monitor for any Z-Score improvement above 1.8 before reconsidering positions.</li>
+</ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -774,32 +875,35 @@ Given the persistent distress signals, poor financial health metrics, and anomal
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Financial Stabilization</td>
-<td>Z-Score components, EBIT ratio</td>
-<td>Focus on liquidity improvement, cost reduction</td>
-<td>Z-Score &gt;1.8, positive EBIT growth</td>
+<td>Stabilize liquidity and profitability</td>
+<td>Working Capital Ratio, EBIT Ratio</td>
+<td>Implement cost controls, improve asset utilization</td>
+<td>Positive Z-Score trend, liquidity improvement</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital Structure Optimization</td>
-<td>Working capital ratio, retained earnings</td>
-<td>Restructure debt, improve capital reserves</td>
-<td>Improved liquidity ratios, credit rating</td>
+<td>Capital structure optimization</td>
+<td>Retained Earnings Ratio, Debt-to-Equity (if available)</td>
+<td>Raise capital, restructure debt</td>
+<td>Improved leverage ratios, positive cash flow</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk Oversight &amp; Compliance</td>
-<td>Risk factors, market signals</td>
-<td>Enhance risk management frameworks</td>
-<td>Reduced risk exposure, regulatory compliance</td>
+<td>Risk oversight and transparency</td>
+<td>Z-Score, Risk Assessment Metrics</td>
+<td>Enhance risk management, communicate with investors</td>
+<td>Reduced risk levels, improved market confidence</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-- The <strong>CEO must prioritize operational efficiency and liquidity management</strong> to reverse the distress trend.<br />
-- The <strong>CFO should focus on deleveraging and capital adequacy</strong> to restore investor confidence.<br />
-- The <strong>Board must enforce rigorous risk oversight</strong> given the high-risk profile and potential market mispricing.<br />
-- Market perception management is critical, especially to address the disconnect between fundamental distress and market price stability.</p>
+<hr />
+<h3 id="commentary_5">Commentary</h3>
+<ul>
+<li>The CEO must prioritize operational efficiency improvements to reverse negative EBIT and asset turnover trends.</li>
+<li>The CFO should focus on capital adequacy and liquidity restoration, potentially through capital raises or debt restructuring.</li>
+<li>The Board must oversee risk mitigation efforts and ensure transparent communication to restore investor confidence.</li>
+<li>Given the distress Z-Scores, <strong>executive urgency is critical</strong> to avoid insolvency.</li>
+</ul>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -815,37 +919,40 @@ Given the persistent distress signals, poor financial health metrics, and anomal
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable low distress</td>
-<td>Slight improvement possible if EBIT rises</td>
-<td>Cost control, asset quality improvement</td>
-<td>Quarterly Z-Score, EBIT margin</td>
+<td>Negative/Flat</td>
+<td>Continued distress</td>
+<td>Operational turnaround, capital raise</td>
+<td>Quarterly Z-Score updates</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Weak relative to peers</td>
-<td>Potential recovery if financials improve</td>
-<td>Regulatory changes, economic cycle</td>
-<td>Peer Z-Score comparison, market share</td>
+<td>Stable price</td>
+<td>Potential decline</td>
+<td>Market recognition of distress</td>
+<td>Price-volume trends, analyst reports</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High risk</td>
-<td>Remains elevated without intervention</td>
-<td>Credit losses, liquidity shocks</td>
-<td>Credit spreads, liquidity ratios</td>
+<td>High</td>
+<td>Elevated risk</td>
+<td>Regulatory changes, economic shocks</td>
+<td>Risk factor tracking, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-- The <strong>Z-Score momentum is currently flat in the distress zone</strong>, with limited upside absent significant operational improvements.<br />
-- Key catalysts for improvement include <strong>enhanced asset quality, cost reductions, and capital injections</strong>.<br />
-- Continuous monitoring of <strong>quarterly Z-Score components and peer benchmarks</strong> is essential to detect early signs of recovery or further deterioration.<br />
-- An <strong>early warning system</strong> should track liquidity ratios, EBIT trends, and market volatility to anticipate risk escalations.</p>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>Bank of America’s Altman Z-Score analysis reveals a <strong>critical financial distress state</strong> with no immediate signs of recovery. Despite a large market capitalization and stable price, fundamental metrics indicate severe liquidity and operational challenges. Data anomalies in market indicators reduce confidence in market sentiment, emphasizing reliance on fundamental analysis. Investors should exercise caution, with conservative profiles avoiding new exposure and aggressive profiles only speculating with strict risk controls. Strategic leadership must urgently address liquidity and profitability to restore financial health and investor confidence.</p>
+<h3 id="commentary_6">Commentary</h3>
+<ul>
+<li>Without significant operational or capital improvements, BAC’s Z-Score is expected to remain in the distress zone over the next 6-12 months.</li>
+<li>Key catalysts for positive change include <strong>successful restructuring, improved profitability, and capital injections</strong>.</li>
+<li>Investors should monitor <strong>leading indicators</strong> such as quarterly Z-Score changes, liquidity ratios, and market sentiment shifts.</li>
+<li>An early warning system should flag any further Z-Score declines or liquidity deterioration to trigger defensive actions.</li>
+</ul>
 <hr />
-<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, market signals, and risk assessments to provide actionable investment intelligence.</em></p></div></div>
+<h1 id="summary"><strong>Summary</strong></h1>
+<p>Bank of America currently faces <strong>severe financial distress</strong>, as evidenced by persistently low and negative Altman Z-Scores, poor liquidity, and operational inefficiencies. Market pricing does not fully reflect these risks, creating a potential disconnect. Investors should exercise <strong>extreme caution</strong>, with conservative and value profiles advised to sell or avoid, while aggressive investors may consider shorting or hedging. Executive leadership must urgently address liquidity and profitability to avert insolvency. Continuous monitoring of Z-Score momentum and financial ratios is essential for timely investment decisions.</p>
+<hr />
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, peer, sentiment, and risk data for actionable intelligence.</em></p></div></div>
     </div>
     
 
@@ -1188,78 +1295,41 @@ Given the persistent distress signals, poor financial health metrics, and anomal
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:18 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:38 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

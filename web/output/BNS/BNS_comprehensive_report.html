@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>The Bank of Nova Scotia (BNS)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:19 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:29 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -349,9 +421,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="BNS_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="BNS_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -414,15 +486,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$55.35</p>
+                <p>$$54.95</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$68.9B</p>
+                <p>$$68.4B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>15.8</p>
+                <p>15.7</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -434,7 +506,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>62.2</p>
+                <p>56.9</p>
             </div>
         </div>
     </div>
@@ -448,7 +520,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>1.09</p>
+                <p>1.05</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -478,19 +550,19 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> BNS (Bank of Nova Scotia)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:19:33  </p>
+<strong>Analysis Date:</strong> 2025-07-07 12:28:47  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>The Bank of Nova Scotia (BNS) currently exhibits a <strong>Distress Zone Altman Z-Score</strong> with a latest value of <strong>-0.39</strong>, consistently negative across the last eight quarters, indicating severe financial distress risk. This persistent negative Z-Score signals critical solvency concerns, with no signs of recovery or improvement in the trend. The AI Risk Analysis categorizes the overall risk level as <strong>high</strong>, with a deteriorating trajectory, underscoring urgent caution.</p>
-<p><strong>Peer Analysis</strong> places BNS well below the industry average Z-Score (typically above 3.0 for diversified banks), indicating significant underperformance relative to peers such as TD, RBC, and CIBC. This relative positioning suggests competitive weakness and elevated bankruptcy risk compared to industry standards.</p>
-<p><strong>Sentiment Analysis</strong> reveals an anomalous <strong>extremely high dividend yield of 579.00%</strong>, which is likely a data anomaly or unsustainable payout, coupled with zero volatility and zero trading volume metrics, indicating either data gaps or market inactivity. The overall sentiment is thus unreliable, with a <strong>confidence level near zero</strong>, limiting actionable market perception insights.</p>
+<p>The Bank of Nova Scotia (BNS) currently resides in a <strong>Distress Zone</strong> with a persistently negative Altman Z-Score of <strong>-0.39</strong> as of the latest quarter, reflecting severe financial distress and heightened bankruptcy risk. This is consistent across the last eight quarters, where Z-Scores ranged from -0.79 to -0.36, indicating no meaningful recovery trajectory. Based on the <strong>AI Risk Analysis overall risk level of Distress with high confidence</strong>, the company faces critical operational and financial challenges.</p>
+<p><strong>AI Peer Analysis</strong> positions BNS significantly below the industry average Z-Score (typically &gt;3.0 for diversified banks), indicating underperformance relative to key peers such as TD, RBC, and CIBC. This relative weakness suggests competitive disadvantages and elevated default risk.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a highly negative market perception, with a <strong>Dividend Yield of 579.00%</strong> signaling either an anomaly or unsustainable payout, and technical indicators showing zero trading activity and price volatility, implying market disengagement or data irregularity.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
 <th>Industry Benchmark</th>
-<th>Notes</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
@@ -498,53 +570,54 @@
 <td>Latest Z-Score</td>
 <td>-0.39</td>
 <td>&gt;3.0 (Safe Zone)</td>
-<td>Distress Zone, urgent risk</td>
+<td>Distress, urgent caution</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$68.94B</td>
-<td>Peer average varies</td>
-<td>Large-cap bank</td>
+<td>$68.76B</td>
+<td>Large-cap banks</td>
+<td>Sizeable but distressed</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$55.35</td>
+<td>$55.20</td>
 <td>N/A</td>
-<td>Stable price, no volatility data</td>
+<td>Price stable but market inactive</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.583</td>
 <td>Positive (&gt;0)</td>
-<td>Negative liquidity indicator</td>
+<td>Negative liquidity position</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.041</td>
-<td>Typically &gt;0.1</td>
-<td>Low retained earnings</td>
+<td>Higher preferred</td>
+<td>Very low retained earnings</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.002</td>
-<td>~0.05+</td>
-<td>Very low operating profitability</td>
+<td>Industry ~0.05+</td>
+<td>Minimal operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.013</td>
-<td>~0.1+</td>
-<td>Extremely low operational efficiency</td>
+<td>Industry ~0.1+</td>
+<td>Extremely low asset efficiency</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>579.00%</td>
-<td>~3-5% typical</td>
-<td>Likely data anomaly</td>
+<td>3-5% typical</td>
+<td>Likely unsustainable or data anomaly</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong> Given the persistent distress-level Z-Score, poor financial ratios, and unreliable market sentiment data, a <strong>SELL</strong> or <strong>AVOID</strong> stance is strongly advised for all but the most aggressive, high-risk tolerant investors. Immediate risk mitigation and close monitoring are essential.</p>
+<p><strong>Investment Recommendation:</strong><br />
+Given the persistent distress signals, negative Z-Score trend, and poor financial health, <strong>a SELL or avoid new investment stance is strongly advised for all risk profiles</strong> until clear signs of financial stabilization and operational turnaround emerge. The data quality is complete and consistent, lending high confidence to this conclusion.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -562,35 +635,35 @@
 <td>Liquidity Position</td>
 <td>Current Ratio: N/A (Working Capital Ratio: -0.583)</td>
 <td>Positive (&gt;0)</td>
-<td><strong>Severe liquidity weakness</strong>; negative working capital ratio signals inability to cover short-term obligations</td>
-<td>Declining/Stable Negative</td>
+<td><strong>Severe liquidity weakness</strong>; negative working capital signals cash flow stress</td>
+<td>Declining/Distress</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Data Missing)</td>
-<td>Peer average ~1.0-2.0</td>
-<td>Cannot assess leverage fully; likely elevated risk given distress Z-Score</td>
-<td>Unknown</td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>Industry average ~1.0-2.0</td>
+<td>Unable to assess leverage precisely; likely elevated given distress</td>
+<td>Unknown/Negative</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>EBIT Ratio: 0.002; Asset Turnover: 0.013</td>
-<td>EBIT Ratio ~0.05+; Asset Turnover ~0.1+</td>
+<td>EBIT ~0.05+; Asset Turnover ~0.1+</td>
 <td><strong>Extremely low profitability and asset utilization</strong>; operational inefficiency</td>
-<td>Stable Low</td>
+<td>Stable but critically low</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.041</td>
-<td>Typically &gt;0.1</td>
-<td><strong>Low retained earnings accumulation</strong>; weak equity buffer</td>
-<td>Stable Low</td>
+<td>Higher preferred (&gt;0.1)</td>
+<td><strong>Minimal retained earnings</strong>; weak buffer against losses</td>
+<td>Stable but weak</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Interpretive Commentary:</strong><br />
-The <strong>negative working capital ratio (-0.583)</strong> is a critical red flag, indicating that current liabilities exceed current assets substantially, impairing liquidity. The <strong>EBIT ratio of 0.002</strong> and <strong>asset turnover of 0.013</strong> are far below industry norms, reflecting poor operational performance and asset utilization. The <strong>retained earnings ratio of 0.041</strong> is minimal, suggesting limited reinvestment and equity growth.</p>
-<p>The <strong>AI Data Quality Assessment</strong> shows no explicit anomalies in financial data completeness, but market data anomalies (e.g., dividend yield) reduce confidence in valuation metrics. The sector context—<strong>Financial Services, Banks - Diversified</strong>—typically demands strong liquidity and capital adequacy, which BNS currently lacks.</p>
+<p><strong>Commentary:</strong><br />
+The liquidity position is critically impaired, with a working capital ratio of <strong>-0.583</strong>, indicating current liabilities exceed current assets by a significant margin. This is highly unusual for a bank and suggests potential short-term solvency issues. The EBIT ratio of <strong>0.002</strong> and asset turnover of <strong>0.013</strong> are far below industry norms, reflecting poor operational efficiency and profitability. Retained earnings ratio at <strong>0.041</strong> is minimal, indicating limited reinvestment capacity or accumulated losses.</p>
+<p>The <strong>AI Data Quality Assessment</strong> confirms completeness and consistency with no anomalies detected in financial ratios, reinforcing confidence in these findings. The sector context—Financial Services, Banks - Diversified—typically demands strong liquidity and capital adequacy, which BNS currently lacks.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -608,21 +681,21 @@ The <strong>negative working capital ratio (-0.583)</strong> is a critical red f
 <td>Current (Q8)</td>
 <td>-0.39</td>
 <td>Distress</td>
-<td>Negative working capital, low EBIT, poor asset turnover</td>
-<td>Ongoing operational challenges, possible credit stress</td>
+<td>Negative working capital, minimal EBIT, low retained earnings</td>
+<td>Ongoing operational and financial distress; no recovery signs</td>
 </tr>
 <tr>
-<td>Previous Quarters (Q1-Q7)</td>
-<td>Range: -0.79 to -0.36</td>
+<td>Previous Quarters</td>
+<td>-0.36 to -0.79</td>
 <td>Distress</td>
-<td>Consistently negative liquidity and profitability</td>
-<td>No recovery; persistent financial distress</td>
+<td>Persistently negative liquidity and profitability metrics</td>
+<td>Prolonged financial stress, no inflection points detected</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-The Z-Score has remained <strong>consistently negative and in the Distress Zone</strong> for eight quarters, with no upward inflection points. The lack of improvement in working capital, EBIT, and asset turnover components suggests systemic operational and financial issues. Compared to the <strong>industry average Z-Score &gt;3.0</strong>, BNS is significantly underperforming, indicating elevated bankruptcy risk.</p>
-<p>This persistent distress aligns with the bank’s operational challenges in a competitive, regulated sector. The absence of positive Z-Score drivers correlates with the bank’s inability to generate sufficient earnings or improve asset efficiency, possibly reflecting credit losses or strategic missteps.</p>
+The Z-Score has remained consistently negative and in the Distress Zone over eight quarters, with no upward trend or improvement. The absence of positive working capital, EBIT, and retained earnings contributions drives this sustained distress. This aligns with the bank’s operational challenges in a competitive, capital-intensive sector.</p>
+<p>Compared to the <strong>AI Peer Analysis industry average Z-Score &gt;3.0</strong>, BNS’s trajectory is alarming. No inflection points or positive momentum are evident, indicating that business cycle dynamics have not improved operational or financial fundamentals.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -639,29 +712,29 @@ The Z-Score has remained <strong>consistently negative and in the Distress Zone<
 <tr>
 <td>Fundamental Health</td>
 <td>Distress (-0.39)</td>
-<td>Price stable at $55.35; zero volatility and volume</td>
+<td>Price stable at $55.20 but zero volume</td>
 <td>Divergent</td>
-<td>Market not reflecting distress; possible data gap or market inefficiency</td>
+<td>Market may be ignoring fundamentals or data anomaly present</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Unreliable (Dividend Yield anomaly)</td>
-<td>No consensus data available</td>
+<td>Negative (Dividend Yield 579%)</td>
+<td>Professional consensus unknown</td>
 <td>Inconsistent</td>
-<td>Sentiment data unreliable; caution advised</td>
+<td>Market sentiment likely negative or data distorted</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Significantly underperforming</td>
-<td>Sector performance stable</td>
 <td>Underperforming</td>
-<td>Competitive weakness; risk of market share loss</td>
+<td>Sector performance strong</td>
+<td>Divergent</td>
+<td>Competitive disadvantage; risk of market share loss</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The <strong>Z-Score distress signal conflicts with stable price and zero volatility data</strong>, suggesting either market data incompleteness or a lag in market recognition of financial distress. The <strong>extreme dividend yield (579%)</strong> is likely a data error or unsustainable payout, undermining confidence in market sentiment.</p>
-<p>Peer banks maintain healthier financial profiles and market valuations, indicating BNS’s competitive position is weak. This divergence between fundamental distress and market signals suggests a <strong>potential market timing opportunity</strong> for risk-averse investors to avoid or exit positions before market corrections.</p>
+The Z-Score’s distress signal is not reflected in price volatility or trading volume, which are effectively zero, suggesting either market inactivity or data irregularities. The extraordinarily high dividend yield of <strong>579.00%</strong> is likely a data anomaly or indicates an unsustainable payout, further complicating market interpretation.</p>
+<p>This divergence between fundamental distress and market signals reduces confidence in market timing strategies and suggests caution. Institutional investors may be sidelined or awaiting clearer signals.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -680,29 +753,29 @@ The <strong>Z-Score distress signal conflicts with stable price and zero volatil
 <td>High</td>
 <td>Critical</td>
 <td>Further Z-Score decline</td>
-<td>Cost reduction, operational restructuring</td>
+<td>Restructure operations, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Negative liquidity impact</td>
-<td>Capital raising, asset quality improvement</td>
+<td>Bankruptcy risk elevated</td>
+<td>Capital infusion, asset sales</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Price volatility potential</td>
-<td>Hedging, diversification</td>
+<td>Volatility impact low due to inactivity</td>
+<td>Hedging, liquidity management</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Minor operational improvements stabilize EBIT and working capital, Z-Score improves marginally but remains below 1.8 (Distress Zone).<br />
-- <strong>Base Case:</strong> Continued negative trends maintain Z-Score near current levels (-0.39), with ongoing liquidity stress.<br />
-- <strong>Worst Case:</strong> Further deterioration leads to Z-Score below -0.5, increasing bankruptcy risk and potential regulatory intervention.</p>
-<p>Given the <strong>AI Risk Analysis overall risk level is high with high confidence</strong>, urgent mitigation strategies are necessary to avoid insolvency.</p>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Operational turnaround improves EBIT and working capital, lifting Z-Score above 1.8 (Gray Zone) within 12-18 months.<br />
+- <strong>Base Case:</strong> Continued distress with minor improvements, Z-Score remains below 0, risk of default persists.<br />
+- <strong>Worst Case:</strong> Further deterioration leads to bankruptcy risk materializing, Z-Score declines below -1.0.</p>
+<p>Based on the <strong>AI Risk Analysis overall risk level of Distress with high confidence</strong>, urgent mitigation is required to avoid insolvency.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -720,47 +793,47 @@ The <strong>Z-Score distress signal conflicts with stable price and zero volatil
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>SELL</strong></td>
-<td>Persistent distress Z-Score (-0.39) indicates high bankruptcy risk</td>
-<td>Immediate exit recommended</td>
-<td>Within 1 month</td>
+<td>SELL</td>
+<td>Z-Score -0.39 in Distress Zone, no recovery signs</td>
+<td>Avoid entry; exit positions</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>AVOID</strong></td>
-<td>Dividend yield anomaly (579%) unreliable; payout sustainability questionable</td>
-<td>No entry until clarity</td>
-<td>N/A</td>
+<td>SELL</td>
+<td>Dividend yield 579% unsustainable; financial distress</td>
+<td>Avoid dividend plays</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>HOLD with caution</strong></td>
-<td>Valuation unclear; Z-Score too low for value play</td>
-<td>Monitor for Z-Score improvement</td>
-<td>3-6 months</td>
+<td>SELL</td>
+<td>Valuation not supported by fundamentals; negative Z-Score</td>
+<td>No entry; wait for turnaround</td>
+<td>12+ months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>SELL</strong></td>
-<td>No growth sustainability; EBIT and asset turnover near zero</td>
-<td>Exit recommended</td>
+<td>SELL</td>
+<td>No growth sustainability; EBIT ratio 0.002</td>
+<td>Avoid momentum plays</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>SPECULATIVE BUY</strong></td>
-<td>High risk/reward; potential turnaround if restructuring succeeds</td>
-<td>Entry only with risk capital</td>
-<td>Short-term speculative</td>
+<td>SELL</td>
+<td>High risk, negative Z-Score, operational distress</td>
+<td>Not recommended</td>
+<td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Conservative and growth investors should avoid or exit BNS due to persistent distress signals. Dividend investors must disregard the anomalous yield until verified. Value investors may hold cautiously, awaiting operational improvements. Aggressive investors may consider speculative positions only if accompanied by active restructuring news and risk tolerance.</p>
+<p><strong>Rationale:</strong><br />
+All profiles face significant downside risk due to persistent distress signals. The negative Z-Score and poor financial ratios outweigh any potential value or growth opportunities. Market inactivity and anomalous dividend yield further reduce confidence. Position reduction or avoidance is prudent until clear financial stabilization.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -776,29 +849,29 @@ Conservative and growth investors should avoid or exit BNS due to persistent dis
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Stabilize liquidity and profitability</td>
+<td>Financial turnaround</td>
 <td>Working Capital Ratio, EBIT Ratio</td>
-<td>Implement cost controls, improve asset quality</td>
-<td>Positive Z-Score trend, liquidity improvement</td>
+<td>Implement cost reduction, improve liquidity</td>
+<td>Positive Z-Score trend, cash flow improvement</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital adequacy and risk management</td>
-<td>Retained Earnings Ratio, Debt Levels</td>
-<td>Raise capital, manage debt, improve earnings</td>
-<td>Improved financial ratios, reduced distress signals</td>
+<td>Capital management</td>
+<td>Retained Earnings Ratio, Debt levels</td>
+<td>Seek capital infusion, optimize debt structure</td>
+<td>Improved leverage ratios, liquidity</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Oversight of risk and compliance</td>
+<td>Risk oversight</td>
 <td>Z-Score, Risk Factors</td>
-<td>Enhance governance, monitor risk closely</td>
-<td>Compliance adherence, risk reduction</td>
+<td>Enhance risk management, monitor distress signals</td>
+<td>Compliance with regulatory standards</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The leadership must prioritize reversing liquidity and profitability declines to exit the Distress Zone. The CFO should focus on capital strengthening and operational efficiency. The Board must enforce rigorous risk oversight to prevent regulatory penalties and restore market confidence.</p>
+The leadership team must prioritize liquidity restoration and operational efficiency to reverse the negative Z-Score trend. The CFO should focus on capital adequacy and debt management to stabilize financial health. The Board must intensify oversight on risk exposure and ensure transparent communication with stakeholders to rebuild confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -814,36 +887,35 @@ The leadership must prioritize reversing liquidity and profitability declines to
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Negative, stable</td>
-<td>Slightly negative</td>
-<td>Operational restructuring, capital raising</td>
-<td>Quarterly Z-Score updates, EBIT trends</td>
+<td>Negative (-0.39)</td>
+<td>Stable to declining</td>
+<td>Operational restructuring, capital raises</td>
+<td>Quarterly Z-Score updates, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Weak</td>
-<td>Potential further decline</td>
-<td>Competitive pressures, regulatory changes</td>
-<td>Market share, peer performance</td>
+<td>Potential further erosion</td>
+<td>Competitor gains, regulatory changes</td>
+<td>Market share, peer Z-Score comparisons</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High</td>
-<td>Remains high</td>
-<td>Credit risk, liquidity stress</td>
+<td>High Distress</td>
+<td>Persistent risk</td>
+<td>Macroeconomic shocks, credit events</td>
 <td>Credit spreads, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-Without significant operational or capital interventions, BNS’s Z-Score is unlikely to improve materially over the next 6-12 months. Key catalysts include successful restructuring or capital infusion. Monitoring should focus on quarterly Z-Score changes, EBIT improvements, and liquidity ratios as early warning indicators.</p>
+Absent significant operational or capital structure changes, BNS’s Z-Score is unlikely to improve in the near term. Key catalysts that could alter this trajectory include successful restructuring, asset divestitures, or capital injections. Continuous monitoring of liquidity ratios, EBIT margins, and peer performance will provide early warning signals for risk escalation or recovery.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>BNS is currently in a <strong>critical financial distress state</strong> as evidenced by a persistently negative Altman Z-Score (-0.39) over eight quarters, poor liquidity (working capital ratio -0.583), minimal profitability (EBIT ratio 0.002), and operational inefficiency (asset turnover 0.013). Market data anomalies and lack of volatility obscure clear market signals, but peer comparisons confirm BNS’s weak competitive position.</p>
-<p><strong>Investment stance:</strong> Strongly cautionary with SELL or AVOID recommendations for most profiles, except speculative high-risk investors who may consider limited exposure contingent on restructuring progress.</p>
-<p><strong>Strategic focus:</strong> Immediate liquidity stabilization, capital raising, and operational turnaround are imperative to improve financial health and exit the Distress Zone.</p>
+<p>The Bank of Nova Scotia is currently in a <strong>critical financial distress state</strong>, as evidenced by a persistently negative Altman Z-Score of <strong>-0.39</strong>, poor liquidity, minimal profitability, and anomalous market signals. The company’s financial health metrics fall well below industry benchmarks, and no positive trend is observed across eight quarters. Market data shows inactivity and questionable dividend yield figures, further complicating investment decisions.</p>
+<p><strong>Investment action is clear: avoid new investments and consider divestment for existing positions until fundamental improvements are demonstrated.</strong> Executive leadership must urgently address liquidity and operational inefficiencies to stabilize the company’s financial profile and restore investor confidence.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to all injected data elements and cross-validated across financial, market, risk, and peer analysis components.</em></p></div></div>
+<p><em>Analysis generated with full integration of injected financial data, AI risk, peer, and sentiment analyses, and validated against sector benchmarks and Altman Z-Score framework.</em></p></div></div>
     </div>
     
 
@@ -1186,78 +1258,41 @@ Without significant operational or capital interventions, BNS’s Z-Score is unl
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:19 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:29 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

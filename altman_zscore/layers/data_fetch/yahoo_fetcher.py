@@ -433,3 +433,101 @@ class YahooDataFetcher:
         self.cache.set(cache_key, summary, ttl=CACHE_TTL_SECONDS)
         
         return summary
+
+    def get_historical_market_data(self, symbol: str, date_str: str) -> Dict[str, Any]:
+        """
+        Get historical market data for a specific date.
+        
+        Args:
+            symbol: Stock ticker symbol
+            date_str: Date string in YYYY-MM-DD format
+            
+        Returns:
+            Dictionary with historical market data including price and estimated market cap
+        """
+        cache_key = f"yahoo_historical_market_data:{symbol}:{date_str}"
+        
+        # Try cache first
+        cached_result = self.cache.get(cache_key)
+        if cached_result is not None:
+            logger.debug(f"Using cached historical market data for {symbol} at {date_str}")
+            return cached_result
+        
+        # Parse the target date
+        target_date = datetime.strptime(date_str, "%Y-%m-%d")
+        
+        # Set up date range to search (7 days before and after target)
+        start_date = (target_date - timedelta(days=7)).strftime("%Y-%m-%d")
+        end_date = (target_date + timedelta(days=7)).strftime("%Y-%m-%d")
+        
+        logger.info(f"Fetching historical market data for {symbol} around {date_str}")
+        
+        try:
+            # Get historical prices for this period
+            historical_df = self.get_historical_prices_range(symbol, start_date, end_date)
+            
+            if historical_df is None or historical_df.empty:
+                raise DataFetchError(f"No historical data available for {symbol} around {date_str}")
+            
+            # Convert index to datetime if it's not already
+            if not isinstance(historical_df.index, pd.DatetimeIndex):
+                historical_df.index = pd.to_datetime(historical_df.index)
+            
+            # Find the closest date to our target
+            closest_date = None
+            min_delta = timedelta(days=999)
+            
+            for date_idx in historical_df.index:
+                delta = abs(date_idx - target_date)
+                if delta < min_delta:
+                    min_delta = delta
+                    closest_date = date_idx
+            
+            if closest_date is None:
+                raise DataFetchError(f"Could not find close date match for {symbol} at {date_str}")
+            
+            # Get the row for this date
+            closest_row = historical_df.loc[closest_date]
+            
+            # Get current data for share count and other info
+            current_data = self.get_market_data_summary(symbol)
+            
+            # Create the historical market data
+            historical_price = closest_row.get('Close')
+            
+            # Estimate historical market cap
+            estimated_market_cap = None
+            if historical_price is not None and current_data.get('shares_outstanding') is not None:
+                # Assumes shares outstanding hasn't changed significantly
+                estimated_market_cap = historical_price * current_data.get('shares_outstanding')
+            
+            # Build the result object
+            result = {
+                'date': closest_date.strftime("%Y-%m-%d"),
+                'target_date': date_str,
+                'days_difference': min_delta.days,
+                'current_price': historical_price,
+                'volume': closest_row.get('Volume'),
+                'market_cap': estimated_market_cap,
+                'shares_outstanding': current_data.get('shares_outstanding'),
+                'is_estimated': True
+            }
+            
+            # Cache the result
+            self.cache.set(cache_key, result, ttl=CACHE_TTL_SECONDS)
+            
+            logger.info(f"Found historical market data for {symbol} at {result['date']} (target: {date_str})")
+            return result
+            
+        except Exception as e:
+            logger.error(f"Failed to get historical market data for {symbol} at {date_str}: {e}")
+            
+            # Return current data as fallback, but mark it as fallback
+            try:
+                current_data = self.get_market_data_summary(symbol)
+                current_data['is_fallback'] = True
+                current_data['target_date'] = date_str
+                current_data['error'] = str(e)
+                return current_data
+            except:
+                raise DataFetchError(f"Could not get historical or current market data for {symbol}")

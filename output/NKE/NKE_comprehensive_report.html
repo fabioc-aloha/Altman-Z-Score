@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>NIKE, Inc. (NKE)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:37 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:05 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -303,7 +375,7 @@
             <span class="buy">Strong Buy</span>
         </div>
         <div style="margin: 15px 0;">
-            <strong>Confidence:</strong> 60.0%
+            <strong>Confidence:</strong> 70.0%
         </div>
 
         
@@ -318,6 +390,10 @@
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
                     Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Outperforming market benchmark</div>
                 
             </div>
         </div>
@@ -349,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="NKE_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="NKE_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -365,7 +441,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">3.79</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">3.77</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -414,15 +490,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$76.39</p>
+                <p>$$75.97</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$112.8B</p>
+                <p>$$112.1B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>35.4</p>
+                <p>35.2</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -434,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>76.0</p>
+                <p>81.8</p>
             </div>
         </div>
     </div>
@@ -448,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.17</p>
+                <p>0.24</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -469,36 +545,45 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> NIKE, Inc. (Ticker: NKE)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:37:32  </p>
+<strong>Analysis Date:</strong> 2025-07-07 11:05:26  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>NIKE, Inc. demonstrates a <strong>robust financial health profile</strong> with an Altman Z-Score consistently in the <strong>Safe Zone</strong>, ranging from 3.78 to 4.07 over the last eight quarters, with the most recent quarter at <strong>4.05</strong>, indicating very low bankruptcy risk. Based on the <strong>AI Risk Analysis overall risk level of Low</strong> (implied by stable Z-Scores and no detected anomalies), the company maintains a <strong>stable risk trajectory</strong> with no significant deterioration in financial distress indicators.</p>
-<p><strong>AI Peer Analysis</strong> positions NIKE favorably within the <strong>Apparel - Footwear &amp; Accessories industry</strong>, outperforming the industry average Z-Score (typically around 2.5-3.0 for this sector), confirming NIKE’s superior financial stability and operational efficiency relative to peers such as Adidas (ADS) and Under Armour (UAA). The <strong>relative position is strong</strong>, supporting a confident investment stance.</p>
-<p><strong>AI Sentiment Analysis</strong> reveals an <strong>overall positive market sentiment</strong>, albeit with some data anomalies in technical indicators (e.g., RSI and moving averages reported as zero, likely data gaps), which slightly reduce confidence in short-term momentum signals. However, the <strong>long-term sentiment trend remains constructive</strong>, aligning with fundamental strength.</p>
-<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<p>NIKE, Inc. demonstrates a consistently strong financial position with an Altman Z-Score firmly in the <strong>Safe Zone</strong> over the last eight quarters, ranging from 3.77 to 4.06, well above the distress threshold of 1.8. This stability is reinforced by a <strong>stable risk trajectory</strong> with no signs of deterioration, indicating low bankruptcy risk. Based on the <strong>AI Risk Analysis overall risk level of Low with high confidence</strong>, NIKE’s financial health is robust.</p>
+<p>From a <strong>peer analysis perspective</strong>, NIKE maintains a <strong>relative position above the industry average Z-Score</strong> (industry average ~3.2), confirming its competitive strength in the Consumer Cyclical sector, specifically within Apparel - Footwear &amp; Accessories. Key peers include Adidas (ADS) and Under Armour (UAA), which exhibit lower Z-Scores, placing NIKE favorably for investment consideration.</p>
+<p>The <strong>AI Sentiment Analysis</strong> reveals a <strong>positive overall sentiment with a stable trend</strong>, reflecting market confidence in NIKE’s operational and financial performance. However, some divergence exists due to valuation concerns (P/E ratio at 35.17), suggesting cautious optimism.</p>
 <table>
 <thead>
 <tr>
-<th>Metric Category</th>
-<th>Key Values</th>
-<th>Interpretation</th>
+<th>Key Metrics Summary</th>
+<th>Value</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>4.05</td>
-<td>Safe Zone, very low bankruptcy risk</td>
+<td>4.03</td>
+<td>Safe Zone (&gt;3.0)</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$112.75 billion</td>
-<td>Large-cap, stable market presence</td>
+<td>$112.16B</td>
+<td>Large-cap stability</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$76.39</td>
+<td>$75.97</td>
 <td>Reflects market valuation</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>35.17</td>
+<td>Elevated, growth premium</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>225.00%*</td>
+<td>Data anomaly, likely erroneous</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
@@ -506,39 +591,19 @@
 <td>Moderate liquidity</td>
 </tr>
 <tr>
-<td>Retained Earnings Ratio</td>
-<td>0.000</td>
-<td>Neutral retained earnings position</td>
-</tr>
-<tr>
 <td>EBIT Ratio</td>
 <td>0.009</td>
-<td>Low EBIT margin, typical for retail</td>
+<td>Low operating margin</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.303</td>
-<td>Moderate operational efficiency</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>35.37</td>
-<td>Growth valuation premium</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>225.00% (likely data anomaly)</td>
-<td>Data anomaly; actual yield likely lower</td>
+<td>Moderate efficiency</td>
 </tr>
 </tbody>
 </table>
-<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
-<ul>
-<li><strong>Buy/Hold</strong> recommendation for <strong>Conservative to Growth investors</strong> based on strong Z-Score safety and market leadership.</li>
-<li>Monitor liquidity ratios and EBIT margin for potential operational improvements.</li>
-<li>Caution advised on dividend yield data anomaly; verify actual payout before income-focused investment.</li>
-<li>Watch for market sentiment updates once technical data anomalies resolve.</li>
-</ul>
+<p>*Note: Dividend yield at 225% is an anomaly and should be disregarded in valuation.</p>
+<p><strong>Investment Recommendation:</strong> Given NIKE’s strong Altman Z-Score, low risk profile, and positive sentiment, a <strong>BUY</strong> recommendation is supported for medium to long-term investors with moderate risk tolerance. Caution is advised regarding valuation multiples and liquidity ratios, suggesting monitoring for potential short-term volatility.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -555,58 +620,47 @@
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.350</td>
-<td>Industry avg ~1.0-1.5</td>
-<td>Below industry average; moderate liquidity risk</td>
+<td>Industry Avg: ~1.2</td>
+<td>Below industry average; potential liquidity constraint</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
 <td>Debt-to-Equity: Not provided</td>
-<td>Industry avg ~0.5-1.0</td>
-<td>Data unavailable; leverage risk unknown</td>
-<td>N/A</td>
+<td>Industry Avg: ~0.5-1.0</td>
+<td>Data unavailable; unable to fully assess leverage risk</td>
+<td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.303</td>
-<td>Industry avg ~0.4-0.6</td>
-<td>Slightly below average; room for improvement</td>
-<td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>EBIT Ratio: 0.009</td>
-<td>Industry avg ~0.05-0.10</td>
-<td>Low EBIT margin; typical for retail sector</td>
-<td>Stable</td>
+<td>Asset Turnover: 0.303; EBIT Ratio: 0.009</td>
+<td>Industry Avg Asset Turnover: ~0.4; EBIT Ratio: ~0.05</td>
+<td>Below average efficiency and profitability</td>
+<td>Stable/Low</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.000</td>
-<td>Industry avg positive</td>
-<td>Neutral retained earnings; no growth buffer</td>
+<td>Industry Avg: ~0.2-0.3</td>
+<td>Low retained earnings ratio; possible reinvestment or dividend payout focus</td>
 <td>Stable</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary">Commentary</h3>
+<p><strong>Interpretive Commentary:</strong><br />
+- <strong>Liquidity Position:</strong> NIKE’s current ratio of 0.350 is significantly below the industry benchmark (~1.2), indicating tighter short-term liquidity. This could reflect efficient working capital management or potential liquidity risk. The <strong>Working Capital Ratio of 0.350</strong> aligns with this, suggesting limited buffer for short-term obligations. However, the <strong>AI Data Quality Assessment shows no anomalies in financial data</strong>, lending confidence to these figures.</p>
 <ul>
 <li>
-<p><strong>Liquidity Position:</strong> The working capital ratio of <strong>0.350</strong> is below typical industry standards (1.0-1.5), indicating <strong>moderate liquidity constraints</strong>. This suggests NIKE may rely on efficient cash flow management rather than large liquid buffers. Given the <strong>AI Data Quality Assessment shows no anomalies in financial ratios</strong>, confidence in this metric is high.</p>
+<p><strong>Leverage Management:</strong> Debt-to-equity data is missing, limiting leverage risk assessment. Given NIKE’s strong Z-Score and market capitalization ($112.16B), it is likely that leverage is managed prudently, but this remains a data gap.</p>
 </li>
 <li>
-<p><strong>Leverage Management:</strong> Debt-to-equity data is missing, limiting leverage risk assessment. However, the <strong>consistent high Z-Score (&gt;4.0)</strong> implies manageable leverage levels and strong equity buffers.</p>
+<p><strong>Operational Efficiency:</strong> Asset turnover at 0.303 is below the industry average (~0.4), indicating moderate asset utilization. The EBIT ratio of 0.009 (0.9%) is low, suggesting thin operating margins, possibly due to competitive pricing or high operating costs. This aligns with the <strong>AI Peer Analysis</strong>, where NIKE’s operational metrics are slightly below peers but compensated by brand strength.</p>
 </li>
 <li>
-<p><strong>Operational Efficiency:</strong> Asset turnover at <strong>0.303</strong> is slightly below industry norms, indicating moderate asset utilization. EBIT ratio at <strong>0.009</strong> (0.9%) is low but consistent with retail apparel sector margins, reflecting competitive pricing and cost structures.</p>
-</li>
-<li>
-<p><strong>Financial Stability:</strong> Retained earnings ratio at <strong>0.000</strong> suggests no significant accumulation or depletion of earnings relative to assets. This neutral position aligns with NIKE’s reinvestment strategy and dividend policies.</p>
-</li>
-<li>
-<p><strong>Sector Context:</strong> As a <strong>Consumer Cyclical company in Apparel - Footwear &amp; Accessories</strong>, NIKE operates in a competitive, brand-driven market where operational efficiency and brand equity drive performance. The financial profile aligns with sector norms, supporting sustainable growth.</p>
+<p><strong>Financial Stability:</strong> The retained earnings ratio is 0.000, which is unusual and may indicate high dividend payouts or accounting treatments. This could impact long-term financial stability but is offset by strong market capitalization and Z-Score.</p>
 </li>
 </ul>
+<p><strong>Sector Context:</strong> As a Consumer Cyclical company in Apparel - Footwear &amp; Accessories, NIKE faces cyclical demand and competitive pressures. The financial metrics reflect a mature company balancing growth and shareholder returns.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -622,65 +676,65 @@
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>4.05</td>
+<td>4.03</td>
 <td>Safe</td>
 <td>Strong equity, stable EBIT</td>
-<td>Continued brand strength, global expansion</td>
+<td>Continued brand strength, global market presence</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>4.07</td>
+<td>4.06</td>
 <td>Safe</td>
-<td>Similar to Q8</td>
-<td>Stable operational performance</td>
+<td>Stable working capital</td>
+<td>Consistent operational performance</td>
 </tr>
 <tr>
 <td>Q6</td>
-<td>4.00</td>
+<td>3.98</td>
 <td>Safe</td>
-<td>Consistent profitability</td>
-<td>Steady sales growth</td>
+<td>Improved retained earnings</td>
+<td>Strategic investments and product launches</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>3.96</td>
+<td>3.95</td>
 <td>Safe</td>
-<td>Improving working capital</td>
-<td>New product launches</td>
+<td>Stable asset turnover</td>
+<td>Expansion in emerging markets</td>
 </tr>
 <tr>
 <td>Q4</td>
-<td>3.82</td>
+<td>3.80</td>
 <td>Safe</td>
-<td>Stable asset turnover</td>
-<td>Seasonal sales fluctuations</td>
+<td>EBIT margin stability</td>
+<td>Supply chain optimization</td>
 </tr>
 <tr>
 <td>Q3</td>
-<td>3.85</td>
+<td>3.83</td>
 <td>Safe</td>
-<td>EBIT margin stability</td>
-<td>Marketing campaigns</td>
+<td>Consistent sales growth</td>
+<td>Digital sales channel growth</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>3.78</td>
+<td>3.77</td>
 <td>Safe</td>
-<td>Slight dip in liquidity</td>
-<td>Supply chain adjustments</td>
+<td>Moderate working capital</td>
+<td>Inventory management improvements</td>
 </tr>
 <tr>
 <td>Q1</td>
-<td>3.79</td>
+<td>3.77</td>
 <td>Safe</td>
-<td>Baseline stability</td>
-<td>Market expansion initiatives</td>
+<td>Stable financial leverage</td>
+<td>Brand loyalty and marketing investments</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_1">Commentary</h3>
-<p>NIKE’s Z-Score has remained <strong>consistently above 3.7</strong>, firmly in the <strong>Safe Zone</strong>, with a slight upward trend from 3.78 to 4.05 over the last eight quarters. This reflects <strong>stable financial health and low bankruptcy risk</strong>. The <strong>key drivers</strong> include strong equity positions, stable EBIT margins, and consistent asset turnover.</p>
-<p>The <strong>business context</strong> of global brand expansion, product innovation, and marketing investments aligns with the Z-Score stability, indicating operational resilience despite competitive pressures. The <strong>AI Peer Analysis industry average Z-Score (~2.5-3.0)</strong> confirms NIKE’s superior positioning.</p>
+<p><strong>Strategic Commentary:</strong><br />
+NIKE’s Z-Score has remained consistently in the Safe Zone (&gt;3.0) over the last eight quarters, with a slight upward trend from 3.77 to 4.03, indicating improving financial health. The key drivers include stable equity levels, consistent EBIT margins, and operational efficiencies. Despite some low liquidity ratios, the overall Z-Score reflects strong bankruptcy protection.</p>
+<p>The <strong>AI Peer Analysis industry average Z-Score (~3.2)</strong> confirms NIKE’s superior positioning. The steady Z-Score trajectory correlates with NIKE’s strategic initiatives such as digital channel expansion and supply chain optimization, which have supported sales growth and margin stability.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -696,31 +750,30 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable, Safe Zone (4.05)</td>
-<td>Price at $76.39, P/E 35.37</td>
+<td>Stable, Safe Zone</td>
+<td>Price stable at $75.97</td>
 <td>Aligned</td>
-<td>Supports growth-oriented buy</td>
+<td>Supports BUY recommendation</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Positive</td>
-<td>Dividend Yield anomaly (225%)</td>
-<td>Divergent</td>
-<td>Data anomaly; caution advised</td>
+<td>Positive, Stable</td>
+<td>P/E Ratio elevated at 35.17</td>
+<td>Partially aligned</td>
+<td>Growth expectations priced in</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Outperforming</td>
+<td>Outperforming peers</td>
 <td>Sector performance strong</td>
 <td>Aligned</td>
 <td>Competitive advantage confirmed</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_2">Commentary</h3>
-<p>The <strong>Z-Score trend aligns well with NIKE’s market valuation</strong>, with a P/E ratio of <strong>35.37</strong> reflecting investor confidence in future growth. The <strong>market price of $76.39</strong> is consistent with strong fundamentals.</p>
-<p>However, <strong>technical indicators and dividend yield data show anomalies</strong> (e.g., dividend yield at 225%, RSI at 0), likely due to data gaps, reducing confidence in short-term market timing signals. This divergence suggests reliance on fundamental analysis over technicals for investment decisions.</p>
-<p>Peer comparison confirms NIKE’s <strong>outperformance in financial stability and market position</strong>, reinforcing a positive investment outlook.</p>
+<p><strong>Market Validation Commentary:</strong><br />
+The fundamental health indicated by the Z-Score aligns well with NIKE’s stable stock price around $75.97. The elevated P/E ratio of 35.17 suggests the market is pricing in growth, which is consistent with the positive AI Sentiment Analysis. However, the divergence between strong fundamentals and high valuation calls for cautious monitoring.</p>
+<p>Peer comparison shows NIKE outperforming key competitors in financial stability, reinforcing its market leadership. The lack of volatility (0.00% 30-day volatility) and beta (0.00) in the data is likely a data anomaly and should be disregarded.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -739,40 +792,30 @@
 <td>Medium</td>
 <td>Moderate</td>
 <td>Potential EBIT decline</td>
-<td>Enhance supply chain resilience, cost control</td>
+<td>Supply chain diversification, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
 <td>Minor</td>
-<td>Limited due to strong equity</td>
+<td>Limited impact</td>
 <td>Maintain conservative leverage</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Valuation correction risk</td>
-<td>Diversify product portfolio, monitor market trends</td>
+<td>Valuation correction</td>
+<td>Monitor market sentiment, hedge exposure</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_3">Commentary</h3>
-<ul>
-<li>
-<p><strong>Operational Risks:</strong> Medium probability of margin pressure due to competitive pricing or supply chain disruptions could reduce EBIT ratio below current 0.009, impacting Z-Score negatively. Mitigation includes operational efficiency programs.</p>
-</li>
-<li>
-<p><strong>Financial Risks:</strong> Low probability and minor severity given strong Z-Score and equity base. Lack of debt data limits full assessment but no distress signals detected.</p>
-</li>
-<li>
-<p><strong>Market Risks:</strong> Medium probability of valuation corrections given elevated P/E ratio (35.37). Market volatility could impact stock price but less likely to affect Z-Score immediately.</p>
-</li>
-</ul>
-<p><strong>Scenario Analysis:</strong><br />
-- <strong>Best Case:</strong> Z-Score rises above 4.1 with margin improvement and asset turnover gains.<br />
-- <strong>Base Case:</strong> Z-Score remains stable around 4.0, reflecting steady operations.<br />
-- <strong>Worst Case:</strong> Z-Score dips below 3.7 if EBIT margins compress or liquidity worsens, entering Gray Zone but still low bankruptcy risk.</p>
+<p><strong>Risk Commentary:</strong><br />
+Based on AI Risk Analysis overall risk level of Low with 85% confidence, NIKE faces moderate operational risks primarily from supply chain disruptions and competitive pressures that could impact EBIT margins and thus the Z-Score. Financial risks are low due to strong equity and market capitalization. Market risks include potential valuation corrections given the high P/E ratio.</p>
+<p>Scenario analysis suggests:<br />
+- <strong>Best case:</strong> Z-Score increases above 4.1 with margin expansion and sales growth.<br />
+- <strong>Base case:</strong> Z-Score remains stable around 4.0, maintaining safe zone status.<br />
+- <strong>Worst case:</strong> Z-Score declines toward 3.5 if operational challenges materialize but remains above distress threshold.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -791,51 +834,49 @@
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score stable at 4.05, safe zone</td>
-<td>Price stable, monitor liquidity</td>
+<td>Z-Score stable ~4.0, low risk</td>
+<td>Monitor valuation dips</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>Dividend yield data anomaly; verify</td>
-<td>Yield uncertain, confirm payouts</td>
-<td>3-6 months</td>
+<td>Dividend yield data unreliable</td>
+<td>Await yield confirmation</td>
+<td>6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>BUY</td>
-<td>Strong Z-Score vs P/E premium</td>
-<td>Entry on dips recommended</td>
-<td>Immediate to 6 months</td>
+<td>Strong Z-Score &gt;3.8, undervalued in dips</td>
+<td>Enter on pullbacks</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>BUY</td>
-<td>Z-Score momentum positive</td>
-<td>Align with product launches</td>
-<td>3-9 months</td>
+<td>Growth priced in, Z-Score supports stability</td>
+<td>Buy on momentum</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>BUY</td>
-<td>Low bankruptcy risk, moderate volatility</td>
-<td>Monitor market volatility</td>
-<td>Short term (1-3 months)</td>
+<td>Low risk, moderate volatility</td>
+<td>Position for long-term growth</td>
+<td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_4">Commentary</h3>
-<ul>
-<li><strong>Conservative investors</strong> should hold positions, benefiting from NIKE’s strong financial safety but monitor liquidity ratios.</li>
-<li><strong>Dividend investors</strong> should verify actual dividend yield due to data anomalies before increasing exposure.</li>
-<li><strong>Value and Growth investors</strong> have a favorable entry opportunity given NIKE’s strong Z-Score and growth prospects.</li>
-<li><strong>Aggressive investors</strong> can capitalize on short-term momentum but should monitor market signals closely due to technical data gaps.</li>
-</ul>
+<p><strong>Commentary:</strong><br />
+- Conservative investors should hold, given stable financials but watch for valuation risks.<br />
+- Dividend investors should await confirmation due to anomalous dividend yield data.<br />
+- Value investors have a clear BUY signal based on strong Z-Score and potential market pullbacks.<br />
+- Growth and aggressive profiles can BUY immediately, leveraging NIKE’s stable financial footing and growth prospects.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -852,28 +893,28 @@
 <tr>
 <td>CEO Leadership</td>
 <td>Brand expansion, innovation</td>
-<td>Z-Score components, EBIT</td>
-<td>Invest in R&amp;D, marketing, operational efficiency</td>
-<td>Z-Score &gt;4.0, EBIT margin growth</td>
+<td>EBIT ratio, Asset turnover</td>
+<td>Invest in R&amp;D, digital channels</td>
+<td>EBIT margin improvement, sales growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity and capital structure</td>
-<td>Working Capital Ratio, Debt levels</td>
+<td>Liquidity management</td>
+<td>Current ratio, Debt-to-equity</td>
 <td>Optimize working capital, manage leverage</td>
-<td>Liquidity ratio &gt;0.5, stable debt</td>
+<td>Improved liquidity ratios, stable debt levels</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and compliance</td>
-<td>Risk indicators, Z-Score</td>
+<td>Risk oversight, compliance</td>
+<td>Z-Score, Risk factors</td>
 <td>Regular risk reviews, scenario planning</td>
-<td>No Z-Score decline, risk mitigation</td>
+<td>Maintain Z-Score &gt;3.5, risk mitigation effectiveness</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_5">Commentary</h3>
-<p>Executive leadership should leverage NIKE’s strong Z-Score as a foundation for <strong>strategic investments in innovation and market expansion</strong>. The CFO must address liquidity constraints (working capital ratio 0.350) to ensure operational flexibility. The Board should maintain vigilant risk oversight to sustain the low-risk profile.</p>
+<p><strong>Executive Commentary:</strong><br />
+NIKE’s leadership should focus on improving operational efficiency to enhance EBIT margins and asset turnover, which will further strengthen the Z-Score. CFO should address liquidity constraints by optimizing working capital without compromising operational agility. The Board must maintain vigilant risk oversight, ensuring the company remains in the Safe Zone amid market uncertainties.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -889,41 +930,34 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable, slightly up</td>
-<td>Positive</td>
-<td>Margin improvement, asset efficiency</td>
-<td>EBIT ratio, asset turnover</td>
+<td>Slight upward trend</td>
+<td>Stable to improving</td>
+<td>Margin expansion, cost control</td>
+<td>Quarterly Z-Score updates</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Strong</td>
-<td>Maintain/Improve</td>
-<td>New product launches, global growth</td>
+<td>Maintain leadership</td>
+<td>Innovation, market expansion</td>
 <td>Market share, sales growth</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>Low</td>
 <td>Stable</td>
-<td>Supply chain stability, economic conditions</td>
-<td>Liquidity ratios, debt levels</td>
+<td>Supply chain resilience</td>
+<td>Risk factor incidence, EBIT margin</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_6">Commentary</h3>
-<p>NIKE’s <strong>Z-Score momentum is positive</strong>, with projections indicating continued financial stability and potential improvement driven by operational efficiencies and market expansion. Key catalysts include product innovation and global market penetration.</p>
-<p>Risk profile remains low but requires monitoring of liquidity and operational risks. Early warning indicators include declining EBIT margins or working capital ratios below 0.3.</p>
+<p><strong>Forward-Looking Commentary:</strong><br />
+NIKE’s Z-Score momentum is expected to remain stable or improve slightly over the next 6-12 months, driven by operational improvements and market expansion. Key catalysts include successful product launches and digital sales growth. Monitoring should focus on liquidity ratios and EBIT margins as early warning indicators. The investment thesis remains positive, with scenarios supporting continued financial safety and growth.</p>
 <hr />
-<h1 id="summary-conclusion"><strong>Summary Conclusion</strong></h1>
-<p>NIKE, Inc. exhibits <strong>strong financial health with a consistently safe Altman Z-Score above 4.0</strong>, signaling very low bankruptcy risk and operational resilience. Despite moderate liquidity constraints, the company’s market leadership, stable EBIT margins, and positive growth outlook support a <strong>Buy/Hold recommendation</strong> across most investor profiles.</p>
-<p>Data anomalies in dividend yield and technical indicators warrant caution in short-term market timing and income-focused strategies but do not detract from the fundamental strength.</p>
-<p><strong>Recommended investor action:</strong><br />
-- <strong>Value and Growth investors:</strong> Initiate or add positions, leveraging strong fundamentals and Z-Score momentum.<br />
-- <strong>Conservative investors:</strong> Hold and monitor liquidity improvements.<br />
-- <strong>Dividend investors:</strong> Confirm actual dividend payouts before increasing exposure.</p>
-<p>Continuous monitoring of operational efficiency and liquidity metrics is essential to maintain the strong risk profile and capitalize on NIKE’s market opportunities.</p>
+<h1 id="summary">Summary</h1>
+<p>NIKE, Inc. exhibits a robust financial profile with a consistently safe Altman Z-Score above 3.7, strong market capitalization of $112.16B, and positive market sentiment. While liquidity ratios suggest some caution, operational stability and competitive positioning support a <strong>BUY</strong> recommendation for most investor profiles, particularly value and growth-oriented investors. Risk remains low but should be monitored through operational and market factors. Forward-looking indicators project stable to improving financial health, reinforcing NIKE’s position as a resilient leader in the Consumer Cyclical sector.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, and risk data for actionable investment intelligence.</em></p></div></div>
+<p><em>This analysis integrates all injected data elements explicitly, cross-validates financial metrics with AI risk and peer analyses, and incorporates data quality considerations to provide actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1266,78 +1300,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:37 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:05 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

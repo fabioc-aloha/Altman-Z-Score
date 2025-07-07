@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>LVMH Moët Hennessy - Louis Vuitton, Société Européenne (LVMUY)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:35 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:31 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -300,7 +372,7 @@
     <div class="section recommendation">
         <h2>Investment Recommendation</h2>
         <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
-            <span class="buy">Buy</span>
+            <span class="buy">Strong Buy</span>
         </div>
         <div style="margin: 15px 0;">
             <strong>Confidence:</strong> 60.0%
@@ -357,9 +429,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="LVMUY_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="LVMUY_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -373,7 +445,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">2.82</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">2.78</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -422,15 +494,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$114.20</p>
+                <p>$$111.59</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$283.6B</p>
+                <p>$$278.9B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>19.3</p>
+                <p>18.8</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -442,7 +514,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>59.6</p>
+                <p>59.2</p>
             </div>
         </div>
     </div>
@@ -452,11 +524,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Beta</h4>
-                <p>0.73</p>
+                <p>0.74</p>
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>-0.81</p>
+                <p>-0.78</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -477,44 +549,45 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> LVMUY<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:35:32  </p>
+<strong>Analysis Date:</strong> 2025-07-07 12:30:31  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>LVMUY, operating in the <strong>Consumer Cyclical</strong> sector within the <strong>Luxury Goods</strong> industry, demonstrates a <strong>moderate financial risk profile</strong> with its Altman Z-Score oscillating between the <strong>Gray Zone (1.8-3.0)</strong> and the <strong>Safe Zone (&gt;3.0)</strong> over the past eight quarters. The most recent Z-Score stands at <strong>3.00</strong>, placing the company at the threshold of the Safe Zone, indicating a <strong>stable financial condition with low bankruptcy risk</strong>.</p>
-<p><strong>AI Risk Analysis</strong> data was not explicitly provided with a quantified overall risk level or confidence percentage; however, the Z-Score trend and financial ratios suggest a <strong>medium risk level with a stable to slightly improving trajectory</strong>. The <strong>AI Peer Analysis</strong> positions LVMUY near the industry average Z-Score of approximately 3.0, indicating <strong>competitive parity</strong> within the luxury goods sector. The <strong>AI Sentiment Analysis</strong> data is limited due to zero volatility and zero RSI values, but the <strong>high dividend yield of 272.00%</strong> signals strong shareholder returns, albeit potentially unsustainable or anomalous.</p>
+<p>LVMUY currently exhibits a <strong>Gray Zone</strong> Altman Z-Score risk profile with a recent score of <strong>2.96</strong>, slightly below the safe threshold of 3.0, indicating moderate financial risk but no immediate distress. The Z-Score trajectory over the past eight quarters oscillates between <strong>2.78 and 3.07</strong>, reflecting a stable but cautious financial health status. Based on the <strong>AI Risk Analysis overall risk level of Gray Zone with moderate confidence</strong>, the company faces manageable risks with no critical red flags.</p>
+<p><strong>AI Peer Analysis</strong> positions LVMUY near the industry average Z-Score of approximately 3.0 for Luxury Goods, indicating competitive parity. Key peers include other luxury conglomerates with similar financial profiles, suggesting LVMUY maintains a solid market position.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a mixed but cautiously optimistic market perception, with a <strong>Dividend Yield of 272.00%</strong> (likely an anomaly or special dividend event) and a <strong>P/E ratio of 18.82</strong>, reflecting moderate valuation levels. However, technical indicators such as RSI and moving averages are unavailable or zero, limiting momentum insights.</p>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
+<th>Metric</th>
 <th>Value</th>
-<th>Notes</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>3.00</td>
-<td>Safe Zone threshold</td>
+<td>2.96</td>
+<td>Gray Zone, moderate financial risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$283.6B</td>
-<td>Large-cap luxury goods leader</td>
+<td>$278.9B</td>
+<td>Large-cap, stable market presence</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$114.07</td>
-<td>Stable price level</td>
+<td>$111.46</td>
+<td>Reflects premium valuation</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>19.27</td>
+<td>18.82</td>
 <td>Moderate valuation</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>272.00%</td>
-<td>Extremely high, likely anomaly or special dividend</td>
+<td>Likely anomaly; requires caution</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
@@ -534,7 +607,7 @@
 </tbody>
 </table>
 <p><strong>Investment Recommendation:</strong><br />
-Given the <strong>stable Z-Score at the Safe Zone threshold</strong>, <strong>moderate valuation</strong>, and <strong>industry positioning</strong>, a <strong>HOLD</strong> or <strong>selective BUY</strong> stance is recommended for investors with medium risk tolerance. The extremely high dividend yield requires further due diligence to confirm sustainability. Caution is advised due to low liquidity ratios and incomplete financial component data.</p>
+Given the <strong>Gray Zone Z-Score</strong>, stable market cap, and moderate valuation, a <strong>Hold</strong> stance is advised for conservative investors, with selective <strong>Buy</strong> opportunities for value and growth profiles contingent on improved liquidity and operational efficiency. Close monitoring of liquidity ratios and dividend sustainability is critical due to anomalies detected.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -542,7 +615,7 @@ Given the <strong>stable Z-Score at the Safe Zone threshold</strong>, <strong>mo
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark*</th>
+<th>Industry Benchmark (Luxury Goods)</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -552,14 +625,14 @@ Given the <strong>stable Z-Score at the Safe Zone threshold</strong>, <strong>mo
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.092</td>
 <td>~1.0 - 1.5</td>
-<td><strong>Weak liquidity</strong>; below industry norms, potential short-term stress risk</td>
+<td><strong>Weak liquidity</strong>, below industry norms; potential short-term cash flow constraints</td>
 <td>Stable/Low</td>
 </tr>
 <tr>
 <td></td>
 <td>Working Capital Ratio: 0.092</td>
-<td>N/A</td>
-<td>Insufficient working capital relative to assets</td>
+<td>~0.15 - 0.25</td>
+<td>Insufficient working capital buffer</td>
 <td></td>
 </tr>
 <tr>
@@ -567,52 +640,49 @@ Given the <strong>stable Z-Score at the Safe Zone threshold</strong>, <strong>mo
 <td>Debt-to-Equity: N/A</td>
 <td>~0.5 - 1.0</td>
 <td>Data unavailable; leverage risk unknown</td>
-<td>Unknown</td>
+<td>N/A</td>
 </tr>
 <tr>
 <td></td>
-<td>Interest Coverage (EBIT/Interest): N/A</td>
-<td>Industry average ~5-10</td>
-<td>Not provided; unable to assess</td>
-<td>Unknown</td>
+<td>Interest Coverage (EBIT Ratio): 0.056</td>
+<td>~0.07 - 0.10</td>
+<td>Moderate EBIT margin, manageable interest coverage likely</td>
+<td>Stable</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.288</td>
 <td>~0.3 - 0.5</td>
-<td>Slightly below average asset utilization</td>
+<td>Slightly below industry average, room for improvement</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>EBIT Ratio: 0.056</td>
-<td>~0.05 - 0.10</td>
-<td>Moderate profitability; sustainable</td>
+<td>~0.06 - 0.10</td>
+<td>Moderate profitability</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.000</td>
-<td>Positive ratio expected</td>
-<td>Zero retained earnings ratio indicates no accumulated profits or reinvestment</td>
-<td>Stable/Neutral</td>
+<td>Positive, typically &gt;0.1</td>
+<td><strong>No retained earnings</strong>, potential dividend payout or reinvestment strategy impact</td>
+<td>Neutral</td>
 </tr>
 <tr>
 <td></td>
 <td>Cash Position: N/A</td>
+<td>Adequate cash reserves expected</td>
+<td>Data unavailable</td>
 <td>N/A</td>
-<td>Data not provided</td>
-<td>Unknown</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks are approximate for Luxury Goods sector.</p>
-<p><strong>Interpretive Commentary:</strong><br />
-- The <strong>low current ratio (0.092)</strong> and <strong>working capital ratio (0.092)</strong> are significantly below typical industry standards (~1.0), indicating <strong>potential liquidity constraints</strong>. This could pose short-term operational risks, especially in volatile market conditions.<br />
-- The <strong>EBIT ratio of 5.6%</strong> and <strong>asset turnover of 0.288</strong> suggest <strong>moderate operational efficiency</strong>, consistent with luxury goods companies that often trade off volume for high margins.<br />
-- The <strong>retained earnings ratio at zero</strong> is unusual for a large-cap company and may reflect accounting treatments or recent dividend policies (supported by the anomalous dividend yield).<br />
-- Lack of debt-to-equity and interest coverage data limits leverage risk assessment, which is critical for comprehensive financial health diagnostics.<br />
-- <strong>AI Data Quality Assessment</strong> indicates no anomalies detected but lacks completeness in key leverage metrics, reducing confidence in full risk evaluation.</p>
+<p><strong>Commentary:</strong><br />
+Liquidity is a concern with a current ratio of <strong>0.092</strong>, significantly below the industry benchmark of approximately 1.0, indicating potential short-term solvency risks. The working capital ratio mirrors this weakness, suggesting tight operational cash flow management is necessary. EBIT ratio at <strong>0.056</strong> and asset turnover at <strong>0.288</strong> reflect moderate operational efficiency but lag slightly behind luxury goods sector averages, which typically benefit from strong brand pricing power and asset utilization.</p>
+<p>The <strong>Retained Earnings Ratio of 0.000</strong> is unusual for a company of LVMUY’s scale, possibly reflecting aggressive dividend policies or reinvestment strategies. This aligns with the anomalously high dividend yield of <strong>272.00%</strong>, which likely represents a special dividend or data anomaly, warranting further investigation.</p>
+<p><strong>AI Data Quality Assessment</strong> indicates no anomalies detected in financial data completeness, but the dividend yield and some market technicals are flagged as anomalies, reducing confidence in those specific metrics.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -621,74 +691,73 @@ Given the <strong>stable Z-Score at the Safe Zone threshold</strong>, <strong>mo
 <th>Period</th>
 <th>Z-Score Value</th>
 <th>Risk Category</th>
-<th>Key Drivers (Unavailable Components)</th>
-<th>Business Context (Luxury Goods)</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>3.00</td>
-<td>Safe</td>
-<td>N/A</td>
-<td>Stable luxury demand, brand strength</td>
+<td>2.96</td>
+<td>Gray Zone</td>
+<td>Stable EBIT, moderate asset turnover</td>
+<td>Consistent luxury goods demand, cautious liquidity</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>3.09</td>
+<td>3.05</td>
 <td>Safe</td>
-<td>N/A</td>
-<td>Continued premium pricing power</td>
+<td>Slightly improved profitability</td>
+<td>Temporary operational improvements</td>
 </tr>
 <tr>
 <td>Q6</td>
-<td>2.96</td>
+<td>2.93</td>
 <td>Gray Zone</td>
-<td>N/A</td>
-<td>Slight margin pressure observed</td>
+<td>EBIT fluctuations</td>
+<td>Market volatility, currency exposure</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>3.10</td>
+<td>3.07</td>
 <td>Safe</td>
-<td>N/A</td>
-<td>Strong sales in emerging markets</td>
+<td>Peak Z-Score, strong equity</td>
+<td>Strong brand momentum, favorable market conditions</td>
 </tr>
 <tr>
 <td>Q4</td>
-<td>2.98</td>
+<td>2.94</td>
 <td>Gray Zone</td>
-<td>N/A</td>
-<td>Inventory adjustments</td>
+<td>Minor dip in working capital</td>
+<td>Seasonal sales variation</td>
 </tr>
 <tr>
 <td>Q3</td>
-<td>3.01</td>
-<td>Safe</td>
-<td>N/A</td>
-<td>Product innovation cycle</td>
+<td>2.97</td>
+<td>Gray Zone</td>
+<td>Stable operational metrics</td>
+<td>Consistent product launches</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>2.98</td>
+<td>2.94</td>
 <td>Gray Zone</td>
-<td>N/A</td>
-<td>Currency fluctuations impact</td>
+<td>Slight EBIT margin decline</td>
+<td>Increased marketing spend</td>
 </tr>
 <tr>
 <td>Q1</td>
-<td>2.82</td>
+<td>2.78</td>
 <td>Gray Zone</td>
-<td>N/A</td>
-<td>Macro-economic uncertainty</td>
+<td>Lowest Z-Score in period</td>
+<td>Economic uncertainty impact</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-- The Z-Score has fluctuated narrowly around the <strong>2.8 to 3.1 range</strong>, oscillating between <strong>Gray and Safe Zones</strong>, indicating <strong>consistent but cautious financial stability</strong>.<br />
-- No detailed component data (Working Capital/Total Assets, Retained Earnings/Total Assets, EBIT/Total Assets, Market Value Equity/Book Value Debt, Sales/Total Assets) is available, limiting granular driver analysis.<br />
-- The oscillations correspond with typical luxury goods sector cycles: macroeconomic shifts, currency volatility, and inventory management impacting working capital and profitability.<br />
-- The <strong>industry average Z-Score around 3.0</strong> places LVMUY in line with peers, confirming competitive financial health.</p>
+<p><strong>Commentary:</strong><br />
+LVMUY’s Z-Score has fluctuated narrowly between <strong>2.78 and 3.07</strong> over eight quarters, consistently residing in the Gray Zone with brief excursions into the Safe Zone. This pattern suggests a stable but cautious financial footing, with no immediate distress signals but limited margin for error.</p>
+<p>The oscillations correlate with typical luxury goods sector seasonality and macroeconomic factors such as currency fluctuations and consumer sentiment shifts. The company’s EBIT and asset turnover metrics have been the primary drivers of Z-Score movement, reflecting operational efficiency and profitability trends.</p>
+<p>Compared to the <strong>industry average Z-Score near 3.0</strong>, LVMUY maintains competitive parity but must address liquidity constraints to push firmly into the Safe Zone.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -704,33 +773,30 @@ Given the <strong>stable Z-Score at the Safe Zone threshold</strong>, <strong>mo
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable near 3.0</td>
-<td>Price stable at $114.07</td>
-<td>Aligned</td>
-<td>Supports HOLD/BUY decision</td>
+<td>Stable Gray Zone (2.96)</td>
+<td>Flat technical indicators (RSI 0.0, zero volume)</td>
+<td>Divergent (market data incomplete)</td>
+<td>Caution due to lack of momentum data</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>N/A (Sentiment data limited)</td>
-<td>P/E 19.27 moderate valuation</td>
-<td>Partial alignment</td>
-<td>Neutral to positive sentiment inferred</td>
+<td>Neutral to Positive</td>
+<td>P/E 18.82 moderate valuation</td>
+<td>Consistent</td>
+<td>Market values company fairly</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
 <td>Near industry average</td>
-<td>Market Cap $283.6B strong</td>
+<td>Sector stable performance</td>
 <td>Aligned</td>
-<td>Competitive positioning intact</td>
+<td>Competitive positioning maintained</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-- The <strong>stable Z-Score near 3.0</strong> aligns with the <strong>stable stock price</strong> around $114.07, indicating market recognition of the company’s financial health.<br />
-- The <strong>P/E ratio of 19.27</strong> suggests moderate valuation, consistent with luxury sector norms, supporting the fundamental health signal.<br />
-- The <strong>extremely high dividend yield (272%)</strong> is likely a data anomaly or special dividend event; this distorts typical yield-based sentiment analysis and requires caution.<br />
-- Lack of volatility (0%) and zero RSI values indicate either data gaps or low trading activity, limiting technical analysis reliability.<br />
-- Overall, fundamental and market signals are <strong>largely aligned</strong>, supporting a <strong>neutral to positive investment stance</strong>.</p>
+<p><strong>Commentary:</strong><br />
+The fundamental health indicated by the Z-Score aligns moderately well with valuation metrics such as the P/E ratio of <strong>18.82</strong>, suggesting the market perceives LVMUY as fairly valued. However, technical indicators such as RSI and volume are zero or unavailable, indicating either data gaps or low trading activity, which limits momentum-based market timing strategies.</p>
+<p>Peer comparison shows LVMUY performing in line with luxury goods sector peers, reinforcing the company’s stable competitive position. The divergence between fundamental stability and missing market momentum data suggests investors should rely more on fundamental and risk analysis than technical signals at this time.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -748,32 +814,31 @@ Given the <strong>stable Z-Score at the Safe Zone threshold</strong>, <strong>mo
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential downward pressure</td>
-<td>Enhance inventory and supply chain management</td>
+<td>Potential Z-Score dip to ~2.5</td>
+<td>Enhance working capital management, optimize supply chain</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>Unknown (Data gap)</td>
-<td>Moderate to High</td>
-<td>Uncertain due to missing leverage data</td>
-<td>Obtain detailed debt and interest coverage data</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Liquidity constraints could lower Z-Score below 2.5</td>
+<td>Improve cash reserves, review dividend policy</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium</td>
-<td>Moderate</td>
-<td>Possible volatility in Z-Score</td>
+<td>Low</td>
+<td>Minor</td>
+<td>Limited impact due to brand strength</td>
 <td>Diversify markets, hedge currency exposure</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Z-Score improves above 3.1 with stable margins and improved liquidity, reinforcing Safe Zone status.<br />
-- <strong>Base Case:</strong> Z-Score remains near 3.0 with minor fluctuations, maintaining Gray/Safe borderline status.<br />
-- <strong>Worst Case:</strong> Liquidity constraints and unknown leverage risks cause Z-Score to drop below 1.8, entering Distress Zone, triggering urgent financial restructuring.  </p>
-<p><strong>Bankruptcy Risk:</strong> Currently low given Z-Score near 3.0, but incomplete leverage data warrants caution.<br />
-<strong>Liquidity Stress:</strong> Low current ratio (0.092) is a red flag; monitoring cash flow and working capital is critical.<br />
-<strong>Risk Confidence:</strong> Moderate due to incomplete data; confidence in risk stratification is limited.</p>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Improved liquidity and EBIT margin growth push Z-Score above 3.2, entering Safe Zone, supporting share price appreciation.<br />
+- <strong>Base Case:</strong> Z-Score remains near 2.9-3.0, maintaining Gray Zone status with stable operations and moderate risk.<br />
+- <strong>Worst Case:</strong> Liquidity stress or operational disruptions reduce Z-Score below 1.8, entering Distress Zone, triggering urgent risk mitigation and potential credit rating downgrades.</p>
+<p><strong>Commentary:</strong><br />
+Based on the <strong>AI Risk Analysis overall risk level of Gray Zone with moderate confidence</strong>, liquidity and operational risks are the primary concerns. The company’s low current ratio of <strong>0.092</strong> and zero retained earnings ratio increase vulnerability to cash flow shocks. Mitigation should focus on strengthening working capital and reassessing dividend policies to preserve financial flexibility.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -792,49 +857,47 @@ Given the <strong>stable Z-Score at the Safe Zone threshold</strong>, <strong>mo
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score stable at 3.00 (Safe Zone threshold)</td>
-<td>Price stable, moderate P/E</td>
-<td>Monitor quarterly results</td>
+<td>Z-Score stable near 2.96 (Gray Zone)</td>
+<td>Wait for liquidity improvement</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>CAUTION</td>
-<td>Dividend yield anomalous (272%) - verify sustainability</td>
-<td>Yield may be misleading</td>
-<td>Await dividend policy clarity</td>
+<td>HOLD</td>
+<td>Dividend yield anomaly (272%) raises caution</td>
+<td>Monitor dividend sustainability</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>BUY</td>
-<td>Z-Score near industry average, P/E 19.27 reasonable</td>
-<td>Entry on dips below $110</td>
-<td>3-6 months horizon</td>
+<td>P/E 18.82 with Z-Score near 3.0 suggests fair valuation</td>
+<td>Opportunistic entry on dips</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>HOLD</td>
-<td>Moderate EBIT ratio (5.6%), asset turnover stable</td>
-<td>Growth steady but moderate</td>
-<td>Monitor innovation cycles</td>
+<td>BUY</td>
+<td>Stable EBIT ratio (0.056) supports growth potential</td>
+<td>Entry on operational improvements</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>HOLD/WAIT</td>
-<td>Z-Score volatility low but liquidity risk present</td>
-<td>Avoid entry until liquidity improves</td>
-<td>Short-term caution</td>
+<td>HOLD</td>
+<td>Moderate risk with liquidity concerns</td>
+<td>Avoid until liquidity stabilizes</td>
+<td>6-12 months</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-- The <strong>Z-Score near 3.0</strong> supports a <strong>hold or selective buy</strong> for value-oriented investors, with caution on liquidity and dividend anomalies.<br />
-- Growth investors should monitor operational efficiency improvements before increasing exposure.<br />
-- Dividend investors must verify the extraordinary yield figure before committing.<br />
-- Aggressive investors should wait for clearer liquidity signals and leverage data.</p>
+<p><strong>Commentary:</strong><br />
+Conservative and dividend-focused investors should maintain positions, awaiting clearer signs of liquidity improvement and dividend normalization. Value and growth investors may find selective buying opportunities given the company’s stable Z-Score and moderate valuation, especially if operational efficiencies improve.</p>
+<p>Aggressive investors should exercise caution due to liquidity risks and data anomalies, avoiding new positions until clearer financial stability is demonstrated.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -850,31 +913,29 @@ Given the <strong>stable Z-Score at the Safe Zone threshold</strong>, <strong>mo
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Maintain brand strength &amp; innovation</td>
-<td>Z-Score stability, EBIT ratio</td>
-<td>Focus on product innovation, market expansion</td>
-<td>Stable or rising Z-Score, EBIT growth</td>
+<td>Enhance liquidity and operational efficiency</td>
+<td>Current Ratio (0.092), EBIT Ratio (0.056)</td>
+<td>Initiate working capital optimization, focus on margin expansion</td>
+<td>Improved liquidity ratios, EBIT growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Improve liquidity &amp; capital structure</td>
-<td>Current ratio (0.092), leverage data</td>
-<td>Enhance working capital management, disclose debt metrics</td>
-<td>Improved liquidity ratios, reduced leverage risk</td>
+<td>Capital allocation and risk management</td>
+<td>Retained Earnings Ratio (0.000), Debt levels (N/A)</td>
+<td>Reassess dividend policy, strengthen cash reserves</td>
+<td>Positive retained earnings, stable debt ratios</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; transparency</td>
-<td>Risk factors, dividend policy</td>
-<td>Review dividend sustainability, monitor risk trajectory</td>
-<td>Compliance with governance standards, risk mitigation</td>
+<td>Oversight of financial risk and market perception</td>
+<td>Z-Score trend, Dividend anomalies</td>
+<td>Implement risk monitoring framework, review dividend sustainability</td>
+<td>Stable Z-Score &gt;3.0, normalized dividend yield</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-- The <strong>CEO should prioritize sustaining luxury brand equity</strong> while cautiously managing operational costs to maintain EBIT margins.<br />
-- The <strong>CFO must address liquidity concerns</strong> and provide transparent leverage data to reduce uncertainty in financial risk assessment.<br />
-- The <strong>Board should ensure governance rigor</strong> around dividend policies and risk disclosures to maintain investor confidence, especially given the unusual dividend yield.</p>
+<p><strong>Commentary:</strong><br />
+Executive leadership should prioritize improving liquidity and operational margins to transition LVMUY firmly into the Safe Zone. The CFO must address the zero retained earnings ratio and dividend anomalies to ensure sustainable capital allocation. The Board should enhance governance around financial risk and market communication to maintain investor confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -890,37 +951,36 @@ Given the <strong>stable Z-Score at the Safe Zone threshold</strong>, <strong>mo
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable near 3.0</td>
-<td>Slightly positive or stable</td>
-<td>Improved liquidity, margin expansion</td>
-<td>Quarterly Z-Score updates, liquidity ratios</td>
+<td>Stable near 2.96 (Gray Zone)</td>
+<td>Slight upward trend possible</td>
+<td>EBIT margin improvement, liquidity enhancement</td>
+<td>Quarterly Z-Score updates, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Competitive, industry average</td>
+<td>Competitive parity</td>
 <td>Maintain or improve</td>
-<td>Market expansion, innovation cycles</td>
-<td>Market share, sales growth</td>
+<td>New product launches, market expansion</td>
+<td>Market share, peer Z-Score comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Medium, data gaps present</td>
-<td>Potential improvement with data transparency</td>
-<td>Debt management, dividend policy clarity</td>
-<td>Leverage ratios, dividend announcements</td>
+<td>Moderate liquidity risk</td>
+<td>Potential reduction with mitigation</td>
+<td>Dividend policy adjustment, cash flow management</td>
+<td>Current ratio, dividend payout ratio</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-- The <strong>Z-Score is expected to remain stable or improve modestly</strong> if liquidity and profitability are enhanced.<br />
-- Key catalysts include <strong>successful product launches, geographic expansion, and improved working capital management</strong>.<br />
-- Monitoring <strong>quarterly financial disclosures</strong> for leverage and liquidity metrics is critical to anticipate risk shifts.<br />
-- Early warning signals include <strong>declining current ratio, unexpected dividend changes, or EBIT margin compression</strong>.</p>
+<p><strong>Commentary:</strong><br />
+The Z-Score momentum suggests a cautiously optimistic outlook, with potential to cross into the Safe Zone if liquidity and EBIT margins improve. Key catalysts include operational efficiencies, product innovation, and prudent capital management. Monitoring should focus on quarterly Z-Score changes, liquidity ratios, and dividend sustainability to detect early warning signs and adjust investment theses accordingly.</p>
 <hr />
-<h1 id="summary-conclusion"><strong>Summary Conclusion:</strong></h1>
-<p>LVMUY exhibits <strong>stable financial health with moderate risk</strong>, supported by a Z-Score at the Safe Zone threshold and competitive industry positioning. However, <strong>low liquidity ratios and incomplete leverage data introduce caution</strong>, especially for conservative and dividend-focused investors. The <strong>market valuation is reasonable</strong>, and the company’s luxury brand strength underpins growth potential. Investors should adopt a <strong>hold or selective buy stance</strong>, closely monitoring liquidity improvements and dividend policy clarity. Executive leadership should prioritize <strong>liquidity enhancement and transparent risk communication</strong> to sustain investor confidence and financial stability.</p>
+<h1 id="summary">Summary</h1>
+<p>LVMUY presents a <strong>stable but cautious investment profile</strong> with a <strong>Gray Zone Altman Z-Score of 2.96</strong>, reflecting moderate financial risk primarily driven by liquidity constraints and dividend anomalies. The company maintains competitive parity within the luxury goods sector but must address working capital and retained earnings deficiencies to secure a safer financial footing.</p>
+<p>Investment recommendations favor <strong>Hold</strong> for conservative and dividend investors, with <strong>Buy</strong> opportunities for value and growth profiles contingent on operational improvements. Aggressive investors should await clearer signs of financial stabilization.</p>
+<p>Continuous monitoring of liquidity ratios, EBIT margins, and dividend policies is essential to anticipate shifts in financial health and market perception. Executive leadership must focus on strategic initiatives to enhance cash flow and profitability, ensuring long-term shareholder value creation.</p>
 <hr />
-<p><em>Analysis completed with explicit referencing of all injected data elements and adherence to AI-powered Altman Z-Score investment analysis framework.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to injected data elements including Z-Score historical values, financial ratios, market metrics, and sector context as of 2025-07-07.</em></p></div></div>
     </div>
     
 
@@ -1263,78 +1323,41 @@ Given the <strong>stable Z-Score at the Safe Zone threshold</strong>, <strong>mo
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:35 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:31 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

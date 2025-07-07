@@ -1,0 +1,96 @@
+# ===============================================================================
+# PRIORITY FAILED TICKERS RETRY PORTFOLIO
+# Created: July 7, 2025
+# Purpose: High-priority failed tickers from comprehensive portfolio analysis
+# ===============================================================================
+
+# HIGH-PRIORITY US BLUE CHIP STOCKS THAT FAILED
+# These are major companies that should have complete data but failed processing
+# Likely due to timeout or temporary API issues
+
+# TECHNOLOGY GIANTS:
+META
+TSLA
+TSM
+
+# FINANCIAL SERVICES:
+BLK
+MA
+V
+BK
+C
+
+# HEALTHCARE & PHARMA:
+TMO
+UNH
+BNTX
+BMY
+
+# CONSUMER & RETAIL:
+TGT
+LOW
+MCD
+TJX
+
+# INDUSTRIAL & AEROSPACE:
+LMT
+CAT
+MMM
+LIN
+
+# COMMUNICATION & TELECOM:
+TMUS
+
+# TRAVEL & LOGISTICS:
+UBER
+UPS
+BKNG
+
+# ENERGY:
+LNG
+
+# SOFTWARE & CLOUD:
+MNDY
+
+# Additional timeout cases worth retrying:
+BILI
+BMA
+BMO
+BNS
+BSX
+BVN
+BX
+BYD
+C6L.SI
+CB
+CBRE
+CEG
+CEVA
+CHKP
+CHPT
+LCID
+LHX
+LI
+LRCX
+LRLCY
+LTM
+LVMUY
+MARA
+MET
+MFG
+MLM
+MPC
+MPLX
+MPWR
+TEO
+TEVA
+TME
+TROW
+TRV
+UBS
+UGP
+UL
+UMC
+UNM
+URI
+USWS

@@ -468,7 +468,7 @@ class FMPDataFetcher:
 
     def get_historical_prices_weekly(self, symbol: str, from_date: str = None, to_date: str = None) -> List[Dict[str, Any]]:
         """
-        Get weekly historical price data from FMP.
+        Get weekly historical price data from FMP with full OHLC data.
         
         Args:
             symbol: Stock ticker symbol
@@ -476,16 +476,16 @@ class FMPDataFetcher:
             to_date: End date in YYYY-MM-DD format (optional)
             
         Returns:
-            List of weekly price records
+            List of weekly price records with OHLC data
         """
         # Build URL parameters
-        params = {"apikey": self.config.api_key}
+        params = {"apikey": self.config.api_key, "serietype": "candle"}
         if from_date:
             params["from"] = from_date
         if to_date:
             params["to"] = to_date
             
-        url = f"{self.config.base_url}/historical-price-full/{symbol}?serietype=line"
+        url = f"{self.config.base_url}/historical-chart/1week/{symbol}"
         cache_key = f"fmp_weekly_prices:{symbol}:{from_date}:{to_date}"
         
         # Try cache first
@@ -498,25 +498,25 @@ class FMPDataFetcher:
             # Rate limiting
             self.rate_limiter.wait_for_rate_limit("financialmodelingprep.com")
             
-            logger.info(f"Fetching weekly price data for {symbol} from FMP")
+            logger.info(f"Fetching weekly OHLC data for {symbol} from FMP")
             response = requests.get(url, params=params, timeout=30)
             response.raise_for_status()
             
             data = response.json()
             
-            if 'historical' in data:
-                prices = data['historical']
-                logger.info(f"Successfully fetched {len(prices)} weekly price records for {symbol}")
+            if data and isinstance(data, list) and len(data) > 0:
+                prices = data
+                logger.info(f"Successfully fetched {len(prices)} weekly OHLC records for {symbol}")
                 
                 # Cache result
                 self.cache.set(cache_key, prices, ttl=CACHE_TTL_SECONDS)
                 return prices
             else:
-                logger.warning(f"No weekly price data returned for {symbol}")
+                logger.warning(f"No weekly OHLC data returned for {symbol}")
                 return []
                 
         except Exception as e:
-            logger.error(f"Failed to get weekly prices for {symbol}: {e}")
+            logger.error(f"Failed to get weekly OHLC data for {symbol}: {e}")
             import traceback
             logger.error(f"Traceback: {traceback.format_exc()}")
             return []
@@ -566,3 +566,59 @@ class FMPDataFetcher:
             import traceback
             logger.error(f"Traceback: {traceback.format_exc()}")
             return None
+    
+    def get_historical_prices_daily_ohlc(self, symbol: str, from_date: str = None, to_date: str = None) -> List[Dict[str, Any]]:
+        """
+        Get daily historical OHLC price data from FMP using the historical-chart endpoint.
+        This endpoint provides more reliable OHLC data than the historical-price-full endpoint.
+        
+        Args:
+            symbol: Stock ticker symbol
+            from_date: Start date in YYYY-MM-DD format (optional)
+            to_date: End date in YYYY-MM-DD format (optional)
+            
+        Returns:
+            List of daily OHLC price records
+        """
+        # Build URL parameters
+        params = {"apikey": self.config.api_key}
+        if from_date:
+            params["from"] = from_date
+        if to_date:
+            params["to"] = to_date
+            
+        url = f"{self.config.base_url}/historical-chart/1day/{symbol}"
+        cache_key = f"fmp_daily_ohlc:{symbol}:{from_date}:{to_date}"
+        
+        # Try cache first
+        cached_result = self.cache.get(cache_key)
+        if cached_result is not None:
+            logger.debug(f"Using cached daily OHLC data for {symbol}")
+            return cached_result
+        
+        try:
+            # Rate limiting
+            self.rate_limiter.wait_for_rate_limit("financialmodelingprep.com")
+            
+            logger.info(f"Fetching daily OHLC data for {symbol} from FMP")
+            response = requests.get(url, params=params, timeout=30)
+            response.raise_for_status()
+            
+            data = response.json()
+            
+            if data and isinstance(data, list) and len(data) > 0:
+                prices = data
+                logger.info(f"Successfully fetched {len(prices)} daily OHLC records for {symbol}")
+                
+                # Cache result
+                self.cache.set(cache_key, prices, ttl=CACHE_TTL_SECONDS)
+                return prices
+            else:
+                logger.warning(f"No daily OHLC data returned for {symbol}")
+                return []
+                
+        except Exception as e:
+            logger.error(f"Failed to get daily OHLC data for {symbol}: {e}")
+            import traceback
+            logger.error(f"Traceback: {traceback.format_exc()}")
+            return []

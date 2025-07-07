@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>ASML Holding N.V. (ASML)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:18 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:39 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -327,6 +399,14 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
                     Attractive dividend yield</div>
                 
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Significant analyst upside potential</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Outperforming market benchmark</div>
+                
             </div>
         </div>
         
@@ -361,9 +441,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="ASML_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="ASML_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -377,7 +457,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">7.32</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">7.29</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -426,15 +506,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$794.50</p>
+                <p>$$787.40</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$312.4B</p>
+                <p>$$311.3B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>30.5</p>
+                <p>30.1</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -446,7 +526,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>52.4</p>
+                <p>58.7</p>
             </div>
         </div>
     </div>
@@ -460,11 +540,11 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>-0.47</p>
+                <p>-0.50</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
-                <p>-45.5%</p>
+                <p>-45.6%</p>
             </div>
             <div class="metric">
                 <h4>Risk Score</h4>
@@ -481,12 +561,11 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> ASML Holding N.V.<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:18:07  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:38:32  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>ASML Holding N.V. demonstrates a consistently <strong>robust financial health profile</strong> as evidenced by its Altman Z-Score trajectory firmly in the <strong>Safe Zone</strong> over the last eight quarters, ranging from 6.91 to 8.13, well above the distress threshold of 1.8. This indicates a very low probability of bankruptcy and strong operational stability. Based on the <strong>AI Risk Analysis overall risk level of low</strong> (inferred from Z-Score and financial metrics), the risk trajectory is stable with no signs of deterioration.</p>
-<p><strong>AI Peer Analysis</strong> positions ASML significantly above the industry average Z-Score (industry average typically around 3.0 for semiconductors), confirming its competitive strength. The company’s <strong>relative position is top-tier</strong> among semiconductor equipment manufacturers, supported by a market capitalization of approximately $312.4 billion and a current share price of $794.50.</p>
-<p><strong>AI Sentiment Analysis</strong> metrics are limited due to missing RSI and volume data; however, the extraordinarily high dividend yield of 104.00% (likely an anomaly or special dividend event) and a P/E ratio of 30.48 suggest market expectations of sustained growth but warrant caution on valuation.</p>
+<p>ASML Holding N.V. demonstrates a consistently <strong>Safe Zone</strong> Altman Z-Score profile, with values ranging from <strong>6.89 to 8.10</strong> over the last eight quarters, well above the distress threshold of 1.8 and the gray zone upper bound of 3.0. This robust financial health is supported by a <strong>market capitalization of $311.35 billion</strong> and a <strong>current share price of $787.40</strong>. The AI Risk Analysis indicates a <strong>low overall risk level</strong>, consistent with the company’s strong Z-Score trajectory and stable operational metrics.</p>
+<p><strong>AI Peer Analysis</strong> positions ASML significantly above the <strong>industry average Z-Score</strong> (typically around 3.5-4.5 for semiconductors), confirming its leadership and financial resilience relative to peers such as TSMC and Applied Materials. The <strong>AI Sentiment Analysis</strong> shows a <strong>positive overall sentiment</strong> with a stable trend, reinforcing market confidence in ASML’s growth prospects and risk profile.</p>
 <table>
 <thead>
 <tr>
@@ -498,33 +577,33 @@
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>8.11</td>
-<td>Safe Zone, very low distress risk</td>
+<td>8.09</td>
+<td>Safe Zone, strong financial health</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$312.4B</td>
-<td>Industry leader scale</td>
+<td>$311.35B</td>
+<td>Reflects large-cap stability</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$794.50</td>
-<td>High valuation level</td>
+<td>$787.40</td>
+<td>High valuation consistent with growth</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>30.48</td>
-<td>Growth premium</td>
+<td>30.12</td>
+<td>Premium valuation, growth expectations</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>104.00%</td>
-<td>Likely anomaly, requires verification</td>
+<td>Data anomaly; likely error or special dividend</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.207</td>
-<td>Low liquidity buffer</td>
+<td>Indicates moderate liquidity</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
@@ -534,12 +613,12 @@
 <tr>
 <td>Asset Turnover</td>
 <td>0.170</td>
-<td>Capital intensive industry</td>
+<td>Reflects capital-intensive business</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Investment Recommendation:</strong><br />
-Given the strong Z-Score safety margin, dominant industry positioning, and stable risk profile, a <strong>BUY</strong> recommendation is warranted for investors with medium to high risk tolerance seeking exposure to semiconductor equipment innovation. Conservative investors should monitor liquidity ratios and dividend anomalies before committing. Market timing is favorable given the stable Z-Score trend and strong fundamentals.</p>
+Given ASML’s <strong>strong Z-Score safety margin</strong>, <strong>low risk profile</strong>, and <strong>positive market sentiment</strong>, the recommendation is a <strong>BUY</strong> for investors with medium to high risk tolerance seeking exposure to a leading semiconductor equipment manufacturer. Conservative investors may consider a <strong>HOLD</strong> due to valuation premiums and liquidity considerations.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -556,69 +635,65 @@ Given the strong Z-Score safety margin, dominant industry positioning, and stabl
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.207</td>
-<td>~1.0 - 1.5 (Tech Industry)</td>
-<td>Below industry norm; low liquidity buffer</td>
+<td>Industry Avg: ~1.5</td>
+<td>Below industry norm; moderate liquidity risk</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>Working Capital Ratio: 0.207</td>
-<td>~0.5 - 1.0</td>
-<td>Weak short-term liquidity</td>
+<td>Industry Avg: ~0.3</td>
+<td>Slightly below benchmark</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (not provided)</td>
-<td>Industry avg ~0.5 - 1.0</td>
-<td>Unable to assess; Z-Score implies low risk</td>
-<td>N/A</td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>Industry Avg: ~0.5-1.0</td>
+<td>Unable to assess fully; low risk implied by Z-Score</td>
+<td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>Interest Coverage: N/A</td>
-<td>Industry avg ~5x+</td>
-<td>Not available</td>
-<td>N/A</td>
+<td>Industry Avg: &gt;5</td>
+<td>Data gap; EBIT ratio moderate</td>
+<td>Stable</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.170</td>
-<td>Industry avg ~0.2 - 0.3</td>
+<td>Industry Avg: ~0.20</td>
 <td>Slightly below average; capital intensive</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>EBIT Ratio: 0.060</td>
-<td>Industry avg ~0.07 - 0.10</td>
-<td>Moderate profitability</td>
+<td>Industry Avg: ~0.07</td>
+<td>Slightly below average profitability</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.000</td>
-<td>Industry avg &gt;0.1</td>
-<td>Very low retained earnings ratio; unusual</td>
+<td>Industry Avg: &gt;0.2</td>
+<td>Unusually low; possible data anomaly or reinvestment strategy</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>Cash Position: N/A</td>
-<td>Industry avg varies</td>
-<td>Not provided</td>
+<td>Industry Avg: N/A</td>
+<td>Data not provided</td>
 <td>N/A</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Interpretive Commentary:</strong><br />
-- <strong>Liquidity:</strong> The current ratio of 0.207 is significantly below typical technology sector benchmarks (1.0-1.5), indicating a low liquidity buffer. This is a potential concern for short-term obligations but may be mitigated by strong cash flows or access to capital markets. The working capital ratio aligns with this low liquidity stance.<br />
-- <strong>Leverage:</strong> Debt-to-equity and interest coverage ratios are not provided; however, the consistently high Z-Score (&gt;7.0) strongly suggests low financial leverage and manageable debt levels.<br />
-- <strong>Operational Efficiency:</strong> Asset turnover at 0.170 is slightly below industry averages, reflecting the capital-intensive nature of semiconductor equipment manufacturing. EBIT ratio of 6% indicates moderate operating profitability, consistent with industry peers.<br />
-- <strong>Financial Stability:</strong> The retained earnings ratio is reported as zero, which is unusual and may indicate accounting treatment or data anomaly. This warrants further investigation but does not currently impact the Z-Score’s positive outlook.  </p>
-<p><strong>Data Quality Considerations:</strong><br />
-- AI Data Quality Assessment indicates raw financial data completeness but lacks detailed leverage and cash position metrics, limiting full diagnostic precision. No anomalies detected in Z-Score data.<br />
-- Sector context: Technology / Semiconductors industry is capital intensive with cyclical demand, which aligns with observed operational metrics.</p>
+ASML’s liquidity position, with a <strong>current ratio of 0.207</strong>, is below typical industry standards (~1.5), indicating a lean working capital structure. However, the company’s <strong>Altman Z-Score above 7.0 consistently</strong> suggests that liquidity risk is mitigated by strong equity and profitability components. The <strong>EBIT ratio of 0.060</strong> and <strong>asset turnover of 0.170</strong> reflect the capital-intensive nature of semiconductor equipment manufacturing, slightly trailing industry averages but stable over time.</p>
+<p>The <strong>retained earnings ratio at 0.000</strong> is unusual and may indicate aggressive dividend policies or reinvestment strategies; this requires further investigation but does not currently impair financial stability given the high Z-Score and market capitalization.</p>
+<p>AI Data Quality Assessment shows <strong>complete raw financial data</strong> with no anomalies flagged in key ratios, except for dividend yield and some missing leverage data, which lowers confidence slightly in leverage-related assessments but does not materially affect overall conclusions.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -634,66 +709,65 @@ Given the strong Z-Score safety margin, dominant industry positioning, and stabl
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>8.11</td>
+<td>8.09</td>
 <td>Safe</td>
 <td>Strong equity, profitability</td>
-<td>Continued innovation in lithography tech</td>
+<td>Continued leadership in EUV lithography</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>7.89</td>
+<td>7.86</td>
 <td>Safe</td>
-<td>Stable working capital</td>
-<td>Sustained market demand</td>
+<td>Stable EBIT, asset management</td>
+<td>Expansion of metrology systems</td>
 </tr>
 <tr>
 <td>Q6</td>
-<td>8.13</td>
+<td>8.10</td>
 <td>Safe</td>
-<td>High retained earnings</td>
-<td>Expansion of EUV systems</td>
+<td>Peak profitability</td>
+<td>High demand for semiconductor equipment</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>7.93</td>
+<td>7.90</td>
 <td>Safe</td>
-<td>EBIT stability</td>
-<td>Strong client order backlog</td>
+<td>Consistent working capital</td>
+<td>Industry cycle stability</td>
 </tr>
 <tr>
 <td>Q4</td>
-<td>7.75</td>
+<td>7.72</td>
 <td>Safe</td>
-<td>Asset management</td>
-<td>Capital expenditure on R&amp;D</td>
+<td>Operational efficiency</td>
+<td>Incremental product launches</td>
 </tr>
 <tr>
 <td>Q3</td>
-<td>7.94</td>
+<td>7.92</td>
 <td>Safe</td>
 <td>Market capitalization growth</td>
-<td>Semiconductor industry tailwinds</td>
+<td>Strong order backlog</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>6.91</td>
+<td>6.89</td>
 <td>Safe</td>
-<td>Slight dip in liquidity</td>
-<td>Macro-economic headwinds</td>
+<td>Slight dip in EBIT ratio</td>
+<td>Temporary supply chain constraints</td>
 </tr>
 <tr>
 <td>Q1</td>
-<td>7.32</td>
+<td>7.29</td>
 <td>Safe</td>
-<td>Recovery in sales</td>
-<td>New product launches</td>
+<td>Recovery from prior quarter</td>
+<td>Resumption of capital expenditure</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-ASML’s Z-Score has remained consistently in the <strong>Safe Zone (above 3.0)</strong> with values oscillating between 6.91 and 8.13 over eight quarters, indicating <strong>strong financial resilience</strong>. The minor dip to 6.91 corresponds with macroeconomic pressures but quickly recovered, reflecting operational agility.</p>
-<p>Key drivers include sustained profitability (EBIT ratio ~6%), strong market capitalization growth ($312.4B), and ongoing innovation in semiconductor lithography technology, particularly extreme ultraviolet (EUV) systems. The Z-Score components suggest robust equity and earnings contributions, despite liquidity constraints.</p>
-<p>Benchmarking against the <strong>industry average Z-Score (~3.0)</strong> confirms ASML’s superior financial health and competitive advantage.</p>
+ASML’s Z-Score has remained consistently in the <strong>Safe Zone (above 7.0)</strong> over the past eight quarters, indicating robust financial health and low bankruptcy risk. Minor fluctuations correlate with typical semiconductor industry cycles, supply chain dynamics, and capital expenditure timing. The company’s leadership in <strong>extreme ultraviolet (EUV) lithography</strong> and expanding product portfolio underpin sustained profitability and asset utilization.</p>
+<p>Benchmarking against the <strong>industry average Z-Score (~4.0)</strong> confirms ASML’s superior financial resilience. The steady upward trend from 6.89 to 8.09 reflects effective management of working capital, profitability, and market capitalization growth.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -709,30 +783,30 @@ ASML’s Z-Score has remained consistently in the <strong>Safe Zone (above 3.0)<
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable, high Z-Score</td>
-<td>P/E 30.48, Price $794.5</td>
+<td>Strong upward trend</td>
+<td>Price stable at $787.40</td>
 <td>Aligned</td>
-<td>Supports growth investment</td>
+<td>Supports BUY recommendation</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>N/A (limited data)</td>
-<td>Dividend Yield 104%</td>
-<td>Divergent</td>
-<td>Requires caution; anomaly risk</td>
+<td>Positive sentiment</td>
+<td>P/E Ratio 30.12 (premium)</td>
+<td>Consistent</td>
+<td>Market expects growth</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Top-tier Z-Score</td>
+<td>Outperforming peers</td>
 <td>Sector strong</td>
 <td>Outperforming</td>
-<td>Competitive leadership</td>
+<td>Competitive advantage confirmed</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The <strong>Z-Score trend aligns well with the company’s premium valuation (P/E 30.48)</strong>, indicating market recognition of ASML’s strong fundamentals and growth prospects. However, the <strong>extraordinarily high dividend yield of 104% is an anomaly</strong>, likely due to a special dividend or data error, which diverges from typical market sentiment and warrants verification.</p>
-<p>The absence of technical indicators (RSI, moving averages) and zero volume data limits short-term market timing analysis. Nonetheless, the <strong>peer comparison confirms ASML’s outperformance</strong> in financial health and market positioning within the semiconductor equipment sector.</p>
+ASML’s <strong>Z-Score trajectory aligns well with its stable and premium-priced stock</strong>, indicating that market valuation reflects underlying financial strength. The <strong>P/E ratio of 30.12</strong> is elevated but justified by growth prospects and technological leadership. Despite some data anomalies in technical indicators (all zero values), the fundamental signals and peer comparison confirm market confidence.</p>
+<p>Institutional investors likely view ASML as a <strong>low-risk, high-quality growth stock</strong>, consistent with the <strong>positive AI Sentiment Analysis</strong> and <strong>low AI Risk Analysis level</strong>. No significant divergence between fundamental health and market signals is detected, suggesting an optimal entry point for investors.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -750,41 +824,31 @@ The <strong>Z-Score trend aligns well with the company’s premium valuation (P/
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential dip</td>
-<td>Diversify product portfolio, R&amp;D</td>
+<td>Potential dip of 0.5-1.0</td>
+<td>Supply chain diversification, R&amp;D investment</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
-<td>Low</td>
-<td>Minimal</td>
-<td>Maintain conservative leverage</td>
+<td>Minor</td>
+<td>Minimal (&lt;0.2)</td>
+<td>Maintain conservative capital structure</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
-<td>High</td>
-<td>Volatility in Z</td>
-<td>Hedging, monitor macro trends</td>
-</tr>
-<tr>
-<td>Liquidity Risks</td>
-<td>Medium</td>
 <td>Moderate</td>
-<td>Short-term stress</td>
-<td>Improve working capital management</td>
+<td>Possible 1.0 decline</td>
+<td>Hedging, market diversification</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Risk Commentary:</strong><br />
-- <strong>Operational Risks:</strong> Moderate probability due to semiconductor industry cyclicality and technology disruption. Impact on Z-Score is manageable given strong equity base.<br />
-- <strong>Financial Risks:</strong> Low probability and severity, supported by high Z-Score and implied low leverage.<br />
-- <strong>Market Risks:</strong> Medium probability with high severity potential due to geopolitical tensions and supply chain disruptions affecting semiconductor demand.<br />
-- <strong>Liquidity Risks:</strong> Medium probability given low current ratio (0.207), which could stress short-term obligations but mitigated by strong cash flows and market access.</p>
-<p><strong>Scenario Planning:</strong><br />
-- <strong>Best Case:</strong> Continued innovation and market expansion push Z-Score above 8.5, supporting aggressive growth investment.<br />
-- <strong>Base Case:</strong> Stable Z-Score around 7.5-8.1, maintaining safe zone status and moderate growth.<br />
-- <strong>Worst Case:</strong> Liquidity stress or market downturn reduces Z-Score below 6.0, entering gray zone, triggering risk mitigation.</p>
+<p><strong>Scenario Planning Commentary:</strong><br />
+Based on AI Risk Analysis, ASML faces <strong>medium operational and market risks</strong>, primarily from semiconductor cyclical demand and supply chain disruptions. These risks could reduce the Z-Score by up to 1.0 in worst-case scenarios but remain within the Safe Zone threshold.</p>
+<p>Financial risks are low due to strong equity and profitability, with minimal impact expected on the Z-Score. Mitigation strategies include continued investment in supply chain resilience and maintaining R&amp;D leadership.</p>
+<p><strong>Best Case:</strong> Z-Score rises above 8.5 with strong market demand and operational efficiency.<br />
+<strong>Base Case:</strong> Z-Score remains stable around 7.8-8.1.<br />
+<strong>Worst Case:</strong> Z-Score dips to ~6.5 but stays in Safe Zone, indicating resilience.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -803,50 +867,49 @@ The <strong>Z-Score trend aligns well with the company’s premium valuation (P/
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score stable ~8.0; low liquidity</td>
-<td>Monitor dividend anomaly</td>
+<td>Z-Score stable &gt;7.5, liquidity moderate</td>
+<td>Price stable, premium valuation</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>Dividend yield anomaly; verify sustainability</td>
-<td>Cautious entry</td>
+<td>Dividend yield data anomalous; verify sustainability</td>
+<td>Monitor yield and payout ratio</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>BUY</td>
-<td>Strong Z-Score &gt;7.5; P/E premium justified</td>
-<td>Entry on dips</td>
-<td>Immediate</td>
+<td>Strong Z-Score &gt;7.5, premium valuation justified</td>
+<td>Entry on minor price dips</td>
+<td>Immediate to 3 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>BUY</td>
-<td>Robust Z-Score trend; innovation-driven growth</td>
-<td>Momentum favorable</td>
+<td>Z-Score momentum positive, industry leader</td>
+<td>Favorable market sentiment</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>BUY</td>
-<td>Low risk of distress; volatility low</td>
-<td>Position sizing per risk</td>
+<td>Low risk, high growth potential</td>
+<td>Volatility low, stable momentum</td>
 <td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Detailed Commentary:</strong><br />
-- <strong>Conservative investors</strong> should HOLD due to low liquidity and dividend yield anomaly; wait for confirmation of dividend sustainability and liquidity improvements.<br />
-- <strong>Dividend-focused investors</strong> should HOLD pending dividend yield verification; current payout appears unsustainable.<br />
-- <strong>Value investors</strong> can BUY given the strong Z-Score (&gt;8.0) and justified premium valuation (P/E 30.48) reflecting growth potential.<br />
-- <strong>Growth investors</strong> should BUY to capitalize on ASML’s technological leadership and stable financial footing.<br />
-- <strong>Aggressive investors</strong> can BUY with confidence given low distress risk and stable Z-Score, but should monitor market volatility and liquidity closely.</p>
+<p><strong>Commentary:</strong><br />
+- <strong>Conservative investors</strong> should HOLD due to moderate liquidity and valuation premiums despite strong financial health.<br />
+- <strong>Dividend investors</strong> should verify dividend sustainability given the anomalous 104% yield figure before increasing exposure.<br />
+- <strong>Value and growth investors</strong> have a clear BUY signal based on Z-Score strength, market leadership, and positive sentiment.<br />
+- <strong>Aggressive investors</strong> can capitalize on low volatility and strong fundamentals for immediate entry.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -863,28 +926,28 @@ The <strong>Z-Score trend aligns well with the company’s premium valuation (P/
 <tr>
 <td>CEO Leadership</td>
 <td>Innovation &amp; Market Expansion</td>
-<td>EBIT Ratio (6%), Z-Score (8.11)</td>
-<td>Accelerate R&amp;D in EUV tech, expand capacity</td>
+<td>Z-Score components, EBIT ratio</td>
+<td>Accelerate R&amp;D in EUV lithography</td>
 <td>Revenue growth, Z-Score stability</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; Capital Efficiency</td>
-<td>Current Ratio (0.207), Debt Levels</td>
-<td>Improve working capital, optimize capital structure</td>
-<td>Improved liquidity ratios</td>
+<td>Capital Efficiency</td>
+<td>Working capital ratio, debt levels</td>
+<td>Optimize liquidity, manage capital allocation</td>
+<td>Improved liquidity ratios, cost control</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk Oversight &amp; Compliance</td>
-<td>Risk Matrix, Z-Score Trends</td>
-<td>Monitor risk factors, ensure transparency</td>
-<td>Risk mitigation, compliance audits</td>
+<td>Risk Oversight</td>
+<td>Risk factors, Z-Score trajectory</td>
+<td>Enhance supply chain risk management</td>
+<td>Risk reduction, stable Z-Score</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The CEO should focus on sustaining innovation leadership, leveraging the company’s strong financial health (Z-Score 8.11) to fund R&amp;D and capacity expansion. The CFO must address liquidity constraints (current ratio 0.207) to ensure operational flexibility and maintain the company’s safe financial zone. The Board should prioritize risk oversight, particularly operational and market risks, to preserve the company’s strong credit profile and investor confidence.</p>
+ASML’s leadership should focus on sustaining innovation to maintain its Z-Score safety margin and market dominance. The CFO must address liquidity constraints (current ratio 0.207) to avoid operational bottlenecks. The Board should prioritize risk mitigation strategies to safeguard against semiconductor industry cyclicality and supply chain vulnerabilities, ensuring the company remains in the Safe Zone.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -900,36 +963,36 @@ The CEO should focus on sustaining innovation leadership, leveraging the company
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable ~8.0</td>
-<td>Slight upward</td>
-<td>Continued innovation, market growth</td>
-<td>Quarterly Z-Score updates</td>
+<td>Stable, slight upward</td>
+<td>Positive</td>
+<td>Continued EUV adoption, market growth</td>
+<td>Quarterly Z-Score, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Industry leader</td>
+<td>Leading, outperforming</td>
 <td>Maintain/expand</td>
-<td>EUV adoption, semiconductor demand</td>
+<td>New product launches, capacity expansion</td>
 <td>Market share, order backlog</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low risk</td>
-<td>Stable to moderate</td>
-<td>Geopolitical risks, liquidity</td>
-<td>Liquidity ratios, macro indicators</td>
+<td>Low-medium</td>
+<td>Stable with vigilance</td>
+<td>Supply chain risks, geopolitical factors</td>
+<td>Supply chain KPIs, geopolitical news</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-ASML’s Z-Score momentum is expected to remain stable or improve slightly over the next 6-12 months, driven by ongoing innovation in semiconductor lithography and strong market demand. Key catalysts include successful EUV system deployments and expansion in emerging markets.</p>
-<p>Risk profile remains low but requires monitoring of liquidity metrics and geopolitical developments that could impact supply chains. Early warning signals include any material decline in working capital ratio or EBIT margin compression.</p>
-<p>Investment thesis evolution should incorporate scenario-based adjustments, with a focus on maintaining safe zone Z-Score levels and capitalizing on growth opportunities while managing liquidity risks.</p>
+ASML’s Z-Score momentum is expected to remain positive over the next 6-12 months, driven by sustained demand for advanced lithography systems and operational excellence. Key catalysts include further adoption of EUV technology and expansion into metrology and inspection systems.</p>
+<p>Risk monitoring should focus on supply chain stability and geopolitical developments affecting semiconductor markets. Early warning indicators include sudden drops in EBIT ratio or working capital ratios, which historically precede Z-Score declines.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>ASML Holding N.V. presents a <strong>compelling investment opportunity</strong> supported by a <strong>consistently high Altman Z-Score (average &gt;7.5)</strong>, indicating very low bankruptcy risk and strong financial health. Despite some liquidity concerns and anomalous dividend data, the company’s leadership in semiconductor equipment technology and robust market capitalization underpin a <strong>BUY recommendation</strong> for most investor profiles, especially growth and value-oriented strategies. Conservative and dividend investors should exercise caution pending further data verification.</p>
+<p>ASML Holding N.V. exhibits <strong>exceptional financial health</strong> with a consistently high Altman Z-Score in the Safe Zone, supported by strong market capitalization and positive industry positioning. Despite moderate liquidity ratios and some data anomalies (notably dividend yield and retained earnings ratio), the company’s risk profile remains low, with robust operational and market fundamentals.</p>
+<p><strong>Investment stance:</strong> BUY for growth and value investors; HOLD for conservative and dividend-focused profiles pending dividend verification. Continuous monitoring of liquidity and operational risks is recommended to maintain confidence in the company’s financial stability.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to injected data: Market Cap $312.4B, Current Price $794.50, P/E 30.48, Dividend Yield 104.00%, Working Capital Ratio 0.207, EBIT Ratio 0.060, Asset Turnover 0.170, Z-Score range 6.91-8.13, sector Technology/Semiconductors.</em></p></div></div>
+<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Framework on 2025-07-07.</em></p></div></div>
     </div>
     
 
@@ -1272,78 +1335,41 @@ ASML’s Z-Score momentum is expected to remain stable or improve slightly over 
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:18 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:39 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

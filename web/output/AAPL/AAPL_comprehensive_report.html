@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Apple Inc. (AAPL)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 05, 2025 at 09:43 AM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:37 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -365,9 +437,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="AAPL_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="AAPL_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -381,7 +453,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">8.50</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">7.61</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -389,7 +461,7 @@
             </div>
             <div class="metric">
                 <h3>Model Used</h3>
-                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">retail</p>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
             </div>
             <div class="metric">
                 <h3>Data Quality</h3>
@@ -401,7 +473,7 @@
     <div class="section">
         <h2>Model Information & Thresholds</h2>
         <div style="margin-bottom: 15px;">
-            <p><strong>Model:</strong> Modified Z-Score for retail companies with inventory focus</p>
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
         </div>
         <div class="metrics">
             <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
@@ -430,15 +502,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$213.55</p>
+                <p>$$212.18</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$3,189.5B</p>
+                <p>$$3169.1B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>33.2</p>
+                <p>33.0</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -450,7 +522,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>74.8</p>
+                <p>78.6</p>
             </div>
         </div>
     </div>
@@ -464,7 +536,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>-0.15</p>
+                <p>-0.19</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -485,69 +557,89 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Apple Inc. (AAPL)<br />
-<strong>Analysis Date:</strong> 2025-07-05 09:43:27  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:37:01  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Apple Inc. demonstrates a <strong>consistently strong Altman Z-Score profile</strong>, with values ranging between 7.44 and 8.59 over the last eight quarters, firmly placing it in the <strong>Safe Zone (Z &gt; 3.0)</strong>. This indicates a very low risk of financial distress and robust operational health. The AI Risk Analysis, while not explicitly quantified here, aligns with this low-risk profile given the absence of distress signals and the company’s dominant market position in the Technology sector, specifically Consumer Electronics.</p>
-<p><strong>AI Peer Analysis</strong> positions Apple well above the typical industry average Z-Score (generally around 3.0 for Technology sector peers), confirming its competitive strength relative to key peers. The company’s market capitalization of approximately $3.19 trillion and stable share base (14.94 billion shares outstanding) reinforce its market leadership.</p>
-<p><strong>AI Sentiment Analysis</strong> is limited by incomplete market technical data (e.g., RSI, moving averages, volume all zero), but the reported <strong>Dividend Yield of 51.00%</strong> is anomalously high and likely a data anomaly, which should be treated cautiously. The P/E ratio of 33.21 and EV/EBITDA of 22.43 suggest a premium valuation consistent with growth expectations.</p>
-<p><strong>Investment Recommendations:</strong><br />
-- <strong>Buy/Hold</strong> for conservative and growth investors due to strong financial health and industry leadership.<br />
-- Monitor for data anomalies in dividend yield and technical indicators before aggressive positioning.<br />
-- Maintain confidence level at ~85% given high-quality financial data but flagged anomalies in market metrics.</p>
+<p>Apple Inc. (AAPL) demonstrates a <strong>consistently strong Altman Z-Score profile</strong>, with all eight quarters firmly in the <strong>Safe Zone</strong> (Z-Score &gt; 3.0), ranging from 6.55 to 7.80, currently at 7.39. This robust financial health is reinforced by a <strong>stable risk trajectory</strong> with no signs of distress or gray zone encroachment, indicating very low bankruptcy risk. Based on the <strong>AI Risk Analysis overall risk level (inferred as Low given Z-Scores and no reported anomalies)</strong> and a <strong>stable risk trajectory</strong>, confidence in Apple’s financial resilience is high.</p>
+<p>From a <strong>peer analysis perspective</strong>, Apple’s Z-Score significantly exceeds typical industry averages for the Technology sector and Consumer Electronics industry, where average Z-Scores often hover between 3.5 and 5.0. This places Apple in a <strong>leading relative position</strong>, underscoring its competitive strength and operational efficiency compared to peers.</p>
+<p>The <strong>AI Sentiment Analysis</strong> metrics, while limited in technical indicators (all zeros), show a <strong>high dividend yield of 51.00%</strong> (likely an anomaly or data error, see Data Quality below), and a P/E ratio of 33.00, suggesting the market values Apple as a growth and income stock with moderate valuation multiples. Sentiment trend data is unavailable, but the stable Z-Score and market cap of $3.17 trillion support a positive market perception.</p>
+<p><strong>Investment Recommendation:</strong><br />
+Given Apple’s <strong>strong financial health, low risk profile, and superior peer positioning</strong>, a <strong>BUY</strong> recommendation is warranted for investors with moderate to high risk tolerance seeking stable growth and capital preservation. Conservative investors may consider HOLD due to valuation multiples and dividend yield uncertainties. Market timing is favorable given the stable Z-Score and absence of volatility signals.</p>
+<hr />
+<p><strong>Key Metrics Summary Table</strong></p>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
-<th>Value</th>
-<th>Notes</th>
+<th>Metric Category</th>
+<th>Key Values</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Z-Score</td>
-<td>8.11</td>
-<td>Safe Zone, very low distress risk</td>
+<td>Current Z-Score</td>
+<td>7.39</td>
+<td>Safe Zone, very low bankruptcy risk</td>
+</tr>
+<tr>
+<td>Z-Score Range (8 quarters)</td>
+<td>6.55 - 7.80</td>
+<td>Consistent financial strength</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$3.19T</td>
-<td>Industry leader scale</td>
+<td>$3.17 Trillion</td>
+<td>Large-cap, stable market presence</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$213.55</td>
-<td>Stable valuation base</td>
+<td>$211.98</td>
+<td>Reflects premium valuation</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>33.21</td>
-<td>Growth premium valuation</td>
+<td>33.00</td>
+<td>Moderate valuation for tech</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
-<td>51.00%</td>
-<td>Likely data anomaly, verify</td>
+<td>51.00% (likely anomaly)</td>
+<td>Data quality concern</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.078</td>
-<td>Slightly negative, warrants review</td>
+<td>Slightly negative liquidity signal</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>-0.047</td>
-<td>Negative, unusual for Apple</td>
+<td>Negative but small</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.089</td>
-<td>Moderate profitability</td>
+<td>Moderate operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.288</td>
 <td>Moderate asset efficiency</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>0.00</td>
+<td>Data anomaly or extremely low volatility</td>
+</tr>
+<tr>
+<td>AI Risk Level</td>
+<td>Low (inferred)</td>
+<td>Low risk, stable outlook</td>
+</tr>
+<tr>
+<td>AI Peer Position</td>
+<td>Leading</td>
+<td>Outperforming industry peers</td>
 </tr>
 </tbody>
 </table>
@@ -567,36 +659,39 @@
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: N/A (Working Capital Ratio: -0.078)</td>
-<td>Industry ~1.5-2.0 (Tech Sector)</td>
-<td>Slightly negative working capital ratio suggests tight liquidity; Apple’s cash reserves likely offset</td>
-<td>Stable/Watch</td>
+<td>Industry Avg Current Ratio: ~1.5-2.0</td>
+<td>Slight liquidity weakness; negative working capital ratio indicates potential short-term stress but manageable given Apple’s cash reserves</td>
+<td>Stable/Neutral</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Data Missing)</td>
-<td>Industry ~0.5-1.0</td>
-<td>Unable to assess directly; Apple historically maintains manageable leverage</td>
+<td>Debt-to-Equity: N/A (Data missing) <br> Interest Coverage: N/A</td>
+<td>Industry Avg Debt-to-Equity: ~1.0</td>
+<td>Insufficient data; Apple historically maintains moderate leverage</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.089, Asset Turnover: 0.288</td>
-<td>EBIT ~0.10, Asset Turnover ~0.3 (Tech)</td>
-<td>Slightly below EBIT margin benchmark; asset turnover moderate</td>
+<td>Asset Turnover: 0.288 <br> EBIT Ratio: 0.089</td>
+<td>Industry Avg Asset Turnover: ~0.3-0.5 <br> EBIT Margin: ~0.10-0.15</td>
+<td>Slightly below average asset turnover and EBIT margin, but consistent with mature tech sector</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: -0.047</td>
-<td>Positive in peers</td>
-<td>Negative retained earnings ratio unusual; may reflect accounting or data anomaly</td>
-<td>Stable/Review</td>
+<td>Retained Earnings Ratio: -0.047 <br> Cash Position: N/A</td>
+<td>Industry Avg Retained Earnings Ratio: Positive</td>
+<td>Slightly negative retained earnings ratio unusual but may reflect recent buybacks/dividends</td>
+<td>Stable</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Apple’s liquidity position shows a <strong>negative working capital ratio (-0.078)</strong>, which is atypical but may reflect the company’s efficient cash management and strong cash reserves rather than distress. The <strong>retained earnings ratio at -0.047</strong> is also unusual for a mature, profitable company like Apple, suggesting a potential data anomaly or recent accounting adjustments. EBIT ratio of 8.9% and asset turnover of 0.288 are consistent with a large technology hardware company balancing profitability and asset utilization.</p>
-<p>The <strong>AI Data Quality Assessment</strong> indicates no anomalies in financial data injection, but the negative working capital and retained earnings ratios should be flagged for further verification. The sector context (Technology, Consumer Electronics) supports a business model with high cash flow and strong brand equity, which mitigates liquidity concerns.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+Apple’s liquidity position, as indicated by a <strong>working capital ratio of -0.078</strong>, suggests a slight negative working capital, which is not uncommon for large tech firms with strong cash flows and efficient supply chains. The absence of a current ratio figure limits precise liquidity assessment, but Apple’s massive market cap and cash reserves likely offset short-term liquidity concerns.</p>
+<p>Leverage data is incomplete; however, Apple is known for prudent debt management, typically maintaining a balanced debt-to-equity ratio. Operational efficiency metrics show an <strong>asset turnover of 0.288</strong> and an <strong>EBIT ratio of 0.089</strong>, slightly below industry averages but consistent with Apple’s business model focused on high-margin products rather than high asset turnover.</p>
+<p>The <strong>negative retained earnings ratio (-0.047)</strong> is notable and may reflect recent capital return programs (dividends, share repurchases) rather than operational losses. This requires monitoring but is not immediately alarming given Apple’s overall financial strength.</p>
+<p><strong>Data Quality Assessment:</strong><br />
+No anomalies detected in financial ratios except the dividend yield and some missing data points. The <strong>AI Data Quality Assessment</strong> indicates raw data completeness but lacks pre-processing, which may explain some missing or zero values in market technicals.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -612,23 +707,24 @@ Apple’s liquidity position shows a <strong>negative working capital ratio (-0.
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>8.11</td>
+<td>7.39</td>
 <td>Safe</td>
-<td>Strong equity, EBIT, sales</td>
-<td>Stable product demand, innovation cycle</td>
+<td>Strong equity, stable EBIT, asset base</td>
+<td>Continued product innovation, strong brand loyalty</td>
 </tr>
 <tr>
-<td>Previous Quarters</td>
-<td>7.44 - 8.59</td>
+<td>Previous Quarters (Q1-Q7)</td>
+<td>6.55 - 7.80</td>
 <td>Safe</td>
-<td>Consistent profitability</td>
-<td>Continued market leadership, product launches</td>
+<td>Consistent profitability, market cap growth</td>
+<td>Stable revenue streams, expanding services segment</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Apple’s Z-Score has remained <strong>consistently above 7.4</strong>, well into the Safe Zone, indicating very low bankruptcy risk. The slight fluctuations reflect normal business cycle variations and product launch impacts. The lack of detailed component ratios limits granular driver analysis, but the high Z-Score confirms strong working capital, retained earnings, EBIT, and market equity positions relative to debt.</p>
-<p>The company’s <strong>business context</strong>—leading innovation in smartphones, personal computers, and wearables—supports sustained operational strength. The Z-Score trend aligns with Apple’s ongoing product refresh cycles and strong brand loyalty.</p>
+<p><strong>Strategic Commentary:</strong><br />
+Apple’s Z-Score has remained consistently in the <strong>Safe Zone</strong> over the past eight quarters, fluctuating narrowly between 6.55 and 7.80, indicating <strong>stable financial health with no distress signals</strong>. The slight variation reflects normal business cycle effects and capital allocation decisions.</p>
+<p>Key drivers include strong market capitalization ($3.17 trillion), steady EBIT ratio (0.089), and asset turnover (0.288), which collectively support the high Z-Score. The business context of continuous innovation in smartphones, wearables, and services contributes to sustained profitability and asset utilization.</p>
+<p>Compared to the <strong>industry average Z-Score (~4.5-5.0)</strong>, Apple’s superior Z-Score underscores its competitive advantage and financial robustness.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -644,30 +740,31 @@ Apple’s Z-Score has remained <strong>consistently above 7.4</strong>, well int
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Strong, stable</td>
-<td>P/E 33.21, EV/EBITDA 22.43</td>
+<td>Stable, high Z-Score (7.39)</td>
+<td>Price stable at $211.98, P/E 33.00</td>
 <td>Aligned</td>
-<td>Supports premium valuation</td>
+<td>Supports confidence in valuation</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>N/A (Limited)</td>
-<td>Dividend Yield anomaly</td>
+<td>Neutral (limited data)</td>
+<td>Dividend Yield 51.00% (likely anomaly)</td>
 <td>Divergent</td>
-<td>Caution on dividend data</td>
+<td>Data quality issues; caution advised</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Outperforming</td>
+<td>Leading relative position</td>
 <td>Sector performance strong</td>
 <td>Aligned</td>
 <td>Competitive advantage confirmed</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-The fundamental health indicated by the Z-Score aligns well with valuation multiples, confirming market confidence in Apple’s financial stability and growth prospects. However, the <strong>dividend yield of 51.00% is inconsistent with typical Apple payouts (~0.5-1.0%)</strong>, suggesting a data anomaly that should be disregarded in market timing decisions.</p>
-<p>Peer comparison confirms Apple’s outperformance in financial health and market position. The lack of technical indicator data (RSI, moving averages) limits short-term market timing insights.</p>
+<p><strong>Market Validation Commentary:</strong><br />
+Apple’s <strong>Z-Score trend aligns well with its stock price stability and valuation multiples</strong>, reinforcing the fundamental strength narrative. The <strong>P/E ratio of 33.00</strong> is consistent with a premium tech stock, reflecting growth expectations.</p>
+<p>However, the <strong>dividend yield of 51.00% is a clear data anomaly</strong>, as Apple’s historical dividend yield is typically around 0.5-1.5%. This discrepancy reduces confidence in dividend-related market signals and suggests caution in interpreting yield-based investment decisions.</p>
+<p>Peer comparison confirms Apple’s outperformance in financial health and market position, validating the investment thesis from a competitive standpoint.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -685,31 +782,29 @@ The fundamental health indicated by the Z-Score aligns well with valuation multi
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential EBIT decline</td>
-<td>Diversify product portfolio, R&amp;D investment</td>
+<td>Potential EBIT ratio decline (-0.5)</td>
+<td>Diversify product portfolio, enhance supply chain resilience</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
 <td>Minor</td>
-<td>Limited due to strong equity</td>
-<td>Maintain conservative leverage</td>
+<td>Limited impact due to strong equity</td>
+<td>Maintain prudent capital structure, monitor leverage</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Valuation correction risk</td>
-<td>Hedge via options, monitor macro trends</td>
+<td>Volatility could affect market cap (-0.3)</td>
+<td>Hedging strategies, maintain cash reserves</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Based on AI Risk Analysis overall risk level (low) with ~85% confidence, Apple faces <strong>medium operational risks</strong> from competitive pressures and innovation cycles, which could affect EBIT margins and thus Z-Score components. Financial risks are low due to strong equity and cash reserves. Market risks include valuation corrections given the premium multiples.</p>
-<p><strong>Scenario Planning:</strong><br />
-- <strong>Best Case:</strong> Continued innovation drives EBIT growth, Z-Score rises &gt;8.5.<br />
-- <strong>Base Case:</strong> Stable EBIT and asset turnover maintain Z-Score ~8.0.<br />
-- <strong>Worst Case:</strong> Market downturn and operational hiccups reduce EBIT, Z-Score drops towards 6.5 but remains safe.</p>
+<p><strong>Risk Commentary:</strong><br />
+Based on the <strong>AI Risk Analysis inferred low overall risk level</strong>, Apple faces moderate operational risks primarily from competitive pressures and supply chain disruptions, which could slightly reduce EBIT margins and thus the Z-Score.</p>
+<p>Financial risks are low due to Apple’s strong equity base and cash flow generation. Market risks, including valuation corrections or macroeconomic shocks, pose moderate threats to market capitalization and investor sentiment.</p>
+<p>Scenario planning suggests that in a worst-case scenario, a drop in EBIT ratio or market cap could reduce the Z-Score but likely remain in the Safe Zone (&gt;3.0). Best-case scenarios include continued innovation and margin expansion, potentially increasing the Z-Score above current levels.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -728,46 +823,50 @@ Based on AI Risk Analysis overall risk level (low) with ~85% confidence, Apple f
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score stable &gt;8.0, low risk</td>
-<td>Monitor valuation dips</td>
+<td>Z-Score stable at 7.39, low risk</td>
+<td>Wait for valuation dips</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>Dividend yield anomaly, verify</td>
-<td>Wait for yield clarity</td>
+<td>Dividend yield data unreliable; monitor</td>
+<td>Confirm dividend sustainability</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>BUY</td>
-<td>Premium valuation justified by Z-Score</td>
-<td>Look for market pullbacks</td>
-<td>Immediate</td>
+<td>Strong Z-Score &gt;7, undervaluation potential</td>
+<td>Entry on price pullbacks</td>
+<td>Immediate to 3 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>BUY</td>
-<td>Strong Z-Score supports growth</td>
-<td>Momentum positive</td>
+<td>Consistent Safe Zone Z-Score, growth in services</td>
+<td>Momentum favorable</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>BUY</td>
-<td>Low distress risk, moderate volatility</td>
-<td>Exploit volatility</td>
-<td>3-6 months</td>
+<td>High Z-Score with low volatility risk</td>
+<td>Leverage volatility for gains</td>
+<td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Conservative investors should hold given Apple’s strong financial health but monitor for valuation corrections. Dividend investors should await confirmation of dividend data accuracy before increasing exposure. Value and growth investors are recommended to buy, leveraging Apple’s strong Z-Score and market leadership. Aggressive investors can capitalize on potential volatility with confidence in low distress risk.</p>
+<p><strong>Detailed Commentary:</strong><br />
+- <strong>Conservative investors</strong> should HOLD given Apple’s premium valuation and slight liquidity concerns, awaiting potential market corrections for better entry points.<br />
+- <strong>Dividend-focused investors</strong> should HOLD and seek confirmation on dividend yield accuracy before increasing exposure.<br />
+- <strong>Value investors</strong> have a BUY opportunity given Apple’s strong Z-Score and potential undervaluation relative to growth prospects.<br />
+- <strong>Growth investors</strong> are encouraged to BUY based on stable financial health and ongoing innovation driving revenue streams.<br />
+- <strong>Aggressive investors</strong> can BUY, leveraging Apple’s low volatility and strong fundamentals for capital appreciation.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -784,28 +883,28 @@ Conservative investors should hold given Apple’s strong financial health but m
 <tr>
 <td>CEO Leadership</td>
 <td>Innovation &amp; Market Expansion</td>
-<td>EBIT Ratio, Z-Score</td>
-<td>Accelerate R&amp;D, diversify product lines</td>
-<td>EBIT growth, Z-Score stability</td>
+<td>EBIT Ratio (0.089), Z-Score (7.39)</td>
+<td>Invest in R&amp;D, expand services ecosystem</td>
+<td>Revenue growth, margin expansion</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital Efficiency</td>
-<td>Working Capital Ratio, Debt Levels</td>
-<td>Optimize liquidity, manage leverage</td>
-<td>Improved liquidity ratios</td>
+<td>Capital Efficiency &amp; Liquidity</td>
+<td>Working Capital Ratio (-0.078), Debt levels</td>
+<td>Optimize working capital, manage debt prudently</td>
+<td>Improved liquidity ratios, stable leverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk Oversight</td>
-<td>Z-Score, Risk Matrix</td>
+<td>Risk Oversight &amp; Compliance</td>
+<td>AI Risk Level (Low), Z-Score trend</td>
 <td>Monitor risk factors, ensure compliance</td>
-<td>Low risk incidents, audit results</td>
+<td>Risk mitigation, regulatory adherence</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Executive leadership should focus on sustaining innovation to maintain EBIT margins and Z-Score strength. The CFO must address the slightly negative working capital ratio to ensure liquidity robustness. The Board should maintain vigilance on emerging risks identified in the AI Risk Analysis, ensuring governance frameworks adapt to market and operational dynamics.</p>
+<p><strong>Executive Commentary:</strong><br />
+Apple’s leadership should focus on sustaining innovation to maintain EBIT margins and Z-Score strength. The CFO must address the slight negative working capital ratio by optimizing cash flow management without compromising operational agility. The Board should continue oversight on emerging risks, ensuring governance frameworks adapt to evolving market conditions.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -821,34 +920,35 @@ Executive leadership should focus on sustaining innovation to maintain EBIT marg
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable ~8.1</td>
-<td>Slightly Upward</td>
+<td>Stable high (7.39)</td>
+<td>Slight upward potential</td>
 <td>New product launches, margin expansion</td>
-<td>Quarterly EBIT, Working Capital</td>
+<td>Quarterly EBIT, working capital</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Leading</td>
-<td>Maintain/Expand</td>
+<td>Leading in sector</td>
+<td>Maintain leadership</td>
 <td>Competitive innovation, market share gains</td>
-<td>Market share, peer Z-Scores</td>
+<td>Market cap, peer Z-Scores</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low</td>
-<td>Stable</td>
-<td>Macroeconomic conditions, supply chain</td>
-<td>Risk factor incidence, macro indicators</td>
+<td>Low risk</td>
+<td>Stable to slightly elevated</td>
+<td>Supply chain risks, macroeconomic shifts</td>
+<td>AI Risk Analysis updates, volatility</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Apple’s Z-Score momentum is expected to remain stable or improve slightly over the next 6-12 months, driven by innovation cycles and operational efficiency. Key catalysts include new product introductions and margin management. Monitoring should focus on EBIT trends, liquidity ratios, and emerging risk factors such as supply chain disruptions or macroeconomic shifts.</p>
+<p><strong>Forward-Looking Commentary:</strong><br />
+Apple’s Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, driven by continued product innovation and operational efficiency. Market position is likely to remain strong, supported by brand loyalty and ecosystem expansion.</p>
+<p>Risk profile remains low but requires vigilance on supply chain and macroeconomic factors. Monitoring EBIT margins, working capital changes, and peer Z-Score movements will provide early warning signals for any deterioration.</p>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>Apple Inc. exhibits a <strong>robust financial health profile with a consistently high Altman Z-Score</strong>, indicating minimal bankruptcy risk and strong operational performance. Despite some data anomalies in liquidity and dividend yield metrics, the overall investment outlook remains positive across risk tolerances, supported by strong market positioning and peer benchmarking. Strategic focus on innovation and liquidity management will sustain this trajectory, with forward-looking monitoring essential to detect early risk signals.</p>
+<h1 id="summary-conclusion"><strong>Summary Conclusion:</strong></h1>
+<p>Apple Inc. exhibits <strong>exceptional financial health</strong> with a <strong>robust Altman Z-Score consistently in the Safe Zone</strong>, supported by strong operational and market fundamentals. Despite minor liquidity and data quality anomalies, the overall investment outlook is positive, recommending a <strong>BUY stance for value, growth, and aggressive investors</strong>, with HOLD advised for conservative and dividend-focused profiles pending further dividend data validation.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating multi-source financial data and AI-driven risk, sentiment, and peer analyses.</em></p></div></div>
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, peer, sentiment, and risk data for actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1191,78 +1291,41 @@ Apple’s Z-Score momentum is expected to remain stable or improve slightly over
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 05, 2025 at 09:43 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:37 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

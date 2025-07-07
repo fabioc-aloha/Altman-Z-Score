@@ -1,0 +1,217 @@
+{
+  "AMZN": {
+    "error": "Data merger failed for AMZN: SEC EDGAR data retrieval failed for AMZN: No SEC EDGAR financial data available for AMZN",
+    "category": "stable",
+    "bankruptcy_date": "2022-10-27",
+    "data_source": "error"
+  },
+  "COST": {
+    "error": "Data merger failed for COST: SEC EDGAR data retrieval failed for COST: No SEC EDGAR financial data available for COST",
+    "category": "stable",
+    "bankruptcy_date": "2020-05-21",
+    "data_source": "error"
+  },
+  "HD": {
+    "retail_score": 6.473788211971136,
+    "retail_risk": "Safe",
+    "traditional_score": 6.2200418655612415,
+    "traditional_risk": "Safe",
+    "category": "stable",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.08564383732664718,
+      "retained_earnings_ratio": 0.9314807686305517,
+      "ebit_ratio": 0.22395156004536043,
+      "market_equity_ratio": 4.1327556479620915,
+      "asset_turnover": 1.65954701983999,
+      "inventory_adjustment": 0.3774039486589058,
+      "z_score": 6.473788211971136
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "The Home Depot, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/HD.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\HD.png",
+      "period_date": "2025-02-02",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api",
+    "quarter_results": []
+  },
+  "WMT": {
+    "error": "Data merger failed for WMT: SEC EDGAR data retrieval failed for WMT: No SEC EDGAR financial data available for WMT",
+    "category": "stable",
+    "bankruptcy_date": "2020-05-22",
+    "data_source": "error"
+  },
+  "TGT": {
+    "error": "Data merger failed for TGT: SEC EDGAR data retrieval failed for TGT: No SEC EDGAR financial data available for TGT",
+    "category": "recovery",
+    "bankruptcy_date": "2020-05-23",
+    "data_source": "error"
+  },
+  "GME": {
+    "retail_score": 8.543094216778638,
+    "retail_risk": "Safe",
+    "traditional_score": 8.270201721048046,
+    "traditional_risk": "Safe",
+    "category": "distressed",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.8296967015011744,
+      "retained_earnings_ratio": -0.01387139599006025,
+      "ebit_ratio": -0.004459270858154339,
+      "market_equity_ratio": 11.159746057529611,
+      "asset_turnover": 0.6506791026993907,
+      "inventory_adjustment": 0.47013397195612944,
+      "z_score": 8.543094216778638
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "GameStop Corp.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/GME.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\GME.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api",
+    "quarter_results": []
+  },
+  "EXPR": {
+    "error": "Data merger failed for EXPR: SEC EDGAR data retrieval failed for EXPR: No SEC EDGAR financial data available for EXPR",
+    "category": "distressed",
+    "bankruptcy_date": "2023-04-20",
+    "data_source": "error"
+  },
+  "BIG": {
+    "retail_score": 2.4495484026076912,
+    "retail_risk": "Gray Zone",
+    "traditional_score": 2.298900643519144,
+    "traditional_risk": "Gray Zone",
+    "category": "distressed",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.039912381074961756,
+      "retained_earnings_ratio": 0.8272157564905999,
+      "ebit_ratio": -0.11250683771042029,
+      "market_equity_ratio": 0.09355882997118535,
+      "asset_turnover": 1.420048181988501,
+      "inventory_adjustment": 0.2772811414081442,
+      "z_score": 2.4495484026076912
+    },
+    "warnings": [
+      "Market data not available - may affect model selection",
+      "Market value not available, using book value for equity ratio"
+    ],
+    "metadata": {
+      "company_name": "Big Lots, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/BIG.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\BIG.png",
+      "period_date": "2024-02-03",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api",
+    "quarter_results": []
+  },
+  "SHOP": {
+    "retail_score": 40.533324001914124,
+    "retail_risk": "Safe",
+    "traditional_score": 39.86699248798134,
+    "traditional_risk": "Safe",
+    "category": "other",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.5191037058316575,
+      "retained_earnings_ratio": 0.11699224360815857,
+      "ebit_ratio": 0.077204826199368,
+      "market_equity_ratio": 63.92347785629755,
+      "asset_turnover": 0.6377477736282677,
+      "inventory_adjustment": 1.0,
+      "z_score": 40.533324001914124
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Shopify Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/SHOP.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\SHOP.png",
+      "period_date": "2024-12-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api",
+    "quarter_results": []
+  },
+  "ETSY": {
+    "retail_score": 2.377306950654968,
+    "retail_risk": "Gray Zone",
+    "traditional_score": 2.0471962955173253,
+    "traditional_risk": "Gray Zone",
+    "category": "other",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.5491359436045102,
+      "retained_earnings_ratio": -0.7378816617875391,
+      "ebit_ratio": 0.15725487244093966,
+      "market_equity_ratio": 1.7848411986471273,
+      "asset_turnover": 1.161532346588733,
+      "inventory_adjustment": 0.0,
+      "z_score": 2.377306950654968
+    },
+    "warnings": [
+      "Inventory turnover could not be calculated"
+    ],
+    "metadata": {
+      "company_name": "Etsy, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/ETSY.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\ETSY.png",
+      "period_date": "2024-12-31",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api",
+    "quarter_results": []
+  },
+  "SPIR": {
+    "error": "Data merger failed for SPIR: SEC EDGAR data retrieval failed for SPIR: No SEC EDGAR financial data available for SPIR",
+    "category": "other",
+    "bankruptcy_date": "2020-04-29",
+    "data_source": "error"
+  },
+  "BBW": {
+    "retail_score": 6.094814268660274,
+    "retail_risk": "Safe",
+    "traditional_score": 5.9213102592873295,
+    "traditional_risk": "Safe",
+    "category": "seasonal",
+    "bankruptcy_date": null,
+    "components": {
+      "working_capital_ratio": 0.1949364731200596,
+      "retained_earnings_ratio": 0.30872270275490077,
+      "ebit_ratio": 0.22858640621335652,
+      "market_equity_ratio": 4.714417805586118,
+      "asset_turnover": 1.7119976824069858,
+      "inventory_adjustment": 0.2673904215932163,
+      "z_score": 6.094814268660274
+    },
+    "warnings": [],
+    "metadata": {
+      "company_name": "Build-A-Bear Workshop, Inc.",
+      "logo_url": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/BBW.png",
+      "logo_file_path": ".cache\\finnhub\\logos\\BBW.png",
+      "period_date": "2025-02-01",
+      "calculation_method": "direct_from_merged_data",
+      "components_calculated": 7,
+      "model_selection_confidence": 0.8
+    },
+    "data_source": "api",
+    "quarter_results": []
+  }
+}

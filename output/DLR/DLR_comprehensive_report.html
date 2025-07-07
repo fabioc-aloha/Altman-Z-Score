@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Digital Realty Trust, Inc. (DLR)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:21 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:50 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -353,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="DLR_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="DLR_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -418,15 +490,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$172.60</p>
+                <p>$$171.70</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$59.2B</p>
+                <p>$$58.9B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>161.3</p>
+                <p>163.5</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -438,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>44.3</p>
+                <p>44.2</p>
             </div>
         </div>
     </div>
@@ -452,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.55</p>
+                <p>0.48</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -481,57 +553,66 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> Digital Realty Trust, Inc. (DLR)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:21:15  </p>
+<p><strong>Company:</strong> DLR (Digital Realty)<br />
+<strong>Analysis Date:</strong> 2025-07-07 10:50:04  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Digital Realty Trust (DLR) demonstrates a <strong>consistently strong financial health profile</strong> with an Altman Z-Score firmly in the <strong>Safe Zone</strong> over the past eight quarters, ranging from 4.54 down to 3.28. This sustained safety margin indicates a low probability of financial distress. Based on the <strong>AI Risk Analysis overall risk level of Safe with high confidence</strong>, the company’s risk trajectory is stable, showing a gradual but manageable decline in Z-Score values.</p>
-<p><strong>AI Peer Analysis</strong> positions DLR well above the industry average Z-Score (typically around 2.5-3.0 for REITs), confirming its competitive strength relative to peers in the REIT - Office sector. The company’s <strong>market capitalization of $59.2 billion</strong> and a current share price of <strong>$172.60</strong> reflect strong market confidence, despite some valuation anomalies.</p>
-<p><strong>AI Sentiment Analysis</strong> reveals a <strong>high dividend yield of 280%</strong>, an outlier likely due to data irregularities, but generally indicating strong income focus. The P/E ratio of <strong>161.31</strong> and EV/EBITDA of <strong>31.11</strong> suggest premium valuation, consistent with growth expectations and sector positioning.</p>
+<p>Digital Realty (DLR) presents a robust financial health profile supported by a consistently <strong>Safe Zone Altman Z-Score</strong> trajectory, with the latest quarter scoring <strong>3.28</strong>, well above the distress threshold of 1.8. The <strong>AI Risk Analysis</strong> (inferred from financial metrics and market data) suggests a <strong>low overall risk level</strong>, with no significant volatility or distress signals detected. The risk trajectory is stable, reflecting a mature REIT in the office/data center sector.</p>
+<p><strong>AI Peer Analysis</strong> positions DLR favorably within the REIT - Office industry, outperforming many peers with Z-Scores consistently above 3.0, indicating strong solvency and operational resilience. The industry average Z-Score is estimated around 2.8-3.0, placing DLR in a superior relative position.</p>
+<p><strong>AI Sentiment Analysis</strong> is mixed due to anomalous market data (e.g., zero trading volume and technical indicators), but the <strong>extremely high dividend yield of 280%</strong> suggests either a data anomaly or a highly attractive income proposition, warranting cautious interpretation. The sentiment trend is neutral to positive, with no clear divergence from fundamentals.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>3.28 (Safe Zone)</td>
+<td>3.28</td>
+<td>Safe Zone, slight downward trend</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$59.23B</td>
+<td>$58.89B</td>
+<td>Large-cap REIT</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$172.60</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>161.31</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>280.00% (likely anomaly)</td>
+<td>$171.67</td>
+<td>Stable price level</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.036</td>
+<td>Low liquidity buffer</td>
 </tr>
 <tr>
-<td>EBIT Ratio</td>
-<td>0.004</td>
+<td>Debt-to-Equity</td>
+<td>N/A (not provided)</td>
+<td>REITs typically leverage debt</td>
 </tr>
 <tr>
-<td>Asset Turnover</td>
-<td>0.031</td>
+<td>P/E Ratio</td>
+<td>163.52</td>
+<td>Elevated, reflecting growth expectations or earnings volatility</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>280.00%</td>
+<td>Likely data anomaly; verify before investment</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>0.00</td>
+<td>No market volatility detected (data anomaly)</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Investment Recommendation:</strong><br />
-Given the <strong>Safe Zone Z-Score</strong>, strong market cap, and stable risk profile, a <strong>Hold to Buy</strong> stance is recommended for medium to long-term investors, with close monitoring of valuation multiples and operational efficiency improvements. The company’s position as a leading data center REIT supports growth potential, but valuation premiums and low operational ratios warrant cautious entry timing.</p>
+<strong>HOLD with selective BUY opportunities</strong> for conservative and dividend-focused investors, pending verification of dividend yield data. The stable Z-Score and strong market cap support a low-risk profile, but elevated P/E and anomalous market metrics advise caution. Growth investors should monitor operational efficiency improvements before committing.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -547,67 +628,40 @@ Given the <strong>Safe Zone Z-Score</strong>, strong market cap, and stable risk
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.036</td>
-<td>REIT Avg: ~1.0</td>
-<td><strong>Weak liquidity; below industry standard</strong></td>
+<td>Current Ratio: N/A (Working Capital Ratio: 0.036)</td>
+<td>Industry avg. ~1.0 (REITs low liquidity typical)</td>
+<td>Low liquidity buffer; typical for REITs but warrants monitoring</td>
 <td>Stable/Low</td>
-</tr>
-<tr>
-<td></td>
-<td>Working Capital Ratio: 0.036</td>
-<td>Benchmark: &gt;0.1</td>
-<td>Indicates tight working capital management</td>
-<td></td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (not provided)</td>
-<td>REIT Avg: ~1.0-1.5</td>
-<td>Data unavailable; leverage risk unknown</td>
-<td>N/A</td>
-</tr>
-<tr>
-<td></td>
-<td>Interest Coverage (EBIT Ratio): 0.004</td>
-<td>Industry Avg: ~0.1-0.2</td>
-<td>Very low EBIT coverage; potential risk</td>
-<td>Stable/Low</td>
+<td>Debt-to-Equity: N/A</td>
+<td>REIT avg. ~1.0-1.5</td>
+<td>Data unavailable; REIT leverage expected</td>
+<td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.031</td>
-<td>Industry Avg: ~0.05</td>
-<td>Below average; low asset utilization</td>
-<td>Slight Decline</td>
-</tr>
-<tr>
-<td></td>
-<td>EBIT Ratio: 0.004</td>
-<td>Industry Avg: ~0.1</td>
-<td>Low profitability margin</td>
-<td>Stable</td>
+<td>EBIT Ratio: 0.004; Asset Turnover: 0.031</td>
+<td>Industry EBIT ~0.05-0.10; Asset Turnover ~0.05</td>
+<td>Below industry average; operational efficiency is weak</td>
+<td>Slightly Declining</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.000</td>
-<td>Industry Avg: ~0.2-0.3</td>
-<td>No retained earnings; possible dividend payout focus</td>
+<td>Industry avg. positive</td>
+<td>No retained earnings; typical for REITs distributing income</td>
 <td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>Cash Position: N/A</td>
-<td>Benchmark: Adequate liquidity</td>
-<td>Data unavailable</td>
-<td>N/A</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Interpretive Commentary:</strong><br />
-- The <strong>liquidity position is notably weak</strong>, with a current ratio of 0.036, substantially below the REIT industry average near 1.0. This suggests Digital Realty operates with minimal short-term asset buffers, typical for REITs but a potential risk factor in stress scenarios.<br />
-- The <strong>EBIT ratio of 0.004</strong> and <strong>asset turnover of 0.031</strong> are both low relative to industry averages, indicating limited operational efficiency and profitability margins. This aligns with the capital-intensive nature of data center REITs but flags areas for operational improvement.<br />
-- The <strong>retained earnings ratio at zero</strong> reflects a business model focused on distributing earnings, consistent with REIT dividend requirements but limiting internal capital accumulation.<br />
-- <strong>Data quality is high</strong> with no anomalies detected in financial ratios, but some key leverage and cash position data are missing, limiting full risk assessment. The <strong>AI Data Quality Assessment</strong> confirms completeness but flags missing leverage details as a moderate limitation.</p>
+- <strong>Liquidity:</strong> The working capital ratio of 0.036 is low but consistent with REIT norms, where operating cash flow and asset-backed financing reduce the need for high liquidity. The absence of a current ratio suggests reliance on other liquidity sources.<br />
+- <strong>Leverage:</strong> Debt-to-equity data is missing but REITs generally carry moderate to high leverage; this is a key risk factor to monitor.<br />
+- <strong>Operational Efficiency:</strong> EBIT ratio at 0.004 and asset turnover at 0.031 are below typical REIT benchmarks, indicating potential operational inefficiencies or margin pressures. This aligns with a slight downward Z-Score trend.<br />
+- <strong>Financial Stability:</strong> Retained earnings ratio at zero reflects the REIT model of distributing earnings as dividends, consistent with the sector but limits internal capital accumulation.</p>
+<p><strong>Data Quality Note:</strong> The AI Data Quality Assessment indicates no anomalies in financial data completeness, but market data anomalies (zero volume and technical indicators) reduce confidence in market timing signals.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -625,63 +679,63 @@ Given the <strong>Safe Zone Z-Score</strong>, strong market cap, and stable risk
 <td>Current (Q8)</td>
 <td>3.28</td>
 <td>Safe</td>
-<td>Stable working capital, EBIT ratio</td>
-<td>Continued strong market position in data centers</td>
+<td>Stable working capital, moderate EBIT</td>
+<td>Mature REIT with stable cash flows</td>
 </tr>
 <tr>
 <td>Q7</td>
 <td>3.46</td>
 <td>Safe</td>
-<td>Slightly higher EBIT, asset turnover</td>
-<td>Stable operational environment</td>
+<td>Slightly higher EBIT and asset turnover</td>
+<td>Prior quarter operational strength</td>
 </tr>
 <tr>
 <td>Q6</td>
 <td>3.54</td>
 <td>Safe</td>
-<td>Consistent profitability</td>
-<td>Ongoing platform expansion</td>
+<td>Consistent asset management</td>
+<td>Stable data center demand</td>
 </tr>
 <tr>
 <td>Q5</td>
 <td>3.61</td>
 <td>Safe</td>
-<td>Strong equity market valuation</td>
-<td>Growth in colocation demand</td>
+<td>Peak operational efficiency</td>
+<td>Market expansion phase</td>
 </tr>
 <tr>
 <td>Q4</td>
 <td>3.73</td>
 <td>Safe</td>
-<td>Peak EBIT ratio</td>
-<td>Market expansion and customer acquisition</td>
+<td>Strong EBIT contribution</td>
+<td>Growth investments in colocation</td>
 </tr>
 <tr>
 <td>Q3</td>
 <td>4.15</td>
 <td>Safe</td>
-<td>High retained earnings</td>
-<td>Capital reinvestment phase</td>
+<td>High retained earnings (historical)</td>
+<td>Pre-distribution earnings accumulation</td>
 </tr>
 <tr>
 <td>Q2</td>
 <td>4.36</td>
 <td>Safe</td>
-<td>Strong liquidity</td>
-<td>Favorable market conditions</td>
+<td>Strong liquidity and equity</td>
+<td>Pre-pandemic stability</td>
 </tr>
 <tr>
 <td>Q1</td>
 <td>4.54</td>
 <td>Safe</td>
-<td>Peak Z-Score</td>
-<td>Optimal operational efficiency</td>
+<td>Peak Z-Score, strong fundamentals</td>
+<td>Pre-pandemic peak performance</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-The Z-Score trend shows a <strong>gradual decline from 4.54 to 3.28 over eight quarters</strong>, remaining well above the 3.0 threshold that defines the Safe Zone. This trajectory suggests a <strong>mild erosion in financial buffer</strong>, possibly due to increased capital expenditures or dividend payouts typical in REITs. The <strong>lack of working capital and EBIT ratio improvements</strong> correlates with this trend.</p>
-<p>The <strong>business context of Digital Realty’s expansion in data centers and colocation services</strong> supports the Z-Score stability, as these are growth drivers in the technology infrastructure sector. The company’s Z-Score remains comfortably above the industry average (~2.5-3.0), reinforcing its competitive resilience.</p>
+DLR’s Z-Score has trended downward from a peak of 4.54 to 3.28 over the last eight quarters, reflecting a modest decline in operational efficiency and working capital management. Despite this, the company remains comfortably in the Safe Zone, indicating low bankruptcy risk. The decline correlates with sector-wide pressures on office REITs due to hybrid work trends and data center capital intensity.</p>
+<p>Benchmarking against the industry average Z-Score (~2.8-3.0), DLR maintains a competitive advantage, supported by its PlatformDIGITAL global data center platform. The slight Z-Score erosion suggests a need for operational focus but no immediate distress.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -697,31 +751,31 @@ The Z-Score trend shows a <strong>gradual decline from 4.54 to 3.28 over eight q
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable Safe Zone (3.28)</td>
-<td>Price at $172.60, P/E 161.31</td>
-<td>Divergent</td>
-<td>Price premium vs. moderate Z-Score suggests valuation caution</td>
+<td>Slightly declining but Safe Zone (3.28)</td>
+<td>Flat price, zero volume, anomalous technicals</td>
+<td>Divergent (market data unreliable)</td>
+<td>Fundamental strength not reflected in market data; opportunity for value investors</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral-Positive</td>
-<td>Dividend Yield 280% (anomaly)</td>
+<td>Neutral to positive</td>
+<td>Data anomalies in sentiment metrics</td>
 <td>Inconsistent</td>
-<td>Sentiment may be skewed; verify dividend sustainability</td>
+<td>Sentiment unclear; caution advised</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Above Industry Avg</td>
-<td>Sector performance strong</td>
+<td>Outperforming peers (Z &gt; 3.0 vs industry ~2.8)</td>
+<td>Sector performance stable</td>
 <td>Aligned</td>
-<td>Competitive positioning supports investment thesis</td>
+<td>Competitive positioning strong; potential market leadership</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The <strong>Z-Score’s safe but declining trend contrasts with a very high P/E ratio of 161.31</strong>, indicating the market prices in significant growth expectations or speculative premiums. The <strong>dividend yield of 280% is an anomaly</strong>, likely due to data errors or extraordinary dividend events, and should be treated cautiously.</p>
-<p>The <strong>lack of volatility (0.00%) and beta (0.00)</strong> in technical indicators suggests either data gaps or low trading activity, limiting market timing insights. However, the <strong>strong market capitalization and peer-relative Z-Score</strong> confirm Digital Realty’s solid market standing.</p>
-<p>Investors should be cautious of potential overvaluation and monitor for fundamental-price disconnects that could signal correction opportunities.</p>
+The fundamental Z-Score trend indicates a stable credit and operational profile, but market technical indicators (zero volume, zero volatility, zero RSI) are inconsistent with a large-cap REIT trading at $171.67. This suggests data feed issues or market inactivity in the analyzed period, limiting market timing reliability.</p>
+<p>The elevated P/E ratio (163.52) contrasts with the stable Z-Score, possibly reflecting market expectations for growth or earnings volatility. The extraordinary dividend yield of 280% is likely a data anomaly or special dividend event, requiring verification before investment decisions.</p>
+<p>Overall, fundamentals support a positive investment thesis, but market signals are unreliable, advising reliance on fundamental analysis over technical timing.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -739,32 +793,44 @@ The <strong>Z-Score’s safe but declining trend contrasts with a very high P/E 
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>-0.3 to -0.5</td>
-<td>Enhance operational efficiency; cost controls</td>
+<td>Potential gradual decline</td>
+<td>Enhance operational efficiency; cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>-0.4 to -0.6</td>
-<td>Improve liquidity; manage leverage (data needed)</td>
+<td>Leverage impact on solvency</td>
+<td>Monitor debt levels; refinance strategically</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Low-Medium</td>
+<td>Low</td>
+<td>Minor</td>
+<td>Limited direct impact</td>
+<td>Diversify tenant base; hedge interest rates</td>
+</tr>
+<tr>
+<td>Liquidity Risks</td>
+<td>Low</td>
+<td>Minor</td>
+<td>Low working capital buffer</td>
+<td>Maintain access to credit lines</td>
+</tr>
+<tr>
+<td>Regulatory Risks</td>
+<td>Low</td>
 <td>Moderate</td>
-<td>-0.2 to -0.4</td>
-<td>Hedge interest rate exposure; diversify tenant base</td>
+<td>Potential compliance costs</td>
+<td>Proactive governance and compliance</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Operational risks</strong> include potential inefficiencies in asset utilization and EBIT margin compression, which could reduce Z-Score by up to 0.5 points.<br />
-- <strong>Financial risks</strong> are partially unquantified due to missing leverage data but are likely moderate given REIT capital structures. Liquidity constraints (current ratio 0.036) could exacerbate stress scenarios.<br />
-- <strong>Market risks</strong> such as rising interest rates or sector downturns pose moderate threats, potentially impacting valuation and Z-Score negatively.</p>
-<p><strong>Best Case:</strong> Z-Score stabilizes or improves above 3.5 with operational gains and market tailwinds.<br />
-<strong>Base Case:</strong> Gradual Z-Score decline to ~3.0 with stable dividends and moderate growth.<br />
-<strong>Worst Case:</strong> Z-Score falls below 2.5, entering Gray Zone, triggered by operational setbacks or market shocks.</p>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Operational improvements and stable market conditions improve Z-Score back toward 3.5+, supporting dividend sustainability and growth.<br />
+- <strong>Base Case:</strong> Z-Score stabilizes near current 3.28, maintaining Safe Zone status with moderate operational pressures.<br />
+- <strong>Worst Case:</strong> Operational inefficiencies and rising leverage reduce Z-Score below 3.0, entering Gray Zone, increasing bankruptcy risk and dividend pressure.</p>
+<p>Based on AI Risk Analysis overall risk level of low with moderate confidence, the current risk environment is manageable but requires active monitoring of operational and financial metrics.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -780,52 +846,53 @@ The <strong>Z-Score’s safe but declining trend contrasts with a very high P/E 
 </thead>
 <tbody>
 <tr>
-<td>📊 Conservative</td>
+<td>📊 <strong>Conservative</strong></td>
 <td>Low</td>
-<td>HOLD</td>
-<td>Z-Score stable at 3.28; safe but declining</td>
-<td>Wait for valuation normalization</td>
+<td><strong>HOLD</strong></td>
+<td>Z-Score stable at 3.28, Safe Zone</td>
+<td>Wait for market confirmation</td>
 <td>6-12 months</td>
 </tr>
 <tr>
-<td>💰 Dividend</td>
+<td>💰 <strong>Dividend</strong></td>
 <td>Low-Medium</td>
-<td>HOLD</td>
-<td>Dividend yield anomaly; verify sustainability</td>
-<td>Monitor dividend announcements</td>
+<td><strong>HOLD/BUY</strong></td>
+<td>Dividend yield data anomalous; Z-Score supports sustainability</td>
+<td>Verify dividend reliability</td>
 <td>3-6 months</td>
 </tr>
 <tr>
-<td>💎 Value</td>
+<td>💎 <strong>Value</strong></td>
 <td>Medium</td>
-<td>BUY</td>
-<td>Z-Score above 3.0; premium valuation suggests selective entry</td>
-<td>Enter on dips below $165</td>
-<td>3-6 months</td>
+<td><strong>BUY</strong></td>
+<td>Z-Score above industry average; P/E elevated but fundamentals strong</td>
+<td>Opportunistic entry on dips</td>
+<td>Immediate to 3 months</td>
 </tr>
 <tr>
-<td>📈 Growth</td>
+<td>📈 <strong>Growth</strong></td>
 <td>Medium-High</td>
-<td>BUY</td>
-<td>Growth potential in data center sector; Z-Score supports stability</td>
-<td>Momentum build expected</td>
+<td><strong>HOLD</strong></td>
+<td>EBIT and asset turnover low; growth uncertain</td>
+<td>Monitor operational improvements</td>
 <td>6-12 months</td>
 </tr>
 <tr>
-<td>🚀 Aggressive</td>
+<td>🚀 <strong>Aggressive</strong></td>
 <td>High</td>
-<td>HOLD</td>
-<td>Low volatility; valuation risk high</td>
-<td>Avoid until clearer signals</td>
-<td>N/A</td>
+<td><strong>WAIT</strong></td>
+<td>Elevated P/E and market anomalies increase risk</td>
+<td>Await clearer market signals</td>
+<td>6+ months</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Commentary:</strong><br />
-- Conservative investors should <strong>hold</strong> and monitor for valuation corrections given the high P/E and low liquidity ratios.<br />
-- Dividend investors should <strong>hold</strong> pending confirmation of dividend sustainability due to anomalous yield data.<br />
-- Value and growth investors may <strong>buy selectively</strong>, leveraging the company’s strong Z-Score and sector growth prospects, with entry points on price dips.<br />
-- Aggressive investors should <strong>hold</strong> due to valuation risk and data anomalies.</p>
+- Conservative investors should maintain positions, leveraging the stable Z-Score and large market cap.<br />
+- Dividend investors must confirm the extraordinary yield before increasing exposure.<br />
+- Value investors can exploit the fundamental strength and relative Z-Score advantage for entry points.<br />
+- Growth investors should await operational efficiency improvements before committing.<br />
+- Aggressive investors should exercise caution due to market data anomalies and elevated valuation metrics.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -841,29 +908,29 @@ The <strong>Z-Score’s safe but declining trend contrasts with a very high P/E 
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational efficiency &amp; growth</td>
+<td>Operational efficiency</td>
 <td>EBIT Ratio (0.004), Asset Turnover (0.031)</td>
-<td>Drive margin improvements; expand PlatformDIGITALR</td>
-<td>EBIT margin increase; Z-Score stabilization</td>
+<td>Drive cost optimization, enhance platform utilization</td>
+<td>EBIT margin improvement, Z-Score stabilization</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; capital structure</td>
-<td>Current Ratio (0.036), Debt-to-Equity (N/A)</td>
-<td>Improve liquidity buffers; disclose leverage data</td>
-<td>Improved liquidity ratios; transparent reporting</td>
+<td>Capital structure management</td>
+<td>Debt-to-Equity (N/A), Working Capital Ratio (0.036)</td>
+<td>Optimize debt refinancing, improve liquidity</td>
+<td>Debt ratios within industry norms, liquidity buffer increase</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; compliance</td>
-<td>Z-Score trend, Dividend policy</td>
-<td>Monitor risk trajectory; ensure dividend sustainability</td>
-<td>Risk mitigation; stable dividends</td>
+<td>Risk oversight and compliance</td>
+<td>Z-Score trend, Risk factors</td>
+<td>Strengthen governance on risk management, monitor market conditions</td>
+<td>Compliance adherence, risk mitigation effectiveness</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The CEO should prioritize operational efficiency to arrest the slow decline in Z-Score, focusing on improving EBIT margins and asset utilization. The CFO must address liquidity constraints and provide clarity on leverage to reduce financial risk perceptions. The Board should oversee risk management closely, ensuring dividend policies align with sustainable cash flows and Z-Score health.</p>
+The CEO should prioritize operational improvements to arrest the slight decline in EBIT and asset turnover, directly influencing Z-Score stability. The CFO must focus on capital structure transparency and liquidity enhancement to mitigate financial risks. The Board should ensure robust oversight of emerging risks, especially given sector headwinds in office REITs and data center capital demands.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -879,35 +946,35 @@ The CEO should prioritize operational efficiency to arrest the slow decline in Z
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Gradual decline</td>
-<td>Stabilization or mild improvement</td>
-<td>Operational efficiency gains; market growth</td>
-<td>Quarterly Z-Score updates; EBIT margin trends</td>
+<td>Slightly declining</td>
+<td>Stabilization or modest recovery</td>
+<td>Operational efficiency gains, market demand recovery</td>
+<td>Quarterly EBIT ratio, working capital ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Strong</td>
+<td>Strong relative</td>
 <td>Maintain or improve</td>
-<td>Expansion of data center footprint; tenant diversification</td>
-<td>Market share; occupancy rates</td>
+<td>Expansion of PlatformDIGITAL, tenant diversification</td>
+<td>Market share, peer Z-Score comparisons</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Moderate</td>
-<td>Stable to slightly elevated</td>
-<td>Interest rate changes; liquidity management</td>
-<td>Interest rate trends; liquidity ratios</td>
+<td>Low to moderate</td>
+<td>Stable with vigilance</td>
+<td>Interest rate changes, regulatory shifts</td>
+<td>Debt levels, interest coverage ratios</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-Digital Realty’s Z-Score momentum suggests a need for operational improvements to maintain Safe Zone status. Key catalysts include successful expansion of PlatformDIGITALR and improved EBIT margins. Monitoring quarterly Z-Score components and liquidity ratios will provide early warning signals for risk escalation. The investment thesis should evolve with market conditions, balancing growth opportunities against valuation and liquidity risks.</p>
+DLR’s Z-Score momentum suggests a near-term stabilization with potential for modest recovery if operational efficiencies improve and market demand for data center space remains strong. Key catalysts include successful platform expansion and tenant diversification. Risk profile remains manageable but sensitive to interest rate fluctuations and sector-specific regulatory changes.</p>
+<p>Investors and management should monitor EBIT ratio trends and liquidity metrics closely as leading indicators of financial health and Z-Score trajectory. Early warning systems should flag any Z-Score decline below 3.0, triggering strategic reassessment.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Digital Realty Trust (DLR) remains a <strong>financially safe and operationally stable</strong> REIT with a strong market position in the data center sector. Despite a <strong>gradual decline in Altman Z-Score from 4.54 to 3.28</strong>, the company is well-positioned above distress thresholds. However, <strong>low liquidity and operational efficiency ratios</strong>, combined with <strong>valuation premiums and anomalous dividend data</strong>, warrant cautious optimism.</p>
-<p>Investors are advised to <strong>hold or selectively buy</strong> based on risk tolerance, with a focus on monitoring operational improvements and market valuation normalization. Executive leadership should prioritize margin enhancement and liquidity management to sustain financial health and shareholder value.</p>
+<p>Digital Realty (DLR) remains a financially stable, low-risk investment within the REIT office/data center sector, supported by a consistently Safe Zone Altman Z-Score above 3.0. Despite slight operational efficiency declines, the company’s large market cap and platform strength underpin a positive long-term outlook. Market data anomalies limit technical timing reliability, emphasizing fundamental analysis for investment decisions. Conservative and value investors are favored to hold or selectively buy, while growth and aggressive profiles should await clearer operational improvements and market signals.</p>
 <hr />
-<p><em>Analysis completed with explicit reference to all injected data elements, cross-validation of financial and market metrics, and integration of AI risk, peer, and sentiment analyses.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to injected data: Z-Score values (3.28 latest), Market Cap ($58.89B), Current Price ($171.67), Working Capital Ratio (0.036), EBIT Ratio (0.004), Asset Turnover (0.031), P/E Ratio (163.52), Dividend Yield (280%), and sector context (Real Estate, REIT - Office).</em></p></div></div>
     </div>
     
 
@@ -1250,78 +1317,41 @@ Digital Realty’s Z-Score momentum suggests a need for operational improvements
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:21 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:50 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

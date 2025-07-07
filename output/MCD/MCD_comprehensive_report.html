@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>McDonald's Corporation (MCD)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:36 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:28 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -345,9 +417,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="MCD_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="MCD_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -410,15 +482,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$294.08</p>
+                <p>$$294.11</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$210.3B</p>
+                <p>$$210.3B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>25.9</p>
+                <p>26.0</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -430,7 +502,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>38.9</p>
+                <p>40.2</p>
             </div>
         </div>
     </div>
@@ -444,7 +516,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.80</p>
+                <p>0.86</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -465,74 +537,18 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> McDonald's Corporation (MCD)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:35:54  </p>
+<strong>Analysis Date:</strong> 2025-07-07 12:27:52  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>McDonald's Corporation (MCD) demonstrates a consistently strong financial position with an Altman Z-Score firmly in the <strong>Safe Zone</strong> across the last eight quarters, ranging from 3.89 to 4.60, well above the distress threshold of 1.8. The overall risk level is assessed as <strong>Low</strong>, with a stable risk trajectory, indicating minimal bankruptcy risk and robust operational health.  </p>
-<p><strong>AI Risk Analysis</strong> confirms a low overall risk level with high confidence, supported by strong retained earnings (ratio 1.197) and a moderate EBIT ratio (0.047), reflecting sustainable profitability. The <strong>AI Peer Analysis</strong> positions MCD above the industry average Z-Score (industry average ~3.2), highlighting McDonald's competitive strength within the Consumer Cyclical sector, Restaurants industry.  </p>
-<p><strong>AI Sentiment Analysis</strong> metrics are limited due to missing technical indicators (RSI, moving averages at zero), but the exceptionally high dividend yield of 242.00% and a P/E ratio of 25.93 suggest strong market confidence and income appeal, albeit with data anomalies flagged in market metrics.  </p>
-<table>
-<thead>
-<tr>
-<th>Key Metrics Summary</th>
-<th>Value</th>
-<th>Industry Benchmark</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Latest Z-Score</td>
-<td>4.45</td>
-<td>~3.2 (Industry Avg)</td>
-<td>Safe Zone, strong financial health</td>
-</tr>
-<tr>
-<td>Market Cap</td>
-<td>$210.28B</td>
-<td>N/A</td>
-<td>Large-cap stability</td>
-</tr>
-<tr>
-<td>Current Price</td>
-<td>$294.08</td>
-<td>N/A</td>
-<td>Reflects market valuation</td>
-</tr>
-<tr>
-<td>Working Capital Ratio</td>
-<td>0.013</td>
-<td>Industry ~0.1-0.3</td>
-<td>Low liquidity buffer</td>
-</tr>
-<tr>
-<td>Retained Earnings Ratio</td>
-<td>1.197</td>
-<td>Industry ~1.0</td>
-<td>Strong earnings retention</td>
-</tr>
-<tr>
-<td>EBIT Ratio</td>
-<td>0.047</td>
-<td>Industry ~0.04-0.06</td>
-<td>Moderate operating profitability</td>
-</tr>
-<tr>
-<td>Asset Turnover</td>
-<td>0.106</td>
-<td>Industry ~0.1</td>
-<td>Efficient asset use</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>242.00%</td>
-<td>Industry ~2-4%</td>
-<td>Data anomaly, likely error</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Investment Recommendation:</strong><br />
-Given the strong and stable Z-Score trend, low risk profile, and market leadership, a <strong>BUY</strong> recommendation is supported for conservative and growth-oriented investors. However, caution is warranted regarding anomalous market data (dividend yield and technical indicators), suggesting verification before aggressive position sizing.</p>
+<p>McDonald's Corporation (MCD) demonstrates a consistently <strong>strong financial health profile</strong> as evidenced by its Altman Z-Score trajectory firmly within the <strong>Safe Zone</strong> (Z &gt; 3.0) over the past eight quarters, with scores ranging from 3.89 to 4.60. This stability signals a very low risk of bankruptcy and robust operational resilience. Based on the <strong>AI Risk Analysis overall risk level of Low</strong> (inferred from Z-Score stability and financial ratios) with high confidence, McDonald's maintains a solid footing despite sector cyclicality.</p>
+<p>From the <strong>AI Peer Analysis</strong>, MCD's Z-Score consistently outperforms the industry average (typically near 3.0 for Restaurants sector), positioning it as a <strong>top-tier competitor</strong> among peers such as Yum! Brands (YUM) and Restaurant Brands International (QSR). This relative strength supports a positive investment outlook.</p>
+<p>The <strong>AI Sentiment Analysis</strong> indicates a <strong>neutral to slightly positive market sentiment</strong>, with no significant divergence from fundamentals, reinforcing confidence in current valuation levels. However, some valuation metrics (e.g., P/E ratio of 25.98) suggest the market prices in growth expectations, warranting cautious monitoring.</p>
+<p><strong>Key Investment Recommendations:</strong><br />
+| Recommendation | Rationale | Confidence Level |<br />
+|----------------|-----------|------------------|<br />
+| <strong>Hold / Moderate Buy</strong> | Strong Z-Score safety, stable financial ratios, and solid market position justify maintaining or modestly increasing exposure. | High (90%) |<br />
+| <strong>Monitor Valuation</strong> | Elevated P/E and EV/EBITDA ratios suggest valuation premium; watch for market corrections or earnings surprises. | Medium (70%) |<br />
+| <strong>Long-Term Growth Play</strong> | Consistent operational efficiency and brand strength support growth-oriented portfolios. | High (85%) |</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -540,7 +556,7 @@ Given the strong and stable Z-Score trend, low risk profile, and market leadersh
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark (Restaurants)</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -549,60 +565,58 @@ Given the strong and stable Z-Score trend, low risk profile, and market leadersh
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.013</td>
-<td>~0.1-0.3</td>
-<td><strong>Weak liquidity buffer</strong>, potential short-term risk</td>
-<td>Stable</td>
+<td>~1.0 - 1.5</td>
+<td><strong>Weak liquidity</strong>; Current ratio well below industry norms, indicating tight working capital management or possible short-term liquidity constraints.</td>
+<td>Stable/Low</td>
 </tr>
 <tr>
 <td></td>
 <td>Working Capital Ratio: 0.013</td>
-<td>~0.1-0.3</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (not provided)</td>
-<td>Peer average ~0.7-1.2</td>
-<td>Unable to assess leverage fully; retained earnings strong</td>
-<td>N/A</td>
-</tr>
-<tr>
-<td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.047</td>
-<td>~0.04-0.06</td>
-<td><strong>Moderate profitability</strong>, consistent with industry</td>
+<td>~0.1 - 0.3</td>
+<td>Very low working capital ratio suggests lean operations but potential risk if unexpected cash needs arise.</td>
 <td>Stable</td>
 </tr>
 <tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: Not provided*</td>
+<td>~1.0 - 2.0</td>
+<td>Data unavailable; however, Z-Score and retained earnings ratio imply manageable leverage.</td>
+<td>N/A</td>
+</tr>
+<tr>
 <td></td>
+<td>Interest Coverage (EBIT Ratio): 0.047</td>
+<td>Industry average ~0.04 - 0.06</td>
+<td>EBIT ratio of 4.7% indicates moderate operating profitability relative to assets, consistent with industry norms.</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
 <td>Asset Turnover: 0.106</td>
-<td>~0.1</td>
-<td><strong>Efficient asset utilization</strong></td>
+<td>~0.1 - 0.15</td>
+<td>Asset turnover slightly below average, indicating moderate efficiency in using assets to generate sales.</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 1.197</td>
-<td>~1.0</td>
-<td><strong>Strong retained earnings</strong>, supports solvency</td>
+<td>~1.0 - 1.5</td>
+<td>Strong retained earnings ratio reflects accumulated profitability and reinvestment, supporting financial stability.</td>
 <td>Improving</td>
 </tr>
 <tr>
 <td></td>
-<td>Cash Position: N/A</td>
+<td>Cash Position: Not provided</td>
 <td>N/A</td>
-<td>Data unavailable</td>
+<td>No direct cash data; inferred stable from Z-Score and EBIT.</td>
 <td>N/A</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Interpretive Commentary:</strong><br />
-- <strong>Liquidity:</strong> The current ratio and working capital ratio at 0.013 are notably low compared to typical industry standards (~0.1-0.3), indicating a tight liquidity position. This may reflect McDonald's efficient cash management or reliance on short-term financing. Despite this, the stable trend and strong retained earnings mitigate immediate liquidity concerns.<br />
-- <strong>Leverage:</strong> Debt-to-equity data is missing, limiting leverage risk assessment. However, the high retained earnings ratio (1.197) suggests strong equity cushioning.<br />
-- <strong>Operational Efficiency:</strong> EBIT ratio of 4.7% and asset turnover of 0.106 align well with industry averages, indicating effective operations and asset use.<br />
-- <strong>Financial Stability:</strong> The retained earnings ratio above 1.0 signals robust reinvestment and financial resilience, consistent with McDonald's global brand strength and cash flow generation.  </p>
-<p><strong>Data Quality Note:</strong> AI Data Quality Assessment indicates no anomalies in financial data completeness, but market data anomalies (dividend yield, technical indicators) reduce confidence in market timing signals.</p>
+<p>*Debt-to-Equity ratio not explicitly provided; inferred from Z-Score components.</p>
+<p><strong>Narrative Commentary:</strong><br />
+McDonald's operates in the <strong>Consumer Cyclical sector</strong>, specifically the <strong>Restaurants industry</strong>, where liquidity ratios tend to be conservative due to operational cash flows and franchise models. The extremely low current ratio (0.013) and working capital ratio suggest McDonald's employs tight cash management, likely leveraging strong cash conversion cycles and franchise fee inflows. The <strong>retained earnings ratio of 1.197</strong> indicates a solid history of profitability and reinvestment, which supports long-term financial stability.</p>
+<p>The <strong>EBIT ratio of 4.7%</strong> and <strong>asset turnover of 0.106</strong> reflect operational efficiency consistent with a mature, asset-light business model emphasizing brand strength and franchising. The AI Data Quality Assessment confirms <strong>complete and consistent financial data</strong> with no anomalies detected, lending high confidence to these interpretations.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -620,63 +634,21 @@ Given the strong and stable Z-Score trend, low risk profile, and market leadersh
 <td>Current (Q8)</td>
 <td>4.45</td>
 <td>Safe</td>
-<td>Strong retained earnings, stable EBIT</td>
-<td>Continued global expansion, menu innovation</td>
+<td>Strong retained earnings, stable EBIT, market equity strength</td>
+<td>Continued global brand dominance, steady franchise growth</td>
 </tr>
 <tr>
-<td>Q7</td>
-<td>4.60</td>
+<td>Previous Quarters (Q1-Q7)</td>
+<td>3.89 - 4.60</td>
 <td>Safe</td>
-<td>Peak Z-Score, strong asset turnover</td>
-<td>Peak operational efficiency</td>
-</tr>
-<tr>
-<td>Q6</td>
-<td>4.07</td>
-<td>Safe</td>
-<td>Stable EBIT, consistent earnings</td>
-<td>Stable franchise growth</td>
-</tr>
-<tr>
-<td>Q5</td>
-<td>4.07</td>
-<td>Safe</td>
-<td>Consistent profitability</td>
-<td>Steady same-store sales</td>
-</tr>
-<tr>
-<td>Q4</td>
-<td>4.25</td>
-<td>Safe</td>
-<td>Improved working capital</td>
-<td>Operational cost control</td>
-</tr>
-<tr>
-<td>Q3</td>
-<td>3.89</td>
-<td>Safe</td>
-<td>Slight dip in EBIT ratio</td>
-<td>Market competition intensifies</td>
-</tr>
-<tr>
-<td>Q2</td>
-<td>4.32</td>
-<td>Safe</td>
-<td>Recovery in profitability</td>
-<td>New product launches</td>
-</tr>
-<tr>
-<td>Q1</td>
-<td>4.24</td>
-<td>Safe</td>
-<td>Stable financials</td>
-<td>Strong brand loyalty</td>
+<td>Consistent profitability, low leverage, operational efficiency</td>
+<td>Stable revenue streams, effective cost controls, no distress signals</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-McDonald's Z-Score has remained consistently in the Safe Zone (&gt;3.0) over eight quarters, with minor fluctuations reflecting normal business cycles. The peak at 4.60 in Q7 corresponds with operational efficiency gains, while the slight dip to 3.89 in Q3 may reflect competitive pressures or temporary margin compression. The strong retained earnings ratio and EBIT stability underpin this resilience.  </p>
-<p>Comparing to the industry average Z-Score (~3.2), McDonald's outperforms peers, reinforcing its competitive moat. Business events such as menu innovation, global expansion, and cost control initiatives correlate positively with Z-Score improvements.</p>
+McDonald's Z-Score has remained consistently above 3.8 for eight consecutive quarters, firmly in the <strong>Safe Zone</strong>, indicating negligible bankruptcy risk. The slight fluctuations between 3.89 and 4.60 reflect normal business cycle variations but no material deterioration. The <strong>key drivers</strong> include strong retained earnings (ratio 1.197), moderate EBIT ratio (0.047), and market capitalization of $210.3B, which together underpin financial robustness.</p>
+<p>This Z-Score stability correlates with McDonald's strategic focus on global expansion, menu innovation, and digital ordering platforms, which have sustained revenue and profitability. Compared to the <strong>industry average Z-Score near 3.0</strong>, McDonald's outperformance underscores its competitive moat.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -692,30 +664,31 @@ McDonald's Z-Score has remained consistently in the Safe Zone (&gt;3.0) over eig
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable, high Z-Score (4.45)</td>
-<td>Price at $294.08, P/E 25.93</td>
-<td>Divergent (market data incomplete)</td>
-<td>Fundamental strength supports buy, but market data anomalies reduce timing confidence</td>
+<td>Stable, Safe Zone (4.45)</td>
+<td>Price at $294.60, P/E 25.98</td>
+<td>Aligned</td>
+<td>Market values strong fundamentals; premium valuation justified</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Positive (implied by dividend and valuation)</td>
-<td>Dividend Yield 242% (likely anomaly)</td>
+<td>Neutral to Positive</td>
+<td>Dividend Yield 242% (likely data anomaly)</td>
 <td>Inconsistent</td>
-<td>Sentiment likely positive, but data errors require caution</td>
+<td>Dividend yield figure anomalous; requires verification</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Outperforming industry average</td>
-<td>Sector performance strong</td>
-<td>Aligned</td>
-<td>Competitive positioning supports investment</td>
+<td>Outperforming (Z &gt; 4.0)</td>
+<td>Sector performance moderate</td>
+<td>Outperforming</td>
+<td>McDonald's is a sector leader; positive competitive positioning</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The fundamental health indicated by a stable and high Z-Score aligns with McDonald's large market cap ($210.28B) and premium valuation (P/E 25.93). However, technical indicators such as RSI, moving averages, and volume are reported as zero, and the dividend yield at 242% is a clear data anomaly, limiting confidence in market timing signals.  </p>
-<p>Despite these anomalies, peer comparison confirms McDonald's outperformance relative to industry averages, supporting a positive investment stance. Institutional investor behavior and price stability likely reflect confidence consistent with the Z-Score trend.</p>
+The <strong>Z-Score trend aligns well with McDonald's current market price of $294.60</strong> and a P/E ratio of 25.98, indicating investor confidence in sustained earnings growth. The <strong>EV/EBITDA of 18.74</strong> suggests a premium valuation relative to peers but is consistent with McDonald's brand strength and cash flow stability.</p>
+<p>The reported <strong>dividend yield of 242%</strong> is clearly an anomaly (likely data error) and should be disregarded in decision-making. Other market indicators such as beta (0.00) and volatility (0.00%) are also likely placeholders, limiting risk-return profile analysis.</p>
+<p>Overall, fundamental health and market signals are <strong>aligned</strong>, supporting a moderate buy or hold stance, with caution advised on valuation levels.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -733,37 +706,31 @@ The fundamental health indicated by a stable and high Z-Score aligns with McDona
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential minor dip (0.1-0.3)</td>
-<td>Continuous innovation, cost control</td>
+<td>Potential minor decline (0.1-0.3)</td>
+<td>Diversify menu, enhance digital sales channels</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
-<td>Minor</td>
+<td>Low</td>
 <td>Minimal impact (&lt;0.1)</td>
-<td>Maintain strong retained earnings</td>
+<td>Maintain conservative leverage, monitor liquidity</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Possible volatility in price</td>
-<td>Diversify revenue streams, hedging</td>
-</tr>
-<tr>
-<td>Data Quality Risks</td>
-<td>High</td>
-<td>Moderate</td>
-<td>Misinterpretation of market signals</td>
-<td>Cross-verify market data, cautious timing</td>
+<td>Possible valuation correction (0.2-0.5)</td>
+<td>Hedge via options, monitor macroeconomic trends</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Continued operational efficiency and global expansion push Z-Score above 4.6, reinforcing low bankruptcy risk and enabling dividend growth.<br />
-- <strong>Base Case:</strong> Z-Score remains stable around 4.2-4.5, maintaining Safe Zone status with steady profitability.<br />
-- <strong>Worst Case:</strong> Operational disruptions or market shocks reduce EBIT and retained earnings, lowering Z-Score toward 3.5 but still within Safe Zone, with liquidity pressure mitigated by strong equity.  </p>
-<p>Bankruptcy risk is negligible given the high Z-Score and retained earnings. Liquidity stress is a minor concern due to low working capital ratio but offset by cash flow from operations.</p>
+Based on the <strong>AI Risk Analysis overall risk level of Low</strong> with high confidence, McDonald's faces limited immediate threats. Operational risks such as supply chain disruptions or changing consumer preferences could moderately impact profitability and Z-Score but are mitigated by brand strength and innovation.</p>
+<p>Financial risks are minimal given strong retained earnings and manageable leverage inferred from Z-Score components. Market risks, including valuation corrections or sector downturns, present moderate probability and severity, warranting active monitoring.</p>
+<p><strong>Best Case:</strong> Z-Score rises above 4.6 with margin expansion and revenue growth.<br />
+<strong>Base Case:</strong> Z-Score remains stable around 4.4-4.5 with steady earnings.<br />
+<strong>Worst Case:</strong> Z-Score dips toward 3.8 due to operational headwinds or market shocks but remains in Safe Zone.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -779,49 +746,53 @@ The fundamental health indicated by a stable and high Z-Score aligns with McDona
 </thead>
 <tbody>
 <tr>
-<td>📊 <strong>Conservative</strong></td>
+<td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>BUY</strong></td>
+<td><strong>HOLD</strong></td>
 <td>Z-Score stable &gt;4.0, low risk</td>
-<td>Confirm market data accuracy</td>
-<td>Immediate to 6 months</td>
+<td>Price stable, monitor valuation</td>
+<td>Review quarterly</td>
 </tr>
 <tr>
-<td>💰 <strong>Dividend</strong></td>
+<td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td><strong>HOLD</strong></td>
-<td>Dividend yield data anomalous; verify</td>
-<td>Await dividend confirmation</td>
-<td>3-6 months</td>
+<td>Strong retained earnings support dividends</td>
+<td>Confirm dividend data anomaly</td>
+<td>Semi-annual review</td>
 </tr>
 <tr>
-<td>💎 <strong>Value</strong></td>
+<td>💎 Value</td>
 <td>Medium</td>
-<td><strong>BUY</strong></td>
-<td>Strong retained earnings, P/E justified</td>
-<td>Monitor price dips</td>
-<td>1-3 months</td>
+<td><strong>HOLD/BUY</strong></td>
+<td>Premium valuation but strong fundamentals</td>
+<td>Look for dips below $280</td>
+<td>Opportunistic entry</td>
 </tr>
 <tr>
-<td>📈 <strong>Growth</strong></td>
+<td>📈 Growth</td>
 <td>Medium-High</td>
 <td><strong>BUY</strong></td>
-<td>Consistent Z-Score growth, operational efficiency</td>
-<td>Momentum stable</td>
-<td>Immediate</td>
+<td>Consistent Z-Score growth, brand expansion</td>
+<td>Momentum positive</td>
+<td>6-12 months horizon</td>
 </tr>
 <tr>
-<td>🚀 <strong>Aggressive</strong></td>
+<td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>HOLD</strong></td>
-<td>Low volatility but market data gaps</td>
-<td>Await clearer signals</td>
-<td>3-6 months</td>
+<td><strong>BUY</strong></td>
+<td>Low bankruptcy risk, moderate volatility</td>
+<td>Exploit market volatility</td>
+<td>Short-term tactical</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Conservative and growth investors should capitalize on McDonald's strong financial health and stable Z-Score, initiating or adding positions with confidence. Dividend investors should exercise caution due to anomalous yield data and await confirmation. Value investors can exploit any short-term price corrections given the solid fundamentals. Aggressive investors should monitor for clearer market signals before increasing exposure.</p>
+<p><strong>Detailed Commentary:</strong><br />
+- <strong>Conservative investors</strong> should maintain positions given McDonald's strong financial health and low bankruptcy risk, with no urgent need to increase exposure.<br />
+- <strong>Dividend investors</strong> should verify dividend yield data but can expect sustainability given retained earnings ratio of 1.197.<br />
+- <strong>Value investors</strong> may consider buying on price weakness, as the P/E ratio of 25.98 is elevated but justified by fundamentals.<br />
+- <strong>Growth investors</strong> benefit from McDonald's ongoing innovation and global expansion, supported by a stable Z-Score above 4.0.<br />
+- <strong>Aggressive investors</strong> can exploit market volatility and sector cyclicality, though volatility data is limited.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -837,29 +808,29 @@ Conservative and growth investors should capitalize on McDonald's strong financi
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Sustain operational excellence</td>
-<td>EBIT Ratio (0.047), Z-Score (4.45)</td>
-<td>Drive menu innovation, global expansion</td>
+<td>Global expansion, innovation</td>
+<td>Z-Score components, EBIT ratio</td>
+<td>Invest in digital platforms, menu diversification</td>
 <td>Z-Score stability, revenue growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Maintain financial stability</td>
-<td>Retained Earnings Ratio (1.197), Working Capital Ratio (0.013)</td>
-<td>Optimize liquidity, manage capital structure</td>
-<td>Liquidity improvement, cost control</td>
+<td>Capital efficiency, risk management</td>
+<td>Retained earnings ratio, working capital</td>
+<td>Optimize working capital, manage debt levels</td>
+<td>Liquidity ratios, interest coverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and compliance</td>
-<td>Risk Level (Low), Data Quality Scores</td>
-<td>Enhance data validation, monitor market anomalies</td>
-<td>Risk mitigation, compliance audits</td>
+<td>Risk oversight, compliance</td>
+<td>Z-Score risk trajectory, market signals</td>
+<td>Regular risk reviews, governance audits</td>
+<td>Compliance reports, risk mitigation</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The CEO should focus on leveraging McDonald's brand and operational strengths to sustain the high Z-Score and profitability. The CFO must address liquidity constraints indicated by low working capital ratio while maintaining strong retained earnings. The Board should prioritize governance around data quality and risk management, especially given anomalies in market data that could affect investor perception.</p>
+The <strong>CEO should prioritize sustaining operational efficiency and innovation</strong> to maintain the strong Z-Score and competitive advantage. The <strong>CFO must focus on liquidity management</strong>, given the low current ratio (0.013), ensuring sufficient short-term cash flow without compromising growth investments. The <strong>Board should oversee risk management frameworks</strong>, particularly monitoring market valuation risks and operational disruptions, leveraging the AI Risk Analysis insights.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -875,35 +846,47 @@ The CEO should focus on leveraging McDonald's brand and operational strengths to
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable ~4.4-4.6</td>
-<td>Slight upward trend</td>
-<td>New product launches, cost control</td>
-<td>Quarterly Z-Score updates</td>
+<td>Stable ~4.4-4.5</td>
+<td>Slightly positive</td>
+<td>Continued profitability, franchise growth</td>
+<td>Quarterly Z-Score updates, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Leading in industry</td>
-<td>Maintain leadership</td>
-<td>Global expansion, digital initiatives</td>
-<td>Market share, peer Z-Score</td>
+<td>Leading in sector</td>
+<td>Maintain/expand</td>
+<td>Digital innovation, global market penetration</td>
+<td>Market share, peer Z-Score comparisons</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low risk</td>
-<td>Stable to decreasing</td>
-<td>Economic conditions, supply chain</td>
-<td>Liquidity ratios, EBIT margins</td>
+<td>Low</td>
+<td>Stable with vigilance</td>
+<td>Supply chain stability, macroeconomic factors</td>
+<td>Liquidity ratios, debt levels, market volatility</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-McDonald's Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, driven by operational efficiencies and strategic growth initiatives. Key catalysts include innovation in menu offerings and expansion into emerging markets. Monitoring should focus on quarterly Z-Score changes, liquidity ratios, and EBIT margins to detect early signs of risk or opportunity.  </p>
-<p>Early warning systems should incorporate anomaly detection in market data and liquidity stress indicators to preempt potential financial distress, although current data suggests a robust outlook.</p>
+McDonald's Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, driven by sustained profitability and operational efficiencies. Key catalysts include expansion into emerging markets and enhanced digital ordering capabilities.</p>
+<p>Investors should monitor quarterly Z-Score updates, EBIT margins, and market share metrics as leading indicators of financial health. Risk profile remains low but requires vigilance around supply chain risks and potential macroeconomic shocks.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>McDonald's Corporation exhibits a strong and stable financial profile with an Altman Z-Score consistently in the Safe Zone, supported by solid retained earnings and operational efficiency. Despite some data anomalies in market metrics, fundamental analysis and peer benchmarking endorse a <strong>BUY</strong> recommendation for most investor profiles, with caution advised for dividend-focused investors pending data verification. Strategic focus on liquidity management and data quality governance will further strengthen McDonald's investment appeal.</p>
+<p>McDonald's Corporation exhibits a <strong>robust financial position with a consistently safe Altman Z-Score above 4.0</strong>, signaling minimal bankruptcy risk and strong operational performance. Despite a very low liquidity ratio, the company’s retained earnings and EBIT ratios support financial stability. Market valuation is elevated but justified by brand strength and growth prospects. Risk remains low, with manageable operational and market factors.</p>
+<p><strong>Investment stance:</strong> Hold to moderate buy for most profiles, with growth and aggressive investors favored to capitalize on momentum and innovation. Continuous monitoring of liquidity and valuation metrics is recommended to optimize timing and risk management.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, risk, peer, and market data for actionable investment intelligence.</em></p></div></div>
+<p><em>All analysis references exact data points from the injected dataset, including:</em><br />
+- Market Cap: $210.3B<br />
+- Current Price: $294.60<br />
+- Shares Outstanding: 715M<br />
+- Current Ratio: 0.013<br />
+- Retained Earnings Ratio: 1.197<br />
+- EBIT Ratio: 0.047<br />
+- Asset Turnover: 0.106<br />
+- P/E Ratio: 25.98<br />
+- EV/EBITDA: 18.74<br />
+- Z-Score range: 3.89 to 4.60 (Safe Zone)  </p>
+<p><em>Data quality is complete and consistent with no anomalies detected except for dividend yield and some market technicals, which are treated as data errors.</em></p></div></div>
     </div>
     
 
@@ -1246,78 +1229,41 @@ McDonald's Z-Score momentum is expected to remain stable or improve modestly ove
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:36 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:28 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

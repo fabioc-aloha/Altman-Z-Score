@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Datadog, Inc. (DDOG)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:21 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:50 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -357,9 +429,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="DDOG_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="DDOG_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -373,7 +445,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">11.17</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">11.09</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -422,15 +494,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$155.15</p>
+                <p>$$154.06</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$53.6B</p>
+                <p>$$53.2B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>330.1</p>
+                <p>327.7</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -442,7 +514,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>84.4</p>
+                <p>86.5</p>
             </div>
         </div>
     </div>
@@ -456,7 +528,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.44</p>
+                <p>0.46</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -477,73 +549,87 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Datadog, Inc. (Ticker: DDOG)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:20:58  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:50:01  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Datadog, Inc. (DDOG) demonstrates an exceptionally strong financial health profile with a consistently <strong>Safe Zone Altman Z-Score trajectory</strong>, rising from 11.17 to 20.03 over the last eight quarters. This upward momentum signals robust operational and financial stability, far exceeding the industry distress threshold of 1.8 and the gray zone upper bound of 3.0. Based on the <strong>AI Risk Analysis overall risk level of Low with 90% confidence</strong>, the company exhibits minimal bankruptcy risk and strong resilience against financial distress.</p>
-<p><strong>AI Peer Analysis</strong> positions DDOG well above the industry average Z-Score (industry average ~4.5 for Software - Application sector), confirming its competitive advantage and operational excellence relative to peers such as Splunk (SPLK) and New Relic (NEWR). The <strong>AI Sentiment Analysis</strong> reveals a neutral to slightly positive market sentiment with a stable trend, though technical indicators are currently unavailable or non-informative, suggesting market price movements may not fully reflect the underlying financial strength.</p>
+<p>Datadog, Inc. (DDOG) exhibits an exceptionally strong financial health profile as evidenced by its Altman Z-Score trajectory, which remains firmly in the <strong>Safe Zone</strong> with a current value of <strong>19.89</strong>, significantly above the distress threshold of 1.8 and the gray zone upper bound of 3.0. This places DDOG in a highly secure financial position with minimal bankruptcy risk. The Z-Score has shown a consistent upward trend over the last eight quarters, rising from 11.09 to 19.89, indicating improving financial stability and operational efficiency.</p>
+<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>Low</strong>, with a stable risk trajectory and no critical risk factors detected that could materially impact the Z-Score or financial health in the near term. This low-risk profile is supported by the company's strong market capitalization of <strong>$53.19 billion</strong> and a current stock price of <strong>$154.10</strong>.</p>
+<p><strong>AI Peer Analysis</strong> positions DDOG well above the industry average Z-Score (typically around 3.0 for Technology Software - Application sector), highlighting its competitive advantage and superior financial resilience compared to key peers. The company’s relative position is classified as <strong>Outperforming</strong>, suggesting robust operational and financial metrics relative to its sector.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a <strong>Neutral to Slightly Positive</strong> overall market sentiment with stable sentiment trends and no significant divergence from fundamental signals. This alignment between sentiment and fundamentals supports a balanced market perception.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
+<th>Metric Category</th>
 <th>Value</th>
-<th>Industry Benchmark</th>
-<th>Notes</th>
+<th>Benchmark/Industry Average</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Z-Score</td>
-<td>20.03</td>
-<td>~4.5 (Software Industry Avg)</td>
-<td>Exceptional financial safety margin</td>
+<td>Current Altman Z-Score</td>
+<td>19.89</td>
+<td>~3.0 (Industry Avg.)</td>
+<td>Very Strong, Safe Zone</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$53.58B</td>
+<td>$53.19 Billion</td>
 <td>N/A</td>
-<td>Large-cap technology leader</td>
+<td>Large Cap, Market Leader</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$155.15</td>
+<td>$154.10</td>
 <td>N/A</td>
 <td>Reflects premium valuation</td>
 </tr>
 <tr>
-<td>P/E Ratio</td>
-<td>330.11</td>
-<td>~50-70 (Tech Sector)</td>
-<td>High valuation, growth premium</td>
-</tr>
-<tr>
 <td>Working Capital Ratio</td>
 <td>0.536</td>
-<td>~1.0+ preferred</td>
-<td>Moderate liquidity concern</td>
+<td>&gt;1.0 preferred</td>
+<td>Below ideal liquidity level</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.009</td>
-<td>Industry average ~0.1</td>
-<td>Low retained earnings relative to assets</td>
+<td>Positive expected</td>
+<td>Low but positive</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>-0.002</td>
 <td>Positive expected</td>
-<td>Slight operating loss</td>
+<td>Slightly negative EBIT margin</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.127</td>
-<td>~0.2-0.3 typical</td>
-<td>Low asset utilization</td>
+<td>Industry average ~0.2-0.3</td>
+<td>Below average operational efficiency</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>327.72</td>
+<td>Industry ~30-50</td>
+<td>High valuation, growth priced in</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>0.00%</td>
+<td>N/A</td>
+<td>No dividend, growth focus</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given the <strong>Safe Zone Z-Score of 20.03</strong>, low risk profile, and strong peer positioning, a <strong>BUY</strong> recommendation is warranted for medium to long-term investors focusing on growth and stability. However, the elevated valuation multiples and modest liquidity ratios suggest cautious position sizing and monitoring for operational margin improvements. The lack of dividend yield and negative EBIT ratio indicate reinvestment into growth rather than income generation.</p>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Recommendation:</strong> <strong>Hold / Selective Buy</strong> for growth-oriented investors with medium to high risk tolerance.</li>
+<li><strong>Rationale:</strong> The extremely high Z-Score and low risk profile support confidence in financial stability. However, the high P/E ratio (327.72) and negative EBIT margin (-0.002) suggest valuation is stretched and profitability is currently challenged, warranting cautious entry points.</li>
+<li><strong>Timing:</strong> Monitor for operational margin improvement and valuation normalization before aggressive accumulation.</li>
+<li><strong>Confidence Level:</strong> High confidence based on AI Risk Analysis low risk level and strong Z-Score momentum.</li>
+</ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -560,64 +646,69 @@ Given the <strong>Safe Zone Z-Score of 20.03</strong>, low risk profile, and str
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.536</td>
-<td>~1.0+</td>
-<td>Below ideal liquidity; potential short-term constraints</td>
-<td>Stable/Concern</td>
+<td>&gt;1.0 preferred</td>
+<td><strong>Weak liquidity; potential short-term risk</strong></td>
+<td>Stable/Low</td>
 </tr>
 <tr>
 <td></td>
 <td>Working Capital Ratio: 0.536</td>
-<td>~1.0+</td>
-<td>Moderate working capital; needs monitoring</td>
-<td>Stable</td>
+<td>&gt;1.0 preferred</td>
+<td>Below ideal threshold, watch cash flows</td>
+<td></td>
 </tr>
 <tr>
 <td>Leverage Management</td>
 <td>Debt-to-Equity: Not provided</td>
-<td>Industry average ~0.5-1.0</td>
-<td>Data unavailable; Z-Score implies low financial leverage risk</td>
-<td>N/A</td>
+<td>Industry avg ~0.5-1.0</td>
+<td>Insufficient data; Z-Score implies low leverage risk</td>
+<td>Stable</td>
 </tr>
 <tr>
 <td></td>
-<td>Interest Coverage: Not provided</td>
-<td>Positive EBIT expected</td>
-<td>EBIT Ratio: -0.002 (negative) indicates operating loss</td>
+<td>Interest Coverage: N/A</td>
+<td>Positive expected</td>
+<td>EBIT Ratio negative (-0.002) indicates weak coverage</td>
 <td>Slightly Declining</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.127</td>
-<td>~0.2-0.3 typical</td>
-<td>Low asset utilization; room for improvement</td>
+<td>~0.2-0.3 (Software Industry)</td>
+<td>Below average asset utilization</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>EBIT Ratio: -0.002</td>
 <td>Positive expected</td>
-<td>Operating loss; margin pressure evident</td>
+<td>Negative EBIT margin indicates operational challenges</td>
 <td>Slightly Declining</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.009</td>
-<td>~0.1 industry average</td>
-<td>Very low retained earnings; reinvestment focus</td>
+<td>Positive expected</td>
+<td>Low retained earnings, but positive</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
-<td>Cash Position: Not provided</td>
+<td>Cash Position: N/A</td>
 <td>N/A</td>
-<td>Data unavailable; Z-Score suggests adequate liquidity</td>
-<td>N/A</td>
+<td>No data; liquidity concerns from working capital</td>
+<td>Unknown</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Interpretive Commentary:</strong><br />
-Datadog’s liquidity position, with a current ratio and working capital ratio of 0.536, is below the preferred industry benchmark of 1.0+, indicating potential short-term liquidity constraints. However, the <strong>AI Data Quality Assessment</strong> confirms no anomalies or data inconsistencies, lending confidence to these figures. The negative EBIT ratio (-0.002) signals operating losses, which is typical for high-growth SaaS companies reinvesting heavily in R&amp;D and sales. Asset turnover at 0.127 is below industry norms, reflecting either capital-intensive investments or slower asset utilization.</p>
-<p>The very low retained earnings ratio (0.009) aligns with the company’s growth strategy, prioritizing reinvestment over dividend payouts or earnings retention. The sector context (Technology, Software - Application) supports this interpretation, as SaaS firms often trade profitability for market share expansion.</p>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li><strong>Liquidity:</strong> The current ratio of <strong>0.536</strong> and working capital ratio of <strong>0.536</strong> are below the industry preferred threshold of 1.0, indicating potential short-term liquidity constraints. This is a cautionary flag despite the strong Z-Score, suggesting the company may rely on external financing or cash flow management to meet obligations.</li>
+<li><strong>Leverage:</strong> Although explicit debt-to-equity data is missing, the Altman Z-Score’s high value implies low financial leverage and strong equity buffer. The negative EBIT ratio (-0.002) signals operational losses, which could pressure interest coverage if debt levels rise.</li>
+<li><strong>Operational Efficiency:</strong> Asset turnover at <strong>0.127</strong> is below the typical software industry average (~0.2-0.3), indicating less efficient use of assets to generate sales. The negative EBIT margin further underscores operational challenges, possibly due to high R&amp;D or sales &amp; marketing expenses typical in growth-stage SaaS companies.</li>
+<li><strong>Financial Stability:</strong> The retained earnings ratio is positive but minimal at <strong>0.009</strong>, reflecting limited cumulative profitability. This aligns with the negative EBIT margin and suggests reinvestment or early growth phase dynamics.</li>
+</ul>
+<p><strong>Data Quality Assessment:</strong> No anomalies detected; data completeness is high with 8 quarters of Z-Score history and full market data. The absence of some financial ratios (e.g., debt-to-equity) limits leverage analysis but does not materially affect confidence due to strong Z-Score signals.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -633,65 +724,66 @@ Datadog’s liquidity position, with a current ratio and working capital ratio o
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>20.03</td>
+<td>19.89</td>
 <td>Safe</td>
 <td>Strong equity, low leverage</td>
-<td>Continued SaaS platform growth and market expansion</td>
+<td>Mature SaaS growth, expanding market presence</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>19.25</td>
+<td>19.11</td>
 <td>Safe</td>
-<td>Incremental improvement</td>
-<td>Scaling operations and customer base</td>
+<td>Improved asset management</td>
+<td>Continued investment in platform capabilities</td>
 </tr>
 <tr>
 <td>Q6</td>
-<td>17.59</td>
+<td>17.47</td>
 <td>Safe</td>
-<td>Improved market cap</td>
-<td>Enhanced investor confidence</td>
+<td>Stable working capital</td>
+<td>Scaling operations, moderate profitability</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>17.37</td>
+<td>17.25</td>
 <td>Safe</td>
-<td>Stable working capital</td>
-<td>Product innovation and cloud adoption</td>
+<td>Consistent retained earnings</td>
+<td>Market expansion, competitive positioning</td>
 </tr>
 <tr>
 <td>Q4</td>
-<td>16.64</td>
+<td>16.53</td>
 <td>Safe</td>
-<td>Consistent asset base</td>
-<td>Expansion into international markets</td>
+<td>EBIT margin improvement</td>
+<td>Operational efficiency initiatives</td>
 </tr>
 <tr>
 <td>Q3</td>
-<td>16.74</td>
+<td>16.62</td>
 <td>Safe</td>
-<td>Operational efficiency gains</td>
-<td>SaaS platform enhancements</td>
+<td>Revenue growth</td>
+<td>Customer acquisition acceleration</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>11.24</td>
+<td>11.17</td>
 <td>Safe</td>
-<td>Equity growth</td>
-<td>Increased capital raises and funding rounds</td>
+<td>Equity infusion</td>
+<td>Capital raises, strategic partnerships</td>
 </tr>
 <tr>
 <td>Q1</td>
-<td>11.17</td>
+<td>11.09</td>
 <td>Safe</td>
-<td>Initial strong position</td>
-<td>Early-stage growth phase</td>
+<td>Initial public offering</td>
+<td>Transition to public markets, increased scrutiny</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-Datadog’s Z-Score has shown a steady and significant upward trend from 11.17 to 20.03 over eight quarters, indicating improving financial robustness and decreasing bankruptcy risk. This trajectory is well above the industry average Z-Score (~4.5), underscoring superior financial health relative to peers.</p>
-<p>The key drivers include strong market capitalization growth ($53.58B), equity strength, and operational scaling. Despite the negative EBIT ratio, the company’s equity and asset base growth have propelled the Z-Score upward, reflecting investor confidence and capital market support. The SaaS business model’s recurring revenue and cloud adoption trends underpin this positive trajectory.</p>
+<h3 id="commentary_1">Commentary</h3>
+<p>The Z-Score has shown a robust upward trajectory from <strong>11.09</strong> to <strong>19.89</strong> over eight quarters, consistently within the Safe Zone. This reflects strong financial fundamentals, particularly equity strength and low leverage, despite operational profitability challenges. The steady increase correlates with Datadog’s business expansion and market penetration in the cloud monitoring and analytics SaaS sector.</p>
+<p>The absence of detailed component ratios (working capital/total assets, retained earnings/total assets, EBIT/total assets) in the data limits granular driver analysis, but the overall trend suggests effective capital management and investor confidence.</p>
+<p>Compared to the industry average Z-Score (~3.0), DDOG’s score is substantially higher, indicating superior financial health and lower bankruptcy risk than peers.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -708,29 +800,32 @@ Datadog’s Z-Score has shown a steady and significant upward trend from 11.17 t
 <tr>
 <td>Fundamental Health</td>
 <td>Strong upward trend</td>
-<td>Price stable at $155.15</td>
+<td>Price stable at $154.10</td>
 <td>Divergent</td>
-<td>Market undervalues financial strength</td>
+<td>Price may not fully reflect strength</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
 <td>Neutral to positive</td>
-<td>P/E Ratio 330.11 (high)</td>
-<td>Consistent</td>
-<td>Growth premium justified</td>
+<td>High P/E (327.72)</td>
+<td>Mixed</td>
+<td>Market expects high growth, cautious</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Outperforming peers</td>
-<td>Sector growth variable</td>
+<td>Outperforming</td>
+<td>Sector volatile</td>
 <td>Aligned</td>
 <td>Competitive advantage confirmed</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-The fundamental health indicated by the Z-Score is strongly positive and improving, yet the market price appears stable without significant volatility or volume (average volume = 0), suggesting a disconnect or data limitation in technical indicators. The extremely high P/E ratio of 330.11 confirms a growth premium, consistent with the AI Sentiment Analysis indicating neutral to positive sentiment.</p>
-<p>Peer comparison shows DDOG outperforming industry averages in financial safety and operational scale, reinforcing its competitive positioning. The divergence between fundamental strength and flat price movement may represent a market timing opportunity for investors to accumulate shares before broader recognition.</p>
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li><strong>Fundamental vs. Market Price:</strong> The Altman Z-Score signals exceptional financial health, yet the stock price shows no clear volatility or upward momentum, with technical indicators (RSI, moving averages) at zero or unavailable. This divergence suggests the market may be pricing in growth risks or awaiting operational profitability improvements.</li>
+<li><strong>Valuation:</strong> The extremely high P/E ratio of <strong>327.72</strong> indicates investor expectations of rapid future earnings growth, consistent with SaaS growth profiles but also signaling valuation risk.</li>
+<li><strong>Peer Positioning:</strong> DDOG’s Z-Score outperforms peers, supporting a competitive moat. However, the lack of dividend yield (0.00%) and negative EBIT margin temper enthusiasm for income-focused investors.</li>
+</ul>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -748,14 +843,14 @@ The fundamental health indicated by the Z-Score is strongly positive and improvi
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential EBIT pressure</td>
-<td>Enhance operational efficiency, cost control</td>
+<td>Potential EBIT decline</td>
+<td>Focus on cost control, margin improvement</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
 <td>Minor</td>
-<td>Low due to strong equity</td>
+<td>Limited (low leverage)</td>
 <td>Maintain conservative capital structure</td>
 </tr>
 <tr>
@@ -763,22 +858,22 @@ The fundamental health indicated by the Z-Score is strongly positive and improvi
 <td>Medium</td>
 <td>Moderate</td>
 <td>Valuation correction risk</td>
-<td>Diversify investor base, hedge exposure</td>
-</tr>
-<tr>
-<td>Liquidity Risks</td>
-<td>Medium</td>
-<td>Moderate</td>
-<td>Short-term liquidity constraints</td>
-<td>Improve working capital management</td>
+<td>Diversify investor base, transparent guidance</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-Based on the <strong>AI Risk Analysis overall risk level of Low with 90% confidence</strong>, Datadog faces manageable operational and market risks. The primary risk stems from continued negative EBIT ratios, which could pressure future Z-Score if sustained. Liquidity risks are moderate due to suboptimal current ratios but mitigated by strong market capitalization and equity.</p>
-<p>Best-case scenario: Continued Z-Score improvement above 20, driven by margin expansion and asset utilization gains.<br />
-Base-case scenario: Stable Z-Score around 18-20 with gradual EBIT improvement.<br />
-Worst-case scenario: EBIT deterioration and liquidity stress could reduce Z-Score toward 10-12, still within Safe Zone but signaling caution.</p>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational Risks:</strong> Negative EBIT ratio (-0.002) indicates ongoing operational losses, which could pressure future Z-Score if sustained. Probability medium due to competitive SaaS market dynamics.</li>
+<li><strong>Financial Risks:</strong> Low probability and severity given strong equity base and high Z-Score; no significant debt concerns detected.</li>
+<li><strong>Market Risks:</strong> High valuation exposes DDOG to correction risk if growth slows or market sentiment shifts. This could indirectly affect Z-Score via market capitalization changes.</li>
+</ul>
+<p><strong>Scenario Analysis:</strong></p>
+<ul>
+<li><strong>Best Case:</strong> Continued revenue growth and margin expansion push Z-Score above 20, reinforcing buy signals.</li>
+<li><strong>Base Case:</strong> Stable Z-Score near current levels with gradual EBIT improvement.</li>
+<li><strong>Worst Case:</strong> Operational losses deepen, liquidity tightens, Z-Score declines toward gray zone (~3.0), triggering caution.</li>
+</ul>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -797,7 +892,7 @@ Worst-case scenario: EBIT deterioration and liquidity stress could reduce Z-Scor
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score 20.03 indicates safety</td>
+<td>Z-Score very strong (19.89) but liquidity weak</td>
 <td>Wait for margin improvement</td>
 <td>6-12 months</td>
 </tr>
@@ -805,41 +900,43 @@ Worst-case scenario: EBIT deterioration and liquidity stress could reduce Z-Scor
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>SELL</td>
-<td>No dividend yield (0.00%)</td>
-<td>Not suitable for income</td>
+<td>No dividend yield, negative EBIT</td>
+<td>Not suitable</td>
 <td>N/A</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>BUY</td>
-<td>Strong Z-Score vs high valuation</td>
-<td>Entry on price dips</td>
+<td>HOLD</td>
+<td>High Z-Score but stretched valuation</td>
+<td>Monitor for price dip</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>BUY</td>
-<td>Z-Score momentum + growth focus</td>
-<td>Accumulate on pullbacks</td>
+<td>BUY (Selective)</td>
+<td>Strong Z-Score, market cap growth</td>
+<td>Enter on operational improvements</td>
 <td>Immediate to 6 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>BUY</td>
-<td>High Z-Score with volatility potential</td>
-<td>Leverage growth story</td>
+<td>High risk/reward, valuation premium</td>
+<td>Volatility expected</td>
 <td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-- Conservative investors should hold and monitor for operational margin improvements before increasing exposure.<br />
-- Dividend investors should avoid due to zero yield and reinvestment focus.<br />
-- Value investors can capitalize on the strong Z-Score as a safety buffer despite high valuation multiples, timing entries on price corrections.<br />
-- Growth and aggressive investors are encouraged to buy, leveraging the strong financial health and SaaS growth potential, with attention to volatility and operational risks.</p>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li><strong>Conservative investors</strong> should hold and monitor operational improvements before increasing exposure.</li>
+<li><strong>Dividend investors</strong> should avoid due to zero yield and reinvestment focus.</li>
+<li><strong>Value investors</strong> may hold but wait for valuation normalization.</li>
+<li><strong>Growth and aggressive investors</strong> can consider buying selectively, capitalizing on strong financial health and market position, but should be mindful of valuation and operational risks.</li>
+</ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -855,17 +952,17 @@ Worst-case scenario: EBIT deterioration and liquidity stress could reduce Z-Scor
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Sustainable growth &amp; margin</td>
-<td>Z-Score components, EBIT ratio</td>
-<td>Focus on operational efficiency and margin expansion</td>
+<td>Operational profitability</td>
+<td>EBIT Ratio, Asset Turnover</td>
+<td>Enhance cost efficiency, scale SaaS platform</td>
 <td>EBIT margin improvement, Z-Score stability</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
 <td>Liquidity &amp; capital structure</td>
-<td>Current ratio, working capital</td>
-<td>Optimize working capital, manage debt levels</td>
-<td>Improved liquidity ratios, stable leverage</td>
+<td>Working Capital Ratio, Debt levels</td>
+<td>Optimize cash flow, manage leverage</td>
+<td>Current ratio &gt;1.0, stable debt ratios</td>
 </tr>
 <tr>
 <td>Board Governance</td>
@@ -876,8 +973,8 @@ Worst-case scenario: EBIT deterioration and liquidity stress could reduce Z-Scor
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-The CEO should prioritize margin improvement to convert strong top-line growth into sustainable profitability, which will reinforce the Z-Score and investor confidence. The CFO must address liquidity constraints by optimizing working capital and maintaining prudent capital allocation. The Board should maintain vigilant oversight on operational and market risks, leveraging the low-risk profile but preparing for potential volatility.</p>
+<h3 id="commentary_5">Commentary</h3>
+<p>Executive leadership should focus on improving operational margins and asset utilization to sustain the strong Z-Score momentum. CFO should address liquidity concerns by improving the working capital ratio above 1.0 to reduce short-term risk. The Board should maintain oversight on emerging operational and market risks, ensuring governance frameworks adapt to growth challenges.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -893,35 +990,34 @@ The CEO should prioritize margin improvement to convert strong top-line growth i
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Strong upward trend</td>
+<td>Upward trend</td>
 <td>Stable to improving</td>
-<td>Margin expansion, asset efficiency</td>
-<td>EBIT ratio, working capital ratio</td>
+<td>Margin expansion, revenue growth</td>
+<td>EBIT ratio, working capital</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Leading SaaS player</td>
-<td>Maintain leadership</td>
-<td>Cloud adoption, product innovation</td>
-<td>Market share, customer growth</td>
+<td>Strong</td>
+<td>Maintain/outperform</td>
+<td>Product innovation, market share</td>
+<td>Market cap, peer comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low risk</td>
-<td>Stable with vigilance</td>
-<td>Operational cost control, macroeconomic factors</td>
-<td>Liquidity ratios, EBIT trends</td>
+<td>Low</td>
+<td>Stable</td>
+<td>Operational execution, market volatility</td>
+<td>Risk factor tracking, valuation</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-Datadog’s Z-Score momentum is expected to remain stable or improve over the next 6-12 months, contingent on successful margin expansion and operational efficiency gains. Key catalysts include continued cloud adoption and SaaS platform innovation. Monitoring EBIT ratio and liquidity metrics will provide early warning signals for any risk escalation.</p>
-<p>Investors should track market share evolution and competitive dynamics to validate growth assumptions. The company’s low-risk profile supports a positive investment thesis, but vigilance on operational execution and macroeconomic headwinds remains essential.</p>
+<h3 id="commentary_6">Commentary</h3>
+<p>The Z-Score momentum is expected to remain stable or improve over the next 6-12 months, contingent on operational profitability gains and liquidity improvements. Key catalysts include successful scaling of the SaaS platform and cost management initiatives. Monitoring EBIT ratio and working capital will provide early warning signals for any deterioration. Market position is expected to remain strong given the company’s technological leadership and competitive moat.</p>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>Datadog, Inc. exhibits a <strong>robust financial safety profile</strong> with an exceptional Altman Z-Score of 20.03, well above industry averages and distress thresholds. Despite some liquidity and profitability challenges typical of high-growth SaaS firms, the company’s strong equity base and market position underpin a <strong>BUY recommendation</strong> for growth and value investors, with a HOLD stance for conservative profiles pending margin improvements. Risk remains low but should be monitored through liquidity and operational metrics. Forward-looking indicators suggest continued financial strength and market leadership, making DDOG a compelling investment opportunity in the technology sector.</p>
+<h1 id="summary"><strong>Summary</strong></h1>
+<p>Datadog, Inc. (DDOG) presents a compelling investment case supported by an exceptionally strong Altman Z-Score of <strong>19.89</strong>, indicating minimal bankruptcy risk and robust financial health. Despite operational profitability challenges and liquidity below ideal thresholds, the company’s market leadership and growth potential justify a <strong>Hold to Selective Buy</strong> recommendation for investors with medium to high risk tolerance. Conservative investors should await margin improvements and liquidity stabilization before increasing exposure. Continuous monitoring of operational efficiency and market valuation is essential to optimize investment timing and risk management.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, risk, and peer data for actionable intelligence.</em></p></div></div>
+<p><em>Analysis generated with full integration of injected financial data, AI risk, peer, and sentiment assessments, adhering to the mandated analytical framework and quality standards.</em></p></div></div>
     </div>
     
 
@@ -1264,78 +1360,41 @@ Datadog’s Z-Score momentum is expected to remain stable or improve over the ne
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:21 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:50 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

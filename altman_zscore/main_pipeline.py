@@ -11,16 +11,18 @@ Key Features:
 - Error handling and recovery
 - Progress tracking and logging with conditional progress bars
 - Batch processing capabilities
+- Bankruptcy analysis with pre-bankruptcy Z-Score progression
 """
 
 import asyncio
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Any
 
 from ._version import __version__
 from .common.logging_config import get_logger, should_show_progress_bars, is_quiet_logging_mode
 from .common.exceptions import PipelineError
+from .data.bankruptcy_dates import get_bankruptcy_date, is_bankrupt_company, get_company_health_status
 from .layers.data_fetch.data_merger import DataMerger
 from .layers.zscore_calculation.zscore_calculator import ZScoreCalculator
 from .layers.market_analysis.market_analysis_orchestrator import MarketAnalysisOrchestrator
@@ -244,7 +246,10 @@ class AltmanZScorePipeline:
         forced_model: str = None,
         quarters: int = 4,
         enhanced_analysis: bool = False,
-        batch_size: int = 10
+        batch_size: int = 10,
+        bankruptcy_analysis: bool = False,
+        pre_bankruptcy_quarters: int = 3,
+        specific_date: str = None
     ) -> Dict[str, str]:
         """
         Complete analysis for a single ticker.
@@ -259,12 +264,87 @@ class AltmanZScorePipeline:
             quarters: Number of quarters for historical analysis (enhanced accounts: 8-20)
             enhanced_analysis: Enable enhanced features for upgraded FMP accounts
             batch_size: Batch size for concurrent processing (enhanced accounts: 20-50)
+            bankruptcy_analysis: Enable bankruptcy-specific analysis for known bankrupt companies
+            pre_bankruptcy_quarters: Number of quarters before bankruptcy to analyze
+            specific_date: Specific date to analyze (format: YYYY-MM-DD)
             
         Returns:
             Dict[str, str]: Paths to generated output files
         """
         try:
             logger.info(f"Starting complete investment analysis for {ticker}")
+            
+            # ===============================================================================
+            # STEP 0: BANKRUPTCY DETECTION AND ROUTING LOGIC
+            # ===============================================================================
+            # Test if ticker has current market data. If it fails, check bankruptcy database
+            # and automatically switch to bankruptcy analysis mode.
+            
+            initial_test_passed = False
+            auto_bankruptcy_mode = False
+            auto_bankruptcy_info = None
+            
+            if not bankruptcy_analysis:  # Only test if not already in bankruptcy mode
+                logger.info(f"Testing ticker availability for {ticker}")
+                try:
+                    # Quick test: try to fetch basic market data
+                    from .layers.data_fetch.yahoo_fetcher import YahooDataFetcher
+                    yahoo_fetcher = YahooDataFetcher()
+                    
+                    # Test current price - this will fail for delisted/bankrupt companies
+                    test_price = yahoo_fetcher.get_current_price(ticker)  # Not async
+                    if test_price and test_price > 0:
+                        initial_test_passed = True
+                        logger.info(f"✓ Ticker {ticker} is actively trading (price: ${test_price:.2f})")
+                    else:
+                        raise Exception(f"No current price data available for {ticker}")
+                        
+                except Exception as e:
+                    logger.warning(f"✗ Ticker {ticker} failed availability test: {e}")
+                    
+                    # Check if this ticker is in the bankruptcy database
+                    if is_bankrupt_company(ticker):
+                        bankruptcy_date = get_bankruptcy_date(ticker)
+                        if bankruptcy_date:
+                            logger.info(f"🔍 Found {ticker} in bankruptcy database (bankruptcy: {bankruptcy_date.strftime('%Y-%m-%d')})")
+                            logger.info(f"🔄 Automatically switching to bankruptcy analysis mode")
+                            
+                            auto_bankruptcy_mode = True
+                            bankruptcy_analysis = True  # Enable bankruptcy analysis
+                            
+                            auto_bankruptcy_info = {
+                                'ticker': ticker,
+                                'bankruptcy_date': bankruptcy_date.strftime('%Y-%m-%d'),
+                                'auto_detected': True,
+                                'reason': 'Market data unavailable - company found in bankruptcy database'
+                            }
+                            
+                            logger.info(f"📊 Will analyze {pre_bankruptcy_quarters} quarters before bankruptcy")
+                        else:
+                            logger.error(f"❌ {ticker} found in bankruptcy database but no bankruptcy date available")
+                            raise PipelineError(f"Bankruptcy date not available for {ticker}")
+                    else:
+                        logger.error(f"❌ {ticker} not found in active markets or bankruptcy database")
+                        raise PipelineError(f"Ticker {ticker} is not available for analysis (delisted/invalid ticker)")
+            else:
+                # Already in bankruptcy mode - validate the ticker is in database
+                if not is_bankrupt_company(ticker):
+                    logger.warning(f"⚠️  Bankruptcy analysis requested for {ticker} but not found in bankruptcy database")
+                initial_test_passed = True  # Skip the test since we're explicitly in bankruptcy mode
+            
+            # Log analysis mode
+            if auto_bankruptcy_mode:
+                logger.info(f"🔬 Analysis Mode: AUTO-DETECTED BANKRUPTCY ANALYSIS for {ticker}")
+                logger.info(f"📅 Bankruptcy Date: {auto_bankruptcy_info['bankruptcy_date']}")
+                logger.info(f"🔍 Reason: {auto_bankruptcy_info['reason']}")
+            elif bankruptcy_analysis:
+                logger.info(f"🔬 Analysis Mode: MANUAL BANKRUPTCY ANALYSIS for {ticker}")
+            else:
+                logger.info(f"🔬 Analysis Mode: STANDARD ANALYSIS for {ticker}")
+            
+            # ===============================================================================
+            # CONTINUE WITH STANDARD PIPELINE (with potential bankruptcy routing)
+            # ===============================================================================
             
             # Calculate total steps for granular progress tracking
             total_steps = 0
@@ -323,17 +403,96 @@ class AltmanZScorePipeline:
             
             current_step += 1  
             progress.update("Merging Financial Data", current_step)
+            
+            # Handle bankruptcy analysis if enabled (manual or auto-detected)
+            end_date = None
+            bankruptcy_info = None
+            
+            if bankruptcy_analysis and (is_bankrupt_company(ticker) or auto_bankruptcy_mode):
+                if auto_bankruptcy_mode and auto_bankruptcy_info:
+                    # Use auto-detected bankruptcy information
+                    bankruptcy_date_str = auto_bankruptcy_info['bankruptcy_date']
+                    bankruptcy_date = datetime.strptime(bankruptcy_date_str, '%Y-%m-%d').date()
+                    logger.info(f"Using auto-detected bankruptcy info: {bankruptcy_date_str}")
+                else:
+                    # Use manual bankruptcy lookup
+                    bankruptcy_date = get_bankruptcy_date(ticker)
+                    bankruptcy_date_str = bankruptcy_date.strftime('%Y-%m-%d') if bankruptcy_date else None
+                
+                if bankruptcy_date:
+                    logger.info(f"Bankruptcy analysis enabled for {ticker} - bankruptcy date: {bankruptcy_date.strftime('%Y-%m-%d')}")
+                    end_date = bankruptcy_date.strftime("%Y-%m-%d")
+                    
+                    # Store comprehensive bankruptcy info for reporting
+                    bankruptcy_info = {
+                        'bankruptcy_date': end_date,
+                        'pre_bankruptcy_quarters': pre_bankruptcy_quarters,
+                        'analysis_type': 'Pre-Bankruptcy Analysis',
+                        'auto_detected': auto_bankruptcy_mode,
+                        'detection_reason': auto_bankruptcy_info.get('reason') if auto_bankruptcy_info else 'Manual analysis request'
+                    }
+                    
+                    if auto_bankruptcy_mode:
+                        logger.info(f"🤖 AUTO-DETECTED: Analyzing {pre_bankruptcy_quarters} quarters before bankruptcy ({end_date})")
+                    else:
+                        logger.info(f"📋 MANUAL: Analyzing {pre_bankruptcy_quarters} quarters before bankruptcy date: {end_date}")
+                    
+                    progress.update_substep(f"Bankruptcy analysis - {pre_bankruptcy_quarters} pre-bankruptcy quarters")
+                    quarters = max(pre_bankruptcy_quarters + 1, 4)  # Ensure we get enough data
+                else:
+                    logger.error(f"Bankruptcy analysis requested for {ticker} but no bankruptcy date found")
+                    raise PipelineError(f"Cannot perform bankruptcy analysis for {ticker}: no bankruptcy date available")
+            elif specific_date:
+                logger.info(f"Analyzing {ticker} at specific date: {specific_date}")
+                end_date = specific_date
+                progress.update_substep(f"Point-in-time analysis: {specific_date}")
+            
             logger.info(f"Step {current_step}: Merging financial data for {ticker}")
             progress.start_substeps(quarters if enhanced_analysis else 4)
             
-            # Pass enhanced parameters to data merger
-            merged = await self.data_merger.merge_financial_data(
-                ticker, 
-                start_date=None,
-                quarters=quarters if enhanced_analysis else 4
-            )
-            if not isinstance(merged, list):
-                merged = [merged]
+            # Pass parameters to data merger
+            try:
+                merged = await self.data_merger.merge_financial_data(
+                    ticker, 
+                    start_date=None,
+                    end_date=end_date,
+                    quarters=quarters if enhanced_analysis or bankruptcy_analysis else 4
+                )
+                if not isinstance(merged, list):
+                    merged = [merged]
+            except Exception as e:
+                # Enhanced error handling for bankruptcy analysis
+                if auto_bankruptcy_mode or bankruptcy_analysis:
+                    logger.error(f"❌ Data unavailable for bankrupt company {ticker}")
+                    logger.error(f"🔍 Detected Issue: {str(e)}")
+                    logger.info(f"📋 Bankruptcy Analysis Limitations:")
+                    logger.info(f"   • Company: {ticker}")
+                    logger.info(f"   • Bankruptcy Date: {bankruptcy_info.get('bankruptcy_date') if bankruptcy_info else 'Unknown'}")
+                    logger.info(f"   • Status: Delisted/Data Unavailable")
+                    logger.info(f"   • Primary Data Source (FMP): No longer available for delisted companies")
+                    logger.info(f"")
+                    logger.info(f"📊 Recommended Solutions:")
+                    logger.info(f"   1. Use SEC EDGAR fallback (retail validation framework):")
+                    logger.info(f"      python retail_validation/scripts/validate_retail_model.py --enable-edgar --test-edgar {ticker}")
+                    logger.info(f"   2. Try alternative ticker format (if company merged/acquired)")
+                    logger.info(f"   3. Use manual bankruptcy analysis with --bankruptcy-analysis flag for available pre-bankruptcy data")
+                    logger.info(f"")
+                    logger.info(f"💡 Auto-Detection Summary:")
+                    if auto_bankruptcy_info:
+                        logger.info(f"   • Detection: {auto_bankruptcy_info['reason']}")
+                        logger.info(f"   • Bankruptcy Database: ✓ Found")
+                        logger.info(f"   • Market Data: ✗ Unavailable")
+                        logger.info(f"   • Financial Data: ✗ Unavailable")
+                    
+                    # Create a custom exception with bankruptcy context
+                    raise PipelineError(
+                        f"Bankruptcy analysis failed for {ticker}: {str(e)}. "
+                        f"This is expected for fully delisted companies. "
+                        f"Use SEC EDGAR fallback or retail validation framework for historical analysis."
+                    )
+                else:
+                    # Regular error handling for non-bankruptcy cases
+                    raise e
             
             progress.update_substep(f"Processed {len(merged)} quarters")
             
@@ -386,6 +545,28 @@ class AltmanZScorePipeline:
             
             # Use the most recent result for dashboard/report
             latest_result = zscore_results[0]
+            
+            # Add bankruptcy analysis metadata if applicable
+            if bankruptcy_info:
+                if not hasattr(latest_result, 'metadata') or latest_result.metadata is None:
+                    latest_result.metadata = {}
+                
+                # Add bankruptcy analysis information to metadata
+                latest_result.metadata.update({
+                    'bankruptcy_analysis': True,
+                    'bankruptcy_date': bankruptcy_info['bankruptcy_date'],
+                    'pre_bankruptcy_quarters': bankruptcy_info['pre_bankruptcy_quarters'],
+                    'analysis_type': bankruptcy_info['analysis_type'],
+                    'auto_detected': bankruptcy_info.get('auto_detected', False),
+                    'detection_reason': bankruptcy_info.get('detection_reason', 'Manual analysis request')
+                })
+                
+                logger.info(f"✓ Added bankruptcy metadata to {ticker} results")
+                if bankruptcy_info.get('auto_detected'):
+                    logger.info(f"  🤖 Auto-detected bankruptcy analysis")
+                    logger.info(f"  📅 Bankruptcy date: {bankruptcy_info['bankruptcy_date']}")
+                    logger.info(f"  🔍 Detection reason: {bankruptcy_info['detection_reason']}")
+            
             
             # STEP GROUP 3: Market Analysis (5 steps if enabled)
             market_analysis = None
@@ -544,6 +725,7 @@ class AltmanZScorePipeline:
     async def batch_analyze(
         self, 
         tickers: List[str],
+        bankruptcy_analysis: bool = False,
         **kwargs
     ) -> Dict[str, Dict[str, str]]:
         """
@@ -551,6 +733,7 @@ class AltmanZScorePipeline:
         
         Args:
             tickers: List of ticker symbols
+            bankruptcy_analysis: Enable bankruptcy-specific analysis for known bankrupt companies
             **kwargs: Additional arguments passed to analyze_ticker
             
         Returns:
@@ -559,18 +742,61 @@ class AltmanZScorePipeline:
         results = {}
         
         logger.info(f"Starting batch analysis for {len(tickers)} tickers")
+        if bankruptcy_analysis:
+            logger.info("Bankruptcy analysis mode enabled - checking for bankruptcy dates")
         
         # Show batch progress if in quiet logging mode
         show_batch_progress = should_show_progress_bars() and len(tickers) > 1
         
-        for i, ticker in enumerate(tickers, 1):
+        # Filter tickers for bankruptcy analysis if enabled
+        if bankruptcy_analysis:
+            # Test each ticker to see if it's bankrupt/delisted
+            logger.info("Testing tickers for bankruptcy/delisting status...")
+            bankrupt_tickers_in_list = []
+            
+            for ticker in tickers:
+                if is_bankrupt_company(ticker):
+                    bankrupt_tickers_in_list.append(ticker)
+                    logger.info(f"✓ {ticker} identified as bankrupt/delisted")
+                else:
+                    logger.debug(f"✗ {ticker} appears to be active")
+            
+            if not bankrupt_tickers_in_list:
+                logger.warning("No bankrupt companies found in ticker list for bankruptcy analysis")
+                if show_batch_progress:
+                    print("\nNo bankrupt companies found in ticker list. Exiting bankruptcy analysis.")
+                return {"error": "No bankrupt companies found in ticker list"}
+            
+            logger.info(f"Found {len(bankrupt_tickers_in_list)} bankrupt companies in list of {len(tickers)} tickers")
+            
+            if show_batch_progress:
+                print(f"\nRunning bankruptcy analysis on {len(bankrupt_tickers_in_list)} companies:")
+                for ticker in bankrupt_tickers_in_list:
+                    bankruptcy_date = get_bankruptcy_date(ticker)
+                    print(f"- {ticker}: Bankruptcy Date {bankruptcy_date.strftime('%Y-%m-%d')}")
+                print("\n")
+            
+            # Use the filtered list for processing
+            tickers_to_process = bankrupt_tickers_in_list
+        else:
+            # Normal analysis - process all tickers
+            tickers_to_process = tickers
+        
+        for i, ticker in enumerate(tickers_to_process, 1):
             try:
                 if show_batch_progress:
                     # Simple batch progress indicator
-                    print(f"\n[BATCH] Processing {i}/{len(tickers)}: {ticker}")
+                    if bankruptcy_analysis:
+                        bankruptcy_date = get_bankruptcy_date(ticker)
+                        date_str = bankruptcy_date.strftime('%Y-%m-%d') if bankruptcy_date else "Unknown"
+                        print(f"\n[BATCH] Processing bankrupt company {i}/{len(tickers_to_process)}: {ticker} (Bankruptcy: {date_str})")
+                    else:
+                        print(f"\n[BATCH] Processing {i}/{len(tickers_to_process)}: {ticker}")
                 
-                logger.info(f"Processing ticker {i}/{len(tickers)}: {ticker}")
-                results[ticker] = await self.analyze_ticker(ticker, **kwargs)
+                logger.info(f"Processing ticker {i}/{len(tickers_to_process)}: {ticker}")
+                
+                # Pass bankruptcy_analysis parameter to analyze_ticker
+                results[ticker] = await self.analyze_ticker(ticker, bankruptcy_analysis=bankruptcy_analysis, **kwargs)
                 
             except Exception as e:
                 logger.error(f"Failed to process {ticker}: {str(e)}")
@@ -578,10 +804,78 @@ class AltmanZScorePipeline:
         
         if show_batch_progress:
             successful = len([r for r in results.values() if 'error' not in r])
-            print(f"\nBatch analysis complete: {successful}/{len(tickers)} successful")
+            if bankruptcy_analysis:
+                print(f"\nBankruptcy analysis complete: {successful}/{len(tickers_to_process)} companies analyzed successfully")
+            else:
+                print(f"\nBatch analysis complete: {successful}/{len(tickers_to_process)} successful")
         
         logger.info(f"Batch analysis complete. Processed {len(results)} tickers.")
         return results
+    
+    async def run_bankruptcy_analysis(
+        self,
+        specific_tickers: List[str] = None,
+        pre_bankruptcy_quarters: int = 3,
+        generate_charts: bool = True,
+        generate_reports: bool = True,
+        **kwargs
+    ) -> Dict[str, Dict[str, str]]:
+        """
+        Run bankruptcy analysis on all known bankrupt companies or a specified list.
+        Analyzes Z-Score progression for the quarters leading up to bankruptcy.
+        
+        Args:
+            specific_tickers: Optional list of specific bankrupt tickers to analyze
+            pre_bankruptcy_quarters: Number of quarters before bankruptcy to analyze
+            generate_charts: Whether to generate visualization charts
+            generate_reports: Whether to generate comprehensive reports
+            **kwargs: Additional arguments passed to analyze_ticker
+            
+        Returns:
+            Dict[str, Dict[str, str]]: Results for each bankrupt ticker
+        """
+        logger.info(f"Starting bankruptcy analysis for {pre_bankruptcy_quarters} pre-bankruptcy quarters")
+        
+        # With dynamic bankruptcy detection, we need to check each ticker individually
+        # If specific_tickers is provided, test each one for bankruptcy status
+        if specific_tickers:
+            logger.info(f"Testing {len(specific_tickers)} specific tickers for bankruptcy status...")
+            bankrupt_tickers = []
+            
+            for ticker in specific_tickers:
+                if is_bankrupt_company(ticker):
+                    bankrupt_tickers.append(ticker)
+                    logger.info(f"✓ {ticker} identified as bankrupt/delisted")
+                else:
+                    logger.warning(f"✗ {ticker} appears to be active (not bankrupt)")
+            
+            if not bankrupt_tickers:
+                logger.warning("No bankrupt companies found in provided ticker list")
+                return {"error": "No bankrupt companies in provided ticker list"}
+        else:
+            logger.error("Dynamic bankruptcy detection requires specific ticker list")
+            return {"error": "Bankruptcy analysis requires specific ticker list with dynamic detection"}
+        
+        logger.info(f"Running bankruptcy analysis on {len(bankrupt_tickers)} companies")
+        
+        # Show summary of companies to analyze
+        show_progress = should_show_progress_bars()
+        if show_progress:
+            print("\nRunning bankruptcy analysis on the following companies:")
+            for ticker in bankrupt_tickers:
+                bankruptcy_date = get_bankruptcy_date(ticker)
+                print(f"- {ticker}: Bankruptcy Date {bankruptcy_date.strftime('%Y-%m-%d')}")
+            print("\n")
+        
+        # Run the batch analysis with bankruptcy_analysis=True
+        return await self.batch_analyze(
+            bankrupt_tickers,
+            bankruptcy_analysis=True,
+            pre_bankruptcy_quarters=pre_bankruptcy_quarters,
+            generate_charts=generate_charts,
+            generate_reports=generate_reports,
+            **kwargs
+        )
     
     def get_pipeline_status(self) -> Dict[str, any]:
         """

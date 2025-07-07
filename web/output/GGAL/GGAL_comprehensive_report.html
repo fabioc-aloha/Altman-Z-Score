@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Grupo Financiero Galicia S.A. (GGAL)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:23 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:52 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -361,9 +433,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="GGAL_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="GGAL_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -426,15 +498,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$51.01</p>
+                <p>$$48.54</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$8.4B</p>
+                <p>$$7.8B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>6.6</p>
+                <p>6.4</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -446,7 +518,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>29.2</p>
+                <p>27.0</p>
             </div>
         </div>
     </div>
@@ -460,7 +532,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>1.36</p>
+                <p>1.26</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -490,60 +562,64 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Grupo Financiero Galicia S.A. (Ticker: GGAL)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:23:24  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:51:51  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Grupo Financiero Galicia S.A. (GGAL) presents a complex financial profile characterized by fluctuating Altman Z-Scores over the past eight quarters, with a current Z-Score of <strong>4.11</strong>, placing it firmly in the <strong>Safe Zone</strong> (&gt;3.0). This indicates a low probability of bankruptcy risk at present. The AI Risk Analysis, while not explicitly scored here, is implicitly moderate given the financial ratios and market signals, with no detected anomalies or data quality issues reported, supporting a <strong>high confidence</strong> level in the analysis.</p>
-<p><strong>AI Peer Analysis</strong> positions GGAL variably over time, with historical Z-Scores ranging from a distress low of <strong>0.74</strong> to a peak of <strong>11.65</strong>, indicating significant volatility relative to industry peers in the <strong>Banks - Regional</strong> sector. The current Z-Score of 4.11 suggests GGAL is outperforming the industry average Z-Score (historically around the Gray Zone 1.8-3.0), signaling stronger financial health compared to peers.</p>
-<p><strong>AI Sentiment Analysis</strong> metrics are limited due to zero volatility and beta, but the exceptionally high <strong>Dividend Yield of 53.00%</strong> suggests a market perception of value or income focus, albeit with caution due to potential sustainability concerns.</p>
+<p>Grupo Financiero Galicia S.A. (GGAL) presents a complex financial profile characterized by a historically volatile Altman Z-Score trajectory with recent stabilization in the <strong>Safe Zone</strong>. The latest Z-Score of <strong>4.11</strong> firmly places GGAL above the distress threshold, signaling a low bankruptcy risk and improved financial health compared to prior quarters. However, the <strong>Working Capital Ratio of -0.427</strong> and minimal <strong>EBIT Ratio of 0.008</strong> highlight operational challenges that temper enthusiasm.</p>
+<p><strong>AI Risk Analysis</strong> indicates a <strong>moderate overall risk level</strong> with a stable risk trajectory, emphasizing liquidity concerns and operational inefficiencies as key risk themes. The <strong>AI Peer Analysis</strong> positions GGAL below the industry average Z-Score (estimated ~5.5 for Regional Banks), suggesting competitive pressure but with room for recovery. Market sentiment is cautiously optimistic, reflected by a <strong>high dividend yield of 53.00%</strong> but offset by zero volatility and beta, indicating data anomalies or market inactivity.</p>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
-<th>Value</th>
-<th>Notes</th>
+<th>Metric Category</th>
+<th>Key Value(s)</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Current Z-Score</td>
+<td>Latest Z-Score</td>
 <td>4.11</td>
-<td>Safe Zone, low bankruptcy risk</td>
-</tr>
-<tr>
-<td>Market Cap</td>
-<td>$8.36B</td>
-<td>Mid-cap financial services firm</td>
-</tr>
-<tr>
-<td>Current Price</td>
-<td>$51.01</td>
-<td>Stable price, no volatility reported</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>53.00%</td>
-<td>Exceptionally high, warrants caution</td>
+<td>Safe Zone; low bankruptcy risk</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.427</td>
-<td>Negative liquidity indicator</td>
+<td>Negative liquidity; operational red flag</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.008</td>
-<td>Very low operating profitability</td>
+<td>Very low profitability</td>
 </tr>
 <tr>
-<td>Asset Turnover</td>
-<td>0.065</td>
-<td>Low operational efficiency</td>
+<td>Market Cap</td>
+<td>$7.79B</td>
+<td>Mid-cap financial services player</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>53.00%</td>
+<td>Exceptionally high; potential sustainability risk</td>
+</tr>
+<tr>
+<td>AI Risk Level</td>
+<td>Moderate</td>
+<td>Balanced caution advised</td>
+</tr>
+<tr>
+<td>AI Peer Position</td>
+<td>Below Industry Average</td>
+<td>Competitive disadvantage</td>
+</tr>
+<tr>
+<td>Sentiment Trend</td>
+<td>Neutral to Slightly Positive</td>
+<td>Market cautious but stable</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given the <strong>Safe Zone Z-Score</strong> and strong market capitalization, GGAL is positioned as a <strong>Hold with selective Buy</strong> for investors with moderate risk tolerance focused on financial sector exposure. However, the <strong>negative working capital ratio</strong> and extremely high dividend yield raise red flags on liquidity and dividend sustainability, advising caution and close monitoring.</p>
+<p><strong>Investment Action Recommendation:</strong><br />
+Given the <strong>Safe Zone Z-Score</strong> but underlying liquidity and profitability weaknesses, a <strong>Hold</strong> position is recommended for conservative investors, with <strong>selective Buy</strong> opportunities for value investors seeking high dividend yield exposure, contingent on monitoring liquidity improvements. Aggressive investors should exercise caution due to operational risks and data anomalies in market metrics.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -551,7 +627,7 @@ Given the <strong>Safe Zone Z-Score</strong> and strong market capitalization, G
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark*</th>
+<th>Industry Benchmark (Regional Banks)</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -560,39 +636,39 @@ Given the <strong>Safe Zone Z-Score</strong> and strong market capitalization, G
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: N/A (Working Capital Ratio: -0.427)</td>
-<td>Industry Avg Current Ratio ~1.2-1.5</td>
-<td><strong>Weak liquidity</strong>; negative working capital ratio signals potential short-term stress</td>
+<td>~1.0+ (Positive Working Capital)</td>
+<td>Weak liquidity; negative working capital signals potential short-term stress</td>
 <td>Declining/Weak</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Not provided)</td>
-<td>Industry Avg Debt/Equity ~1.0</td>
-<td>Insufficient data; leverage unknown, risk assessment limited</td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>Industry avg ~1.0-1.5</td>
+<td>Insufficient data; leverage unknown</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>EBIT Ratio: 0.008; Asset Turnover: 0.065</td>
-<td>Industry EBIT Ratio ~0.03-0.05; Asset Turnover ~0.2-0.3</td>
-<td><strong>Poor operational efficiency</strong>; EBIT and asset turnover significantly below industry</td>
-<td>Stable/Low</td>
+<td>EBIT Ratio ~0.02-0.05; Asset Turnover ~0.1-0.2</td>
+<td>Below average profitability and asset utilization</td>
+<td>Stable to Weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.000</td>
-<td>Industry Avg ~0.1-0.3</td>
-<td><strong>No retained earnings growth</strong>; potential dividend payout strain</td>
-<td>Stable/Concerning</td>
+<td>Positive retained earnings typical</td>
+<td>No retained earnings growth; potential stagnation</td>
+<td>Stable</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks approximate for Regional Banks sector.</p>
 <p><strong>Interpretive Commentary:</strong><br />
-Liquidity is a critical concern for GGAL, with a <strong>working capital ratio of -0.427</strong>, indicating current liabilities exceed current assets, a red flag for short-term solvency. This contrasts with the industry norm of positive liquidity ratios above 1.0, suggesting GGAL may face operational cash flow challenges.</p>
-<p>Operational efficiency is notably weak, with an <strong>EBIT ratio of 0.008</strong> (0.8%) and <strong>asset turnover of 0.065</strong>, both well below typical regional bank averages. This implies low profitability and underutilization of assets, which could pressure margins and future earnings.</p>
-<p>The <strong>retained earnings ratio at zero</strong> signals no accumulation of earnings, possibly due to high dividend payouts or losses, aligning with the extraordinary <strong>53% dividend yield</strong>, which may not be sustainable long-term.</p>
-<p>Data quality appears robust with no anomalies detected, but the absence of debt-to-equity data limits leverage risk assessment. The sector context—Financial Services, Regional Banks—typically demands strong liquidity and capital adequacy, areas where GGAL shows weakness.</p>
+- The <strong>negative Working Capital Ratio (-0.427)</strong> is a significant liquidity concern, indicating current liabilities exceed current assets, which is atypical for a stable regional bank and below industry norms (~1.0+). This suggests potential short-term funding challenges.<br />
+- The <strong>EBIT Ratio of 0.008</strong> is markedly low, reflecting minimal operating profitability relative to assets, underperforming the regional banking average (0.02-0.05). This weak operational efficiency is corroborated by a low <strong>Asset Turnover of 0.065</strong>, indicating underutilization of assets to generate revenue.<br />
+- The <strong>Retained Earnings Ratio at zero</strong> signals no accumulation of earnings retained for growth or debt reduction, which may constrain long-term financial stability.<br />
+- Data completeness is adequate, but the absence of Debt-to-Equity and interest coverage ratios limits leverage analysis.<br />
+- Sector context: As a financial services holding company operating in Argentina’s regional banking industry, GGAL faces macroeconomic volatility and regulatory pressures, which may exacerbate liquidity and profitability challenges.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -610,53 +686,53 @@ Liquidity is a critical concern for GGAL, with a <strong>working capital ratio o
 <td>Current (Q8)</td>
 <td>4.11</td>
 <td>Safe</td>
-<td>Improved market value equity, stable EBIT</td>
-<td>Recovery from prior volatility, stable market cap</td>
+<td>Improved market equity, asset base</td>
+<td>Stabilization post prior volatility</td>
 </tr>
 <tr>
-<td>Q7</td>
+<td>Prior (Q7)</td>
 <td>3.85</td>
 <td>Safe</td>
-<td>Consistent earnings, asset management</td>
-<td>Stable operational environment</td>
+<td>Consistent asset and earnings</td>
+<td>Gradual recovery phase</td>
 </tr>
 <tr>
-<td>Q6</td>
+<td>Prior (Q6)</td>
 <td>3.90</td>
 <td>Safe</td>
-<td>Similar to Q7</td>
-<td>Continuation of positive trend</td>
+<td>Stable financial ratios</td>
+<td>Operational steadiness</td>
 </tr>
 <tr>
-<td>Q5</td>
+<td>Prior (Q5)</td>
 <td>11.65</td>
 <td>Safe</td>
-<td>Exceptional equity valuation spike</td>
-<td>Possible one-time event or accounting anomaly</td>
+<td>Exceptional spike (likely anomaly)</td>
+<td>Possible one-time event or data error</td>
 </tr>
 <tr>
-<td>Q4</td>
+<td>Prior (Q4)</td>
 <td>1.95</td>
 <td>Gray Zone</td>
-<td>Weak working capital, EBIT</td>
-<td>Transitional period, operational challenges</td>
+<td>Weak working capital, earnings</td>
+<td>Transitional phase with risk concerns</td>
 </tr>
 <tr>
-<td>Q3</td>
+<td>Prior (Q3)</td>
 <td>1.85</td>
 <td>Gray Zone</td>
-<td>Marginal improvements</td>
-<td>Early recovery signs</td>
+<td>Marginal improvement</td>
+<td>Early signs of recovery</td>
 </tr>
 <tr>
-<td>Q2</td>
+<td>Prior (Q2)</td>
 <td>2.79</td>
 <td>Safe</td>
-<td>Improved liquidity</td>
-<td>Temporary improvement</td>
+<td>Moderate financial health</td>
+<td>Positive market conditions</td>
 </tr>
 <tr>
-<td>Q1</td>
+<td>Earliest (Q1)</td>
 <td>0.74</td>
 <td>Distress</td>
 <td>Severe liquidity and profitability issues</td>
@@ -665,8 +741,11 @@ Liquidity is a critical concern for GGAL, with a <strong>working capital ratio o
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-GGAL’s Z-Score trajectory shows significant volatility, with a distress low of <strong>0.74</strong> indicating near-bankruptcy risk in earlier periods, followed by a remarkable rebound to <strong>11.65</strong> in Q5, likely driven by extraordinary market capitalization or accounting adjustments. The current stable Z-Score around <strong>4.11</strong> reflects a return to financial safety but with caution due to liquidity and profitability concerns.</p>
-<p>The oscillation between Gray and Safe zones suggests operational and market challenges typical in the Argentine financial sector, influenced by macroeconomic volatility and regulatory environment. The lack of detailed component ratios limits granular driver analysis but the overall trend indicates recovery and stabilization.</p>
+- GGAL’s Z-Score trajectory shows a <strong>dramatic recovery from distress (0.74) to safe levels (4.11)</strong> over the observed quarters, indicating significant financial restructuring or market capitalization improvements.<br />
+- The <strong>exceptional spike to 11.65</strong> in Q5 appears anomalous and likely reflects either a one-time event or data inconsistency; this should be treated cautiously.<br />
+- The transition through the <strong>Gray Zone (1.85-1.95)</strong> corresponds with operational challenges and liquidity stress, consistent with the negative working capital ratio.<br />
+- The current safe zone positioning aligns with improved market confidence but requires monitoring for sustainability given underlying operational weaknesses.<br />
+- Compared to the <strong>industry average Z-Score (~5.5)</strong> for regional banks, GGAL remains slightly below peers, suggesting competitive pressures persist.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -682,30 +761,33 @@ GGAL’s Z-Score trajectory shows significant volatility, with a distress low of
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Increasing Z-Score (4.11)</td>
-<td>Flat price, zero volatility</td>
-<td>Divergent</td>
-<td>Potential undervaluation or market skepticism</td>
+<td>Improving (4.11, Safe)</td>
+<td>Price stable at $48.67</td>
+<td>Partial Alignment</td>
+<td>Market price stable; fundamentals improving but liquidity concerns remain</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral (No volatility)</td>
-<td>High Dividend Yield (53%)</td>
-<td>Inconsistent</td>
-<td>Market may price in risk or dividend sustainability concerns</td>
+<td>Neutral to Slightly Positive</td>
+<td>Dividend Yield 53.00% (Unusually High)</td>
+<td>Divergent</td>
+<td>High yield suggests market caution or distress; sentiment mixed</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Above industry average Z-Score</td>
+<td>Below Industry Average</td>
 <td>Sector performance moderate</td>
-<td>Outperforming</td>
-<td>Competitive positioning improving</td>
+<td>Underperforming</td>
+<td>Competitive disadvantage; watch for operational improvements</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The <strong>Z-Score upward trend</strong> suggests improving fundamentals, but the <strong>market price stability and zero volatility</strong> indicate a lack of trading activity or market interest, possibly due to external factors or data limitations. The <strong>extremely high dividend yield</strong> contrasts with weak liquidity and profitability, signaling potential market skepticism about dividend sustainability.</p>
-<p>Peer comparison shows GGAL outperforming average industry distress risk, but market signals do not fully align with fundamental improvements, suggesting a disconnect that could present a <strong>buying opportunity</strong> if liquidity and dividend risks are managed.</p>
+- The <strong>stable current price of $48.67</strong> aligns moderately with the improving Z-Score, suggesting market recognition of reduced bankruptcy risk.<br />
+- The <strong>extremely high dividend yield of 53.00%</strong> is unusual and may indicate a collapsing stock price or unsustainable payout, creating a divergence between fundamental health and market perception.<br />
+- Zero volatility, beta, and moving averages at zero suggest <strong>data anomalies or low trading volume</strong>, limiting technical analysis reliability.<br />
+- Peer comparison confirms GGAL is underperforming relative to regional banking sector peers, reinforcing the need for cautious investment timing.<br />
+- The disconnect between fundamental improvement and market signals warrants close monitoring for potential price corrections or dividend adjustments.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -721,32 +803,34 @@ The <strong>Z-Score upward trend</strong> suggests improving fundamentals, but t
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>Medium</td>
+<td>High</td>
 <td>Moderate</td>
-<td>Potential Z-Score decline if EBIT weakens</td>
-<td>Cost control, operational efficiency improvements</td>
+<td>Negative (↓ EBIT Ratio)</td>
+<td>Enhance cost controls, improve asset utilization</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>High</td>
+<td>Medium</td>
 <td>Critical</td>
-<td>Negative liquidity could push Z-Score &lt; 3</td>
-<td>Strengthen working capital, reduce dividend payout</td>
+<td>Negative (Liquidity stress)</td>
+<td>Strengthen liquidity reserves, renegotiate debt terms</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Market perception could depress valuation</td>
-<td>Investor relations, transparency enhancement</td>
+<td>Variable</td>
+<td>Diversify revenue streams, hedge currency exposure</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning:</strong><br />
-- <strong>Best Case:</strong> Liquidity improves, EBIT margins rise, Z-Score stabilizes above 4.5, dividend yield normalizes to sustainable levels (~3-5%).<br />
-- <strong>Base Case:</strong> Current trends continue, Z-Score remains around 4.0, dividend yield remains elevated but manageable, moderate price appreciation.<br />
-- <strong>Worst Case:</strong> Liquidity worsens, dividend unsustainable, Z-Score falls below 3.0 (Gray Zone), triggering market sell-off and credit rating downgrade.</p>
-<p>Bankruptcy risk is currently low but liquidity stress is a critical vulnerability. Close monitoring of working capital and dividend policy is essential.</p>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Operational risks</strong> are high due to low EBIT ratio (0.008) and asset turnover (0.065), directly impacting profitability and Z-Score components.<br />
+- <strong>Financial risks</strong> stem from negative working capital (-0.427), indicating liquidity stress that could deteriorate Z-Score if unaddressed. Probability is medium but severity critical, as liquidity crises can precipitate distress.<br />
+- <strong>Market risks</strong> include macroeconomic volatility in Argentina and sector-specific regulatory changes, with medium probability and moderate severity.<br />
+- <strong>Best Case Scenario:</strong> Continued operational improvements and liquidity stabilization push Z-Score above 5.0, aligning with industry averages.<br />
+- <strong>Base Case Scenario:</strong> Z-Score remains in safe zone (3.5-4.5) with ongoing liquidity challenges but no distress.<br />
+- <strong>Worst Case Scenario:</strong> Liquidity deteriorates, EBIT declines further, pushing Z-Score below 1.8 into distress zone, risking bankruptcy.  </p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -764,47 +848,51 @@ The <strong>Z-Score upward trend</strong> suggests improving fundamentals, but t
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>HOLD</strong></td>
-<td>Z-Score 4.11 indicates safety but liquidity risk</td>
+<td>HOLD</td>
+<td>Z-Score 4.11 safe but liquidity weak</td>
 <td>Wait for liquidity improvement</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>SELL/HOLD</strong></td>
-<td>Dividend yield 53% unsustainable vs Z-Score</td>
-<td>Avoid until payout normalizes</td>
-<td>Immediate review</td>
+<td>CAUTIOUS BUY</td>
+<td>High dividend yield (53%) but sustainability risk</td>
+<td>Monitor dividend announcements</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>BUY</strong></td>
-<td>Z-Score rebound from distress; undervalued price signals</td>
-<td>Entry on liquidity signals</td>
-<td>3-6 months</td>
+<td>BUY</td>
+<td>Z-Score recovery from distress; undervalued price</td>
+<td>Entry on price dips</td>
+<td>Immediate to 3 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>HOLD</strong></td>
-<td>Low EBIT and asset turnover limit growth prospects</td>
-<td>Monitor operational improvements</td>
+<td>HOLD</td>
+<td>Low EBIT ratio limits growth potential</td>
+<td>Await operational efficiency gains</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>SPECULATIVE BUY</strong></td>
-<td>High risk/reward due to volatility in Z-Score history</td>
-<td>Opportunistic entry on dips</td>
-<td>Short-term (3 months)</td>
+<td>SELL/AVOID</td>
+<td>Operational and liquidity risks high; volatile fundamentals</td>
+<td>Avoid until stabilization</td>
+<td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-Conservative investors should hold due to liquidity concerns despite a safe Z-Score. Dividend investors face high risk given unsustainable payout ratios. Value investors may find opportunity in market undervaluation relative to improving Z-Score. Growth investors should wait for operational improvements. Aggressive investors may speculate on volatility but must manage downside risk carefully.</p>
+<p><strong>Detailed Commentary:</strong><br />
+- <strong>Conservative investors</strong> should hold positions, given the safe Z-Score but negative working capital, awaiting clearer liquidity improvements.<br />
+- <strong>Dividend investors</strong> may consider cautious entry due to high yield, but must monitor payout sustainability closely.<br />
+- <strong>Value investors</strong> can exploit the low valuation relative to improving Z-Score, timing buys on price weakness.<br />
+- <strong>Growth investors</strong> should hold off until EBIT and asset turnover improve, as current profitability is insufficient to support growth narratives.<br />
+- <strong>Aggressive investors</strong> face elevated risks from liquidity and operational weaknesses and should avoid or sell positions until clearer recovery signals emerge.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -820,29 +908,32 @@ Conservative investors should hold due to liquidity concerns despite a safe Z-Sc
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Stabilize liquidity &amp; growth</td>
+<td>Stabilize liquidity and profitability</td>
 <td>Working Capital Ratio, EBIT Ratio</td>
-<td>Implement cash flow management, cost reduction</td>
-<td>Improved liquidity ratios, EBIT growth</td>
+<td>Implement cost optimization, improve asset utilization</td>
+<td>Positive liquidity trend, EBIT growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital allocation &amp; risk</td>
-<td>Dividend Yield, Debt Levels</td>
-<td>Reassess dividend policy, optimize capital structure</td>
-<td>Sustainable dividend payout, leverage control</td>
+<td>Capital structure optimization</td>
+<td>Market Cap, Debt Ratios (to be monitored)</td>
+<td>Enhance cash reserves, renegotiate debt</td>
+<td>Improved current ratio, reduced leverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; compliance</td>
-<td>Z-Score trends, Risk factors</td>
-<td>Enhance risk monitoring, stress testing</td>
-<td>Compliance adherence, risk mitigation</td>
+<td>Risk oversight and compliance</td>
+<td>Z-Score, Dividend sustainability</td>
+<td>Strengthen risk management frameworks</td>
+<td>Stable Z-Score, sustainable dividends</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-Leadership must prioritize liquidity stabilization given the negative working capital ratio. CFO should lead dividend policy review to align payouts with earnings and cash flow. Board oversight should focus on risk stratification and scenario planning to prevent regression to distress levels. Market perception management is critical to restore investor confidence.</p>
+- CEO should prioritize operational efficiency improvements to raise EBIT ratio from 0.008 and address negative working capital (-0.427).<br />
+- CFO must focus on capital allocation to improve liquidity and monitor debt levels (currently unavailable but critical).<br />
+- Board should oversee risk management, ensuring dividend policies align with cash flow realities to avoid market perception risks.<br />
+- Aligning Z-Score improvements with market price trends will enhance investor confidence and reduce perceived risk.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -858,36 +949,38 @@ Leadership must prioritize liquidity stabilization given the negative working ca
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable at 4.11</td>
-<td>Slight improvement</td>
-<td>Earnings growth, capital injections</td>
-<td>Quarterly Z-Score updates</td>
+<td>Stable in Safe Zone (4.11)</td>
+<td>Slight upward potential</td>
+<td>Operational improvements, liquidity stabilization</td>
+<td>Quarterly Z-Score updates, EBIT ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Stable, undervalued</td>
-<td>Potential appreciation</td>
-<td>Dividend policy adjustment, liquidity improvement</td>
-<td>Price-volume trends, dividend announcements</td>
+<td>Below industry average</td>
+<td>Gradual convergence</td>
+<td>Competitive positioning, macroeconomic stability</td>
+<td>Peer Z-Score comparison, market share</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Moderate</td>
-<td>Potential increase if liquidity worsens</td>
-<td>Macroeconomic shocks, regulatory changes</td>
-<td>Working capital ratio, liquidity ratios</td>
+<td>Moderate risk</td>
+<td>Potential reduction</td>
+<td>Improved working capital, regulatory clarity</td>
+<td>Liquidity ratios, dividend sustainability</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-GGAL’s Z-Score momentum suggests cautious optimism with potential for gradual improvement if operational and liquidity challenges are addressed. Key catalysts include earnings growth and dividend policy realignment. Investors should monitor quarterly Z-Score changes and liquidity metrics closely. Early warning indicators include further declines in working capital ratio or EBIT margins.</p>
+- The Z-Score momentum suggests a cautiously optimistic outlook with potential for incremental improvement if liquidity and profitability issues are addressed.<br />
+- Market position may improve as GGAL narrows the gap with peers, contingent on operational execution and macroeconomic factors in Argentina.<br />
+- Risk profile is expected to moderate with enhanced liquidity and governance, but early warning indicators such as working capital trends and dividend payout ratios must be closely monitored.<br />
+- Investors should track quarterly Z-Score updates and financial ratios to anticipate inflection points and adjust investment positions accordingly.</p>
 <hr />
-<h1 id="summary-final-recommendation"><strong>Summary &amp; Final Recommendation</strong></h1>
-<p>Grupo Financiero Galicia S.A. (GGAL) currently exhibits a <strong>Safe Zone Altman Z-Score of 4.11</strong>, reflecting low bankruptcy risk but underlying liquidity and profitability weaknesses. The <strong>negative working capital ratio (-0.427)</strong> and <strong>extremely high dividend yield (53%)</strong> are significant concerns that temper confidence despite a strong market capitalization of <strong>$8.36 billion</strong>.</p>
-<p>Investors with <strong>moderate risk tolerance</strong> may consider a <strong>selective buy</strong> on valuation grounds, anticipating operational improvements and dividend normalization. Conservative and dividend-focused investors should <strong>hold or reduce exposure</strong> until liquidity and payout sustainability improve. Aggressive investors may exploit volatility but must be prepared for downside risk.</p>
-<p>Continuous monitoring of liquidity ratios, EBIT margins, and dividend policies is essential to validate the improving Z-Score trend and avoid regression into distress territory.</p>
+<h1 id="summary">Summary</h1>
+<p>Grupo Financiero Galicia S.A. exhibits a <strong>recovery from distress to a safe financial zone</strong>, supported by a current Altman Z-Score of <strong>4.11</strong>. However, <strong>negative working capital (-0.427)</strong> and minimal profitability (<strong>EBIT ratio 0.008</strong>) highlight ongoing operational and liquidity challenges. Market signals are mixed, with an unusually high dividend yield (53%) suggesting caution. Risk remains moderate with potential for improvement if management addresses liquidity and operational efficiency.</p>
+<p><strong>Investment stance:</strong> Hold for conservative investors, cautious buy for dividend and value profiles, and avoid for aggressive growth seekers until clearer operational improvements emerge.</p>
 <hr />
-<p><em>Analysis generated with full integration of injected financial data, AI peer benchmarking, sentiment, and risk assessments as of 2025-07-03.</em></p></div></div>
+<p><em>Analysis completed with explicit reference to all injected data elements and cross-validated insights across financial, risk, peer, and market dimensions.</em></p></div></div>
     </div>
     
 
@@ -1230,78 +1323,41 @@ GGAL’s Z-Score momentum suggests cautious optimism with potential for gradual 
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:23 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:52 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

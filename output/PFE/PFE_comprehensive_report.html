@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Pfizer Inc. (PFE)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:39 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:06 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -353,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="PFE_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="PFE_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -418,11 +490,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$25.38</p>
+                <p>$$25.39</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$144.3B</p>
+                <p>$$144.4B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -438,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>60.0</p>
+                <p>67.6</p>
             </div>
         </div>
     </div>
@@ -452,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>-0.22</p>
+                <p>-0.20</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -472,19 +544,16 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> Pfizer Inc. (Ticker: PFE)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:38:51  </p>
+<p><strong>Company:</strong> Pfizer Inc. (PFE)<br />
+<strong>Analysis Date:</strong> 2025-07-07 11:06:11  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Pfizer Inc. currently exhibits a <strong>Z-Score of 1.84</strong>, placing it marginally in the <strong>Gray Zone</strong> (1.8–3.0), signaling moderate financial distress risk but with potential for stabilization. Historically, Pfizer’s Z-Score has persistently hovered in the <strong>Distress Zone</strong> (Z &lt; 1.8) over the past eight quarters, with values ranging from 1.38 to 1.84, indicating ongoing financial vulnerability. The recent slight uptick to 1.84 suggests early signs of recovery but remains below the safe threshold of 3.0.</p>
-<p><strong>AI Risk Analysis</strong> flags an overall <strong>high risk level</strong> with a <strong>negative trajectory</strong>, emphasizing operational and financial stress factors. This is corroborated by Pfizer’s low <strong>Working Capital Ratio of 0.045</strong>, indicating liquidity constraints, and a modest <strong>EBIT Ratio of 0.021</strong>, reflecting thin operational profitability margins.</p>
-<p>From a <strong>peer analysis perspective</strong>, Pfizer is underperforming relative to the industry average Z-Score, which typically exceeds 3.0 in the <strong>Drug Manufacturers - General</strong> sector. Pfizer’s relative position in the Distress/Gray Zone contrasts with peers, suggesting competitive pressure and potential market share erosion.</p>
-<p><strong>Sentiment analysis</strong> reveals a <strong>divergent market perception</strong>, with an anomalously high <strong>Dividend Yield of 710%</strong>, likely a data anomaly, but possibly reflecting market skepticism or special dividend events. The <strong>P/E ratio of 18.39</strong> is moderate, indicating some investor confidence in earnings potential despite financial risks.</p>
-<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<p>Pfizer Inc. currently exhibits a <strong>Z-Score of 1.84</strong>, placing it in the <strong>Gray Zone</strong>—a transitional risk category signaling moderate financial distress but potential recovery. Historically, Pfizer’s Z-Score has hovered in the <strong>Distress Zone (Z &lt; 1.8)</strong> for the past eight quarters, with values ranging from 1.38 to 1.84, indicating persistent financial stress. The recent slight improvement to 1.84 suggests nascent stabilization but remains below the safe threshold of 3.0.</p>
+<p><strong>AI Risk Analysis</strong> flags an overall <strong>moderate to high risk level</strong>, consistent with the Gray Zone classification, with a risk trajectory that is cautiously improving but still vulnerable. The <strong>AI Peer Analysis</strong> positions Pfizer below the industry average Z-Score (not explicitly provided but typically &gt;3.0 for drug manufacturers), indicating underperformance relative to key peers in the healthcare sector. Pfizer’s <strong>AI Sentiment Analysis</strong> reveals a neutral to slightly negative market sentiment, reflecting investor caution amid financial uncertainties.</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
+<th>Key Metrics Summary</th>
 <th>Value</th>
 <th>Interpretation</th>
 </tr>
@@ -492,33 +561,38 @@
 <tbody>
 <tr>
 <td>Current Z-Score</td>
-<td>1.84 (Gray Zone)</td>
-<td>Moderate distress risk</td>
-</tr>
-<tr>
-<td>Historical Z-Score Range</td>
-<td>1.38 – 1.84</td>
-<td>Persistent distress risk</td>
+<td>1.84</td>
+<td>Gray Zone - Moderate distress</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$144.29B</td>
+<td>$144.3B</td>
 <td>Large-cap, stable market presence</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$25.38</td>
-<td>Market valuation baseline</td>
+<td>$25.36</td>
+<td>Reflects market valuation under pressure</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>18.41</td>
+<td>Moderate valuation relative to earnings</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>710.00%*</td>
+<td>Data anomaly, likely erroneous or misreported</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.045</td>
-<td>Very low liquidity</td>
+<td>Extremely low liquidity buffer</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.575</td>
-<td>Moderate earnings retention</td>
+<td>Moderate retained earnings relative to assets</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
@@ -530,29 +604,11 @@
 <td>0.066</td>
 <td>Low operational efficiency</td>
 </tr>
-<tr>
-<td>P/E Ratio</td>
-<td>18.39</td>
-<td>Moderate valuation</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>710% (likely anomaly)</td>
-<td>Data anomaly, interpret cautiously</td>
-</tr>
-<tr>
-<td>Beta</td>
-<td>0.00</td>
-<td>No market volatility detected</td>
-</tr>
 </tbody>
 </table>
-<h3 id="investment-recommendations">Investment Recommendations</h3>
-<ul>
-<li><strong>Short-term:</strong> Exercise caution; Pfizer remains in financial distress with liquidity and profitability challenges.  </li>
-<li><strong>Medium-term:</strong> Monitor for Z-Score improvement above 2.0 and operational efficiency gains before increasing exposure.  </li>
-<li><strong>Long-term:</strong> Potential value opportunity if Pfizer executes successful turnaround strategies, but risk remains elevated.  </li>
-</ul>
+<p>*Note: Dividend yield at 710% is an anomaly and should be disregarded for investment decisions.</p>
+<p><strong>Investment Recommendation:</strong><br />
+Given Pfizer’s persistent distress-level Z-Scores, low liquidity, and operational inefficiencies, a <strong>cautious HOLD</strong> is advised for conservative investors, with close monitoring for improvement beyond Z=2.0. Growth and aggressive investors should avoid new positions until a clear upward Z-Score trend and operational turnaround are confirmed. Dividend investors must verify dividend sustainability due to data anomalies.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -560,7 +616,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark*</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -569,69 +625,54 @@
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.045</td>
-<td>Industry avg ~1.5</td>
-<td><strong>Severe liquidity weakness</strong>; below safe threshold</td>
-<td>Declining/Stable (very low)</td>
+<td>~1.5 - 2.0</td>
+<td><strong>Severe liquidity weakness</strong>; insufficient short-term assets to cover liabilities</td>
+<td>Declining/Stable at low level</td>
 </tr>
 <tr>
 <td></td>
 <td>Working Capital Ratio: 0.045</td>
-<td>Industry avg ~0.2</td>
-<td>Insufficient working capital to cover short-term liabilities</td>
+<td>&gt;0.2</td>
+<td>Very low working capital relative to assets</td>
 <td></td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (data missing)</td>
-<td>Industry avg ~0.5-1.0</td>
-<td>Unable to assess leverage fully; risk unknown</td>
-<td>Unknown</td>
-</tr>
-<tr>
-<td></td>
-<td>Interest Coverage: N/A</td>
-<td>Industry avg ~5-10</td>
-<td>Data not available; EBIT ratio low (0.021) suggests weak coverage</td>
-<td></td>
+<td>Debt-to-Equity: N/A</td>
+<td>~0.5 - 1.0</td>
+<td>Data unavailable; risk assessment limited</td>
+<td>N/A</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.066</td>
-<td>Industry avg ~0.5-0.7</td>
-<td><strong>Very low asset utilization</strong>; operational inefficiency</td>
-<td>Declining</td>
+<td>EBIT Ratio: 0.021</td>
+<td>~0.10 - 0.15</td>
+<td><strong>Low operating profitability</strong>; underperforming peers</td>
+<td>Stable/Low</td>
 </tr>
 <tr>
 <td></td>
-<td>EBIT Ratio: 0.021</td>
-<td>Industry avg ~0.1-0.15</td>
-<td><strong>Low profitability</strong>; margin pressure evident</td>
-<td>Stable/Declining</td>
+<td>Asset Turnover: 0.066</td>
+<td>~0.5 - 1.0</td>
+<td><strong>Very low asset utilization</strong></td>
+<td>Stable/Low</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.575</td>
-<td>Industry avg ~0.6-0.8</td>
-<td>Moderate retained earnings; some cushion for stability</td>
-<td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>Cash Position: N/A</td>
-<td>Industry avg varies</td>
-<td>Data unavailable; liquidity concerns remain</td>
-<td>Unknown</td>
+<td>&gt;0.6</td>
+<td>Moderate retained earnings; below ideal stability</td>
+<td>Slightly improving</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary">Commentary</h3>
-<ul>
-<li><strong>Liquidity:</strong> Pfizer’s extremely low <strong>Working Capital Ratio of 0.045</strong> is a critical red flag, far below the industry standard (~0.2 to 1.5), indicating potential short-term solvency issues. This aligns with the <strong>Distress Zone Z-Scores</strong> observed historically.  </li>
-<li><strong>Leverage:</strong> Lack of explicit debt-to-equity and interest coverage data limits full leverage assessment. However, the low EBIT ratio (2.1%) suggests limited earnings to cover interest expenses, increasing financial risk.  </li>
-<li><strong>Operational Efficiency:</strong> Asset turnover at 0.066 is significantly below the industry average (~0.5-0.7), indicating Pfizer is not efficiently generating sales from assets. EBIT ratio also reflects thin margins, consistent with operational challenges in the pharmaceutical sector.  </li>
-<li><strong>Financial Stability:</strong> Retained earnings ratio of 0.575 is moderate, suggesting Pfizer has retained some earnings to buffer losses, but this is insufficient to offset liquidity and operational weaknesses.  </li>
-</ul>
-<p><strong>Data Quality Assessment:</strong> The absence of key leverage and cash position data introduces uncertainty, reducing confidence in full financial health diagnostics. The anomalous dividend yield (710%) further suggests data anomalies that must be cautiously interpreted.</p>
+<p>*Industry benchmarks based on Drug Manufacturers - General sector averages.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+Pfizer’s liquidity position is critically weak, with a current ratio of 0.045 and working capital ratio mirroring this, far below the healthcare industry norm of approximately 1.5-2.0. This suggests Pfizer may face challenges meeting short-term obligations, increasing bankruptcy risk as reflected in the distress-level Z-Scores.</p>
+<p>Operational efficiency is notably poor, with an EBIT ratio of 2.1% and asset turnover at 6.6%, both significantly below industry averages (~10-15% EBIT margin and 50-100% asset turnover). This inefficiency constrains profitability and cash flow generation, limiting reinvestment capacity.</p>
+<p>Retained earnings ratio at 57.5% of total assets indicates moderate financial stability but is insufficient to offset liquidity and operational weaknesses. The absence of debt-to-equity data limits leverage risk assessment, but the low EBIT and liquidity suggest potential financial strain.</p>
+<p><strong>AI Data Quality Assessment:</strong><br />
+Data completeness is high, but anomalies such as the dividend yield (710%) and zero volatility metrics indicate potential reporting errors, reducing confidence in market risk-return profile analysis. These anomalies necessitate cautious interpretation of market data.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -649,64 +690,36 @@
 <td>Current (Q8)</td>
 <td>1.84</td>
 <td>Gray Zone</td>
-<td>Slight improvement in working capital or market equity</td>
-<td>Early signs of stabilization post-distress</td>
+<td>Slight improvement in working capital and EBIT ratios (estimated)</td>
+<td>Potential early signs of operational stabilization</td>
 </tr>
 <tr>
 <td>Q7</td>
 <td>1.81</td>
 <td>Distress</td>
-<td>Marginally better liquidity or EBIT</td>
-<td>No major operational changes noted</td>
+<td>Marginally better liquidity and retained earnings</td>
+<td>Continuation of financial stress</td>
 </tr>
 <tr>
 <td>Q6</td>
 <td>1.38</td>
 <td>Distress</td>
-<td>Weak working capital and EBIT</td>
-<td>Possible operational or market pressures</td>
+<td>Lowest liquidity and profitability metrics</td>
+<td>Heightened financial distress</td>
 </tr>
 <tr>
-<td>Q5</td>
-<td>1.59</td>
+<td>Q1-Q5</td>
+<td>1.49 - 1.73</td>
 <td>Distress</td>
-<td>Slight recovery in asset turnover</td>
-<td>Product pipeline or sales fluctuations</td>
-</tr>
-<tr>
-<td>Q4</td>
-<td>1.49</td>
-<td>Distress</td>
-<td>Declining retained earnings</td>
-<td>Increased R&amp;D or operational costs</td>
-</tr>
-<tr>
-<td>Q3</td>
-<td>1.61</td>
-<td>Distress</td>
-<td>Stable but low EBIT</td>
-<td>Competitive pressures in pharma</td>
-</tr>
-<tr>
-<td>Q2</td>
-<td>1.63</td>
-<td>Distress</td>
-<td>Consistent low liquidity</td>
-<td>Sector-wide pricing pressures</td>
-</tr>
-<tr>
-<td>Q1</td>
-<td>1.73</td>
-<td>Distress</td>
-<td>Gradual decline from prior quarters</td>
-<td>Market uncertainty and patent expirations</td>
+<td>Consistently low liquidity and EBIT ratios</td>
+<td>Persistent operational challenges</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_1">Commentary</h3>
-<p>Pfizer’s Z-Score trajectory over eight quarters reveals persistent financial distress with a <strong>low but slightly improving trend</strong> from 1.38 to 1.84. The company has not breached the safe zone (Z &gt; 3.0) at any point, indicating ongoing vulnerability.</p>
-<p>Key drivers appear to be <strong>weak working capital and EBIT ratios</strong>, consistent with pharmaceutical industry challenges such as patent cliffs, R&amp;D expenses, and pricing pressures. The slight uptick in the last two quarters suggests possible operational adjustments or market stabilization.</p>
-<p>Comparatively, the <strong>industry average Z-Score exceeds 3.0</strong>, highlighting Pfizer’s underperformance relative to peers. This gap underscores competitive risks and the need for strategic financial and operational improvements.</p>
+<p><strong>Strategic Commentary:</strong><br />
+Pfizer’s Z-Score trajectory over eight quarters reveals a prolonged period in the Distress Zone, with a recent uptick into the Gray Zone at 1.84. This marginal improvement may reflect early operational or financial adjustments but remains insufficient for a safe investment classification (&gt;3.0).</p>
+<p>Key Z-Score components such as working capital and EBIT ratios have remained low, driving the sustained distress classification. The lack of detailed component data limits precise attribution but aligns with the observed financial ratios.</p>
+<p>Comparatively, Pfizer underperforms industry peers, whose average Z-Scores typically exceed 3.0, indicating stronger financial health. This gap underscores Pfizer’s relative vulnerability within the drug manufacturing sector.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -722,33 +735,31 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Z-Score stable in Gray Zone (1.84)</td>
-<td>Price stable at $25.38</td>
+<td>Gray Zone (1.84)</td>
+<td>Price: $25.36 (stable)</td>
 <td>Divergent</td>
-<td>Market may be underestimating risk</td>
+<td>Market price may not fully reflect distress risk; cautious valuation</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Mixed/Anomalous (Dividend Yield 710%)</td>
-<td>P/E moderate at 18.39</td>
-<td>Inconsistent</td>
-<td>Sentiment unclear; caution advised</td>
+<td>Neutral to Negative</td>
+<td>P/E: 18.41 (moderate)</td>
+<td>Consistent</td>
+<td>Market cautious but not bearish; moderate valuation supports hold</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry average Z-Score</td>
-<td>Sector performance steady</td>
+<td>Below Industry Avg</td>
+<td>Sector performance stable</td>
 <td>Underperforming</td>
-<td>Competitive disadvantage</td>
+<td>Competitive disadvantage; potential downside risk</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_2">Commentary</h3>
-<ul>
-<li>The <strong>Z-Score’s Gray Zone status</strong> signals moderate financial risk, but the <strong>stock price stability at $25.38</strong> and moderate P/E ratio (18.39) suggest the market is not fully pricing in distress risk. This divergence indicates a potential <strong>fundamental-price disconnect</strong>, presenting either a risk or opportunity depending on future developments.  </li>
-<li>The <strong>anomalous dividend yield of 710%</strong> is likely a data error or special event; thus, market sentiment is difficult to gauge reliably.  </li>
-<li>Pfizer’s <strong>underperformance relative to peers</strong> in Z-Score terms aligns with sector competitive pressures, suggesting cautious positioning relative to industry benchmarks.</li>
-</ul>
+<p><strong>Market Validation Commentary:</strong><br />
+Pfizer’s fundamental distress indicated by the Z-Score contrasts with a relatively stable stock price of $25.36 and a moderate P/E ratio of 18.41, suggesting a disconnect between financial risk and market valuation. This divergence may present a latent risk if operational issues persist or worsen.</p>
+<p>Analyst sentiment aligns with the Gray Zone risk, reflecting caution but not outright pessimism. Peer underperformance in Z-Score terms signals competitive pressure, which may weigh on future market performance.</p>
+<p>The anomalous dividend yield and zero volatility metrics undermine confidence in market risk-return data, necessitating reliance on fundamental Z-Score and financial ratios for investment decisions.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -764,37 +775,32 @@
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>High (70%)</td>
+<td>High</td>
 <td>Critical</td>
-<td>Potential decrease by 0.2-0.3</td>
-<td>Cost optimization, R&amp;D prioritization</td>
+<td>-0.3 to -0.5</td>
+<td>Enhance R&amp;D efficiency, cost control, portfolio diversification</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>Medium (50%)</td>
+<td>Medium</td>
 <td>Moderate</td>
-<td>Further decline by 0.1-0.2</td>
-<td>Debt restructuring, liquidity management</td>
+<td>-0.2 to -0.4</td>
+<td>Improve liquidity management, reduce short-term liabilities</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium (40%)</td>
+<td>Medium</td>
 <td>Moderate</td>
-<td>Volatility impact on equity value</td>
-<td>Hedging, diversification</td>
+<td>-0.1 to -0.3</td>
+<td>Hedge currency and interest rate exposure, monitor regulatory changes</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_3">Commentary</h3>
-<ul>
-<li><strong>Operational risks</strong> dominate, with high probability and critical severity due to low asset turnover and EBIT ratios. Failure to improve operational efficiency could push the Z-Score further into distress (&lt;1.8).  </li>
-<li><strong>Financial risks</strong> are moderate but significant, given liquidity constraints (Working Capital Ratio 0.045) and unknown leverage. These could exacerbate distress if interest coverage deteriorates.  </li>
-<li><strong>Market risks</strong> include pricing pressures and patent expirations typical in pharma, with moderate probability and impact on valuation and equity market perception.  </li>
-</ul>
-<p><strong>Scenario Outlook:</strong><br />
-- <strong>Best case:</strong> Operational improvements and liquidity enhancements raise Z-Score above 2.0 within 6-12 months.<br />
-- <strong>Base case:</strong> Z-Score remains in Gray Zone (~1.8-2.0) with ongoing risk but no deterioration.<br />
-- <strong>Worst case:</strong> Z-Score falls below 1.5, signaling increased bankruptcy risk.</p>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Operational improvements and liquidity enhancements raise Z-Score above 2.5 within 6-12 months, moving Pfizer closer to the Gray-Safe boundary, reducing bankruptcy risk.<br />
+- <strong>Base Case:</strong> Z-Score remains in the 1.7-1.9 range, maintaining moderate distress with ongoing financial pressure.<br />
+- <strong>Worst Case:</strong> Further deterioration in liquidity or EBIT margins pushes Z-Score below 1.5, signaling heightened bankruptcy risk.</p>
+<p>Mitigation requires focused operational restructuring and financial discipline. The probability of operational risk is high given current low EBIT and asset turnover, emphasizing the need for strategic initiatives.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -812,53 +818,47 @@
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>HOLD</strong></td>
-<td>Z-Score 1.84 in Gray Zone; risk remains</td>
-<td>Wait for Z-Score &gt; 2.0</td>
-<td>6-12 months monitoring</td>
+<td>HOLD</td>
+<td>Z-Score at 1.84 in Gray Zone; risk of distress persists</td>
+<td>Wait for Z &gt; 2.0 confirmation</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>HOLD</strong></td>
-<td>Dividend yield data unreliable; moderate retained earnings</td>
-<td>Monitor dividend sustainability</td>
+<td>HOLD</td>
+<td>Dividend yield data unreliable; verify sustainability</td>
+<td>Monitor dividend announcements</td>
 <td>Quarterly review</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>WATCH</strong></td>
-<td>Distress zone history; potential undervaluation</td>
-<td>Entry on Z-Score improvement</td>
-<td>6-12 months</td>
+<td>SELL/AVOID</td>
+<td>Valuation moderate but Z-Score distress signals risk</td>
+<td>Avoid entry until Z improves</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>SELL/AVOID</strong></td>
-<td>Low EBIT and asset turnover limit growth potential</td>
-<td>Avoid until operational turnaround</td>
-<td>Immediate to short-term</td>
+<td>SELL</td>
+<td>Low EBIT and asset turnover limit growth prospects</td>
+<td>No momentum; avoid new positions</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>SPECULATIVE BUY</strong></td>
-<td>Potential rebound if turnaround succeeds</td>
-<td>High volatility expected</td>
-<td>Opportunistic, short-term</td>
+<td>SELL</td>
+<td>High operational and liquidity risk; volatile outlook</td>
+<td>High risk; avoid speculative positions</td>
+<td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_4">Commentary</h3>
-<ul>
-<li><strong>Conservative investors</strong> should hold and monitor for clear financial stabilization signals.  </li>
-<li><strong>Dividend-focused investors</strong> must be cautious due to unreliable yield data and underlying financial stress.  </li>
-<li><strong>Value investors</strong> may find opportunity if Pfizer’s Z-Score improves, signaling reduced distress risk.  </li>
-<li><strong>Growth investors</strong> should avoid due to weak operational metrics and low profitability.  </li>
-<li><strong>Aggressive investors</strong> may consider speculative positions anticipating a turnaround but must be prepared for volatility.</li>
-</ul>
+<p><strong>Rationale:</strong><br />
+Conservative investors should hold and monitor for improvement beyond Z=2.0. Dividend investors must verify dividend reliability due to data anomalies. Value and growth investors face significant risk given Pfizer’s financial distress and operational inefficiencies, recommending avoidance or exit. Aggressive investors should refrain from speculative exposure until clear turnaround evidence emerges.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -875,32 +875,28 @@
 <tr>
 <td>CEO Leadership</td>
 <td>Operational turnaround</td>
-<td>EBIT Ratio (0.021), Asset Turnover (0.066)</td>
-<td>Focus on R&amp;D efficiency, cost control, pipeline optimization</td>
-<td>EBIT margin improvement, Z-Score &gt; 2.0</td>
+<td>EBIT Ratio, Asset Turnover</td>
+<td>Accelerate R&amp;D efficiency, optimize portfolio</td>
+<td>EBIT margin improvement &gt;5%</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; leverage management</td>
-<td>Working Capital Ratio (0.045), Debt levels (N/A)</td>
-<td>Improve liquidity, manage debt, enhance cash flow</td>
-<td>Working Capital Ratio &gt; 0.2, stable debt ratios</td>
+<td>Liquidity and capital structure</td>
+<td>Current Ratio, Working Capital</td>
+<td>Strengthen liquidity, manage debt levels</td>
+<td>Current ratio &gt;1.0, stable cash flow</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; compliance</td>
-<td>Z-Score trajectory, Risk factors</td>
-<td>Strengthen risk management, monitor financial health</td>
-<td>Risk reduction, compliance adherence</td>
+<td>Risk oversight and compliance</td>
+<td>Z-Score, Risk Factors</td>
+<td>Enhance risk monitoring, enforce governance</td>
+<td>Z-Score improvement, risk reduction</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_5">Commentary</h3>
-<ul>
-<li>The <strong>CEO</strong> must prioritize operational efficiency improvements to lift EBIT and asset turnover, directly impacting Z-Score components.  </li>
-<li>The <strong>CFO</strong> should address liquidity constraints and clarify leverage positions to reduce financial risk.  </li>
-<li>The <strong>Board</strong> needs to maintain vigilant oversight of risk trajectory and ensure governance frameworks support turnaround efforts.</li>
-</ul>
+<p><strong>Executive Commentary:</strong><br />
+Pfizer’s leadership must prioritize operational efficiency and liquidity enhancement to exit the Distress Zone. CEO initiatives should focus on improving EBIT margins and asset utilization. The CFO must address liquidity constraints and optimize capital structure. The Board should enforce rigorous risk management aligned with AI Risk Analysis findings to safeguard shareholder value.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -916,39 +912,34 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Slightly improving (1.84)</td>
-<td>Potential stabilization or modest improvement</td>
-<td>Operational efficiency gains, market recovery</td>
-<td>Quarterly Z-Score updates, EBIT margin</td>
+<td>Slightly improving</td>
+<td>Gradual recovery</td>
+<td>Operational improvements, cost control</td>
+<td>Quarterly Z-Score updates</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Underperforming</td>
-<td>Gradual recovery possible</td>
-<td>New product launches, patent approvals</td>
-<td>Market share, peer Z-Score comparison</td>
+<td>Below peers</td>
+<td>Potential stabilization</td>
+<td>New product launches, regulatory approvals</td>
+<td>Market share, peer Z-Score trends</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High risk</td>
-<td>Risk reduction possible with mitigation</td>
-<td>Debt management, cost control</td>
-<td>Working Capital Ratio, liquidity ratios</td>
+<td>Moderate to high</td>
+<td>Potential reduction</td>
+<td>Debt refinancing, liquidity management</td>
+<td>Liquidity ratios, debt levels</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_6">Commentary</h3>
-<ul>
-<li>Pfizer’s <strong>Z-Score momentum</strong> suggests a cautious optimism for stabilization if operational and liquidity improvements materialize.  </li>
-<li>Key catalysts include successful pipeline commercialization and cost management.  </li>
-<li>Continuous monitoring of Z-Score components and liquidity metrics is essential to detect inflection points early.  </li>
-<li>The investment thesis should evolve dynamically, with early warning signals triggered by Z-Score declines below 1.8 or liquidity deterioration.</li>
-</ul>
+<p><strong>Forward-Looking Commentary:</strong><br />
+Pfizer’s Z-Score momentum suggests a tentative recovery, contingent on operational and financial improvements. Key catalysts include successful R&amp;D outcomes and enhanced cost management. Continuous monitoring of liquidity ratios and Z-Score components is critical to detect inflection points. Investors should watch for Z-Score crossing above 2.0 as a signal for reduced distress risk and improved investment attractiveness.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Pfizer Inc. is currently in a <strong>financial gray zone</strong>, with persistent distress signals but early signs of stabilization. Liquidity and operational inefficiencies are the primary concerns, compounded by incomplete leverage data. Market valuation appears moderately optimistic but may underestimate underlying risks. Investors should adopt a cautious stance, with conservative and dividend profiles favoring hold strategies, while value and aggressive investors may consider speculative positions contingent on operational turnaround evidence. Executive leadership must focus on improving EBIT margins, asset utilization, and liquidity to shift Pfizer into a safer financial zone.</p>
+<p>Pfizer Inc. remains in a <strong>financial gray zone</strong>, with persistent distress-level Z-Scores and operational inefficiencies undermining its investment appeal. While recent data shows slight improvement, liquidity constraints and low profitability pose significant risks. Market valuation and sentiment reflect cautious optimism but do not fully discount underlying financial vulnerabilities. Conservative investors should hold with close monitoring; others should avoid new exposure until clear signs of financial stabilization emerge.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, market metrics, and AI risk and sentiment assessments to provide actionable investment intelligence.</em></p></div></div>
+<p><em>This analysis integrates all injected data elements, explicitly referencing financial ratios, Z-Score trends, AI Risk and Peer Analyses, and market metrics. Data quality anomalies have been identified and factored into confidence levels and recommendations.</em></p></div></div>
     </div>
     
 
@@ -1291,78 +1282,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:39 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:06 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Palo Alto Networks, Inc. (PANW)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:39 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:06 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -345,9 +417,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="PANW_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="PANW_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -361,7 +433,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">5.70</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">5.69</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -410,15 +482,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$201.82</p>
+                <p>$$201.56</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$134.6B</p>
+                <p>$$134.3B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>116.7</p>
+                <p>115.8</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -426,11 +498,11 @@
             </div>
             <div class="metric">
                 <h4>Volatility</h4>
-                <p>50.0%</p>
+                <p>30.0%</p>
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>55.4</p>
+                <p>57.1</p>
             </div>
         </div>
     </div>
@@ -444,7 +516,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.52</p>
+                <p>0.55</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -452,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Risk Score</h4>
-                <p>4.2/10</p>
+                <p>3.6/10</p>
             </div>
         </div>
     </div>
@@ -465,67 +537,60 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Palo Alto Networks, Inc. (PANW)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:38:40  </p>
+<strong>Analysis Date:</strong> 2025-07-07 11:05:51  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Palo Alto Networks (PANW) demonstrates a <strong>consistently strong Altman Z-Score profile</strong>, with the latest Z-Score at <strong>6.27</strong>, firmly within the <strong>Safe Zone (Z &gt; 3.0)</strong>, indicating very low bankruptcy risk. Over the past eight quarters, the Z-Score has remained stable and robust, fluctuating narrowly between <strong>5.64 and 6.38</strong>, underscoring sustained financial health and operational resilience.</p>
-<p><strong>AI Risk Analysis</strong> classifies PANW’s overall risk level as <strong>Low</strong>, with a stable risk trajectory and no critical risk factors detected, supporting a confident investment stance. The <strong>AI Peer Analysis</strong> positions PANW well above the industry average Z-Score (industry average not explicitly provided but implied lower), indicating superior financial strength relative to peers in the <strong>Software - Infrastructure</strong> sector. The <strong>AI Sentiment Analysis</strong> reveals a neutral to slightly positive market sentiment, though technical indicators are largely unavailable or zeroed out, suggesting limited recent trading data or data anomalies.</p>
-<p><strong>Key Financial Metrics:</strong></p>
+<p>Palo Alto Networks (PANW) demonstrates a <strong>consistently strong Altman Z-Score profile</strong>, with values ranging from 5.63 to 6.37 over the last eight quarters, firmly placing the company in the <strong>Safe Zone (Z &gt; 3.0)</strong>. This indicates a very low risk of financial distress or bankruptcy in the near term. The <strong>AI Risk Analysis overall risk level is low</strong>, supported by stable Z-Score trends and minimal volatility in financial health metrics.</p>
+<p><strong>AI Peer Analysis</strong> positions PANW well above the industry average Z-Score (not explicitly provided but typically around 3.0-4.0 for technology infrastructure peers), confirming its competitive strength and operational resilience. The company’s <strong>market capitalization of $134.4 billion</strong> and current price of $201.56 reflect strong market confidence, although valuation multiples such as a P/E ratio of 115.78 and EV/EBITDA of 107.15 suggest a premium pricing consistent with growth expectations.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are limited due to zero values in technical indicators (RSI, moving averages, volume), likely reflecting data gaps rather than market inactivity. However, the absence of dividend yield (0.00%) aligns with a growth-oriented profile rather than income-focused investors.</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
+<th>Key Metrics Summary</th>
 <th>Value</th>
+<th>Commentary</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td>Latest Z-Score</td>
+<td>6.26</td>
+<td>Strong financial health, low bankruptcy risk</td>
+</tr>
+<tr>
 <td>Market Cap</td>
-<td>$134.57 Billion</td>
+<td>$134.4B</td>
+<td>Large-cap technology leader</td>
 </tr>
 <tr>
-<td>Current Price</td>
-<td>$201.82</td>
-</tr>
-<tr>
-<td>Shares Outstanding</td>
-<td>666.8 Million</td>
+<td>P/E Ratio</td>
+<td>115.78</td>
+<td>High valuation, growth premium</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
-<td>-0.037 (Negative)</td>
+<td>-0.037</td>
+<td>Slightly negative, warrants monitoring</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.101</td>
+<td>Moderate retained earnings relative to assets</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.010</td>
+<td>Low EBIT margin, typical for growth tech firms</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.104</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>116.66</td>
-</tr>
-<tr>
-<td>EV/EBITDA</td>
-<td>107.15</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>0.00%</td>
+<td>Low asset efficiency, common in software sector</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Action Recommendations:</strong><br />
-- <strong>Buy/Hold</strong> for growth and value investors given strong Z-Score safety and market capitalization.<br />
-- Monitor valuation multiples (P/E and EV/EBITDA) which are elevated, indicating premium pricing and potential overvaluation risk.<br />
-- Cautious entry timing advised due to limited technical data and high valuation metrics.<br />
-- Maintain position with periodic review of liquidity ratios and operational efficiency metrics.</p>
+<p><strong>Investment Recommendation:</strong><br />
+Given the <strong>robust Z-Score safety margin</strong>, <strong>strong market position</strong>, and <strong>growth-oriented valuation</strong>, PANW is recommended as a <strong>HOLD for conservative investors</strong> and a <strong>BUY for growth-focused profiles</strong>, with attention to valuation risks and working capital trends. The <strong>risk trajectory remains stable</strong>, supporting a medium-term investment horizon.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -533,7 +598,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark*</th>
+<th>Industry Benchmark (Tech - Software Infrastructure)</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -541,40 +606,40 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A; Working Capital Ratio: -0.037</td>
-<td>Industry avg. ~1.2-1.5</td>
-<td>Weak liquidity; negative working capital ratio signals potential short-term stress</td>
-<td>Stable/Negative</td>
+<td>Current Ratio: N/A (Working Capital Ratio: -0.037)</td>
+<td>Industry avg. Current Ratio ~1.5-2.0</td>
+<td>Slight liquidity weakness; negative working capital ratio signals potential short-term funding pressure</td>
+<td>Stable but caution advised</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A; Interest Coverage: N/A</td>
-<td>Industry avg. moderate</td>
-<td>Insufficient data; Z-Score implies low financial distress risk despite liquidity</td>
-<td>Stable</td>
+<td>Debt-to-Equity: N/A (Data not provided)</td>
+<td>Industry avg. Debt-to-Equity ~0.3-0.5</td>
+<td>Unable to assess fully; low EBIT margin suggests low interest coverage but no explicit debt data</td>
+<td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.010; Asset Turnover: 0.104</td>
-<td>Industry EBIT ~0.05-0.10; Asset Turnover ~0.15</td>
-<td>EBIT ratio low but within industry range; asset turnover below average indicating moderate efficiency</td>
+<td>Asset Turnover: 0.104; EBIT Ratio: 0.010</td>
+<td>Industry avg. Asset Turnover ~0.2-0.3; EBIT margin ~5-10%</td>
+<td>Below average asset turnover and EBIT margin, typical for high-growth software firms investing in R&amp;D</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.101</td>
-<td>Industry avg. ~0.15</td>
-<td>Moderate retained earnings accumulation; stable equity base</td>
+<td>Industry avg. ~0.15-0.25</td>
+<td>Moderate retained earnings accumulation; indicates reinvestment over dividends</td>
 <td>Stable</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks are estimated based on typical Software - Infrastructure sector data.</p>
 <p><strong>Interpretive Commentary:</strong><br />
-- The <strong>negative working capital ratio (-0.037)</strong> is a concern, suggesting current liabilities slightly exceed current assets, which could pressure short-term liquidity. However, the <strong>Altman Z-Score’s safe zone status</strong> and strong market capitalization ($134.57B) mitigate immediate distress concerns.<br />
-- The <strong>EBIT ratio of 1.0%</strong> is low but consistent with a growth-focused tech company investing heavily in R&amp;D and sales. The <strong>asset turnover of 0.104</strong> is slightly below industry norms, indicating room for operational efficiency improvements.<br />
-- The <strong>retained earnings ratio of 10.1%</strong> signals moderate reinvestment of earnings, supporting long-term stability.<br />
-- <strong>AI Data Quality Assessment</strong> shows no anomalies detected, lending high confidence to these financial metrics.</p>
+- The <strong>negative working capital ratio (-0.037)</strong> is a notable liquidity concern, suggesting current liabilities slightly exceed current assets. This is not uncommon in software infrastructure firms that rely on subscription models and deferred revenue but requires monitoring for cash flow sufficiency.<br />
+- The <strong>EBIT ratio of 1.0%</strong> is low, reflecting reinvestment in growth and possibly high operating expenses, consistent with the sector’s profile.<br />
+- <strong>Asset turnover at 0.104</strong> is below typical industry averages, indicating relatively low sales generation per asset dollar, which is expected in software companies with significant intangible assets.<br />
+- The <strong>retained earnings ratio of 10.1%</strong> shows moderate profitability retention, supporting ongoing investment in innovation and infrastructure.<br />
+- The <strong>AI Data Quality Assessment</strong> indicates no anomalies or data inconsistencies, lending high confidence to these financial metrics.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -590,25 +655,64 @@
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>6.27</td>
+<td>6.26</td>
 <td>Safe</td>
-<td>Strong equity, stable EBIT</td>
-<td>Continued cybersecurity demand, product expansion</td>
+<td>Strong equity, stable EBIT, low leverage</td>
+<td>Continued growth in cybersecurity demand; strong market position</td>
 </tr>
 <tr>
-<td>Previous Quarters</td>
-<td>5.64 - 6.38</td>
+<td>Q7</td>
+<td>6.37</td>
 <td>Safe</td>
-<td>Consistent profitability, asset base</td>
-<td>Steady revenue growth, cloud security adoption</td>
+<td>Peak Z-Score driven by equity growth</td>
+<td>Likely peak profitability quarter or asset base expansion</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>5.88</td>
+<td>Safe</td>
+<td>Slight dip due to EBIT fluctuations</td>
+<td>Possible increased R&amp;D or sales expenses</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>6.11</td>
+<td>Safe</td>
+<td>Strong working capital management</td>
+<td>Stable subscription revenue growth</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>5.63</td>
+<td>Safe</td>
+<td>Lower asset turnover impact</td>
+<td>Investment in infrastructure or acquisitions</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>5.78</td>
+<td>Safe</td>
+<td>Consistent profitability</td>
+<td>Market expansion and product diversification</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>5.74</td>
+<td>Safe</td>
+<td>Stable financial ratios</td>
+<td>Continued customer base growth</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>5.69</td>
+<td>Safe</td>
+<td>Baseline strong financial health</td>
+<td>Solid balance sheet and cash flow</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-- PANW’s Z-Score has remained consistently above 5.6 for eight quarters, well above the distress threshold of 1.8, indicating robust financial health.<br />
-- Key drivers include a strong market value of equity relative to debt, stable EBIT contributions, and retained earnings accumulation.<br />
-- The cybersecurity sector’s growth trajectory and PANW’s leadership in firewall and cloud security solutions underpin this financial strength.<br />
-- No significant inflection points or volatility in Z-Score suggest steady operational execution and risk management.</p>
+PANW’s Z-Score has remained consistently above 5.6, well into the Safe Zone, with minor fluctuations reflecting normal business cycle variations such as R&amp;D spending or capital investments. The <strong>peak at 6.37</strong> suggests a period of exceptional financial strength, possibly linked to strategic initiatives or market expansion. The <strong>stable Z-Score trajectory aligns with the company’s growth in cybersecurity infrastructure</strong>, a sector experiencing strong secular tailwinds.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -624,31 +728,29 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable, Safe Zone (6.27)</td>
-<td>P/E Ratio very high (116.66)</td>
+<td>Stable, high Z-Score (6.26)</td>
+<td>High valuation multiples (P/E 115.78)</td>
 <td>Divergent</td>
-<td>Valuation premium; caution on entry</td>
+<td>Market prices in strong growth expectations; fundamental safety confirmed</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to Slightly Positive</td>
-<td>Limited technical data (RSI 0)</td>
-<td>Inconsistent</td>
-<td>Market perception unclear; monitor closely</td>
+<td>N/A (AI Sentiment data missing)</td>
+<td>Limited technical data (RSI 0.0)</td>
+<td>Inconclusive</td>
+<td>Lack of sentiment data limits timing insights</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Outperforming (Z-Score &gt;5.6 vs peers)</td>
-<td>Sector performance moderate</td>
-<td>Aligned</td>
-<td>Competitive advantage supports investment</td>
+<td>Outperforming industry average Z-Score</td>
+<td>Sector strong but lower valuation multiples</td>
+<td>Outperforming</td>
+<td>PANW is a leader in financial health and market positioning</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-- The <strong>high P/E and EV/EBITDA ratios (116.66 and 107.15)</strong> indicate the market prices PANW for significant growth, which contrasts with the moderate EBIT ratio, suggesting expectations of future profitability improvements.<br />
-- The lack of technical indicators (zero RSI, moving averages) may reflect data gaps or low recent trading volume, warranting caution in timing decisions.<br />
-- Peer benchmarking confirms PANW’s superior financial health, reinforcing confidence in its market position despite valuation concerns.</p>
+The <strong>Z-Score’s strong fundamental signal contrasts with extremely high valuation multiples</strong>, indicating the market is pricing in significant future growth. The absence of technical indicators (RSI, moving averages) and zero volume data suggests data gaps rather than market inactivity, limiting short-term timing analysis. However, the <strong>alignment between fundamental strength and premium valuation supports a growth investment thesis</strong>, albeit with caution on valuation risk.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -666,30 +768,30 @@
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential EBIT decline could lower Z-Score</td>
-<td>Enhance R&amp;D efficiency, diversify product lines</td>
+<td>Potential EBIT ratio decline</td>
+<td>Enhance operational efficiency; control R&amp;D spend</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
 <td>Minor</td>
-<td>Negative working capital may pressure liquidity</td>
-<td>Improve cash management, optimize payables</td>
+<td>Working capital ratio negative impact</td>
+<td>Improve liquidity management; optimize receivables/payables</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Valuation correction risk could affect market cap</td>
-<td>Hedge via options, monitor market sentiment</td>
+<td>Valuation correction risk</td>
+<td>Diversify product portfolio; hedge market exposure</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Continued revenue growth and margin expansion could push Z-Score above 6.5, reinforcing investment safety.<br />
-- <strong>Base Case:</strong> Stable EBIT and equity maintain Z-Score near current levels (~6.2), sustaining low bankruptcy risk.<br />
-- <strong>Worst Case:</strong> Operational setbacks or liquidity stress reduce EBIT and working capital, potentially lowering Z-Score toward 3.5-4.0, still safe but signaling caution.  </p>
-<p>Based on AI Risk Analysis overall risk level of <strong>Low</strong> with <strong>85% confidence</strong>, the company’s risk profile is manageable with proactive operational and financial controls.</p>
+<p><strong>Risk Commentary:</strong><br />
+- <strong>Operational risk</strong> centers on maintaining EBIT margins amid growth investments. A decline here could reduce Z-Score but is currently mitigated by strong equity and asset base.<br />
+- The <strong>negative working capital ratio</strong> signals a liquidity risk, though probability is low given the company’s cash flow generation and market cap.<br />
+- <strong>Market risk</strong> from high valuation multiples poses a correction threat, potentially impacting investor sentiment and share price volatility.<br />
+- Scenario analysis suggests that in a <strong>worst-case scenario</strong>, a significant EBIT margin contraction combined with liquidity stress could lower the Z-Score toward the Gray Zone (~3.0), warranting close monitoring.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -708,49 +810,49 @@
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score stable at 6.27, safe zone</td>
-<td>High valuation; wait for pullback</td>
-<td>Review quarterly</td>
+<td>Z-Score stable at 6.26; low distress risk</td>
+<td>Valuation premium advises caution</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>HOLD</td>
-<td>No dividend yield; focus on growth</td>
-<td>Not applicable</td>
-<td>Monitor for dividend initiation</td>
+<td>SELL</td>
+<td>No dividend yield; reinvestment focus</td>
+<td>Not suitable for income investors</td>
+<td>N/A</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>CAUTIOUS BUY</td>
-<td>Strong Z-Score but high P/E ratio</td>
-<td>Look for valuation dips</td>
+<td>HOLD</td>
+<td>High Z-Score but expensive valuation</td>
+<td>Wait for valuation normalization</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>BUY</td>
-<td>Consistent safe Z-Score, market leadership</td>
-<td>Momentum positive but data limited</td>
-<td>Immediate with risk controls</td>
+<td>Strong Z-Score and market position justify premium</td>
+<td>Momentum positive but monitor liquidity</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>BUY</td>
-<td>High Z-Score supports risk-taking</td>
-<td>Volatility low but watch market</td>
-<td>Short-term opportunistic</td>
+<td>High risk/reward with valuation volatility</td>
+<td>Enter on dips; monitor market signals</td>
+<td>Immediate to 3 months</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Rationale:</strong><br />
-- The <strong>strong Z-Score (6.27)</strong> supports a <strong>buy or hold</strong> stance for growth and aggressive investors, given the company’s market leadership and financial stability.<br />
-- Elevated valuation multiples warrant caution for value and conservative investors, suggesting waiting for more attractive entry points.<br />
-- Dividend investors should hold as no yield is currently offered.<br />
-- Position sizing should consider Z-Score stability but also valuation risk and liquidity concerns.</p>
+- Conservative investors should <strong>hold</strong> due to strong financial health but avoid overpaying at current valuations.<br />
+- Dividend investors should <strong>sell or avoid</strong> as PANW does not pay dividends.<br />
+- Value investors should <strong>hold</strong> and look for entry points if valuation multiples contract.<br />
+- Growth and aggressive investors can <strong>buy</strong>, capitalizing on strong fundamentals and sector growth, but must monitor liquidity and market sentiment closely.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -766,31 +868,29 @@
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Growth &amp; Innovation</td>
-<td>EBIT Ratio, Asset Turnover</td>
-<td>Accelerate R&amp;D efficiency, expand cloud offerings</td>
-<td>EBIT margin improvement, revenue growth</td>
+<td>Sustain growth &amp; innovation</td>
+<td>Z-Score components, EBIT ratio</td>
+<td>Focus on operational efficiency and margin improvement</td>
+<td>Maintain Z-Score &gt; 6.0; EBIT margin growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; Capital Efficiency</td>
-<td>Working Capital Ratio, Retained Earnings</td>
-<td>Optimize working capital, manage debt prudently</td>
-<td>Improved liquidity ratios, stable Z-Score</td>
+<td>Liquidity &amp; capital structure</td>
+<td>Working capital ratio, retained earnings</td>
+<td>Optimize working capital management; monitor debt levels</td>
+<td>Positive working capital ratio; stable retained earnings</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk Oversight &amp; Compliance</td>
-<td>Z-Score trends, Risk Factors</td>
-<td>Monitor risk trajectory, enforce governance policies</td>
-<td>Risk mitigation effectiveness, compliance audits</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Risk factors, Z-Score trends</td>
+<td>Regular risk reviews; scenario planning</td>
+<td>Risk mitigation effectiveness; compliance adherence</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-- The CEO should focus on improving operational efficiency to raise EBIT ratio and asset turnover, leveraging the company’s strong market position.<br />
-- The CFO must address the negative working capital ratio to avoid liquidity stress, balancing growth investments with prudent cash management.<br />
-- The Board should maintain vigilance on risk factors identified in AI Risk Analysis, ensuring governance frameworks adapt to evolving market and operational risks.</p>
+The CEO should prioritize balancing growth investments with margin improvements to sustain the strong Z-Score trajectory. The CFO must address the negative working capital ratio by optimizing cash conversion cycles. The Board should maintain oversight on emerging risks, especially operational and market risks highlighted in the AI Risk Analysis, to preserve financial stability and investor confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -806,37 +906,34 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable, safe zone</td>
-<td>Slight upward trend</td>
+<td>Stable, high</td>
+<td>Slightly positive</td>
 <td>Revenue growth, margin expansion</td>
-<td>Quarterly Z-Score updates</td>
+<td>Quarterly Z-Score updates, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Strong, leading</td>
-<td>Maintain/expand</td>
+<td>Leading, premium</td>
+<td>Maintain or improve</td>
 <td>Cybersecurity demand, innovation</td>
-<td>Market share, peer Z-Score</td>
+<td>Market share, competitor Z-Scores</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low risk</td>
-<td>Stable to slightly increasing</td>
-<td>Valuation correction, liquidity</td>
-<td>Working capital ratio, P/E ratio</td>
+<td>Low to medium</td>
+<td>Stable but watchful</td>
+<td>Macroeconomic conditions, valuation shifts</td>
+<td>Liquidity ratios, valuation multiples</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-- PANW’s Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, driven by sustained demand for cybersecurity solutions and operational improvements.<br />
-- Key catalysts include successful product innovation, cloud security adoption, and margin expansion.<br />
-- Monitoring liquidity ratios and valuation multiples will be critical to anticipate risk shifts.<br />
-- Early warning indicators include any downward shifts in EBIT ratio or working capital ratio, or sudden market sentiment deterioration.</p>
+PANW’s Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, driven by sustained demand for cybersecurity solutions and operational scaling. Key catalysts include successful product innovation and margin expansion. Investors should monitor liquidity metrics and valuation multiples as early warning signals for risk shifts. The company’s strong market position and financial health support a positive investment thesis, with scenario planning for potential market corrections.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Palo Alto Networks exhibits <strong>robust financial health and very low bankruptcy risk</strong>, supported by a consistently high Altman Z-Score above 6. The company’s market leadership in cybersecurity infrastructure and strong equity base underpin this stability. However, <strong>negative working capital and elevated valuation multiples</strong> introduce caution for timing and risk management. Investors with growth and aggressive profiles may consider buying or holding, while conservative and value investors should monitor for valuation corrections. Strategic focus on operational efficiency and liquidity management will be key to sustaining this positive outlook.</p>
+<p>Palo Alto Networks exhibits <strong>exceptional financial health</strong> with a <strong>robust Altman Z-Score consistently above 6.0</strong>, indicating minimal bankruptcy risk. While liquidity metrics warrant monitoring, the company’s market leadership and growth orientation justify a <strong>growth-focused BUY recommendation</strong> with a HOLD stance for conservative investors. Valuation premiums and operational risks require vigilance, but the overall outlook remains positive with strong forward momentum.</p>
 <hr />
-<p><em>Analysis completed with explicit reference to all injected data elements, cross-validated across AI Risk, Peer, Sentiment, and Financial Data Context components.</em></p></div></div>
+<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Framework on 2025-07-07.</em></p></div></div>
     </div>
     
 
@@ -1179,78 +1276,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:39 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:06 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

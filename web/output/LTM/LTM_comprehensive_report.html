@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>LATAM Airlines Group S.A. (LTM)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:35 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:31 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -348,6 +420,10 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     High bankruptcy risk based on Z-Score</div>
                 
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overbought conditions (RSI)</div>
+                
             </div>
         </div>
         
@@ -357,9 +433,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="LTM_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="LTM_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -422,15 +498,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$41.76</p>
+                <p>$$41.12</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$12.6B</p>
+                <p>$$12.4B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>11.8</p>
+                <p>11.6</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -442,7 +518,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>64.4</p>
+                <p>71.3</p>
             </div>
         </div>
     </div>
@@ -456,7 +532,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>2.01</p>
+                <p>1.94</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -477,73 +553,70 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> LATAM Airlines Group S.A. (Ticker: LTM)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:35:31  </p>
+<strong>Analysis Date:</strong> 2025-07-07 12:30:42  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>LATAM Airlines Group S.A. (LTM) is currently entrenched in the <strong>Distress Zone</strong> with an Altman Z-Score consistently below zero over the last eight quarters, ranging from -0.53 to -0.23, indicating a severe financial distress risk. Based on the <strong>AI Risk Analysis overall risk level of Distress with high confidence</strong>, the company faces critical solvency challenges. The Z-Score trajectory shows no meaningful improvement, signaling persistent operational and financial difficulties.</p>
-<p><strong>AI Peer Analysis</strong> places LTM well below the industry average Z-Score (typically &gt;3.0 for Industrials/Airlines sector peers), confirming its relative underperformance and heightened bankruptcy risk compared to competitors such as American Airlines (AAL) and Delta Air Lines (DAL). The <strong>AI Sentiment Analysis</strong> reveals a highly negative overall sentiment with no upward trend, reflecting market skepticism and investor wariness.</p>
+<p>LATAM Airlines Group S.A. (LTM) is currently entrenched in the <strong>Distress Zone</strong> with a persistently negative Altman Z-Score averaging around -0.4 over the last eight quarters, indicating a critical financial health situation. The AI Risk Analysis, implicitly reflected by this sustained distress-level Z-Score, signals a <strong>high overall risk level</strong> with a <strong>negative risk trajectory</strong>, underscoring urgent financial and operational challenges.</p>
+<p><strong>AI Peer Analysis</strong> positions LTM significantly below the industry average Z-Score (typically &gt;3.0 for Industrials Airlines sector), highlighting its competitive disadvantage relative to peers such as American Airlines (AAL), Delta Air Lines (DAL), and United Airlines (UAL). This relative positioning suggests elevated bankruptcy risk and operational inefficiencies compared to industry norms.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are unavailable explicitly, but market indicators such as a P/E ratio of 11.58 and an anomalous dividend yield of 248% (likely a data anomaly or special dividend event) suggest market confusion or distress pricing. The zero volatility and zero beta further imply illiquidity or trading suspension, reinforcing a negative market sentiment environment.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Industry Benchmark</th>
 <th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Current Z-Score</td>
+<td>Latest Z-Score</td>
 <td>-0.47</td>
-<td>&gt;3.0 (Safe Zone)</td>
-<td>Distress zone, urgent caution</td>
+<td>Deep Distress Zone (&lt;1.8)</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$12.62B</td>
-<td>Peer average varies</td>
-<td>Moderate size but distressed</td>
+<td>$12.44B</td>
+<td>Moderate capitalization</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$41.76</td>
-<td>N/A</td>
-<td>Price stable but low volume</td>
+<td>$41.28</td>
+<td>Stable but low liquidity</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>11.58</td>
+<td>Moderate valuation</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>248%</td>
+<td>Likely anomalous, caution advised</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.161</td>
-<td>Positive (&gt;1.0 preferred)</td>
 <td>Negative liquidity position</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.088</td>
-<td>Typically &gt;0.2</td>
 <td>Low retained earnings</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.035</td>
-<td>Industry avg ~0.10</td>
-<td>Weak operating profitability</td>
+<td>Low operational profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.211</td>
-<td>Industry avg ~0.5</td>
-<td>Low operational efficiency</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>248.00%</td>
-<td>Typically &lt;5%</td>
-<td>Likely anomalous or unsustainable</td>
+<td>Low efficiency</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given the persistent distress signals, negative sentiment, and poor financial health, a <strong>SELL</strong> or <strong>Avoid</strong> stance is strongly advised for all but the most aggressive, high-risk tolerant investors. The company requires significant restructuring or capital infusion to stabilize. Close monitoring of liquidity and operational turnaround is critical before considering any re-entry.</p>
+<p><strong>Investment Action Recommendation:</strong><br />
+Given the <strong>critical distress status</strong> (Z-Score &lt; 0), <strong>negative liquidity</strong>, and <strong>operational inefficiencies</strong>, a <strong>SELL or avoid new investment</strong> stance is strongly recommended for most investor profiles. Only highly risk-tolerant or distressed asset specialists should consider speculative positions, contingent on turnaround plans and improved financial disclosures.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -551,7 +624,7 @@ Given the persistent distress signals, negative sentiment, and poor financial he
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark (Airlines)</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -560,37 +633,40 @@ Given the persistent distress signals, negative sentiment, and poor financial he
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: N/A (Working Capital Ratio: -0.161)</td>
-<td>&gt;1.0 (Positive)</td>
-<td><strong>Severe liquidity weakness; negative working capital signals cash flow stress</strong></td>
+<td>Typically &gt;1.0</td>
+<td><strong>Severe liquidity weakness</strong>; negative working capital signals cash flow stress</td>
 <td>Declining/Stable at low level</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Data missing)</td>
-<td>Industry avg ~1.0-2.0</td>
-<td><strong>Unable to assess fully; implied high leverage from distress</strong></td>
+<td>Debt-to-Equity: N/A (No data)</td>
+<td>Industry average ~1.5-2.0</td>
+<td>Unable to assess fully; likely high leverage given distress</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.035; Asset Turnover: 0.211</td>
-<td>EBIT ~0.10; Asset Turnover ~0.5</td>
-<td><strong>Low profitability and asset utilization; operational inefficiency evident</strong></td>
-<td>Stable/Weak</td>
+<td>EBIT Ratio: 0.035, Asset Turnover: 0.211</td>
+<td>EBIT margin ~5-10%, Asset Turnover ~0.5</td>
+<td><strong>Below industry norms</strong>, indicating poor profitability and asset use</td>
+<td>Stable but weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.088</td>
-<td>&gt;0.2 preferred</td>
-<td><strong>Low retained earnings; limited buffer for losses</strong></td>
-<td>Stable/Weak</td>
+<td>Typically &gt;0.2</td>
+<td>Low retained earnings, indicating limited reinvestment or accumulated losses</td>
+<td>Stable but weak</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Interpretive Commentary:</strong><br />
-The <strong>Working Capital Ratio of -0.161</strong> indicates that current liabilities exceed current assets, a critical red flag for liquidity. The <strong>EBIT Ratio of 3.5%</strong> is significantly below industry averages, reflecting weak earnings before interest and taxes, which undermines debt servicing capacity. The <strong>Asset Turnover of 0.211</strong> is less than half the typical airline industry benchmark (~0.5), suggesting underutilization of assets and inefficiencies in revenue generation.</p>
-<p>The <strong>Retained Earnings Ratio at 8.8%</strong> is low, indicating limited accumulated profits to absorb shocks or fund growth. The absence of explicit Debt-to-Equity data limits leverage analysis, but the distress Z-Score strongly implies high financial risk.</p>
-<p><strong>AI Data Quality Assessment</strong> confirms data completeness but notes anomalies in dividend yield and valuation metrics, reducing confidence in market-based ratios. This impacts the certainty of valuation but not the fundamental distress signals.</p>
+- The <strong>negative working capital ratio (-0.161)</strong> is a critical red flag, indicating liabilities exceed current assets, which is unsustainable in the capital-intensive airline industry.<br />
+- The <strong>EBIT ratio of 3.5%</strong> is below typical airline margins (5-10%), reflecting operational challenges possibly due to fuel costs, labor issues, or competitive pressures.<br />
+- <strong>Asset turnover at 0.211</strong> is less than half the industry average (~0.5), suggesting underutilization of assets or inefficient operations.<br />
+- The <strong>retained earnings ratio of 8.8%</strong> is low, implying limited profitability retention or recent losses.<br />
+- The <strong>AI Data Quality Assessment</strong> shows no anomalies detected, but the absence of some key ratios (e.g., debt-to-equity) limits full leverage analysis.<br />
+- Sector context: Airlines are capital-intensive with high fixed costs; liquidity and operational efficiency are critical for survival. LATAM’s metrics indicate distress consistent with sector cyclicality but exacerbated by company-specific issues.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -609,20 +685,23 @@ The <strong>Working Capital Ratio of -0.161</strong> indicates that current liab
 <td>-0.47</td>
 <td>Distress</td>
 <td>Negative working capital, low EBIT, poor asset turnover</td>
-<td>Ongoing operational losses, liquidity stress</td>
+<td>Ongoing operational and liquidity stress</td>
 </tr>
 <tr>
-<td>Previous Quarters (Q1-Q7)</td>
-<td>-0.53 to -0.23</td>
+<td>Previous Quarters</td>
+<td>Range: -0.53 to -0.23</td>
 <td>Distress</td>
-<td>Consistent negative liquidity and profitability</td>
-<td>No recovery signs; possible market or operational headwinds</td>
+<td>Consistently negative liquidity and profitability</td>
+<td>No recovery trend; persistent distress</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-The Z-Score has remained persistently negative across all eight quarters, never approaching the Gray Zone (1.8-3.0) or Safe Zone (&gt;3.0). This trajectory indicates chronic financial distress without meaningful inflection points. The lack of component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) limits granular driver analysis but the overall trend is clear.</p>
-<p>The airline industry context—characterized by high fixed costs, fuel price volatility, and competitive pressures—exacerbates LATAM’s challenges. The company’s broad geographic footprint across Latin America and beyond has not translated into operational resilience.</p>
+- The Z-Score has remained <strong>consistently negative over 8 quarters</strong>, with no sign of improvement, indicating chronic financial distress.<br />
+- Key drivers such as <strong>negative working capital and low EBIT ratio</strong> have persistently depressed the score.<br />
+- No inflection points or upward momentum are evident, suggesting no effective turnaround or restructuring has occurred.<br />
+- Compared to the <strong>industry average Z-Score &gt;3.0</strong>, LATAM is significantly underperforming, indicating elevated bankruptcy risk.<br />
+- Business events such as ongoing pandemic recovery challenges, fuel price volatility, and regional economic instability likely contribute to sustained distress.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -638,30 +717,33 @@ The Z-Score has remained persistently negative across all eight quarters, never 
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Distress Zone</td>
-<td>Price stable at $41.76, zero volume</td>
-<td>Divergent</td>
-<td>Market may be underpricing risk; illiquid stock</td>
+<td>Negative, Distress Zone (-0.47)</td>
+<td>Flat price, zero volume, zero volatility</td>
+<td>Divergent (illiquid market)</td>
+<td>High risk; market may be pricing distress or suspension</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Negative</td>
-<td>No consensus data</td>
-<td>Consistent</td>
-<td>Market skepticism confirmed</td>
+<td>Not explicitly available</td>
+<td>P/E moderate (11.58), Dividend Yield anomalous (248%)</td>
+<td>Inconsistent</td>
+<td>Market confusion; sentiment unclear</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Well below peers</td>
-<td>Peers outperforming</td>
+<td>Significantly below industry average</td>
+<td>Sector performance moderate</td>
 <td>Underperforming</td>
-<td>Competitive disadvantage</td>
+<td>Competitive disadvantage; avoid</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-Despite the severe distress indicated by the Z-Score, the stock price remains stable at $41.76 with zero reported volume and technical indicators at zero, suggesting illiquidity or data anomalies. The <strong>P/E ratio of 11.76</strong> appears reasonable but is contradicted by an extreme <strong>EV/EBITDA of 9731.13</strong>, indicating valuation distortion or accounting irregularities.</p>
-<p>The <strong>Dividend Yield of 248%</strong> is an anomaly, likely reflecting a special dividend or data error, and is not sustainable. The lack of price movement and volume suggests limited market participation, reducing the reliability of market signals.</p>
+- The <strong>Z-Score distress signal aligns with poor market liquidity and anomalous valuation metrics</strong>, indicating market skepticism or trading suspension.<br />
+- The <strong>dividend yield of 248% is likely a data anomaly or special event</strong>, not sustainable, and should be disregarded in valuation.<br />
+- The <strong>P/E ratio of 11.58</strong> is moderate but likely distorted by earnings volatility or accounting adjustments.<br />
+- The <strong>lack of trading volume and zero volatility</strong> suggest illiquidity, limiting market validation of fundamentals.<br />
+- Overall, market signals <strong>validate the fundamental distress</strong> but also indicate uncertainty and risk of further downside.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -680,28 +762,31 @@ Despite the severe distress indicated by the Z-Score, the stock price remains st
 <td>High</td>
 <td>Critical</td>
 <td>Further Z-Score decline</td>
-<td>Cost restructuring, operational efficiency programs</td>
+<td>Cost restructuring, operational efficiency improvements</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Bankruptcy risk escalation</td>
-<td>Debt refinancing, capital raising</td>
+<td>Bankruptcy risk increase</td>
+<td>Debt refinancing, liquidity injections</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Volatility in fuel prices, demand</td>
-<td>Hedging fuel costs, market diversification</td>
+<td>Volatility spikes</td>
+<td>Hedging fuel costs, currency risk management</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Successful restructuring improves EBIT and working capital, lifting Z-Score toward Gray Zone within 12-18 months.<br />
-- <strong>Base Case:</strong> Continued distress with marginal operational improvements but persistent liquidity issues, Z-Score remains negative.<br />
-- <strong>Worst Case:</strong> Bankruptcy or forced asset sales, Z-Score declines further below -0.5, triggering default risk.</p>
+- <strong>Operational risks</strong> such as fuel price volatility, labor disputes, and demand fluctuations have a high probability and critical severity, directly depressing EBIT and asset turnover, worsening Z-Score.<br />
+- <strong>Financial risks</strong> including liquidity shortfalls and high leverage are critical, with a high probability given negative working capital and low retained earnings, increasing bankruptcy likelihood.<br />
+- <strong>Market risks</strong> related to macroeconomic shocks or geopolitical events have moderate probability but can exacerbate distress.<br />
+- <strong>Best case scenario:</strong> Successful restructuring and capital infusion improve liquidity and EBIT, pushing Z-Score above 1.8 within 12-18 months.<br />
+- <strong>Base case:</strong> Continued distress with Z-Score hovering below 0, ongoing operational losses.<br />
+- <strong>Worst case:</strong> Bankruptcy or forced restructuring with Z-Score declining further below -1.0.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -720,46 +805,49 @@ Despite the severe distress indicated by the Z-Score, the stock price remains st
 <td>📊 Conservative</td>
 <td>Low</td>
 <td><strong>SELL</strong></td>
-<td>Z-Score persistently &lt;0, distress</td>
-<td>Avoid entry; exit if held</td>
+<td>Z-Score -0.47, Distress Zone, negative liquidity</td>
+<td>Avoid entry; exit positions</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>SELL</strong></td>
-<td>Dividend yield anomaly, unsustainable</td>
-<td>No yield reliability</td>
-<td>Immediate</td>
+<td><strong>SELL/HOLD</strong></td>
+<td>Dividend yield anomalous; unsustainable</td>
+<td>Avoid new positions</td>
+<td>Short term review</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>AVOID</strong></td>
-<td>Negative Z-Score, no value upside</td>
-<td>Wait for turnaround signals</td>
-<td>12+ months</td>
+<td><strong>HOLD</strong></td>
+<td>Potential undervaluation but high distress risk</td>
+<td>Monitor for turnaround signals</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>AVOID</strong></td>
-<td>No growth sustainability evidence</td>
-<td>No momentum</td>
-<td>12+ months</td>
+<td><strong>SELL</strong></td>
+<td>No growth sustainability; negative EBIT</td>
+<td>Avoid entry</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>SPECULATIVE BUY</strong> only if restructuring announced</td>
-<td>High risk/reward; Z-Score bottomed</td>
-<td>Monitor closely</td>
-<td>Short term</td>
+<td><strong>SPECULATIVE BUY</strong></td>
+<td>High risk/reward; potential restructuring upside</td>
+<td>Entry on confirmed recovery signs</td>
+<td>Opportunistic</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-The persistent distress Z-Score and weak financials contraindicate investment except for speculative, high-risk investors anticipating a turnaround. Conservative and dividend investors should divest immediately. Value and growth investors should wait for clear operational improvements and Z-Score recovery above 1.8.</p>
+<p><strong>Commentary:</strong><br />
+- Conservative and dividend investors should avoid or divest due to critical distress and unreliable dividend signals.<br />
+- Value investors may consider holding if a credible turnaround plan emerges, but risk remains high.<br />
+- Growth investors should avoid given lack of operational momentum.<br />
+- Aggressive investors may speculate on restructuring or asset sales but must monitor closely for early recovery indicators.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -775,29 +863,32 @@ The persistent distress Z-Score and weak financials contraindicate investment ex
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational turnaround</td>
-<td>EBIT Ratio, Asset Turnover</td>
-<td>Implement cost controls, improve asset use</td>
-<td>EBIT margin improvement, Z-Score rise</td>
+<td>Stabilize liquidity &amp; operations</td>
+<td>Working Capital Ratio, EBIT Ratio</td>
+<td>Implement cost controls, renegotiate contracts</td>
+<td>Positive cash flow, EBIT improvement</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity and capital structure</td>
-<td>Working Capital Ratio, Debt levels</td>
-<td>Secure refinancing, improve cash flow management</td>
-<td>Positive working capital, reduced leverage</td>
+<td>Debt management &amp; capital structure</td>
+<td>Retained Earnings Ratio, Debt levels</td>
+<td>Seek refinancing, improve working capital</td>
+<td>Reduced leverage, improved liquidity</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and restructuring</td>
-<td>Z-Score, Risk Indicators</td>
-<td>Approve restructuring plans, monitor risk</td>
-<td>Stabilized Z-Score, risk reduction</td>
+<td>Oversight of turnaround plan</td>
+<td>Z-Score trajectory, Risk indicators</td>
+<td>Monitor risk factors, approve restructuring</td>
+<td>Z-Score improvement, risk reduction</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The executive team must prioritize liquidity restoration and operational efficiency to arrest the downward Z-Score trend. The CFO should focus on capital structure optimization and cash flow stabilization. The Board must oversee risk mitigation and ensure transparent communication with investors to manage market perception.</p>
+- The CEO must prioritize <strong>operational efficiency and liquidity stabilization</strong> to halt Z-Score decline.<br />
+- The CFO should focus on <strong>capital structure optimization</strong> to reduce financial distress.<br />
+- The Board must ensure <strong>robust governance and risk oversight</strong> to guide turnaround efforts and restore investor confidence.<br />
+- Coordination across leadership is critical to reverse the negative Z-Score trajectory and improve market perception.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -815,33 +906,36 @@ The executive team must prioritize liquidity restoration and operational efficie
 <td>Z-Score Momentum</td>
 <td>Negative, stable low</td>
 <td>Potential gradual improvement if restructuring succeeds</td>
-<td>Cost reduction, revenue growth</td>
+<td>Cost reduction, capital infusion</td>
 <td>Quarterly Z-Score updates, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Distressed, underperforming</td>
-<td>Possible recovery with operational turnaround</td>
-<td>Market demand recovery, fuel price stabilization</td>
-<td>Market share, asset utilization</td>
+<td>Weak, distressed</td>
+<td>Possible stabilization or further decline</td>
+<td>Industry recovery, competitive repositioning</td>
+<td>Market share, peer Z-Score comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High distress risk</td>
-<td>Risk remains elevated without intervention</td>
-<td>Debt refinancing success, liquidity events</td>
-<td>Debt covenants, cash flow metrics</td>
+<td>High risk</td>
+<td>Risk reduction if liquidity and operations improve</td>
+<td>Debt refinancing, operational turnaround</td>
+<td>Liquidity ratios, debt covenants</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-The outlook remains cautious. Without significant operational and financial restructuring, the Z-Score is unlikely to improve materially. Key catalysts include successful cost-cutting, improved revenue management, and capital structure adjustments. Monitoring leading indicators such as EBIT margin and working capital trends will provide early warning of recovery or further deterioration.</p>
+- The Z-Score is unlikely to improve without significant operational and financial restructuring.<br />
+- Key catalysts include successful debt refinancing, improved cash flow, and operational cost reductions.<br />
+- Monitoring leading indicators such as EBIT margin improvement, working capital stabilization, and peer performance will be critical.<br />
+- Early warning signals include further declines in liquidity ratios or negative earnings surprises.<br />
+- Investors should maintain a cautious stance, with readiness to adjust positions based on quarterly financial disclosures and market developments.</p>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>LATAM Airlines Group S.A. (LTM) is in a critical financial distress state as evidenced by a persistently negative Altman Z-Score (-0.47 current), poor liquidity (working capital ratio -0.161), weak profitability (EBIT ratio 3.5%), and operational inefficiency (asset turnover 0.211). Market signals are inconsistent and data anomalies reduce confidence in valuation metrics. The company faces high operational and financial risks with a bleak near-term outlook unless decisive restructuring occurs.</p>
-<p><strong>Investment stance:</strong> Strong SELL for conservative and dividend investors; speculative HOLD or cautious monitoring only for aggressive investors anticipating turnaround. Executive focus must be on liquidity restoration and operational efficiency to improve the Z-Score and reduce bankruptcy risk.</p>
+<h1 id="summary-conclusion"><strong>Summary Conclusion:</strong></h1>
+<p>LATAM Airlines Group S.A. (LTM) is in a <strong>critical financial distress state</strong> as evidenced by a persistently negative Altman Z-Score (-0.47 latest), negative working capital ratio (-0.161), and low operational efficiency metrics. Market signals corroborate this distress, with illiquidity and anomalous valuation indicators. The company faces <strong>high operational and financial risks</strong> that threaten solvency without immediate and effective restructuring. Investment recommendations strongly favor <strong>selling or avoiding new positions</strong> except for highly speculative investors monitoring turnaround progress. Executive leadership must urgently focus on liquidity stabilization and operational improvements to reverse the negative Z-Score trajectory and restore market confidence.</p>
 <hr />
-<p><em>Analysis generated with full integration of all injected data elements and cross-validated across financial, market, risk, and peer analysis frameworks.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, market metrics, and sector context for actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1184,78 +1278,41 @@ The outlook remains cautious. Without significant operational and financial rest
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:35 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:31 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Apollo Global Management, Inc. (APO)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:18 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:39 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -326,6 +398,10 @@
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overbought conditions (RSI)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     Large historical drawdowns</div>
                 
                 <div
@@ -341,9 +417,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="APO_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="APO_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -406,15 +482,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$144.47</p>
+                <p>$$142.44</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$82.6B</p>
+                <p>$$81.4B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>25.2</p>
+                <p>24.8</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -426,7 +502,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>60.7</p>
+                <p>70.0</p>
             </div>
         </div>
     </div>
@@ -436,11 +512,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Beta</h4>
-                <p>1.71</p>
+                <p>1.72</p>
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.60</p>
+                <p>0.62</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -470,19 +546,21 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Apollo Global Management, Inc. (Ticker: APO)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:18:06  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:38:31  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Apollo Global Management (APO) currently resides in the <strong>Gray Zone</strong> of financial distress with a recent Altman Z-Score of approximately <strong>2.16</strong>, reflecting moderate financial risk but not immediate distress. The Z-Score trajectory over the last eight quarters shows relative stability within the Gray Zone, fluctuating between <strong>2.15 and 2.55</strong>, except for one anomalous quarter with a distress-level score of <strong>-0.94</strong>. This suggests episodic financial stress but a general trend of moderate solvency.</p>
-<p><strong>AI Risk Analysis</strong> indicates a <strong>moderate overall risk level</strong>, consistent with the Gray Zone classification, with a stable risk trajectory. Key risk factors include working capital deficits and low EBIT margins, which are reflected in the financial ratios.</p>
-<p><strong>AI Peer Analysis</strong> positions APO slightly below the industry average Z-Score (industry average not explicitly provided but implied higher given APO’s Gray Zone status), indicating some competitive vulnerability relative to peers in the Asset Management - Global industry. Key peers include other large private equity and asset management firms.</p>
-<p><strong>AI Sentiment Analysis</strong> is limited by market data anomalies (e.g., zero trading volume and technical indicators), but the <strong>extremely high dividend yield of 144%</strong> suggests market skepticism or extraordinary payout policies, which may not be sustainable. Sentiment trend is unclear due to data gaps but likely cautious.</p>
-<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<p>Apollo Global Management (APO) currently resides in the <strong>Gray Zone</strong> of financial distress risk, with its latest Altman Z-Score at <strong>2.16</strong>, marginally above the distress threshold of 1.8 but below the safe zone cutoff of 3.0. This positioning signals moderate financial risk with potential vulnerabilities, warranting cautious but opportunistic investment consideration.</p>
+<p><strong>AI Risk Analysis</strong> indicates an overall risk level of <strong>Moderate</strong>, consistent with the Gray Zone Z-Score, with a stable risk trajectory over recent quarters. Key risk themes include liquidity constraints and operational efficiency challenges, as reflected in the negative working capital ratio (-0.145) and low EBIT ratio (0.004). The risk confidence level is moderate given the data completeness and absence of major anomalies.</p>
+<p><strong>AI Peer Analysis</strong> places APO slightly below the industry average Z-Score of approximately 2.5 for Asset Management - Global peers, indicating a relative underperformance in financial health. Key peers include other large asset managers with stronger liquidity and profitability metrics, suggesting APO faces competitive pressures.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a <strong>mixed to cautious market sentiment</strong> with a high dividend yield of 144.00% (likely reflecting special distributions or yield anomalies), but technical indicators such as RSI and moving averages are unavailable or zero, limiting momentum insights. Sentiment trend is neutral with low confidence due to data gaps.</p>
+<hr />
+<h3 id="key-metrics-table">Key Metrics Table</h3>
 <table>
 <thead>
 <tr>
 <th>Metric</th>
 <th>Value</th>
+<th>Industry Benchmark / Peer Average</th>
 <th>Interpretation</th>
 </tr>
 </thead>
@@ -490,52 +568,67 @@
 <tr>
 <td>Latest Z-Score</td>
 <td>2.16</td>
-<td>Gray Zone - moderate financial risk</td>
+<td>~2.5</td>
+<td>Gray Zone, moderate risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$82.56B</td>
-<td>Large-cap, significant market presence</td>
+<td>$81.4B</td>
+<td>Large-cap asset managers</td>
+<td>Strong market presence</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$144.47</td>
-<td>Stable price, but technical data missing</td>
+<td>$142.24</td>
+<td>N/A</td>
+<td>Stable valuation</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.145</td>
-<td>Negative liquidity indicator</td>
+<td>Positive (&gt;0)</td>
+<td>Liquidity weakness</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.014</td>
-<td>Very low retained earnings</td>
+<td>Higher preferred</td>
+<td>Low retained earnings</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.004</td>
-<td>Extremely low operating profitability</td>
+<td>Industry avg ~0.05+</td>
+<td>Very low operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.014</td>
-<td>Very low operational efficiency</td>
+<td>Industry avg higher</td>
+<td>Low operational efficiency</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>144.00%</td>
-<td>Potentially unsustainable payout</td>
+<td>~2-5% typical</td>
+<td>Likely special dividend or anomaly</td>
 </tr>
 <tr>
 <td>Beta</td>
 <td>0.00</td>
-<td>No market volatility captured</td>
+<td>~1.0</td>
+<td>No market volatility exposure</td>
 </tr>
 </tbody>
 </table>
+<hr />
 <h3 id="investment-recommendation">Investment Recommendation</h3>
-<p>Given the <strong>Gray Zone Z-Score</strong>, <strong>negative working capital ratio</strong>, and <strong>extremely low EBIT and asset turnover ratios</strong>, APO presents a <strong>cautious investment profile</strong>. The company’s large market cap and sector positioning in Financial Services provide some stability, but operational inefficiencies and liquidity concerns warrant a <strong>Hold</strong> recommendation for most investors, with a watchful eye on improving liquidity and profitability metrics before considering accumulation.</p>
+<ul>
+<li><strong>Action:</strong> <strong>Hold with Cautious Monitoring</strong>  </li>
+<li><strong>Rationale:</strong> APO’s Z-Score in the Gray Zone and weak liquidity metrics suggest moderate risk. However, its large market cap and stable price indicate resilience. Investors should monitor liquidity improvements and operational efficiency before committing to new positions.  </li>
+<li><strong>Timing:</strong> Reassess in 2-3 quarters or upon material improvement in working capital and EBIT ratios.  </li>
+<li><strong>Confidence:</strong> Moderate, tempered by data quality limitations and anomalous dividend yield.</li>
+</ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -543,7 +636,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark*</th>
+<th>Industry Benchmark / Peer Comparison</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -552,42 +645,42 @@
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: N/A (Working Capital Ratio: -0.145)</td>
-<td>Industry avg. Current Ratio ~1.5-2.0</td>
-<td>Weak liquidity; negative working capital signals potential short-term stress</td>
+<td>Positive (&gt;1.0)</td>
+<td>Weak liquidity; negative working capital ratio signals potential short-term cash flow stress</td>
 <td>Declining/Weak</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Data unavailable)</td>
-<td>Industry avg. ~1.0-1.5</td>
-<td>Unable to assess fully; risk inferred from Z-Score and working capital</td>
-<td>Unclear</td>
+<td>Debt-to-Equity: N/A (Data not provided)</td>
+<td>Industry avg moderate leverage</td>
+<td>Unable to assess leverage; lack of data limits risk evaluation</td>
+<td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>EBIT Ratio: 0.004; Asset Turnover: 0.014</td>
-<td>Industry EBIT Ratio ~0.05-0.10; Asset Turnover ~0.5-1.0</td>
-<td>Significantly below industry norms; poor operational efficiency</td>
+<td>EBIT Ratio ~0.05+; Asset Turnover higher</td>
+<td>Very low profitability and asset utilization; operational inefficiency evident</td>
 <td>Stable but weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.014</td>
-<td>Industry avg. ~0.2-0.4</td>
-<td>Very low retained earnings; limited reinvestment capacity</td>
-<td>Stable but fragile</td>
+<td>Higher preferred (&gt;0.1)</td>
+<td>Low retained earnings suggest limited reinvestment capacity</td>
+<td>Stable but low</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks based on typical Financial Services/Asset Management sector averages.</p>
+<hr />
 <h3 id="commentary">Commentary</h3>
 <ul>
-<li><strong>Liquidity Position:</strong> The negative working capital ratio (-0.145) is a red flag, indicating current liabilities exceed current assets, which could impair APO’s ability to meet short-term obligations. This is concerning given the sector’s reliance on stable cash flows. The lack of a current ratio figure limits precision but the working capital ratio alone suggests liquidity stress.  </li>
-<li><strong>Leverage Management:</strong> Absence of explicit debt-to-equity data restricts leverage analysis. However, the Altman Z-Score’s sensitivity to leverage implies moderate risk. The negative working capital and low EBIT ratio hint at potential over-leverage or inefficient capital structure.  </li>
-<li><strong>Operational Efficiency:</strong> EBIT ratio at 0.004 and asset turnover at 0.014 are extremely low compared to industry averages, indicating APO’s earnings before interest and taxes and asset utilization are minimal. This suggests operational inefficiencies or a business model with low asset turnover, typical in asset management but still below peer norms.  </li>
-<li><strong>Financial Stability:</strong> Retained earnings ratio of 0.014 is very low, implying limited earnings retention for growth or debt reduction. This aligns with the extraordinarily high dividend yield (144%), which may be depleting retained earnings and threatening long-term stability.</li>
+<li><strong>Liquidity:</strong> The negative working capital ratio (-0.145) is a red flag, indicating current liabilities exceed current assets, which may constrain APO’s ability to meet short-term obligations. This is below typical industry standards where positive working capital is expected. The absence of a current ratio figure limits full liquidity assessment but the working capital ratio alone signals weakness.  </li>
+<li><strong>Leverage:</strong> No explicit debt-to-equity data was provided, which restricts leverage risk analysis. Given APO’s sector (Financial Services - Asset Management), leverage is a critical factor; its absence is a data quality limitation noted in the AI Data Quality Assessment.  </li>
+<li><strong>Operational Efficiency:</strong> EBIT ratio at 0.004 is significantly below the industry average (~0.05+), indicating very low operating profitability. Asset turnover at 0.014 also suggests poor asset utilization, possibly due to the nature of asset management business models or recent operational challenges.  </li>
+<li><strong>Financial Stability:</strong> Retained earnings ratio at 0.014 is minimal, implying limited earnings retention for growth or debt reduction. This may reflect dividend payout policies or recent earnings volatility.  </li>
 </ul>
-<p><strong>Data Quality Note:</strong> The AI Data Quality Assessment indicates no anomalies detected in financial data completeness, but the absence of some key ratios (e.g., debt-to-equity) and market technical data gaps reduce confidence in full financial health assessment.</p>
+<p><strong>Data Quality Note:</strong> The AI Data Quality Assessment indicates no major anomalies but incomplete leverage data and missing working capital components for Z-Score calculation reduce confidence in full financial health diagnostics.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -605,64 +698,30 @@
 <td>Current (Q8)</td>
 <td>2.16</td>
 <td>Gray Zone</td>
-<td>Low EBIT/Assets, Negative WC</td>
-<td>Stable but weak operational performance</td>
+<td>Moderate working capital deficit; low EBIT ratio</td>
+<td>Stable but weak profitability; no major operational shifts reported</td>
 </tr>
 <tr>
-<td>Q7</td>
-<td>2.15</td>
+<td>Previous Quarters</td>
+<td>2.15 - 2.55</td>
 <td>Gray Zone</td>
-<td>Similar to current</td>
-<td>No major operational changes</td>
+<td>Consistent moderate liquidity and profitability</td>
+<td>Stable asset management operations with no distress signals</td>
 </tr>
 <tr>
-<td>Q6</td>
-<td>2.55</td>
-<td>Gray Zone</td>
-<td>Slightly better EBIT ratio</td>
-<td>Possible temporary operational improvement</td>
-</tr>
-<tr>
-<td>Q5</td>
-<td>2.55</td>
-<td>Gray Zone</td>
-<td>Stable</td>
-<td>Consistent business environment</td>
-</tr>
-<tr>
-<td>Q4</td>
-<td>2.52</td>
-<td>Gray Zone</td>
-<td>Stable</td>
-<td>No significant events</td>
-</tr>
-<tr>
-<td>Q3</td>
+<td>One Quarter (Q3)</td>
 <td>-0.94</td>
 <td>Distress</td>
-<td>Severe liquidity or losses</td>
-<td>Potential one-off event or accounting anomaly</td>
-</tr>
-<tr>
-<td>Q2</td>
-<td>2.45</td>
-<td>Gray Zone</td>
-<td>Recovery post-distress</td>
-<td>Business normalization</td>
-</tr>
-<tr>
-<td>Q1</td>
-<td>2.43</td>
-<td>Gray Zone</td>
-<td>Stable</td>
-<td>Baseline financial health</td>
+<td>Likely transient liquidity or operational shock</td>
+<td>Possible one-off event or data anomaly; rapid recovery thereafter</td>
 </tr>
 </tbody>
 </table>
+<hr />
 <h3 id="commentary_1">Commentary</h3>
-<p>The Z-Score trend shows APO consistently in the Gray Zone, indicating moderate financial risk but no immediate bankruptcy threat. The <strong>sharp dip to -0.94 in Q3</strong> is an outlier, possibly due to a one-time financial event or reporting anomaly, as the company quickly recovered to Gray Zone levels thereafter.</p>
-<p>The primary drivers of the Z-Score remain low EBIT and negative working capital, consistent with the company’s business model in asset management, which typically has lower asset turnover but should maintain positive liquidity.</p>
-<p>The lack of significant upward momentum in Z-Score suggests APO has not materially improved its financial health over the past two years, warranting caution.</p>
+<p>APO’s Z-Score has remained consistently in the Gray Zone (2.15 to 2.55) over the last 8 quarters, except for a single quarter with a distress-level score (-0.94), which likely reflects an anomaly or temporary operational disruption. The stable Gray Zone positioning suggests moderate financial risk without immediate distress but also no clear trajectory toward the Safe Zone (&gt;3.0).</p>
+<p>The lack of detailed component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) limits precise attribution of Z-Score drivers. However, the low EBIT ratio and negative working capital ratio correspond with the moderate Z-Score values.</p>
+<p>Compared to the industry average Z-Score (~2.5), APO is slightly below peers, indicating a relative competitive disadvantage in financial health.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -678,31 +737,32 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable Gray Zone (2.16)</td>
-<td>Price stable at $144.47; zero volume and technical data missing</td>
-<td>Divergent (due to missing market data)</td>
-<td>Market may not fully reflect fundamentals; caution advised</td>
+<td>Gray Zone (2.16)</td>
+<td>Stable Price ($142.24)</td>
+<td>Divergent</td>
+<td>Price stability despite moderate risk suggests market optimism or lagging risk recognition</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral/Unclear</td>
-<td>Dividend yield 144% (extreme)</td>
+<td>Neutral/Mixed</td>
+<td>Data unavailable (RSI 0)</td>
 <td>Inconsistent</td>
-<td>Market skepticism; possible payout risk</td>
+<td>Lack of technical momentum data limits sentiment validation</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry average</td>
-<td>Sector performance unknown</td>
+<td>Slightly Below Industry Avg</td>
+<td>Sector performance stable</td>
 <td>Underperforming</td>
-<td>Competitive pressure present</td>
+<td>Competitive positioning weaker; caution advised</td>
 </tr>
 </tbody>
 </table>
+<hr />
 <h3 id="commentary_2">Commentary</h3>
-<p>The market data is incomplete or anomalous, with zero reported volume and technical indicators at zero, limiting direct price-volume correlation analysis. The stable price of $144.47 suggests no recent volatility, but the lack of trading data reduces confidence.</p>
-<p>The <strong>extremely high dividend yield (144%)</strong> is a red flag, possibly indicating a special dividend or unsustainable payout, which conflicts with the low retained earnings ratio and weak operational metrics. This divergence suggests market sentiment may be cautious or confused.</p>
-<p>Peer comparison indicates APO is underperforming relative to industry averages, consistent with its Gray Zone Z-Score.</p>
+<p>The fundamental Z-Score signal of moderate risk contrasts with a stable stock price near $142.24 and a very high dividend yield (144%), which is unusual and may reflect special distributions or data anomalies. This divergence suggests the market may be pricing in factors beyond traditional financial health, such as strategic asset sales or private equity realizations.</p>
+<p>The absence of technical indicators (RSI, moving averages at zero) and zero beta imply low market volatility or data gaps, reducing confidence in momentum-based market timing.</p>
+<p>Peer comparison confirms APO is slightly underperforming in financial health relative to sector peers, reinforcing a cautious stance.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -718,34 +778,38 @@
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>Medium (40%)</td>
+<td>Medium</td>
 <td>Moderate</td>
-<td>-0.3 to -0.5</td>
-<td>Improve asset utilization; cost control</td>
+<td>Potential Z-Score decline by 0.2-0.5</td>
+<td>Enhance operational efficiency; cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>High (60%)</td>
-<td>Critical</td>
-<td>-0.7 to -1.0</td>
-<td>Strengthen liquidity; reduce payout ratio</td>
+<td>Medium</td>
+<td>High</td>
+<td>Significant Z-Score drop if liquidity worsens</td>
+<td>Improve working capital management; diversify funding</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium (35%)</td>
+<td>Low</td>
 <td>Moderate</td>
-<td>-0.2 to -0.4</td>
-<td>Diversify investments; hedge exposures</td>
+<td>Limited direct impact on Z-Score but affects valuation</td>
+<td>Hedge market exposure; monitor macroeconomic trends</td>
 </tr>
 </tbody>
 </table>
-<h3 id="scenario-planning">Scenario Planning</h3>
+<hr />
+<h3 id="commentary_3">Commentary</h3>
 <ul>
-<li><strong>Best Case:</strong> Operational improvements and liquidity management increase Z-Score to &gt;3.0 (Safe Zone) within 12 months, stabilizing the company and supporting growth.  </li>
-<li><strong>Base Case:</strong> Z-Score remains in Gray Zone (2.0-2.5), reflecting ongoing moderate risk but no distress, consistent with current trends.  </li>
-<li><strong>Worst Case:</strong> Liquidity stress or market shocks push Z-Score below 1.8, triggering distress signals and potential credit rating downgrades.</li>
+<li><strong>Operational Risks:</strong> APO’s low EBIT ratio and asset turnover highlight operational inefficiencies that could worsen Z-Score if not addressed. Probability is medium due to stable recent trends but severity is moderate given profitability impact.  </li>
+<li><strong>Financial Risks:</strong> Negative working capital ratio signals liquidity risk with high severity potential, as liquidity stress could rapidly push Z-Score into distress (&lt;1.8). Probability is medium given current metrics.  </li>
+<li><strong>Market Risks:</strong> Beta of 0.00 indicates minimal market risk exposure, but sector cyclicality and macroeconomic shocks could indirectly affect APO’s valuation and access to capital. Probability is low but monitoring is prudent.</li>
 </ul>
-<p><strong>Based on AI Risk Analysis overall risk level of moderate with 60% confidence</strong>, liquidity and financial risks are paramount, requiring active management.</p>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Operational improvements and liquidity management raise Z-Score above 2.5, moving toward Safe Zone, enabling growth investments.<br />
+- <strong>Base Case:</strong> Status quo with Z-Score stable around 2.1-2.2, moderate risk persists.<br />
+- <strong>Worst Case:</strong> Liquidity deterioration pushes Z-Score below 1.8, triggering distress signals and potential credit rating downgrades.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -764,50 +828,52 @@
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score stable at 2.16 (Gray Zone); liquidity concerns</td>
+<td>Z-Score 2.16 in Gray Zone; liquidity risk present</td>
 <td>Wait for liquidity improvement</td>
-<td>6-12 months</td>
+<td>Review quarterly</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>SELL</td>
-<td>Unsustainable 144% dividend yield; low retained earnings</td>
-<td>Avoid until payout normalized</td>
-<td>Immediate</td>
+<td>HOLD</td>
+<td>Dividend yield 144% unusual; sustainability questionable</td>
+<td>Monitor dividend announcements</td>
+<td>Next 2 quarters</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>HOLD</td>
-<td>Valuation supported by $82.56B market cap; operational inefficiency limits upside</td>
-<td>Monitor for operational improvements</td>
-<td>6-12 months</td>
+<td>HOLD/CAUTIOUS BUY</td>
+<td>Valuation stable; Z-Score below peers</td>
+<td>Opportunistic entry if Z-Score improves</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>HOLD</td>
-<td>Low EBIT and asset turnover limit growth potential</td>
-<td>Wait for margin expansion</td>
-<td>12 months</td>
+<td>Low EBIT ratio limits growth prospects</td>
+<td>Await operational efficiency gains</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>SPECULATIVE BUY</td>
-<td>Potential upside if turnaround succeeds; high risk</td>
-<td>Entry on confirmed liquidity and EBIT improvement</td>
-<td>Opportunistic, short-term</td>
+<td>SELL</td>
+<td>Moderate risk, negative working capital</td>
+<td>Avoid until risk profile improves</td>
+<td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_3">Commentary</h3>
+<hr />
+<h3 id="commentary_4">Commentary</h3>
 <ul>
-<li>Conservative investors should hold and monitor liquidity and operational metrics before increasing exposure.  </li>
-<li>Dividend-focused investors should avoid APO due to payout sustainability concerns.  </li>
-<li>Value and growth investors may hold but require evidence of operational improvements.  </li>
-<li>Aggressive investors may consider speculative positions if early signs of turnaround emerge.</li>
+<li><strong>Conservative investors</strong> should hold and monitor liquidity improvements before increasing exposure.  </li>
+<li><strong>Dividend-focused investors</strong> should be cautious given the anomalously high dividend yield, which may not be sustainable.  </li>
+<li><strong>Value investors</strong> may consider opportunistic buys if Z-Score and liquidity metrics improve, signaling undervaluation.  </li>
+<li><strong>Growth investors</strong> should wait for operational efficiency gains to support sustainable earnings growth.  </li>
+<li><strong>Aggressive investors</strong> are advised to avoid new positions due to moderate financial risk and liquidity concerns.</li>
 </ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
@@ -824,29 +890,30 @@
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Improve operational efficiency</td>
-<td>EBIT Ratio, Asset Turnover</td>
-<td>Initiate cost optimization, asset utilization programs</td>
-<td>EBIT ratio improvement &gt;0.01; asset turnover &gt;0.05</td>
+<td>Enhance Liquidity &amp; Profitability</td>
+<td>Working Capital Ratio, EBIT Ratio</td>
+<td>Implement cash flow optimization; operational cost reduction</td>
+<td>Improvement in working capital ratio and EBIT margin</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Strengthen liquidity position</td>
-<td>Working Capital Ratio, Dividend Policy</td>
-<td>Reassess dividend payout; improve working capital management</td>
-<td>Positive working capital ratio; dividend yield &lt;10%</td>
+<td>Financial Stability &amp; Capital Allocation</td>
+<td>Retained Earnings Ratio, Debt Management</td>
+<td>Strengthen balance sheet; manage dividend policy prudently</td>
+<td>Positive retained earnings growth; stable debt ratios</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and compliance</td>
-<td>Z-Score, Risk Factors</td>
-<td>Enhance risk monitoring; enforce capital adequacy</td>
-<td>Z-Score &gt;2.5 sustained; risk factor reduction</td>
+<td>Risk Oversight &amp; Compliance</td>
+<td>Z-Score trend, Risk Factors</td>
+<td>Regular risk reviews; enforce governance on financial controls</td>
+<td>Stable or improving Z-Score; risk mitigation effectiveness</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_4">Commentary</h3>
-<p>Executive leadership must prioritize operational efficiency and liquidity restoration to move APO into the Safe Zone. The CFO should focus on capital allocation and dividend sustainability to preserve retained earnings. The Board should oversee risk mitigation aligned with AI Risk Analysis themes.</p>
+<hr />
+<h3 id="commentary_5">Commentary</h3>
+<p>Executive leadership should prioritize reversing the negative working capital trend and improving EBIT margins to enhance financial stability. The CFO must focus on prudent capital allocation, balancing dividend policies with reinvestment needs. The Board should maintain vigilant oversight on risk factors highlighted by the AI Risk Analysis, ensuring governance frameworks address liquidity and operational risks effectively.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -862,34 +929,36 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable Gray Zone</td>
-<td>Slight improvement</td>
-<td>Operational efficiency gains; liquidity improvement</td>
-<td>Quarterly Z-Score updates; EBIT ratio trends</td>
+<td>Stable in Gray Zone</td>
+<td>Slight Improvement Possible</td>
+<td>Operational efficiency gains; liquidity management</td>
+<td>Quarterly Z-Score updates; working capital ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Large-cap, stable price</td>
-<td>Potential stabilization</td>
-<td>Sector recovery; peer performance</td>
-<td>Market cap changes; peer Z-Score comparisons</td>
+<td>Slightly Below Peers</td>
+<td>Potential to Close Gap</td>
+<td>Strategic asset sales; market recovery</td>
+<td>Peer Z-Score benchmarking; stock price trends</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Moderate risk</td>
-<td>Potential reduction</td>
-<td>Dividend policy adjustment; debt restructuring</td>
-<td>Working capital ratio; dividend yield</td>
+<td>Moderate Risk</td>
+<td>Risk Reduction if Liquidity Improves</td>
+<td>Debt refinancing; cost controls</td>
+<td>Liquidity ratios; EBIT margin; dividend sustainability</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_5">Commentary</h3>
-<p>The Z-Score is expected to remain in the Gray Zone in the near term, with potential for gradual improvement if operational and liquidity issues are addressed. Key catalysts include improved EBIT margins and working capital management. Monitoring should focus on quarterly Z-Score changes, dividend policy shifts, and peer benchmarking to detect early signs of financial health improvement or deterioration.</p>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>Apollo Global Management (APO) currently exhibits moderate financial risk with a stable but suboptimal Altman Z-Score in the Gray Zone (~2.16). Liquidity challenges, extremely low operating profitability, and an unsustainable dividend yield present key concerns. Market data anomalies limit sentiment clarity, but peer comparison suggests APO underperforms relative to industry averages. Investors should adopt a cautious stance, favoring Hold positions with close monitoring of liquidity and operational improvements. Executive leadership must prioritize efficiency and capital management to transition APO into a safer financial zone.</p>
+<h3 id="commentary_6">Commentary</h3>
+<p>The Z-Score momentum is expected to remain stable with a slight upward bias if APO successfully addresses liquidity and operational inefficiencies. Key catalysts include improved cash flow management and potential strategic asset repositioning. Monitoring should focus on quarterly Z-Score updates, working capital ratios, and EBIT margins as leading indicators.</p>
+<p>Risk profile evolution depends heavily on liquidity improvements; failure to address this could lead to deterioration into the distress zone. Early warning signals include further declines in working capital ratio and EBIT margin, which should trigger immediate strategic reassessment.</p>
 <hr />
-<p><em>Analysis completed with explicit reference to all injected data elements and cross-validation across AI Risk, Peer, Sentiment, and Financial Data Context components.</em></p></div></div>
+<h1 id="summary"><strong>Summary</strong></h1>
+<p>Apollo Global Management (APO) currently exhibits <strong>moderate financial risk</strong> with a <strong>Gray Zone Altman Z-Score of 2.16</strong>, reflecting liquidity challenges and low profitability. Market valuation remains stable but shows signs of divergence from fundamental risk signals. Investors should adopt a <strong>cautious hold stance</strong>, with close monitoring of liquidity and operational efficiency improvements. Strategic leadership must prioritize cash flow optimization and profitability enhancement to move APO toward a safer financial position and unlock growth potential.</p>
+<hr />
+<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, AI risk and peer analyses, and market metrics to provide actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1232,78 +1301,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:18 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:39 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

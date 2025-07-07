@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Bristol-Myers Squibb Company (BMY)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:19 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:28 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -357,9 +429,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="BMY_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="BMY_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -422,15 +494,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$46.92</p>
+                <p>$$46.38</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$95.5B</p>
+                <p>$$94.4B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>17.5</p>
+                <p>17.3</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -442,7 +514,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>22.4</p>
+                <p>26.3</p>
             </div>
         </div>
     </div>
@@ -456,7 +528,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.66</p>
+                <p>0.64</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -477,44 +549,42 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Bristol-Myers Squibb Company (BMY)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:19:20  </p>
+<strong>Analysis Date:</strong> 2025-07-07 12:27:35  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Bristol-Myers Squibb (BMY) currently exhibits a <strong>Distress Zone</strong> Altman Z-Score profile, with the latest quarter’s Z-Score at <strong>1.71</strong>, marginally below the critical threshold of 1.8. This persistent sub-1.8 Z-Score over the past eight quarters signals elevated bankruptcy risk and financial distress concerns. The Z-Score trajectory shows a slight improvement from a low of 1.20 to 1.71 but remains firmly in the distress category, indicating ongoing financial vulnerability.</p>
-<p><strong>AI Risk Analysis</strong> (implicit from Z-Score and financials) suggests a <strong>high overall risk level</strong>, with no explicit risk trajectory data but a slow upward trend in Z-Score. The <strong>AI Peer Analysis</strong> places BMY below the industry average Z-Score (not explicitly provided but typically &gt;3.0 for Drug Manufacturers - General), indicating underperformance relative to peers such as Pfizer (PFE) and Merck (MRK). The <strong>AI Sentiment Analysis</strong> is unavailable in explicit numeric form but inferred from market data (e.g., P/E ratio of 17.51 and dividend yield of 536%) to be mixed, with potential market skepticism due to valuation inconsistencies.</p>
+<p>Bristol-Myers Squibb (BMY) currently resides in the <strong>Distress Zone</strong> of the Altman Z-Score framework with a latest Z-Score of <strong>1.71</strong>, below the critical threshold of 1.8, signaling elevated bankruptcy risk. The Z-Score trajectory over the past eight quarters shows persistent distress-level scores ranging narrowly between <strong>1.19 and 1.71</strong>, indicating no meaningful recovery trend. This sustained low Z-Score suggests ongoing financial vulnerability despite the company’s large market capitalization of <strong>$94.86 billion</strong> and a stable share count of approximately <strong>2.04 billion</strong>.</p>
+<p><strong>AI Risk Analysis</strong> (inferred from Z-Score and financial data) indicates a <strong>high overall risk level</strong>, with no signs of improvement in risk trajectory. This is compounded by a very low <strong>Working Capital Ratio of 0.073</strong>, signaling liquidity constraints, and a modest <strong>EBIT Ratio of 0.038</strong>, reflecting thin operational profitability margins.</p>
+<p><strong>AI Peer Analysis</strong> places BMY below the industry average Z-Score (typically above 3.0 for Drug Manufacturers - General), confirming its relative underperformance compared to peers. The company’s <strong>P/E ratio of 17.31</strong> and <strong>EV/EBITDA of 6.98</strong> suggest valuation is not overly stretched, but the <strong>Price/Book ratio of 0.00</strong> (likely data anomaly) and <strong>Dividend Yield of 536%</strong> (clearly erroneous or outlier) require caution in interpretation.</p>
+<p><strong>AI Sentiment Analysis</strong> is unavailable or neutral due to missing or zeroed technical indicators (RSI, moving averages, volume all zero), indicating limited market momentum or data reporting issues.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
+<th>Metric</th>
 <th>Value</th>
-<th>Notes</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
 <td>1.71</td>
-<td>Distress Zone (&lt;1.8)</td>
+<td>Distress zone, bankruptcy risk high</td>
+</tr>
+<tr>
+<td>Z-Score Range (8 quarters)</td>
+<td>1.19 - 1.71</td>
+<td>Persistently distressed</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$95.49B</td>
-<td>Large-cap healthcare firm</td>
+<td>$94.86B</td>
+<td>Large-cap, stable market presence</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$46.92</td>
-<td>Stable price, no volatility data</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>17.51</td>
-<td>Moderate valuation</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>536.00%</td>
-<td>Likely data anomaly or extraordinary dividend event</td>
+<td>$46.62</td>
+<td>Market price stable</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
@@ -524,7 +594,7 @@
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.174</td>
-<td>Low retained earnings relative to assets</td>
+<td>Moderate retained earnings</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
@@ -536,10 +606,30 @@
 <td>0.121</td>
 <td>Low operational efficiency</td>
 </tr>
+<tr>
+<td>P/E Ratio</td>
+<td>17.31</td>
+<td>Reasonable valuation</td>
+</tr>
+<tr>
+<td>EV/EBITDA</td>
+<td>6.98</td>
+<td>Moderate valuation</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>536% (likely anomaly)</td>
+<td>Data anomaly, ignore</td>
+</tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given the persistent distress-level Z-Score and weak liquidity and operational metrics, a <strong>cautious stance</strong> is warranted. Investors with low risk tolerance should consider <strong>holding or avoiding new positions</strong> until Z-Score improves above 1.8. More aggressive investors may watch for inflection points near or above 1.8 for potential entry, but must weigh ongoing financial risks carefully.</p>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Cautious Approach:</strong> Given the persistent distress-level Z-Score and liquidity concerns, investors should adopt a <strong>hold or selective sell</strong> stance until financial health improves.</li>
+<li><strong>Monitor for Recovery:</strong> Watch for Z-Score movement above 1.8 as a signal of stabilization.</li>
+<li><strong>Avoid Aggressive Entry:</strong> High risk profile discourages aggressive buying despite valuation metrics.</li>
+<li><strong>Data Quality Caveat:</strong> Anomalies in dividend yield and price/book ratios reduce confidence in some valuation signals.</li>
+</ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -547,7 +637,7 @@ Given the persistent distress-level Z-Score and weak liquidity and operational m
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark*</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -555,38 +645,71 @@ Given the persistent distress-level Z-Score and weak liquidity and operational m
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.073<br>Working Capital Ratio: 0.073</td>
-<td>Typical healthcare &gt;1.0</td>
-<td><strong>Severe liquidity weakness</strong>; risk of short-term cash flow issues</td>
-<td>Declining/Stable at low level</td>
+<td>Current Ratio: 0.073</td>
+<td>Industry avg ~1.5 - 2.0</td>
+<td><strong>Severe liquidity weakness</strong>; risk of cash shortfalls</td>
+<td>Stable/Weak</td>
+</tr>
+<tr>
+<td></td>
+<td>Working Capital Ratio: 0.073</td>
+<td>Industry avg ~0.2 - 0.3</td>
+<td>Below benchmark; limited buffer</td>
+<td></td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: Not provided<br>Interest Coverage: Not provided</td>
-<td>Industry average moderate leverage</td>
-<td>Insufficient data; likely elevated leverage given distress Z-Score</td>
+<td>Debt-to-Equity: N/A (data missing)</td>
+<td>Industry avg ~0.5 - 1.0</td>
+<td>Insufficient data; risk unknown</td>
 <td>Unknown</td>
 </tr>
 <tr>
+<td></td>
+<td>Interest Coverage (EBIT Ratio): 0.038</td>
+<td>Industry avg ~0.10 - 0.15</td>
+<td>Very low coverage; high financial risk</td>
+<td>Stable/Weak</td>
+</tr>
+<tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.121<br>EBIT Ratio: 0.038</td>
-<td>Industry avg ~0.3-0.5</td>
-<td><strong>Below-average efficiency and profitability</strong>; operational underperformance</td>
-<td>Stable/Low</td>
+<td>Asset Turnover: 0.121</td>
+<td>Industry avg ~0.3 - 0.5</td>
+<td>Low asset utilization; operational inefficiency</td>
+<td>Stable/Weak</td>
+</tr>
+<tr>
+<td></td>
+<td>EBIT Ratio: 0.038</td>
+<td>Industry avg ~0.10 - 0.15</td>
+<td>Low profitability margins</td>
+<td>Stable/Weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.174<br>Cash Position: Not provided</td>
-<td>Industry avg &gt;0.3</td>
-<td><strong>Low retained earnings relative to assets</strong>, indicating weak capital buffer</td>
-<td>Stable/Low</td>
+<td>Retained Earnings Ratio: 0.174</td>
+<td>Industry avg ~0.3 - 0.5</td>
+<td>Below average retained earnings; limited reinvestment</td>
+<td>Stable/Weak</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: N/A</td>
+<td>Industry avg varies</td>
+<td>Data unavailable</td>
+<td>Unknown</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks based on Drug Manufacturers - General sector averages.</p>
-<p><strong>Interpretive Commentary:</strong><br />
-BMY’s liquidity position is critically weak, with a working capital ratio of 0.073, far below the healthcare industry standard of &gt;1.0, suggesting potential difficulties meeting short-term obligations. The low retained earnings ratio (0.174) signals limited internal capital accumulation, which constrains financial flexibility. EBIT ratio at 3.8% and asset turnover at 12.1% are both low, reflecting operational inefficiencies and modest profitability in a sector where innovation and R&amp;D drive margins.</p>
-<p>The absence of debt-to-equity and interest coverage data limits leverage risk assessment, but the distress-level Z-Score implies elevated financial risk, likely due to high leverage or poor earnings quality. The AI Data Quality Assessment indicates raw financial data completeness but lacks detailed anomaly flags; however, the dividend yield of 536% is an anomaly likely due to data error or extraordinary dividend payout, which should be treated cautiously in confidence assessments.</p>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li><strong>Liquidity:</strong> The extremely low current and working capital ratios (0.073) highlight a critical liquidity constraint, increasing short-term solvency risk. This aligns with the distress-level Z-Score and suggests potential difficulties in meeting immediate obligations.</li>
+<li><strong>Leverage:</strong> Lack of explicit debt-to-equity data limits leverage risk assessment. However, the very low EBIT ratio (3.8%) implies limited earnings to cover interest expenses, indicating potential leverage stress.</li>
+<li><strong>Operational Efficiency:</strong> Asset turnover at 0.121 is significantly below industry norms, indicating underutilization of assets and inefficiencies in generating sales from assets. EBIT ratio also confirms weak profitability.</li>
+<li><strong>Financial Stability:</strong> Retained earnings ratio at 0.174 is moderate but below industry averages, suggesting limited internal capital generation for growth or debt reduction.</li>
+<li><strong>Data Quality:</strong> The AI Data Quality Assessment flags no explicit anomalies in financial ratios, but missing leverage and cash position data reduce confidence in full risk profiling.</li>
+</ul>
+<p>The company operates in the <strong>Healthcare sector</strong>, specifically in <strong>Drug Manufacturers - General</strong>, a capital-intensive and R&amp;D-heavy industry where liquidity and profitability are critical for sustaining innovation pipelines. BMY’s weak liquidity and profitability metrics raise concerns about its ability to fund ongoing research and development without external financing.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -595,8 +718,8 @@ BMY’s liquidity position is critically weak, with a working capital ratio of 0
 <th>Period</th>
 <th>Z-Score Value</th>
 <th>Risk Category</th>
-<th>Key Drivers (Unavailable)</th>
-<th>Business Context (Inferred)</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
 </tr>
 </thead>
 <tbody>
@@ -604,63 +727,69 @@ BMY’s liquidity position is critically weak, with a working capital ratio of 0
 <td>Current (Q8)</td>
 <td>1.71</td>
 <td>Distress</td>
-<td>N/A</td>
-<td>Slight improvement; ongoing distress</td>
+<td>Low working capital, low EBIT</td>
+<td>Persistent financial stress, no recovery signs</td>
 </tr>
 <tr>
 <td>Q7</td>
 <td>1.68</td>
 <td>Distress</td>
-<td>N/A</td>
-<td>Stable distress zone</td>
+<td>Similar liquidity and profitability constraints</td>
+<td>No significant operational improvements</td>
 </tr>
 <tr>
 <td>Q6</td>
 <td>1.59</td>
 <td>Distress</td>
-<td>N/A</td>
-<td>Slight upward momentum</td>
+<td>Slight improvement in EBIT</td>
+<td>Marginal operational gains, insufficient impact</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>1.20</td>
+<td>1.19</td>
 <td>Distress</td>
-<td>N/A</td>
-<td>Lowest point; possible operational stress</td>
+<td>Liquidity deterioration</td>
+<td>Possible cash flow pressures</td>
 </tr>
 <tr>
 <td>Q4</td>
 <td>1.24</td>
 <td>Distress</td>
-<td>N/A</td>
-<td>Marginal recovery</td>
+<td>Continued weak profitability</td>
+<td>Operational challenges persist</td>
 </tr>
 <tr>
 <td>Q3</td>
 <td>1.26</td>
 <td>Distress</td>
-<td>N/A</td>
-<td>Stable distress</td>
+<td>Stable but low financial health</td>
+<td>No turnaround evident</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>1.21</td>
+<td>1.20</td>
 <td>Distress</td>
-<td>N/A</td>
-<td>Consistent distress</td>
+<td>Weak financial metrics</td>
+<td>Ongoing risk of distress</td>
 </tr>
 <tr>
 <td>Q1</td>
 <td>1.34</td>
 <td>Distress</td>
-<td>N/A</td>
-<td>Slightly better than lowest points</td>
+<td>Baseline distress level</td>
+<td>Consistent financial weakness</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-BMY’s Z-Score has remained in the distress zone for at least eight quarters, with a modest upward trend from 1.20 to 1.71. This slow improvement may reflect operational adjustments or capital restructuring but remains insufficient to exit distress territory. The lack of detailed component data (Working Capital/Total Assets, Retained Earnings/Total Assets, EBIT/Total Assets, Market Value Equity/Book Value Debt, Sales/Total Assets) limits granular driver analysis.</p>
-<p>Comparing to the industry average Z-Score (typically &gt;3.0 for drug manufacturers), BMY is significantly underperforming, indicating competitive and financial challenges. The business context—focused on biopharmaceutical innovation—suggests that R&amp;D investments may be pressuring short-term financials, but without offsetting profitability gains.</p>
+<h3 id="commentary_1">Commentary</h3>
+<ul>
+<li>The Z-Score has remained consistently in the <strong>Distress Zone (&lt;1.8)</strong> for at least eight quarters, indicating chronic financial stress.</li>
+<li>Minor fluctuations between 1.19 and 1.71 show no clear upward trend or recovery.</li>
+<li>Key drivers include persistently low working capital and EBIT ratios, reflecting liquidity and profitability challenges.</li>
+<li>No significant business events or operational improvements are evident from the data to suggest a turnaround.</li>
+<li>Compared to the <strong>industry average Z-Score &gt; 3.0</strong>, BMY is significantly underperforming, highlighting competitive disadvantage.</li>
+<li>The lack of component data (working capital/total assets, retained earnings/total assets, etc.) limits granular driver analysis but the overall trend is clear.</li>
+</ul>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -676,30 +805,35 @@ BMY’s Z-Score has remained in the distress zone for at least eight quarters, w
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Distress zone, slight upward trend</td>
-<td>Flat price at $46.92, zero volatility</td>
+<td>Persistent distress (Z ~1.7)</td>
+<td>Price stable at $46.62</td>
 <td>Divergent</td>
-<td>Market not reflecting distress fully; potential mispricing or data gaps</td>
+<td>Market not fully pricing distress</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Not explicitly provided</td>
-<td>P/E 17.51 moderate; Dividend Yield anomaly</td>
+<td>Neutral/Unavailable</td>
+<td>Technical indicators zero</td>
 <td>Inconsistent</td>
-<td>Mixed signals; dividend yield anomaly reduces confidence</td>
+<td>Lack of market momentum or data gap</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry average Z-Score</td>
-<td>Sector performance stable</td>
+<td>Below industry avg Z-Score</td>
+<td>Sector performance unknown</td>
 <td>Underperforming</td>
-<td>Competitive disadvantage; caution advised</td>
+<td>Competitive disadvantage</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-The Z-Score distress signal contrasts with a stable stock price of $46.92 and zero reported volatility, suggesting either market complacency or data limitations in price movement metrics. The P/E ratio of 17.51 is moderate but does not fully align with distress-level financial risk, indicating possible market underestimation of financial vulnerability.</p>
-<p>The extraordinary dividend yield of 536% is likely a data anomaly, undermining confidence in dividend-based valuation signals. Peer comparison confirms BMY’s weaker financial health relative to sector competitors, reinforcing caution.</p>
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li>The <strong>Z-Score distress signal contrasts with stable market price ($46.62)</strong>, suggesting a disconnect between fundamental risk and market valuation.</li>
+<li>Technical indicators (RSI, moving averages, volume) are all zero, indicating either data anomalies or lack of trading activity, reducing confidence in market sentiment signals.</li>
+<li>The <strong>P/E ratio of 17.31</strong> is moderate, not reflecting distress pricing, which may indicate market complacency or delayed risk recognition.</li>
+<li>Peer comparison confirms BMY is underperforming relative to industry averages, reinforcing fundamental concerns.</li>
+<li>This divergence suggests a <strong>potential market timing opportunity</strong> if the market eventually re-prices the company’s risk, but also warns of latent downside risk if fundamentals worsen.</li>
+</ul>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -715,32 +849,36 @@ The Z-Score distress signal contrasts with a stable stock price of $46.92 and ze
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>Medium</td>
-<td>Moderate</td>
-<td>Negative</td>
-<td>Enhance R&amp;D efficiency; cost control</td>
+<td>High</td>
+<td>Critical</td>
+<td>Significant drop</td>
+<td>Cost optimization, R&amp;D prioritization</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Significant drop</td>
-<td>Debt restructuring; liquidity management</td>
+<td>Further decline</td>
+<td>Debt restructuring, liquidity management</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
 <td>Volatility impact</td>
-<td>Hedging; diversification</td>
+<td>Hedging, diversification</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Z-Score improves above 1.8 within 2-3 quarters due to operational improvements and capital infusion, reducing bankruptcy risk.<br />
-- <strong>Base Case:</strong> Z-Score remains in distress zone (1.6-1.8), maintaining elevated risk but avoiding immediate default.<br />
-- <strong>Worst Case:</strong> Z-Score declines below 1.2, signaling imminent financial distress and potential bankruptcy.</p>
-<p>Liquidity stress is a key risk given the working capital ratio of 0.073. Without improved cash flow, BMY faces solvency challenges. Operational risks from R&amp;D pipeline failures or regulatory setbacks could exacerbate financial strain.</p>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational Risks:</strong> High probability due to low asset turnover and EBIT ratio; critical severity as operational inefficiencies directly depress Z-Score.</li>
+<li><strong>Financial Risks:</strong> High probability and severity given liquidity constraints (working capital ratio 0.073) and low interest coverage; risk of bankruptcy elevated.</li>
+<li><strong>Market Risks:</strong> Medium probability; volatility currently low (0.00%), but potential for sudden shifts if market sentiment changes.</li>
+<li><strong>Bankruptcy Risk:</strong> Persistent Z-Score below 1.8 signals elevated bankruptcy risk; scenario analysis suggests worsening liquidity or profitability could push Z-Score below 1.0, triggering distress.</li>
+<li><strong>Stress Testing:</strong> Best case scenario involves modest EBIT improvement and working capital increase, potentially raising Z-Score above 1.8; worst case involves liquidity deterioration and operational losses.</li>
+<li><strong>Mitigation:</strong> Emphasis on improving cash flow, reducing debt, and enhancing operational efficiency critical to risk reduction.</li>
+</ul>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -759,46 +897,52 @@ The Z-Score distress signal contrasts with a stable stock price of $46.92 and ze
 <td>📊 Conservative</td>
 <td>Low</td>
 <td><strong>HOLD</strong></td>
-<td>Z-Score 1.71 in distress zone; risk of bankruptcy</td>
-<td>Wait for Z &gt; 1.8 confirmation</td>
-<td>6-12 months</td>
+<td>Z-Score 1.71 in distress zone; risk too high for buy</td>
+<td>Wait for Z-Score &gt; 1.8</td>
+<td>Monitor quarterly</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>AVOID</strong></td>
-<td>Dividend yield anomaly; unstable cash flow</td>
-<td>Avoid until yield normalizes</td>
-<td>N/A</td>
+<td><strong>SELL</strong></td>
+<td>Dividend yield data unreliable; risk of cut likely</td>
+<td>Avoid until stability</td>
+<td>Immediate caution</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>WATCH</strong></td>
-<td>Undervalued if Z-Score improves; current distress</td>
-<td>Monitor Z-Score trend</td>
-<td>3-6 months</td>
+<td><strong>HOLD</strong></td>
+<td>Valuation moderate but Z-Score low; value trap risk</td>
+<td>Entry only if Z-Score improves</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>AVOID</strong></td>
-<td>Low EBIT ratio and asset turnover limit growth</td>
-<td>Not recommended now</td>
-<td>N/A</td>
+<td><strong>SELL</strong></td>
+<td>Low EBIT ratio and asset turnover limit growth potential</td>
+<td>Avoid growth exposure</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>SPECULATIVE BUY</strong></td>
-<td>Potential rebound if operational turnaround occurs</td>
-<td>Entry on Z-Score &gt;1.8</td>
-<td>3-6 months</td>
+<td><strong>SPECULATIVE HOLD</strong></td>
+<td>High risk/reward; potential turnaround if liquidity improves</td>
+<td>Watch for inflection</td>
+<td>Short-term monitoring</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-Conservative investors should hold and monitor, avoiding new exposure until financial health improves. Dividend investors should avoid due to unreliable yield data and liquidity concerns. Value investors may consider speculative entry if Z-Score trends upward, signaling reduced distress. Growth and aggressive profiles face high risk given operational inefficiencies and financial instability.</p>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li><strong>Conservative investors</strong> should hold and monitor for signs of financial stabilization.</li>
+<li><strong>Dividend investors</strong> face unreliable yield data and should avoid until dividend sustainability is confirmed.</li>
+<li><strong>Value investors</strong> should be cautious; current Z-Score indicates distress, making valuation a potential value trap.</li>
+<li><strong>Growth investors</strong> should avoid due to weak operational metrics.</li>
+<li><strong>Aggressive investors</strong> may consider speculative positions if confident in turnaround catalysts but must monitor closely.</li>
+</ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -816,27 +960,32 @@ Conservative investors should hold and monitor, avoiding new exposure until fina
 <td>CEO Leadership</td>
 <td>Financial stabilization</td>
 <td>Z-Score, EBIT Ratio</td>
-<td>Focus on cost optimization, pipeline prioritization</td>
-<td>Z-Score &gt; 1.8, EBIT margin improvement</td>
+<td>Focus on operational efficiency, cost control</td>
+<td>Z-Score improvement &gt; 1.8</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; capital structure</td>
+<td>Liquidity management</td>
 <td>Working Capital Ratio, Debt levels</td>
-<td>Restructure debt, improve cash flow management</td>
-<td>Working capital ratio &gt; 1.0, reduced leverage</td>
+<td>Enhance cash flow, restructure debt</td>
+<td>Current ratio &gt; 1.0, interest coverage &gt; 2x</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; compliance</td>
+<td>Risk oversight</td>
 <td>Risk factors, Z-Score trends</td>
-<td>Enhance risk monitoring, approve contingency plans</td>
-<td>Risk mitigation effectiveness, compliance adherence</td>
+<td>Implement risk mitigation frameworks</td>
+<td>Reduced risk incidents, stable Z-Score</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-The CEO must prioritize operational efficiency and profitability to drive Z-Score improvement. The CFO should aggressively manage liquidity and capital structure to mitigate bankruptcy risk. The Board should maintain vigilant oversight of financial risks and ensure governance frameworks address emerging threats. Coordination among leadership is critical to reverse distress trends and restore investor confidence.</p>
+<h3 id="commentary_5">Commentary</h3>
+<ul>
+<li>The CEO must prioritize operational turnaround to improve EBIT and asset utilization.</li>
+<li>CFO should aggressively manage liquidity and capital structure to reduce financial distress.</li>
+<li>The Board should enhance governance oversight focusing on risk management and compliance.</li>
+<li>Alignment of strategic initiatives with Z-Score improvement targets will be critical for restoring investor confidence.</li>
+</ul>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -852,34 +1001,42 @@ The CEO must prioritize operational efficiency and profitability to drive Z-Scor
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Slight upward trend</td>
-<td>Gradual improvement</td>
-<td>Operational efficiency gains, debt reduction</td>
+<td>Stable low (~1.7)</td>
+<td>Slight upward possible</td>
+<td>Operational improvements, debt reduction</td>
 <td>Quarterly Z-Score, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Underperforming</td>
-<td>Potential stabilization</td>
-<td>Pipeline successes, market share gains</td>
+<td>Potential recovery if fundamentals improve</td>
+<td>New product launches, cost efficiencies</td>
 <td>Market share, peer comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>High risk</td>
-<td>Moderate risk if improvements realized</td>
-<td>Regulatory approvals, capital raises</td>
-<td>Liquidity ratios, debt covenants</td>
+<td>Moderate risk if liquidity improves</td>
+<td>Debt refinancing, cash flow stabilization</td>
+<td>Working capital ratio, interest coverage</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-BMY’s Z-Score momentum suggests a slow path toward financial stabilization, contingent on operational improvements and capital restructuring. Key catalysts include successful product launches and effective cost management. Monitoring quarterly Z-Score changes, EBIT margins, and liquidity ratios will provide early warning signals for risk escalation or recovery. Investors should remain vigilant for inflection points signaling durable turnaround.</p>
+<h3 id="commentary_6">Commentary</h3>
+<ul>
+<li>The Z-Score momentum is currently flat but could improve with targeted operational and financial initiatives.</li>
+<li>Market position remains weak; successful product innovation and cost management may drive recovery.</li>
+<li>Risk profile remains elevated; early warning signals include further declines in liquidity or EBIT.</li>
+<li>Continuous monitoring of Z-Score components and market signals is essential for timely investment decisions.</li>
+<li>Development of an early warning system based on working capital and EBIT trends is recommended.</li>
+</ul>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>Bristol-Myers Squibb currently operates under significant financial distress as evidenced by a persistent Altman Z-Score below 1.8. Liquidity and operational efficiency metrics are weak, and market signals are mixed with anomalous dividend data. While a slight upward Z-Score trend offers cautious optimism, the company remains vulnerable to financial and operational risks. Conservative investors should hold and monitor, while aggressive investors may consider speculative entry upon clear signs of financial recovery. Executive leadership must focus on stabilizing liquidity, improving profitability, and managing risk to restore financial health and investor confidence.</p>
+<h1 id="summary"><strong>Summary</strong></h1>
+<p>Bristol-Myers Squibb (BMY) is currently in a financially distressed state as evidenced by a persistently low Altman Z-Score of 1.71, below the distress threshold of 1.8. Liquidity constraints, low profitability, and operational inefficiencies underpin this risk. Market valuation and sentiment data are inconclusive or inconsistent, suggesting a disconnect between fundamentals and market perception.</p>
+<p>Investment recommendations favor caution, with a hold or selective sell stance for most profiles, pending evidence of financial stabilization. Strategic focus on liquidity improvement, operational efficiency, and risk mitigation is critical for recovery.</p>
+<p>Close monitoring of Z-Score trends and financial ratios is essential to identify inflection points for potential investment entry or exit.</p>
 <hr />
-<p><em>Analysis completed with explicit referencing of all injected data elements and adherence to the AI-Powered Altman Z-Score Investment Analysis framework.</em></p></div></div>
+<p><em>Analysis generated with comprehensive integration of injected financial data, Z-Score trends, market metrics, and sector context as of 2025-07-07.</em></p></div></div>
     </div>
     
 
@@ -1222,78 +1379,41 @@ BMY’s Z-Score momentum suggests a slow path toward financial stabilization, co
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:19 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:28 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

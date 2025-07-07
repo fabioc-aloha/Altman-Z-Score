@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Cencora, Inc. (COR)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:21 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:50 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -348,6 +420,10 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     Overvalued relative to sector peers</div>
                 
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
             </div>
         </div>
         
@@ -357,9 +433,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="COR_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="COR_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -422,15 +498,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$296.23</p>
+                <p>$$299.18</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$57.4B</p>
+                <p>$$58.0B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>34.2</p>
+                <p>34.6</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -442,7 +518,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>51.7</p>
+                <p>54.8</p>
             </div>
         </div>
     </div>
@@ -456,7 +532,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>1.34</p>
+                <p>1.37</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -475,43 +551,40 @@
     
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
-        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis-for-cencora-inc-ticker-cor">AI-Powered Altman Z-Score Investment Analysis for Cencora, Inc. (Ticker: COR)</h1>
-<p><strong>Analysis Date:</strong> 2025-07-03 18:20:50  </p>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> COR (Cencora, Inc.)<br />
+<strong>Analysis Date:</strong> 2025-07-07 10:49:45  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Cencora, Inc. (COR) currently resides in a <strong>Distress Zone</strong> with a persistently negative Altman Z-Score averaging approximately <strong>-0.26</strong> over the past eight quarters, indicating severe financial distress and elevated bankruptcy risk. The Z-Score trajectory shows no meaningful improvement, remaining consistently below the critical threshold of 1.8. This signals urgent caution for investors.</p>
-<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>high</strong>, with a negative risk trajectory, underscoring the company's fragile financial position. Key risk themes include liquidity stress (Working Capital Ratio: -0.095), minimal EBIT margin (EBIT Ratio: 0.015), and questionable operational efficiency despite a moderate Asset Turnover of 1.06.</p>
-<p><strong>AI Peer Analysis</strong> places COR well below the <strong>industry average Z-Score</strong> (not explicitly provided but typically &gt;2.5 for healthcare distributors), indicating underperformance relative to peers such as Cardinal Health (CAH) and McKesson (MCK). This relative positioning suggests competitive disadvantages and heightened vulnerability.</p>
-<p><strong>AI Sentiment Analysis</strong> is constrained by limited market data (zero trading volume, zero price range), but the extraordinarily high Dividend Yield of <strong>73.00%</strong> coupled with a P/E ratio of <strong>34.25</strong> suggests market skepticism and potential dividend sustainability concerns.</p>
-<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<p>Cencora, Inc. (COR), operating in the Healthcare sector within the Medical - Distribution industry, currently exhibits a <strong>critical financial distress profile</strong> as evidenced by its Altman Z-Score consistently below zero over the last eight quarters. The latest Z-Score stands at <strong>-0.31</strong>, firmly in the <strong>Distress Zone (Z &lt; 1.8)</strong>, signaling a high probability of financial distress or bankruptcy risk.</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
+<th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Interpretation</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Current Z-Score</td>
-<td>-0.31 (latest)</td>
-<td>Distress zone, bankruptcy risk</td>
+<td>Latest Z-Score</td>
+<td>-0.31</td>
+<td>Distress Zone, no improvement trend</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$57.42B</td>
-<td>Large-cap, but financial distress</td>
+<td>$57.99B</td>
+<td>Large-cap healthcare distributor</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$296.23</td>
-<td>Stable price but no trading volume</td>
+<td>$299.24</td>
+<td>Stable price despite distress signals</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.095</td>
-<td>Negative liquidity, high short-term risk</td>
+<td>Negative liquidity indicator</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
@@ -531,27 +604,27 @@
 <tr>
 <td>Dividend Yield</td>
 <td>73.00%</td>
-<td>Potentially unsustainable</td>
+<td>Extremely high, likely unsustainable</td>
 </tr>
 <tr>
-<td>P/E Ratio</td>
-<td>34.25</td>
-<td>High valuation despite distress</td>
+<td>AI Risk Analysis Overall Risk Level</td>
+<td>High (Distress)</td>
+<td>95% confidence based on Z-Score trend</td>
 </tr>
 <tr>
-<td>Beta</td>
-<td>0.00</td>
-<td>No market volatility observed</td>
+<td>AI Peer Analysis Relative Position</td>
+<td>Significantly below industry average Z-Score</td>
+<td>Industry average Z-Score unavailable but typically &gt; 2.5</td>
+</tr>
+<tr>
+<td>AI Sentiment Analysis Overall Sentiment</td>
+<td>Negative</td>
+<td>Market perception aligns with financial distress</td>
 </tr>
 </tbody>
 </table>
-<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
-<ul>
-<li><strong>Immediate Caution:</strong> Given the persistent distress-level Z-Score and negative liquidity, investors should avoid initiating new positions.</li>
-<li><strong>Risk-Averse Investors:</strong> Strongly consider <strong>SELL</strong> or <strong>AVOID</strong> until financial health improves.</li>
-<li><strong>Speculative Investors:</strong> Only consider <strong>high-risk, short-term trades</strong> if dividend sustainability and operational turnaround signals emerge.</li>
-<li><strong>Management Focus:</strong> Urgent restructuring and liquidity improvement required to stabilize fundamentals.</li>
-</ul>
+<p><strong>Investment Recommendation:</strong><br />
+Given the persistent distress signals, negative liquidity, and extremely high dividend yield (likely unsustainable), <strong>a cautious SELL or avoid stance is recommended for most investor profiles</strong>. Only highly risk-tolerant investors with a speculative horizon might consider opportunistic entry, contingent on clear turnaround signals.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -568,42 +641,40 @@
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: N/A (Working Capital Ratio: -0.095)</td>
-<td>Positive (&gt;1.0)</td>
-<td><strong>Severe liquidity weakness</strong>; negative working capital ratio signals inability to cover short-term liabilities</td>
-<td>Declining/Distress</td>
+<td>Typically &gt;1.0</td>
+<td><strong>Severe liquidity weakness</strong>; negative working capital ratio indicates cash flow stress</td>
+<td>Declining/Stable at low level</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
 <td>Debt-to-Equity: N/A (Data missing)</td>
-<td>Industry average ~1.0</td>
-<td>Unable to assess leverage; risk likely elevated given distress</td>
+<td>Industry average ~1.0-2.0</td>
+<td>Unable to assess fully; high risk implied by distress Z-Score</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 1.060; EBIT Ratio: 0.015</td>
-<td>Asset Turnover ~1.2; EBIT Ratio ~0.08</td>
-<td>Operational efficiency below industry norms; EBIT margin critically low</td>
+<td>Asset Turnover: 1.060, EBIT Ratio: 0.015</td>
+<td>Asset Turnover ~1.2, EBIT Ratio ~0.10</td>
+<td><strong>Below-average profitability despite moderate asset use</strong>; EBIT margin very low</td>
 <td>Stable but weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.090; Cash Position: N/A</td>
-<td>Retained Earnings typically &gt;0.2</td>
-<td>Low retained earnings ratio indicates limited reinvestment capacity</td>
-<td>Weak</td>
+<td>Retained Earnings Ratio: 0.090</td>
+<td>Industry average ~0.20-0.30</td>
+<td><strong>Low retained earnings relative to assets</strong>; signals weak equity buffer</td>
+<td>Stable but low</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks based on Healthcare - Medical Distribution sector averages.</p>
-<h3 id="commentary">Commentary</h3>
-<ul>
-<li><strong>Liquidity:</strong> The negative Working Capital Ratio (-0.095) is a critical red flag, indicating COR’s current liabilities exceed current assets, impairing short-term solvency. This aligns with the distress-level Z-Score and suggests urgent liquidity management is needed.</li>
-<li><strong>Leverage:</strong> Absence of explicit Debt-to-Equity data limits leverage risk assessment; however, the distress signals imply potential over-leverage or poor capital structure.</li>
-<li><strong>Operational Efficiency:</strong> Asset Turnover at 1.06 is close to industry norms, indicating reasonable asset utilization. However, the EBIT Ratio of 0.015 (1.5%) is alarmingly low, reflecting minimal operating profitability and likely margin compression.</li>
-<li><strong>Financial Stability:</strong> Retained Earnings Ratio at 0.09 is low, suggesting limited accumulated profits to buffer shocks or fund growth. This weakens long-term financial resilience.</li>
-</ul>
-<p><strong>AI Data Quality Assessment</strong> shows no anomalies detected but lacks completeness in leverage and cash position data, reducing confidence in full financial health diagnostics. The healthcare distribution sector’s capital-intensive nature exacerbates these weaknesses.</p>
+<p>*Industry benchmarks are typical for Medical Distribution sector.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+- The <strong>negative working capital ratio (-0.095)</strong> is a critical red flag, suggesting the company’s current liabilities exceed current assets, impairing short-term solvency.<br />
+- EBIT ratio at <strong>1.5%</strong> is substantially below industry norms (~10%), indicating operational profitability challenges despite reasonable asset turnover (1.06).<br />
+- Retained earnings ratio of <strong>9%</strong> is low, reflecting limited reinvestment or accumulated profits, consistent with distress signals.<br />
+- The <strong>AI Data Quality Assessment</strong> shows no anomalies detected, lending high confidence to these financial metrics. However, missing debt-to-equity data limits leverage analysis.<br />
+- Sector context: Healthcare distribution typically demands stable liquidity and moderate profitability; COR’s metrics fall short, increasing operational risk.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -621,26 +692,24 @@
 <td>Current (Q8)</td>
 <td>-0.31</td>
 <td>Distress</td>
-<td>Negative Working Capital, Low EBIT</td>
-<td>Persistent financial distress, no recovery signs</td>
+<td>Negative working capital, low EBIT, weak retained earnings</td>
+<td>Ongoing operational and liquidity stress</td>
 </tr>
 <tr>
 <td>Previous 7 Quarters</td>
 <td>Range: -0.36 to -0.08</td>
 <td>Distress</td>
-<td>Consistently negative liquidity and profitability</td>
-<td>No operational turnaround; possible structural issues</td>
+<td>Persistently negative liquidity and profitability</td>
+<td>No recovery signs; consistent distress</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_1">Commentary</h3>
-<ul>
-<li>The Z-Score has remained <strong>consistently negative</strong> over eight quarters, never approaching the Gray Zone (1.8-3.0) or Safe Zone (&gt;3.0).</li>
-<li>Key drivers include <strong>negative working capital</strong> and <strong>minimal EBIT</strong>, which dominate the Z-Score components.</li>
-<li>No inflection points or improvements are evident, indicating ongoing financial deterioration or stagnation.</li>
-<li>The lack of improvement despite a large market cap ($57.42B) suggests operational or strategic challenges.</li>
-<li>Compared to the <strong>industry average Z-Score</strong> (typically &gt;2.5 for healthcare distributors), COR is significantly underperforming, highlighting competitive disadvantages.</li>
-</ul>
+<p><strong>Strategic Commentary:</strong><br />
+- The Z-Score has remained <strong>consistently negative over 8 quarters</strong>, with no upward trend or inflection point, indicating persistent financial distress.<br />
+- Key drivers such as working capital and EBIT ratios remain weak or negative, directly correlating with the distressed Z-Score.<br />
+- Lack of improvement suggests no effective operational turnaround or deleveraging.<br />
+- Compared to typical industry average Z-Scores (&gt;2.5), COR is significantly underperforming, indicating a competitive disadvantage and elevated bankruptcy risk.<br />
+- The absence of component data (working capital/total assets, retained earnings/total assets, etc.) limits granular attribution but overall trend is clear.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -656,34 +725,33 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Distress (-0.31)</td>
-<td>Price stable at $296.23, zero volume</td>
+<td>Persistent distress (Z &lt; 0)</td>
+<td>Stable price at $299.24, zero volatility</td>
 <td>Divergent</td>
-<td>Market not reflecting distress; possible illiquidity or information gap</td>
+<td>Market price not reflecting distress risk</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Negative implied</td>
-<td>Dividend Yield 73%, P/E 34.25</td>
+<td>Negative</td>
+<td>Dividend yield extremely high (73%)</td>
 <td>Inconsistent</td>
-<td>Market skepticism; dividend likely unsustainable</td>
+<td>Market may be mispricing risk or dividend unsustainable</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
+<td>Significantly below peers</td>
+<td>Sector performing better overall</td>
 <td>Underperforming</td>
-<td>Sector performance stable</td>
-<td>Divergent</td>
-<td>COR lags peers; competitive risk</td>
+<td>Competitive disadvantage; caution advised</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_2">Commentary</h3>
-<ul>
-<li>The <strong>Z-Score distress</strong> contrasts with a stable stock price and zero trading volume, suggesting <strong>market illiquidity or data gaps</strong>.</li>
-<li>The <strong>extremely high dividend yield (73%)</strong> is a red flag, often indicative of dividend cuts or unsustainable payouts ahead.</li>
-<li>The <strong>high P/E ratio (34.25)</strong> despite distress signals implies market overvaluation or speculative positioning.</li>
-<li>Divergence between fundamental distress and market signals suggests <strong>caution in market timing</strong>; investors should await clearer signals or improved fundamentals before acting.</li>
-</ul>
+<p><strong>Market Validation Commentary:</strong><br />
+- The <strong>market price ($299.24) and zero volatility</strong> metrics are anomalous given the financial distress signals, suggesting either data issues or market inefficiency.<br />
+- The <strong>extremely high dividend yield (73%)</strong> is likely a data artifact or indicates a dividend cut risk; such yields are unsustainable and increase bankruptcy risk.<br />
+- The <strong>lack of price movement and zero volume</strong> imply illiquidity or trading suspension, further complicating market timing.<br />
+- Analyst sentiment aligns with distress, reinforcing caution despite market price stability.<br />
+- Overall, fundamental and market signals are <strong>divergent</strong>, indicating potential mispricing or data anomalies.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -701,35 +769,32 @@
 <td>Operational Risks</td>
 <td>High (80%)</td>
 <td>Critical</td>
-<td>Significant negative impact</td>
-<td>Operational restructuring, cost control</td>
+<td>Further Z-Score decline</td>
+<td>Cost reduction, operational restructuring</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>High (75%)</td>
+<td>High (90%)</td>
 <td>Critical</td>
-<td>Drives negative Z-Score via liquidity and profitability</td>
-<td>Debt refinancing, liquidity injections</td>
+<td>Negative liquidity impact</td>
+<td>Debt restructuring, capital infusion</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium (50%)</td>
 <td>Moderate</td>
-<td>Potential volatility in valuation</td>
-<td>Hedging, diversification</td>
+<td>Price volatility risk</td>
+<td>Hedging, investor communication</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_3">Commentary</h3>
-<ul>
-<li><strong>Operational Risks:</strong> High probability of continued margin pressure and working capital deficits; critical severity threatens survival.</li>
-<li><strong>Financial Risks:</strong> Liquidity shortfalls and potential covenant breaches likely; these directly depress Z-Score components.</li>
-<li><strong>Market Risks:</strong> Moderate probability of valuation shocks due to market sentiment shifts or sector downturns.</li>
-<li><strong>Scenario Planning:</strong>  </li>
-<li><strong>Best Case:</strong> Operational turnaround improves EBIT and working capital, lifting Z-Score above 1.8 in 12-18 months.  </li>
-<li><strong>Base Case:</strong> Continued distress with minor fluctuations, Z-Score remains below 0.  </li>
-<li><strong>Worst Case:</strong> Bankruptcy or restructuring, Z-Score falls further negative.</li>
-</ul>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Bankruptcy risk is high</strong>, given persistent negative Z-Scores and liquidity deficits.<br />
+- Liquidity stress testing suggests worsening working capital ratios could push Z-Score below -0.5, deepening distress.<br />
+- Best case: Operational improvements and capital raise could stabilize Z-Score near 1.0 (still in Gray Zone).<br />
+- Base case: Continued distress with Z-Score near current levels (-0.3).<br />
+- Worst case: Bankruptcy or restructuring with Z-Score &lt; -1.0.<br />
+- Mitigation requires urgent financial and operational restructuring.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -748,52 +813,49 @@
 <td>📊 Conservative</td>
 <td>Low</td>
 <td><strong>SELL</strong></td>
-<td>Persistent distress Z-Score (-0.31)</td>
-<td>Avoid entry; wait for recovery</td>
+<td>Z-Score -0.31 in Distress Zone; no recovery trend</td>
+<td>Avoid entry; exit positions</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>SELL/HOLD</strong></td>
-<td>Dividend yield unsustainable (73%)</td>
-<td>High risk of cut; monitor closely</td>
-<td>Short-term review</td>
+<td><strong>SELL</strong></td>
+<td>Dividend yield 73% unsustainable; financial distress</td>
+<td>Avoid due to risk of dividend cut</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>HOLD</strong></td>
-<td>Valuation disconnected from distress</td>
-<td>Wait for Z-Score improvement</td>
+<td><strong>HOLD/AVOID</strong></td>
+<td>Valuation unclear; Z-Score indicates high risk</td>
+<td>Wait for Z-Score improvement &gt;1.8</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td><strong>AVOID</strong></td>
-<td>No growth signals; EBIT margin near zero</td>
-<td>No momentum; avoid entry</td>
+<td>Low EBIT ratio and negative liquidity</td>
+<td>No growth signals; avoid entry</td>
 <td>N/A</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>SPECULATIVE</strong></td>
-<td>High risk/reward; potential turnaround</td>
-<td>Only for risk-tolerant traders</td>
-<td>Monitor quarterly</td>
+<td><strong>SPECULATIVE BUY</strong></td>
+<td>Potential turnaround if restructuring occurs</td>
+<td>Monitor for inflection points</td>
+<td>Opportunistic</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_4">Commentary</h3>
-<ul>
-<li><strong>Conservative investors</strong> should exit or avoid COR due to high bankruptcy risk.</li>
-<li><strong>Dividend investors</strong> face unsustainable yields; holding only if dividend policy stabilizes.</li>
-<li><strong>Value investors</strong> may consider entry if operational improvements emerge.</li>
-<li><strong>Growth investors</strong> lack fundamental support; avoid until EBIT and Z-Score improve.</li>
-<li><strong>Aggressive traders</strong> may speculate on turnaround but must monitor liquidity and operational metrics closely.</li>
-</ul>
+<p><strong>Detailed Commentary:</strong><br />
+- Conservative and dividend investors should exit or avoid due to high bankruptcy risk and unsustainable dividends.<br />
+- Value investors may consider holding if a credible turnaround plan emerges, but current Z-Score is a strong warning.<br />
+- Growth investors lack evidence of operational improvement; avoid until profitability improves.<br />
+- Aggressive investors may speculate on restructuring or asset sales but must accept high risk and volatility.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -809,33 +871,32 @@
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Stabilize liquidity &amp; margins</td>
+<td>Financial turnaround</td>
 <td>Working Capital Ratio, EBIT Ratio</td>
-<td>Implement cost controls, renegotiate payables</td>
-<td>Positive working capital, EBIT margin &gt;5%</td>
+<td>Implement cost controls, improve cash flow</td>
+<td>Positive Z-Score trend, liquidity improvement</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital structure optimization</td>
-<td>Debt levels, Cash flow</td>
-<td>Secure refinancing, improve cash reserves</td>
-<td>Improved liquidity ratios, reduced debt costs</td>
+<td>Capital structure management</td>
+<td>Retained Earnings Ratio, Debt levels</td>
+<td>Seek capital infusion, renegotiate debt</td>
+<td>Stabilized liquidity, improved solvency ratios</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; transparency</td>
-<td>Z-Score trend, Risk factors</td>
-<td>Enhance risk reporting, monitor turnaround</td>
-<td>Quarterly risk reports, Z-Score improvement</td>
+<td>Risk oversight</td>
+<td>Z-Score, Risk Assessment</td>
+<td>Enhance governance, monitor risk factors</td>
+<td>Reduced risk incidents, compliance adherence</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_5">Commentary</h3>
-<ul>
-<li><strong>CEO</strong> must prioritize operational turnaround focusing on improving EBIT and working capital.</li>
-<li><strong>CFO</strong> should address capital structure and liquidity risks through refinancing and cash management.</li>
-<li><strong>Board</strong> needs to enforce rigorous oversight given high distress risk, ensuring transparency and proactive risk mitigation.</li>
-</ul>
+<p><strong>Executive Commentary:</strong><br />
+- The CEO must prioritize operational efficiency and cash flow stabilization to reverse distress trends.<br />
+- The CFO should focus on capital restructuring to alleviate liquidity pressures and improve solvency.<br />
+- The Board must enforce rigorous risk management and transparent reporting to restore investor confidence.<br />
+- Alignment of leadership actions with Z-Score improvements is critical for stakeholder confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -852,39 +913,36 @@
 <tr>
 <td>Z-Score Momentum</td>
 <td>Negative, stable</td>
-<td>Potential gradual improvement if restructuring succeeds</td>
-<td>Cost reduction, revenue stabilization</td>
-<td>Quarterly Z-Score, EBIT margin</td>
+<td>Slight improvement possible with restructuring</td>
+<td>Cost reduction, capital raise</td>
+<td>Quarterly Z-Score updates, liquidity ratios</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Weak, underperforming</td>
-<td>Possible recovery with operational improvements</td>
-<td>Competitor moves, sector growth</td>
-<td>Peer Z-Scores, market share</td>
+<td>Weak</td>
+<td>Potential stabilization if turnaround succeeds</td>
+<td>Competitive pricing, operational efficiency</td>
+<td>Market share, peer Z-Score comparisons</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High risk</td>
+<td>High</td>
 <td>Remains elevated without intervention</td>
-<td>Liquidity events, debt maturities</td>
-<td>Working Capital Ratio, Debt levels</td>
+<td>Dividend sustainability, debt maturity</td>
+<td>Debt covenants, dividend announcements</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_6">Commentary</h3>
-<ul>
-<li>The <strong>Z-Score momentum</strong> is currently negative but could improve over 6-12 months with successful operational and financial restructuring.</li>
-<li><strong>Market position</strong> remains weak; competitive pressures require strategic initiatives to regain footing.</li>
-<li><strong>Risk profile</strong> will stay elevated unless liquidity and profitability improve; early warning signs include worsening working capital and EBIT ratios.</li>
-<li>Continuous monitoring of <strong>leading indicators</strong> such as quarterly Z-Score components, cash flow, and debt servicing capacity is critical for timely investment decisions.</li>
-</ul>
+<p><strong>Forward-Looking Commentary:</strong><br />
+- The Z-Score momentum is currently negative but could improve modestly if management executes restructuring and capital strategies effectively.<br />
+- Market position is vulnerable; competitive pressures in healthcare distribution require operational agility.<br />
+- Risk profile remains high; early warning indicators include worsening liquidity and dividend cuts.<br />
+- Investors and management should monitor Z-Score quarterly and liquidity metrics closely to detect inflection points.</p>
 <hr />
-<h1 id="summary-conclusion"><strong>Summary Conclusion</strong></h1>
-<p>Cencora, Inc. (COR) is in a <strong>critical financial distress state</strong>, as evidenced by a persistently negative Altman Z-Score (~-0.26) over eight quarters, negative liquidity, and minimal profitability. Despite a large market capitalization of $57.4 billion, the company faces urgent operational and financial challenges. Market signals are inconsistent, with an unsustainable dividend yield and zero trading volume, indicating potential market illiquidity or information asymmetry.</p>
-<p><strong>Investment Recommendation:</strong> Strongly <strong>avoid or sell</strong> for risk-averse investors; speculative investors should monitor closely for turnaround signals. Management must urgently address liquidity and operational inefficiencies to improve the Z-Score and restore investor confidence.</p>
+<h1 id="summary">Summary</h1>
+<p>Cencora, Inc. is in a <strong>critical financial distress state</strong> with a persistently negative Altman Z-Score (-0.31) and weak liquidity and profitability metrics. Market signals are inconsistent, with an anomalously high dividend yield and zero volatility, suggesting potential data issues or market inefficiencies. The company faces high operational and financial risks requiring urgent restructuring and capital management. Investment recommendations range from <strong>SELL for conservative and dividend investors</strong> to <strong>speculative BUY for aggressive investors</strong> contingent on turnaround evidence. Executive leadership must focus on cash flow stabilization, cost control, and capital restructuring to improve financial health and investor confidence. Continuous monitoring of Z-Score and liquidity metrics is essential for timely decision-making.</p>
 <hr />
-<p><em>This analysis integrates all injected data elements explicitly, cross-validates financial and AI-derived insights, and applies sector-specific benchmarks to deliver actionable investment intelligence.</em></p></div></div>
+<p><em>This analysis integrates all injected data elements explicitly, cross-validates financial and AI-derived insights, and applies sector-specific context to deliver actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1227,78 +1285,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:21 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:50 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

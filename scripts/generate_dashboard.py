@@ -243,7 +243,6 @@ def generate_dashboard(stocks: List[StockData], template_dir: Path, output_file:
             'Recommendation': s.recommendation,
             'Confidence': f"{s.confidence:.1f}%",
             'Model': s.model_used,
-            'Quality': f"{s.data_quality:.1f}%",
             'Price': s.current_price if s.current_price is not None else 'N/A',
             'MarketCap': s.market_cap if s.market_cap is not None else 'N/A',
             'AnalysisDate': s.analysis_date if s.analysis_date is not None else 'N/A',

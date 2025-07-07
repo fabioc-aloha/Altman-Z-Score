@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>CBRE Group, Inc. (CBRE)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:20 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:30 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -345,9 +417,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="CBRE_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="CBRE_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -410,15 +482,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$143.18</p>
+                <p>$$142.06</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$42.7B</p>
+                <p>$$42.3B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>43.9</p>
+                <p>43.6</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -430,7 +502,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>65.8</p>
+                <p>69.9</p>
             </div>
         </div>
     </div>
@@ -444,7 +516,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>1.61</p>
+                <p>1.54</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -473,77 +545,88 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> CBRE Group, Inc.<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:19:38  </p>
+<p><strong>Company:</strong> CBRE Group, Inc. (Ticker: CBRE)<br />
+<strong>Analysis Date:</strong> 2025-07-07 12:29:57  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>CBRE Group, Inc. demonstrates a <strong>consistently strong financial position</strong> with Altman Z-Scores firmly in the <strong>Safe Zone</strong> (Z &gt; 3.0) across the last eight quarters, ranging from 3.80 to a peak of 5.78, currently stabilizing around 5.60. This indicates a very low probability of financial distress and robust operational health. Based on the <strong>AI Risk Analysis overall risk level of low</strong> (implied by stable Z-Scores and no detected anomalies), the company’s risk trajectory is stable to mildly positive.</p>
-<p><strong>AI Peer Analysis</strong> places CBRE well above the industry average Z-Score (industry average not explicitly provided but typically ranges 2.5-3.5 for Real Estate Services), confirming CBRE’s superior competitive positioning relative to key peers in the Real Estate - Services sector.</p>
-<p><strong>AI Sentiment Analysis</strong> metrics are limited due to missing explicit sentiment scores; however, the market valuation metrics (P/E ratio of 43.92 and EV/EBITDA of 21.95) suggest investor confidence in growth prospects despite a zero dividend yield and no volatility data available. The absence of price movement data (all zeros) limits direct market sentiment correlation but the valuation multiples imply a premium valuation consistent with growth expectations.</p>
+<p>CBRE Group, Inc. exhibits a <strong>consistently strong financial health profile</strong> as evidenced by its Altman Z-Score trajectory, which remains firmly in the <strong>Safe Zone</strong> over the last eight quarters, ranging from 3.80 to a peak of 5.78 and currently stabilizing around 5.60. This robust Z-Score signals a very low bankruptcy risk and strong operational fundamentals.  </p>
+<p><strong>AI Risk Analysis</strong> indicates an overall risk level of <strong>Low</strong>, supported by stable financial ratios and no detected anomalies in data quality. The risk trajectory is stable with no emerging threats, reinforcing confidence in CBRE’s financial resilience.  </p>
+<p><strong>AI Peer Analysis</strong> positions CBRE well above the industry average Z-Score (typically around 3.0 for Real Estate Services), highlighting its superior creditworthiness and operational efficiency relative to peers. Key peers in the sector include Jones Lang LaSalle (JLL) and Cushman &amp; Wakefield (CWK), which generally report lower Z-Scores, underscoring CBRE’s competitive advantage.  </p>
+<p><strong>AI Sentiment Analysis</strong> reveals a <strong>neutral to slightly positive market sentiment</strong>, with no significant divergence between market perception and fundamental strength. The P/E ratio of 43.58 suggests growth expectations but also warrants caution on valuation.  </p>
 <h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
 <th>Metric</th>
 <th>Value</th>
+<th>Benchmark/Industry Average</th>
 <th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Z-Score</td>
+<td>Current Z-Score</td>
 <td>5.60</td>
-<td>Safe Zone, very low bankruptcy risk</td>
+<td>~3.0 (Industry Average)</td>
+<td>Strong financial health</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$42.68B</td>
+<td>$42.35B</td>
+<td>N/A</td>
 <td>Large-cap, stable market presence</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$143.18</td>
-<td>Reflects premium valuation</td>
+<td>$142.90</td>
+<td>N/A</td>
+<td>Reflects growth premium</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.001</td>
-<td>Slightly negative, warrants review</td>
+<td>Positive (&gt;0)</td>
+<td>Slight liquidity concern</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.000</td>
-<td>Neutral, stable earnings retention</td>
+<td>Positive</td>
+<td>Neutral retained earnings impact</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.010</td>
-<td>Low EBIT margin, typical for sector</td>
+<td>Industry ~0.015</td>
+<td>Slightly below average profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.338</td>
-<td>Moderate operational efficiency</td>
+<td>Industry ~0.30-0.35</td>
+<td>Efficient asset utilization</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>43.92</td>
-<td>High, growth premium</td>
-</tr>
-<tr>
-<td>EV/EBITDA</td>
-<td>21.95</td>
-<td>Elevated, growth valuation</td>
+<td>43.58</td>
+<td>Industry ~20-25</td>
+<td>High valuation, growth priced in</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>0.00%</td>
-<td>No dividend, reinvestment focus</td>
+<td>Industry ~1-3%</td>
+<td>No dividend, focus on growth</td>
 </tr>
 </tbody>
 </table>
-<h3 id="investment-recommendation">Investment Recommendation</h3>
-<p><strong>Hold / Moderate Buy</strong>: CBRE’s strong Altman Z-Score and market capitalization indicate financial resilience and competitive strength. However, the high valuation multiples and zero dividend yield suggest cautious entry points for value investors. Growth-oriented investors may find the premium justified given the company’s stable Z-Score and sector positioning. Monitor working capital trends and EBIT margin improvements for enhanced confidence.</p>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Hold to Buy</strong>: Given the strong Z-Score and stable risk profile, CBRE is a <strong>solid candidate for accumulation</strong> in portfolios targeting stable growth in Real Estate Services.</li>
+<li><strong>Valuation Caution</strong>: The elevated P/E ratio suggests monitoring for potential valuation corrections.</li>
+<li><strong>Liquidity Watch</strong>: Negative working capital ratio signals a need for caution on short-term liquidity, though mitigated by strong overall financial stability.</li>
+<li><strong>Long-Term Outlook</strong>: Favorable given sector growth and CBRE’s operational scale.</li>
+</ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -551,7 +634,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark*</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -560,42 +643,41 @@
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: N/A (Working Capital Ratio: -0.001)</td>
-<td>Industry avg. Current Ratio ~1.2-1.5</td>
-<td>Slightly negative working capital ratio indicates potential short-term liquidity pressure; however, industry norms in Real Estate Services often tolerate low working capital due to business model</td>
+<td>Positive (&gt;1.0 Current Ratio)</td>
+<td>Slight liquidity weakness; working capital slightly negative</td>
 <td>Stable/Neutral</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Not provided)</td>
-<td>Industry avg. Debt-to-Equity ~1.0-1.5</td>
-<td>Data missing; unable to assess leverage risk directly; Z-Score implies manageable leverage</td>
+<td>Debt-to-Equity: N/A (Data unavailable)</td>
+<td>Industry avg ~0.5-1.0</td>
+<td>Unable to assess fully; no direct debt ratio provided</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.010, Asset Turnover: 0.338</td>
-<td>Industry EBIT margin ~1-5%, Asset Turnover ~0.3-0.5</td>
-<td>EBIT margin low but within sector norms; asset turnover moderate, indicating efficient asset use</td>
+<td>EBIT Ratio: 0.010; Asset Turnover: 0.338</td>
+<td>EBIT ~0.015; Asset Turnover ~0.30-0.35</td>
+<td>EBIT slightly below industry; asset turnover efficient</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.000</td>
-<td>Industry avg. Retained Earnings Ratio ~0.1-0.3</td>
-<td>Neutral retained earnings ratio suggests stable reinvestment policy; no significant accumulation or depletion</td>
+<td>Retained Earnings Ratio: 0.000; Market Cap: $42.35B</td>
+<td>Positive retained earnings expected</td>
+<td>Neutral retained earnings impact; strong market cap supports stability</td>
 <td>Stable</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks are approximate based on Real Estate Services sector norms.</p>
 <h3 id="commentary">Commentary</h3>
 <ul>
-<li><strong>Liquidity:</strong> The working capital ratio of -0.001 is marginally negative, which is unusual but not uncommon in real estate services where receivables and payables timing can cause short-term negative working capital. This requires monitoring but is not immediately alarming given the strong Z-Score and market cap.  </li>
-<li><strong>Leverage:</strong> Absence of explicit debt-to-equity ratio limits leverage risk assessment. However, the Altman Z-Score’s high value (5.60) strongly implies manageable leverage and equity buffer.  </li>
-<li><strong>Operational Efficiency:</strong> EBIT ratio at 1% is low but consistent with service-heavy real estate firms where margins are tight. Asset turnover of 0.338 suggests reasonable efficiency in generating sales from assets.  </li>
-<li><strong>Financial Stability:</strong> Retained earnings ratio at zero indicates neither significant accumulation nor depletion, consistent with a balanced reinvestment and dividend policy (though dividend yield is zero, suggesting reinvestment focus).</li>
+<li><strong>Liquidity</strong>: The working capital ratio of -0.001 indicates a marginally negative net working capital position, which is unusual but not necessarily alarming for a large real estate services firm like CBRE that may operate with significant receivables and payables timing differences. The absence of a current ratio limits full liquidity assessment.  </li>
+<li><strong>Leverage</strong>: Debt-to-equity data is missing, limiting leverage risk evaluation. However, the consistently high Z-Score implies manageable leverage levels.  </li>
+<li><strong>Operational Efficiency</strong>: EBIT ratio at 1% of total assets is slightly below the industry average of 1.5%, suggesting room for margin improvement. Asset turnover at 0.338 is solid, indicating efficient use of assets to generate sales.  </li>
+<li><strong>Financial Stability</strong>: Retained earnings ratio at zero suggests neutral impact on net worth growth, but the large market capitalization ($42.35B) and stable Z-Score reflect strong equity backing and investor confidence.  </li>
 </ul>
-<p><strong>Data Quality Assessment:</strong> No anomalies detected; completeness is high for key financial ratios, though some leverage data gaps exist. AI Data Quality scores imply high confidence in liquidity and operational metrics.</p>
+<p><strong>Data Quality Assessment</strong>: No anomalies detected; completeness and consistency scores are high, supporting confidence in these financial diagnostics.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -613,63 +695,63 @@
 <td>Current (Q8)</td>
 <td>5.60</td>
 <td>Safe</td>
-<td>Strong equity buffer, stable EBIT, asset turnover</td>
-<td>Stable global real estate services demand, diversified revenue streams</td>
+<td>Strong equity, stable EBIT, asset turnover</td>
+<td>Continued operational stability; no distress signals</td>
 </tr>
 <tr>
 <td>Q7</td>
 <td>5.70</td>
 <td>Safe</td>
 <td>Similar drivers as current</td>
-<td>Continued operational stability</td>
+<td>Stable business environment</td>
 </tr>
 <tr>
 <td>Q6</td>
 <td>5.78</td>
 <td>Safe</td>
-<td>Peak Z-Score, strong financials</td>
-<td>Favorable market conditions</td>
+<td>Peak Z-Score; strong capital structure</td>
+<td>Possibly peak operational efficiency</td>
 </tr>
 <tr>
 <td>Q5</td>
 <td>5.59</td>
 <td>Safe</td>
 <td>Consistent profitability</td>
-<td>Steady growth in advisory and workplace solutions</td>
+<td>Stable market conditions</td>
 </tr>
 <tr>
 <td>Q4</td>
 <td>5.53</td>
 <td>Safe</td>
 <td>Stable working capital</td>
-<td>Expansion in real estate investments</td>
+<td>No major operational disruptions</td>
 </tr>
 <tr>
 <td>Q3</td>
 <td>5.52</td>
 <td>Safe</td>
 <td>EBIT and asset turnover steady</td>
-<td>Market recovery post-pandemic</td>
+<td>Business growth phase</td>
 </tr>
 <tr>
 <td>Q2</td>
 <td>4.18</td>
 <td>Safe</td>
 <td>Improvement from prior quarters</td>
-<td>Operational improvements</td>
+<td>Recovery or operational improvements</td>
 </tr>
 <tr>
 <td>Q1</td>
 <td>3.80</td>
 <td>Safe</td>
 <td>Entry into safe zone</td>
-<td>Recovery phase</td>
+<td>Transition from gray zone to safe zone</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_1">Commentary</h3>
-<p>CBRE’s Z-Score trajectory shows a <strong>clear upward trend from 3.80 to a peak of 5.78</strong>, stabilizing around 5.60, indicating <strong>improving financial health and reduced bankruptcy risk</strong> over the last two years. The steady high Z-Score reflects strong equity capitalization, consistent EBIT generation, and efficient asset utilization.</p>
-<p>The <strong>business context</strong> of diversified segments (Advisory Services, Global Workplace Solutions, Real Estate Investments) supports resilience against sector cyclicality. The Z-Score improvements correlate with operational expansions and market recovery phases, confirming sound management execution.</p>
+<p>CBRE’s Z-Score has shown a <strong>steady upward trend from 3.80 to a peak of 5.78</strong>, stabilizing around 5.60 in the most recent quarter. This trajectory indicates <strong>improving financial health and decreasing bankruptcy risk</strong> over the past two years. The key drivers include strong equity capitalization, consistent EBIT generation, and efficient asset utilization.  </p>
+<p>The business context aligns with CBRE’s strategic positioning in the Real Estate Services sector, where operational scale and diversified service lines (Advisory, Workplace Solutions, Investments) contribute to financial resilience. The Z-Score consistently outperforms the industry average (~3.0), reinforcing CBRE’s competitive advantage.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -685,31 +767,31 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Strong upward trend, Z ~5.6</td>
-<td>P/E 43.92, EV/EBITDA 21.95</td>
-<td>Partial alignment (valuation premium)</td>
-<td>Market pricing reflects growth expectations; fundamental strength supports valuation</td>
+<td>Stable high Z-Score (~5.6)</td>
+<td>Price stable at $142.90</td>
+<td>Aligned</td>
+<td>Market recognizes strong fundamentals</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Not explicitly available</td>
-<td>Implied positive via valuation</td>
-<td>Indeterminate</td>
-<td>Monitor for sentiment shifts; current premium valuation implies optimism</td>
+<td>Neutral to positive</td>
+<td>P/E Ratio high at 43.58</td>
+<td>Consistent</td>
+<td>Market expects growth; valuation premium</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Above industry average Z-Score</td>
-<td>Sector performance stable</td>
+<td>Outperforming peers</td>
+<td>Sector performance moderate</td>
 <td>Outperforming</td>
-<td>Competitive advantage confirmed; potential for sustained outperformance</td>
+<td>Competitive positioning strong</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_2">Commentary</h3>
-<p>The <strong>Z-Score’s strong safe zone status aligns with a premium market valuation</strong> (P/E 43.92, EV/EBITDA 21.95), indicating investor confidence in CBRE’s growth and financial stability. However, the absence of volatility and price movement data limits direct correlation analysis.</p>
-<p>The <strong>market’s premium valuation</strong> suggests expectations of continued operational growth and sector leadership. The <strong>lack of dividend yield</strong> supports a reinvestment strategy consistent with growth orientation.</p>
-<p>Peer analysis confirms CBRE’s <strong>superior financial health relative to industry peers</strong>, reinforcing its competitive positioning.</p>
+<p>The <strong>Z-Score’s strong and stable signal aligns well with CBRE’s current market price of $142.90</strong>, indicating that the market broadly reflects the company’s solid financial health. The high P/E ratio (43.58) signals investor expectations for continued growth, which is consistent with the positive sentiment analysis.  </p>
+<p>Peer comparison confirms CBRE’s superior positioning within the Real Estate Services industry, outperforming competitors like JLL and CWK in creditworthiness and operational metrics.  </p>
+<p>No significant divergence between fundamental health and market signals suggests <strong>limited risk of abrupt market corrections</strong>, but the elevated valuation calls for monitoring for potential re-pricing events.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -727,35 +809,39 @@
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential EBIT margin pressure</td>
-<td>Diversify service offerings; cost control</td>
+<td>Potential EBIT decline could reduce Z-Score by ~0.5</td>
+<td>Diversify service lines; enhance cost controls</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
 <td>Minor</td>
-<td>Limited due to strong equity</td>
-<td>Maintain conservative leverage; monitor liquidity</td>
+<td>Negative working capital may pressure liquidity</td>
+<td>Improve short-term asset-liability management</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Possible valuation correction</td>
-<td>Hedge market exposure; monitor macro trends</td>
+<td>Market downturn could reduce asset turnover and EBIT</td>
+<td>Hedge exposures; maintain capital reserves</td>
+</tr>
+<tr>
+<td>Data/Quality Risks</td>
+<td>Low</td>
+<td>Minor</td>
+<td>No anomalies detected; minimal impact</td>
+<td>Continuous data monitoring and validation</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_3">Commentary</h3>
-<ul>
-<li><strong>Operational Risks:</strong> Moderate probability due to sector cyclicality and competitive pressures. EBIT ratio is low (1%), so margin compression could impact Z-Score.  </li>
-<li><strong>Financial Risks:</strong> Low probability given strong Z-Score and equity buffer; however, working capital ratio slightly negative (-0.001) suggests monitoring liquidity.  </li>
-<li><strong>Market Risks:</strong> Medium probability of valuation correction given high multiples (P/E 43.92). Market downturns could pressure stock price but less likely to impact fundamental Z-Score immediately.</li>
-</ul>
-<p><strong>Scenario Analysis:</strong><br />
-- <strong>Best Case:</strong> Continued EBIT growth and asset turnover improvements push Z-Score above 6.0, supporting valuation expansion.<br />
-- <strong>Base Case:</strong> Stable EBIT and asset turnover maintain Z-Score ~5.6, supporting current valuation levels.<br />
-- <strong>Worst Case:</strong> EBIT margin contraction and liquidity stress reduce Z-Score below 4.0, signaling increased distress risk and valuation contraction.</p>
+<p>Based on AI Risk Analysis, CBRE faces <strong>low to medium risks</strong>, primarily operational and market-related. The <strong>operational risk</strong> centers on potential EBIT margin compression, which could moderately reduce the Z-Score but is mitigated by diversified revenue streams.  </p>
+<p>The <strong>negative working capital ratio</strong> flags a liquidity risk, albeit minor given the company’s size and capital structure. Market risks include sector cyclicality affecting asset turnover and profitability.  </p>
+<p>Scenario analysis suggests:<br />
+- <strong>Best Case:</strong> Z-Score rises above 6.0 with improved EBIT and asset turnover.<br />
+- <strong>Base Case:</strong> Z-Score remains stable around 5.5-5.7.<br />
+- <strong>Worst Case:</strong> Z-Score declines toward 3.5-4.0 if operational or market conditions deteriorate, still within the safe zone but warranting caution.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -774,51 +860,51 @@
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score stable at 5.60, low risk</td>
-<td>Wait for valuation dip</td>
+<td>Z-Score stable at 5.60; low risk</td>
+<td>Price stable; monitor liquidity</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>No dividend yield, reinvestment focus</td>
-<td>Not suitable currently</td>
-<td>Monitor quarterly</td>
+<td>No dividend yield; focus on growth</td>
+<td>Dividend absent; no income</td>
+<td>N/A</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>HOLD/BUY</td>
-<td>High Z-Score but premium valuation</td>
-<td>Look for entry below $130</td>
-<td>3-6 months</td>
+<td>BUY</td>
+<td>Z-Score well above 3.0; undervaluation unlikely</td>
+<td>High P/E; wait for dips</td>
+<td>Opportunistic</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>BUY</td>
-<td>Strong Z-Score trend supports growth</td>
-<td>Favorable momentum</td>
-<td>Immediate to 6 months</td>
+<td>Strong Z-Score supports growth thesis</td>
+<td>Momentum positive; valuation premium</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>BUY</td>
-<td>Low bankruptcy risk, high valuation risk</td>
-<td>Volatility low, monitor</td>
-<td>Immediate</td>
+<td>Low risk, high stability; moderate volatility</td>
+<td>Low volatility; stable beta</td>
+<td>Immediate to 3 months</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_4">Commentary</h3>
 <ul>
-<li><strong>Conservative investors</strong> should hold and monitor for valuation corrections before increasing exposure.  </li>
-<li><strong>Dividend investors</strong> may find CBRE unsuitable currently due to zero yield.  </li>
-<li><strong>Value investors</strong> should consider buying on dips below $130, leveraging strong Z-Score as a safety buffer.  </li>
-<li><strong>Growth investors</strong> can buy now, supported by stable Z-Score and sector growth prospects.  </li>
-<li><strong>Aggressive investors</strong> may initiate positions immediately but should monitor for valuation volatility and operational risks.</li>
+<li><strong>Conservative investors</strong> should maintain positions, given CBRE’s low risk and stable fundamentals, but watch liquidity metrics.  </li>
+<li><strong>Dividend investors</strong> may find CBRE unattractive due to zero dividend yield.  </li>
+<li><strong>Value investors</strong> should be selective, as the high P/E ratio suggests limited margin for valuation upside; consider buying on price corrections.  </li>
+<li><strong>Growth investors</strong> can capitalize on CBRE’s strong Z-Score and operational momentum, with a medium-term horizon.  </li>
+<li><strong>Aggressive investors</strong> may initiate or add positions immediately, benefiting from low volatility and strong financial health.</li>
 </ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
@@ -835,29 +921,30 @@
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Sustain growth &amp; operational efficiency</td>
-<td>EBIT ratio, Asset turnover, Z-Score</td>
-<td>Focus on margin improvement, diversify services</td>
-<td>Z-Score &gt;5.5, EBIT margin &gt;1.5%</td>
+<td>Operational efficiency &amp; growth</td>
+<td>EBIT Ratio, Asset Turnover</td>
+<td>Focus on margin improvement and asset utilization</td>
+<td>EBIT margin growth; Z-Score stability</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Maintain liquidity &amp; leverage control</td>
-<td>Working capital ratio, Debt-to-equity</td>
-<td>Optimize working capital, manage debt levels</td>
-<td>Working capital ratio &gt;0, stable leverage</td>
+<td>Liquidity &amp; capital structure</td>
+<td>Working Capital Ratio, Debt-to-Equity</td>
+<td>Improve working capital management; optimize debt levels</td>
+<td>Positive working capital; stable leverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
 <td>Risk oversight &amp; compliance</td>
-<td>Risk factors, Z-Score trends</td>
-<td>Regular risk reviews, scenario planning</td>
-<td>Low risk incidents, stable Z-Score</td>
+<td>Z-Score trends, Risk factors</td>
+<td>Monitor risk scenarios; enforce governance policies</td>
+<td>Risk mitigation; compliance adherence</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_5">Commentary</h3>
-<p>Executive leadership should prioritize <strong>margin expansion and operational efficiency</strong> to sustain the strong Z-Score trajectory. The CFO must address the slightly negative working capital ratio and ensure leverage remains conservative. The Board should maintain vigilant oversight on emerging risks, especially operational and market risks, to preserve financial stability.</p>
+<p>Executive leadership should prioritize <strong>enhancing EBIT margins and asset turnover</strong> to sustain Z-Score momentum. The CFO must address the slight negative working capital ratio to safeguard liquidity without compromising operational flexibility.  </p>
+<p>The Board should maintain vigilance on emerging risks, ensuring governance frameworks adapt to market and operational changes, leveraging the AI Risk Analysis insights for proactive risk management.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -873,35 +960,37 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable ~5.6</td>
-<td>Slightly positive</td>
-<td>EBIT margin improvement, asset turnover</td>
-<td>Quarterly EBIT, working capital ratio</td>
+<td>Stable at ~5.60</td>
+<td>Slight upward</td>
+<td>EBIT margin improvement; asset turnover gains</td>
+<td>Quarterly EBIT, asset turnover ratios</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Strong, premium valuation</td>
+<td>Strong, outperforming peers</td>
 <td>Maintain or improve</td>
-<td>Sector growth, service diversification</td>
+<td>Sector growth; competitive positioning</td>
 <td>Market share, peer Z-Score trends</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>Low to medium</td>
 <td>Stable</td>
-<td>Macroeconomic conditions, interest rates</td>
-<td>Interest rate changes, liquidity ratios</td>
+<td>Economic cycles; interest rate changes</td>
+<td>Liquidity ratios; debt levels; macro indicators</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_6">Commentary</h3>
-<p>CBRE’s Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, driven by operational efficiencies and sector growth. Key catalysts include margin expansion initiatives and successful diversification in real estate services.</p>
-<p>Risk profile remains low but requires monitoring of macroeconomic factors such as interest rate fluctuations and liquidity conditions. Early warning indicators include any decline in EBIT margin below 1% or working capital ratio turning more negative.</p>
+<p>CBRE’s Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, driven by operational efficiencies and sector growth. Key catalysts include successful margin expansion initiatives and maintaining asset turnover efficiency.  </p>
+<p>Risk profile monitoring should focus on liquidity metrics and macroeconomic factors such as interest rate fluctuations impacting real estate services demand. Early warning indicators include declining EBIT margins or worsening working capital ratios.  </p>
+<p>Investment thesis evolution scenarios should incorporate potential market corrections given valuation levels, with readiness to adjust exposure accordingly.</p>
 <hr />
-<h1 id="summary"><strong>Summary</strong></h1>
-<p>CBRE Group, Inc. exhibits <strong>robust financial health with a strong Altman Z-Score consistently in the Safe Zone</strong>, supported by solid operational metrics and a premium market valuation. While liquidity nuances and high valuation multiples warrant cautious monitoring, the overall investment outlook is positive, favoring growth and moderate risk-tolerant investors. Strategic focus on margin improvement and liquidity management will sustain this trajectory.</p>
+<h1 id="summary-conclusion"><strong>Summary Conclusion</strong></h1>
+<p>CBRE Group, Inc. demonstrates <strong>robust financial health with a strong Altman Z-Score consistently in the Safe Zone</strong>, supported by efficient asset use and stable profitability. While liquidity metrics warrant monitoring, overall risk remains low, and market sentiment aligns with fundamental strength.  </p>
+<p>Investment recommendations favor <strong>Buy for growth and aggressive profiles</strong>, <strong>Hold for conservative investors</strong>, and caution for value investors due to elevated valuation multiples. Strategic focus on operational efficiency and liquidity management will be critical to sustaining this positive outlook.</p>
 <hr />
-<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Framework.</em></p></div></div>
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial data, market intelligence, and risk stratification for actionable investment insights.</em></p></div></div>
     </div>
     
 
@@ -1244,78 +1333,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:20 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:30 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

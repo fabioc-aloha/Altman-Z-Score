@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Comerica Incorporated (CMA)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:20 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:43 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -345,9 +417,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="CMA_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="CMA_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -410,15 +482,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$63.78</p>
+                <p>$$63.52</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$8.4B</p>
+                <p>$$8.4B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>12.1</p>
+                <p>12.0</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -430,7 +502,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>78.5</p>
+                <p>89.8</p>
             </div>
         </div>
     </div>
@@ -444,7 +516,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.88</p>
+                <p>0.87</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -474,14 +546,13 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Comerica Incorporated (Ticker: CMA)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:19:44  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:43:17  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Comerica Incorporated (CMA) currently resides in a <strong>Distress Zone</strong> with a <strong>latest Altman Z-Score of -1.10</strong>, indicating a high risk of financial distress and potential insolvency. The Z-Score has persistently remained negative across the last eight quarters, fluctuating between -1.17 and -0.19, with no indication of recovery or movement toward the Gray (1.8-3.0) or Safe (&gt;3.0) zones. This sustained distress is alarming and signals urgent financial and operational challenges.</p>
-<p><strong>AI Risk Analysis</strong> categorizes the overall risk level as <strong>high</strong>, with a trajectory that remains negative and no signs of improvement. The risk factors include severe liquidity constraints (Working Capital Ratio of -0.624), minimal operational profitability (EBIT Ratio of 0.003), and extremely low asset turnover (0.015), all of which compound the distress signal.</p>
-<p><strong>AI Peer Analysis</strong> positions CMA significantly below the <strong>industry average Z-Score</strong>, which typically ranges above 2.5 for regional banks, indicating CMA is an outlier in distress compared to its peers such as KeyCorp (KEY) and Regions Financial (RF). This relative positioning suggests competitive weakness and elevated bankruptcy risk.</p>
-<p><strong>AI Sentiment Analysis</strong> is constrained by market data anomalies (zero trading volume, zero price range), but the reported <strong>476% dividend yield</strong> is likely a data artifact or unsustainable payout, further underscoring financial instability. Market technical indicators (RSI, moving averages) are non-informative due to zero values, reflecting illiquidity or data gaps.</p>
-<hr />
+<p>Comerica Incorporated (CMA) currently exhibits a <strong>Distress Zone</strong> Altman Z-Score profile, with the latest Z-Score at <strong>-1.10</strong>, well below the critical threshold of 1.8 that signals financial distress. This negative Z-Score trend has persisted across the last eight quarters, fluctuating between -1.17 and 0.29, consistently indicating elevated bankruptcy risk and financial instability.</p>
+<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>high</strong>, with a trajectory showing no meaningful recovery trend. The company’s <strong>Working Capital Ratio of -0.624</strong> and minimal <strong>EBIT Ratio of 0.003</strong> underscore operational liquidity and profitability challenges. Despite a substantial <strong>Market Cap of $8.35 billion</strong> and a current share price of <strong>$63.53</strong>, the financial fundamentals suggest significant distress.</p>
+<p><strong>AI Peer Analysis</strong> places CMA significantly below the <strong>industry average Z-Score</strong> (typically above 3.0 for regional banks), indicating underperformance relative to peers in the Financial Services sector, particularly within the Banks - Regional industry. This relative positioning signals competitive weakness and heightened risk.</p>
+<p><strong>AI Sentiment Analysis</strong> is constrained by anomalous market data (zero volume, zero price range), but the extraordinarily high <strong>Dividend Yield of 476%</strong> likely reflects a data anomaly or unsustainable payout, further cautioning investors.</p>
 <h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
@@ -496,60 +567,53 @@
 <tr>
 <td>Latest Altman Z-Score</td>
 <td>-1.10</td>
-<td>~2.5+ (Regional Banks)</td>
-<td>Severe Distress</td>
+<td>&gt;3.0 (Safe Zone)</td>
+<td>Distress Zone, high risk</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.624</td>
-<td>Positive (&gt;0.2)</td>
-<td>Critical Liquidity Deficit</td>
+<td>Positive (&gt;0)</td>
+<td>Severe liquidity weakness</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.156</td>
-<td>~0.3+</td>
-<td>Low Accumulated Earnings</td>
+<td>Typically &gt;0.2</td>
+<td>Below average, weak equity</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.003</td>
-<td>~0.05+</td>
-<td>Near Zero Profitability</td>
+<td>~0.05+ for healthy banks</td>
+<td>Near zero profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.015</td>
-<td>~0.5+</td>
-<td>Extremely Low Efficiency</td>
+<td>~0.5+ for banks</td>
+<td>Extremely low operational efficiency</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$8.38B</td>
+<td>$8.35B</td>
 <td>N/A</td>
-<td>Mid-Cap Size</td>
-</tr>
-<tr>
-<td>Current Price</td>
-<td>$63.78</td>
-<td>N/A</td>
-<td>Price data unreliable</td>
+<td>Large cap but distressed</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>476.00%</td>
-<td>~2-4%</td>
-<td>Likely Data Anomaly</td>
+<td>~2-4% typical</td>
+<td>Data anomaly or unsustainable</td>
 </tr>
 </tbody>
 </table>
-<hr />
 <h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
 <ul>
-<li><strong>Immediate Caution:</strong> The persistent negative Z-Score and liquidity deficits warrant a <strong>SELL</strong> or <strong>AVOID</strong> recommendation for all but the most speculative investors.</li>
-<li><strong>High Risk Exposure:</strong> Given the distress signals and lack of operational recovery, investors should consider <strong>divestment</strong> or <strong>hedging</strong> strategies.</li>
-<li><strong>Monitor for Turnaround:</strong> Only consider re-entry if future quarters show Z-Score improvement above 1.8 with corresponding operational and liquidity improvements.</li>
-<li><strong>Data Quality Note:</strong> Market data anomalies reduce confidence in price-based timing; focus on fundamental recovery signals.</li>
+<li><strong>Immediate Caution:</strong> Given persistent distress-level Z-Scores and liquidity deficits, CMA is a <strong>high-risk investment</strong> unsuitable for conservative or dividend-focused investors.</li>
+<li><strong>Speculative Opportunity:</strong> Aggressive investors may consider a <strong>high-risk speculative position</strong> only if accompanied by rigorous monitoring of turnaround signals.</li>
+<li><strong>Avoid Growth or Value Plays:</strong> The current financial instability and operational inefficiency undermine growth and value investment theses.</li>
+<li><strong>Monitor for Recovery:</strong> Close attention to future quarters for Z-Score improvement above 1.8 is critical before reconsidering a buy or hold stance.</li>
 </ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
@@ -558,7 +622,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark / Peer Average</th>
+<th>Industry Benchmark / Peer Comparison</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -567,55 +631,41 @@
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: N/A (Working Capital Ratio: -0.624)</td>
-<td>Positive (&gt;0.2)</td>
-<td>Severe liquidity deficit; negative working capital signals cash flow stress</td>
+<td>Positive (&gt;0) for banks</td>
+<td>Severe liquidity weakness; negative working capital signals cash flow stress</td>
 <td>Declining/Distress</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Data Missing)</td>
-<td>Industry average ~1.0</td>
-<td>Unable to assess leverage; likely elevated given distress</td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>Moderate leverage typical for banks</td>
+<td>Unable to assess leverage fully; high risk implied by Z-Score</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>EBIT Ratio: 0.003; Asset Turnover: 0.015</td>
-<td>EBIT ~0.05+; Asset Turnover ~0.5+</td>
-<td>Near-zero profitability and extremely low asset utilization</td>
+<td>EBIT Ratio &gt;0.05; Asset Turnover ~0.5+</td>
+<td>Extremely low profitability and asset utilization; operational inefficiency</td>
 <td>Declining</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.156</td>
-<td>~0.3+</td>
-<td>Low retained earnings relative to assets; weak equity cushion</td>
-<td>Stable to Weak</td>
+<td>Retained Earnings Ratio: 0.156; Cash Position: N/A</td>
+<td>Retained Earnings &gt;0.2 typical</td>
+<td>Weak equity base; potential erosion of capital</td>
+<td>Declining</td>
 </tr>
 </tbody>
 </table>
-<hr />
 <h3 id="commentary">Commentary</h3>
 <ul>
-<li>
-<p><strong>Liquidity Position:</strong> The <strong>Working Capital Ratio of -0.624</strong> is critically negative, indicating current liabilities exceed current assets by a large margin. This is a severe warning sign for short-term solvency. The absence of a current ratio figure and negative working capital ratio reflect potential cash flow and operational funding difficulties. This aligns with the <strong>AI Risk Analysis</strong> highlighting liquidity stress as a top risk factor with high severity.</p>
-</li>
-<li>
-<p><strong>Leverage Management:</strong> Debt-to-equity data is missing, limiting leverage assessment. However, the distressed Z-Score and negative working capital imply elevated financial leverage or inability to service debt. This is consistent with the <strong>AI Peer Analysis</strong> showing CMA lagging peers who maintain healthier leverage profiles.</p>
-</li>
-<li>
-<p><strong>Operational Efficiency:</strong> The EBIT ratio of 0.003 is near zero, indicating negligible operating profit relative to assets. Coupled with an asset turnover of 0.015 (far below industry norms of ~0.5), this suggests inefficient asset use and poor revenue generation. These metrics explain the persistent negative Z-Score and distress classification.</p>
-</li>
-<li>
-<p><strong>Financial Stability:</strong> Retained earnings ratio at 0.156 is low, indicating limited accumulated profits to buffer losses or fund growth. This weak equity base exacerbates financial vulnerability.</p>
-</li>
-<li>
-<p><strong>Data Quality Impact:</strong> The <strong>AI Data Quality Assessment</strong> notes no anomalies detected in financial data completeness, but market data anomalies (zero volume, zero price range) reduce confidence in market-based valuation metrics.</p>
-</li>
-<li>
-<p><strong>Sector Context:</strong> As a <strong>Regional Bank in Financial Services</strong>, liquidity and capital adequacy are critical. CMA’s liquidity and profitability metrics are well below sector standards, signaling operational and strategic challenges in a highly regulated and competitive industry.</p>
-</li>
+<li><strong>Liquidity Position:</strong> The negative Working Capital Ratio (-0.624) is a critical red flag, indicating current liabilities exceed current assets substantially. This is atypical for a regional bank and suggests severe short-term liquidity stress. The absence of a current ratio figure limits full assessment but the working capital metric alone signals distress.</li>
+<li><strong>Leverage Management:</strong> Debt-to-Equity data is unavailable, but the Altman Z-Score’s heavy weighting on market value of equity relative to debt implies significant leverage concerns. The negative Z-Score suggests that debt levels may be unsustainable.</li>
+<li><strong>Operational Efficiency:</strong> EBIT Ratio at 0.003 is near zero, indicating negligible operating profit relative to assets. Asset Turnover at 0.015 is drastically below industry norms (~0.5+), reflecting poor asset utilization and revenue generation.</li>
+<li><strong>Financial Stability:</strong> Retained Earnings Ratio at 0.156 is below the industry benchmark, indicating limited reinvested earnings and potential capital erosion. Cash position data is missing, but given liquidity issues, cash reserves are likely insufficient.</li>
 </ul>
+<p><strong>AI Data Quality Assessment</strong> shows no anomalies detected in financial data completeness, but the absence of key leverage and cash data reduces confidence. The overall data quality is sufficient for a high-level distress diagnosis but limits granular leverage analysis.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -633,26 +683,25 @@
 <td>Current (Q8)</td>
 <td>-1.10</td>
 <td>Distress</td>
-<td>Negative working capital, near-zero EBIT, low retained earnings</td>
-<td>Ongoing operational inefficiencies, possible asset quality issues</td>
+<td>Negative working capital, low EBIT, poor asset turnover</td>
+<td>Continued operational and liquidity challenges</td>
 </tr>
 <tr>
-<td>Previous Quarters</td>
-<td>Range: -1.17 to -0.19</td>
+<td>Previous Quarters (Q1-Q7)</td>
+<td>Range: -1.17 to 0.29</td>
 <td>Distress</td>
-<td>Persistent liquidity deficits, poor profitability</td>
+<td>Persistent negative working capital, weak profitability</td>
 <td>No recovery signs; possible cyclical or structural issues</td>
 </tr>
 </tbody>
 </table>
-<hr />
 <h3 id="commentary_1">Commentary</h3>
 <ul>
-<li>The Z-Score has remained consistently <strong>below zero</strong> for eight quarters, indicating <strong>persistent financial distress</strong> without any inflection toward recovery.</li>
-<li>The lack of component data (Working Capital/Total Assets, Retained Earnings/Total Assets, EBIT/Total Assets) for historical quarters limits granular driver analysis but the overall trend is clear.</li>
-<li>The <strong>negative Z-Score trajectory</strong> correlates with the company’s operational inefficiencies and liquidity shortfalls.</li>
-<li>Compared to the <strong>industry average Z-Score (~2.5+)</strong>, CMA’s position is significantly weaker, underscoring competitive disadvantages.</li>
-<li>No identifiable business cycle or event has reversed the trend, suggesting structural challenges rather than temporary setbacks.</li>
+<li>The Z-Score has remained in the <strong>Distress Zone</strong> throughout all eight quarters, with no quarter approaching the Gray Zone (1.8-3.0) or Safe Zone (&gt;3.0).</li>
+<li>The lowest Z-Score of -1.17 and highest of 0.29 indicate volatility but no meaningful improvement.</li>
+<li>Key drivers include <strong>negative working capital</strong>, <strong>near-zero EBIT</strong>, and <strong>extremely low asset turnover</strong>, all pointing to operational inefficiencies and financial distress.</li>
+<li>The lack of working capital and retained earnings data in historical quarters limits detailed component trend analysis, but the persistent negative Z-Scores correlate with ongoing business challenges in the regional banking sector.</li>
+<li>Compared to the <strong>industry average Z-Score &gt;3.0</strong>, CMA is significantly underperforming, highlighting competitive disadvantage and elevated bankruptcy risk.</li>
 </ul>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
@@ -669,35 +718,34 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Persistently Distressed (-1.10 latest)</td>
-<td>Price stable at $63.78 but zero volume and range</td>
+<td>Persistent Distress</td>
+<td>Price stable at $63.53</td>
 <td>Divergent</td>
-<td>Market data unreliable; fundamental distress not reflected in price action</td>
+<td>Market price does not reflect distress; potential overvaluation or data anomaly</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Negative implied by risk and Z-Score</td>
-<td>Market data anomalies prevent sentiment validation</td>
+<td>Negative implied</td>
+<td>Dividend Yield 476% (likely anomaly)</td>
 <td>Inconsistent</td>
-<td>Sentiment unclear; caution advised</td>
+<td>Market sentiment unclear; dividend yield likely data error</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Significantly below peers</td>
-<td>Sector performance stable</td>
+<td>Below industry avg</td>
+<td>Sector performance unknown</td>
 <td>Underperforming</td>
-<td>Competitive weakness; avoid relative to peers</td>
+<td>CMA lags peers; market may undervalue risk</td>
 </tr>
 </tbody>
 </table>
-<hr />
 <h3 id="commentary_2">Commentary</h3>
 <ul>
-<li>The <strong>market signals are inconsistent</strong> with fundamental distress indicators. Zero trading volume and zero 52-week price range suggest illiquidity or data reporting issues, limiting market validation.</li>
-<li>The <strong>P/E ratio of 12.06</strong> is moderate but likely unreliable given other valuation metrics (Price/Book, EV/EBITDA, Price/Sales all zero).</li>
-<li>The <strong>476% dividend yield</strong> is an extreme outlier and likely a data anomaly or unsustainable payout, which could mislead investors.</li>
-<li>The divergence between fundamental distress and market signals reduces confidence in market timing based on price action.</li>
-<li>Peer comparison confirms CMA’s underperformance relative to regional bank peers, reinforcing a cautious stance.</li>
+<li>The <strong>Z-Score distress signals</strong> are not mirrored by typical market indicators. The share price of $63.53 and market cap of $8.35B suggest market confidence or data inconsistency.</li>
+<li>Technical indicators (52-week range, RSI, moving averages) are all zero or unavailable, indicating either illiquidity or data reporting issues.</li>
+<li>The <strong>Dividend Yield of 476%</strong> is an extreme outlier, likely a data anomaly or a sign of unsustainable dividend policy, which conflicts with the distress signals.</li>
+<li>The divergence between fundamental distress and market price suggests either market inefficiency, delayed risk recognition, or data quality issues.</li>
+<li>Investors should exercise caution and seek corroborative market data before acting on price signals.</li>
 </ul>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
@@ -716,35 +764,34 @@
 <td>Operational Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Further Z-Score decline</td>
-<td>Cost reduction, asset optimization</td>
+<td>Further decline due to inefficiency</td>
+<td>Restructure operations, improve asset utilization</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Bankruptcy risk increase</td>
-<td>Capital raising, debt restructuring</td>
+<td>Continued negative working capital and low EBIT</td>
+<td>Capital infusion, debt restructuring</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Volatility spikes possible</td>
+<td>Price volatility if distress recognized</td>
 <td>Hedging, diversification</td>
 </tr>
 </tbody>
 </table>
-<hr />
 <h3 id="commentary_3">Commentary</h3>
 <ul>
-<li><strong>Operational Risks:</strong> High probability and critical severity due to near-zero EBIT and asset turnover. Continued operational inefficiency will further depress Z-Score.</li>
-<li><strong>Financial Risks:</strong> Elevated bankruptcy risk given negative working capital and low retained earnings. Without capital infusion or debt restructuring, insolvency risk is high.</li>
-<li><strong>Market Risks:</strong> Medium probability of volatility given illiquid trading and uncertain market perception. Hedging strategies recommended.</li>
-<li><strong>Scenario Planning:</strong>  </li>
-<li><strong>Best Case:</strong> Operational turnaround improves EBIT and working capital, lifting Z-Score above 1.8 in 6-12 months.  </li>
-<li><strong>Base Case:</strong> Continued distress with marginal improvements but Z-Score remains below 1.8.  </li>
-<li><strong>Worst Case:</strong> Further deterioration leading to bankruptcy or forced restructuring.</li>
+<li><strong>Operational Risks:</strong> High probability and critical severity due to near-zero EBIT and asset turnover. Without operational turnaround, Z-Score will deteriorate further.</li>
+<li><strong>Financial Risks:</strong> High likelihood of liquidity crunch and insolvency given negative working capital ratio and weak retained earnings. Bankruptcy risk is elevated.</li>
+<li><strong>Market Risks:</strong> Moderate probability of sharp price corrections if market aligns with fundamentals. Current price stability may be misleading.</li>
+<li><strong>Scenario Planning:</strong></li>
+<li><strong>Best Case:</strong> Operational improvements raise EBIT and working capital, Z-Score moves above 1.8 within 2-3 quarters.</li>
+<li><strong>Base Case:</strong> Status quo persists, Z-Score remains in distress zone, risk of default increases.</li>
+<li><strong>Worst Case:</strong> Further deterioration leads to bankruptcy or forced restructuring.</li>
 </ul>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
@@ -764,8 +811,8 @@
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>SELL</td>
-<td>Z-Score -1.10 indicates distress</td>
-<td>Avoid entry; exit positions</td>
+<td>Z-Score consistently &lt;1.8, liquidity negative</td>
+<td>Avoid entry; exit if held</td>
 <td>Immediate</td>
 </tr>
 <tr>
@@ -779,36 +826,35 @@
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>SELL</td>
-<td>Negative Z-Score; no value upside</td>
-<td>No entry until Z &gt; 1.8</td>
-<td>Monitor quarterly</td>
+<td>HOLD (with caution)</td>
+<td>Potential undervaluation but high distress risk</td>
+<td>Monitor for Z-Score recovery</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>SELL</td>
-<td>No growth signals; EBIT near zero</td>
-<td>Avoid; no momentum</td>
+<td>No growth sustainability; EBIT near zero</td>
+<td>Avoid entry</td>
 <td>N/A</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>SPECULATIVE</td>
+<td>SPECULATIVE BUY</td>
 <td>High risk/reward; potential turnaround</td>
-<td>Only speculative play</td>
-<td>Short-term monitoring</td>
+<td>Enter only with strict risk controls</td>
+<td>Short term monitoring</td>
 </tr>
 </tbody>
 </table>
-<hr />
 <h3 id="commentary_4">Commentary</h3>
 <ul>
-<li><strong>Conservative and Dividend investors</strong> should exit or avoid due to high distress risk and unreliable dividend signals.</li>
-<li><strong>Value investors</strong> have no clear margin of safety given persistent negative Z-Score and poor fundamentals.</li>
-<li><strong>Growth investors</strong> find no evidence of sustainable growth or operational momentum.</li>
-<li><strong>Aggressive investors</strong> may consider speculative positions only if accompanied by rigorous risk management and close monitoring of turnaround indicators.</li>
+<li><strong>Conservative and Dividend investors</strong> should avoid or divest immediately due to distress signals and payout anomalies.</li>
+<li><strong>Value investors</strong> may consider holding if price weakness presents opportunity but only with close monitoring of Z-Score improvements.</li>
+<li><strong>Growth investors</strong> should avoid due to lack of profitability and operational momentum.</li>
+<li><strong>Aggressive investors</strong> may speculate on a turnaround but must be prepared for high volatility and potential loss.</li>
 </ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
@@ -825,34 +871,33 @@
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Financial turnaround</td>
-<td>Working Capital Ratio, EBIT</td>
-<td>Implement cost controls, improve asset use</td>
-<td>Positive Z-Score trend, liquidity improvement</td>
+<td>Operational turnaround</td>
+<td>EBIT Ratio, Asset Turnover</td>
+<td>Implement cost controls, improve loan portfolio quality</td>
+<td>EBIT improvement, Z-Score &gt;1.8</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital structure management</td>
-<td>Retained Earnings Ratio, Debt levels</td>
-<td>Seek capital infusion, restructure debt</td>
-<td>Improved liquidity ratios, reduced leverage</td>
+<td>Liquidity &amp; capital structure</td>
+<td>Working Capital Ratio, Debt levels</td>
+<td>Restructure debt, improve cash flow management</td>
+<td>Positive working capital, reduced leverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight</td>
-<td>Z-Score, Risk Factors</td>
-<td>Enhance risk monitoring, enforce governance</td>
-<td>Compliance, risk reduction</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Z-Score trend, Risk factors</td>
+<td>Enhance risk management, monitor financial health</td>
+<td>Stable or improving Z-Score</td>
 </tr>
 </tbody>
 </table>
-<hr />
 <h3 id="commentary_5">Commentary</h3>
 <ul>
-<li>The <strong>CEO</strong> must prioritize operational efficiency and liquidity restoration to reverse distress signals.</li>
-<li>The <strong>CFO</strong> should focus on capital adequacy and debt management to stabilize financial structure.</li>
-<li>The <strong>Board</strong> must enforce rigorous risk governance to mitigate bankruptcy risk and oversee turnaround progress.</li>
-<li>Alignment of leadership actions with Z-Score improvements will be critical for restoring market confidence.</li>
+<li>CEO must prioritize operational efficiency improvements to reverse EBIT and asset turnover declines.</li>
+<li>CFO should focus on liquidity restoration and capital structure optimization to alleviate distress.</li>
+<li>Board must enforce rigorous risk oversight to prevent further deterioration and protect stakeholder value.</li>
+<li>Alignment of strategic initiatives with Z-Score recovery targets is essential for measurable progress.</li>
 </ul>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
@@ -870,41 +915,40 @@
 <tr>
 <td>Z-Score Momentum</td>
 <td>Negative, stable distress</td>
-<td>Potential gradual improvement if operational changes succeed</td>
-<td>Cost reduction, capital raise</td>
+<td>Potential further decline or stabilization</td>
+<td>Operational restructuring, capital infusion</td>
 <td>Quarterly Z-Score, EBIT ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Weak, underperforming</td>
-<td>Possible stabilization with turnaround</td>
-<td>Peer performance, regulatory changes</td>
-<td>Relative Z-Score, market share</td>
+<td>Underperforming peers</td>
+<td>Possible market correction or recovery</td>
+<td>Industry trends, regulatory changes</td>
+<td>Price movement, peer Z-Score</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>High risk</td>
-<td>Risk remains elevated without intervention</td>
-<td>Liquidity events, credit rating changes</td>
-<td>Working capital ratio, debt levels</td>
+<td>Risk remains elevated</td>
+<td>Credit market conditions, economic cycles</td>
+<td>Liquidity ratios, debt maturity</td>
 </tr>
 </tbody>
 </table>
-<hr />
 <h3 id="commentary_6">Commentary</h3>
 <ul>
-<li>The <strong>Z-Score momentum</strong> is currently negative but could improve with successful operational and financial restructuring.</li>
-<li><strong>Key catalysts</strong> include cost control initiatives, capital raising, and improved asset utilization.</li>
-<li><strong>Monitoring</strong> should focus on quarterly Z-Score updates, EBIT improvements, and liquidity ratios.</li>
-<li>Early warning signals include further declines in working capital ratio and EBIT, which would necessitate immediate strategic reassessment.</li>
-<li>Investors and management should maintain vigilance on these metrics to adapt investment thesis and business strategy dynamically.</li>
+<li>The Z-Score momentum is currently negative with no clear inflection point; catalysts such as operational restructuring or capital raises are needed to shift trajectory.</li>
+<li>Market position may improve if sector-wide recovery occurs or if CMA executes strategic initiatives effectively.</li>
+<li>Risk profile remains elevated; early warning signals include worsening liquidity or negative earnings surprises.</li>
+<li>Investors and management should monitor leading indicators closely to anticipate changes and adjust strategies accordingly.</li>
 </ul>
 <hr />
 <h1 id="summary-conclusion"><strong>Summary Conclusion</strong></h1>
-<p>Comerica Incorporated (CMA) is currently in a <strong>critical financial distress state</strong> as evidenced by a persistently negative Altman Z-Score (-1.10 latest) and severely impaired liquidity and operational metrics. The company’s financial health is significantly below industry benchmarks, with no clear signs of recovery in recent quarters. Market data anomalies limit confidence in price-based signals, reinforcing reliance on fundamental analysis.</p>
-<p><strong>Investment recommendation is a clear SELL or AVOID for most profiles</strong>, with speculative interest only for high-risk tolerant investors closely monitoring turnaround catalysts. Management and stakeholders must urgently address liquidity and operational inefficiencies to avert bankruptcy risk and restore financial stability.</p>
+<p>Comerica Incorporated (CMA) is currently in a <strong>critical financial distress state</strong>, as evidenced by a persistently negative Altman Z-Score (-1.10 latest) and severely impaired liquidity and operational metrics. Despite a large market capitalization and stable share price, fundamental financial health is poor, and risk of bankruptcy or restructuring is high.</p>
+<p>Investment recommendations strongly advise <strong>selling or avoiding</strong> for most profiles except highly aggressive investors willing to speculate on a turnaround. Strategic focus must be on operational efficiency, liquidity restoration, and risk management to improve financial stability and Z-Score trajectory.</p>
+<p>Close monitoring of quarterly Z-Score updates, EBIT improvements, and working capital ratios is essential to detect any recovery signals and adjust investment or management actions accordingly.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, AI risk and peer analyses, and market intelligence to provide actionable investment intelligence.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, market signals, and AI risk and peer analyses to provide actionable, data-driven investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1247,78 +1291,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:20 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:43 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

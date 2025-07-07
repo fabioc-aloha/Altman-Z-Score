@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>QUALCOMM Incorporated (QCOM)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:40 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:07 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -353,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="QCOM_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="QCOM_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -369,7 +441,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">5.30</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">5.20</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -418,15 +490,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$162.21</p>
+                <p>$$157.98</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$178.1B</p>
+                <p>$$173.5B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>16.6</p>
+                <p>16.1</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -438,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>57.7</p>
+                <p>57.1</p>
             </div>
         </div>
     </div>
@@ -452,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>-0.40</p>
+                <p>-0.49</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -473,76 +545,75 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> QUALCOMM Incorporated (QCOM)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:39:47  </p>
+<strong>Analysis Date:</strong> 2025-07-07 11:06:59  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>QUALCOMM (QCOM) demonstrates a consistently <strong>strong financial health profile</strong> with an Altman Z-Score firmly in the <strong>Safe Zone</strong> over the past eight quarters, ranging from 4.76 to 5.30, well above the distress threshold of 1.8. This robust Z-Score trajectory signals a very low bankruptcy risk and solid operational fundamentals.</p>
-<p><strong>AI Risk Analysis:</strong> Although explicit risk scores were not injected, the stable and high Z-Score values imply a low overall risk level with a positive risk trajectory, indicating sustained financial resilience.</p>
-<p><strong>AI Peer Analysis:</strong> QCOM’s Z-Score significantly exceeds typical industry averages for the semiconductor sector, which generally hover around 3.0 to 4.0, positioning QCOM as a top-tier performer relative to peers.</p>
-<p><strong>AI Sentiment Analysis:</strong> Market sentiment metrics such as the P/E ratio of 16.55 and an unusually high dividend yield of 224.00% (likely an anomaly or data error) suggest mixed signals. The zero beta and volatility values indicate either data gaps or an extremely stable price environment, warranting caution in sentiment interpretation.</p>
-<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<p>QUALCOMM (QCOM) demonstrates a consistently <strong>Safe Zone Altman Z-Score</strong> trajectory, with the latest score at <strong>4.84</strong>, well above the distress threshold of 1.8 and comfortably above the gray zone upper bound of 3.0. This strong financial health is reinforced by a stable risk profile and positive peer positioning within the semiconductor industry.</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
+<th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Interpretation</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Z-Score</td>
-<td>4.94</td>
-<td>Safe Zone, low bankruptcy risk</td>
+<td>Latest Altman Z-Score</td>
+<td>4.84</td>
+<td>Safe Zone, indicating low bankruptcy risk</td>
+</tr>
+<tr>
+<td>Z-Score Trend (8 quarters)</td>
+<td>4.66 - 5.20</td>
+<td>Stable, slight downward drift but remains safe</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$178.1B</td>
-<td>Large-cap, stable market presence</td>
+<td>$173.42B</td>
+<td>Large-cap technology leader</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$162.21</td>
+<td>$157.86</td>
 <td>Reflects market valuation</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>16.12</td>
+<td>Reasonable valuation in tech sector</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>224.00%*</td>
+<td>Data anomaly; likely erroneous or special dividend event</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.299</td>
-<td>Moderate liquidity</td>
+<td>Indicates liquidity constraints</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.494</td>
-<td>Strong earnings retention</td>
+<td>Moderate reinvestment and retained earnings</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.056</td>
-<td>Moderate operating profitability</td>
+<td>Modest operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.198</td>
-<td>Efficient asset utilization</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>16.55</td>
-<td>Reasonable valuation</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>224.00% (likely anomaly)</td>
-<td>Data anomaly, interpret cautiously</td>
+<td>Moderate efficiency in asset utilization</td>
 </tr>
 </tbody>
 </table>
-<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
-<ul>
-<li><strong>Buy/Hold:</strong> Given QCOM’s strong Z-Score and market capitalization, a <strong>Hold</strong> or <strong>Buy</strong> position is recommended for investors with moderate risk tolerance.</li>
-<li><strong>Monitor:</strong> Dividend yield anomaly and zero volatility metrics require monitoring for data corrections or market shifts.</li>
-<li><strong>Risk Management:</strong> Maintain vigilance on liquidity ratios and operational margins to detect any early signs of deterioration.</li>
-</ul>
+<p>*Note: Dividend yield of 224% is an anomaly and should be treated with caution.</p>
+<p><strong>AI Risk Analysis</strong> indicates a <strong>low overall risk level</strong> with a stable risk trajectory, supporting confidence in the company’s financial resilience. The <strong>AI Peer Analysis</strong> places QCOM above the industry average Z-Score (industry average ~3.5), confirming its competitive strength. <strong>AI Sentiment Analysis</strong> shows a neutral to positive market sentiment with no significant divergence, aligning with fundamental stability.</p>
+<p><strong>Investment Recommendation:</strong><br />
+Given the strong Altman Z-Score safety margin, reasonable valuation metrics, and stable risk profile, a <strong>HOLD</strong> or <strong>BUY</strong> position is recommended for medium to long-term investors with moderate risk tolerance. Caution is advised regarding liquidity ratios and anomalous dividend data, which require further verification.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -550,7 +621,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark*</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -559,41 +630,66 @@
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.299</td>
-<td>Industry avg ~1.0</td>
-<td>Below average liquidity; potential short-term constraints</td>
-<td>Stable</td>
+<td>~1.5 - 2.0 (Tech Sector)</td>
+<td>Below industry standard; potential liquidity risk</td>
+<td>Declining/Weak</td>
+</tr>
+<tr>
+<td></td>
+<td>Working Capital Ratio: 0.299</td>
+<td>N/A</td>
+<td>Low working capital relative to assets</td>
+<td>Stable/Low</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A</td>
-<td>Industry avg ~0.5-1.0</td>
-<td>Data unavailable; leverage unknown</td>
+<td>Debt-to-Equity: Not provided</td>
+<td>~0.5 - 1.0 (Semiconductors)</td>
+<td>Unable to assess fully; inferred moderate leverage</td>
 <td>Unknown</td>
 </tr>
 <tr>
+<td></td>
+<td>Interest Coverage: Not provided</td>
+<td>~5-10x EBIT</td>
+<td>Insufficient data; EBIT ratio low at 0.056</td>
+<td>Stable/Low EBIT</td>
+</tr>
+<tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.056, Asset Turnover: 0.198</td>
-<td>EBIT avg ~0.05-0.07, Asset Turnover avg ~0.15-0.20</td>
-<td>Moderate profitability and efficient asset use</td>
-<td>Stable</td>
+<td>Asset Turnover: 0.198</td>
+<td>~0.3 - 0.5 (Industry Avg)</td>
+<td>Below average asset utilization efficiency</td>
+<td>Stable/Moderate</td>
+</tr>
+<tr>
+<td></td>
+<td>EBIT Ratio: 0.056</td>
+<td>~0.07 - 0.12 (Peers)</td>
+<td>Slightly below peer profitability</td>
+<td>Stable/Low</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.494</td>
-<td>Industry avg ~0.4-0.5</td>
-<td>Strong retained earnings supporting stability</td>
+<td>N/A</td>
+<td>Moderate retained earnings; supports stability</td>
 <td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: Not provided</td>
+<td>N/A</td>
+<td>Data unavailable; liquidity concerns noted</td>
+<td>Unknown</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary">Commentary</h3>
-<ul>
-<li><strong>Liquidity Position:</strong> The working capital ratio of 0.299 is below typical industry standards (~1.0), indicating potential liquidity constraints. However, the stable trend and strong retained earnings ratio (0.494) mitigate immediate concerns. This suggests QUALCOMM efficiently manages working capital despite a lean liquidity buffer.</li>
-<li><strong>Leverage Management:</strong> Debt-to-equity data is missing, limiting leverage risk assessment. Given the high Z-Score, leverage is likely well-managed but should be confirmed.</li>
-<li><strong>Operational Efficiency:</strong> EBIT ratio of 5.6% and asset turnover of 0.198 align well with semiconductor industry averages, reflecting solid operational performance. The company maintains efficient asset utilization and profitability.</li>
-<li><strong>Financial Stability:</strong> Retained earnings near 49.4% of total assets indicate strong reinvestment and capital retention, supporting long-term stability.</li>
-</ul>
-<p><strong>Data Quality Note:</strong> The absence of debt-to-equity and some working capital components reduces confidence in leverage assessment. No anomalies detected in core financial ratios, supporting reliable interpretation.</p>
+<p>*Industry benchmarks approximate based on semiconductor sector averages.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+The liquidity position is a notable weakness, with a <strong>current ratio of 0.299</strong>, significantly below the typical technology sector benchmark of 1.5-2.0, indicating potential short-term liquidity constraints. This is a critical point for risk monitoring, especially given the low working capital ratio. However, the <strong>retained earnings ratio of 0.494</strong> suggests a solid base of reinvested earnings, supporting long-term financial stability.</p>
+<p>Operational efficiency metrics such as <strong>asset turnover (0.198)</strong> and <strong>EBIT ratio (0.056)</strong> are modest but stable, indicating steady but not exceptional profitability and asset use. The absence of explicit debt-to-equity and interest coverage ratios limits leverage risk assessment, but the Altman Z-Score’s strong safety margin implies manageable leverage levels.</p>
+<p>The <strong>AI Data Quality Assessment</strong> shows no anomalies in financial data completeness, but the dividend yield anomaly (224%) flags a data quality issue that tempers confidence in yield-based valuation.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -608,25 +704,25 @@
 </thead>
 <tbody>
 <tr>
-<td>Current (Q8)</td>
-<td>4.94</td>
+<td>Current (QUnknown)</td>
+<td>4.84</td>
 <td>Safe</td>
-<td>Strong retained earnings, stable EBIT, asset turnover</td>
-<td>Continued innovation in wireless tech, licensing revenue growth</td>
+<td>Strong market equity, retained earnings</td>
+<td>Stable semiconductor demand, product innovation</td>
 </tr>
 <tr>
-<td>Previous Quarters</td>
-<td>4.76 - 5.30</td>
+<td>Previous 7 Quarters</td>
+<td>4.66 - 5.20</td>
 <td>Safe</td>
-<td>Consistent profitability, asset management</td>
-<td>Stable semiconductor demand, strategic segment growth</td>
+<td>Consistent EBIT, moderate asset turnover</td>
+<td>Steady revenue streams, R&amp;D investments</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_1">Commentary</h3>
-<p>QUALCOMM’s Z-Score has remained consistently above 4.7 for eight quarters, indicating a <strong>sustained safe financial zone</strong>. The minor fluctuations (5.30 to 4.76) reflect normal business cycle variations without risk escalation. The strong retained earnings and EBIT ratios are key drivers supporting this stability.</p>
-<p>The business context of diversified segments (QCT, QTL, QSI) and leadership in wireless technology underpin the positive Z-Score trajectory. The company’s ability to maintain asset efficiency and profitability amidst semiconductor industry cyclicality is notable.</p>
-<p>Compared to the industry average Z-Score (~3.0), QCOM’s superior positioning confirms competitive strength and financial robustness.</p>
+<p><strong>Strategic Commentary:</strong><br />
+QUALCOMM’s Altman Z-Score has remained consistently in the <strong>Safe Zone (above 3.0)</strong> for eight consecutive quarters, with values ranging narrowly between <strong>4.66 and 5.20</strong>. This stability reflects robust financial health and low bankruptcy risk. The slight downward drift from 5.20 to 4.84 may warrant monitoring but is not alarming.</p>
+<p>Key drivers include strong market capitalization ($173.42B) and retained earnings (0.494 ratio), which underpin the Z-Score’s equity and profitability components. The company’s business context—focused on wireless technology innovation and licensing—supports steady EBIT generation despite moderate asset turnover.</p>
+<p>Compared to the <strong>industry average Z-Score (~3.5)</strong>, QCOM’s position is superior, indicating competitive advantage and financial resilience.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -642,31 +738,31 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable, Safe Zone (4.94)</td>
-<td>P/E 16.55, Dividend Yield anomaly</td>
-<td>Divergent (Dividend anomaly)</td>
-<td>Fundamental strength supports buy; dividend data requires caution</td>
+<td>Stable Safe Zone (4.84)</td>
+<td>Price at $157.86, P/E 16.12</td>
+<td>Aligned</td>
+<td>Supports moderate buy/hold</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Positive implied</td>
-<td>Market data incomplete (zero volatility)</td>
-<td>Inconsistent</td>
-<td>Sentiment unclear; monitor for updates</td>
+<td>Neutral to Positive</td>
+<td>Dividend anomaly noted</td>
+<td>Divergent</td>
+<td>Caution on dividend-based decisions</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Outperforming peers</td>
-<td>Sector performance strong</td>
-<td>Aligned</td>
-<td>Competitive advantage confirmed</td>
+<td>Above Industry Avg</td>
+<td>Sector performance stable</td>
+<td>Outperforming</td>
+<td>Competitive positioning strong</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_2">Commentary</h3>
-<p>The fundamental health indicated by the Z-Score aligns with a reasonable P/E ratio of 16.55, suggesting fair valuation. However, the dividend yield of 224% is an outlier likely due to data error, causing divergence in market signals.</p>
-<p>Zero beta and volatility values imply missing or stale market data, limiting confidence in technical and sentiment validation. Peer comparison confirms QCOM’s outperformance in financial health, reinforcing a positive investment stance.</p>
-<p>Investors should prioritize fundamental signals while awaiting market data updates for timing decisions.</p>
+<p><strong>Market Validation Commentary:</strong><br />
+The fundamental health indicated by the Altman Z-Score aligns well with the current market price and valuation metrics. The P/E ratio of 16.12 is reasonable for a technology company with stable earnings, supporting the Z-Score’s indication of financial safety.</p>
+<p>However, the <strong>dividend yield anomaly (224%)</strong> is inconsistent with typical market sentiment and analyst expectations, suggesting data quality issues or a one-time event. This divergence advises caution in relying on dividend yield for investment timing.</p>
+<p>Peer comparison confirms QCOM’s outperformance relative to semiconductor sector averages, reinforcing confidence in its market position.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -685,36 +781,30 @@
 <td>Medium</td>
 <td>Moderate</td>
 <td>Potential EBIT decline</td>
-<td>Diversify product lines, R&amp;D investment</td>
+<td>Enhance R&amp;D, diversify product lines</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
 <td>Moderate</td>
-<td>Liquidity constraints</td>
+<td>Liquidity stress could lower Z-Score</td>
 <td>Improve working capital management</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Valuation correction</td>
-<td>Hedging, monitor semiconductor cycles</td>
+<td>Semiconductor cyclicality affects sales</td>
+<td>Hedge via product/service diversification</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_3">Commentary</h3>
-<ul>
-<li><strong>Operational Risks:</strong> Moderate probability of EBIT margin pressure due to semiconductor market volatility. Impact on Z-Score could be a slight decline but unlikely to breach safe zone.</li>
-<li><strong>Financial Risks:</strong> Low probability but moderate severity due to below-average liquidity ratio (0.299). Could affect short-term solvency if not managed.</li>
-<li><strong>Market Risks:</strong> Medium probability of valuation swings given sector cyclicality and incomplete market data. Hedging strategies recommended.</li>
-</ul>
-<p><strong>Scenario Planning:</strong></p>
-<ul>
-<li><strong>Best Case:</strong> Z-Score remains above 5.0 with improved liquidity and EBIT margins.</li>
-<li><strong>Base Case:</strong> Stable Z-Score near 4.9 with minor operational fluctuations.</li>
-<li><strong>Worst Case:</strong> Z-Score declines toward 3.5 if liquidity worsens and EBIT contracts, still above distress but entering gray zone.</li>
-</ul>
+<p><strong>Risk Commentary:</strong><br />
+Based on AI Risk Analysis, QUALCOMM faces <strong>medium operational and market risks</strong> primarily due to the cyclical nature of the semiconductor industry and moderate EBIT margins (0.056). Liquidity risk is present given the low current ratio (0.299), though the overall financial risk is low due to strong retained earnings and market capitalization.</p>
+<p>Best-case scenario: Continued innovation and stable demand maintain or improve Z-Score above 5.0.<br />
+Base-case scenario: Slight EBIT pressure and liquidity constraints cause Z-Score to hover near 4.5.<br />
+Worst-case scenario: Market downturn and liquidity stress push Z-Score toward gray zone (~3.0), triggering caution.</p>
+<p>Mitigation includes strengthening liquidity, operational efficiency, and maintaining R&amp;D investment.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -733,51 +823,50 @@
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score stable ~4.9, low bankruptcy risk</td>
-<td>Wait for dividend data clarity</td>
+<td>Z-Score stable at 4.84, safe zone</td>
+<td>Price stable, moderate P/E</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>Dividend yield anomaly; monitor payout sustainability</td>
-<td>Cautious entry pending data</td>
-<td>3-6 months</td>
+<td>Dividend yield anomaly; verify data</td>
+<td>Yield unreliable</td>
+<td>Monitor quarterly</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>BUY</td>
-<td>P/E 16.55 reasonable, Z-Score strong</td>
-<td>Enter on price dips aligned with fundamentals</td>
+<td>Z-Score &gt; 4.5 indicates undervaluation risk low</td>
+<td>P/E reasonable, price stable</td>
 <td>Immediate to 6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>BUY</td>
-<td>Z-Score supports growth sustainability</td>
-<td>Momentum stable but monitor market data</td>
+<td>Stable EBIT and retained earnings support growth</td>
+<td>Positive momentum</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>HOLD</td>
-<td>Low volatility data; risk/reward unclear</td>
-<td>Await volatility confirmation</td>
-<td>3-6 months</td>
+<td>BUY</td>
+<td>Low risk of distress, moderate volatility</td>
+<td>Volatility low, beta 0.0</td>
+<td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_4">Commentary</h3>
-<ul>
-<li>Conservative investors should hold positions given strong financial health but await clarification on dividend yield anomalies.</li>
-<li>Dividend-focused investors should monitor payout consistency before increasing exposure.</li>
-<li>Value and growth investors are encouraged to buy, supported by strong Z-Score and reasonable valuation.</li>
-<li>Aggressive investors should hold until volatility and beta data confirm market dynamics.</li>
-</ul>
+<p><strong>Commentary:</strong><br />
+- <strong>Conservative investors</strong> should HOLD, benefiting from strong financial safety but mindful of liquidity constraints.<br />
+- <strong>Dividend investors</strong> should HOLD but seek clarification on dividend data anomalies before increasing exposure.<br />
+- <strong>Value investors</strong> are positioned to BUY given the strong Z-Score and reasonable valuation metrics.<br />
+- <strong>Growth investors</strong> can BUY, supported by stable EBIT and innovation-driven business segments.<br />
+- <strong>Aggressive investors</strong> may BUY immediately, capitalizing on low risk and stable fundamentals, though volatility data is limited.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -794,28 +883,28 @@
 <tr>
 <td>CEO Leadership</td>
 <td>Innovation &amp; Market Expansion</td>
-<td>EBIT Ratio (0.056), Z-Score (4.94)</td>
-<td>Invest in R&amp;D, expand licensing segments</td>
+<td>EBIT Ratio (0.056), Z-Score (4.84)</td>
+<td>Accelerate R&amp;D, expand licensing deals</td>
 <td>EBIT growth, Z-Score stability</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
 <td>Liquidity &amp; Capital Efficiency</td>
-<td>Working Capital Ratio (0.299), Retained Earnings (0.494)</td>
-<td>Improve working capital management, optimize capital allocation</td>
-<td>Improved liquidity ratios, stable retained earnings</td>
+<td>Current Ratio (0.299), Retained Earnings (0.494)</td>
+<td>Improve working capital, optimize debt</td>
+<td>Improved liquidity ratios</td>
 </tr>
 <tr>
 <td>Board Governance</td>
 <td>Risk Oversight &amp; Compliance</td>
-<td>Z-Score trend, Risk factors</td>
-<td>Monitor risk scenarios, enforce governance policies</td>
-<td>Risk mitigation, compliance adherence</td>
+<td>Risk Levels, Z-Score Trend</td>
+<td>Monitor risk factors, enforce governance</td>
+<td>Risk mitigation, compliance</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_5">Commentary</h3>
-<p>Executive leadership should leverage the strong Z-Score and EBIT metrics to prioritize innovation and market expansion. CFO focus on liquidity improvement is critical given the below-average working capital ratio. The board must maintain vigilant risk oversight, especially monitoring operational and market risks identified.</p>
+<p><strong>Executive Commentary:</strong><br />
+The CEO should focus on sustaining innovation to maintain EBIT margins and Z-Score safety. The CFO must address liquidity constraints highlighted by the low current ratio, optimizing capital structure to prevent operational disruptions. The Board should maintain vigilant oversight on risk trends and data anomalies, ensuring governance frameworks adapt to evolving market conditions.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -831,42 +920,35 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable near 4.9</td>
-<td>Slightly positive</td>
-<td>New product launches, licensing growth</td>
-<td>Quarterly EBIT, retained earnings</td>
+<td>Stable near 4.8</td>
+<td>Slightly downward but safe</td>
+<td>Market demand, R&amp;D success</td>
+<td>Quarterly Z-Score updates</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Strong, outperforming peers</td>
-<td>Maintain leadership</td>
-<td>Semiconductor demand, tech innovation</td>
-<td>Market share, peer Z-Score trends</td>
+<td>Strong, above average</td>
+<td>Maintain or improve</td>
+<td>Competitive innovation, licensing</td>
+<td>Market share, peer Z-Score</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low to medium risk</td>
-<td>Stable to slight increase</td>
-<td>Supply chain disruptions, macroeconomic shifts</td>
-<td>Liquidity ratios, operational margins</td>
+<td>Low to medium</td>
+<td>Stable to moderate</td>
+<td>Industry cyclicality, liquidity</td>
+<td>Liquidity ratios, EBIT margins</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_6">Commentary</h3>
-<p>QUALCOMM’s Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, driven by innovation and licensing revenue. Key catalysts include successful product rollouts and expansion in wireless technology markets.</p>
-<p>Risk profile remains low to medium, with potential headwinds from supply chain or macroeconomic factors. Continuous monitoring of liquidity and EBIT margins will provide early warning signals.</p>
-<p>Investors should track quarterly Z-Score components and market positioning metrics to adjust investment thesis dynamically.</p>
+<p><strong>Forward-Looking Commentary:</strong><br />
+QUALCOMM’s Z-Score momentum is expected to remain stable in the safe zone, barring significant market disruptions. Key catalysts include continued innovation success and licensing revenue growth. Risk monitoring should focus on liquidity and operational efficiency metrics as early warning signals.</p>
+<p>Investment thesis evolution scenarios include potential upgrades if EBIT and liquidity improve or downgrades if semiconductor market headwinds intensify. Establishing an early warning system based on quarterly Z-Score and liquidity ratio monitoring is recommended.</p>
 <hr />
-<h1 id="summary"><strong>Summary</strong></h1>
-<p>QUALCOMM exhibits a <strong>robust financial profile</strong> with a consistently high Altman Z-Score (~4.9), signaling very low bankruptcy risk and strong operational performance. Despite some data anomalies in market sentiment metrics (notably dividend yield and volatility), the fundamental financial health supports a <strong>Buy/Hold</strong> recommendation for most investor profiles, with caution advised for dividend-focused and aggressive investors pending data clarification.</p>
-<p>Liquidity constraints warrant monitoring but are offset by strong retained earnings and EBIT ratios. Strategic focus on innovation and capital efficiency will sustain competitive advantage and financial stability.</p>
-<p><strong>Actionable Intelligence:</strong><br />
-- Maintain or initiate positions aligned with risk tolerance.<br />
-- Monitor liquidity and dividend data anomalies closely.<br />
-- Leverage forward-looking Z-Score momentum for timing entry/exit.<br />
-- Employ risk mitigation strategies for operational and market uncertainties.</p>
+<h1 id="summary">Summary</h1>
+<p>QUALCOMM Incorporated exhibits a robust financial profile with a consistently safe Altman Z-Score above 4.5, signaling low bankruptcy risk and strong market positioning in the semiconductor sector. While liquidity ratios warrant attention, overall operational and financial metrics support a positive investment outlook. Investors with varying risk tolerances can consider HOLD or BUY positions, with timing and sizing adjusted for individual profiles. Continuous monitoring of liquidity and market conditions is essential to maintain confidence in this recommendation.</p>
 <hr />
-<p><em>Analysis generated with full integration of injected financial data, Z-Score trends, and market context for QUALCOMM Incorporated as of 2025-07-03.</em></p></div></div>
+<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Framework on 2025-07-07.</em></p></div></div>
     </div>
     
 
@@ -1209,78 +1291,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:40 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:07 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

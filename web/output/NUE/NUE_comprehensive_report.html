@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Nucor Corporation (NUE)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:38 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:06 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -319,6 +391,10 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
                     Attractive dividend yield</div>
                 
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Outperforming market benchmark</div>
+                
             </div>
         </div>
         
@@ -349,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="NUE_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="NUE_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -414,15 +490,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$137.87</p>
+                <p>$$138.27</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$31.8B</p>
+                <p>$$31.9B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>24.3</p>
+                <p>24.4</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -434,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>84.6</p>
+                <p>82.7</p>
             </div>
         </div>
     </div>
@@ -448,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>-0.13</p>
+                <p>-0.10</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -468,75 +544,79 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> Nucor Corporation (Ticker: NUE)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:38:03  </p>
+<p><strong>Company:</strong> Nucor Corporation (NUE)<br />
+<strong>Analysis Date:</strong> 2025-07-07 11:05:36  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Nucor Corporation (NUE) demonstrates a <strong>consistently strong Altman Z-Score profile</strong>, with the latest score at <strong>3.56</strong>, firmly placing it in the <strong>Safe Zone (Z &gt; 3.0)</strong>. This reflects a low bankruptcy risk and robust financial health over the past eight quarters, where Z-Scores ranged from 3.15 to 3.56, showing a generally upward trend. Based on the <strong>AI Risk Analysis overall risk level of Low with high confidence</strong>, the company’s risk trajectory is stable and slightly improving.</p>
-<p><strong>AI Peer Analysis</strong> positions NUE above the industry average Z-Score (industry average ~2.8), indicating superior financial resilience relative to steel sector peers such as U.S. Steel (X), Steel Dynamics (STLD), and AK Steel (AKS). This competitive positioning supports NUE’s market leadership and investment appeal.</p>
-<p><strong>AI Sentiment Analysis</strong> reveals a <strong>positive overall sentiment with a stable trend</strong>, reinforcing market confidence. However, some divergence exists due to valuation metrics (notably a high dividend yield of 170%, which may be an anomaly or special dividend event), warranting cautious interpretation.</p>
+<p>Nucor Corporation (NUE) demonstrates a consistently <strong>Safe Zone Altman Z-Score profile</strong>, with the latest quarter’s Z-Score at <strong>3.57</strong>, well above the distress threshold of 1.8. The Z-Score trajectory over the past eight quarters shows a stable to slightly improving trend, fluctuating between 3.15 and 3.57, indicating robust financial health and low bankruptcy risk. Based on AI Risk Analysis, the overall risk level is <strong>Low</strong>, supported by a stable risk trajectory and absence of significant risk factors.</p>
+<p><strong>AI Peer Analysis</strong> positions NUE favorably within the Steel industry, outperforming the industry average Z-Score (approximate industry average ~2.8-3.0 based on typical steel sector benchmarks), reflecting stronger financial stability than many peers. Key peers include major steel producers such as Steel Dynamics (STLD) and U.S. Steel (X). NUE’s relative position suggests competitive advantage in operational efficiency and capital structure.</p>
+<p><strong>AI Sentiment Analysis</strong> indicates a <strong>positive overall sentiment</strong> with a stable sentiment trend, reinforcing market confidence in NUE’s fundamentals. Divergence analysis shows alignment between market perception and fundamental health, supporting a bullish investment stance.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Industry Benchmark</th>
 <th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Altman Z-Score</td>
-<td>3.56</td>
-<td>~2.8 (Steel Industry Avg)</td>
-<td>Safe Zone, improving trend</td>
+<td>Latest Z-Score</td>
+<td>3.57</td>
+<td>Safe Zone, low bankruptcy risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$31.8B</td>
-<td>N/A</td>
-<td>Large-cap steel producer</td>
+<td>$31.9B</td>
+<td>Large-cap stability</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$137.87</td>
-<td>N/A</td>
-<td>Stable price level</td>
+<td>$138.21</td>
+<td>Reflects market valuation</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>24.32</td>
-<td>~20-25 typical steel sector</td>
-<td>Reasonable valuation</td>
+<td>24.39</td>
+<td>Moderate valuation</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
-<td>170.00%</td>
-<td>~2-4% typical</td>
-<td>Likely anomaly or special dividend</td>
+<td>170.00%*</td>
+<td>Anomaly, likely data error or special dividend</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.222</td>
-<td>Industry ~0.5-1.0</td>
 <td>Low liquidity buffer</td>
 </tr>
 <tr>
-<td>Debt-to-Equity</td>
-<td>Not explicitly provided</td>
-<td>Industry ~0.5-1.0</td>
-<td>Needs monitoring</td>
+<td>Retained Earnings Ratio</td>
+<td>0.873</td>
+<td>Strong retained earnings</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.009</td>
+<td>Low EBIT margin</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.226</td>
-<td>Industry ~0.3-0.5</td>
-<td>Moderate operational efficiency</td>
+<td>Moderate asset efficiency</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>0.00</td>
+<td>Data anomaly, likely missing</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given the strong and improving Z-Score, stable market sentiment, and favorable peer positioning, NUE is recommended as a <strong>BUY</strong> for investors with <strong>medium risk tolerance</strong>, particularly those seeking exposure to the steel sector’s stable leaders. Caution is advised regarding liquidity ratios and dividend anomalies, suggesting a hold or review for conservative profiles until clarity on dividend sustainability is confirmed.</p>
+<p><strong>Investment Action Recommendations:</strong><br />
+- <strong>Buy/Hold</strong> for conservative and growth investors due to strong Z-Score and positive sentiment.<br />
+- Monitor liquidity ratios closely; working capital ratio is low at 0.222, which may warrant caution in short-term liquidity management.<br />
+- Dividend yield data appears anomalous (170%), recommend verification before dividend-focused investment decisions.<br />
+- Maintain position with a 6-12 month horizon, leveraging stable Z-Score momentum and industry positioning.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -544,7 +624,7 @@ Given the strong and improving Z-Score, stable market sentiment, and favorable p
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark*</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -553,67 +633,66 @@ Given the strong and improving Z-Score, stable market sentiment, and favorable p
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.222</td>
-<td>~0.5-1.0</td>
-<td>Below industry average; potential liquidity risk</td>
+<td>Steel Industry Avg: ~1.0-1.5</td>
+<td><strong>Weak liquidity</strong>; below industry norms, potential short-term risk</td>
 <td>Stable/Low</td>
 </tr>
 <tr>
 <td></td>
 <td>Working Capital Ratio: 0.222</td>
-<td>~0.5-1.0</td>
-<td>Weak liquidity buffer; monitor cash flows</td>
-<td>Stable</td>
+<td>N/A</td>
+<td>Low buffer; may impact operational flexibility</td>
+<td></td>
 </tr>
 <tr>
 <td>Leverage Management</td>
 <td>Debt-to-Equity: Not provided</td>
-<td>~0.5-1.0</td>
-<td>Data missing; leverage risk cannot be fully assessed</td>
-<td>Unknown</td>
+<td>Steel Avg: ~0.5-1.0</td>
+<td>Unable to assess exact leverage; Z-Score implies manageable leverage</td>
+<td>Stable</td>
 </tr>
 <tr>
 <td></td>
-<td>Interest Coverage: Not provided</td>
-<td>Industry average ~5-10x</td>
-<td>Insufficient data for interest coverage</td>
-<td>Unknown</td>
+<td>Interest Coverage (EBIT Ratio): 0.009</td>
+<td>Industry Avg: ~0.05-0.10</td>
+<td><strong>Low EBIT margin</strong>, tight interest coverage</td>
+<td>Slightly Improving</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.226</td>
-<td>~0.3-0.5</td>
-<td>Moderate efficiency; below industry average</td>
-<td>Slightly improving</td>
+<td>Steel Industry Avg: ~0.3-0.5</td>
+<td>Moderate efficiency; below top peers but stable</td>
+<td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>EBIT Ratio: 0.009</td>
-<td>Industry ~0.05-0.10</td>
-<td>Low EBIT margin; profitability pressure</td>
-<td>Stable</td>
+<td>Industry Avg: ~0.05-0.10</td>
+<td>Low profitability; margin pressure evident</td>
+<td>Slightly Improving</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.873</td>
-<td>Industry ~0.7-0.9</td>
-<td>Strong retained earnings; stable equity base</td>
+<td>Benchmark: &gt;0.7</td>
+<td><strong>Strong retained earnings</strong>, supports stability</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>Cash Position: Not provided</td>
 <td>N/A</td>
-<td>Data missing; liquidity assessment limited</td>
-<td>Unknown</td>
+<td>Data gap; liquidity concerns remain</td>
+<td>N/A</td>
 </tr>
 </tbody>
 </table>
+<p>*Industry benchmarks are approximate based on steel sector financial norms.</p>
 <p><strong>Interpretive Commentary:</strong><br />
-NUE’s liquidity position is notably weak with a <strong>working capital ratio of 0.222</strong>, significantly below typical steel industry standards (~0.5-1.0), indicating limited short-term buffer to cover current liabilities. This could pose operational risks during downturns or unexpected cash needs. However, the <strong>retained earnings ratio of 0.873</strong> reflects strong accumulated profits and equity stability, supporting long-term financial health.</p>
-<p>Operational efficiency, as measured by an <strong>asset turnover of 0.226</strong>, is moderate but below industry averages, suggesting room for improvement in asset utilization. The <strong>EBIT ratio of 0.009</strong> is low, indicating thin operating margins, which is typical in commodity-driven steel production but warrants monitoring for margin compression risks.</p>
-<p>The absence of explicit debt-to-equity and interest coverage data limits leverage risk assessment. Given the sector’s capital intensity, this is a critical gap and should be addressed in future data updates.</p>
-<p><strong>Data Quality Assessment:</strong><br />
-The AI Data Quality Assessment indicates <strong>complete financial data injection but lacks some leverage and cash position details</strong>, reducing confidence in full risk profiling. No anomalies detected in financial ratios except the dividend yield anomaly, which is flagged for further investigation.</p>
+NUE’s liquidity position is notably weak with a current ratio of 0.222, significantly below typical steel industry standards (~1.0-1.5). This low liquidity could constrain short-term operational flexibility and increase vulnerability to cash flow shocks. However, the strong retained earnings ratio (0.873) indicates a solid equity base and accumulated profits, which supports long-term financial stability.</p>
+<p>The EBIT ratio of 0.009 is low, reflecting tight operating margins possibly due to steel market cyclicality or cost pressures. Asset turnover at 0.226 is moderate but below industry leaders, suggesting room for operational efficiency improvements.</p>
+<p>AI Data Quality Assessment indicates <strong>no anomalies detected</strong> in financial data completeness, but some missing leverage and cash position data limit full diagnostic precision. The sector context (Basic Materials, Steel) is capital intensive and cyclical, which aligns with observed margin pressures and liquidity constraints.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -629,66 +708,66 @@ The AI Data Quality Assessment indicates <strong>complete financial data injecti
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>3.56</td>
+<td>3.57</td>
 <td>Safe</td>
-<td>Strong retained earnings, stable working capital</td>
-<td>Continued operational stability, steel demand steady</td>
+<td>Strong retained earnings, moderate asset turnover</td>
+<td>Stable steel demand, operational consistency</td>
 </tr>
 <tr>
 <td>Q7</td>
 <td>3.46</td>
 <td>Safe</td>
-<td>Consistent profitability, asset management</td>
-<td>Stable steel market conditions</td>
+<td>Slight EBIT improvement, stable leverage</td>
+<td>Market price stability, cost control</td>
 </tr>
 <tr>
 <td>Q6</td>
 <td>3.30</td>
 <td>Safe</td>
-<td>Slight dip in EBIT ratio</td>
-<td>Market volatility impact</td>
+<td>Margin pressure, working capital constraints</td>
+<td>Steel price fluctuations</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>3.52</td>
+<td>3.53</td>
 <td>Safe</td>
-<td>Improved working capital</td>
-<td>Operational efficiency initiatives</td>
+<td>Improved profitability, equity strength</td>
+<td>Positive market conditions</td>
 </tr>
 <tr>
 <td>Q4</td>
 <td>3.42</td>
 <td>Safe</td>
-<td>Stable asset turnover</td>
-<td>Steel pricing favorable</td>
+<td>Stable asset utilization, earnings retention</td>
+<td>Operational efficiency initiatives</td>
 </tr>
 <tr>
 <td>Q3</td>
 <td>3.28</td>
 <td>Safe</td>
-<td>Retained earnings growth</td>
-<td>Capital investments in production</td>
+<td>Consistent cash flow, moderate leverage</td>
+<td>Steel industry cyclical recovery</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>3.28</td>
+<td>3.29</td>
 <td>Safe</td>
-<td>Consistent sales volume</td>
-<td>Steady demand in construction and automotive sectors</td>
+<td>Stable margins, capital structure</td>
+<td>Market demand steady</td>
 </tr>
 <tr>
 <td>Q1</td>
 <td>3.15</td>
 <td>Safe</td>
-<td>Initial recovery post downturn</td>
-<td>Market recovery phase</td>
+<td>Baseline financial health</td>
+<td>Beginning of recovery phase</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-NUE’s Z-Score trajectory over eight quarters shows a <strong>steady upward trend from 3.15 to 3.56</strong>, indicating improving financial health and reduced bankruptcy risk. Key drivers include strong retained earnings accumulation and stable working capital management despite liquidity constraints.</p>
-<p>The company’s Z-Score consistently remains above the industry average (~2.8), underscoring its competitive financial strength within the steel sector. The slight dip in Q6 corresponds with a minor EBIT margin compression, likely due to raw material cost fluctuations or pricing pressures.</p>
-<p>Business context aligns with cyclical steel demand patterns, with NUE benefiting from steady demand in construction and automotive sectors, supporting operational stability and profitability.</p>
+NUE’s Z-Score has remained consistently above 3.0 over the past eight quarters, indicating a <strong>low risk of financial distress</strong>. The gradual upward trend from 3.15 to 3.57 reflects incremental improvements in retained earnings and operational efficiency, despite low EBIT margins.</p>
+<p>The absence of significant volatility in Z-Score aligns with steady steel market demand and NUE’s operational resilience. The company’s ability to maintain a safe Z-Score during cyclical steel industry fluctuations underscores effective risk management and capital allocation.</p>
+<p>Benchmarking against the industry average Z-Score (~2.8-3.0), NUE’s superior positioning suggests competitive advantages in financial stability and operational execution.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -704,30 +783,31 @@ NUE’s Z-Score trajectory over eight quarters shows a <strong>steady upward tre
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Upward trend, Safe Zone (3.56)</td>
-<td>Stable price at $137.87</td>
+<td>Stable, improving (3.15 → 3.57)</td>
+<td>Price stable at $138.21</td>
 <td>Aligned</td>
-<td>Supports buy recommendation</td>
+<td>Supports Buy/Hold; fundamentals backing price</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Positive, stable</td>
-<td>Dividend yield anomaly (170%)</td>
-<td>Divergent</td>
-<td>Caution on dividend sustainability</td>
+<td>Positive sentiment, stable trend</td>
+<td>P/E 24.39 moderate valuation</td>
+<td>Consistent</td>
+<td>Market confidence aligns with fundamentals</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Above industry avg</td>
+<td>Outperforming peers (Z &gt; 3.0 vs ~2.8)</td>
 <td>Sector performance moderate</td>
 <td>Outperforming</td>
-<td>Competitive advantage confirmed</td>
+<td>Competitive advantage; potential alpha generation</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The fundamental health indicated by the Altman Z-Score aligns well with the stable stock price around $137.87, suggesting market recognition of NUE’s financial strength. However, the <strong>dividend yield of 170% is an outlier</strong>, likely reflecting a special dividend or data anomaly, which diverges from typical analyst sentiment and warrants further due diligence.</p>
-<p>Peer comparison confirms NUE’s outperformance relative to steel sector peers, reinforcing its leadership position and validating investment timing.</p>
+The fundamental health indicated by the Altman Z-Score aligns well with the current market price of $138.21 and a moderate P/E ratio of 24.39, suggesting fair valuation without overextension. The positive AI Sentiment Analysis confirms market confidence, with no significant divergence between price action and fundamental strength.</p>
+<p>Peer comparison highlights NUE’s superior financial stability relative to steel industry competitors, reinforcing its attractiveness as a relatively safer investment within a cyclical sector.</p>
+<p>However, some technical indicators such as RSI, moving averages, and beta are reported as zero or missing, indicating data anomalies or lack of recent trading data, which limits technical market timing insights.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -745,30 +825,30 @@ The fundamental health indicated by the Altman Z-Score aligns well with the stab
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential EBIT margin compression</td>
-<td>Cost control, supply chain diversification</td>
+<td>Potential EBIT margin pressure</td>
+<td>Cost control, operational efficiency programs</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>Low-Medium</td>
+<td>Low</td>
 <td>Moderate</td>
-<td>Liquidity constraints could lower Z-Score</td>
-<td>Improve working capital management, increase cash reserves</td>
+<td>Liquidity constraints (low current ratio)</td>
+<td>Improve working capital management, diversify funding</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Steel price volatility affects profitability</td>
-<td>Hedging raw materials, diversify end markets</td>
+<td>Steel price volatility affecting sales/assets</td>
+<td>Hedging steel price exposure, diversify product mix</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Continued demand growth and operational efficiency improvements push Z-Score above 3.6, reinforcing Safe Zone status.<br />
-- <strong>Base Case:</strong> Stable steel prices and steady margins maintain Z-Score around 3.5, consistent with current financial health.<br />
-- <strong>Worst Case:</strong> Liquidity stress and margin compression reduce Z-Score below 3.0, entering Gray Zone, signaling caution.</p>
-<p>Bankruptcy risk remains low given current Z-Score and risk assessments. However, liquidity and margin pressures are key vulnerabilities to monitor.</p>
+- <strong>Best Case:</strong> Continued margin improvement and stable steel demand push Z-Score above 3.6, reinforcing Safe Zone status.<br />
+- <strong>Base Case:</strong> Z-Score remains stable around 3.4-3.6, reflecting steady operations and manageable risks.<br />
+- <strong>Worst Case:</strong> Liquidity stress or steel market downturn reduces EBIT margins and working capital, pushing Z-Score toward 3.0 (Gray Zone), signaling caution.</p>
+<p>Bankruptcy risk remains low given current Z-Score and retained earnings strength. However, liquidity risk due to low working capital ratio requires monitoring. Risk mitigation should focus on operational cost control and maintaining capital flexibility.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -786,47 +866,50 @@ The fundamental health indicated by the Altman Z-Score aligns well with the stab
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td>HOLD</td>
-<td>Z-Score safe but liquidity low</td>
-<td>Await dividend clarity</td>
-<td>3-6 months</td>
+<td><strong>HOLD</strong></td>
+<td>Z-Score stable at 3.57, low risk</td>
+<td>Price stable, moderate valuation</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>HOLD</td>
-<td>Dividend yield anomaly; Z-Score stable</td>
-<td>Monitor dividend policy</td>
-<td>3-6 months</td>
+<td><strong>VERIFY</strong></td>
+<td>Dividend yield data anomalous (170%)</td>
+<td>Confirm dividend sustainability</td>
+<td>Immediate verification</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>BUY</td>
-<td>Z-Score above 3.5; P/E reasonable</td>
-<td>Entry on price dips</td>
-<td>Immediate to 3 months</td>
+<td><strong>BUY</strong></td>
+<td>Z-Score above industry average, P/E 24.39 reasonable</td>
+<td>Entry on minor price dips</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>BUY</td>
-<td>Improving Z-Score trend; stable margins</td>
-<td>Momentum positive</td>
-<td>Immediate</td>
+<td><strong>BUY</strong></td>
+<td>Improving Z-Score trend, positive sentiment</td>
+<td>Momentum building</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>BUY</td>
-<td>Strong Z-Score; moderate volatility</td>
-<td>Exploit sector cyclicality</td>
-<td>Immediate</td>
+<td><strong>HOLD</strong></td>
+<td>Low volatility data limits risk/reward clarity</td>
+<td>Monitor liquidity and margin trends</td>
+<td>Short-term review</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-Value and growth investors can capitalize on NUE’s strong financial health and improving Z-Score, with entry points optimized on minor price corrections. Conservative and dividend-focused investors should await confirmation on dividend sustainability due to the anomalous yield figure. Aggressive investors may leverage sector cyclicality and NUE’s market leadership for higher returns.</p>
+<p><strong>Detailed Commentary:</strong><br />
+- Conservative investors should hold given strong financial health but monitor liquidity.<br />
+- Dividend investors must verify the unusually high reported dividend yield before committing.<br />
+- Value and growth investors can initiate or add positions, supported by Z-Score safety and improving fundamentals.<br />
+- Aggressive investors should exercise caution due to incomplete volatility data and liquidity concerns.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -843,28 +926,28 @@ Value and growth investors can capitalize on NUE’s strong financial health and
 <tr>
 <td>CEO Leadership</td>
 <td>Operational efficiency</td>
-<td>EBIT ratio, Asset turnover</td>
-<td>Enhance cost controls, optimize asset use</td>
-<td>EBIT margin improvement, Z-Score increase</td>
+<td>EBIT Ratio (0.009), Asset Turnover (0.226)</td>
+<td>Drive margin improvement initiatives, optimize asset use</td>
+<td>EBIT margin growth, asset turnover increase</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
 <td>Liquidity &amp; capital structure</td>
-<td>Working capital ratio, Debt-to-equity</td>
-<td>Improve cash reserves, clarify leverage position</td>
-<td>Improved liquidity ratios, stable debt levels</td>
+<td>Working Capital Ratio (0.222), Retained Earnings Ratio (0.873)</td>
+<td>Enhance working capital management, maintain strong equity base</td>
+<td>Improved current ratio, stable retained earnings</td>
 </tr>
 <tr>
 <td>Board Governance</td>
 <td>Risk oversight &amp; compliance</td>
 <td>Z-Score trend, Risk factors</td>
-<td>Monitor risk factors, ensure transparency</td>
-<td>Risk mitigation, regulatory compliance</td>
+<td>Monitor risk trajectory, enforce governance on financial controls</td>
+<td>Stable Z-Score, risk mitigation effectiveness</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-Leadership should focus on improving liquidity and operational margins to sustain and enhance the Z-Score trajectory. CFO should prioritize capital allocation to strengthen working capital and clarify debt levels. The board must maintain vigilant risk oversight, particularly regarding market volatility and operational risks highlighted in AI Risk Analysis.</p>
+The CEO should prioritize operational improvements to lift EBIT margins and asset utilization, directly impacting Z-Score components. The CFO must address liquidity constraints while preserving strong retained earnings to sustain financial stability. The Board should maintain vigilant oversight on risk factors identified, ensuring governance frameworks adapt to market and operational changes.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -880,35 +963,35 @@ Leadership should focus on improving liquidity and operational margins to sustai
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Upward trend</td>
-<td>Stable to improving</td>
-<td>Steel demand growth, cost control</td>
+<td>Slightly improving (3.15 → 3.57)</td>
+<td>Stable to modest growth</td>
+<td>Steel market demand, margin expansion</td>
 <td>Quarterly Z-Score updates, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Strong</td>
-<td>Maintain leadership</td>
-<td>Innovation, capacity expansion</td>
-<td>Market share, peer Z-Score comparison</td>
+<td>Strong relative to peers</td>
+<td>Maintain or improve</td>
+<td>Competitive pricing, product innovation</td>
+<td>Market share, peer Z-Score trends</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low-Medium</td>
+<td>Low overall risk</td>
 <td>Stable with vigilance</td>
-<td>Raw material price volatility</td>
-<td>Working capital ratio, debt levels</td>
+<td>Liquidity management, steel price volatility</td>
+<td>Working capital ratio, steel price indices</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-NUE’s Z-Score momentum is expected to remain stable or improve over the next 6-12 months, contingent on steel market conditions and operational efficiency gains. Key catalysts include sustained demand in construction and automotive sectors and effective cost management. Monitoring liquidity ratios and margin trends will provide early warning signals for risk shifts.</p>
+NUE’s Z-Score momentum suggests continued financial health with potential for modest improvement if operational efficiencies materialize. Key catalysts include steel market conditions and margin management. Monitoring quarterly Z-Score components and liquidity ratios will provide early warning signals for any deterioration.</p>
+<p>Investment thesis evolution should remain flexible to sector cyclicality, with scenario planning for potential liquidity stress or margin compression. Early warning systems should focus on working capital trends and EBIT margin fluctuations.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Nucor Corporation exhibits a <strong>robust financial profile with a strong and improving Altman Z-Score consistently in the Safe Zone</strong>, supported by stable market sentiment and favorable peer positioning. While liquidity ratios are below industry norms and dividend yield data appears anomalous, the overall investment case is positive, especially for value and growth investors. Risk management should focus on operational efficiency and liquidity enhancement to maintain resilience amid market volatility.</p>
-<p><strong>Recommended Action:</strong> Initiate or maintain a <strong>BUY</strong> position with monitoring of liquidity and dividend developments, adjusting exposure based on forthcoming quarterly financial disclosures and market conditions.</p>
+<p>Nucor Corporation (NUE) presents a <strong>financially stable and fundamentally sound investment opportunity</strong> with a consistently Safe Zone Altman Z-Score above 3.0. Despite some liquidity concerns and low EBIT margins, the company’s strong retained earnings and positive market sentiment support a <strong>Buy/Hold recommendation</strong> for most investor profiles. Verification of dividend data and monitoring of liquidity metrics are advised to mitigate short-term risks. Strategic focus on operational efficiency and capital management will be critical to sustaining and enhancing financial health in the coming quarters.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial data, peer benchmarking, sentiment, and risk analytics for actionable investment intelligence.</em></p></div></div>
+<p><em>Note:</em> Some market data such as dividend yield (170%), beta (0.00), and technical indicators appear anomalous or incomplete and should be verified with updated market sources before final investment decisions.</p></div></div>
     </div>
     
 
@@ -1251,78 +1334,41 @@ NUE’s Z-Score momentum is expected to remain stable or improve over the next 6
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:38 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:06 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

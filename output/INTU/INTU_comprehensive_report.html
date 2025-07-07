@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Intuit Inc. (INTU)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:33 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:54 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -353,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="INTU_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="INTU_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -369,7 +441,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">9.37</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">9.42</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -418,15 +490,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$780.64</p>
+                <p>$$785.66</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$217.8B</p>
+                <p>$$219.2B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>63.9</p>
+                <p>64.1</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -434,11 +506,11 @@
             </div>
             <div class="metric">
                 <h4>Volatility</h4>
-                <p>50.0%</p>
+                <p>30.0%</p>
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>57.0</p>
+                <p>66.6</p>
             </div>
         </div>
     </div>
@@ -452,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.52</p>
+                <p>0.58</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -460,7 +532,7 @@
             </div>
             <div class="metric">
                 <h4>Risk Score</h4>
-                <p>4.2/10</p>
+                <p>3.6/10</p>
             </div>
         </div>
     </div>
@@ -473,70 +545,82 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> INTU (Intuit Inc.)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:33:35  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:53:47  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Intuit Inc. demonstrates a <strong>robust financial position</strong> with an exceptionally strong Altman Z-Score trajectory firmly in the <strong>Safe Zone</strong> (Z &gt; 3.0) across the last eight quarters, with the latest Z-Score at <strong>13.37</strong>, significantly above the industry average. This indicates a very low risk of financial distress. The AI Risk Analysis, while not explicitly quantified here, aligns with this low-risk profile given the absence of detected anomalies and consistent upward Z-Score trend, supporting a <strong>low overall risk level</strong> with a positive risk trajectory.</p>
-<p><strong>AI Peer Analysis</strong> positions Intuit well above the industry average Z-Score (exact peer average not provided but implied to be significantly lower than Intuit’s 13.37), indicating superior financial health relative to key competitors in the Software - Application sector.</p>
-<p><strong>AI Sentiment Analysis</strong> metrics are not explicitly detailed but the market data shows a <strong>high dividend yield of 53.00%</strong>, which is unusually elevated and may indicate special dividend events or data anomalies; however, the P/E ratio of <strong>63.88</strong> suggests strong growth expectations from investors, consistent with a growth-oriented sentiment.</p>
+<p>Intuit Inc. demonstrates an exceptionally strong financial position with a consistently high Altman Z-Score, currently at <strong>13.45</strong>, well above the safe zone threshold of 3.0, indicating a very low risk of bankruptcy. The Z-Score trajectory over the past eight quarters shows a steady upward trend from 9.42 to 13.45, reflecting improving financial health and operational efficiency.</p>
+<p><strong>AI Risk Analysis</strong> indicates an overall <strong>low risk level</strong> with a stable to positive risk trajectory, reinforcing confidence in Intuit’s resilience. The company’s <strong>market capitalization of $219.16 billion</strong> and <strong>current price of $785.53</strong> reflect strong market valuation, supported by a <strong>P/E ratio of 64.08</strong>, which, while elevated, is typical for a high-growth technology firm in the software application sector.</p>
+<p><strong>AI Peer Analysis</strong> positions Intuit well above the industry average Z-Score (industry average not explicitly provided but typically ranges between 2.5-4.0 for software firms), confirming its competitive strength. The company’s <strong>retained earnings ratio of 0.535</strong> and <strong>EBIT ratio of 0.102</strong> further underscore solid profitability and reinvestment capacity.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are limited due to missing RSI and volume data; however, the <strong>dividend yield of 53.00%</strong> is anomalously high and likely a data anomaly, warranting caution in dividend sustainability assumptions.</p>
+<p><strong>Investment Recommendation:</strong> Given the robust Z-Score, strong financial ratios, and low risk profile, a <strong>BUY</strong> recommendation is warranted for investors with medium to high risk tolerance, particularly those focused on growth and value profiles. Conservative investors may consider a HOLD given the high valuation multiples.</p>
+<hr />
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
+<th>Metric</th>
 <th>Value</th>
-<th>Notes</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Altman Z-Score</td>
-<td>13.37</td>
-<td>Safe Zone, very low distress risk</td>
+<td>Current Z-Score</td>
+<td>13.45</td>
+<td>Very safe zone, minimal bankruptcy risk</td>
+</tr>
+<tr>
+<td>Z-Score Trend (8 quarters)</td>
+<td>9.42 → 13.45</td>
+<td>Strong upward momentum</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$217.76B</td>
-<td>Large-cap technology leader</td>
+<td>$219.16B</td>
+<td>Large-cap, stable market presence</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$780.64</td>
-<td>High valuation reflecting growth premium</td>
+<td>$785.53</td>
+<td>High valuation reflecting growth expectations</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>63.88</td>
-<td>Growth stock valuation</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>53.00%</td>
-<td>Unusually high, warrants caution</td>
+<td>64.08</td>
+<td>Elevated, growth premium</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.118</td>
-<td>Low but offset by strong Z-Score</td>
+<td>Low liquidity buffer, potential concern</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.535</td>
-<td>Healthy earnings retention</td>
+<td>Strong reinvestment and earnings retention</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.102</td>
-<td>Solid operating profitability</td>
+<td>Healthy operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.212</td>
-<td>Moderate asset efficiency</td>
+<td>Moderate asset utilization</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>53.00% (likely anomaly)</td>
+<td>Data anomaly, verify before reliance</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>0.00 (likely anomaly)</td>
+<td>Data anomaly, no market volatility indicated</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Action Recommendation:</strong><br />
-Given the <strong>exceptionally strong Z-Score</strong>, dominant market cap, and growth-oriented valuation, <strong>a BUY recommendation</strong> is warranted for investors with moderate to high risk tolerance seeking exposure to a financially stable, growth-driven technology company. Conservative investors should monitor dividend yield anomalies and liquidity ratios but may consider HOLD due to strong fundamentals.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -552,67 +636,39 @@ Given the <strong>exceptionally strong Z-Score</strong>, dominant market cap, an
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.118</td>
-<td>~1.5 - 2.0</td>
-<td>Low liquidity ratio; potential short-term risk but mitigated by strong cash flows and Z-Score</td>
-<td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>Working Capital Ratio: 0.118</td>
-<td>Industry avg ~0.2</td>
-<td>Below average liquidity; warrants monitoring</td>
-<td></td>
+<td>Current Ratio: 0.118<br>Working Capital Ratio: 0.118</td>
+<td>Industry avg. ~1.5-2.0</td>
+<td><strong>Weak liquidity</strong>; current ratio well below industry norms, indicating tight short-term liquidity</td>
+<td>Stable but low</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: Not provided</td>
-<td>Industry avg ~0.5 - 1.0</td>
-<td>Data missing; Z-Score implies low leverage risk</td>
+<td>Debt-to-Equity: Not provided<br>Interest Coverage: Not provided</td>
+<td>Industry avg. moderate leverage</td>
+<td>Insufficient data; however, high Z-Score implies manageable leverage</td>
 <td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>Interest Coverage (EBIT Ratio): 0.102</td>
-<td>Industry avg ~0.08 - 0.12</td>
-<td>EBIT ratio solid, indicating good ability to cover interest</td>
-<td>Improving</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.212</td>
-<td>Industry avg ~0.2</td>
-<td>In line with industry; moderate asset utilization</td>
-<td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>EBIT Ratio: 0.102</td>
-<td>Industry avg ~0.1</td>
-<td>Slightly above average operating profitability</td>
+<td>EBIT Ratio: 0.102<br>Asset Turnover: 0.212</td>
+<td>EBIT avg ~0.08-0.12<br>Asset Turnover avg ~0.3</td>
+<td>EBIT ratio within healthy range; asset turnover slightly below industry average, indicating moderate efficiency</td>
 <td>Improving</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.535</td>
-<td>Industry avg ~0.4 - 0.5</td>
-<td>Strong retained earnings indicating reinvestment and stability</td>
+<td>Industry avg. ~0.4-0.6</td>
+<td>Strong retained earnings ratio, indicating solid equity base and reinvestment</td>
 <td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>Cash Position: Not provided</td>
-<td>N/A</td>
-<td>Not available; Z-Score suggests sufficient liquidity</td>
-<td>N/A</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks based on Software - Application sector averages.</p>
+<p>*Industry benchmarks approximate for Technology / Software - Application sector.</p>
 <p><strong>Interpretive Commentary:</strong><br />
-Intuit’s liquidity position, with a current ratio of <strong>0.118</strong>, is notably below typical industry standards (~1.5-2.0), which could suggest tight short-term liquidity. However, the <strong>Altman Z-Score of 13.37</strong> and EBIT ratio of <strong>0.102</strong> indicate strong operational profitability and financial resilience, mitigating liquidity concerns. The retained earnings ratio of <strong>0.535</strong> reflects a healthy reinvestment strategy supporting long-term stability.</p>
-<p>The absence of explicit debt-to-equity data limits leverage risk assessment, but the high Z-Score and EBIT coverage imply manageable leverage levels. Operational efficiency metrics such as asset turnover at <strong>0.212</strong> are consistent with industry norms, reflecting stable asset utilization.</p>
-<p>AI Data Quality Assessment indicates <strong>complete and consistent data injection with no anomalies detected</strong>, supporting high confidence in these financial diagnostics.</p>
+Intuit’s liquidity position, with a <strong>current ratio of 0.118</strong>, is notably below typical industry standards (~1.5-2.0), suggesting limited short-term asset coverage for liabilities. This may reflect efficient working capital management or reliance on other liquidity sources. Despite this, the <strong>high Altman Z-Score (13.45)</strong> and strong retained earnings ratio (0.535) indicate robust overall financial stability and low bankruptcy risk.</p>
+<p>Operational efficiency is solid, with an EBIT ratio of 10.2%, consistent with a profitable software company, though asset turnover at 0.212 is slightly below the sector average (~0.3), suggesting room for improvement in asset utilization.</p>
+<p>The <strong>AI Data Quality Assessment</strong> shows no anomalies flagged in financial ratios, supporting confidence in these metrics. However, the liquidity concern should be monitored closely, especially given the low working capital ratio.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -627,45 +683,67 @@ Intuit’s liquidity position, with a current ratio of <strong>0.118</strong>, i
 </thead>
 <tbody>
 <tr>
-<td>Current (Q8)</td>
-<td>13.37</td>
+<td>Current</td>
+<td>13.45</td>
 <td>Safe</td>
-<td>Strong retained earnings, EBIT, market equity</td>
-<td>Continued growth in financial management software; strong market positioning</td>
+<td>Strong retained earnings, high market equity</td>
+<td>Continued growth in software and financial services segments</td>
 </tr>
 <tr>
-<td>Previous (Q7)</td>
-<td>12.30</td>
+<td>Previous Q7</td>
+<td>12.37</td>
 <td>Safe</td>
-<td>Stable working capital, profitability</td>
-<td>Expansion in consumer and small business segments</td>
+<td>Stable EBIT, improving asset turnover</td>
+<td>Expansion of product offerings and market penetration</td>
 </tr>
 <tr>
-<td>Previous (Q6)</td>
-<td>11.14</td>
+<td>Previous Q6</td>
+<td>11.20</td>
 <td>Safe</td>
-<td>EBIT growth, asset management</td>
-<td>Product innovation and credit services growth</td>
+<td>Increased market cap, steady profitability</td>
+<td>Strategic acquisitions and innovation investments</td>
 </tr>
 <tr>
-<td>Previous (Q5)</td>
-<td>11.63</td>
+<td>Previous Q5</td>
+<td>11.69</td>
 <td>Safe</td>
-<td>Earnings retention, operational efficiency</td>
-<td>Increased market penetration</td>
+<td>Strong equity base, operational efficiency</td>
+<td>Growth in consumer and small business segments</td>
 </tr>
 <tr>
-<td>Earlier Quarters</td>
-<td>9.37 - 10.53</td>
+<td>Previous Q4</td>
+<td>10.51</td>
 <td>Safe</td>
-<td>Consistent profitability and equity growth</td>
-<td>Steady business expansion and brand strength</td>
+<td>Consistent EBIT margin, retained earnings</td>
+<td>Stable macroeconomic environment supporting demand</td>
+</tr>
+<tr>
+<td>Previous Q3</td>
+<td>9.65</td>
+<td>Safe</td>
+<td>Improving profitability ratios</td>
+<td>Enhanced digital transformation initiatives</td>
+</tr>
+<tr>
+<td>Previous Q2</td>
+<td>10.59</td>
+<td>Safe</td>
+<td>Market valuation increase</td>
+<td>Positive investor sentiment and sector growth</td>
+</tr>
+<tr>
+<td>Previous Q1</td>
+<td>9.42</td>
+<td>Safe</td>
+<td>Initial strong financial base</td>
+<td>Solid fundamentals and product innovation</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-Intuit’s Z-Score has shown a <strong>consistent upward trend from 9.37 to 13.37 over eight quarters</strong>, indicating improving financial health and decreasing bankruptcy risk. The company remains solidly in the Safe Zone, well above the industry average Z-Score (typically around 3-4 for software firms), underscoring superior financial stability.</p>
-<p>Key drivers include strong retained earnings (ratio 0.535), steady EBIT margins (0.102), and market capitalization growth to $217.76B, reflecting successful execution of growth strategies in financial management and credit services. The steady increase in Z-Score correlates with business expansion into new segments and product innovation, reinforcing the company’s competitive moat.</p>
+The Z-Score has steadily increased from 9.42 to 13.45 over eight quarters, reflecting continuous improvement in financial health. This upward trajectory is driven by strong retained earnings and market capitalization growth, indicating successful business expansion and operational execution.</p>
+<p>The consistently safe risk category aligns with Intuit’s strategic focus on diversified financial management products and services across multiple segments, including Small Business &amp; Self-Employed and Consumer sectors. The company’s ability to maintain high EBIT margins while expanding its asset base supports this positive trend.</p>
+<p>Benchmarking against AI Peer Analysis confirms Intuit’s Z-Score significantly exceeds typical industry averages, underscoring its competitive advantage and financial robustness.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -681,31 +759,31 @@ Intuit’s Z-Score has shown a <strong>consistent upward trend from 9.37 to 13.3
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Strong upward trend, Z=13.37</td>
-<td>High P/E (63.88), Price $780.64</td>
-<td>Aligned</td>
-<td>Market values growth and stability</td>
+<td>Strong upward Z-Score trend (9.42 → 13.45)</td>
+<td>Price stable at $785.53 (no volatility data)</td>
+<td>Partial alignment (price stable, Z-Score improving)</td>
+<td>Opportunity to capitalize on strong fundamentals before price appreciation</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
 <td>Not explicitly provided</td>
-<td>Dividend Yield 53.00% (anomaly)</td>
-<td>Divergent</td>
-<td>Dividend anomaly requires caution</td>
+<td>P/E Ratio high at 64.08</td>
+<td>Incomplete data</td>
+<td>High valuation suggests market expects growth; sentiment likely positive</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Superior Z-Score vs peers</td>
+<td>Superior relative Z-Score</td>
 <td>Sector performance strong</td>
 <td>Outperforming</td>
-<td>Competitive advantage confirmed</td>
+<td>Competitive positioning supports premium valuation</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The fundamental health indicated by the Z-Score aligns well with the market’s growth-oriented valuation, as reflected in the high P/E ratio of <strong>63.88</strong> and a strong market cap of <strong>$217.76B</strong>. This suggests investor confidence in Intuit’s growth prospects and financial stability.</p>
-<p>However, the <strong>extraordinarily high dividend yield of 53.00%</strong> is inconsistent with typical payout ratios and may represent a data anomaly or special dividend event, warranting further investigation before relying on dividend income as a key investment driver.</p>
-<p>Peer comparison confirms Intuit’s outperformance in financial health, supporting a positive market positioning and validating the BUY recommendation.</p>
+The fundamental health indicated by the Altman Z-Score shows a clear upward trajectory, signaling improving financial strength. However, the lack of volatility and volume data (RSI 0.0, volume 0) limits direct correlation with market price movements. The current price of $785.53 appears stable, suggesting the market may not have fully priced in the improving fundamentals.</p>
+<p>The elevated P/E ratio of 64.08 reflects high growth expectations, consistent with the company’s strong Z-Score and operational performance. Peer comparison confirms Intuit’s outperformance within the software application sector, supporting a premium valuation.</p>
+<p>Investors should monitor for potential price appreciation aligning with fundamental improvements, presenting a timing opportunity.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -723,30 +801,38 @@ The fundamental health indicated by the Z-Score aligns well with the market’s 
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential EBIT decline could reduce Z-Score by 1-2 points</td>
-<td>Diversify product portfolio; invest in R&amp;D</td>
+<td>Potential EBIT margin pressure</td>
+<td>Diversify product lines; invest in R&amp;D to sustain innovation</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
 <td>Minor</td>
-<td>Low leverage risk; liquidity tightness could impact short-term ratios</td>
-<td>Maintain cash reserves; monitor working capital</td>
+<td>Low impact due to strong retained earnings</td>
+<td>Maintain conservative capital structure; monitor liquidity ratios</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Market valuation correction could pressure stock price but limited Z-Score impact</td>
-<td>Hedge via options; monitor macroeconomic indicators</td>
+<td>Valuation correction risk</td>
+<td>Hedge via options; diversify portfolio exposure</td>
+</tr>
+<tr>
+<td>Data Anomalies</td>
+<td>Low</td>
+<td>Minor</td>
+<td>Dividend yield and beta anomalies may mislead</td>
+<td>Verify data sources; adjust models accordingly</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Continued EBIT growth and retained earnings increase push Z-Score above 14, reinforcing Safe Zone status and supporting share price appreciation.<br />
-- <strong>Base Case:</strong> Stable EBIT and asset turnover maintain Z-Score around 13-13.5, sustaining low distress risk and steady market valuation.<br />
-- <strong>Worst Case:</strong> Operational disruptions or liquidity stress reduce EBIT ratio and working capital, lowering Z-Score toward 10-11 but still within Safe Zone, indicating resilience.</p>
-<p>Bankruptcy risk is negligible given the high Z-Score. Liquidity stress testing should focus on improving the current ratio from 0.118 to industry norms to further reduce short-term risk.</p>
+Based on AI Risk Analysis, Intuit faces low overall risk with moderate operational and market risks. The company’s strong retained earnings and EBIT ratios mitigate financial risks, supporting Z-Score stability.</p>
+<p><strong>Best Case:</strong> Continued growth and margin expansion push Z-Score above 14.0, reinforcing safe zone status and enabling aggressive growth investments.<br />
+<strong>Base Case:</strong> Stable EBIT and retained earnings maintain Z-Score around 13.0-13.5, supporting steady valuation and moderate price appreciation.<br />
+<strong>Worst Case:</strong> Market correction or operational setbacks reduce EBIT margins, lowering Z-Score toward 9.0-10.0 but remaining in safe zone.</p>
+<p>Liquidity concerns from low current ratio warrant monitoring but are unlikely to materially impact Z-Score given strong equity base.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -765,49 +851,49 @@ The fundamental health indicated by the Z-Score aligns well with the market’s 
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score 13.37 indicates safety but low liquidity ratio warrants caution</td>
-<td>Monitor dividend yield anomaly</td>
-<td>3-6 months</td>
+<td>Z-Score 13.45 indicates safety but high P/E advises caution</td>
+<td>Await price correction or dividend confirmation</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>Dividend yield 53.00% unusual; verify sustainability</td>
-<td>Await clarity on dividend policy</td>
-<td>3 months</td>
+<td>Dividend yield data anomalous; verify before buy</td>
+<td>Monitor dividend announcements</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>BUY</td>
-<td>Strong Z-Score well above industry average; undervaluation unlikely</td>
-<td>Enter on minor price dips</td>
-<td>Immediate</td>
+<td>High Z-Score with strong retained earnings supports value</td>
+<td>Entry on dips or consolidation</td>
+<td>Immediate to 3 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>BUY</td>
-<td>High P/E justified by Z-Score and growth metrics</td>
-<td>Momentum favorable</td>
+<td>Z-Score momentum and EBIT growth support growth thesis</td>
+<td>Capitalize on momentum</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>BUY</td>
-<td>Low risk, high growth potential; volatility minimal</td>
-<td>Position for long-term gains</td>
+<td>Low risk, high Z-Score with growth potential justifies risk</td>
+<td>Position for volatility spikes</td>
 <td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-- Conservative investors should HOLD due to liquidity concerns and dividend anomalies despite strong Z-Score safety.<br />
-- Dividend investors should HOLD pending confirmation of dividend sustainability given the unusually high yield.<br />
-- Value, Growth, and Aggressive investors are recommended to BUY, supported by the strong Z-Score (13.37), high market cap, and growth prospects.<br />
-- Optimal entry points are on minor price corrections given the stable Z-Score momentum and market alignment.</p>
+<p><strong>Detailed Commentary:</strong><br />
+- <strong>Conservative investors</strong> should HOLD due to the company’s strong financial health but elevated valuation and liquidity concerns.<br />
+- <strong>Dividend investors</strong> must verify the unusually high 53% yield before committing; HOLD recommended pending data confirmation.<br />
+- <strong>Value and Growth investors</strong> are encouraged to BUY, supported by the robust Z-Score trend and profitability metrics, with timing focused on market dips or momentum continuation.<br />
+- <strong>Aggressive investors</strong> can BUY immediately, leveraging the low bankruptcy risk and growth potential, with attention to volatility and market conditions.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -824,28 +910,28 @@ The fundamental health indicated by the Z-Score aligns well with the market’s 
 <tr>
 <td>CEO Leadership</td>
 <td>Sustain growth and innovation</td>
-<td>EBIT Ratio (0.102), Z-Score</td>
+<td>EBIT Ratio (0.102), Z-Score (13.45)</td>
 <td>Invest in R&amp;D, expand product lines</td>
-<td>Z-Score &gt; 13, EBIT margin growth</td>
+<td>EBIT margin growth, Z-Score maintenance</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Enhance liquidity management</td>
+<td>Optimize liquidity and capital</td>
 <td>Current Ratio (0.118), Retained Earnings Ratio (0.535)</td>
-<td>Improve working capital, optimize capital structure</td>
-<td>Current ratio improvement, stable retained earnings</td>
+<td>Improve working capital management</td>
+<td>Improved liquidity ratios, stable debt levels</td>
 </tr>
 <tr>
 <td>Board Governance</td>
 <td>Risk oversight and compliance</td>
-<td>Risk factors, Z-Score trend</td>
-<td>Monitor risk trajectory, ensure governance on dividend policy</td>
-<td>Risk mitigation, compliance adherence</td>
+<td>Risk Level (Low), Market Cap ($219B)</td>
+<td>Monitor operational and market risks</td>
+<td>Risk mitigation effectiveness, compliance adherence</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The CEO should focus on leveraging Intuit’s strong financial health to accelerate innovation and market expansion, maintaining EBIT growth and Z-Score momentum. The CFO must address liquidity constraints by optimizing working capital and cash management to reduce short-term risk. The Board should oversee risk management frameworks, particularly monitoring the unusual dividend yield and ensuring transparent communication with investors.</p>
+The CEO should prioritize innovation to sustain EBIT margins and Z-Score momentum. The CFO must address liquidity constraints despite strong equity, optimizing working capital without compromising operational agility. The Board should maintain vigilant risk oversight, ensuring governance frameworks adapt to evolving market and operational risks.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -861,35 +947,35 @@ The CEO should focus on leveraging Intuit’s strong financial health to acceler
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Upward, currently 13.37</td>
-<td>Stable to slightly higher</td>
-<td>Continued EBIT growth, retained earnings</td>
+<td>Strong upward (9.42 → 13.45)</td>
+<td>Continued growth expected</td>
+<td>Product innovation, market expansion</td>
 <td>Quarterly Z-Score updates, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Leading in Software sector</td>
-<td>Maintain leadership</td>
-<td>Product innovation, market expansion</td>
+<td>Leading in software sector</td>
+<td>Maintain or improve lead</td>
+<td>Competitive acquisitions, tech advances</td>
 <td>Market share, peer Z-Score comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low overall risk</td>
-<td>Stable with vigilance</td>
-<td>Macroeconomic shifts, liquidity events</td>
-<td>Working capital ratio, dividend policy</td>
+<td>Low risk, stable trajectory</td>
+<td>Stable to slightly increasing risk</td>
+<td>Macroeconomic shifts, regulatory changes</td>
+<td>Risk factor tracking, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-Intuit’s Z-Score momentum is expected to remain stable or improve over the next 6-12 months, driven by sustained EBIT growth and strong retained earnings. Key catalysts include continued innovation in financial management software and expansion into new markets. Risk profile remains low but requires monitoring of liquidity ratios and dividend policy to preempt any short-term stress.</p>
-<p>Early warning indicators include any decline in EBIT ratio below 0.08 or a drop in working capital ratio below 0.1, which could signal emerging operational or liquidity issues. Investors should track quarterly Z-Score updates and market valuation trends to adjust investment positions proactively.</p>
+Intuit’s Z-Score momentum is expected to continue positively, driven by innovation and market expansion catalysts. Monitoring EBIT margins and retained earnings will provide early signals of trajectory shifts. Market position is strong, but vigilance on competitive dynamics and regulatory environments is essential.</p>
+<p>Risk profile remains low, but macroeconomic or operational disruptions could introduce moderate risk, necessitating proactive mitigation and early warning systems based on liquidity and operational KPIs.</p>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>Intuit Inc. exhibits <strong>exceptional financial health</strong> with an Altman Z-Score well above the Safe Zone threshold, supported by strong profitability, retained earnings, and market capitalization. Despite a low liquidity ratio and an anomalously high dividend yield, the overall risk profile is low, and growth prospects remain robust. The investment recommendation is a <strong>BUY for growth and value investors</strong>, with HOLD advised for conservative and dividend-focused profiles pending further dividend clarity. Strategic focus should be on liquidity improvement and innovation to sustain the positive Z-Score trajectory.</p>
+<h1 id="summary-conclusion"><strong>Summary Conclusion:</strong></h1>
+<p>Intuit Inc. stands as a financially robust, low-risk investment with a very strong Altman Z-Score of 13.45, reflecting excellent operational and financial health. Despite some liquidity concerns, the company’s profitability, retained earnings, and market position support a confident BUY recommendation for growth and value investors. Conservative and dividend-focused investors should monitor valuation and dividend data anomalies before committing. Continuous monitoring of operational efficiency and market risks will ensure timely adjustments to the investment thesis.</p>
 <hr />
-<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Framework on 2025-07-03 18:33:35.</em></p></div></div>
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, and risk data for actionable intelligence.</em></p></div></div>
     </div>
     
 
@@ -1232,78 +1318,41 @@ Intuit’s Z-Score momentum is expected to remain stable or improve over the nex
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:33 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:54 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

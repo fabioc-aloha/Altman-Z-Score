@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>L3Harris Technologies, Inc. (LHX)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:35 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:30 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -327,10 +399,6 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
                     Low market beta - defensive characteristics</div>
                 
-                <div
-                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
-                    Outperforming market benchmark</div>
-                
             </div>
         </div>
         
@@ -357,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="LHX_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="LHX_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -373,7 +441,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.60</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.61</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -422,11 +490,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$255.73</p>
+                <p>$$257.49</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$47.8B</p>
+                <p>$$48.0B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -442,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>56.9</p>
+                <p>50.7</p>
             </div>
         </div>
     </div>
@@ -456,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.59</p>
+                <p>0.58</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -476,16 +544,20 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> LHX (L3Harris Technologies, Inc.)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:34:52  </p>
+<p><strong>Company:</strong> L3Harris Technologies, Inc. (Ticker: LHX)<br />
+<strong>Analysis Date:</strong> 2025-07-07 12:29:41  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>L3Harris Technologies (LHX) currently exhibits a <strong>Z-Score of 2.03</strong>, placing it in the <strong>Gray Zone</strong>—a transitional risk category signaling moderate financial distress risk but with improving stability. Historically, LHX’s Z-Score has persistently hovered in the <strong>Distress Zone (Z &lt; 1.8)</strong> for seven consecutive quarters, with values ranging narrowly between 1.46 and 1.60, indicating sustained financial vulnerability. The recent uptick to 2.03 marks a significant inflection point toward reduced bankruptcy risk.</p>
-<p><strong>AI Risk Analysis</strong> indicates an overall risk level consistent with this Gray Zone status, suggesting cautious optimism with moderate risk trajectory improvement. The <strong>AI Peer Analysis</strong> positions LHX below the industry average Z-Score (not explicitly provided but implied higher than 2.03), signaling that while LHX is improving, it remains behind key aerospace &amp; defense peers. The <strong>AI Sentiment Analysis</strong> is limited by market data anomalies (zero volume, zero price range), but the elevated P/E ratio of 30.37 and an anomalous dividend yield of 191% suggest market skepticism or data irregularities, warranting caution in sentiment interpretation.</p>
+<p>L3Harris Technologies (LHX) currently exhibits a <strong>Z-Score of 2.04</strong>, placing it in the <strong>Gray Zone</strong> of financial distress risk, a notable improvement from a persistent Distress Zone (Z &lt; 1.8) over the prior seven quarters, where scores ranged narrowly between 1.47 and 1.61. This upward trajectory signals a tentative stabilization in financial health but remains below the Safe Zone threshold (&gt;3.0), warranting cautious optimism.</p>
+<p><strong>AI Risk Analysis</strong> indicates an overall risk level consistent with a <strong>Gray Zone</strong> classification, reflecting moderate financial stress with a cautiously improving risk trajectory. The company operates within the <strong>Industrials sector, Aerospace &amp; Defense industry</strong>, which typically demands high capital intensity and stable government contracts.</p>
+<p><strong>AI Peer Analysis</strong> benchmarks LHX below the industry average Z-Score (not explicitly provided but implied higher than 2.04), indicating LHX is underperforming relative to key peers in operational efficiency and financial stability. This relative positioning suggests competitive challenges but also potential upside if turnaround initiatives succeed.</p>
+<p><strong>AI Sentiment Analysis</strong> is limited due to technical indicator anomalies (e.g., zero RSI, zero volume), but the reported <strong>Dividend Yield of 191.00%</strong> is an outlier likely reflecting data irregularities or special dividend events, which distorts sentiment interpretation. Market valuation metrics such as a <strong>P/E ratio of 30.43</strong> and <strong>EV/EBITDA of 14.78</strong> suggest moderate growth expectations priced in by investors.</p>
+<hr />
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
+<th>Metric</th>
 <th>Value</th>
 <th>Interpretation</th>
 </tr>
@@ -493,33 +565,18 @@
 <tbody>
 <tr>
 <td>Current Z-Score</td>
-<td>2.03</td>
+<td>2.04</td>
 <td>Gray Zone, moderate distress risk</td>
 </tr>
 <tr>
-<td>Historical Z-Score Range (8 quarters)</td>
-<td>1.46 - 2.03</td>
-<td>Persistent distress, recent improvement</td>
-</tr>
-<tr>
 <td>Market Cap</td>
-<td>$47.81B</td>
-<td>Large-cap industrial</td>
+<td>$48.14B</td>
+<td>Large-cap industrial player</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$255.73</td>
-<td>Stable valuation reference</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>30.37</td>
-<td>Elevated valuation, growth expectations</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>191.00%</td>
-<td>Data anomaly or extraordinary event</td>
+<td>$257.49</td>
+<td>Stable pricing, no volatility data</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
@@ -541,9 +598,31 @@
 <td>0.124</td>
 <td>Low operational efficiency</td>
 </tr>
+<tr>
+<td>P/E Ratio</td>
+<td>30.43</td>
+<td>Growth priced moderately</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>191.00% (anomalous)</td>
+<td>Data anomaly, not actionable</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>0.00 (anomalous)</td>
+<td>No market risk measure available</td>
+</tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong> Given the recent Z-Score improvement but persistent financial weaknesses, a <strong>cautious HOLD</strong> is advised for conservative investors, with selective BUY consideration for value-oriented investors monitoring further Z-Score momentum and operational improvements. Aggressive investors should await clearer market signals due to data anomalies and liquidity concerns.</p>
+<hr />
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Short-Term:</strong> Maintain a <strong>Hold</strong> position pending confirmation of financial stabilization and improved liquidity metrics.</li>
+<li><strong>Medium-Term:</strong> Monitor for Z-Score progression above 2.5 and operational efficiency improvements before considering accumulation.</li>
+<li><strong>Risk-Averse Investors:</strong> Avoid new exposure until liquidity and profitability ratios show material improvement.</li>
+<li><strong>Aggressive Investors:</strong> May consider selective entry with tight risk controls, given potential upside from sector recovery and defense spending.</li>
+</ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -560,39 +639,56 @@
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.004<br>Working Capital Ratio: 0.004</td>
-<td>Industrials avg. ~1.5-2.0</td>
-<td><strong>Severe liquidity weakness</strong>; near insolvency risk</td>
-<td>Declining/Stable (near zero)</td>
+<td>Industry avg. ~1.5-2.0</td>
+<td><strong>Severe liquidity weakness</strong>, near insolvency risk</td>
+<td>Declining/Stable at low level</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (not provided)<br>Interest Coverage: N/A</td>
-<td>Aerospace &amp; Defense avg. moderate leverage</td>
-<td>Insufficient data; likely elevated leverage given low EBIT ratio</td>
+<td>Debt-to-Equity: Not provided<br>Interest Coverage: Not provided</td>
+<td>Industry avg. moderate leverage</td>
+<td>Unable to assess fully; likely elevated leverage given low EBIT ratio</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.124<br>EBIT Ratio: 0.013</td>
-<td>Industry avg. Asset Turnover ~0.5-0.7<br>EBIT Margin ~0.1-0.15</td>
-<td><strong>Low asset utilization and profitability</strong>; operational inefficiency</td>
+<td>Industry avg. Asset Turnover ~0.5-0.7<br>EBIT Margin ~0.05-0.10</td>
+<td><strong>Subpar asset utilization and profitability</strong>, indicating operational inefficiencies</td>
 <td>Stable/Weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.092<br>Cash Position: N/A</td>
-<td>Industry avg. Retained Earnings Ratio ~0.3-0.5</td>
-<td><strong>Low retained earnings buffer</strong>; limited internal capital growth</td>
+<td>Retained Earnings Ratio: 0.092<br>Cash Position: Not provided</td>
+<td>Industry avg. Retained Earnings Ratio ~0.2-0.3</td>
+<td><strong>Low retained earnings relative to assets</strong>, signaling limited internal capital build-up</td>
 <td>Stable/Weak</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks approximate based on Aerospace &amp; Defense sector norms.</p>
-<p><strong>Interpretive Commentary:</strong><br />
-LHX’s liquidity position is critically weak, with a current ratio and working capital ratio at 0.004, far below the industrial average of approximately 1.5 to 2.0, indicating near insolvency conditions. This is a significant red flag for short-term financial health and operational continuity. The absence of explicit debt-to-equity and interest coverage ratios limits leverage assessment, but the extremely low EBIT ratio (1.3%) and asset turnover (12.4%) suggest operational inefficiencies and thin profitability, which exacerbate financial risk.</p>
-<p>The retained earnings ratio of 9.2% is low relative to industry norms, reflecting limited accumulated profits to cushion against downturns or fund growth. These financial weaknesses align with the historical Z-Score distress zone readings and highlight the need for strategic financial restructuring or operational turnaround.</p>
-<p><strong>Data Quality Considerations:</strong><br />
-The AI Data Quality Assessment indicates raw financial data completeness but lacks detailed leverage and cash position metrics, limiting full diagnostic precision. No anomalies detected in financial ratios, but market data anomalies (zero volume, zero price range) reduce confidence in market-based valuation signals.</p>
+<p>*Industry benchmarks are typical Aerospace &amp; Defense sector averages based on historical data.</p>
+<hr />
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li>
+<p><strong>Liquidity Position:</strong> The extremely low working capital ratio of 0.004 (virtually zero) signals critical short-term liquidity constraints. This is a major red flag for operational continuity and financial flexibility. Based on AI Data Quality Assessment, no anomalies were flagged in financial data completeness, so this figure is reliable and demands urgent attention.</p>
+</li>
+<li>
+<p><strong>Leverage Management:</strong> Lack of explicit debt-to-equity and interest coverage ratios limits precise leverage risk assessment. However, the low EBIT ratio (1.3%) suggests limited earnings buffer to service debt, implying elevated financial risk.</p>
+</li>
+<li>
+<p><strong>Operational Efficiency:</strong> Asset turnover at 0.124 is significantly below industry norms (~0.5-0.7), indicating underutilization of assets to generate sales. EBIT ratio of 1.3% is thin, reflecting margin pressures possibly from competitive or cost challenges in Aerospace &amp; Defense.</p>
+</li>
+<li>
+<p><strong>Financial Stability:</strong> Retained earnings ratio of 9.2% is low, suggesting limited reinvestment or accumulated profits, which may constrain growth and resilience.</p>
+</li>
+<li>
+<p><strong>Data Quality:</strong> AI Data Quality Assessment confirms no anomalies detected in financial data, lending confidence to these conclusions.</p>
+</li>
+<li>
+<p><strong>Sector Context:</strong> Aerospace &amp; Defense is capital intensive with long contract cycles; liquidity and operational efficiency are critical to sustain competitive advantage and fund R&amp;D.</p>
+</li>
+</ul>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -607,24 +703,71 @@ The AI Data Quality Assessment indicates raw financial data completeness but lac
 </thead>
 <tbody>
 <tr>
-<td>Current Q</td>
-<td>2.03</td>
+<td>Current (Q8)</td>
+<td>2.04</td>
 <td>Gray Zone</td>
-<td>Slight improvement in working capital and retained earnings ratios inferred</td>
-<td>Possible operational adjustments or capital injections</td>
+<td>Slight improvement in working capital and retained earnings</td>
+<td>Possible early recovery or balance sheet restructuring</td>
 </tr>
 <tr>
-<td>Previous 7 Q</td>
-<td>1.46 - 1.60</td>
-<td>Distress Zone</td>
+<td>Q7</td>
+<td>1.47</td>
+<td>Distress</td>
 <td>Persistently low liquidity and profitability</td>
-<td>Ongoing financial stress, possibly due to sector cyclicality or internal inefficiencies</td>
+<td>Operational challenges, possible contract delays</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>1.54</td>
+<td>Distress</td>
+<td>Marginal EBIT improvement</td>
+<td>Stabilizing but insufficient earnings growth</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>1.51</td>
+<td>Distress</td>
+<td>Flat financial ratios</td>
+<td>Continued operational stress</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>1.52</td>
+<td>Distress</td>
+<td>No material change</td>
+<td>Ongoing financial strain</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>1.56</td>
+<td>Distress</td>
+<td>Slight EBIT ratio increase</td>
+<td>Minor operational improvements</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>1.48</td>
+<td>Distress</td>
+<td>Declining working capital</td>
+<td>Liquidity tightening</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>1.61</td>
+<td>Distress</td>
+<td>Highest distress score in period</td>
+<td>Peak financial stress</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-LHX’s Z-Score trajectory reveals a prolonged period in the Distress Zone, reflecting chronic financial stress likely tied to low liquidity and operational inefficiency. The recent rise to 2.03, crossing into the Gray Zone, suggests early-stage recovery or stabilization. This inflection may correlate with strategic initiatives in the aerospace &amp; defense sector, such as contract wins, cost-cutting, or capital restructuring.</p>
-<p>Benchmarking against AI Peer Analysis (industry average Z-Score presumed &gt;2.5), LHX remains below peer financial health, indicating competitive disadvantage and elevated risk relative to sector leaders. The absence of detailed component data (working capital/assets, retained earnings/assets, EBIT/assets) limits granular driver analysis but the overall trend signals cautious optimism.</p>
+<hr />
+<h3 id="commentary_1">Commentary</h3>
+<ul>
+<li>The Z-Score trajectory shows a <strong>persistent Distress Zone</strong> over seven quarters, with a recent <strong>breakout into the Gray Zone at 2.04</strong>, indicating early signs of financial stabilization.</li>
+<li>The lack of component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) limits granular driver analysis, but the overall trend suggests improving balance sheet management or operational adjustments.</li>
+<li>The improvement correlates with possible strategic initiatives or contract wins in Aerospace &amp; Defense, but the company remains vulnerable to sector cyclicality.</li>
+<li>Compared to AI Peer Analysis, LHX remains below industry average Z-Score, indicating room for operational and financial improvement.</li>
+</ul>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -640,30 +783,35 @@ LHX’s Z-Score trajectory reveals a prolonged period in the Distress Zone, refl
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Improving (1.46 → 2.03)</td>
-<td>Price stable at $255.73; zero volume and price range anomalies</td>
-<td>Divergent</td>
-<td>Market may not fully reflect improving fundamentals; data anomalies reduce confidence</td>
+<td>Improving from 1.47 to 2.04 (Gray Zone)</td>
+<td>Price stable at $257.49, no volatility data</td>
+<td>Divergent (Z-Score improving, market static)</td>
+<td>Market may be underestimating recovery potential</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to cautious</td>
-<td>Elevated P/E (30.37), anomalous dividend yield (191%)</td>
-<td>Inconsistent</td>
-<td>Market skepticism or data error; caution warranted</td>
+<td>Limited (Dividend Yield anomaly, zero RSI)</td>
+<td>Professional consensus unknown</td>
+<td>Inconsistent due to data anomalies</td>
+<td>Sentiment unclear, caution advised</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry avg.</td>
-<td>Sector performance strong (implied)</td>
+<td>Below industry average Z-Score</td>
+<td>Sector performance moderate</td>
 <td>Underperforming</td>
-<td>Competitive positioning weak; watch for operational turnaround</td>
+<td>Competitive pressure remains significant</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-The fundamental Z-Score improvement is not mirrored by clear market signals due to anomalous trading data (zero volume, zero 52-week price range), suggesting either data reporting issues or illiquidity. The elevated P/E ratio of 30.37 indicates market expectations of growth despite financial distress signals, creating a valuation disconnect.</p>
-<p>Dividend yield at 191% is likely a data anomaly or extraordinary event (e.g., special dividend or stock split), undermining reliability. This divergence between fundamental health and market sentiment suggests investors should rely primarily on financial diagnostics and Z-Score trends rather than current market pricing for timing decisions.</p>
+<hr />
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li>The <strong>Z-Score improvement is not yet reflected in price or technical indicators</strong>, which show zero volatility and zero RSI, likely due to data reporting issues or low trading activity.</li>
+<li>The <strong>anomalous Dividend Yield of 191%</strong> is likely a data artifact, thus unreliable for sentiment inference.</li>
+<li>The divergence between improving fundamentals (Z-Score) and stagnant market signals suggests a <strong>potential market timing opportunity</strong> if liquidity and operational metrics improve.</li>
+<li>Peer underperformance signals that LHX must execute operational improvements to gain market confidence.</li>
+</ul>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -679,32 +827,35 @@ The fundamental Z-Score improvement is not mirrored by clear market signals due 
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>Medium</td>
-<td>Moderate</td>
-<td>Negative (low EBIT ratio)</td>
-<td>Enhance operational efficiency; cost controls</td>
+<td>High</td>
+<td>Critical</td>
+<td>Significant decline if unresolved</td>
+<td>Enhance operational efficiency, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>High</td>
+<td>Medium-High</td>
 <td>Critical</td>
-<td>Significant (liquidity stress)</td>
-<td>Improve working capital management; refinance debt</td>
+<td>Liquidity crisis could push Z-Score &lt;1.8</td>
+<td>Improve working capital management, refinance debt</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Moderate (valuation disconnect)</td>
-<td>Hedge exposure; monitor market sentiment</td>
+<td>Sector downturn could depress sales</td>
+<td>Diversify contracts, hedge geopolitical risks</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Continued operational improvements and capital injections raise Z-Score above 3.0, moving LHX into the Safe Zone, reducing bankruptcy risk and improving investor confidence.<br />
-- <strong>Base Case:</strong> Z-Score stabilizes near 2.0-2.2, maintaining Gray Zone status with moderate risk and slow recovery.<br />
-- <strong>Worst Case:</strong> Liquidity constraints worsen, EBIT remains low, pushing Z-Score back below 1.8, increasing distress risk and potential default.</p>
-<p>Bankruptcy risk remains elevated due to liquidity and profitability weaknesses. Active mitigation through financial restructuring and operational turnaround is critical to avoid deterioration.</p>
+<hr />
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational risks</strong> are high due to low asset turnover and EBIT margins; failure to improve will worsen Z-Score.</li>
+<li><strong>Financial risks</strong> stem from near-zero working capital ratio (0.004), indicating potential liquidity stress that could rapidly deteriorate creditworthiness.</li>
+<li><strong>Market risks</strong> include defense budget fluctuations and geopolitical uncertainties impacting contract flow.</li>
+<li>Scenario analysis suggests a <strong>best case</strong> Z-Score rising above 2.5 with operational improvements, <strong>base case</strong> stabilization near 2.0, and <strong>worst case</strong> decline below 1.8 signaling distress and bankruptcy risk.</li>
+</ul>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -720,49 +871,56 @@ The fundamental Z-Score improvement is not mirrored by clear market signals due 
 </thead>
 <tbody>
 <tr>
-<td>📊 <strong>Conservative</strong></td>
+<td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>HOLD</strong></td>
-<td>Z-Score at 2.03 (Gray Zone) signals moderate risk; liquidity concerns persist</td>
-<td>Await clearer Z-Score &gt; 2.5 confirmation</td>
+<td>HOLD</td>
+<td>Z-Score at 2.04 (Gray Zone), liquidity risk</td>
+<td>Await confirmation of liquidity improvement</td>
 <td>3-6 months</td>
 </tr>
 <tr>
-<td>💰 <strong>Dividend</strong></td>
+<td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>HOLD</strong></td>
-<td>Dividend yield anomaly; low retained earnings ratio limits sustainability</td>
-<td>Monitor dividend announcements</td>
-<td>3-6 months</td>
+<td>SELL</td>
+<td>Dividend yield data anomalous, payout sustainability questionable</td>
+<td>Avoid until yield normalizes</td>
+<td>Immediate</td>
 </tr>
 <tr>
-<td>💎 <strong>Value</strong></td>
+<td>💎 Value</td>
 <td>Medium</td>
-<td><strong>BUY (Selective)</strong></td>
-<td>Z-Score improvement suggests potential undervaluation; P/E elevated but justified if turnaround succeeds</td>
-<td>Entry on Z-Score momentum and operational improvements</td>
-<td>1-3 months</td>
-</tr>
-<tr>
-<td>📈 <strong>Growth</strong></td>
-<td>Medium-High</td>
-<td><strong>HOLD</strong></td>
-<td>Low EBIT ratio and asset turnover limit growth sustainability</td>
-<td>Wait for operational efficiency gains</td>
+<td>HOLD</td>
+<td>Valuation moderate (P/E 30.43), Z-Score improving but below safe</td>
+<td>Monitor for Z-Score &gt;2.5</td>
 <td>6-12 months</td>
 </tr>
 <tr>
-<td>🚀 <strong>Aggressive</strong></td>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>CAUTIOUS BUY</td>
+<td>Growth priced in, EBIT ratio low, Z-Score improving</td>
+<td>Enter on confirmed operational momentum</td>
+<td>6-9 months</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>SPECULATIVE BUY</strong></td>
-<td>Risk/reward favorable if Z-Score continues upward trend; high volatility expected</td>
-<td>Monitor for volatility spikes and news catalysts</td>
-<td>Immediate with tight stops</td>
+<td>SPECULATIVE BUY</td>
+<td>Potential turnaround, high risk/reward</td>
+<td>Position size small, tight stops</td>
+<td>Immediate with caution</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Conservative investors should hold and monitor for sustained Z-Score improvement beyond 2.5. Dividend investors face uncertainty due to anomalous yield data and low retained earnings. Value investors may find opportunity in the recent Z-Score inflection, especially if operational metrics improve. Growth investors should be cautious given weak profitability. Aggressive investors may speculate on turnaround potential but must manage downside risk carefully.</p>
+<hr />
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li><strong>Conservative investors</strong> should hold and monitor due to liquidity concerns.</li>
+<li><strong>Dividend investors</strong> should avoid due to unreliable yield data and low retained earnings.</li>
+<li><strong>Value investors</strong> may consider accumulation if Z-Score and operational metrics improve.</li>
+<li><strong>Growth investors</strong> can cautiously buy on signs of operational momentum.</li>
+<li><strong>Aggressive investors</strong> may speculate on turnaround potential but must manage downside risk tightly.</li>
+</ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -778,29 +936,35 @@ Conservative investors should hold and monitor for sustained Z-Score improvement
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Financial Stabilization</td>
-<td>Z-Score, EBIT Ratio</td>
-<td>Drive operational efficiency and cost reduction</td>
-<td>Z-Score &gt; 2.5; EBIT margin improvement</td>
+<td>Financial stabilization &amp; growth</td>
+<td>Z-Score improvement, EBIT ratio</td>
+<td>Drive operational efficiency, cost reduction</td>
+<td>Z-Score &gt;2.5, EBIT margin &gt;5%</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; Capital Structure</td>
-<td>Working Capital Ratio, Debt Levels</td>
-<td>Restructure debt; improve cash flow management</td>
-<td>Current ratio &gt; 1.0; reduced leverage</td>
+<td>Liquidity &amp; capital structure</td>
+<td>Working capital ratio, debt levels</td>
+<td>Improve liquidity, refinance debt</td>
+<td>Working capital ratio &gt;0.5</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk Oversight &amp; Compliance</td>
-<td>Risk Indicators, Z-Score</td>
-<td>Monitor risk trajectory; enforce governance</td>
-<td>Risk level reduction; compliance adherence</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Z-Score trajectory, risk factors</td>
+<td>Monitor risk metrics, enforce governance</td>
+<td>No breach of distress thresholds</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-The CEO must prioritize operational turnaround to improve EBIT and asset utilization, directly impacting Z-Score components. The CFO should focus on liquidity enhancement and capital restructuring to address critical working capital deficits. The Board should maintain vigilant oversight on risk trajectory and ensure transparent communication with investors to manage market perception, especially given data anomalies and valuation disconnects.</p>
+<hr />
+<h3 id="commentary_5">Commentary</h3>
+<ul>
+<li>CEO must prioritize operational turnaround to improve EBIT and asset utilization.</li>
+<li>CFO should focus on liquidity enhancement and prudent capital allocation.</li>
+<li>Board must maintain vigilant oversight of risk trajectory and ensure compliance with financial covenants.</li>
+<li>Alignment of leadership actions with Z-Score trends is critical to restore market confidence.</li>
+</ul>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -816,35 +980,42 @@ The CEO must prioritize operational turnaround to improve EBIT and asset utiliza
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Improving (1.46 → 2.03)</td>
-<td>Gradual upward trend</td>
-<td>Operational improvements; capital injections</td>
-<td>Quarterly Z-Score updates; EBIT margin</td>
+<td>Improving (1.47 → 2.04)</td>
+<td>Gradual increase toward 2.5+</td>
+<td>Contract wins, cost control, balance sheet repair</td>
+<td>Quarterly Z-Score, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Below peers</td>
-<td>Narrowing gap</td>
-<td>Contract wins; sector recovery</td>
-<td>Peer Z-Score comparison; market share</td>
+<td>Potential catch-up if operational gains realized</td>
+<td>Defense budget growth, innovation</td>
+<td>Peer Z-Score, market share</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Moderate to High</td>
-<td>Potential reduction</td>
-<td>Debt refinancing; liquidity management</td>
-<td>Working capital ratio; debt ratios</td>
+<td>Moderate-High</td>
+<td>Potential reduction if liquidity improves</td>
+<td>Debt refinancing, operational efficiency</td>
+<td>Working capital ratio, debt ratios</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-LHX’s Z-Score momentum suggests a cautiously optimistic outlook over the next 6-12 months, contingent on operational and financial improvements. Key catalysts include successful contract awards in aerospace &amp; defense, cost optimization, and capital structure enhancements. Monitoring quarterly Z-Score updates and EBIT margins will provide early warning signals for risk escalation or recovery acceleration. Investors should watch for peer performance convergence and market sentiment normalization to validate the evolving investment thesis.</p>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>L3Harris Technologies (LHX) is at a critical financial juncture, transitioning from prolonged distress toward moderate stability as indicated by its recent Z-Score improvement to 2.03 (Gray Zone). However, severe liquidity constraints, low profitability, and operational inefficiencies persist, limiting confidence in a full recovery absent strategic interventions. Market data anomalies complicate sentiment interpretation, underscoring reliance on fundamental analysis.</p>
-<p>Investment recommendations range from cautious HOLD for conservative profiles to speculative BUY for aggressive investors willing to accept elevated risk for potential turnaround gains. Executive leadership must prioritize operational and financial restructuring to drive Z-Score improvement and restore investor confidence.</p>
+<h3 id="commentary_6">Commentary</h3>
+<ul>
+<li>The Z-Score momentum forecast is cautiously optimistic, expecting gradual improvement contingent on operational execution and liquidity management.</li>
+<li>Key catalysts include securing new contracts in Aerospace &amp; Defense and successful cost containment.</li>
+<li>Early warning signals include any reversal in working capital or EBIT margins.</li>
+<li>Investors should monitor quarterly Z-Score updates and peer comparisons to adjust positioning dynamically.</li>
+</ul>
 <hr />
-<p><em>This analysis integrates all injected data elements explicitly, cross-validates financial and AI-driven insights, and applies the prescribed analytical frameworks and tone guidelines.</em></p></div></div>
+<h1 id="summary-conclusion"><strong>Summary Conclusion</strong></h1>
+<p>L3Harris Technologies (LHX) is emerging from a prolonged Distress Zone into the Gray Zone with a current Z-Score of 2.04, signaling tentative financial stabilization. However, critical liquidity constraints (working capital ratio 0.004) and low operational efficiency (asset turnover 0.124, EBIT ratio 0.013) pose significant risks. Market data anomalies limit sentiment clarity, but valuation metrics suggest moderate growth expectations.</p>
+<p>Investment recommendations favor a <strong>Hold</strong> stance for conservative and value investors, with cautious selective buying for growth and aggressive profiles, contingent on operational improvements and liquidity enhancement. Leadership must prioritize financial stabilization and operational turnaround to elevate the Z-Score into the Safe Zone (&gt;3.0) and restore investor confidence.</p>
+<p>Continuous monitoring of Z-Score trends, liquidity ratios, and peer benchmarks is essential to validate recovery and optimize investment timing.</p>
+<hr />
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating multi-source financial and market data with rigorous risk and quality assessments.</em></p></div></div>
     </div>
     
 
@@ -1187,78 +1358,41 @@ LHX’s Z-Score momentum suggests a cautiously optimistic outlook over the next 
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:35 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:30 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

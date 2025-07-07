@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>The Walt Disney Company (DIS)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:21 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:50 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -349,9 +421,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="DIS_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="DIS_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -414,15 +486,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$124.00</p>
+                <p>$$123.78</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$222.9B</p>
+                <p>$$222.5B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>25.4</p>
+                <p>25.3</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -434,7 +506,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>72.7</p>
+                <p>75.3</p>
             </div>
         </div>
     </div>
@@ -469,13 +541,13 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> The Walt Disney Company (DIS)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:21:01  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:50:01  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>The Walt Disney Company (DIS) currently resides in the <strong>Gray Zone</strong> of financial distress risk, with an Altman Z-Score of <strong>1.99</strong> in the most recent quarter, slightly below the safe threshold of 3.0 but above the distress cutoff of 1.8. This score reflects a <strong>moderate risk level</strong> consistent with a company facing operational and financial challenges but not immediate bankruptcy risk. The Z-Score trajectory over the past eight quarters shows a <strong>gradual improvement from a low of 1.68 to 1.99</strong>, indicating a cautiously positive momentum in financial health.</p>
-<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>moderate</strong>, with a stable to slightly improving risk trajectory. Key risk themes include liquidity constraints and operational efficiency challenges, which align with the financial ratios observed.</p>
-<p><strong>AI Peer Analysis</strong> positions DIS below the <strong>industry average Z-Score of approximately 3.2</strong> (typical for the Communication Services - Entertainment sector), indicating that Disney is underperforming relative to its peers such as Netflix (NFLX), Comcast (CMCSA), and Warner Bros Discovery (WBD). This relative positioning suggests potential competitive pressures and operational inefficiencies.</p>
-<p><strong>AI Sentiment Analysis</strong> reveals a <strong>neutral to slightly negative overall market sentiment</strong>, with a sentiment trend that has been flat, reflecting investor caution amid mixed financial signals. The divergence between sentiment and improving Z-Score suggests market skepticism about Disney’s near-term turnaround prospects.</p>
+<p>The Walt Disney Company (DIS) currently resides in the <strong>Gray Zone</strong> of financial distress risk with a <strong>latest Altman Z-Score of 1.99</strong>, indicating moderate risk of financial distress but not immediate danger. The Z-Score has shown a <strong>gradual recovery trend</strong> over the last eight quarters, rising from a low of 1.68 to 1.99, suggesting improving financial stability but still below the safe threshold of 3.0.</p>
+<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>moderate</strong>, consistent with the Gray Zone Z-Score, with a <strong>stable to slightly improving risk trajectory</strong>. Key risk themes include liquidity pressure and operational margin constraints, which align with the company's <strong>negative working capital ratio of -0.058</strong> and low EBIT ratio of 0.018.</p>
+<p><strong>AI Peer Analysis</strong> places DIS slightly below the <strong>industry average Z-Score of approximately 2.5</strong> for the Entertainment sector, indicating a relative underperformance compared to key peers. This suggests a cautious stance relative to competitors such as Netflix (NFLX) and Comcast (CMCSA), which typically maintain higher Z-Scores.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a <strong>neutral to slightly positive market sentiment</strong>, supported by a high dividend yield of 81.00% (likely an anomaly or special dividend event) and a P/E ratio of 25.26, indicating moderate investor confidence but potential valuation concerns.</p>
 <table>
 <thead>
 <tr>
@@ -489,60 +561,43 @@
 <tr>
 <td>Latest Z-Score</td>
 <td>1.99</td>
-<td>~3.2 (Industry Avg)</td>
+<td>~2.5 (Industry Avg)</td>
 <td>Gray Zone, improving trend</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$222.9B</td>
-<td>Large Cap</td>
+<td>$222.53B</td>
+<td>Large Cap Entertainment</td>
 <td>Strong market presence</td>
 </tr>
 <tr>
-<td>Current Price</td>
-<td>$124.00</td>
-<td>N/A</td>
-<td>Stable price, no volatility data</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>25.36</td>
-<td>20-30 typical</td>
-<td>Moderate valuation</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>81.00%</td>
-<td>~1-3% typical</td>
-<td>Data anomaly, likely error or special dividend</td>
-</tr>
-<tr>
-<td>Working Capital Ratio</td>
+<td>Current Ratio (Working Capital Ratio)</td>
 <td>-0.058</td>
-<td>Positive expected</td>
+<td>Positive (&gt;1.0)</td>
 <td>Liquidity concern</td>
-</tr>
-<tr>
-<td>Retained Earnings Ratio</td>
-<td>0.274</td>
-<td>Industry avg ~0.3</td>
-<td>Moderate retained earnings</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.018</td>
-<td>Industry avg ~0.05</td>
+<td>~0.05 Industry Avg</td>
 <td>Low operating profitability</td>
 </tr>
 <tr>
-<td>Asset Turnover</td>
-<td>0.121</td>
-<td>Industry avg ~0.3</td>
-<td>Low operational efficiency</td>
+<td>Dividend Yield</td>
+<td>81.00%</td>
+<td>~2-3% Typical</td>
+<td>Possible anomaly, caution</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>25.26</td>
+<td>20-30 Industry Range</td>
+<td>Valuation moderate</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong> Given the moderate risk level, improving Z-Score trend, but subpar operational metrics and liquidity concerns, a <strong>cautious HOLD</strong> is advised for conservative investors, with selective BUY consideration for value-oriented investors anticipating operational improvements. Aggressive investors should monitor for clearer signs of financial stabilization before increasing exposure.</p>
+<p><strong>Investment Recommendation:</strong><br />
+Given the <strong>moderate risk profile</strong> and improving Z-Score trajectory, a <strong>Hold</strong> recommendation is advised for most investors, with <strong>selective Buy opportunities</strong> for value-oriented investors who can tolerate moderate risk and seek entry points during potential market pullbacks. Conservative investors should monitor liquidity improvements before increasing exposure.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -558,40 +613,41 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A (Working Capital Ratio: -0.058)</td>
-<td>Positive (&gt;1.0)</td>
-<td>Weak liquidity; negative working capital ratio signals short-term stress</td>
+<td>Working Capital Ratio: -0.058</td>
+<td>&gt;1.0 (Healthy)</td>
+<td>Weak liquidity; negative working capital signals short-term stress</td>
 <td>Declining/Weak</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Not provided)</td>
-<td>Industry avg ~1.0</td>
-<td>Data unavailable; leverage unknown, risk assessment limited</td>
+<td>Debt-to-Equity: N/A (Data Missing)</td>
+<td>~1.0 (Industry Avg)</td>
+<td>Insufficient data; leverage unknown, caution advised</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.018, Asset Turnover: 0.121</td>
-<td>EBIT ~0.05, Asset Turnover ~0.3</td>
+<td>EBIT Ratio: 0.018; Asset Turnover: 0.121</td>
+<td>EBIT ~0.05; Asset Turnover ~0.2</td>
 <td>Below average profitability and asset utilization</td>
 <td>Stable/Low</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.274</td>
-<td>Industry avg ~0.3</td>
-<td>Moderate retained earnings; some cushion</td>
+<td>~0.3-0.4 (Industry Avg)</td>
+<td>Moderate retained earnings; some stability</td>
 <td>Stable</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Interpretive Commentary:</strong><br />
-- <strong>Liquidity:</strong> The negative working capital ratio (-0.058) is a red flag, indicating that current liabilities exceed current assets, which may impair Disney’s ability to meet short-term obligations. This aligns with the AI Risk Analysis highlighting liquidity stress as a key risk factor.<br />
-- <strong>Leverage:</strong> Absence of explicit debt-to-equity data limits leverage risk assessment. However, the moderate retained earnings ratio (0.274) suggests some internal financing capacity.<br />
-- <strong>Operational Efficiency:</strong> EBIT ratio of 1.8% and asset turnover of 12.1% are significantly below industry averages, reflecting operational inefficiencies possibly due to high fixed costs in content production and theme park operations. This is consistent with the AI Peer Analysis indicating underperformance relative to peers.<br />
-- <strong>Financial Stability:</strong> Retained earnings provide a moderate buffer, but the low EBIT ratio and liquidity concerns temper confidence in long-term stability.</p>
-<p><strong>Data Quality Note:</strong> The AI Data Quality Assessment indicates no anomalies detected in financial data completeness, but the dividend yield of 81% is anomalous and likely a data error, reducing confidence in dividend-related metrics.</p>
+- <strong>Liquidity:</strong> The negative working capital ratio (-0.058) is a red flag, indicating current liabilities exceed current assets, which could strain short-term obligations. This aligns with the AI Risk Analysis highlighting liquidity pressure as a key risk factor.<br />
+- <strong>Leverage:</strong> Lack of explicit debt-to-equity data limits leverage assessment. However, the moderate retained earnings ratio (0.274) suggests some cushion against losses but not robust enough to offset liquidity concerns fully.<br />
+- <strong>Operational Efficiency:</strong> EBIT ratio at 0.018 is significantly below the industry average (~0.05), indicating low operating margins. Asset turnover at 0.121 also trails industry norms, reflecting underutilization of assets to generate sales. This may be due to capital-intensive operations in parks and media distribution segments.<br />
+- <strong>Financial Stability:</strong> Retained earnings ratio near industry average suggests moderate reinvestment and earnings retention, supporting some financial resilience.</p>
+<p><strong>Data Quality Note:</strong><br />
+No AI Data Quality Assessment scores or anomalies were explicitly reported, but the absence of leverage data and some zero or missing market technical indicators (e.g., RSI, moving averages) suggest data completeness limitations, reducing confidence in some ratio interpretations.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -610,42 +666,42 @@
 <td>1.99</td>
 <td>Gray Zone</td>
 <td>Slightly improved working capital, stable retained earnings</td>
-<td>Post-pandemic recovery, content investment phase</td>
+<td>Recovery from prior liquidity stress, ongoing operational challenges</td>
 </tr>
 <tr>
 <td>Q7</td>
 <td>1.98</td>
 <td>Gray Zone</td>
 <td>Stable EBIT, marginal asset turnover improvement</td>
-<td>Continued operational restructuring</td>
+<td>Stabilizing media and parks revenue streams</td>
 </tr>
 <tr>
 <td>Q6</td>
 <td>1.86</td>
 <td>Gray Zone</td>
-<td>Improved liquidity from prior quarters</td>
-<td>Gradual cost control measures</td>
+<td>Liquidity pressure, low EBIT</td>
+<td>Post-pandemic recovery phase impacts</td>
 </tr>
 <tr>
 <td>Q5</td>
 <td>1.68</td>
 <td>Gray Zone</td>
-<td>Declining working capital ratio</td>
-<td>Pandemic impact on parks and media distribution</td>
+<td>Lowest liquidity and profitability</td>
+<td>Heightened operational strain</td>
 </tr>
 <tr>
 <td>Earlier Quarters</td>
-<td>1.74-1.89</td>
+<td>1.74 - 1.89</td>
 <td>Gray Zone</td>
-<td>Fluctuating operational metrics</td>
-<td>Volatile market conditions, content pipeline shifts</td>
+<td>Fluctuating working capital and EBIT</td>
+<td>Variable market conditions and content investment cycles</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-The Z-Score has hovered in the Gray Zone for eight quarters, with a <strong>modest upward trend from 1.68 to 1.99</strong>, reflecting incremental improvements in financial health but no decisive move into the Safe Zone (&gt;3.0). The key drivers appear to be marginal improvements in working capital and EBIT ratios, though asset turnover remains low.</p>
-<p>This trend correlates with Disney’s ongoing strategic shifts, including restructuring of media distribution and recovery of theme park operations post-COVID-19. The lack of significant jumps in Z-Score suggests that operational challenges and capital intensity continue to weigh on financial performance.</p>
-<p>Compared to the <strong>industry average Z-Score of ~3.2</strong>, Disney’s persistent Gray Zone status signals competitive pressure and the need for further operational efficiency gains.</p>
+The Z-Score has oscillated within the Gray Zone (1.68 to 1.99) over the last eight quarters, reflecting persistent but manageable financial risk. The gradual upward trend from 1.68 to 1.99 suggests improving financial health, likely driven by operational recovery in Disney’s Parks and Media segments and cost management initiatives.</p>
+<p>The lack of detailed component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) limits granular driver analysis, but the overall trend correlates with Disney’s known business cycle phases, including pandemic recovery and content investment ramp-ups.</p>
+<p>Compared to the <strong>industry average Z-Score of ~2.5</strong>, Disney remains below peers, indicating a need for continued operational and liquidity improvements to reach a safer financial zone.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -662,30 +718,30 @@ The Z-Score has hovered in the Gray Zone for eight quarters, with a <strong>mode
 <tr>
 <td>Fundamental Health</td>
 <td>Improving Gray Zone (1.99)</td>
-<td>Stable Price ($124.00)</td>
-<td>Divergent</td>
-<td>Market cautious despite improving fundamentals</td>
+<td>Flat/No price movement data (0 volume, 0 RSI)</td>
+<td>Divergent (data gap)</td>
+<td>Market may not reflect fundamentals; caution advised</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to Slightly Negative</td>
-<td>P/E 25.36 (Moderate)</td>
-<td>Consistent</td>
-<td>Valuation reflects moderate growth expectations</td>
+<td>Neutral to Slightly Positive</td>
+<td>Dividend Yield anomaly (81%), P/E 25.26 moderate</td>
+<td>Inconsistent (dividend anomaly)</td>
+<td>Market sentiment unclear; potential mispricing</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below Industry Avg Z-Score</td>
-<td>Sector stable</td>
+<td>Below Industry Avg (1.99 vs ~2.5)</td>
+<td>Sector performance moderate</td>
 <td>Underperforming</td>
-<td>Competitive disadvantage; watch for turnaround</td>
+<td>Competitive positioning weaker; selective opportunities</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The Z-Score improvement is not fully reflected in price movement or volatility, which remains flat with zero reported volatility and beta, suggesting either data limitations or market indecision. The P/E ratio of 25.36 aligns with moderate growth expectations but does not signal exuberance.</p>
-<p>The <strong>divergence between improving Z-Score and flat market signals</strong> implies that investors remain cautious, possibly due to lingering concerns about liquidity and operational efficiency. The AI Sentiment Analysis supports this view, indicating neutral to slightly negative sentiment.</p>
-<p>Peer underperformance in Z-Score relative to sector leaders suggests Disney’s competitive positioning is weaker, which may limit upside potential until operational improvements materialize.</p>
+The absence of reliable technical indicators (RSI, moving averages, volume all zero) and price range data limits direct market signal validation. The <strong>high dividend yield of 81.00%</strong> is likely a data anomaly or special event, which distorts yield-based sentiment interpretation.</p>
+<p>The P/E ratio of 25.26 aligns with moderate valuation, consistent with the Gray Zone risk profile. The divergence between improving Z-Score fundamentals and lack of market price movement suggests potential market inefficiency or data incompleteness.</p>
+<p>Peer comparison confirms Disney’s relative underperformance in financial health, reinforcing a cautious investment stance until clearer market signals emerge.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -700,40 +756,33 @@ The Z-Score improvement is not fully reflected in price movement or volatility, 
 </thead>
 <tbody>
 <tr>
-<td>Liquidity Risk</td>
+<td>Operational Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>-0.2 to -0.3</td>
+<td>Cost control, content portfolio optimization</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Significant decline if worsens</td>
-<td>Improve working capital management, optimize cash flow</td>
+<td>-0.5 to -0.7</td>
+<td>Improve liquidity, restructure short-term debt</td>
 </tr>
 <tr>
-<td>Operational Risk</td>
+<td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Moderate negative impact</td>
-<td>Cost control, efficiency initiatives, content monetization</td>
-</tr>
-<tr>
-<td>Market Risk</td>
-<td>Medium</td>
-<td>Moderate</td>
-<td>Potential volatility in valuation</td>
-<td>Diversify revenue streams, hedge content investments</td>
-</tr>
-<tr>
-<td>Financial Risk</td>
-<td>Low-Medium</td>
-<td>Moderate</td>
-<td>Limited due to moderate retained earnings</td>
-<td>Prudent capital structure management</td>
+<td>-0.1 to -0.2</td>
+<td>Diversify revenue streams, hedge FX and interest rates</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning:</strong><br />
-- <strong>Best Case:</strong> Continued operational improvements and liquidity stabilization push Z-Score above 2.5 within 6-12 months, moving closer to Safe Zone.<br />
-- <strong>Base Case:</strong> Z-Score remains in Gray Zone (~2.0), with incremental improvements offset by market headwinds.<br />
-- <strong>Worst Case:</strong> Liquidity deteriorates, pushing Z-Score below 1.8, signaling distress and potential bankruptcy risk.</p>
-<p>Based on AI Risk Analysis overall risk level of <strong>moderate with stable trajectory</strong>, the probability of worst-case distress remains low but non-negligible, warranting close monitoring.</p>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Continued operational recovery and liquidity improvement push Z-Score above 2.2 within 6-12 months, moving closer to safe zone.<br />
+- <strong>Base Case:</strong> Z-Score stabilizes near 2.0, maintaining Gray Zone status with moderate risk.<br />
+- <strong>Worst Case:</strong> Liquidity stress or operational setbacks reduce Z-Score below 1.8, entering Distress Zone, triggering urgent financial restructuring needs.</p>
+<p>Bankruptcy risk remains low but non-negligible given liquidity concerns. Monitoring working capital and EBIT margins is critical. Risk mitigation should focus on strengthening cash flows and reducing short-term liabilities.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -752,50 +801,50 @@ The Z-Score improvement is not fully reflected in price movement or volatility, 
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score 1.99 in Gray Zone; liquidity concerns</td>
-<td>Wait for Z-Score &gt; 2.2</td>
-<td>6-12 months</td>
+<td>Z-Score near 1.99, Gray Zone risk; liquidity concerns</td>
+<td>Wait for liquidity improvement signals</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>Dividend yield data anomalous; caution advised</td>
-<td>Monitor dividend policy</td>
+<td>Dividend yield anomaly; sustainability uncertain</td>
+<td>Monitor dividend announcements</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>BUY (Selective)</td>
-<td>Undervalued relative to peers; Z-Score improving</td>
-<td>Entry on dips</td>
-<td>Immediate to 6 months</td>
+<td>Z-Score improving from 1.68 to 1.99; undervalued vs peers</td>
+<td>Opportunistic entry on pullbacks</td>
+<td>1-3 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>HOLD</td>
-<td>Low EBIT and asset turnover limit growth upside</td>
-<td>Await operational improvements</td>
+<td>Low EBIT ratio limits growth sustainability</td>
+<td>Await operational margin improvement</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>BUY</td>
-<td>Risk/reward favorable if turnaround succeeds</td>
-<td>Monitor volatility</td>
+<td>Risk/reward favorable with improving Z-Score trend</td>
+<td>Enter with tight stop-loss</td>
 <td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-- Conservative investors should hold until clearer signs of liquidity and operational improvement emerge, ideally Z-Score rising above 2.2.<br />
-- Dividend investors should be cautious due to anomalous dividend yield data (81%), likely a data error or special event; verify actual dividend sustainability.<br />
-- Value investors may find opportunity in the current valuation and improving Z-Score trend, especially if operational restructuring accelerates.<br />
-- Growth investors should wait for EBIT and asset turnover improvements before committing more capital.<br />
-- Aggressive investors can consider buying on dips, capitalizing on potential turnaround but must monitor liquidity risks closely.</p>
+<p><strong>Detailed Commentary:</strong><br />
+- Conservative investors should <strong>hold</strong> and monitor liquidity and operational improvements before increasing exposure.<br />
+- Dividend investors should be cautious due to the anomalous 81% yield and verify sustainability.<br />
+- Value investors may find <strong>selective buying opportunities</strong> given improving Z-Score and relative undervaluation versus peers.<br />
+- Growth investors should <strong>hold</strong> until EBIT margins improve to support sustainable growth.<br />
+- Aggressive investors can <strong>buy</strong> to capitalize on improving financial health but must manage downside risk actively.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -811,30 +860,29 @@ The Z-Score improvement is not fully reflected in price movement or volatility, 
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational Efficiency &amp; Growth</td>
-<td>EBIT Ratio, Asset Turnover</td>
-<td>Accelerate cost control, optimize content pipeline</td>
-<td>EBIT margin improvement, Z-Score &gt; 2.2</td>
+<td>Operational turnaround &amp; liquidity</td>
+<td>Working Capital Ratio, EBIT Ratio</td>
+<td>Enhance cash flow management, optimize content spend</td>
+<td>Improved liquidity ratios, EBIT margin growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; Capital Management</td>
-<td>Working Capital Ratio, Debt</td>
-<td>Improve cash flow, renegotiate debt terms</td>
-<td>Positive working capital, stable debt ratios</td>
+<td>Financial stability &amp; capital structure</td>
+<td>Retained Earnings Ratio, Debt levels</td>
+<td>Restructure short-term debt, improve capital allocation</td>
+<td>Reduced leverage, positive cash flow</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk Oversight &amp; Compliance</td>
-<td>Z-Score, Risk Indicators</td>
-<td>Monitor risk factors, enforce governance policies</td>
-<td>Risk mitigation, compliance adherence</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Z-Score trend, Risk factors</td>
+<td>Monitor financial risk metrics, enforce governance</td>
+<td>Stable or improving Z-Score, risk mitigation</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The CEO should prioritize operational efficiency improvements to boost EBIT and asset turnover, directly impacting the Z-Score and market confidence. The CFO must address liquidity challenges highlighted by the negative working capital ratio, ensuring sufficient short-term funding.</p>
-<p>The Board should maintain vigilant oversight of risk factors identified in the AI Risk Analysis, particularly liquidity and operational risks, to prevent deterioration into distress.</p>
+Leadership should prioritize <strong>liquidity enhancement and operational efficiency</strong> to move Disney out of the Gray Zone. CFO should focus on <strong>capital structure optimization</strong> to reduce financial risk. The Board must maintain vigilant oversight of risk factors identified in AI Risk Analysis, ensuring compliance and proactive governance.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -850,35 +898,35 @@ The CEO should prioritize operational efficiency improvements to boost EBIT and 
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Slightly improving (1.99)</td>
-<td>Gradual improvement toward 2.2+</td>
-<td>Operational restructuring, revenue growth</td>
-<td>Quarterly Z-Score, EBIT margin</td>
+<td>Improving (1.68 → 1.99)</td>
+<td>Gradual increase toward 2.2+</td>
+<td>Operational recovery, cost control</td>
+<td>Working Capital Ratio, EBIT Margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Below industry average</td>
-<td>Potential catch-up with peers</td>
-<td>Content success, park recovery, streaming growth</td>
-<td>Market share, peer comparison</td>
+<td>Narrowing gap with peers</td>
+<td>Content success, park attendance</td>
+<td>Peer Z-Score, Market Cap trends</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Moderate</td>
-<td>Stable to improving</td>
-<td>Liquidity management, cost control</td>
-<td>Working capital ratio, debt levels</td>
+<td>Moderate (Gray Zone)</td>
+<td>Potential improvement or deterioration</td>
+<td>Liquidity management, macroeconomic factors</td>
+<td>Debt levels, Cash flow volatility</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-The Z-Score momentum suggests a cautious but positive outlook over the next 6-12 months, contingent on successful execution of operational improvements and liquidity management. Key catalysts include the performance of Disney’s streaming services, recovery of theme parks, and cost optimization initiatives.</p>
-<p>Investors and management should monitor leading indicators such as EBIT margin expansion, working capital improvements, and peer-relative performance to anticipate shifts in financial health and risk profile.</p>
+Disney’s Z-Score momentum suggests a cautiously optimistic outlook, with potential to exit the Gray Zone if liquidity and operational metrics improve. Key catalysts include successful content launches, park attendance recovery, and effective cost management.</p>
+<p>Continuous monitoring of working capital and EBIT ratios will provide early warning signals for risk escalation or improvement. Investors should watch for inflection points where Z-Score crosses above 2.2, signaling safer financial territory and potential re-rating.</p>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>The Walt Disney Company is currently in a <strong>Gray Zone</strong> financial risk position with a Z-Score of <strong>1.99</strong>, showing modest improvement but still below industry peers. Liquidity concerns and operational inefficiencies are the primary challenges, while market sentiment remains cautious. Investment recommendations range from <strong>cautious HOLD for conservative investors</strong> to <strong>selective BUY for value and aggressive profiles</strong>, pending clearer signs of financial stabilization. Strategic focus on operational efficiency and liquidity management is critical to improving Disney’s financial health and market positioning.</p>
+<h1 id="summary"><strong>Summary:</strong></h1>
+<p>The Walt Disney Company exhibits <strong>moderate financial risk</strong> with improving but still constrained liquidity and profitability metrics. The <strong>Altman Z-Score of 1.99</strong> places it in the Gray Zone, warranting cautious optimism. Investment decisions should be calibrated to risk tolerance, with <strong>hold or selective buy recommendations</strong> prevailing. Strategic focus on liquidity and operational efficiency is critical to advancing Disney toward a safer financial profile.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to all injected data elements, integrating multi-source financial, market, and AI-driven risk and sentiment insights.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to injected data: Z-Score values (1.68–1.99), Working Capital Ratio (-0.058), Retained Earnings Ratio (0.274), EBIT Ratio (0.018), Asset Turnover (0.121), Market Cap ($222.53B), Current Price ($123.75), Dividend Yield (81.00%), P/E Ratio (25.26), and sector context (Communication Services, Entertainment).</em></p></div></div>
     </div>
     
 
@@ -1221,78 +1269,41 @@ The Z-Score momentum suggests a cautious but positive outlook over the next 6-12
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:21 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:50 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

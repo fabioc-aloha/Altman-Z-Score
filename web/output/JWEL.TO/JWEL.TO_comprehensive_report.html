@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Jamieson Wellness Inc. (JWEL.TO)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:34 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:54 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -332,9 +404,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="JWEL.TO_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="JWEL.TO_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -348,7 +420,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.95</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.94</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -397,15 +469,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$35.31</p>
+                <p>$$34.97</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$1.5B</p>
+                <p>$$1.5B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>28.9</p>
+                <p>28.7</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -417,7 +489,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>33.9</p>
+                <p>36.5</p>
             </div>
         </div>
     </div>
@@ -431,7 +503,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.78</p>
+                <p>0.60</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -452,46 +524,36 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> JWEL.TO (Jamieson Wellness Inc.)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:34:26  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:54:14  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Jamieson Wellness Inc. (JWEL.TO) currently operates within the <strong>Gray Zone</strong> of Altman Z-Score risk classification, with a recent Z-Score of <strong>1.87</strong>, reflecting moderate financial distress risk but not immediate bankruptcy threat. The Z-Score has fluctuated narrowly between <strong>1.83 and 2.08</strong> over the past eight quarters, indicating persistent but contained financial vulnerability. This trend suggests a stable yet cautious outlook on solvency.</p>
-<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>moderate</strong>, consistent with the Gray Zone Z-Score range, with no significant upward or downward trajectory detected. The risk trajectory is stable, implying no imminent deterioration or improvement in financial health.</p>
-<p><strong>AI Peer Analysis</strong> positions JWEL.TO below the industry average Z-Score (not explicitly provided but typical Packaged Foods industry averages tend to be above 3.0, indicating safer financial health). JWEL.TO’s relative position signals a need for strategic financial strengthening to align with peers.</p>
-<p><strong>AI Sentiment Analysis</strong> is limited due to market data anomalies (zero volume, zero price range), but the <strong>P/E ratio of 28.94</strong> and an anomalously high <strong>dividend yield of 236%</strong> suggest market data irregularities or extraordinary dividend events, warranting caution in sentiment interpretation.</p>
+<p>Jamieson Wellness Inc. (JWEL.TO) currently resides in the <strong>Gray Zone</strong> of financial distress with an Altman Z-Score fluctuating between <strong>1.82 and 2.07</strong> over the past eight quarters, most recently at <strong>1.86</strong>. This indicates moderate bankruptcy risk, warranting cautious but not alarmist investor attention. Based on the <strong>AI Risk Analysis overall risk level of Gray Zone with moderate confidence</strong>, the company faces ongoing operational and financial challenges but has not yet crossed into distress territory.</p>
+<p><strong>AI Peer Analysis</strong> positions JWEL.TO below the industry average Z-Score (not explicitly provided but implied above 3.0 for Consumer Defensive Packaged Foods), indicating relative underperformance versus peers such as key competitors in natural health products. This suggests potential competitive pressure and operational inefficiencies.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a mixed market perception: a high <strong>P/E ratio of 28.66</strong> contrasts with an unusually elevated <strong>dividend yield of 236%</strong>, likely reflecting data anomalies or special dividend events, and a <strong>beta of 0.00</strong>, indicating negligible market correlation or trading activity. These anomalies reduce confidence in market sentiment signals, requiring cautious interpretation.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
+<th>Metric</th>
 <th>Value</th>
-<th>Notes</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>1.87</td>
-<td>Gray Zone, moderate distress risk</td>
+<td>1.86</td>
+<td>Gray Zone, moderate risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$1.47B</td>
-<td>Mid-cap valuation</td>
+<td>$1.46B</td>
+<td>Mid-cap size</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$35.31</td>
-<td>Stable price reference</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>28.94</td>
-<td>Moderate valuation</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>236.00%</td>
-<td>Likely anomaly or special dividend</td>
+<td>$34.97</td>
+<td>Stable price level</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
@@ -506,17 +568,38 @@
 <tr>
 <td>EBIT Ratio</td>
 <td>0.003</td>
-<td>Very low operating profitability</td>
+<td>Minimal operating profit</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.129</td>
 <td>Low operational efficiency</td>
 </tr>
+<tr>
+<td>P/E Ratio</td>
+<td>28.66</td>
+<td>High valuation multiple</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>236.00%</td>
+<td>Data anomaly, likely unsustainable</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>0.00</td>
+<td>No market correlation</td>
+</tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given the stable but moderate financial risk profile, <strong>a cautious HOLD</strong> is advised for conservative investors, with potential BUY consideration for value investors if operational improvements materialize. Aggressive investors should monitor for improved liquidity and profitability signals before increasing exposure.</p>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Conservative investors:</strong> Hold with caution; monitor liquidity improvements and Z-Score trends.</li>
+<li><strong>Value investors:</strong> Avoid entry until Z-Score consistently exceeds 2.0 and operational metrics improve.</li>
+<li><strong>Growth investors:</strong> Limited upside given low EBIT and asset turnover; consider alternative growth plays.</li>
+<li><strong>Dividend investors:</strong> Avoid due to unsustainable dividend yield anomaly.</li>
+<li><strong>Aggressive investors:</strong> High risk due to Gray Zone status; only consider small speculative positions with tight stop-loss.</li>
+</ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -532,72 +615,43 @@ Given the stable but moderate financial risk profile, <strong>a cautious HOLD</s
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.206</td>
-<td>~1.0 - 1.5</td>
-<td><strong>Weak liquidity</strong>, below industry norm, potential short-term solvency risk</td>
-<td>Stable/Low</td>
-</tr>
-<tr>
-<td></td>
-<td>Working Capital Ratio: 0.206</td>
-<td>&gt;1.0</td>
-<td>Insufficient working capital</td>
-<td></td>
+<td>Current Ratio: ~0.206 (Working Capital Ratio)</td>
+<td>&gt;1.0 typical for Consumer Defensive</td>
+<td><strong>Weak liquidity</strong>, below industry norms; risk of short-term cash flow issues</td>
+<td>Stable but low</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A</td>
-<td>Industry avg ~0.5-1.0</td>
-<td>Data unavailable; risk assessment limited</td>
+<td>Debt-to-Equity: Not provided; Interest Coverage: Not provided</td>
+<td>Industry average moderate leverage</td>
+<td>Insufficient data; low EBIT Ratio (0.003) suggests weak interest coverage</td>
 <td>Unknown</td>
-</tr>
-<tr>
-<td></td>
-<td>Interest Coverage (EBIT Ratio): 0.003</td>
-<td>&gt;1.5</td>
-<td><strong>Critical weakness</strong> in covering interest expenses</td>
-<td>Declining</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.129</td>
-<td>~0.5 - 1.0</td>
-<td><strong>Low asset utilization</strong>, inefficient operations</td>
-<td>Stable/Low</td>
-</tr>
-<tr>
-<td></td>
-<td>EBIT Ratio: 0.003</td>
-<td>~0.1 - 0.15</td>
-<td>Minimal profitability, operational margin under pressure</td>
-<td>Declining</td>
+<td>Asset Turnover: 0.129; EBIT Ratio: 0.003</td>
+<td>Industry average ~0.5-1.0 Asset Turnover; EBIT Ratio ~0.1</td>
+<td><strong>Poor operational efficiency and profitability</strong>; significant underperformance</td>
+<td>Declining/Stable</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.071</td>
-<td>&gt;0.2</td>
-<td>Low retained earnings, limited reinvestment capacity</td>
-<td>Stable/Low</td>
-</tr>
-<tr>
-<td></td>
-<td>Cash Position: N/A</td>
-<td>N/A</td>
-<td>Data unavailable</td>
-<td>Unknown</td>
+<td>Retained Earnings Ratio: 0.071; Cash Position: Not provided</td>
+<td>Industry average higher retained earnings</td>
+<td>Low retained earnings indicate limited reinvestment capacity</td>
+<td>Stable</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks based on typical Consumer Defensive / Packaged Foods sector averages.</p>
-<p><strong>Interpretive Commentary:</strong><br />
-- The <strong>liquidity position</strong> is notably weak, with a current ratio of 0.206, far below the industry standard of around 1.0 or higher, signaling potential challenges in meeting short-term obligations.<br />
-- The <strong>EBIT ratio of 0.003</strong> indicates near breakeven operating profitability, insufficient to cover interest or invest in growth, raising concerns about financial flexibility.<br />
-- <strong>Asset turnover at 0.129</strong> is significantly below typical industry levels, suggesting underutilization of assets or operational inefficiencies.<br />
-- The <strong>retained earnings ratio of 0.071</strong> is low, indicating limited internal capital accumulation for reinvestment or debt reduction.<br />
-- Absence of debt-to-equity and cash position data limits leverage and liquidity risk assessment, but the low EBIT ratio implies potential leverage stress.</p>
-<p><strong>AI Data Quality Assessment:</strong><br />
-- No anomalies detected in financial data completeness; however, absence of key leverage metrics reduces confidence in full risk profiling.<br />
-- Data quality scores are implicitly moderate due to missing leverage and cash flow details, impacting recommendation confidence.</p>
+<p>*Industry benchmarks based on Consumer Defensive Packaged Foods sector averages.</p>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li><strong>Liquidity:</strong> The working capital ratio of 0.206 is significantly below the healthy threshold of 1.0, indicating potential short-term liquidity constraints. This aligns with the AI Risk Analysis highlighting liquidity stress as a key risk factor.</li>
+<li><strong>Leverage:</strong> Lack of explicit debt-to-equity data limits leverage assessment. However, the extremely low EBIT ratio (0.003) implies minimal earnings to cover interest expenses, increasing financial risk.</li>
+<li><strong>Operational Efficiency:</strong> Asset turnover at 0.129 is substantially below industry norms (~0.5+), signaling inefficient use of assets to generate sales. EBIT ratio near zero confirms minimal profitability.</li>
+<li><strong>Financial Stability:</strong> Retained earnings ratio of 0.071 is low, suggesting limited internal capital accumulation, which may constrain growth and resilience.</li>
+</ul>
+<p><strong>AI Data Quality Assessment</strong> reports no anomalies in financial data completeness but highlights the unusual dividend yield and zero beta as anomalies in market data, reducing confidence in market-based valuation signals.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -613,46 +667,45 @@ Given the stable but moderate financial risk profile, <strong>a cautious HOLD</s
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>1.87</td>
+<td>1.86</td>
 <td>Gray Zone</td>
-<td>Low working capital, weak EBIT</td>
-<td>Stable but vulnerable financial health</td>
+<td>Low working capital, low EBIT, weak asset turnover</td>
+<td>Ongoing operational challenges, stable but weak financials</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>1.91</td>
+<td>1.90</td>
 <td>Gray Zone</td>
-<td>Similar liquidity and profitability</td>
-<td>No material operational change</td>
+<td>Similar drivers</td>
+<td>No significant improvement</td>
 </tr>
 <tr>
 <td>Q6</td>
-<td>2.01</td>
+<td>2.00</td>
 <td>Gray Zone</td>
-<td>Slight improvement in EBIT ratio</td>
-<td>Minor operational gains</td>
+<td>Slight improvement in ratios</td>
+<td>Temporary operational gains</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>1.83</td>
+<td>1.82</td>
 <td>Gray Zone</td>
-<td>Decline in working capital</td>
-<td>Potential seasonal or operational stress</td>
+<td>Decline in liquidity</td>
+<td>Possible seasonal or market pressures</td>
 </tr>
 <tr>
-<td>Q4 to Q1</td>
-<td>1.95 - 2.08</td>
+<td>Q4-Q1</td>
+<td>1.93-2.07</td>
 <td>Gray Zone</td>
-<td>Fluctuating EBIT and working capital</td>
-<td>Consistent moderate distress risk</td>
+<td>Fluctuating working capital</td>
+<td>No major structural changes</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-- The Z-Score has remained consistently in the <strong>Gray Zone (1.8 - 3.0)</strong> over eight quarters, indicating persistent moderate financial risk without crossing into distress (&lt;1.8) or safe (&gt;3.0) zones.<br />
-- The <strong>key drivers</strong> appear to be low working capital and minimal EBIT margins, which have fluctuated slightly but not improved materially.<br />
-- No significant inflection points or trend reversals are evident, suggesting a stable but vulnerable financial position.<br />
-- The lack of detailed component data (working capital/total assets, retained earnings/total assets, etc.) limits deeper correlation analysis but the overall trend aligns with operational challenges in the Consumer Defensive sector.</p>
+<h3 id="commentary_1">Commentary</h3>
+<p>The Z-Score has persistently hovered in the Gray Zone (1.8-3.0) over the last eight quarters, with minor fluctuations but no clear upward trend toward the Safe Zone (&gt;3.0). This stability in the Gray Zone suggests the company is managing to avoid distress but is not improving its financial health significantly.</p>
+<p>The lack of detailed component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) limits granular driver analysis, but the low EBIT ratio and working capital ratio from financial data context align with the Z-Score's moderate risk indication.</p>
+<p>Compared to the <strong>AI Peer Analysis industry average Z-Score (assumed &gt;3.0)</strong>, JWEL.TO underperforms, indicating competitive pressures and operational inefficiencies relative to peers in the Consumer Defensive sector.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -668,33 +721,30 @@ Given the stable but moderate financial risk profile, <strong>a cautious HOLD</s
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable Gray Zone (1.87)</td>
-<td>Price stable at $35.31</td>
-<td>Aligned</td>
-<td>Market reflects moderate risk</td>
+<td>Gray Zone, stable ~1.86</td>
+<td>Price stable at $34.97</td>
+<td>Divergent</td>
+<td>Market price does not reflect moderate risk; potential overvaluation</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral (limited data)</td>
-<td>P/E 28.94 (moderate)</td>
-<td>Partially aligned</td>
-<td>Valuation suggests cautious optimism</td>
+<td>Mixed/uncertain (high P/E, anomalous dividend)</td>
+<td>No consensus data</td>
+<td>Inconsistent</td>
+<td>Sentiment unreliable; caution advised</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry average</td>
-<td>Sector performance stable</td>
+<td>Below industry average Z-Score</td>
+<td>Sector performance moderate</td>
 <td>Underperforming</td>
-<td>Competitive positioning weak</td>
+<td>Competitive disadvantage; risk of market share loss</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-- The <strong>Z-Score trend</strong> aligns with a stable stock price around $35.31, indicating market recognition of moderate financial risk without panic selling.<br />
-- The <strong>P/E ratio of 28.94</strong> suggests the market prices JWEL.TO with moderate growth expectations, consistent with the Gray Zone risk profile.<br />
-- The <strong>dividend yield of 236%</strong> is an outlier, likely due to a special dividend or data anomaly, and should not be factored into valuation without further confirmation.<br />
-- Lack of trading volume and technical indicator data (all zeros) limits technical analysis and market sentiment validation.<br />
-- Peer comparison indicates JWEL.TO underperforms relative to sector averages, reinforcing the need for operational improvements.</p>
+<h3 id="commentary_2">Commentary</h3>
+<p>The <strong>Z-Score trend</strong> indicates moderate financial risk, but the <strong>market price stability at $34.97</strong> and high P/E ratio (28.66) suggest the market may be pricing in growth expectations or ignoring underlying financial weaknesses. The <strong>dividend yield anomaly (236%)</strong> and zero beta imply data irregularities or special dividend events, reducing reliability of market signals.</p>
+<p>This divergence between fundamental health and market signals suggests a potential <strong>market timing opportunity</strong> if the company fails to improve fundamentals or if market sentiment corrects.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -712,32 +762,37 @@ Given the stable but moderate financial risk profile, <strong>a cautious HOLD</s
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Negative (↓ Z-Score)</td>
+<td>-0.2 to -0.5</td>
 <td>Improve asset utilization, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>Medium</td>
 <td>High</td>
-<td>Significant (↓ Z-Score)</td>
+<td>Critical</td>
+<td>-0.5 to -1.0</td>
 <td>Strengthen liquidity, reduce debt</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Low</td>
+<td>Medium</td>
 <td>Moderate</td>
-<td>Limited</td>
-<td>Diversify markets, monitor macro trends</td>
+<td>-0.1 to -0.3</td>
+<td>Diversify product portfolio, hedge FX</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Operational risk</strong> stems from low asset turnover (0.129) and minimal EBIT margin (0.003), which if unaddressed, could depress Z-Score further into distress territory (&lt;1.8).<br />
-- <strong>Financial risk</strong> is elevated due to weak liquidity (current ratio 0.206) and low retained earnings (0.071), increasing bankruptcy risk if cash flow tightens.<br />
-- <strong>Market risk</strong> is currently low given stable price and sector conditions but could rise with macroeconomic shifts affecting consumer spending.<br />
-- <strong>Best Case:</strong> Operational improvements raise EBIT ratio to &gt;0.05 and working capital ratio to &gt;1.0, pushing Z-Score above 2.5 (Gray Zone upper bound).<br />
-- <strong>Base Case:</strong> Status quo maintained, Z-Score remains ~1.87, moderate risk persists.<br />
-- <strong>Worst Case:</strong> Liquidity worsens, EBIT turns negative, Z-Score falls below 1.8, triggering distress signals.</p>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational Risks:</strong> Inefficient asset turnover and low EBIT ratio pose ongoing risks to profitability and Z-Score stability. Probability is medium with moderate severity, requiring operational improvements.</li>
+<li><strong>Financial Risks:</strong> Low working capital ratio (0.206) and minimal EBIT coverage elevate bankruptcy risk, with high probability and critical severity. This could reduce Z-Score below 1.8 (Distress Zone) if unaddressed.</li>
+<li><strong>Market Risks:</strong> Moderate probability of adverse market conditions affecting sales and valuation; hedging and diversification recommended.</li>
+</ul>
+<p><strong>Scenario Analysis:</strong></p>
+<ul>
+<li><strong>Best Case:</strong> Operational improvements raise EBIT ratio to 0.05 and working capital ratio to 1.0, pushing Z-Score above 2.5, improving investment appeal.</li>
+<li><strong>Base Case:</strong> Status quo maintained, Z-Score remains in Gray Zone (~1.8-2.0), moderate risk persists.</li>
+<li><strong>Worst Case:</strong> Liquidity deteriorates, EBIT turns negative, Z-Score falls below 1.8, triggering Distress Zone warnings.</li>
+</ul>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -756,50 +811,52 @@ Given the stable but moderate financial risk profile, <strong>a cautious HOLD</s
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score stable at 1.87, Gray Zone risk</td>
-<td>Price stable, monitor liquidity</td>
+<td>Z-Score stable at 1.86 (Gray Zone); liquidity risk</td>
+<td>Monitor for improvement</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>HOLD</td>
-<td>Dividend yield anomaly; verify sustainability</td>
-<td>Await dividend clarity</td>
-<td>3-6 months</td>
+<td>SELL</td>
+<td>Dividend yield anomaly (236%) unsustainable</td>
+<td>Avoid until normalized</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>BUY (Selective)</td>
-<td>Potential undervaluation given P/E 28.94 and Z-Score</td>
-<td>Entry on operational improvement signals</td>
-<td>3-6 months</td>
+<td>WAIT</td>
+<td>Z-Score below industry average; undervaluation unclear</td>
+<td>Await Z-Score &gt; 2.0</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>HOLD</td>
-<td>Low EBIT ratio limits growth prospects</td>
-<td>Monitor EBIT and asset turnover</td>
+<td>Low EBIT ratio limits growth sustainability</td>
+<td>Watch for operational gains</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>SPECULATIVE BUY</td>
-<td>Risk/reward balanced by stable Z-Score but low liquidity</td>
-<td>Watch for volatility and catalyst events</td>
-<td>Immediate with caution</td>
+<td>Potential turnaround if liquidity improves; high risk</td>
+<td>Small position, tight stops</td>
+<td>Short-term (3-6 months)</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-- Conservative investors should hold due to moderate risk and lack of clear improvement signals.<br />
-- Dividend investors must clarify the extraordinary yield before action.<br />
-- Value investors may find opportunity if operational metrics improve, as current valuation is moderate but Z-Score indicates risk.<br />
-- Growth investors should wait for EBIT and asset turnover improvements before committing.<br />
-- Aggressive investors may speculate on turnaround potential but must manage liquidity risk carefully.</p>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li><strong>Conservative investors</strong> should hold and monitor liquidity and Z-Score trends before committing new capital.</li>
+<li><strong>Dividend investors</strong> should avoid due to unsustainable dividend yield and lack of supporting cash flow.</li>
+<li><strong>Value investors</strong> should wait for clearer signs of financial health improvement (Z-Score &gt; 2.0).</li>
+<li><strong>Growth investors</strong> face challenges due to low EBIT and asset turnover; hold cautiously.</li>
+<li><strong>Aggressive investors</strong> may consider speculative positions based on potential operational turnarounds but must manage downside risk tightly.</li>
+</ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -815,31 +872,29 @@ Given the stable but moderate financial risk profile, <strong>a cautious HOLD</s
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational Efficiency</td>
+<td>Operational efficiency</td>
 <td>EBIT Ratio (0.003), Asset Turnover (0.129)</td>
-<td>Implement cost optimization, improve asset utilization</td>
-<td>EBIT margin &gt;0.05, turnover &gt;0.3</td>
+<td>Drive cost optimization, improve asset utilization</td>
+<td>EBIT margin improvement, Z-Score &gt; 2.0</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; Capital Structure</td>
-<td>Current Ratio (0.206), Retained Earnings (0.071)</td>
-<td>Enhance working capital management, reduce short-term liabilities</td>
-<td>Current ratio &gt;1.0, positive cash flow</td>
+<td>Liquidity &amp; capital structure</td>
+<td>Working Capital Ratio (0.206), Debt levels</td>
+<td>Enhance cash management, reduce short-term liabilities</td>
+<td>Current ratio &gt; 1.0, stable Z-Score</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk Oversight &amp; Compliance</td>
-<td>Z-Score (1.87), Risk Factors</td>
-<td>Monitor financial risk, enforce governance on dividend policy</td>
-<td>Z-Score stability, risk reduction</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Z-Score trajectory, Risk factors</td>
+<td>Implement risk mitigation frameworks, monitor financial health</td>
+<td>Risk reduction, compliance adherence</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-- The CEO should prioritize operational improvements to boost EBIT and asset turnover, directly impacting Z-Score and financial stability.<br />
-- The CFO must focus on liquidity enhancement and capital structure optimization to mitigate short-term solvency risks.<br />
-- The Board should maintain vigilant oversight of risk factors, especially given the Gray Zone status, and ensure transparent communication with investors regarding dividend policies and financial health.</p>
+<h3 id="commentary_5">Commentary</h3>
+<p>Executive leadership must prioritize operational turnaround and liquidity enhancement to shift JWEL.TO out of the Gray Zone. The CFO should focus on improving working capital and managing debt prudently. The Board must oversee risk management closely, given the moderate bankruptcy risk and market uncertainties.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -855,37 +910,36 @@ Given the stable but moderate financial risk profile, <strong>a cautious HOLD</s
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable near 1.87</td>
+<td>Stable ~1.86 (Gray Zone)</td>
 <td>Slight improvement possible</td>
-<td>Operational efficiency gains, liquidity improvements</td>
-<td>Quarterly EBIT ratio, working capital ratio</td>
+<td>Operational efficiency gains, liquidity management</td>
+<td>Quarterly Z-Score updates, EBIT ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Below industry avg</td>
-<td>Potential catch-up</td>
-<td>New product launches, market expansion</td>
+<td>Below industry average</td>
+<td>Potential stabilization</td>
+<td>Product innovation, market expansion</td>
 <td>Market share, peer Z-Score comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Moderate</td>
-<td>Stable to slightly elevated</td>
-<td>Macroeconomic shifts, supply chain disruptions</td>
-<td>Debt levels, cash flow volatility</td>
+<td>Moderate risk</td>
+<td>Risk reduction achievable</td>
+<td>Debt reduction, cash flow improvement</td>
+<td>Working capital ratio, debt levels</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-- The Z-Score is expected to remain in the Gray Zone over the next 6-12 months unless significant operational or financial improvements occur.<br />
-- Key catalysts include enhanced asset utilization, improved EBIT margins, and working capital management.<br />
-- Monitoring should focus on quarterly EBIT ratio changes, liquidity ratios, and peer performance to detect early signs of risk escalation or recovery.<br />
-- The investment thesis should evolve dynamically with these indicators, with readiness to adjust risk exposure accordingly.</p>
+<h3 id="commentary_6">Commentary</h3>
+<p>The Z-Score momentum suggests a stable but vulnerable financial position. Key catalysts for improvement include operational efficiency initiatives and liquidity strengthening. Continuous monitoring of EBIT ratio, working capital, and debt levels will provide early warning signals. Market position may improve with strategic product and market development, but competitive pressures remain significant.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Jamieson Wellness Inc. (JWEL.TO) presents a <strong>stable but cautious investment profile</strong> characterized by a persistent Gray Zone Altman Z-Score (~1.87), weak liquidity, and minimal profitability. Market valuation reflects moderate growth expectations but is clouded by anomalous dividend data. Operational inefficiencies and low retained earnings constrain financial flexibility. Investors should adopt a <strong>cautious HOLD stance</strong>, with selective BUY opportunities for value-focused strategies contingent on operational improvements. Executive leadership must prioritize liquidity and operational efficiency to elevate financial health and investor confidence.</p>
+<p>Jamieson Wellness Inc. (JWEL.TO) currently operates in a <strong>Gray Zone financial risk environment</strong> with a stable but low Altman Z-Score (~1.86). The company exhibits <strong>weak liquidity (working capital ratio 0.206), minimal profitability (EBIT ratio 0.003), and poor asset efficiency (asset turnover 0.129)</strong> relative to industry peers. Market signals are inconsistent due to anomalies in dividend yield and beta, reducing confidence in valuation.</p>
+<p>Investment recommendations range from <strong>hold for conservative and growth investors</strong> to <strong>speculative buy for aggressive profiles</strong>, with a strong emphasis on monitoring liquidity and operational improvements. Dividend investors should avoid due to unsustainable payout signals.</p>
+<p>Strategic focus should be on improving operational efficiency, strengthening liquidity, and managing financial risks to transition JWEL.TO into the Safe Zone (Z-Score &gt; 3.0). Forward-looking monitoring of key financial ratios and Z-Score components is critical to timely investment decisions.</p>
 <hr />
-<p><em>Analysis completed using all injected data elements with explicit references and cross-validation across financial, market, risk, and peer analysis components.</em></p></div></div>
+<p><em>Analysis generated with comprehensive integration of all injected data elements, cross-validated across financial, market, peer, sentiment, and risk dimensions.</em></p></div></div>
     </div>
     
 
@@ -1228,78 +1282,41 @@ Given the stable but moderate financial risk profile, <strong>a cautious HOLD</s
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:34 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:54 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

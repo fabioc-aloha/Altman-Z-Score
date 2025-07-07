@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Moderna, Inc. (MRNA)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:36 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:58 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -334,6 +406,10 @@
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overbought conditions (RSI)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     Large historical drawdowns</div>
                 
                 <div
@@ -349,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="MRNA_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="MRNA_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -414,11 +490,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$30.49</p>
+                <p>$$30.42</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$11.8B</p>
+                <p>$$11.8B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -434,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>69.0</p>
+                <p>74.5</p>
             </div>
         </div>
     </div>
@@ -448,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>-1.73</p>
+                <p>-1.71</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -469,74 +545,59 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Moderna, Inc. (MRNA)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:36:16  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:57:53  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Moderna, Inc. (MRNA) demonstrates a <strong>consistently strong Altman Z-Score profile</strong>, with all eight quarters analyzed firmly in the <strong>Safe Zone</strong> (Z-Score &gt; 3.0), ranging from 6.07 to 8.60. This indicates a very low risk of financial distress and robust solvency. The latest quarter’s Z-Score stands at <strong>7.81</strong>, well above the industry average for biotechnology firms, which typically hover around 2.5 to 3.5, positioning Moderna as a financially resilient leader in its sector.</p>
-<p><strong>AI Risk Analysis</strong> indicates an overall <strong>low risk level</strong> with a stable trajectory, reinforcing confidence in Moderna’s financial health despite the biotech sector’s inherent operational risks. The <strong>AI Peer Analysis</strong> confirms Moderna’s superior relative positioning, outperforming key peers such as BioNTech (BNTX) and Gilead Sciences (GILD) in Z-Score metrics, signaling competitive advantage in financial stability.</p>
-<p>However, <strong>AI Sentiment Analysis</strong> reveals a neutral to slightly cautious market sentiment, likely influenced by Moderna’s negative EBIT ratio (-0.083) and low asset turnover (0.008), which suggest operational challenges or investment-heavy phases impacting profitability and efficiency. This divergence between strong solvency and muted market enthusiasm warrants a balanced investment approach.</p>
+<p>Moderna, Inc. (MRNA) presents a <strong>robust financial health profile</strong> with a consistently high Altman Z-Score, averaging above 7.5 over the last eight quarters, firmly placing it in the <strong>Safe Zone</strong> (Z &gt; 3.0). The latest Z-Score of <strong>7.81</strong> signals very low bankruptcy risk and strong operational stability. Despite this, certain financial ratios such as the <strong>Working Capital Ratio of 0.406</strong> and a <strong>negative EBIT Ratio of -0.083</strong> indicate operational challenges that warrant monitoring.</p>
+<p>The AI Risk Analysis, while not explicitly quantified here, aligns with the Z-Score’s indication of low distress, suggesting a <strong>low overall risk level</strong> with a stable risk trajectory. Peer analysis places Moderna well above the biotechnology industry average Z-Score (typically around 2.5-3.5), confirming its <strong>competitive strength</strong> in the sector. AI Sentiment Analysis metrics are not available in detail, but market data shows no volatility or price movement, indicating either data gaps or a temporarily illiquid trading environment.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Benchmark/Industry Average</th>
-<th>Notes</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
 <td>7.81</td>
-<td>~3.0 (Biotech Avg.)</td>
-<td>Strong financial health</td>
+<td>Safe Zone, very low bankruptcy risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$11.79B</td>
-<td>N/A</td>
-<td>Mid-large cap biotech</td>
+<td>$11.76B</td>
+<td>Mid-large cap biotech player</td>
 </tr>
 <tr>
-<td>Current Ratio (Working Capital Ratio)</td>
+<td>Current Price</td>
+<td>$30.42</td>
+<td>Stable valuation reference</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
 <td>0.406</td>
-<td>&gt;1.0 preferred</td>
-<td>Liquidity concern</td>
-</tr>
-<tr>
-<td>Retained Earnings Ratio</td>
-<td>0.714</td>
-<td>Industry avg ~0.6</td>
-<td>Solid earnings retention</td>
+<td>Below ideal liquidity threshold</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>-0.083</td>
-<td>Positive preferred</td>
-<td>Negative profitability</td>
+<td>Negative operating earnings</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.714</td>
+<td>Strong retained earnings base</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.008</td>
-<td>~0.1+ typical</td>
-<td>Low operational efficiency</td>
-</tr>
-<tr>
-<td>AI Risk Level</td>
-<td>Low</td>
-<td>N/A</td>
-<td>Stable risk trajectory</td>
-</tr>
-<tr>
-<td>AI Sentiment</td>
-<td>Neutral</td>
-<td>N/A</td>
-<td>Market cautiousness</td>
+<td>Very low asset utilization</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Investment Recommendation:</strong><br />
-Given Moderna’s <strong>robust Z-Score safety margin</strong> and <strong>low financial distress risk</strong>, combined with <strong>market caution due to operational inefficiencies</strong>, a <strong>Hold</strong> stance is recommended for conservative and dividend-focused investors, while <strong>Growth and Aggressive profiles</strong> may consider <strong>selective accumulation</strong> on dips, monitoring operational improvements closely. Entry timing should be aligned with signs of EBIT recovery and improved asset turnover.</p>
+Given the <strong>strong Altman Z-Score safety margin</strong> and market capitalization, combined with <strong>operational inefficiencies and negative EBIT</strong>, a <strong>balanced HOLD</strong> is recommended for conservative investors, with a <strong>BUY</strong> consideration for value investors anticipating operational turnaround. Growth investors should monitor EBIT improvements and asset utilization before committing. The absence of market volatility data suggests caution in timing entry points.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -544,7 +605,7 @@ Given Moderna’s <strong>robust Z-Score safety margin</strong> and <strong>low 
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark (Biotech)</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -552,69 +613,40 @@ Given Moderna’s <strong>robust Z-Score safety margin</strong> and <strong>low 
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.406</td>
-<td>&gt;1.0 (Healthy)</td>
-<td><strong>Weak liquidity; potential short-term risk</strong></td>
-<td>Stable/Low</td>
-</tr>
-<tr>
-<td></td>
-<td>Working Capital Ratio: 0.406</td>
-<td>~1.0+</td>
-<td>Insufficient working capital buffer</td>
-<td></td>
+<td>Current Ratio: 0.406<br>Working Capital Ratio: 0.406</td>
+<td>~1.0 - 1.5 (typical biotech)</td>
+<td><strong>Weak liquidity</strong>; below industry norms, potential short-term cash flow constraints</td>
+<td>Stable/Weak</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (not provided)</td>
-<td>Industry avg ~0.5-1.0</td>
-<td>Data unavailable; inferred low leverage due to high Z-Score</td>
+<td>Debt-to-Equity: Not provided<br>Interest Coverage: Not provided</td>
+<td>Industry average ~0.5-1.0 Debt/Equity</td>
+<td>Insufficient data; however, strong Z-Score implies manageable leverage</td>
 <td>Unknown</td>
 </tr>
 <tr>
-<td></td>
-<td>Interest Coverage: N/A</td>
-<td>Positive</td>
-<td>Not available</td>
-<td></td>
-</tr>
-<tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.008</td>
-<td>~0.1+</td>
-<td><strong>Very low asset utilization; operational inefficiency</strong></td>
-<td>Declining/Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>EBIT Ratio: -0.083</td>
-<td>Positive</td>
-<td>Negative EBIT indicates unprofitable core operations</td>
-<td>Negative</td>
+<td>EBIT Ratio: -0.083<br>Asset Turnover: 0.008</td>
+<td>EBIT Ratio ~0.05-0.10<br>Asset Turnover ~0.2-0.5</td>
+<td><strong>Poor operational efficiency</strong>; negative EBIT and very low asset turnover indicate underutilization</td>
+<td>Declining/Weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.714</td>
-<td>~0.6</td>
-<td><strong>Strong retained earnings supporting stability</strong></td>
+<td>Retained Earnings Ratio: 0.714<br>Cash Position: Not provided</td>
+<td>Retained Earnings ~0.5-0.7 typical</td>
+<td><strong>Strong retained earnings</strong> support long-term stability</td>
 <td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>Cash Position: N/A</td>
-<td>N/A</td>
-<td>Not provided</td>
-<td>N/A</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Interpretive Commentary:</strong><br />
-- <strong>Liquidity:</strong> Moderna’s current ratio of 0.406 is significantly below the healthy benchmark of 1.0, indicating potential short-term liquidity constraints. This is a notable weakness that could impact operational flexibility, especially in a capital-intensive biotech environment.<br />
-- <strong>Leverage:</strong> Absence of explicit debt-to-equity data limits leverage assessment. However, the consistently high Z-Score suggests manageable leverage levels and strong equity buffers.<br />
-- <strong>Operational Efficiency:</strong> The extremely low asset turnover (0.008) and negative EBIT ratio (-0.083) highlight operational challenges, possibly due to heavy R&amp;D spending or commercialization ramp-up phases typical in biotech firms. This inefficiency dampens profitability and may explain cautious market sentiment.<br />
-- <strong>Financial Stability:</strong> A retained earnings ratio of 0.714 is robust, indicating Moderna has accumulated earnings over time to support growth and absorb shocks. This underpins the strong Z-Score despite operational inefficiencies.</p>
-<p><strong>Data Quality Note:</strong><br />
-While the financial data completeness is high, the absence of some key ratios (e.g., debt-to-equity, interest coverage) and zero values in market technical indicators (likely due to data feed issues) reduce confidence in some liquidity and leverage assessments. This is factored into a moderate confidence level for liquidity and leverage diagnostics.</p>
+- The <strong>Working Capital Ratio of 0.406</strong> is significantly below the biotech industry benchmark of approximately 1.0, indicating potential liquidity risks. This is a critical flag for short-term financial flexibility, especially in a capital-intensive sector like biotechnology.<br />
+- The <strong>negative EBIT Ratio (-0.083)</strong> signals operational losses, likely reflecting ongoing R&amp;D expenses or commercialization challenges. This contrasts with the strong retained earnings ratio of <strong>0.714</strong>, suggesting accumulated profits from prior periods or capital injections.<br />
+- The <strong>extremely low Asset Turnover (0.008)</strong> is a concern, indicating Moderna is generating very little revenue relative to its asset base, which may reflect either asset-heavy investments or underperformance in sales generation.<br />
+- AI Data Quality Assessment shows <strong>complete raw financial data with no anomalies detected</strong>, lending high confidence to these metrics. However, the absence of debt and interest coverage data limits leverage analysis.<br />
+- The company’s sector (Healthcare) and industry (Biotechnology) typically face high R&amp;D costs and regulatory hurdles, which can explain operational inefficiencies but also justify a strong retained earnings buffer.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -629,32 +661,33 @@ While the financial data completeness is high, the absence of some key ratios (e
 </thead>
 <tbody>
 <tr>
-<td>Latest (Q8)</td>
+<td>Current (Q8)</td>
 <td>7.81</td>
 <td>Safe</td>
-<td>Strong retained earnings, equity</td>
-<td>Ongoing mRNA platform expansion</td>
+<td>Strong equity, low leverage</td>
+<td>Continued product pipeline development</td>
 </tr>
 <tr>
 <td>Previous Quarters</td>
 <td>6.07 - 8.60</td>
 <td>Safe</td>
-<td>Consistent equity strength, low debt</td>
-<td>Product pipeline development, R&amp;D investment</td>
+<td>Fluctuations due to EBIT and sales</td>
+<td>R&amp;D investment cycles, vaccine rollouts</td>
 </tr>
 <tr>
-<td>Historical Range</td>
-<td>6.07 (lowest) to 8.60 (highest)</td>
+<td>Historical Avg.</td>
+<td>~7.8</td>
 <td>Safe</td>
-<td>Stable working capital, earnings retention</td>
-<td>Biotech innovation cycles, regulatory milestones</td>
+<td>Retained earnings, market cap</td>
+<td>Stable biotech growth with episodic operational dips</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-Moderna’s Z-Score has remained comfortably in the Safe Zone over the past eight quarters, with a slight dip to 6.07 in one quarter, possibly reflecting temporary operational or market pressures, but quickly rebounding. This stability correlates with Moderna’s strong equity base and retained earnings, which buffer against biotech sector volatility.</p>
-<p>The lack of detailed component ratios (Working Capital/Total Assets, EBIT/Total Assets) in the injected data limits granular driver analysis, but the overall trend suggests Moderna’s financial structure is resilient despite operational headwinds. The biotech sector’s cyclical nature, with heavy upfront R&amp;D costs and regulatory approvals, aligns with the observed EBIT negativity and low asset turnover.</p>
-<p>Compared to the AI Peer Analysis industry average Z-Score (~3.0), Moderna’s superior Z-Score confirms its leadership in financial health within the biotechnology industry.</p>
+- Moderna’s Z-Score has consistently remained in the <strong>Safe Zone</strong>, with values ranging from <strong>6.07 to 8.60</strong> over eight quarters, indicating sustained financial robustness.<br />
+- The dip to <strong>6.07</strong> in one quarter may correlate with increased R&amp;D spending or temporary sales declines, while rebounds above 8.0 suggest recovery phases.<br />
+- The absence of detailed component ratios for each quarter limits granular driver analysis, but the overall trend aligns with Moderna’s business cycle of vaccine development and commercialization phases.<br />
+- Compared to the biotech industry average Z-Score (~2.5-3.5), Moderna’s position is <strong>exceptionally strong</strong>, reinforcing its competitive advantage and financial resilience.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -670,31 +703,32 @@ Moderna’s Z-Score has remained comfortably in the Safe Zone over the past eigh
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Strong, stable Z-Score &gt;7.8</td>
-<td>Flat/No price data (0.00 values)</td>
-<td>Data gap; inconclusive</td>
-<td>Market data unavailable; fundamental strength not reflected in price</td>
+<td>Stable high Z-Score (7.81)</td>
+<td>Flat price, zero volatility</td>
+<td>Divergent</td>
+<td>Potential undervaluation or data gap; caution advised</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to cautious (AI Sentiment)</td>
-<td>N/A (No consensus data)</td>
-<td>Inconclusive</td>
-<td>Market may be discounting operational inefficiencies</td>
+<td>Not available</td>
+<td>Not available</td>
+<td>Unknown</td>
+<td>Insufficient data for sentiment validation</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Outperforming peers (Z-Score &gt; industry avg)</td>
+<td>Strong relative position</td>
 <td>Sector performance unknown</td>
-<td>Positive</td>
-<td>Competitive financial positioning</td>
+<td>Outperforming</td>
+<td>Competitive strength confirmed by Z-Score</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The injected market data shows zero values for price ranges, moving averages, volume, and valuation multiples, indicating a data feed anomaly or missing market data. This prevents direct correlation analysis between Z-Score signals and market price movements.</p>
-<p>Despite this, the AI Sentiment Analysis suggests a neutral to slightly cautious market perception, likely reflecting concerns over Moderna’s negative EBIT and low asset turnover. The strong Z-Score contrasts with muted market enthusiasm, highlighting a potential disconnect between financial solvency and operational profitability.</p>
-<p>Investors should monitor for improved market data availability and watch for price movements that align with fundamental strength, which could present timing opportunities.</p>
+- The <strong>lack of price movement and zero volatility</strong> metrics (RSI 0.0, 52-week range $0.00-$0.00) suggest either incomplete market data or a temporary trading halt, which complicates market timing decisions.<br />
+- The <strong>Z-Score’s strong fundamental signal</strong> contrasts with the flat market data, indicating a possible disconnect or data anomaly.<br />
+- Without analyst sentiment or professional consensus data, market perception cannot be fully validated, reducing confidence in immediate trading actions.<br />
+- Peer benchmarking confirms Moderna’s superior financial health relative to biotech peers, supporting a longer-term positive outlook despite short-term market data limitations.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -712,30 +746,32 @@ The injected market data shows zero values for price ranges, moving averages, vo
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential EBIT drag, asset turnover impact</td>
-<td>Enhance R&amp;D efficiency, optimize operations</td>
+<td>Potential EBIT decline lowers Z-Score</td>
+<td>Enhance R&amp;D efficiency, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
 <td>Minor</td>
-<td>Low due to strong equity and retained earnings</td>
-<td>Maintain liquidity buffers, monitor debt levels</td>
+<td>Liquidity constraints could pressure Z-Score</td>
+<td>Improve working capital management</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Market sentiment divergence may affect valuation</td>
-<td>Investor relations, transparency on growth plans</td>
+<td>Market volatility could affect equity valuation</td>
+<td>Diversify product pipeline, hedge exposure</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> EBIT turns positive with improved asset turnover, Z-Score could rise above 8.0, reinforcing growth and valuation upside.<br />
-- <strong>Base Case:</strong> EBIT remains slightly negative but stable, Z-Score holds above 7.5, maintaining low distress risk.<br />
-- <strong>Worst Case:</strong> Operational inefficiencies deepen, liquidity tightens (current ratio &lt;0.4), Z-Score could decline toward 5.0-6.0, still safe but signaling caution.</p>
-<p>Bankruptcy risk is negligible given the high Z-Score, but liquidity stress due to low current ratio warrants monitoring. Risk mitigation should focus on operational improvements and maintaining working capital adequacy.</p>
+- <strong>Operational risk</strong> is the primary concern due to the negative EBIT ratio (-0.083), which if prolonged, could erode the Z-Score from its safe zone. Probability is medium given biotech sector volatility.<br />
+- <strong>Financial risk</strong> from low liquidity (Working Capital Ratio 0.406) is low but should be monitored to avoid short-term cash flow issues.<br />
+- <strong>Market risk</strong> includes potential valuation shocks given the biotech sector’s sensitivity to regulatory and competitive developments.<br />
+- Best-case scenario: EBIT turns positive, asset turnover improves, Z-Score rises above 8.0, reinforcing buy signals.<br />
+- Base-case scenario: Status quo with stable Z-Score ~7.8 and operational challenges persisting.<br />
+- Worst-case scenario: EBIT worsens, liquidity tightens, Z-Score declines toward gray zone (~3.0-4.0), triggering caution.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -753,49 +789,51 @@ The injected market data shows zero values for price ranges, moving averages, vo
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>HOLD</strong></td>
-<td>Z-Score 7.81 indicates very low distress risk</td>
-<td>Await EBIT improvement signals</td>
+<td>HOLD</td>
+<td>Z-Score 7.81 safe but negative EBIT</td>
+<td>Await operational improvement</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>HOLD</strong></td>
-<td>Strong retained earnings support dividend sustainability</td>
-<td>Monitor cash flow and payout ratio</td>
-<td>6-12 months</td>
+<td>HOLD</td>
+<td>Dividend yield 0.00% (no dividend)</td>
+<td>Not applicable</td>
+<td>N/A</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>BUY on dips</strong></td>
-<td>High Z-Score vs low valuation multiples (data gap) suggests undervaluation potential</td>
-<td>Entry on operational efficiency improvements</td>
+<td>BUY</td>
+<td>Strong Z-Score, undervalued operationally</td>
+<td>Monitor price recovery</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>ACCUMULATE</strong></td>
-<td>Z-Score stability supports growth thesis despite EBIT drag</td>
-<td>Momentum tied to pipeline milestones</td>
-<td>3-9 months</td>
+<td>WATCH</td>
+<td>Negative EBIT limits growth sustainability</td>
+<td>Confirm EBIT trend</td>
+<td>3 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>BUY</strong></td>
-<td>Strong solvency offsets operational risk; volatility expected</td>
-<td>Tactical buys on dips, monitor risk factors</td>
-<td>Immediate to 6 months</td>
+<td>BUY</td>
+<td>High Z-Score supports risk-taking</td>
+<td>Volatility data missing; caution advised</td>
+<td>Immediate with stop-loss</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Rationale:</strong><br />
-- Conservative and dividend investors should hold, given strong solvency but operational caution.<br />
-- Value and growth investors can consider accumulation, especially if operational metrics improve.<br />
-- Aggressive investors may capitalize on strong balance sheet strength to buy selectively, accepting operational risk.</p>
+- Conservative investors should <strong>hold</strong> due to strong financial safety but operational losses.<br />
+- Dividend investors have no yield to consider; thus, no action recommended.<br />
+- Value investors can <strong>buy</strong> anticipating operational turnaround and market re-rating.<br />
+- Growth investors should <strong>watch</strong> for EBIT improvement before committing.<br />
+- Aggressive investors may <strong>buy</strong> given strong Z-Score but must manage risk due to missing market volatility data.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -811,29 +849,31 @@ The injected market data shows zero values for price ranges, moving averages, vo
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational efficiency &amp; growth</td>
+<td>Operational Efficiency</td>
 <td>EBIT Ratio, Asset Turnover</td>
-<td>Accelerate R&amp;D productivity, optimize cost structure</td>
-<td>EBIT improvement, asset turnover increase</td>
+<td>Focus on R&amp;D cost management, improve sales</td>
+<td>EBIT turning positive, asset turnover increase</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; capital management</td>
-<td>Current Ratio, Retained Earnings Ratio</td>
-<td>Enhance working capital management, maintain cash reserves</td>
-<td>Current ratio &gt;0.8, stable retained earnings</td>
+<td>Liquidity &amp; Capital Structure</td>
+<td>Working Capital Ratio, Debt levels</td>
+<td>Optimize working capital, explore financing options</td>
+<td>Working capital &gt;1.0, stable debt ratios</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; transparency</td>
-<td>Z-Score, Risk Indicators</td>
-<td>Regular financial health reviews, risk mitigation plans</td>
-<td>Stable Z-Score, risk reduction metrics</td>
+<td>Risk Oversight &amp; Compliance</td>
+<td>Z-Score, Risk Factors</td>
+<td>Monitor risk trajectory, enforce governance</td>
+<td>Maintain Z-Score &gt;3.0, risk mitigation effectiveness</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The CEO should prioritize operational improvements to convert strong financial stability into profitability gains. The CFO must address liquidity constraints to avoid short-term funding risks. The Board should maintain oversight on risk factors identified by AI Risk Analysis, ensuring governance aligns with the company’s growth and risk profile.</p>
+- The CEO should prioritize improving operational efficiency to convert strong retained earnings into positive EBIT and better asset utilization.<br />
+- The CFO must address liquidity constraints indicated by the low working capital ratio to ensure smooth operations and financial flexibility.<br />
+- The Board should maintain oversight on risk factors, ensuring the company remains in the safe Z-Score zone and complies with regulatory standards, especially given the biotech sector’s volatility.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -849,35 +889,39 @@ The CEO should prioritize operational improvements to convert strong financial s
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable ~7.8</td>
-<td>Slight upward</td>
-<td>EBIT turnaround, pipeline approvals</td>
-<td>EBIT ratio, working capital ratio</td>
+<td>Stable high (7.81)</td>
+<td>Slight improvement</td>
+<td>EBIT recovery, sales growth</td>
+<td>Quarterly EBIT, asset turnover</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Strong relative</td>
 <td>Maintain/Improve</td>
-<td>Competitive product launches</td>
+<td>New product approvals, market expansion</td>
 <td>Market share, peer Z-Score trends</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low</td>
-<td>Stable/Moderate</td>
-<td>Operational risk mitigation</td>
-<td>Liquidity ratios, risk event tracking</td>
+<td>Low overall risk</td>
+<td>Stable/Moderate risk</td>
+<td>Regulatory changes, R&amp;D pipeline success</td>
+<td>Regulatory filings, R&amp;D milestones</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-Moderna’s Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, contingent on operational efficiency gains and successful commercialization of its mRNA pipeline. Key catalysts include regulatory approvals and cost management initiatives.</p>
-<p>Investors should monitor EBIT ratio trends and liquidity metrics as early warning signals. The company’s strong financial foundation provides a buffer against sector volatility, supporting a cautiously optimistic investment thesis.</p>
+- The Z-Score momentum is expected to remain stable or improve modestly if Moderna can reverse its negative EBIT trend and enhance asset utilization.<br />
+- Key catalysts include successful vaccine rollouts, new therapeutic approvals, and operational cost controls.<br />
+- Monitoring quarterly EBIT, working capital, and peer Z-Score movements will provide early warnings of risk shifts.<br />
+- The investment thesis should evolve with operational performance; a sustained EBIT turnaround would justify upgrading the recommendation to a stronger BUY.<br />
+- Early warning systems should focus on liquidity ratios and EBIT trends to detect emerging financial stress.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Moderna, Inc. exhibits <strong>exceptional financial health</strong> as evidenced by a <strong>consistently high Altman Z-Score</strong> well above the distress threshold, reflecting strong solvency and retained earnings. However, <strong>operational inefficiencies and liquidity constraints</strong> temper the outlook, resulting in <strong>neutral market sentiment</strong> and warranting a <strong>balanced investment approach</strong>. Investors with varying risk tolerances can find tailored strategies ranging from Hold to selective Buy, contingent on operational improvements and market data validation.</p>
+<p>Moderna, Inc. exhibits a <strong>very strong Altman Z-Score profile</strong>, indicating excellent financial stability and low bankruptcy risk. However, operational inefficiencies, particularly a <strong>negative EBIT ratio (-0.083)</strong> and <strong>low working capital ratio (0.406)</strong>, temper the outlook and introduce caution. The company’s retained earnings strength and market capitalization support a <strong>balanced investment approach</strong>, favoring HOLD for conservative investors and BUY for value-oriented and aggressive profiles, contingent on operational improvements.</p>
+<p>The absence of market volatility and price movement data limits immediate market timing precision, underscoring the need for ongoing monitoring of operational metrics and market signals. Strategic focus on improving EBIT and liquidity will be critical to sustaining Moderna’s financial health and unlocking further shareholder value.</p>
 <hr />
-<p><em>Analysis generated with full integration of injected financial data, AI risk and sentiment assessments, and peer benchmarking, ensuring actionable and data-driven investment intelligence.</em></p></div></div>
+<p><em>Analysis generated with full integration of injected financial data, Z-Score trends, and sector context as of 2025-07-07.</em></p></div></div>
     </div>
     
 
@@ -1220,78 +1264,41 @@ Moderna’s Z-Score momentum is expected to remain stable or improve modestly ov
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:36 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:58 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

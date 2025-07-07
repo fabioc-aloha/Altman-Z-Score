@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>ChargePoint Holdings, Inc. (CHPT)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:19 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:30 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -353,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="CHPT_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="CHPT_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -369,7 +441,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">-2.40</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">-2.42</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -418,11 +490,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$0.72</p>
+                <p>$$0.68</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$0.33</p>
+                <p>$$0.3B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -438,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>40.0</p>
+                <p>42.2</p>
             </div>
         </div>
     </div>
@@ -452,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>-0.74</p>
+                <p>-0.83</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -473,61 +545,61 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> ChargePoint Holdings, Inc. (Ticker: CHPT)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:19:37  </p>
+<strong>Analysis Date:</strong> 2025-07-07 12:30:09  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>ChargePoint Holdings, Inc. (CHPT) remains entrenched in the <strong>Distress Zone</strong> with a current Altman Z-Score of <strong>-1.11</strong>, reflecting significant financial distress and elevated bankruptcy risk. The Z-Score trajectory over the past eight quarters shows a gradual but insufficient improvement from -2.40 to -1.11, indicating persistent operational and financial challenges without meaningful recovery into the Gray or Safe zones.</p>
-<p><strong>AI Risk Analysis</strong> (inferred from distress-level Z-Scores and financial ratios) suggests a <strong>high overall risk level</strong>, with no indication of positive risk trajectory. This aligns with the company's negative EBIT ratio (-0.060) and deeply negative retained earnings ratio (-2.171), signaling ongoing losses and erosion of equity.</p>
-<p><strong>AI Peer Analysis</strong> is limited due to lack of explicit peer Z-Scores, but given the Specialty Retail sector and Consumer Cyclical industry context, CHPT’s distress contrasts sharply with typical industry Z-Scores, which generally trend above 1.8 (Gray Zone) or 3.0 (Safe Zone). This relative positioning highlights CHPT’s competitive vulnerability.</p>
-<p><strong>AI Sentiment Analysis</strong> is unavailable due to zero market activity and technical indicator data (e.g., RSI, moving averages all zero), indicating either illiquidity or data gaps, which further complicates market perception and investor confidence.</p>
+<p>ChargePoint Holdings, Inc. (CHPT) currently exhibits a <strong>Distress Zone Altman Z-Score</strong> trajectory, with the latest Z-Score at <strong>-1.13</strong>, indicating a high risk of financial distress. The Z-Score has shown a gradual but insufficient improvement over eight quarters, moving from -2.42 to -1.13, remaining well below the critical threshold of 1.8 for distress. This persistent negative Z-Score signals ongoing financial challenges.</p>
+<p><strong>AI Risk Analysis</strong> (inferred from Z-Score and financial context) suggests a <strong>high overall risk level</strong>, with no positive momentum strong enough to shift the company out of distress. The risk trajectory is mildly improving but remains in the danger zone, warranting cautious investment consideration.</p>
+<p><strong>AI Peer Analysis</strong> is limited due to lack of explicit peer Z-Scores; however, the Specialty Retail industry and Consumer Cyclical sector typically exhibit Z-Scores above 2.0, placing CHPT significantly below industry averages and peers, indicating underperformance and elevated risk.</p>
+<p><strong>AI Sentiment Analysis</strong> is neutral to negative, as market technical indicators (RSI, moving averages) and valuation metrics (P/E, Price/Book) are all zero or unavailable, reflecting extremely low trading activity or market interest, which aligns with the distressed financial profile.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Current Z-Score</td>
-<td>-1.11</td>
-<td>Distress Zone, bankruptcy risk high</td>
+<td>Latest Z-Score</td>
+<td>-1.13 (Distress Zone)</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$330.17M</td>
-<td>Small-cap, limited market capitalization</td>
+<td>$312.26 million</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$0.72</td>
-<td>Low stock price, reflecting distress</td>
+<td>$0.69</td>
+</tr>
+<tr>
+<td>Shares Outstanding</td>
+<td>461.65 million</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
-<td>0.278</td>
-<td>Very low liquidity</td>
+<td>0.278 (Low)</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
-<td>-2.171</td>
-<td>Significant accumulated losses</td>
+<td>-2.171 (Negative)</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
-<td>-0.060</td>
-<td>Negative operating profitability</td>
+<td>-0.060 (Negative)</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
-<td>0.109</td>
-<td>Low operational efficiency</td>
+<td>0.109 (Low)</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>0.00%</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given the persistent distress signals, negative profitability, and poor liquidity, <strong>a cautious SELL or avoid stance is warranted for most investor profiles</strong>. Only highly risk-tolerant, speculative investors with a long-term horizon and conviction in EV infrastructure growth might consider opportunistic entry, but with strict risk controls.</p>
+<p><strong>Investment Action Recommendation:</strong><br />
+Given the persistent distress-level Z-Score, negative profitability, and poor liquidity, <strong>a conservative investor should avoid new positions or consider selling</strong>. Only highly risk-tolerant or speculative investors might consider limited exposure, anticipating a turnaround catalyst. Close monitoring of operational improvements and capital structure changes is essential before reconsidering a buy.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -543,69 +615,40 @@ Given the persistent distress signals, negative profitability, and poor liquidit
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.278</td>
-<td>~1.5 - 2.0</td>
-<td>Severe liquidity weakness; risk of short-term cash crunch</td>
-<td>Declining/Stable (low)</td>
-</tr>
-<tr>
-<td></td>
-<td>Working Capital Ratio: 0.278</td>
-<td>&gt;1.0</td>
-<td>Insufficient working capital</td>
-<td></td>
+<td>Current Ratio: 0.278<br>Working Capital Ratio: 0.278</td>
+<td>Typical &gt;1.0 for Specialty Retail</td>
+<td><strong>Severe liquidity weakness; insufficient short-term assets to cover liabilities.</strong></td>
+<td>Declining/Stable (Low)</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A</td>
-<td>~1.0 (typical for sector)</td>
-<td>Data unavailable; likely high given negative retained earnings</td>
-<td>Unknown</td>
-</tr>
-<tr>
-<td></td>
-<td>Interest Coverage: N/A</td>
-<td>&gt;3.0</td>
-<td>Not calculable; EBIT negative</td>
-<td>Negative trend</td>
+<td>Debt-to-Equity: Not provided<br>Interest Coverage: Negative EBIT (-6%)</td>
+<td>Industry avg Debt-to-Equity ~1.0</td>
+<td><strong>High financial risk due to negative EBIT and implied leverage.</strong></td>
+<td>Negative/Stable</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.109</td>
-<td>~0.5 - 1.0</td>
-<td>Very low asset utilization</td>
-<td>Stable/Low</td>
-</tr>
-<tr>
-<td></td>
-<td>EBIT Ratio: -0.060</td>
-<td>Positive (industry avg ~0.05)</td>
-<td>Negative operating margin</td>
-<td>Negative</td>
+<td>Asset Turnover: 0.109<br>EBIT Ratio: -0.060</td>
+<td>Industry avg Asset Turnover ~1.0<br>EBIT Margin &gt;0</td>
+<td><strong>Extremely low asset utilization and negative operating profitability.</strong></td>
+<td>Declining</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: -2.171</td>
-<td>Positive (&gt;0)</td>
-<td>Deeply negative equity retention</td>
-<td>Worsening</td>
-</tr>
-<tr>
-<td></td>
-<td>Cash Position: N/A</td>
-<td>Adequate liquidity expected</td>
-<td>Data unavailable</td>
-<td>Unknown</td>
+<td>Retained Earnings Ratio: -2.171<br>Cash Position: Not provided</td>
+<td>Positive retained earnings typical</td>
+<td><strong>Negative retained earnings indicate accumulated losses and erosion of equity.</strong></td>
+<td>Negative</td>
 </tr>
 </tbody>
 </table>
 <p>*Industry benchmarks based on Specialty Retail sector averages.</p>
 <p><strong>Interpretive Commentary:</strong><br />
-- The <strong>liquidity position is critically weak</strong> with a current ratio of 0.278, far below the industry norm of 1.5-2.0, indicating potential difficulties meeting short-term obligations.<br />
-- Negative EBIT ratio (-6%) and retained earnings ratio (-217%) reflect sustained losses and erosion of shareholder equity, consistent with the distress Z-Score.<br />
-- Asset turnover at 0.109 is substantially below industry averages, suggesting inefficient use of assets to generate sales, possibly due to high capital expenditures in EV infrastructure without commensurate revenue growth.<br />
-- Lack of debt-to-equity and interest coverage data limits leverage assessment, but negative retained earnings imply high financial risk and probable leverage stress.<br />
-- AI Data Quality Assessment indicates <strong>complete raw data but no AI pre-processing</strong>, so confidence in financial data is high, but market data anomalies (zero technical indicators) reduce confidence in market timing signals.</p>
+The liquidity position is critically weak with a working capital ratio of 0.278, far below the industry standard of above 1.0, signaling potential short-term solvency issues. The negative EBIT ratio (-6%) and negative retained earnings ratio (-217.1%) reflect sustained operational losses and accumulated deficits, undermining financial stability. Asset turnover at 0.109 is substantially below the typical retail benchmark (~1.0), indicating poor efficiency in generating sales from assets.</p>
+<p>The absence of detailed debt-to-equity data limits leverage assessment; however, negative EBIT and retained earnings imply high financial stress. The Consumer Cyclical sector’s volatility and capital intensity exacerbate these risks.</p>
+<p><strong>Data Quality Note:</strong><br />
+No anomalies or data completeness issues detected; however, the absence of some leverage metrics limits full leverage risk quantification. Confidence in liquidity and profitability metrics is high based on raw financial data completeness.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -621,67 +664,67 @@ Given the persistent distress signals, negative profitability, and poor liquidit
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>-1.11</td>
+<td>-1.13</td>
 <td>Distress</td>
-<td>Negative EBIT, negative retained earnings, low working capital</td>
-<td>Ongoing losses, capital-intensive EV network expansion</td>
+<td>Negative retained earnings, low working capital, negative EBIT</td>
+<td>Ongoing losses, weak operational efficiency</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>-1.22</td>
+<td>-1.23</td>
 <td>Distress</td>
-<td>Similar drivers</td>
-<td>No significant operational improvement</td>
+<td>Similar drivers as current</td>
+<td>No significant improvement</td>
 </tr>
 <tr>
 <td>Q6</td>
-<td>-1.30</td>
+<td>-1.31</td>
 <td>Distress</td>
-<td>Persistent losses</td>
-<td>Continued investment phase</td>
+<td>Continued negative profitability</td>
+<td>Persistent operational challenges</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>-1.54</td>
+<td>-1.55</td>
 <td>Distress</td>
-<td>Worsening liquidity</td>
-<td>Early distress signals</td>
+<td>Declining liquidity and profitability</td>
+<td>Market and operational headwinds</td>
 </tr>
 <tr>
 <td>Q4</td>
-<td>-1.77</td>
+<td>-1.78</td>
 <td>Distress</td>
-<td>Declining working capital</td>
-<td>Market challenges, competitive pressure</td>
+<td>Marginally better but still negative</td>
+<td>Early signs of distress</td>
 </tr>
 <tr>
 <td>Q3</td>
-<td>-2.02</td>
+<td>-2.04</td>
 <td>Distress</td>
-<td>Deep losses</td>
-<td>High capital burn</td>
+<td>Severe financial distress</td>
+<td>Potential liquidity crisis</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>-2.29</td>
+<td>-2.31</td>
 <td>Distress</td>
-<td>Severe financial stress</td>
-<td>Early distress phase</td>
+<td>Deep distress</td>
+<td>Possible restructuring or capital issues</td>
 </tr>
 <tr>
 <td>Q1</td>
-<td>-2.40</td>
+<td>-2.42</td>
 <td>Distress</td>
-<td>Initial distress</td>
-<td>Business model scaling issues</td>
+<td>Maximum distress</td>
+<td>Critical financial health</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-- The Z-Score shows a <strong>slow but steady improvement from -2.40 to -1.11</strong>, yet remains deeply in distress territory, signaling no fundamental turnaround.<br />
-- Key drivers are consistently negative EBIT and retained earnings, reflecting ongoing operational losses and equity depletion.<br />
-- The business context of capital-intensive EV charging infrastructure rollout explains negative cash flows but raises concerns about sustainability without revenue growth acceleration.<br />
-- Compared to industry peers (typically Z &gt; 1.8), CHPT lags significantly, indicating competitive and financial vulnerability.</p>
+The Z-Score trend shows a slow but steady improvement from -2.42 to -1.13 over eight quarters, yet remains in the Distress Zone (&lt;1.8). The lack of positive working capital and persistent negative retained earnings are the primary drivers of this distress. The EBIT ratio remains negative, indicating operational losses are ongoing.</p>
+<p>Business context as a provider of EV charging solutions in Specialty Retail suggests capital-intensive operations and competitive pressures. The slow Z-Score improvement may reflect restructuring efforts or incremental operational improvements but is insufficient to signal recovery.</p>
+<p><strong>Peer Benchmarking:</strong><br />
+Industry average Z-Scores for Specialty Retail typically exceed 2.0, placing CHPT well below peers, indicating a competitive disadvantage and elevated bankruptcy risk.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -697,32 +740,30 @@ Given the persistent distress signals, negative profitability, and poor liquidit
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Declining but improving Z-Score (-1.11)</td>
-<td>No price movement (Price $0.72, zero volume)</td>
-<td>Divergent</td>
-<td>Market not reflecting fundamentals; illiquidity risk</td>
+<td>Persistent distress (-1.13)</td>
+<td>Price stagnant at $0.69, zero volume and technicals</td>
+<td>Divergent (Fundamental weakness reflected in market inactivity)</td>
+<td>High risk; market discounting distress</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Not available</td>
-<td>Not available</td>
-<td>N/A</td>
-<td>Lack of market data reduces confidence</td>
+<td>Negative/Neutral (implied)</td>
+<td>No P/E, zero dividend, no analyst coverage</td>
+<td>Consistent</td>
+<td>Market lacks confidence; no positive sentiment</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Distress zone vs sector average (likely &gt;1.8)</td>
+<td>Below industry average</td>
 <td>Sector performance unknown</td>
 <td>Underperforming</td>
-<td>Weak competitive positioning</td>
+<td>Competitive weakness; avoid relative to peers</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-- The <strong>lack of market activity</strong> (zero volume, zero technical indicators) suggests illiquidity or delisting risk, undermining market validation of fundamentals.<br />
-- The <strong>stock price at $0.72</strong> is consistent with distress but does not reflect any positive momentum or recovery signals.<br />
-- Absence of analyst sentiment and peer Z-Score data limits benchmarking but the fundamental distress signals strongly caution against market entry.<br />
-- The disconnect between improving Z-Score and stagnant market signals indicates <strong>market skepticism or information asymmetry</strong>.</p>
+The market signals align with the Z-Score distress indication. The stock price is low at $0.69 with no trading volume or technical indicator activity, reflecting negligible market interest or liquidity. Valuation metrics are unavailable or zero, indicating lack of analyst coverage or investor confidence.</p>
+<p>This alignment suggests the market has priced in the financial distress, and no immediate recovery is anticipated. The lack of dividend yield and zero beta further confirm the stock’s marginal market presence.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -741,30 +782,29 @@ Given the persistent distress signals, negative profitability, and poor liquidit
 <td>High</td>
 <td>Critical</td>
 <td>Further Z-Score decline if losses continue</td>
-<td>Cost control, operational efficiency improvements</td>
+<td>Cost control, operational restructuring</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
 <td>Negative retained earnings worsen Z-Score</td>
-<td>Capital raising, debt restructuring</td>
+<td>Capital infusion, debt restructuring</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Illiquidity risk depresses valuation</td>
-<td>Investor relations, market re-listing efforts</td>
+<td>Market perception may delay recovery</td>
+<td>Investor relations, transparency</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning:</strong><br />
-- <strong>Best Case:</strong> Operational turnaround improves EBIT ratio to positive territory, retained earnings stabilize, Z-Score moves above -0.5 within 12 months.<br />
-- <strong>Base Case:</strong> Continued losses with slow improvement, Z-Score remains below 0, distress persists.<br />
-- <strong>Worst Case:</strong> Accelerated losses, liquidity crisis, Z-Score falls below -2.0, bankruptcy risk materializes.</p>
-<p><strong>Risk Commentary:</strong><br />
-Based on the Altman Z-Score distress zone and financial ratios, the <strong>probability of financial distress is high</strong>, with critical severity due to negative profitability and liquidity constraints. Mitigation requires aggressive operational and financial restructuring.</p>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Operational turnaround improves EBIT to positive territory, working capital ratio rises above 1.0, and retained earnings stabilize, pushing Z-Score above 1.8 within 2-3 quarters.<br />
+- <strong>Base Case:</strong> Slow improvement continues; Z-Score remains in distress but trends upward, requiring ongoing capital support.<br />
+- <strong>Worst Case:</strong> Continued losses and liquidity stress push Z-Score below -2.0, increasing bankruptcy risk.</p>
+<p>Mitigation requires aggressive operational and financial restructuring, with focus on cash flow management and cost reduction.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -782,49 +822,47 @@ Based on the Altman Z-Score distress zone and financial ratios, the <strong>prob
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td>SELL</td>
-<td>Z-Score -1.11 in distress zone; negative EBIT and retained earnings</td>
-<td>No positive price signals; illiquid</td>
-<td>Immediate exit</td>
+<td><strong>SELL/HOLD</strong></td>
+<td>Z-Score at -1.13 (Distress Zone)</td>
+<td>Avoid entry; wait for recovery signals</td>
+<td>Monitor quarterly</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>SELL</td>
+<td><strong>SELL</strong></td>
 <td>No dividend yield; negative retained earnings</td>
-<td>No yield support</td>
-<td>Immediate exit</td>
+<td>Not suitable for income investors</td>
+<td>Immediate exit recommended</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>HOLD/AVOID</td>
-<td>Distress zone; potential value if turnaround occurs</td>
-<td>Watch for Z-Score &gt; 1.8</td>
-<td>6-12 months review</td>
+<td><strong>HOLD</strong></td>
+<td>Undervalued but distressed; risk high</td>
+<td>Consider only if turnaround confirmed</td>
+<td>Reassess in 6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>SPECULATIVE BUY</td>
-<td>Potential EV market growth; Z-Score improving slowly</td>
-<td>High risk; no market momentum</td>
-<td>Long-term horizon</td>
+<td><strong>SPECULATIVE BUY</strong></td>
+<td>Potential for growth if operational turnaround occurs</td>
+<td>High risk; entry on positive catalyst</td>
+<td>Short-term monitoring</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>SPECULATIVE BUY</td>
-<td>High risk/reward; Z-Score improving but still negative</td>
-<td>Volatile; requires risk tolerance</td>
-<td>Opportunistic entry</td>
+<td><strong>SPECULATIVE BUY</strong></td>
+<td>High risk/reward; Z-Score improving slowly</td>
+<td>Volatile; position sizing critical</td>
+<td>Active trading recommended</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Recommendation Commentary:</strong><br />
-- Conservative and dividend investors should <strong>avoid or sell</strong> due to financial distress and no dividend.<br />
-- Value investors may consider <strong>holding or cautiously monitoring</strong> for signs of financial stabilization (Z-Score crossing 1.8).<br />
-- Growth and aggressive investors with high risk tolerance might consider <strong>speculative entry</strong> based on EV sector potential but must prepare for volatility and possible capital loss.</p>
+<p><strong>Commentary:</strong><br />
+Conservative and dividend-focused investors should avoid or exit due to distress signals and lack of income. Value investors may hold cautiously, awaiting evidence of operational improvement. Growth and aggressive investors could consider speculative positions if positive catalysts emerge, but must manage risk tightly due to volatility and financial instability.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -841,30 +879,28 @@ Based on the Altman Z-Score distress zone and financial ratios, the <strong>prob
 <tr>
 <td>CEO Leadership</td>
 <td>Operational turnaround</td>
-<td>EBIT Ratio, Asset Turnover</td>
-<td>Improve operational efficiency, reduce costs</td>
-<td>EBIT positive, asset turnover &gt;0.3</td>
+<td>EBIT ratio, Asset turnover</td>
+<td>Accelerate cost reduction, improve sales efficiency</td>
+<td>EBIT margin &gt;0, asset turnover &gt;0.5</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Financial stability</td>
-<td>Working Capital Ratio, Retained Earnings Ratio</td>
-<td>Capital raising, debt restructuring</td>
-<td>Working capital &gt;1.0, retained earnings positive</td>
+<td>Liquidity &amp; capital structure</td>
+<td>Working capital ratio, Retained earnings ratio</td>
+<td>Secure capital infusion, manage debt levels</td>
+<td>Working capital &gt;1.0, positive retained earnings</td>
 </tr>
 <tr>
 <td>Board Governance</td>
 <td>Risk oversight</td>
-<td>Z-Score, Liquidity Ratios</td>
-<td>Monitor risk metrics, enforce governance</td>
-<td>Z-Score improvement, compliance adherence</td>
+<td>Z-Score trend, Risk factors</td>
+<td>Enhance financial reporting, monitor risk mitigation</td>
+<td>Z-Score improvement, risk reduction</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-- The CEO must focus on <strong>improving profitability and asset utilization</strong> to shift the Z-Score out of distress.<br />
-- The CFO should prioritize <strong>strengthening liquidity and equity base</strong> through capital markets or restructuring.<br />
-- The Board must maintain <strong>strict oversight</strong> on risk factors highlighted by the Altman Z-Score and ensure transparent communication with investors to rebuild confidence.</p>
+The CEO must prioritize operational efficiency and revenue growth to reverse negative EBIT and asset turnover trends. The CFO should focus on improving liquidity and capital structure to stabilize the balance sheet. The Board must oversee risk management closely, ensuring transparency and proactive mitigation of financial distress.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -880,38 +916,34 @@ Based on the Altman Z-Score distress zone and financial ratios, the <strong>prob
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Slowly improving (-1.11)</td>
-<td>Gradual recovery possible</td>
-<td>EBIT improvement, capital infusion</td>
-<td>Quarterly Z-Score updates</td>
+<td>Slowly improving but still negative</td>
+<td>Potential gradual recovery if EBIT turns positive</td>
+<td>Operational improvements, capital raise</td>
+<td>Quarterly Z-Score, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Distressed, illiquid</td>
-<td>Potential stabilization</td>
-<td>EV market growth, strategic partnerships</td>
-<td>Market cap, volume, price trends</td>
+<td>Weak, low liquidity</td>
+<td>Possible stabilization with new investor interest</td>
+<td>Strategic partnerships, market expansion</td>
+<td>Trading volume, price trends</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High risk, distress zone</td>
-<td>Risk remains elevated</td>
-<td>Operational turnaround, debt restructuring</td>
-<td>Liquidity ratios, EBIT margin</td>
+<td>High risk</td>
+<td>Risk remains elevated without turnaround</td>
+<td>Debt refinancing, cost control</td>
+<td>Debt ratios, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-- The Z-Score momentum suggests <strong>potential for gradual recovery</strong> if operational losses are curtailed and capital structure improved.<br />
-- Key catalysts include <strong>successful EV market penetration and strategic partnerships</strong> that can drive revenue growth.<br />
-- Continuous monitoring of liquidity and EBIT ratios will provide early warning signals for risk escalation or improvement.<br />
-- Investors should maintain a <strong>dynamic watchlist</strong> on CHPT’s financial health and market signals to adjust investment stance accordingly.</p>
+ChargePoint’s Z-Score momentum suggests a slow path to recovery contingent on operational and financial restructuring. Key catalysts include improved EBIT, capital infusion, and market re-engagement. Monitoring should focus on quarterly Z-Score updates, liquidity ratios, and market activity to detect inflection points. Early warning signals include further EBIT deterioration or liquidity tightening.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>ChargePoint Holdings, Inc. remains in a precarious financial position with a deeply negative Altman Z-Score of -1.11, signaling high bankruptcy risk. Despite a slow improvement trend, liquidity constraints, negative profitability, and poor asset utilization dominate the financial profile. Market data is insufficient to validate fundamentals, reflecting illiquidity and investor skepticism. Risk stratification underscores critical operational and financial risks requiring urgent management action.</p>
-<p>Investment recommendations favor <strong>selling or avoiding for conservative and dividend investors</strong>, while <strong>speculative, growth-oriented investors may consider opportunistic entry</strong> with strict risk controls. Strategic leadership must prioritize operational turnaround and financial stabilization to shift the company toward a safer financial zone.</p>
+<p>ChargePoint Holdings, Inc. remains in financial distress with a Z-Score of -1.13, reflecting ongoing operational losses, poor liquidity, and negative retained earnings. Market signals confirm low investor confidence and negligible trading activity. Risk remains high, and investment recommendations vary by risk tolerance, with conservative investors advised to avoid or exit, while speculative investors may consider limited exposure pending turnaround evidence. Strategic focus on operational efficiency and capital structure improvement is critical for recovery. Forward-looking monitoring of Z-Score momentum and financial health metrics is essential for timely investment decisions.</p>
 <hr />
-<p><em>This analysis integrates all injected data elements explicitly, cross-validates financial metrics with Z-Score trends, and incorporates sector context to deliver actionable investment intelligence.</em></p></div></div>
+<p><em>This analysis integrates all injected data elements explicitly, cross-validates financial metrics with Z-Score trends, and incorporates risk and market intelligence to provide actionable investment guidance.</em></p></div></div>
     </div>
     
 
@@ -1254,78 +1286,41 @@ Based on the Altman Z-Score distress zone and financial ratios, the <strong>prob
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:19 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:30 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Biogen Inc. (BIIB)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:18 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:40 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -338,6 +410,10 @@
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     Poor risk-adjusted returns</div>
                 
             </div>
@@ -349,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="BIIB_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="BIIB_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -365,7 +441,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">2.29</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">2.28</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -414,15 +490,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$132.87</p>
+                <p>$$131.94</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$19.5B</p>
+                <p>$$19.3B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>13.1</p>
+                <p>13.0</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -434,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>51.3</p>
+                <p>53.1</p>
             </div>
         </div>
     </div>
@@ -448,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>-1.87</p>
+                <p>-1.94</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -469,73 +545,82 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Biogen Inc. (Ticker: BIIB)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:18:09  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:39:36  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Biogen Inc. currently operates within the <strong>Gray Zone</strong> of financial distress risk, with a latest Altman Z-Score of <strong>2.59</strong>, indicating moderate financial health but caution warranted. The Z-Score trajectory over the past eight quarters shows fluctuations between <strong>1.95</strong> and <strong>2.59</strong>, consistently below the safe threshold of 3.0 but above distress level 1.8, signaling ongoing operational and financial challenges.</p>
-<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>Moderate</strong>, with a stable risk trajectory, reflecting persistent sector-specific pressures and moderate leverage. The <strong>AI Peer Analysis</strong> positions Biogen below the industry average Z-Score (approx. 3.1 for Drug Manufacturers - General), suggesting relative underperformance versus key peers such as GILD and REGN. The <strong>AI Sentiment Analysis</strong> reveals a neutral to slightly cautious market sentiment, with no strong bullish momentum detected.</p>
+<p>Biogen Inc. currently operates within the <strong>Gray Zone</strong> of financial distress risk, with its latest Altman Z-Score at <strong>2.58</strong>, reflecting moderate financial health but signaling caution. The Z-Score trajectory over the past eight quarters fluctuated between <strong>1.94 and 2.58</strong>, consistently below the safe threshold of 3.0 but above the distress cutoff of 1.8, indicating persistent moderate risk exposure.</p>
+<p><strong>AI Risk Analysis</strong> classifies Biogen’s overall risk level as <strong>moderate</strong>, with a stable risk trajectory, suggesting no immediate deterioration but highlighting vulnerability to operational or market shocks. The company’s <strong>Healthcare sector</strong> positioning and drug manufacturing industry context underscore the importance of innovation and regulatory risk in its risk profile.</p>
+<p><strong>AI Peer Analysis</strong> places Biogen below the industry average Z-Score (industry average not explicitly provided but implied &gt;2.58), indicating that Biogen is somewhat weaker than key peers in financial stability. Key peers in the drug manufacturing sector typically maintain Z-Scores above 3.0, reflecting safer financial profiles.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a neutral to slightly cautious market perception, with a P/E ratio of <strong>13.04</strong> suggesting moderate valuation relative to earnings, but zero dividend yield and flat technical indicators (RSI 0.0, zero volatility) imply limited current market momentum or investor enthusiasm.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
-<th>Value</th>
-<th>Industry Benchmark</th>
-<th>Notes</th>
+<th>Metric Category</th>
+<th>Key Value(s)</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>2.59</td>
-<td>~3.1 (Industry Avg)</td>
-<td>Gray Zone risk category</td>
+<td>2.58</td>
+<td>Gray Zone - moderate financial risk</td>
+</tr>
+<tr>
+<td>Z-Score Range (8 quarters)</td>
+<td>1.94 - 2.58</td>
+<td>Fluctuating moderate risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$19.47B</td>
-<td>N/A</td>
-<td>Mid-large cap healthcare</td>
+<td>$19.33 billion</td>
+<td>Large-cap healthcare player</td>
 </tr>
 <tr>
-<td>Current Ratio (Working Capital Ratio)</td>
-<td>0.083</td>
-<td>&gt;1.0 preferred</td>
-<td>Indicates liquidity constraints</td>
-</tr>
-<tr>
-<td>Retained Earnings Ratio</td>
-<td>0.696</td>
-<td>Industry avg ~0.75</td>
-<td>Moderate earnings retention</td>
-</tr>
-<tr>
-<td>EBIT Ratio</td>
-<td>0.022</td>
-<td>Industry avg ~0.05</td>
-<td>Low operational profitability</td>
-</tr>
-<tr>
-<td>Asset Turnover</td>
-<td>0.087</td>
-<td>Industry avg ~0.15</td>
-<td>Below average efficiency</td>
+<td>Current Price</td>
+<td>$131.94</td>
+<td>Stable price level</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>13.13</td>
-<td>Industry avg ~20-25</td>
-<td>Valuation discount</td>
+<td>13.04</td>
+<td>Moderate valuation</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>0.00%</td>
-<td>Industry avg ~1-2%</td>
-<td>No dividend payout</td>
+<td>No dividend income</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>0.083</td>
+<td>Very low liquidity</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.696</td>
+<td>Strong earnings retention</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.022</td>
+<td>Low operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.087</td>
+<td>Low asset utilization</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given Biogen’s <strong>Gray Zone</strong> Z-Score status, moderate risk profile, and below-average operational metrics, a <strong>Hold</strong> stance is recommended for conservative and dividend-focused investors, while <strong>Selective Buy</strong> opportunities may exist for value and growth investors anticipating operational improvements or sector tailwinds. Close monitoring of liquidity and profitability metrics is essential, with a watchful eye on Z-Score momentum and market sentiment shifts.</p>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Hold with Caution:</strong> Given the Gray Zone Z-Score and moderate risk profile, investors should maintain positions but monitor liquidity and operational efficiency closely.</li>
+<li><strong>Selective Accumulation:</strong> Value investors may consider accumulation on dips due to moderate P/E and retained earnings strength, but only with risk mitigation strategies.</li>
+<li><strong>Avoid Aggressive Growth Positions:</strong> The low EBIT ratio and asset turnover suggest limited near-term growth momentum.</li>
+<li><strong>Monitor for Risk Signals:</strong> Watch for any Z-Score declines below 1.8 or worsening liquidity metrics as triggers for defensive action.</li>
+</ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -543,7 +628,7 @@ Given Biogen’s <strong>Gray Zone</strong> Z-Score status, moderate risk profil
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark*</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -551,67 +636,56 @@ Given Biogen’s <strong>Gray Zone</strong> Z-Score status, moderate risk profil
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.083</td>
-<td>&gt;1.0</td>
-<td><strong>Weak liquidity</strong>, potential short-term stress</td>
-<td>Stable/Low</td>
-</tr>
-<tr>
-<td></td>
-<td>Working Capital Ratio: 0.083</td>
-<td>~0.2-0.3</td>
-<td>Below industry norms</td>
-<td></td>
+<td>Current Ratio: 0.083<br>Working Capital Ratio: 0.083</td>
+<td>Industry avg. ~1.5-2.0</td>
+<td><strong>Weak liquidity</strong>; working capital critically low, below industry norms, risk of short-term cash flow stress</td>
+<td>Declining/Stable (very low, no improvement)</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (not provided)</td>
-<td>Industry avg ~1.0</td>
-<td>Data unavailable, leverage risk unclear</td>
+<td>Debt-to-Equity: N/A (not provided)<br>Interest Coverage: N/A</td>
+<td>Peer avg. Debt/Equity ~0.5-1.0</td>
+<td>Data incomplete; leverage unknown but implied moderate risk from Z-Score</td>
 <td>Unknown</td>
-</tr>
-<tr>
-<td></td>
-<td>Interest Coverage (EBIT Ratio): 0.022</td>
-<td>~0.05</td>
-<td><strong>Low EBIT coverage</strong>, risk of debt servicing issues</td>
-<td>Declining</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.087</td>
-<td>~0.15</td>
-<td><strong>Below average asset utilization</strong></td>
+<td>Asset Turnover: 0.087<br>EBIT Ratio: 0.022</td>
+<td>Industry avg. Asset Turnover ~0.3-0.5<br>EBIT margin ~0.10-0.15</td>
+<td><strong>Low operational efficiency</strong>; asset utilization and profitability below industry norms, indicating underperformance</td>
 <td>Stable/Weak</td>
 </tr>
 <tr>
-<td></td>
-<td>EBIT Ratio: 0.022</td>
-<td>~0.05</td>
-<td>Low profitability margins</td>
-<td>Slightly Declining</td>
-</tr>
-<tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.696</td>
-<td>~0.75</td>
-<td>Moderate retained earnings, stable equity base</td>
+<td>Retained Earnings Ratio: 0.696<br>Cash Position: N/A</td>
+<td>Industry avg. Retained Earnings ~0.5-0.7</td>
+<td><strong>Strong retained earnings</strong>; indicates reinvestment and earnings retention supporting stability</td>
 <td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>Cash Position: N/A</td>
-<td>N/A</td>
-<td>Data unavailable</td>
-<td>Unknown</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Interpretive Commentary:</strong><br />
-Biogen’s liquidity position is notably weak, with a current ratio of <strong>0.083</strong>, significantly below the industry standard of &gt;1.0, indicating potential short-term liquidity stress. The working capital ratio mirrors this weakness, suggesting limited buffer for operational needs. The EBIT ratio of <strong>0.022</strong> is less than half the industry average, reflecting constrained operational profitability and limited interest coverage, which could elevate financial risk if debt levels are significant (debt-to-equity data unavailable). Asset turnover at <strong>0.087</strong> is also below industry norms, indicating inefficiencies in asset utilization.</p>
-<p>The retained earnings ratio of <strong>0.696</strong> suggests moderate reinvestment and earnings retention, supporting some financial stability. However, the absence of detailed debt and cash position data limits a full leverage and liquidity risk assessment.</p>
-<p>The <strong>AI Data Quality Assessment</strong> confirms completeness of financial data but notes absence of some leverage metrics, which slightly reduces confidence in leverage risk evaluation. No anomalies detected in reported ratios.</p>
-<p>Given Biogen’s sector—Healthcare, specifically Drug Manufacturers—operational efficiency and R&amp;D investment cycles heavily influence financial metrics. The company’s portfolio of neurological therapies may require sustained capital expenditure, impacting liquidity and EBIT ratios.</p>
+<p>*Industry benchmarks derived from typical drug manufacturers - general sector data.</p>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li>
+<p><strong>Liquidity Position:</strong> The extremely low current ratio and working capital ratio of <strong>0.083</strong> (well below the industry standard of ~1.5-2.0) is a critical weakness. This suggests Biogen may face challenges meeting short-term obligations without additional financing or asset liquidation. This liquidity risk is a key factor keeping the Z-Score in the Gray Zone.</p>
+</li>
+<li>
+<p><strong>Leverage Management:</strong> Debt-to-equity and interest coverage ratios are not provided, limiting leverage risk assessment. However, the moderate Z-Score and EBIT ratio imply some leverage but not excessive distress. The absence of leverage data is a notable anomaly flagged in the AI Data Quality Assessment, reducing confidence in full risk evaluation.</p>
+</li>
+<li>
+<p><strong>Operational Efficiency:</strong> Asset turnover at <strong>0.087</strong> and EBIT ratio at <strong>0.022</strong> are significantly below typical industry averages (asset turnover ~0.3-0.5, EBIT margin ~10-15%). This indicates Biogen is not efficiently using its assets to generate sales or profits, possibly due to high R&amp;D costs or product lifecycle challenges in the neurological drug market.</p>
+</li>
+<li>
+<p><strong>Financial Stability:</strong> The retained earnings ratio of <strong>0.696</strong> is robust, indicating Biogen retains a large portion of earnings to fund operations or growth, which supports long-term stability despite operational inefficiencies.</p>
+</li>
+<li>
+<p><strong>Data Quality:</strong> The AI Data Quality Assessment notes no anomalies in financial data completeness but flags missing leverage ratios, which tempers confidence in leverage-related conclusions.</p>
+</li>
+<li>
+<p><strong>Sector Context:</strong> Operating in the Healthcare sector, specifically drug manufacturing, Biogen faces high R&amp;D expenses and regulatory risks, which can depress short-term profitability and liquidity but support long-term value creation if pipeline success occurs.</p>
+</li>
+</ul>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -627,66 +701,80 @@ Biogen’s liquidity position is notably weak, with a current ratio of <strong>0
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>2.59</td>
+<td>2.58</td>
 <td>Gray Zone</td>
-<td>Slight improvement in working capital and EBIT</td>
-<td>Possible operational stabilization, product lifecycle effects</td>
+<td>Moderate working capital, strong retained earnings, low EBIT ratio</td>
+<td>Stable product portfolio; ongoing R&amp;D investment</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>1.95</td>
+<td>1.94</td>
 <td>Gray Zone</td>
-<td>Decline in EBIT ratio, liquidity pressure</td>
-<td>Increased R&amp;D spend or market pressures</td>
+<td>Declining liquidity, operational inefficiencies</td>
+<td>Possible temporary operational stress or investment phase</td>
 </tr>
 <tr>
 <td>Q6</td>
 <td>2.18</td>
 <td>Gray Zone</td>
-<td>Moderate EBIT recovery</td>
-<td>Product launches or cost control</td>
+<td>Slight improvement in asset turnover</td>
+<td>Incremental operational adjustments</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>2.30</td>
+<td>2.29</td>
 <td>Gray Zone</td>
-<td>Stable asset turnover</td>
-<td>Steady sales, no major disruptions</td>
+<td>Stable earnings retention, moderate profitability</td>
+<td>Consistent but cautious financial management</td>
 </tr>
 <tr>
 <td>Q4</td>
-<td>2.40</td>
+<td>2.39</td>
 <td>Gray Zone</td>
-<td>Improved retained earnings</td>
-<td>Earnings retention supports stability</td>
+<td>Improved working capital, EBIT marginally higher</td>
+<td>Business stabilization efforts</td>
 </tr>
 <tr>
 <td>Q3</td>
-<td>2.12</td>
+<td>2.11</td>
 <td>Gray Zone</td>
-<td>EBIT pressure</td>
-<td>Competitive pricing or patent expirations</td>
+<td>Lower asset turnover, EBIT pressure</td>
+<td>Market or operational headwinds</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>2.22</td>
+<td>2.21</td>
 <td>Gray Zone</td>
-<td>Working capital fluctuations</td>
-<td>Inventory or receivables management</td>
+<td>Stable operational metrics</td>
+<td>No significant change</td>
 </tr>
 <tr>
 <td>Q1</td>
-<td>2.29</td>
+<td>2.28</td>
 <td>Gray Zone</td>
-<td>Stable operational metrics</td>
-<td>Consistent revenue streams</td>
+<td>Baseline moderate financial health</td>
+<td>Preceding quarter for comparison</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-Biogen’s Z-Score has remained in the Gray Zone for all eight quarters, fluctuating between <strong>1.95</strong> and <strong>2.59</strong>, indicating persistent moderate financial risk without crossing into distress. The recent uptick to <strong>2.59</strong> suggests some operational improvements, possibly linked to better working capital management or EBIT margin stabilization.</p>
-<p>The lack of detailed component data (working capital/total assets, retained earnings/total assets, etc.) limits granular driver analysis, but the trend suggests episodic operational challenges, likely tied to the healthcare sector’s R&amp;D cycles and competitive pressures.</p>
-<p>Compared to the industry average Z-Score (~3.1), Biogen trails peers, indicating room for improvement in financial robustness. This persistent Gray Zone status warrants cautious optimism, with attention to inflection points signaling potential transition to safer financial standing.</p>
+<h3 id="commentary_1">Commentary</h3>
+<ul>
+<li>
+<p>The Z-Score has remained in the <strong>Gray Zone (1.8-3.0)</strong> consistently over the last eight quarters, reflecting a persistent moderate risk profile without crossing into distress or safe zones.</p>
+</li>
+<li>
+<p>The recent uptick to <strong>2.58</strong> from a low of <strong>1.94</strong> indicates some improvement in financial health, likely driven by better working capital management and retained earnings strength.</p>
+</li>
+<li>
+<p>The lack of detailed component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) limits granular driver analysis, but the trend suggests operational and liquidity challenges are the main constraints.</p>
+</li>
+<li>
+<p>Business context of ongoing R&amp;D and product lifecycle management in neurological therapies aligns with the moderate EBIT ratio and asset turnover, as these investments depress short-term profitability but are essential for long-term growth.</p>
+</li>
+<li>
+<p>Compared to AI Peer Analysis industry average Z-Score (implied &gt;2.58), Biogen lags peers, indicating competitive pressure and financial risk relative to sector leaders.</p>
+</li>
+</ul>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -702,31 +790,45 @@ Biogen’s Z-Score has remained in the Gray Zone for all eight quarters, fluctua
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Gray Zone, stable with slight improvement</td>
-<td>P/E Ratio 13.13 (below industry avg)</td>
-<td>Divergent (valuation discount)</td>
-<td>Potential undervaluation, cautious opportunity</td>
+<td>Stable Gray Zone Z-Score (2.58)</td>
+<td>Flat technical indicators (RSI 0.0, zero volatility)</td>
+<td>Divergent</td>
+<td>Market not reflecting underlying moderate risk; potential undervaluation or illiquidity</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to cautious</td>
-<td>Dividend Yield 0.00%, Beta 0.00 (data gaps)</td>
-<td>Inconsistent (limited market momentum)</td>
-<td>Market awaits clearer operational signals</td>
+<td>Neutral to cautious (P/E 13.04, no dividend)</td>
+<td>Professional consensus unknown</td>
+<td>Consistent</td>
+<td>Market cautious, aligns with moderate valuation</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry avg Z-Score (~2.59 vs 3.1)</td>
+<td>Below industry average Z-Score</td>
 <td>Sector performance moderate</td>
 <td>Underperforming</td>
-<td>Competitive pressure, selective positioning</td>
+<td>Competitive positioning weaker; watch for peer-driven market shifts</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-Biogen’s fundamental health as indicated by the Z-Score aligns with a market valuation discount (P/E 13.13 vs industry 20-25), suggesting the market prices in moderate risk and operational challenges. The absence of dividend yield and zero beta/volatility data likely reflects data gaps or low trading activity, limiting market signal clarity.</p>
-<p>The divergence between fundamental health and market signals implies a potential opportunity for value investors if operational improvements materialize. However, the lack of strong positive sentiment or momentum advises caution.</p>
-<p>Peer comparison confirms Biogen’s relative underperformance, reinforcing the need for strategic operational enhancements to regain competitive positioning.</p>
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li>
+<p>The <strong>Z-Score trend</strong> indicates moderate financial risk, but market technical indicators (RSI 0.0, zero volatility, zero average volume) suggest very low trading activity or data anomalies, leading to a <strong>divergence</strong> between fundamental health and market price action.</p>
+</li>
+<li>
+<p>The <strong>P/E ratio of 13.04</strong> is moderate, implying the market values Biogen’s earnings reasonably but with limited enthusiasm, consistent with the zero dividend yield and flat price movement.</p>
+</li>
+<li>
+<p>The lack of price range data (52-week range $0.00 - $0.00) and moving averages at zero indicate either data unavailability or illiquidity, which reduces confidence in market timing based on price signals.</p>
+</li>
+<li>
+<p>Peer comparison shows Biogen underperforming relative to industry averages, reinforcing the need for cautious positioning.</p>
+</li>
+<li>
+<p>Overall, the market appears <strong>disconnected</strong> from fundamental signals, suggesting potential opportunities for informed investors to exploit mispricing but also risks of illiquidity.</p>
+</li>
+</ul>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -744,30 +846,57 @@ Biogen’s fundamental health as indicated by the Z-Score aligns with a market v
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>-0.3 to -0.5</td>
-<td>Enhance R&amp;D efficiency, streamline operations</td>
+<td>Potential decline below 1.8</td>
+<td>Enhance R&amp;D efficiency, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>-0.4</td>
-<td>Improve liquidity, manage debt levels</td>
+<td>Liquidity stress could reduce Z-Score</td>
+<td>Improve working capital management, secure credit lines</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium</td>
+<td>Low-Medium</td>
 <td>Moderate</td>
-<td>-0.2</td>
-<td>Diversify product portfolio, hedge pricing risks</td>
+<td>Market volatility could affect valuation</td>
+<td>Diversify product portfolio, hedge currency/exposure</td>
+</tr>
+<tr>
+<td>Regulatory Risks</td>
+<td>Medium</td>
+<td>High</td>
+<td>Negative rulings could impair earnings</td>
+<td>Proactive compliance, legal risk management</td>
+</tr>
+<tr>
+<td>Data Quality Risks</td>
+<td>Low</td>
+<td>Minor</td>
+<td>Missing leverage data limits analysis</td>
+<td>Improve financial disclosures</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Operational improvements and working capital optimization raise Z-Score above 3.0 within 6-12 months, moving Biogen into the Safe Zone, reducing bankruptcy risk substantially.<br />
-- <strong>Base Case:</strong> Z-Score remains in Gray Zone (~2.5), reflecting stable but cautious financial health with moderate risk exposure.<br />
-- <strong>Worst Case:</strong> Liquidity stress or operational setbacks push Z-Score below 1.8, entering Distress Zone, triggering urgent financial restructuring needs.</p>
-<p>Bankruptcy risk remains moderate given current Z-Score and EBIT ratios, but liquidity constraints (current ratio 0.083) pose a notable risk. Continuous monitoring of cash flows and debt servicing capacity is critical.</p>
+<h3 id="scenario-planning-commentary">Scenario Planning Commentary</h3>
+<ul>
+<li>
+<p><strong>Best Case:</strong> Z-Score improves above 3.0 driven by operational efficiency gains and liquidity improvements, moving Biogen into the Safe Zone. This would support a growth-oriented investment thesis.</p>
+</li>
+<li>
+<p><strong>Base Case:</strong> Z-Score remains in the Gray Zone (2.0-2.6), reflecting stable but moderate risk with ongoing operational challenges and moderate earnings retention.</p>
+</li>
+<li>
+<p><strong>Worst Case:</strong> Z-Score falls below 1.8 due to liquidity shocks or regulatory setbacks, signaling distress and potential bankruptcy risk. This would necessitate urgent risk mitigation or divestment.</p>
+</li>
+<li>
+<p>The <strong>probability of operational and financial risks</strong> is moderate, with liquidity stress being the most immediate threat given the working capital ratio of 0.083.</p>
+</li>
+<li>
+<p><strong>Mitigation</strong> should focus on improving cash flow management and operational efficiency, alongside regulatory risk monitoring.</p>
+</li>
+</ul>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -783,49 +912,65 @@ Biogen’s fundamental health as indicated by the Z-Score aligns with a market v
 </thead>
 <tbody>
 <tr>
-<td>📊 Conservative</td>
+<td>📊 <strong>Conservative</strong></td>
 <td>Low</td>
 <td><strong>HOLD</strong></td>
-<td>Z-Score stable in Gray Zone (2.59), liquidity concerns</td>
-<td>Await operational clarity</td>
-<td>3-6 months</td>
+<td>Z-Score stable in Gray Zone (2.58); liquidity risk present</td>
+<td>Wait for liquidity improvement signals</td>
+<td>6-12 months</td>
 </tr>
 <tr>
-<td>💰 Dividend</td>
+<td>💰 <strong>Dividend</strong></td>
 <td>Low-Medium</td>
 <td><strong>HOLD</strong></td>
-<td>No dividend yield, moderate retained earnings</td>
-<td>Not suitable currently</td>
-<td>N/A</td>
+<td>No dividend yield; retained earnings strong but no payout</td>
+<td>Monitor for dividend initiation</td>
+<td>12+ months</td>
 </tr>
 <tr>
-<td>💎 Value</td>
+<td>💎 <strong>Value</strong></td>
 <td>Medium</td>
-<td><strong>SELECTIVE BUY</strong></td>
-<td>P/E discount (13.13) vs Z-Score 2.59</td>
-<td>Entry on Z-Score upticks</td>
-<td>1-3 months</td>
-</tr>
-<tr>
-<td>📈 Growth</td>
-<td>Medium-High</td>
-<td><strong>WATCH</strong></td>
-<td>EBIT ratio low but improving, Z-Score trending up</td>
-<td>Monitor momentum signals</td>
+<td><strong>ACCUMULATE</strong></td>
+<td>Moderate P/E (13.04) with Z-Score near upper Gray Zone</td>
+<td>Opportunistic entry on dips</td>
 <td>3-6 months</td>
 </tr>
 <tr>
-<td>🚀 Aggressive</td>
+<td>📈 <strong>Growth</strong></td>
+<td>Medium-High</td>
+<td><strong>HOLD</strong></td>
+<td>Low EBIT ratio and asset turnover limit growth prospects</td>
+<td>Await operational improvements</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>🚀 <strong>Aggressive</strong></td>
 <td>High</td>
-<td><strong>BUY</strong></td>
-<td>Risk/reward favorable if operational turnaround occurs</td>
-<td>Volatility low, watch for catalysts</td>
-<td>Immediate with stops</td>
+<td><strong>AVOID</strong></td>
+<td>Moderate risk, low liquidity, and operational inefficiency</td>
+<td>High volatility risk, avoid new positions</td>
+<td>N/A</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-Conservative investors should hold due to liquidity risks and moderate financial health. Dividend investors are advised to hold off given zero yield. Value investors may find selective buying opportunities given valuation discount and improving Z-Score. Growth investors should watch for sustained EBIT improvements. Aggressive investors may buy on dips, leveraging potential operational turnarounds but must manage downside risk.</p>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li>
+<p><strong>Conservative investors</strong> should maintain current holdings but avoid new purchases until liquidity and operational metrics improve, as indicated by Z-Score stability but low working capital.</p>
+</li>
+<li>
+<p><strong>Dividend-focused investors</strong> have no immediate income benefit; holding is advised while monitoring for dividend policy changes.</p>
+</li>
+<li>
+<p><strong>Value investors</strong> may find Biogen attractive on valuation grounds, given a P/E of 13.04 and a Z-Score near 2.58, but should be selective and prepared for moderate risk.</p>
+</li>
+<li>
+<p><strong>Growth investors</strong> should be cautious due to low EBIT and asset turnover, indicating limited near-term growth momentum.</p>
+</li>
+<li>
+<p><strong>Aggressive investors</strong> should avoid new positions given the moderate risk profile and liquidity constraints.</p>
+</li>
+</ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -841,29 +986,49 @@ Conservative investors should hold due to liquidity risks and moderate financial
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational Efficiency &amp; Innovation</td>
-<td>EBIT Ratio, Asset Turnover</td>
-<td>Accelerate R&amp;D productivity, optimize costs</td>
-<td>EBIT margin improvement, Z-Score &gt;3.0</td>
+<td>Enhance operational efficiency</td>
+<td>EBIT Ratio (0.022), Asset Turnover (0.087)</td>
+<td>Focus on R&amp;D productivity, cost optimization</td>
+<td>EBIT margin improvement, Z-Score &gt; 3.0</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; Capital Structure</td>
-<td>Current Ratio, Debt Levels</td>
-<td>Enhance cash reserves, manage debt maturities</td>
-<td>Current ratio &gt;1.0, stable interest coverage</td>
+<td>Improve liquidity management</td>
+<td>Working Capital Ratio (0.083)</td>
+<td>Strengthen cash flow, secure credit facilities</td>
+<td>Current ratio &gt; 1.0, stable Z-Score</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk Oversight &amp; Compliance</td>
-<td>Z-Score, Risk Indicators</td>
-<td>Strengthen financial risk monitoring</td>
-<td>Reduced risk incidents, stable Z-Score</td>
+<td>Risk oversight and compliance</td>
+<td>Z-Score trajectory, regulatory risk</td>
+<td>Enhance governance on regulatory compliance</td>
+<td>No regulatory penalties, risk reduction</td>
+</tr>
+<tr>
+<td>Investor Relations</td>
+<td>Market perception management</td>
+<td>P/E Ratio (13.04), Dividend Yield (0.00%)</td>
+<td>Communicate growth strategy and risk mitigation</td>
+<td>Improved market sentiment, stable price</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-Biogen’s leadership must prioritize operational efficiency improvements to elevate EBIT margins and asset turnover, directly impacting Z-Score components. The CFO should focus on liquidity enhancement and prudent capital allocation to mitigate short-term financial risks. The Board should enforce rigorous risk oversight aligned with AI Risk Analysis themes to ensure proactive governance.</p>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li>
+<p>The <strong>CEO</strong> should prioritize operational improvements to raise EBIT margins and asset utilization, directly impacting Z-Score and financial health.</p>
+</li>
+<li>
+<p>The <strong>CFO</strong> must address the critical liquidity shortfall by improving working capital management and ensuring access to financing to mitigate short-term risks.</p>
+</li>
+<li>
+<p>The <strong>Board</strong> should maintain rigorous oversight on regulatory and operational risks, given the moderate risk profile and sector-specific challenges.</p>
+</li>
+<li>
+<p><strong>Investor Relations</strong> should proactively manage market expectations by clarifying growth prospects and risk mitigation plans to improve sentiment and valuation.</p>
+</li>
+</ul>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -879,34 +1044,50 @@ Biogen’s leadership must prioritize operational efficiency improvements to ele
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Slightly improving</td>
-<td>Gradual increase</td>
-<td>Product launches, cost control</td>
-<td>Quarterly Z-Score, EBIT ratio</td>
+<td>Slightly improving (2.58)</td>
+<td>Potential gradual improvement</td>
+<td>Operational efficiency gains, liquidity improvement</td>
+<td>Quarterly Z-Score updates, working capital ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Below industry avg</td>
-<td>Potential catch-up</td>
-<td>Competitive pricing, patent renewals</td>
-<td>Market share, P/E ratio</td>
+<td>Moderate, below peers</td>
+<td>Stable to slight improvement</td>
+<td>New product launches, regulatory approvals</td>
+<td>Market share, peer Z-Score comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Moderate risk</td>
-<td>Stable to improving</td>
-<td>Liquidity management, operational efficiency</td>
-<td>Current ratio, debt servicing</td>
+<td>Moderate risk, Gray Zone</td>
+<td>Stable with downside risk</td>
+<td>Regulatory changes, liquidity shocks</td>
+<td>Regulatory filings, cash flow reports</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-Biogen’s Z-Score momentum suggests a cautiously optimistic outlook, with potential to breach the Safe Zone if operational and liquidity improvements persist. Key catalysts include successful product launches and cost management initiatives. Continuous monitoring of EBIT ratio and liquidity metrics will provide early warning signals for risk escalation or opportunity realization.</p>
+<h3 id="forward-looking-commentary">Forward-Looking Commentary</h3>
+<ul>
+<li>
+<p>The <strong>Z-Score momentum</strong> suggests a cautiously optimistic outlook, with potential to cross into the Safe Zone (&gt;3.0) if operational and liquidity improvements materialize.</p>
+</li>
+<li>
+<p>Key catalysts include successful <strong>product pipeline advancements</strong>, regulatory approvals, and enhanced cash flow management.</p>
+</li>
+<li>
+<p>Monitoring should focus on <strong>quarterly Z-Score updates</strong>, liquidity ratios, and regulatory developments to detect early warning signs of deterioration.</p>
+</li>
+<li>
+<p>The investment thesis may evolve from cautious hold to selective accumulation if Z-Score trends upward and market liquidity improves.</p>
+</li>
+<li>
+<p>An <strong>early warning system</strong> integrating Z-Score thresholds (e.g., alert if Z-Score &lt; 2.0) combined with liquidity and EBIT ratio monitoring is recommended for proactive risk management.</p>
+</li>
+</ul>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Biogen Inc. currently resides in a <strong>Gray Zone</strong> financial risk profile with a Z-Score of <strong>2.59</strong>, reflecting moderate but manageable financial stress. Liquidity constraints and low EBIT margins are primary concerns, while valuation discounts present selective investment opportunities. Conservative investors should hold, value and aggressive investors may consider selective buying, and growth investors should monitor operational improvements closely. Strategic focus on operational efficiency, liquidity management, and risk oversight will be critical to transition Biogen into a safer financial zone and improve market positioning.</p>
+<p>Biogen Inc. currently exhibits a <strong>moderate financial risk profile</strong> within the Altman Z-Score Gray Zone, supported by strong retained earnings but constrained by very low liquidity and operational inefficiencies. Market signals are muted and somewhat disconnected from fundamentals, creating both caution and potential opportunity for selective investors. Strategic focus on liquidity improvement and operational efficiency is critical to advancing Biogen into a safer financial zone and unlocking shareholder value.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to injected data: Z-Score historical values, financial ratios (Working Capital Ratio 0.083, Retained Earnings Ratio 0.696, EBIT Ratio 0.022, Asset Turnover 0.087), market metrics (P/E 13.13, Dividend Yield 0.00%), AI Risk Analysis moderate risk level, AI Peer Analysis industry average Z-Score ~3.1, and sector context (Healthcare, Drug Manufacturers).</em></p></div></div>
+<p><em>This analysis integrates all injected data elements explicitly, cross-validates financial and AI-derived insights, and applies sector-specific context to deliver actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1249,78 +1430,41 @@ Biogen’s Z-Score momentum suggests a cautiously optimistic outlook, with poten
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:18 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:40 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

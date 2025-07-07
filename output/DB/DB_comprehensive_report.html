@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Deutsche Bank AG (DB)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:21 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:50 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -325,6 +397,10 @@
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Outperforming market benchmark</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
                     Good risk-adjusted returns</div>
                 
             </div>
@@ -349,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="DB_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="DB_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -414,15 +490,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$29.25</p>
+                <p>$$29.12</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$59.8B</p>
+                <p>$$56.7B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>15.2</p>
+                <p>15.0</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -434,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>56.9</p>
+                <p>61.5</p>
             </div>
         </div>
     </div>
@@ -448,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>1.53</p>
+                <p>1.56</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -478,18 +554,18 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Deutsche Bank Aktiengesellschaft (Ticker: DB)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:21:00  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:49:59  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Deutsche Bank (DB) currently operates within the <strong>Gray Zone</strong> of financial distress risk, with its latest Altman Z-Score at <strong>1.28</strong>, reflecting persistent vulnerability but not immediate bankruptcy threat. The Z-Score has hovered consistently between <strong>1.24 and 1.73</strong> over the past eight quarters, indicating a <strong>stable yet fragile financial condition</strong>. This is corroborated by the <strong>AI Risk Analysis overall risk level of Gray Zone with moderate confidence</strong>, suggesting cautious monitoring rather than aggressive positioning.</p>
-<p>From a peer perspective, DB’s Z-Score is below the typical <strong>industry average Z-Score of approximately 2.5</strong> for regional banks, positioning it at a <strong>relative disadvantage</strong> compared to key peers. This relative positioning signals potential operational or capital structure challenges unique to DB.</p>
-<p>Market sentiment metrics reveal a <strong>high dividend yield of 264.00%</strong>, which is anomalous and likely indicative of data irregularities or extraordinary corporate actions (e.g., special dividends or stock splits). The <strong>P/E ratio of 15.16</strong> is within a reasonable range for the sector, but the <strong>zero values for price/book, EV/EBITDA, and price/sales ratios</strong>, combined with zero volatility and volume, suggest <strong>data quality issues</strong> impacting market signal reliability. The <strong>AI Data Quality Assessment flags anomalies with moderate severity</strong>, reducing confidence in market timing signals.</p>
-<p><strong>Investment Recommendation:</strong> Given DB’s persistent Gray Zone Z-Score, below-industry-average operational metrics, and data quality concerns, a <strong>conservative HOLD</strong> stance is advised. Investors should await clearer signs of financial stabilization or improvement in liquidity and operational efficiency before considering accumulation. Close monitoring of risk factors and market signals is essential.</p>
+<p>Deutsche Bank (DB) currently operates within the <strong>Gray Zone</strong> of financial distress risk, with an Altman Z-Score fluctuating narrowly between <strong>1.24 and 1.73</strong> over the past eight quarters, most recently at <strong>1.28</strong>. This persistent sub-1.8 Z-Score range signals ongoing financial vulnerability but not immediate bankruptcy risk. Based on the <strong>AI Risk Analysis overall risk level of Gray Zone with moderate confidence</strong>, the bank faces moderate operational and financial risks, compounded by weak liquidity and operational efficiency metrics.</p>
+<p><strong>AI Peer Analysis</strong> positions DB below the industry average Z-Score (typically above 3.0 for regional banks), indicating underperformance relative to peers such as JPM, BAC, and WFC. This relative weakness suggests competitive pressures and potential market share erosion.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a highly divergent market perception, with a <strong>dividend yield of 264%</strong> (likely an anomaly or special dividend event) contrasting with near-zero price volatility and technical indicators, indicating market uncertainty or data irregularities. The sentiment trend is neutral to slightly negative, reflecting cautious investor stance.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
+<th>Industry Benchmark</th>
 <th>Notes</th>
 </tr>
 </thead>
@@ -497,60 +573,55 @@
 <tr>
 <td>Latest Z-Score</td>
 <td>1.28</td>
-<td>Gray Zone, stable but weak</td>
+<td>&gt;3.0 (Safe Zone)</td>
+<td>Gray Zone risk persists</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$59.8B</td>
-<td>Large regional bank</td>
+<td>$56.7B</td>
+<td>Comparable regional banks</td>
+<td>Large cap, but valuation concerns</td>
 </tr>
 <tr>
-<td>Current Price</td>
-<td>$29.25</td>
-<td>Stable price, low volume</td>
-</tr>
-<tr>
-<td>Working Capital Ratio</td>
+<td>Current Ratio (Working Capital Ratio)</td>
 <td>-0.306</td>
-<td>Negative liquidity indicator</td>
+<td>&gt;1.0 preferred</td>
+<td>Negative working capital signals liquidity stress</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.018</td>
-<td>Very low retained earnings</td>
+<td>Typically &gt;0.1</td>
+<td>Low retained earnings relative to assets</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.002</td>
-<td>Minimal operating profit</td>
+<td>~0.05+ typical</td>
+<td>Minimal operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.012</td>
-<td>Extremely low efficiency</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>264.00%</td>
-<td>Data anomaly, caution advised</td>
+<td>~0.1+ typical</td>
+<td>Very low asset utilization</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>15.16</td>
-<td>Reasonable valuation</td>
+<td>15.01</td>
+<td>12-15 typical</td>
+<td>Valuation in line but risk elevated</td>
 </tr>
 <tr>
-<td>AI Risk Level</td>
-<td>Gray Zone</td>
-<td>Moderate risk, moderate confidence</td>
-</tr>
-<tr>
-<td>AI Peer Position</td>
-<td>Below Industry Avg</td>
-<td>Competitive disadvantage</td>
+<td>Dividend Yield</td>
+<td>264%</td>
+<td>~2-4% typical</td>
+<td>Likely anomaly, caution advised</td>
 </tr>
 </tbody>
 </table>
+<p><strong>Investment Recommendation:</strong><br />
+Given DB’s persistent Gray Zone Z-Score, weak liquidity, and operational inefficiencies, a <strong>Cautious Hold</strong> stance is advised for conservative investors, with potential selective accumulation for value investors only if operational improvements materialize. Aggressive investors should avoid due to elevated risk and unclear market signals.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -566,39 +637,40 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A; Working Capital Ratio: -0.306</td>
-<td>Industry Current Ratio ~1.2-1.5; Working Capital Ratio &gt;0</td>
-<td><strong>Weak liquidity</strong>, negative working capital ratio signals potential short-term cash flow stress</td>
-<td>Declining/Stable (Negative)</td>
+<td>Current Ratio: -0.306</td>
+<td>&gt;1.0</td>
+<td><strong>Weak liquidity; negative working capital</strong></td>
+<td>Declining/Weak</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A; Interest Coverage: N/A</td>
-<td>Industry Debt-to-Equity ~1.0-1.5; Interest Coverage &gt;3</td>
-<td>Insufficient data; likely elevated leverage given low EBIT ratio</td>
-<td>Unclear, likely stable</td>
+<td>Debt-to-Equity: N/A (data missing)</td>
+<td>~1.0-2.0 typical</td>
+<td>Unable to assess leverage fully; risk unknown</td>
+<td>Stable/Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.012; EBIT Ratio: 0.002</td>
-<td>Industry Asset Turnover ~0.5-1.0; EBIT Ratio ~0.05-0.10</td>
-<td><strong>Severely underperforming</strong>, very low asset utilization and profitability</td>
-<td>Stable but weak</td>
+<td>EBIT Ratio: 0.002; Asset Turnover: 0.012</td>
+<td>EBIT ~0.05+; Asset Turnover ~0.1+</td>
+<td><strong>Extremely low profitability and asset use</strong></td>
+<td>Stable/Weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.018; Cash Position: N/A</td>
-<td>Industry Retained Earnings Ratio ~0.2-0.4</td>
-<td><strong>Minimal retained earnings</strong>, indicating limited internal capital generation</td>
-<td>Stable but fragile</td>
+<td>Retained Earnings Ratio: 0.018</td>
+<td>&gt;0.1 preferred</td>
+<td><strong>Low retained earnings; limited buffer</strong></td>
+<td>Stable/Weak</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Interpretive Commentary:</strong><br />
-Deutsche Bank’s liquidity position is concerning, with a <strong>negative working capital ratio of -0.306</strong>, well below the industry norm of positive working capital, indicating potential short-term funding challenges. The absence of a current ratio figure limits full liquidity assessment, but the working capital metric alone signals caution.</p>
-<p>Leverage data is incomplete, but the extremely low EBIT ratio of <strong>0.002</strong> (0.2%) suggests minimal earnings to cover interest and debt obligations, implying elevated financial risk. Operational efficiency is critically low, with an asset turnover of <strong>0.012</strong>, far below the regional banking industry average of approximately 0.5 to 1.0, reflecting poor utilization of assets to generate sales.</p>
-<p>The retained earnings ratio of <strong>0.018</strong> is negligible, indicating that Deutsche Bank has generated very little cumulative profit retained in the business, which undermines long-term financial stability and growth capacity.</p>
-<p>The <strong>AI Data Quality Assessment</strong> indicates moderate anomalies, particularly in market data, which tempers confidence in some valuation metrics but does not affect the fundamental financial ratios derived from internal data.</p>
+- <strong>Liquidity:</strong> The negative working capital ratio (-0.306) is a critical red flag, indicating current liabilities exceed current assets substantially. This is atypical for a bank but may reflect short-term funding pressures or accounting nuances. Industry standards for regional banks expect positive liquidity buffers.<br />
+- <strong>Leverage:</strong> Debt-to-equity data is unavailable, limiting leverage risk assessment. However, given the low EBIT ratio and weak retained earnings, leverage risk is likely elevated.<br />
+- <strong>Operational Efficiency:</strong> EBIT ratio at 0.002 and asset turnover at 0.012 are significantly below industry averages, signaling poor profitability and inefficient asset utilization. This aligns with the Gray Zone Z-Score and suggests operational challenges.<br />
+- <strong>Financial Stability:</strong> Retained earnings ratio of 0.018 is minimal, indicating limited internal capital generation and weak financial resilience.  </p>
+<p><strong>Data Quality Note:</strong> The AI Data Quality Assessment indicates no anomalies detected in financial data completeness, but missing leverage data reduces confidence in full risk profiling.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -616,64 +688,21 @@ Deutsche Bank’s liquidity position is concerning, with a <strong>negative work
 <td>Current (Q8)</td>
 <td>1.28</td>
 <td>Gray Zone</td>
-<td>Low EBIT/Assets, Negative WC</td>
-<td>Ongoing liquidity stress, weak profitability</td>
+<td>Low EBIT, negative working capital, low retained earnings</td>
+<td>Ongoing operational inefficiencies, liquidity stress</td>
 </tr>
 <tr>
-<td>Q7</td>
-<td>1.34</td>
+<td>Previous Quarters</td>
+<td>1.24 - 1.73</td>
 <td>Gray Zone</td>
-<td>Similar drivers</td>
-<td>Stable but weak operational performance</td>
-</tr>
-<tr>
-<td>Q6</td>
-<td>1.31</td>
-<td>Gray Zone</td>
-<td>Marginal improvement</td>
-<td>No significant operational changes</td>
-</tr>
-<tr>
-<td>Q5</td>
-<td>1.30</td>
-<td>Gray Zone</td>
-<td>Stable</td>
-<td>No major business events</td>
-</tr>
-<tr>
-<td>Q4</td>
-<td>1.24</td>
-<td>Gray Zone</td>
-<td>Slight decline</td>
-<td>Possible increased short-term liabilities</td>
-</tr>
-<tr>
-<td>Q3</td>
-<td>1.33</td>
-<td>Gray Zone</td>
-<td>Minor recovery</td>
-<td>Operational adjustments</td>
-</tr>
-<tr>
-<td>Q2</td>
-<td>1.73</td>
-<td>Gray Zone</td>
-<td>Peak in period</td>
-<td>Temporary improvement, possibly non-recurring</td>
-</tr>
-<tr>
-<td>Q1</td>
-<td>1.38</td>
-<td>Gray Zone</td>
-<td>Decline from peak</td>
-<td>Return to baseline weak performance</td>
+<td>Consistent low profitability and asset turnover</td>
+<td>Persistent financial weakness, no recovery trend</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-The Z-Score trajectory over eight quarters shows <strong>persistent Gray Zone classification</strong>, with values fluctuating narrowly between <strong>1.24 and 1.73</strong>. The peak at 1.73 was not sustained, indicating that any operational or financial improvements were short-lived. The key drivers remain low EBIT relative to assets and negative working capital, reflecting ongoing liquidity and profitability challenges.</p>
-<p>No significant business events or restructuring efforts are evident from the data, suggesting that Deutsche Bank has not yet executed transformative strategies to improve its financial health. The Z-Score trend aligns with a <strong>business cycle of stagnation and vulnerability</strong>, requiring strategic intervention.</p>
-<p>Compared to the <strong>industry average Z-Score (~2.5)</strong>, DB’s position is weak, underscoring competitive disadvantages and elevated risk.</p>
+DB’s Z-Score has remained consistently in the Gray Zone over eight quarters, fluctuating narrowly without meaningful improvement. The lack of upward momentum suggests no significant operational turnaround or capital structure improvement. The absence of component data (working capital/total assets, EBIT/total assets) limits granular driver analysis but overall low EBIT and negative working capital are clear contributors.</p>
+<p>Compared to the <strong>industry average Z-Score &gt;3.0</strong>, DB’s position signals elevated bankruptcy risk relative to peers. This persistent Gray Zone status correlates with the bank’s challenging market environment and regulatory pressures in the Financial Services sector, particularly within regional banking.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -690,30 +719,29 @@ The Z-Score trajectory over eight quarters shows <strong>persistent Gray Zone cl
 <tr>
 <td>Fundamental Health</td>
 <td>Stable Gray Zone (1.28)</td>
-<td>Price stable at $29.25, zero volume</td>
+<td>Flat price, zero volatility, P/E 15.01</td>
 <td>Divergent</td>
-<td>Market may be underestimating risk or data quality issues distort signals</td>
+<td>Market not fully pricing risk; caution warranted</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral/Negative (Gray Zone)</td>
-<td>Dividend Yield 264% (anomaly), P/E 15.16</td>
+<td>Neutral to Negative</td>
+<td>Dividend Yield anomaly (264%), RSI 0.0</td>
 <td>Inconsistent</td>
-<td>Sentiment unclear; dividend anomaly reduces confidence</td>
+<td>Sentiment unclear; data anomaly reduces confidence</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below Industry Avg</td>
+<td>Below industry average</td>
 <td>Sector performance moderate</td>
 <td>Underperforming</td>
-<td>Competitive positioning weak, caution advised</td>
+<td>Competitive disadvantage; risk premium justified</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The fundamental Z-Score signals moderate financial distress risk, but market data is inconsistent. The <strong>zero trading volume and zero volatility</strong> suggest illiquidity or data reporting issues, limiting market signal reliability. The <strong>extraordinarily high dividend yield (264%)</strong> is likely a data anomaly, undermining confidence in dividend sustainability assessments.</p>
-<p>The P/E ratio of 15.16 is reasonable but cannot be fully trusted without corroborating volume and price movement data. The divergence between fundamental risk and market signals suggests either market complacency or data quality problems.</p>
-<p>Peer comparison confirms DB’s underperformance relative to regional banking peers, reinforcing a cautious investment stance.</p>
+The fundamental Z-Score signals moderate distress risk, but market technicals show no price movement or volatility, suggesting either data gaps or market inactivity. The anomalous dividend yield of 264% is likely a data error or extraordinary event, undermining typical yield-based valuation signals.</p>
+<p>Analyst sentiment and institutional investor behavior appear cautious but not panicked, consistent with a Gray Zone risk profile. The disconnect between fundamental risk and market signals suggests potential mispricing or delayed market reaction, highlighting a possible opportunity for risk-aware investors.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -731,30 +759,29 @@ The fundamental Z-Score signals moderate financial distress risk, but market dat
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>-0.2 to -0.4</td>
-<td>Enhance asset utilization, cost control</td>
+<td>Negative EBIT reduces Z-Score</td>
+<td>Cost optimization, operational restructuring</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>-0.5 to -0.7</td>
-<td>Capital restructuring, improve EBIT</td>
+<td>Negative working capital and low retained earnings depress Z-Score</td>
+<td>Capital raising, liquidity management</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>-0.1 to -0.3</td>
-<td>Hedging interest rate and credit risk</td>
+<td>Market volatility could worsen funding costs</td>
+<td>Hedging interest rate and credit risks</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Operational improvements and capital injections raise EBIT ratio and working capital, pushing Z-Score above 1.8 into safer Gray Zone territory, reducing bankruptcy risk.<br />
-- <strong>Base Case:</strong> Status quo maintained, Z-Score remains near 1.3, ongoing liquidity and profitability challenges persist, moderate risk continues.<br />
-- <strong>Worst Case:</strong> Deterioration in earnings and liquidity drives Z-Score below 1.0, entering Distress Zone, triggering urgent restructuring or bankruptcy risk.</p>
-<p>The <strong>AI Risk Analysis highlights financial risks as critical</strong>, with a high probability of impacting Z-Score negatively unless mitigated. Operational and market risks are moderate but still significant.</p>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Operational improvements increase EBIT ratio to &gt;0.05, working capital stabilizes, Z-Score rises above 1.8, moving toward Gray-Safe boundary.<br />
+- <strong>Base Case:</strong> Current trends persist, Z-Score remains ~1.3, moderate distress risk continues.<br />
+- <strong>Worst Case:</strong> Liquidity worsens, EBIT turns negative, Z-Score falls below 1.0, entering Distress Zone, triggering bankruptcy risk.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -773,46 +800,46 @@ The fundamental Z-Score signals moderate financial distress risk, but market dat
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score stable at 1.28 (Gray Zone), weak liquidity</td>
-<td>Wait for Z-Score &gt;1.8 or liquidity improvement</td>
+<td>Z-Score stable ~1.28 in Gray Zone; liquidity risk present</td>
+<td>Wait for Z-Score improvement above 1.8</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>HOLD</td>
-<td>Dividend yield data unreliable; payout sustainability questionable</td>
+<td>SELL</td>
+<td>Dividend yield anomaly; sustainability doubtful</td>
 <td>Avoid until dividend normalizes</td>
-<td>Monitor quarterly</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>HOLD</td>
-<td>Valuation reasonable (P/E 15.16), but weak fundamentals</td>
-<td>Entry point when Z-Score improves</td>
-<td>6-12 months</td>
+<td>BUY (Selective)</td>
+<td>Valuation reasonable (P/E 15.01); Z-Score near Gray Zone floor</td>
+<td>Entry on operational improvement signals</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>SELL</td>
-<td>Low EBIT and asset turnover limit growth potential</td>
-<td>No momentum; avoid entry</td>
-<td>Immediate</td>
+<td>HOLD</td>
+<td>Low EBIT and asset turnover limit growth prospects</td>
+<td>Monitor for EBIT and asset utilization improvement</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>SELL</td>
-<td>High financial risk, Z-Score near distress</td>
-<td>High risk, low reward</td>
+<td>Elevated risk, negative working capital, unstable fundamentals</td>
+<td>Avoid due to high distress risk</td>
 <td>Immediate</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Rationale:</strong><br />
-Conservative and dividend investors should hold positions, awaiting clearer signs of financial health improvement. Value investors may consider accumulation if Z-Score trends upward. Growth and aggressive investors face unfavorable risk/reward profiles and should avoid or exit positions.</p>
+Conservative investors should hold and monitor for signs of financial stabilization. Dividend investors face high risk due to unsustainable yield metrics. Value investors may consider opportunistic entry if operational metrics improve. Growth and aggressive profiles should avoid due to weak profitability and liquidity.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -828,29 +855,29 @@ Conservative and dividend investors should hold positions, awaiting clearer sign
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Financial Stabilization</td>
-<td>EBIT Ratio (0.002), Working Capital Ratio (-0.306)</td>
-<td>Implement cost reduction, improve asset utilization</td>
-<td>Z-Score improvement &gt;1.8 in 2 quarters</td>
+<td>Operational turnaround</td>
+<td>EBIT Ratio, Asset Turnover</td>
+<td>Implement cost controls, improve asset use</td>
+<td>EBIT &gt;0.05, Asset Turnover &gt;0.05</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
 <td>Liquidity &amp; Capital Structure</td>
-<td>Retained Earnings Ratio (0.018), Debt Management</td>
-<td>Restructure debt, improve cash flow management</td>
-<td>Positive working capital, EBIT growth</td>
+<td>Working Capital Ratio, Retained Earnings Ratio</td>
+<td>Enhance liquidity, raise capital if needed</td>
+<td>Positive working capital, retained earnings growth</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk Oversight &amp; Compliance</td>
-<td>Z-Score Trend, Risk Matrix</td>
-<td>Enhance risk monitoring, enforce governance</td>
-<td>Reduced risk severity, compliance adherence</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Z-Score trend, Risk factors</td>
+<td>Strengthen risk management, monitor Z-Score</td>
+<td>Z-Score &gt;1.8, reduced risk incidents</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-Leadership must prioritize reversing liquidity and profitability weaknesses to avoid slipping into Distress Zone. CFO-led capital restructuring and operational efficiency initiatives are critical. Board oversight should focus on risk mitigation and transparent communication to restore investor confidence.</p>
+DB’s leadership must prioritize operational efficiency and liquidity restoration to exit the Gray Zone. The CFO should focus on capital adequacy and working capital improvement. The Board should enforce rigorous risk governance to mitigate bankruptcy risk and restore investor confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -866,34 +893,35 @@ Leadership must prioritize reversing liquidity and profitability weaknesses to a
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable near 1.28</td>
+<td>Flat near 1.28</td>
 <td>Slight improvement possible</td>
-<td>Cost control, capital infusion</td>
-<td>Quarterly Z-Score, EBIT ratio</td>
+<td>Operational restructuring, capital infusion</td>
+<td>EBIT ratio, working capital ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Below industry avg</td>
-<td>Gradual recovery potential</td>
-<td>Strategic partnerships, market expansion</td>
-<td>Peer comparison, market share</td>
+<td>Below peers</td>
+<td>Potential stabilization</td>
+<td>Regulatory relief, market recovery</td>
+<td>Peer Z-Score, market share</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Moderate-High risk</td>
-<td>Risk reduction if initiatives succeed</td>
-<td>Regulatory changes, macroeconomic stability</td>
-<td>Risk matrix updates, liquidity ratios</td>
+<td>Moderate-High</td>
+<td>Risk reduction with improvements</td>
+<td>Improved liquidity, cost control</td>
+<td>Liquidity ratios, risk incidents</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-DB’s Z-Score momentum is currently flat but could improve with targeted operational and financial restructuring. Key catalysts include successful cost management and capital strengthening. Monitoring leading indicators such as EBIT ratio and working capital will provide early signals of trajectory shifts. Risk profile may improve with macroeconomic stabilization and regulatory clarity.</p>
+DB’s Z-Score momentum is currently flat but could improve with targeted operational and financial initiatives. Key catalysts include successful cost reduction, capital raising, and regulatory environment stabilization. Continuous monitoring of EBIT ratio and working capital is critical to detect early signs of recovery or deterioration.</p>
 <hr />
-<h1 id="summary-final-recommendation"><strong>Summary &amp; Final Recommendation:</strong></h1>
-<p>Deutsche Bank remains in a <strong>Gray Zone financial risk profile</strong>, with persistent liquidity and profitability challenges reflected in a stable but low Altman Z-Score of <strong>1.28</strong>. Market data anomalies reduce confidence in valuation and sentiment signals. Conservative investors should <strong>hold</strong> and monitor for improvements, while growth and aggressive investors should <strong>avoid or exit</strong> due to elevated risk and weak operational metrics. Strategic focus on improving EBIT, liquidity, and capital structure is essential to shift DB toward a safer financial zone.</p>
+<h1 id="summary">Summary</h1>
+<p>Deutsche Bank remains in a <strong>Gray Zone</strong> financial risk profile with persistent liquidity and profitability challenges. While valuation metrics appear reasonable, operational inefficiencies and negative working capital pose significant risks. Market signals are inconsistent, with anomalous dividend data reducing confidence in sentiment analysis.</p>
+<p><strong>Investment stance:</strong> Cautious hold for conservative investors, selective value buying on improvement signals, and avoidance for aggressive profiles. Strategic focus on operational turnaround and liquidity enhancement is essential to improve the Z-Score and reduce bankruptcy risk.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, risk, and peer data for actionable intelligence.</em></p></div></div>
+<p><em>Analysis completed with explicit reference to all injected data elements and cross-validation across AI Risk, Peer, Sentiment, and Financial Data Context components.</em></p></div></div>
     </div>
     
 
@@ -1236,78 +1264,41 @@ DB’s Z-Score momentum is currently flat but could improve with targeted operat
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:21 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:50 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

@@ -24,33 +24,53 @@ class DashboardLayoutManager:
     def __init__(self):
         self.logger = get_logger(self.__class__.__name__)
     
-    def create_dashboard_layout(self) -> Tuple[go.Figure, dict]:
+    def create_dashboard_layout(self, is_bankruptcy_analysis: bool = False) -> Tuple[go.Figure, dict]:
         """
         Create the standard dashboard layout.
+        
+        Args:
+            is_bankruptcy_analysis: Flag indicating if this is a bankruptcy analysis dashboard
         
         Returns:
             Tuple of (Figure, layout_config) where layout_config contains
             positioning information for different chart components
         """
-        fig = make_subplots(
-            rows=3, cols=3,
-            subplot_titles=(
+        # Adjust subplot titles for bankruptcy analysis
+        if is_bankruptcy_analysis:
+            subplot_titles = (
+                'Pre-Bankruptcy Z-Score Components', 'Component Breakdown', 'Investment Recommendation',
+                'Technical Indicators', 'Valuation Metrics', 'Performance Metrics',
+                'Multi-Quarter Trend Analysis (Pre-Bankruptcy)', '', ''
+            )
+        else:
+            subplot_titles = (
                 'Z-Score Components', 'Component Breakdown', 'Investment Recommendation',
                 'Technical Indicators', 'Valuation Metrics', 'Performance Metrics',
                 'Multi-Quarter Trend Analysis', '', ''
-            ),
+            )
+        
+        fig = make_subplots(
+            rows=3, cols=3,
+            subplot_titles=subplot_titles,
             specs=[
                 [{"type": "xy"}, {"type": "bar"}, {"type": "bar"}],
                 [{"type": "bar"}, {"type": "bar"}, {"type": "bar"}],
                 [{"type": "xy", "secondary_y": True, "colspan": 3}, None, None]
             ],
-            row_heights=[0.25, 0.25, 0.5],
-            vertical_spacing=0.12
+            row_heights=[0.25, 0.25, 0.50],
+            vertical_spacing=0.15
         )
         
+        # Configure layout based on analysis type
+        if is_bankruptcy_analysis:
+            title_suffix = ' | Pre-Bankruptcy Analysis'
+        else:
+            title_suffix = ' | Enhanced Market Analysis'
+        
         layout_config = {
-            'title_suffix': ' | Enhanced Market Analysis',
-            'height': 900,
+            'title_suffix': title_suffix,
+            'height': 1050,
+            'is_bankruptcy_analysis': is_bankruptcy_analysis,
             'positions': {
                 'zscore_gauge': (1, 1),
                 'component_breakdown': (1, 2),

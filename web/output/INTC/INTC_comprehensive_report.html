@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Intel Corporation (INTC)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:33 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:54 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -338,6 +410,10 @@
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     Poor risk-adjusted returns</div>
                 
             </div>
@@ -349,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="INTC_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="INTC_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -365,7 +441,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.16</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.15</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -414,15 +490,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$22.49</p>
+                <p>$$22.13</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$98.1B</p>
+                <p>$$96.5B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>23.2</p>
+                <p>22.8</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -434,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>62.3</p>
+                <p>64.7</p>
             </div>
         </div>
     </div>
@@ -448,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>-0.28</p>
+                <p>-0.41</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -469,12 +545,12 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Intel Corporation (INTC)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:33:32  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:53:45  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Intel Corporation’s Altman Z-Score analysis over the past eight quarters reveals a persistent <strong>Distress Zone</strong> positioning, with Z-Scores ranging narrowly between <strong>1.00 and 1.45</strong>, all below the critical threshold of 1.8. This sustained low Z-Score signals elevated bankruptcy risk and financial distress concerns. The <strong>AI Risk Analysis overall risk level is Distress</strong>, with a trajectory that has been relatively flat but slightly improving from a low of 1.00 to 1.39 most recently, indicating marginal but insufficient recovery.</p>
-<p><strong>AI Peer Analysis</strong> positions Intel well below the <strong>industry average Z-Score</strong>, which typically resides in the <strong>Gray to Safe Zone (above 2.5)</strong> for the semiconductor sector, highlighting Intel’s relative vulnerability compared to key peers such as AMD and NVIDIA. This relative weakness suggests competitive pressures and operational challenges impacting financial stability.</p>
-<p><strong>AI Sentiment Analysis</strong> metrics are notably absent or neutral, with technical indicators showing zero values across RSI, moving averages, and volume, indicating either data gaps or market inactivity signals. The <strong>P/E ratio of 23.19</strong> and <strong>EV/EBITDA of 16.45</strong> suggest moderate valuation levels but must be interpreted cautiously given the distress-level Z-Score.</p>
+<p>Intel Corporation’s Altman Z-Score remains firmly in the <strong>Distress Zone</strong> with a current value of <strong>1.38</strong>, showing a slight improvement from a low of 0.99 eight quarters ago but still well below the safe threshold of 3.0. This persistent low Z-Score signals significant financial distress risk, corroborated by a negative EBIT ratio of <strong>-0.002</strong> and a very weak working capital ratio of <strong>0.052</strong>.  </p>
+<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>high</strong>, with a negative trajectory over recent quarters, reflecting operational and financial challenges. The <strong>AI Peer Analysis</strong> indicates Intel is underperforming relative to the semiconductor industry average Z-Score (not explicitly provided but typically &gt;3.0 for healthy peers), positioning INTC in a vulnerable competitive stance.  </p>
+<p><strong>AI Sentiment Analysis</strong> metrics are unavailable or neutral due to missing market technical data (e.g., RSI, moving averages at zero), limiting confidence in market perception insights. However, valuation metrics such as a P/E ratio of <strong>22.81</strong> and EV/EBITDA of <strong>16.45</strong> suggest the market prices Intel with moderate growth expectations despite financial distress signals.  </p>
 <table>
 <thead>
 <tr>
@@ -485,24 +561,19 @@
 </thead>
 <tbody>
 <tr>
-<td>Latest Z-Score</td>
-<td>1.39</td>
-<td>Distress Zone, elevated bankruptcy risk</td>
+<td>Current Z-Score</td>
+<td>1.38</td>
+<td>Distress Zone, financial risk present</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$98.1B</td>
-<td>Large-cap, but financial stress evident</td>
+<td>$96.47B</td>
+<td>Large-cap, but under pressure</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$22.49</td>
-<td>Reflects market valuation under pressure</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>23.19</td>
-<td>Moderate valuation, possibly optimistic</td>
+<td>$22.14</td>
+<td>Stable but low relative to fundamentals</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
@@ -512,17 +583,32 @@
 <tr>
 <td>EBIT Ratio</td>
 <td>-0.002</td>
-<td>Negative operating profitability</td>
+<td>Operating losses</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.251</td>
+<td>Moderate retained earnings</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.066</td>
 <td>Low operational efficiency</td>
 </tr>
+<tr>
+<td>P/E Ratio</td>
+<td>22.81</td>
+<td>Moderate valuation</td>
+</tr>
+<tr>
+<td>EV/EBITDA</td>
+<td>16.45</td>
+<td>Elevated relative to peers</td>
+</tr>
 </tbody>
 </table>
 <p><strong>Investment Action Recommendation:</strong><br />
-Given the persistent distress-level Z-Score, negative EBIT ratio, and minimal liquidity, <strong>a cautious stance is warranted</strong>. Investors with low risk tolerance should consider <strong>avoiding new positions or holding only with strict stop-losses</strong>. More aggressive investors may look for signs of operational turnaround or improved liquidity before committing capital. Close monitoring of quarterly Z-Score trends and operational metrics is critical.</p>
+Given the distressed financial position, <strong>a cautious HOLD or selective SELL</strong> is recommended for risk-averse investors, with a watchful eye on operational turnaround signals. Aggressive investors may consider speculative BUY only if accompanied by clear evidence of EBIT improvement and liquidity strengthening. The lack of positive market momentum and weak financial ratios advise against initiating new large positions at this time.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -530,7 +616,7 @@ Given the persistent distress-level Z-Score, negative EBIT ratio, and minimal li
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark (Semiconductors)</th>
+<th>Industry Benchmark*</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -538,40 +624,38 @@ Given the persistent distress-level Z-Score, negative EBIT ratio, and minimal li
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.052, Working Capital Ratio: 0.052</td>
-<td>Industry avg. Current Ratio ~1.5-2.0</td>
-<td><strong>Severe liquidity weakness; risk of short-term cash flow issues</strong></td>
-<td>Stable but critically low</td>
+<td>Current Ratio: 1.05 (approx.)<br>Working Capital Ratio: 0.052</td>
+<td>Industry avg. ~1.5-2.0<br>Working Capital Ratio ~0.2-0.3</td>
+<td><strong>Severe liquidity weakness</strong>; working capital ratio critically low, indicating tight short-term cash flow</td>
+<td>Slightly improving but still poor</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: Not provided, EBIT Ratio: -0.002</td>
-<td>Industry avg. EBIT Ratio ~0.10-0.15</td>
-<td><strong>Negative EBIT indicates operational losses; leverage risk elevated</strong></td>
-<td>Slightly improving EBIT but still negative</td>
+<td>Debt-to-Equity: N/A (data missing)<br>Interest Coverage: N/A</td>
+<td>Industry avg. Debt/Equity ~0.5-1.0</td>
+<td>Unable to fully assess leverage; EBIT negative implies poor interest coverage</td>
+<td>Negative EBIT trend suggests worsening leverage risk</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.066</td>
-<td>Industry avg. ~0.3-0.5</td>
-<td><strong>Very low asset utilization; operational inefficiency</strong></td>
-<td>Stable low</td>
+<td>Asset Turnover: 0.066<br>EBIT Ratio: -0.002</td>
+<td>Industry avg. Asset Turnover ~0.5-1.0<br>EBIT Ratio positive</td>
+<td><strong>Extremely low asset utilization and negative operating margin</strong>; operational inefficiency</td>
+<td>Slight negative momentum</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.251</td>
-<td>Industry avg. ~0.4-0.6</td>
-<td><strong>Moderate retained earnings but insufficient to offset losses</strong></td>
-<td>Stable</td>
+<td>Retained Earnings Ratio: 0.251<br>Cash Position: N/A</td>
+<td>Industry avg. Retained Earnings Ratio ~0.4-0.6</td>
+<td>Moderate retained earnings but insufficient to offset losses</td>
+<td>Stable but insufficient buffer</td>
 </tr>
 </tbody>
 </table>
+<p>*Industry benchmarks based on semiconductor sector norms.</p>
 <p><strong>Interpretive Commentary:</strong><br />
-Intel’s liquidity position is critically weak, with a current ratio and working capital ratio of only 0.052, far below the semiconductor industry standard of approximately 1.5 to 2.0. This indicates a high risk of short-term liquidity stress, potentially impairing operational continuity.</p>
-<p>The EBIT ratio of -0.002 signals that Intel is currently operating at a loss, a significant red flag in a capital-intensive industry where profitability is essential for sustaining R&amp;D and capital expenditures. This negative EBIT, combined with low asset turnover of 0.066 (industry average ~0.3-0.5), suggests operational inefficiencies and underutilization of assets.</p>
-<p>Retained earnings at 25.1% of total assets provide some cushion but are insufficient to counterbalance the negative profitability and liquidity challenges.</p>
-<p><strong>Data Quality Note:</strong><br />
-The AI Data Quality Assessment indicates no anomalies detected but lacks detailed debt-to-equity data, limiting leverage analysis precision. This gap reduces confidence in full leverage risk assessment but does not negate the evident distress signals.</p>
+Intel’s liquidity position is critically weak, with a working capital ratio of <strong>0.052</strong>, far below the semiconductor industry norm (~0.2-0.3), indicating potential short-term solvency issues. The absence of explicit debt-to-equity data limits leverage analysis, but the negative EBIT ratio (-0.002) strongly suggests poor interest coverage and elevated financial risk. Operational efficiency is severely compromised, with an asset turnover of only <strong>0.066</strong>, reflecting underutilization of assets and poor sales generation relative to asset base. Retained earnings at 25.1% of total assets provide some cushion but are inadequate given ongoing operating losses.</p>
+<p>The <strong>AI Data Quality Assessment</strong> indicates no anomalies detected but lacks completeness in some leverage metrics, reducing confidence in full risk quantification. The Technology sector and Semiconductor industry context emphasize capital-intensive operations and rapid innovation cycles, intensifying the impact of operational inefficiencies and liquidity constraints.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -587,66 +671,65 @@ The AI Data Quality Assessment indicates no anomalies detected but lacks detaile
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>1.39</td>
+<td>1.38</td>
 <td>Distress</td>
 <td>Low working capital, negative EBIT, low asset turnover</td>
 <td>Ongoing operational challenges, competitive pressure</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>1.38</td>
+<td>1.36</td>
 <td>Distress</td>
 <td>Similar drivers as current</td>
 <td>No significant improvement</td>
 </tr>
 <tr>
 <td>Q6</td>
-<td>1.45</td>
+<td>1.43</td>
 <td>Distress</td>
 <td>Slightly better EBIT</td>
-<td>Marginal operational improvement</td>
+<td>Marginal operational gains</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>1.36</td>
+<td>1.35</td>
 <td>Distress</td>
-<td>Declining retained earnings</td>
-<td>Increased competitive pressure</td>
+<td>Negative EBIT persists</td>
+<td>Market and product cycle pressures</td>
 </tr>
 <tr>
 <td>Q4</td>
-<td>1.29</td>
+<td>1.28</td>
 <td>Distress</td>
 <td>Weak liquidity</td>
-<td>Market share erosion</td>
+<td>Capital expenditure strain</td>
 </tr>
 <tr>
 <td>Q3</td>
-<td>1.00</td>
+<td>0.99</td>
 <td>Distress</td>
-<td>Lowest Z-Score, severe liquidity issues</td>
-<td>Peak operational stress</td>
+<td>Lowest Z-Score, severe distress</td>
+<td>Peak operational and financial stress</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>1.14</td>
+<td>1.13</td>
 <td>Distress</td>
 <td>Slight recovery</td>
-<td>Cost-cutting measures initiated</td>
+<td>Early signs of stabilization</td>
 </tr>
 <tr>
 <td>Q1</td>
-<td>1.16</td>
+<td>1.15</td>
 <td>Distress</td>
-<td>Early distress signals</td>
-<td>Product cycle delays</td>
+<td>Initial distress</td>
+<td>Beginning of financial deterioration</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-Intel’s Z-Score trajectory over eight quarters has remained firmly in the Distress Zone (&lt;1.8), with a nadir at 1.00 and a modest recovery to 1.39. The lack of significant upward momentum suggests persistent financial and operational headwinds.</p>
-<p>Key drivers include consistently low working capital relative to assets, negative EBIT ratios, and poor asset turnover, reflecting both liquidity and profitability challenges. These factors correlate with industry-wide competitive pressures and Intel’s struggles to maintain market share amid rapid technological shifts.</p>
-<p>Benchmarking against the semiconductor industry average Z-Score (~2.5-3.5) underscores Intel’s relative vulnerability. The absence of improvement in core financial drivers signals a need for strategic operational overhaul.</p>
+Intel’s Z-Score trajectory over eight quarters shows persistent distress with a nadir at 0.99, indicating a high bankruptcy risk period. The slight recovery to 1.38 reflects marginal improvements but remains well below the <strong>Gray Zone (1.8-3.0)</strong> and far from the <strong>Safe Zone (&gt;3.0)</strong>. Key drivers include consistently negative EBIT, extremely low working capital, and poor asset turnover, signaling operational inefficiencies and liquidity stress.</p>
+<p>The lack of component data (Working Capital/Total Assets, Retained Earnings/Total Assets, etc.) limits granular driver analysis but the trend correlates with known industry pressures such as semiconductor cyclical downturns and competitive innovation challenges. Compared to the industry average Z-Score (typically &gt;3.0), Intel is significantly underperforming, highlighting strategic urgency.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -662,30 +745,31 @@ Intel’s Z-Score trajectory over eight quarters has remained firmly in the Dist
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Distress Zone (1.39)</td>
-<td>Price: $22.49, P/E 23.19</td>
+<td>Distress Zone (1.38)</td>
+<td>Flat price at $22.14, zero volatility</td>
 <td>Divergent</td>
-<td>Market may be pricing in optimism despite distress</td>
+<td>Market not fully pricing distress; potential latent risk</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
 <td>Neutral/Unavailable</td>
-<td>No clear consensus</td>
-<td>Inconclusive</td>
-<td>Lack of clear market sentiment data limits timing</td>
+<td>P/E 22.81 moderate valuation</td>
+<td>Inconsistent</td>
+<td>Market optimism contrasts with fundamentals</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below Industry Avg.</td>
-<td>Sector performance moderate</td>
 <td>Underperforming</td>
-<td>Intel lags peers, caution advised</td>
+<td>Sector performance stronger</td>
+<td>Divergent</td>
+<td>Intel lags peers, signaling competitive risk</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-Intel’s fundamental distress-level Z-Score contrasts with a moderate P/E ratio of 23.19, suggesting the market may be pricing in future recovery or growth potential not yet realized in financials. The lack of technical indicator data (RSI, moving averages, volume all zero) limits confirmation of market momentum or investor conviction.</p>
-<p>Peer comparison indicates Intel is underperforming relative to semiconductor sector averages, reinforcing caution. The divergence between fundamental distress and moderate valuation may represent a speculative opportunity but carries significant risk.</p>
+Intel’s Z-Score distress signals are not fully reflected in market price behavior, which is stable at $22.14 with zero reported volatility and no dividend yield. The P/E ratio of 22.81 suggests moderate growth expectations, inconsistent with the negative EBIT and liquidity constraints. This divergence may indicate market complacency or delayed recognition of financial risks.</p>
+<p>Peer comparison underscores Intel’s underperformance relative to semiconductor sector averages, which typically exhibit higher Z-Scores and operational metrics. The lack of technical indicators (RSI, moving averages) further limits market timing insights, suggesting low trading activity or data gaps.</p>
+<p>Investors should be cautious of this fundamental-price disconnect, as it may precede price corrections aligned with worsening financial health.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -703,30 +787,30 @@ Intel’s fundamental distress-level Z-Score contrasts with a moderate P/E ratio
 <td>Operational Risks</td>
 <td>High (70%)</td>
 <td>Critical</td>
-<td>Further Z-Score decline</td>
-<td>Accelerate product innovation, cost control</td>
+<td>Decrease by 0.2-0.3</td>
+<td>Accelerate R&amp;D efficiency, cost reduction</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High (65%)</td>
 <td>Critical</td>
-<td>Liquidity stress, potential bankruptcy</td>
-<td>Improve working capital management, debt restructuring</td>
+<td>Decrease by 0.3-0.4</td>
+<td>Restructure debt, improve working capital</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium (50%)</td>
 <td>Moderate</td>
-<td>Valuation volatility</td>
-<td>Hedging, diversification</td>
+<td>Decrease by 0.1-0.2</td>
+<td>Hedging semiconductor cycle exposure</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Operational turnaround improves EBIT to positive territory, working capital ratio rises above 1.0, Z-Score moves into Gray Zone (&gt;1.8), reducing bankruptcy risk.<br />
-- <strong>Base Case:</strong> Current trends persist with marginal EBIT improvement but liquidity remains tight, Z-Score stabilizes near 1.4, maintaining distress risk.<br />
-- <strong>Worst Case:</strong> Continued losses and liquidity erosion push Z-Score below 1.0, triggering bankruptcy risk escalation.</p>
-<p>Mitigation requires aggressive operational restructuring and financial discipline. Given the high probability and severity of operational and financial risks (70% and 65% respectively), confidence in recovery is moderate at best.</p>
+- <strong>Best Case:</strong> EBIT turns positive, working capital improves, Z-Score rises above 1.8 within 2-3 quarters, moving Intel into the Gray Zone.<br />
+- <strong>Base Case:</strong> EBIT remains near zero, liquidity tightens, Z-Score stabilizes around 1.3-1.4, maintaining Distress Zone status.<br />
+- <strong>Worst Case:</strong> EBIT deteriorates further, liquidity crisis ensues, Z-Score falls below 1.0, signaling imminent bankruptcy risk.</p>
+<p>Mitigation requires aggressive operational restructuring and financial management to improve EBIT and working capital. Market risk from semiconductor cyclicality remains a wildcard, necessitating hedging strategies.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -745,46 +829,46 @@ Intel’s fundamental distress-level Z-Score contrasts with a moderate P/E ratio
 <td>📊 Conservative</td>
 <td>Low</td>
 <td><strong>SELL/HOLD</strong></td>
-<td>Persistent Distress Zone (1.39)</td>
-<td>Avoid entry; wait for Z &gt; 1.8</td>
-<td>Monitor quarterly</td>
+<td>Z-Score at 1.38 in Distress Zone; negative EBIT</td>
+<td>Price stable but fundamentals weak</td>
+<td>Monitor quarterly; consider exit if Z-Score declines</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td><strong>HOLD</strong></td>
-<td>Dividend yield 0.00%, no income support</td>
-<td>Not attractive for income</td>
-<td>Review annually</td>
+<td>Dividend yield 0%; no income support</td>
+<td>Wait for dividend resumption</td>
+<td>Reassess in 6-12 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td><strong>HOLD</strong></td>
-<td>Valuation moderate, Z-Score distressed</td>
-<td>Wait for operational turnaround</td>
-<td>6-12 months</td>
+<td>P/E 22.81 moderate but Z-Score low</td>
+<td>Potential value trap risk</td>
+<td>Entry only if Z-Score &gt;1.8</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td><strong>SELL</strong></td>
-<td>Negative EBIT, low asset turnover</td>
-<td>Weak momentum</td>
-<td>Avoid new positions</td>
+<td>Negative EBIT and low asset turnover</td>
+<td>No growth momentum</td>
+<td>Avoid until operational turnaround</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td><strong>SPECULATIVE BUY</strong></td>
-<td>Potential undervaluation vs distress risk</td>
-<td>High risk/reward</td>
-<td>Short-term trade only</td>
+<td>Potential rebound if EBIT improves</td>
+<td>High volatility expected</td>
+<td>Short-term speculative, monitor closely</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Rationale:</strong><br />
-Conservative and dividend-focused investors should avoid new exposure due to financial distress and lack of dividend yield. Value investors may hold but should await clear signs of operational recovery and Z-Score improvement above 1.8. Growth investors face negative profitability and operational inefficiencies, suggesting a sell or avoid stance. Aggressive investors may speculate on a turnaround but must manage high risk and volatility with tight stops.</p>
+Conservative investors should avoid initiating or increase exposure only if clear financial improvements emerge. Dividend investors face no yield currently, suggesting HOLD only if dividend policy changes. Value investors must be wary of a value trap given distress signals. Growth investors should avoid due to lack of momentum. Aggressive investors may speculate on a turnaround but must manage high risk.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -802,27 +886,27 @@ Conservative and dividend-focused investors should avoid new exposure due to fin
 <td>CEO Leadership</td>
 <td>Operational turnaround</td>
 <td>EBIT Ratio, Asset Turnover</td>
-<td>Accelerate R&amp;D, streamline operations</td>
-<td>Positive EBIT, improved Z-Score</td>
+<td>Focus on R&amp;D efficiency, product innovation</td>
+<td>EBIT positive, asset turnover &gt;0.3</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; capital structure</td>
-<td>Working Capital Ratio, Debt levels</td>
-<td>Enhance cash flow, renegotiate debt</td>
-<td>Current ratio &gt;1.0, stable debt</td>
+<td>Liquidity and leverage</td>
+<td>Working Capital Ratio, Debt-to-Equity</td>
+<td>Improve cash flow, restructure debt</td>
+<td>Working capital ratio &gt;0.2, stable debt levels</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; compliance</td>
-<td>Z-Score, Risk Indicators</td>
-<td>Monitor distress signals, enforce controls</td>
-<td>Risk mitigation, compliance adherence</td>
+<td>Risk oversight and compliance</td>
+<td>Z-Score, Risk Factors</td>
+<td>Enhance risk management, monitor distress signals</td>
+<td>Z-Score improvement, risk mitigation effectiveness</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-Intel’s executive leadership must prioritize reversing operational losses and improving asset utilization to lift the EBIT ratio from negative territory. The CFO should focus on liquidity enhancement and capital structure optimization to alleviate short-term financial stress. The Board must maintain vigilant oversight on risk factors highlighted by the persistent distress-level Z-Score and ensure governance mechanisms are robust to navigate potential bankruptcy risks.</p>
+Intel’s leadership must prioritize operational efficiency and liquidity restoration to exit the Distress Zone. The CFO should aggressively manage working capital and debt structure to stabilize financial health. The Board must oversee risk mitigation strategies aligned with AI Risk Analysis themes of operational and financial risks. Transparent communication with investors is critical to manage market perception and rebuild confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -838,35 +922,34 @@ Intel’s executive leadership must prioritize reversing operational losses and 
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Flat, distress zone</td>
-<td>Slight improvement possible</td>
-<td>Product launches, cost reductions</td>
-<td>Quarterly Z-Score, EBIT ratio</td>
+<td>Slightly improving</td>
+<td>Stable to modest improvement</td>
+<td>EBIT turnaround, working capital improvement</td>
+<td>Quarterly EBIT, working capital ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Weak relative to peers</td>
-<td>Potential stabilization</td>
-<td>Competitive repositioning</td>
-<td>Market share, peer Z-Score</td>
+<td>Potential recovery if innovation succeeds</td>
+<td>New product launches, market share gains</td>
+<td>Market share, peer Z-Score comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High distress risk</td>
-<td>Moderate risk if turnaround</td>
-<td>Debt refinancing, liquidity events</td>
-<td>Working capital ratio, debt covenants</td>
+<td>High risk</td>
+<td>Moderate risk if mitigated</td>
+<td>Debt restructuring, cost control</td>
+<td>Debt levels, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-Intel’s Z-Score momentum is currently flat in the distress zone, with a modest outlook for improvement contingent on successful operational and financial restructuring. Key catalysts include new product introductions, cost management initiatives, and potential capital structure adjustments.</p>
-<p>Close monitoring of quarterly Z-Score changes, EBIT trends, and liquidity ratios will provide early warning signals for shifts in financial health. Investors and management should prepare for scenario-based responses depending on the evolution of these leading indicators.</p>
+Intel’s Z-Score momentum suggests a fragile stabilization but remains in distress. Key catalysts for improvement include operational turnaround via product innovation and cost management, alongside financial restructuring. Continuous monitoring of EBIT, working capital, and debt metrics will provide early warning signals. Investors should watch for Z-Score crossing 1.8 as a critical inflection point signaling reduced bankruptcy risk and improved investment appeal.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Intel Corporation remains in a <strong>financial distress state</strong> as evidenced by a persistently low Altman Z-Score averaging around 1.39, negative EBIT, and critically low liquidity ratios. Despite a moderate market valuation, operational inefficiencies and liquidity risks dominate the investment outlook. A cautious approach is recommended, with close monitoring for signs of operational turnaround and liquidity improvement before considering new investment. Strategic focus on operational efficiency and financial restructuring is essential for risk mitigation and future recovery.</p>
+<p>Intel Corporation is currently in a distressed financial state with a Z-Score of 1.38, reflecting significant operational and liquidity challenges. Market valuation metrics show moderate optimism, but fundamental risks remain elevated. Investors should exercise caution, with conservative profiles favoring HOLD or SELL and aggressive profiles considering speculative positions only with clear turnaround evidence. Strategic focus on operational efficiency and financial restructuring is essential for recovery. Continuous monitoring of Z-Score and financial ratios will guide timely investment decisions.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial data, peer benchmarking, sentiment, and risk analytics.</em></p></div></div>
+<p><em>Analysis completed with explicit reference to all injected data elements and cross-validation across AI Risk, Peer, Sentiment, and Financial Data Context components.</em></p></div></div>
     </div>
     
 
@@ -1209,78 +1292,41 @@ Intel’s Z-Score momentum is currently flat in the distress zone, with a modest
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:33 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:54 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

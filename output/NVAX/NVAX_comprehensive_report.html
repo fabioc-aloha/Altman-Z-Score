@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Novavax, Inc. (NVAX)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:38 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:06 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -357,9 +429,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="NVAX_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="NVAX_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -422,15 +494,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$6.80</p>
+                <p>$$6.61</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$1.1B</p>
+                <p>$$1.1B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>2.5</p>
+                <p>2.4</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -442,7 +514,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>41.9</p>
+                <p>42.2</p>
             </div>
         </div>
     </div>
@@ -456,7 +528,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>-0.24</p>
+                <p>-0.29</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -477,41 +549,41 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Novavax, Inc. (NVAX)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:38:03  </p>
+<strong>Analysis Date:</strong> 2025-07-07 11:05:38  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Novavax, Inc. (NVAX) currently exhibits a <strong>critical financial distress profile</strong> as evidenced by its persistently negative Altman Z-Scores over the last eight quarters, with the latest Z-Score at <strong>-10.66</strong>, deeply within the <strong>Distress Zone (Z &lt; 1.8)</strong>. This signals a high probability of financial distress or bankruptcy risk if corrective actions are not taken. The AI Risk Analysis, implicitly reflected in the Z-Score trajectory, indicates a <strong>severe and sustained risk level</strong> with no signs of recovery or stabilization.</p>
-<p><strong>AI Peer Analysis</strong> places NVAX significantly below the biotechnology industry average Z-Score (typically above 2.5), highlighting its <strong>relative underperformance and elevated insolvency risk</strong> compared to peers such as Moderna (MRNA) and Pfizer (PFE). The company’s <strong>market capitalization of $1.1 billion</strong> and current price of <strong>$6.80</strong> reflect market skepticism, corroborated by technical indicators showing zero trading volume and no price movement, suggesting <strong>illiquidity and market neglect</strong>.</p>
-<p><strong>AI Sentiment Analysis</strong> metrics are unavailable or neutral (RSI 0.0, zero volatility), indicating <strong>lack of market engagement and investor confidence</strong>. The absence of dividends and low valuation multiples (P/E 2.47, EV/EBITDA 1.11) further underscore the market’s cautious stance.</p>
+<p>Novavax, Inc. (NVAX) currently exhibits a <strong>Distress Zone Altman Z-Score</strong> trajectory, with all eight quarters showing deeply negative Z-Scores ranging from -6.44 to -13.44, indicating severe financial distress and high bankruptcy risk. The AI Risk Analysis, inferred from the Z-Score trend and financial metrics, signals an <strong>overall risk level of critical distress</strong> with near-zero confidence in recovery absent significant operational or capital restructuring.</p>
+<p><strong>AI Peer Analysis</strong> places NVAX well below the biotechnology industry average Z-Score (typically &gt; 2.5), confirming its relative underperformance and elevated insolvency risk compared to peers such as Moderna (MRNA) and Pfizer (PFE). The company's <strong>market cap of approximately $1.07 billion</strong> and share price of $6.61 reflect market skepticism, corroborated by a <strong>low Price/Book ratio of 0.00</strong> and minimal trading activity (zero volume and technical indicators), suggesting illiquidity or delisting risk.</p>
+<p><strong>AI Sentiment Analysis</strong> is effectively neutral to negative, with no dividend yield, zero volatility, and a P/E ratio of 2.40 that may reflect distressed valuation rather than growth potential. The <strong>sentiment trend is flat to declining</strong>, consistent with the financial distress signals.</p>
 <h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
-<th>Value</th>
+<th>Metric Category</th>
+<th>Key Values</th>
 <th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Altman Z-Score</td>
+<td>Z-Score (Latest)</td>
 <td>-10.66</td>
-<td>Severe distress zone</td>
+<td>Distress Zone, high bankruptcy risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$1.1 billion</td>
+<td>$1.07 billion</td>
 <td>Small-cap, distressed valuation</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$6.80</td>
-<td>Low liquidity, stagnant price</td>
+<td>$6.61</td>
+<td>Low price, reflecting distress</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.345</td>
-<td>Very weak liquidity</td>
+<td>Severe liquidity constraints</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
@@ -521,7 +593,7 @@
 <tr>
 <td>EBIT Ratio</td>
 <td>0.399</td>
-<td>Modest operational earnings</td>
+<td>Marginal operational profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
@@ -530,28 +602,23 @@
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>2.47</td>
-<td>Low valuation, possibly undervalued</td>
+<td>2.40</td>
+<td>Low, possibly due to distress</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>0.00%</td>
-<td>No income return</td>
+<td>No income return to investors</td>
 </tr>
 <tr>
 <td>Beta</td>
 <td>0.00</td>
-<td>No market correlation</td>
+<td>No market correlation or trading</td>
 </tr>
 </tbody>
 </table>
-<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
-<ul>
-<li><strong>Urgent Caution:</strong> NVAX is in a critical financial state with a <strong>high risk of insolvency</strong>; speculative investors should avoid new positions.</li>
-<li><strong>Risk-Averse Investors:</strong> Recommend <strong>SELL or AVOID</strong> until clear signs of financial stabilization emerge.</li>
-<li><strong>Opportunistic Investors:</strong> May consider <strong>high-risk speculative positions</strong> only if accompanied by detailed due diligence on turnaround plans.</li>
-<li><strong>Monitoring Required:</strong> Close tracking of liquidity improvements, earnings growth, and Z-Score trajectory is essential before reconsidering investment.</li>
-</ul>
+<h3 id="investment-recommendation">Investment Recommendation:</h3>
+<p><strong>Strong caution advised.</strong> NVAX remains in a prolonged distress state with no signs of financial recovery or market confidence. Investors with low risk tolerance should <strong>avoid or sell</strong>. Aggressive investors may consider speculative positions only if accompanied by clear turnaround catalysts and risk mitigation strategies.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -567,42 +634,78 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.345<br>Working Capital Ratio: 0.345</td>
+<td>Current Ratio: 0.345</td>
 <td>~1.5 - 2.0</td>
-<td><strong>Severe liquidity weakness</strong>; far below industry norms, indicating inability to cover short-term liabilities</td>
-<td>Declining/Stable at low level</td>
+<td><strong>Severe liquidity weakness</strong>; below industry norms, risk of short-term cash shortfall</td>
+<td>Declining/Weak</td>
+</tr>
+<tr>
+<td></td>
+<td>Working Capital Ratio: 0.345</td>
+<td>&gt;1.0</td>
+<td>Insufficient working capital</td>
+<td></td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (data unavailable)<br>Interest Coverage: N/A</td>
-<td>Moderate leverage typical</td>
-<td>Insufficient data; negative retained earnings (-3.472) imply high leverage or accumulated losses</td>
+<td>Debt-to-Equity: N/A (Data Missing)</td>
+<td>~0.5 - 1.5</td>
+<td>Data unavailable; likely elevated given distress</td>
 <td>Unknown</td>
 </tr>
 <tr>
+<td></td>
+<td>Interest Coverage (EBIT Ratio): 0.399</td>
+<td>&gt;3.0</td>
+<td>Very low; insufficient EBIT to cover interest</td>
+<td>Declining</td>
+</tr>
+<tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.399<br>Asset Turnover: 0.516</td>
-<td>EBIT Ratio ~0.15-0.25<br>Asset Turnover ~0.5-0.7</td>
-<td>EBIT ratio above industry average suggests some operational profitability; asset turnover moderate</td>
-<td>Stable</td>
+<td>Asset Turnover: 0.516</td>
+<td>~0.7 - 1.0</td>
+<td>Below average asset utilization</td>
+<td>Stable/Low</td>
+</tr>
+<tr>
+<td></td>
+<td>EBIT Ratio: 0.399</td>
+<td>~0.1 - 0.2 (Biotech varies)</td>
+<td>EBIT positive but low relative to assets</td>
+<td>Slightly Positive</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: -3.472<br>Cash Position: N/A</td>
-<td>Positive retained earnings typical</td>
-<td>Deeply negative retained earnings indicate sustained losses and erosion of equity base</td>
+<td>Retained Earnings Ratio: -3.472</td>
+<td>Positive or near zero</td>
+<td>Deep accumulated losses; negative equity likely</td>
 <td>Declining</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: N/A</td>
+<td>Adequate cash reserves</td>
+<td>Data missing; liquidity ratios imply weak cash</td>
+<td>Unknown</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary">Commentary</h3>
+<h3 id="commentary">Commentary:</h3>
 <ul>
-<li><strong>Liquidity Position:</strong> The current ratio and working capital ratio of <strong>0.345</strong> are critically low compared to the biotech industry average (~1.5-2.0), indicating <strong>severe short-term liquidity constraints</strong>. This aligns with the distress-level Z-Scores and suggests potential difficulties in meeting immediate obligations.</li>
-<li><strong>Leverage Management:</strong> While explicit debt-to-equity and interest coverage ratios are unavailable, the <strong>negative retained earnings ratio (-3.472)</strong> strongly implies accumulated losses and possibly high leverage or equity erosion, increasing bankruptcy risk.</li>
-<li><strong>Operational Efficiency:</strong> The EBIT ratio of <strong>0.399</strong> is relatively strong, indicating some operational profitability despite financial distress. Asset turnover at <strong>0.516</strong> is moderate, reflecting average efficiency in asset utilization within the biotech sector.</li>
-<li><strong>Financial Stability:</strong> The <strong>deeply negative retained earnings ratio</strong> signals ongoing losses and financial instability, consistent with the Altman Z-Score distress signals.</li>
+<li>
+<p><strong>Liquidity Position:</strong> The current ratio of 0.345 is critically below the biotech industry benchmark of approximately 1.5-2.0, indicating that NVAX has less than 35 cents in current assets for every dollar of current liabilities. This severe liquidity constraint increases default risk and operational vulnerability. The working capital ratio mirrors this weakness.</p>
+</li>
+<li>
+<p><strong>Leverage Management:</strong> Although explicit debt-to-equity data is missing, the extremely negative retained earnings ratio (-3.472) and distress-level Z-Scores imply significant leverage or negative equity. The EBIT ratio of 0.399 is positive but insufficient to cover interest expenses comfortably, suggesting financial strain.</p>
+</li>
+<li>
+<p><strong>Operational Efficiency:</strong> Asset turnover at 0.516 is below typical biotech industry averages (~0.7-1.0), indicating suboptimal asset utilization. EBIT ratio is positive but low, reflecting marginal profitability or operational challenges.</p>
+</li>
+<li>
+<p><strong>Financial Stability:</strong> The deeply negative retained earnings ratio signals accumulated losses eroding shareholder equity, consistent with the distress Z-Score category. This undermines long-term solvency and investor confidence.</p>
+</li>
 </ul>
-<p><strong>Data Quality Note:</strong> The absence of detailed debt and interest coverage data limits leverage analysis precision. However, the available financial ratios and Z-Score data provide a consistent distress narrative.</p>
+<p><strong>Data Quality Assessment:</strong> The absence of certain key metrics (e.g., debt-to-equity, cash position) and zero trading volume introduce limitations to confidence, reducing it to moderate-low. No anomalies detected but data gaps constrain full diagnostic precision.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -620,67 +723,35 @@
 <td>Current (Q8)</td>
 <td>-10.66</td>
 <td>Distress</td>
-<td>Negative retained earnings, low liquidity, weak market equity</td>
+<td>Negative retained earnings, poor liquidity, weak EBIT</td>
 <td>Ongoing financial distress, no recovery signs</td>
 </tr>
 <tr>
-<td>Q7</td>
-<td>-11.78</td>
+<td>Previous Quarters</td>
+<td>-6.44 to -13.44</td>
 <td>Distress</td>
-<td>Similar drivers as current</td>
-<td>Continued operational challenges</td>
-</tr>
-<tr>
-<td>Q6</td>
-<td>-11.17</td>
-<td>Distress</td>
-<td>Persistent losses</td>
-<td>No significant business turnaround</td>
-</tr>
-<tr>
-<td>Q5</td>
-<td>-13.44</td>
-<td>Distress</td>
-<td>Deepening losses</td>
-<td>Worsening financial health</td>
-</tr>
-<tr>
-<td>Q4</td>
-<td>-8.06</td>
-<td>Distress</td>
-<td>Slight improvement</td>
-<td>Temporary operational gains</td>
-</tr>
-<tr>
-<td>Q3</td>
-<td>-10.45</td>
-<td>Distress</td>
-<td>Declining liquidity</td>
-<td>Market and operational pressures</td>
-</tr>
-<tr>
-<td>Q2</td>
-<td>-11.44</td>
-<td>Distress</td>
-<td>Negative equity</td>
-<td>Sustained financial stress</td>
-</tr>
-<tr>
-<td>Q1</td>
-<td>-6.44</td>
-<td>Distress</td>
-<td>Initial distress signals</td>
-<td>Early signs of financial trouble</td>
+<td>Consistently negative working capital, losses, low market equity</td>
+<td>Prolonged operational and financial challenges</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_1">Commentary</h3>
+<h3 id="commentary_1">Commentary:</h3>
 <ul>
-<li>NVAX’s Z-Score has remained <strong>deeply negative and in distress territory for at least eight quarters</strong>, with values oscillating between -6.44 and -13.44, indicating <strong>persistent and severe financial distress</strong>.</li>
-<li>No inflection points toward recovery are evident; the slight improvement in Q4 (-8.06) was short-lived.</li>
-<li>The <strong>key drivers</strong> include negative retained earnings, poor liquidity, and weak market equity relative to debt.</li>
-<li>This trend correlates with the company’s operational challenges in the biotechnology sector, where high R&amp;D costs and uncertain product commercialization timelines exacerbate financial strain.</li>
-<li>Compared to the <strong>industry average Z-Score (~2.5-3.5)</strong>, NVAX is significantly underperforming, emphasizing its precarious financial position.</li>
+<li>
+<p>NVAX’s Z-Score has persistently remained in the <strong>Distress Zone (&lt;1.8)</strong> for at least eight quarters, with values ranging from -6.44 to -13.44, indicating chronic insolvency risk.</p>
+</li>
+<li>
+<p>The negative Z-Score drivers are primarily due to <strong>negative retained earnings ratio (-3.472)</strong> and <strong>working capital ratio (0.345)</strong>, which severely depress the score.</p>
+</li>
+<li>
+<p>EBIT ratio (0.399) provides a slight positive offset but is insufficient to improve the overall Z-Score.</p>
+</li>
+<li>
+<p>The business context of Novavax as a biotechnology vaccine developer, with ongoing Phase III trials, suggests high R&amp;D expenses and capital intensity, which may contribute to losses and liquidity stress.</p>
+</li>
+<li>
+<p>Compared to the biotech industry average Z-Score (~2.5-3.5), NVAX is a significant outlier on the downside, reflecting competitive and financial distress.</p>
+</li>
 </ul>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
@@ -697,33 +768,41 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Persistently negative (-10.66)</td>
-<td>Price stagnant at $6.80, zero volume</td>
-<td>Divergent (no price movement despite distress)</td>
-<td>Market neglect; potential liquidity trap</td>
+<td>Persistently Distress (-10.66 latest)</td>
+<td>Price $6.61, zero volume, no volatility</td>
+<td>Divergent (fundamental distress vs. stagnant price)</td>
+<td>High risk; market may be illiquid or ignoring fundamentals</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral/Unavailable (RSI 0.0)</td>
-<td>No active trading or analyst coverage</td>
-<td>Consistent with low interest</td>
-<td>Low market confidence; high risk</td>
+<td>Negative/Neutral (P/E 2.40, no dividend)</td>
+<td>No active trading, no yield</td>
+<td>Consistent with distress</td>
+<td>Market timing unfavorable; avoid entry without catalyst</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Significantly below peers</td>
-<td>Sector performing better</td>
+<td>Well below industry average Z-Score (~2.5)</td>
+<td>Sector performance positive</td>
 <td>Underperforming</td>
 <td>Competitive disadvantage; high risk</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_2">Commentary</h3>
+<h3 id="commentary_2">Commentary:</h3>
 <ul>
-<li>The <strong>Z-Score’s strong distress signal is not reflected in active market trading</strong>, as technical indicators show zero volume and no price movement, suggesting <strong>market illiquidity or suspension</strong>.</li>
-<li>The <strong>lack of analyst sentiment and zero volatility</strong> reinforce a narrative of market disengagement and skepticism.</li>
-<li>Peer companies in biotechnology maintain healthier financials and market performance, highlighting NVAX’s <strong>relative competitive weakness</strong>.</li>
-<li>This disconnect between fundamental distress and market price action suggests <strong>limited trading opportunities and elevated risk for investors</strong>.</li>
+<li>
+<p>The <strong>market signals are largely muted or absent</strong>, with zero trading volume, zero volatility, and technical indicators at zero, suggesting either market inactivity or delisting risk.</p>
+</li>
+<li>
+<p>The <strong>low P/E ratio of 2.40</strong> may reflect market skepticism or undervaluation but is more likely a distress signal given the negative fundamentals.</p>
+</li>
+<li>
+<p>The <strong>lack of dividend yield (0.00%)</strong> aligns with the company's financial distress and inability to return capital to shareholders.</p>
+</li>
+<li>
+<p>The divergence between fundamental distress and stagnant market price suggests <strong>market inefficiency or illiquidity</strong>, increasing risk for investors.</p>
+</li>
 </ul>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
@@ -742,34 +821,48 @@
 <td>Operational Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Further decline</td>
+<td>Further Z-Score decline</td>
 <td>Accelerate R&amp;D efficiency, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Worsening distress</td>
-<td>Restructure debt, raise capital</td>
+<td>Negative retained earnings worsen</td>
+<td>Capital raise, debt restructuring</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Negative sentiment</td>
-<td>Improve investor relations, transparency</td>
+<td>Illiquidity risk, price volatility</td>
+<td>Improve investor relations, market maker engagement</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_3">Commentary</h3>
+<h3 id="commentary_3">Commentary:</h3>
 <ul>
-<li><strong>Operational Risks:</strong> High probability of continued R&amp;D delays or failures, which could worsen EBIT and retained earnings, further depressing the Z-Score.</li>
-<li><strong>Financial Risks:</strong> High risk of insolvency due to poor liquidity and negative equity; urgent capital infusion or restructuring needed.</li>
-<li><strong>Market Risks:</strong> Moderate risk from investor apathy and illiquidity; improving communication and transparency could mitigate.</li>
-<li><strong>Scenario Planning:</strong>  </li>
-<li><strong>Best Case:</strong> Successful vaccine commercialization improves EBIT and liquidity, Z-Score moves toward Gray Zone (&gt;1.8).  </li>
-<li><strong>Base Case:</strong> Continued distress with minor operational improvements, Z-Score remains negative.  </li>
-<li><strong>Worst Case:</strong> Bankruptcy or restructuring, Z-Score falls further below -15.</li>
+<li>
+<p><strong>Operational Risks:</strong> High probability due to ongoing R&amp;D costs and uncertain vaccine commercialization. Critical severity as failure to generate revenue will worsen Z-Score.</p>
+</li>
+<li>
+<p><strong>Financial Risks:</strong> High probability of continued losses and liquidity shortfalls, with critical impact on solvency and Z-Score. Immediate capital infusion or restructuring needed.</p>
+</li>
+<li>
+<p><strong>Market Risks:</strong> Medium probability of illiquidity and price volatility due to low trading volume and market cap. Moderate severity; could exacerbate financing difficulties.</p>
+</li>
+</ul>
+<p><strong>Scenario Outlook:</strong></p>
+<ul>
+<li>
+<p><strong>Best Case:</strong> Successful Phase III trial results lead to revenue generation, improving EBIT and working capital, potentially lifting Z-Score above distress threshold within 12-18 months.</p>
+</li>
+<li>
+<p><strong>Base Case:</strong> Continued losses and liquidity constraints maintain negative Z-Score, with risk of bankruptcy or dilution.</p>
+</li>
+<li>
+<p><strong>Worst Case:</strong> Failure of vaccine candidates or inability to raise capital leads to insolvency and bankruptcy.</p>
+</li>
 </ul>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
@@ -789,51 +882,55 @@
 <td>📊 Conservative</td>
 <td>Low</td>
 <td><strong>SELL</strong></td>
-<td>Z-Score at -10.66 indicates distress</td>
+<td>Persistent distress Z-Score (-10.66)</td>
 <td>Price stagnant, illiquid</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>AVOID</strong></td>
-<td>No dividend yield; negative retained earnings</td>
-<td>No yield support</td>
-<td>N/A</td>
+<td><strong>SELL</strong></td>
+<td>No dividend yield, negative retained earnings</td>
+<td>No yield, no income</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>HOLD/WAIT</strong></td>
-<td>Low P/E (2.47) but severe distress</td>
-<td>Wait for Z-Score recovery</td>
-<td>Monitor quarterly</td>
+<td><strong>HOLD/AVOID</strong></td>
+<td>Distress valuation but high risk</td>
+<td>Await clear turnaround</td>
+<td>Monitor quarterly results</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>SPECULATIVE BUY</strong></td>
-<td>EBIT positive but overshadowed by losses</td>
-<td>High risk, low liquidity</td>
-<td>Only with strong due diligence</td>
+<td><strong>SPECULATIVE</strong></td>
+<td>Low EBIT ratio, negative Z-Score</td>
+<td>High risk, low momentum</td>
+<td>Only with catalysts</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td><strong>SPECULATIVE BUY</strong></td>
-<td>Potential turnaround if catalysts emerge</td>
+<td>Potential upside if vaccine succeeds</td>
 <td>High volatility expected</td>
-<td>Short-term opportunistic</td>
+<td>Short-term, high risk</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_4">Commentary</h3>
+<h3 id="commentary_4">Commentary:</h3>
 <ul>
-<li><strong>Conservative investors</strong> should exit positions immediately due to high bankruptcy risk.</li>
-<li><strong>Dividend investors</strong> have no incentive given zero yield.</li>
-<li><strong>Value investors</strong> may consider holding if they believe in a turnaround, but only with close monitoring of Z-Score improvements.</li>
-<li><strong>Growth and aggressive investors</strong> might speculate on operational improvements or vaccine success but must accept high risk and illiquidity.</li>
-<li>Position sizing should be minimal and risk-managed given volatility and distress signals.</li>
+<li>
+<p><strong>Conservative and dividend investors</strong> should avoid or divest due to high bankruptcy risk and no income generation.</p>
+</li>
+<li>
+<p><strong>Value investors</strong> may hold or cautiously monitor for turnaround signals but should not initiate new positions without evidence of financial stabilization.</p>
+</li>
+<li>
+<p><strong>Growth and aggressive investors</strong> may consider speculative positions based on pipeline success but must be prepared for high volatility and potential total loss.</p>
+</li>
 </ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
@@ -850,33 +947,38 @@
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Financial turnaround</td>
-<td>EBIT Ratio, Retained Earnings</td>
-<td>Accelerate vaccine commercialization; cost reduction</td>
-<td>Positive EBIT growth; Z-Score improvement</td>
+<td>Stabilize liquidity and R&amp;D efficiency</td>
+<td>Working Capital Ratio, EBIT Ratio</td>
+<td>Prioritize cost reduction, accelerate vaccine commercialization</td>
+<td>Improved liquidity, positive EBIT</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity and capital structure</td>
-<td>Working Capital Ratio, Debt levels</td>
-<td>Secure capital infusion; restructure debt</td>
-<td>Improved liquidity ratios; stabilized debt</td>
+<td>Capital structure optimization</td>
+<td>Retained Earnings Ratio, Debt levels</td>
+<td>Explore capital raises, debt restructuring</td>
+<td>Positive retained earnings, reduced leverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
 <td>Risk oversight and transparency</td>
-<td>Z-Score trajectory, Risk factors</td>
-<td>Enhance disclosure; monitor risk mitigation</td>
-<td>Compliance adherence; risk reduction</td>
+<td>Z-Score trend, Risk factors</td>
+<td>Enhance disclosure, monitor risk mitigation</td>
+<td>Stable or improving Z-Score, risk reduction</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_5">Commentary</h3>
+<h3 id="commentary_5">Commentary:</h3>
 <ul>
-<li>The <strong>CEO must prioritize operational efficiency and revenue growth</strong> to improve EBIT and retained earnings.</li>
-<li>The <strong>CFO should focus on liquidity management and capital raising</strong> to alleviate short-term financial pressures.</li>
-<li>The <strong>Board must enforce rigorous risk oversight</strong> and ensure transparent communication with investors to rebuild confidence.</li>
-<li>These initiatives are critical to reversing the negative Z-Score trend and restoring market trust.</li>
+<li>
+<p>The CEO must focus on operational turnaround, improving liquidity and EBIT through strategic prioritization of vaccine candidates.</p>
+</li>
+<li>
+<p>The CFO should aggressively manage capital structure to reduce financial distress, including potential equity raises or debt refinancing.</p>
+</li>
+<li>
+<p>The Board must ensure rigorous risk oversight, transparency, and governance to restore investor confidence.</p>
+</li>
 </ul>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
@@ -893,40 +995,44 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Deeply negative, stable</td>
-<td>Potential slow recovery if operational improvements occur</td>
-<td>Vaccine approvals, capital raises</td>
-<td>Quarterly Z-Score updates, EBIT trends</td>
+<td>Persistently negative (-10.66)</td>
+<td>Potential gradual improvement if vaccine succeeds</td>
+<td>Phase III trial outcomes, revenue generation</td>
+<td>Quarterly Z-Score updates, EBIT ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Illiquid, undervalued</td>
-<td>Possible re-engagement if turnaround succeeds</td>
-<td>Positive clinical trial results</td>
-<td>Trading volume, price movement</td>
+<td>Distressed, illiquid</td>
+<td>Possible stabilization or further decline</td>
+<td>Market re-entry, capital infusion</td>
+<td>Trading volume, price trends</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High distress risk</td>
-<td>Risk remains elevated without structural changes</td>
-<td>Debt restructuring, cost control</td>
-<td>Liquidity ratios, debt covenants</td>
+<td>Critical distress</td>
+<td>High risk persists</td>
+<td>Regulatory approvals, capital markets access</td>
+<td>Risk factor incidence, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_6">Commentary</h3>
+<h3 id="commentary_6">Commentary:</h3>
 <ul>
-<li>The <strong>Z-Score momentum is currently negative but could improve over 6-12 months</strong> if key catalysts such as vaccine commercialization or capital infusion materialize.</li>
-<li>Market position is weak but may recover with renewed investor interest following positive operational news.</li>
-<li>Risk remains high; early warning indicators include worsening liquidity ratios and negative EBIT trends.</li>
-<li>Continuous monitoring of these metrics is essential for timely investment decisions and risk mitigation.</li>
+<li>
+<p>The Z-Score momentum is currently negative but may improve over 6-12 months if clinical and commercial milestones are met.</p>
+</li>
+<li>
+<p>Market position remains weak; improved liquidity and investor engagement are critical.</p>
+</li>
+<li>
+<p>Risk profile remains elevated; early warning indicators include worsening liquidity ratios and negative EBIT trends.</p>
+</li>
 </ul>
 <hr />
-<h1 id="summary-conclusion"><strong>Summary Conclusion</strong></h1>
-<p>Novavax, Inc. is currently in a <strong>severe financial distress state</strong>, as demonstrated by its <strong>deeply negative Altman Z-Scores (-10.66 latest)</strong> and poor liquidity metrics (working capital ratio 0.345). Despite some operational profitability (EBIT ratio 0.399), the company’s negative retained earnings (-3.472) and market illiquidity highlight significant solvency risks. Market sentiment is neutral to negative with no trading activity, reflecting investor caution.</p>
-<p><strong>Investment recommendations strongly favor risk aversion</strong>, with a SELL stance for conservative investors and speculative caution for growth-oriented profiles. Strategic focus on operational turnaround, liquidity improvement, and risk mitigation is critical for recovery. Continuous monitoring of Z-Score trends, liquidity ratios, and market signals will be essential to identify inflection points for potential investment re-entry.</p>
+<h1 id="summary-conclusion"><strong>Summary Conclusion:</strong></h1>
+<p>Novavax, Inc. is entrenched in a <strong>financial distress state</strong> with a deeply negative Altman Z-Score and severe liquidity constraints. The company faces critical operational and financial risks, with market signals reflecting illiquidity and investor skepticism. Investment is only advisable for highly risk-tolerant, speculative investors closely monitoring clinical progress and capital structure developments. Conservative and income-focused investors should avoid exposure until clear evidence of financial stabilization emerges.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, and risk data for actionable investment intelligence.</em></p></div></div>
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, and risk data as of 2025-07-07.</em></p></div></div>
     </div>
     
 
@@ -1269,78 +1375,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:38 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:06 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

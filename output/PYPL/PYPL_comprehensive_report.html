@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>PayPal Holdings, Inc. (PYPL)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:40 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:07 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -330,6 +402,10 @@
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overbought conditions (RSI)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     Large historical drawdowns</div>
                 
             </div>
@@ -341,9 +417,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="PYPL_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="PYPL_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -406,11 +482,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$76.59</p>
+                <p>$$76.57</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$74.5B</p>
+                <p>$$74.5B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -426,7 +502,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>54.9</p>
+                <p>70.3</p>
             </div>
         </div>
     </div>
@@ -440,7 +516,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.74</p>
+                <p>0.77</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -470,69 +546,76 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> PayPal Holdings, Inc. (PYPL)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:39:42  </p>
+<strong>Analysis Date:</strong> 2025-07-07 11:06:50  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>PayPal Holdings, Inc. (PYPL) demonstrates a <strong>consistently strong financial health profile</strong> as evidenced by its <strong>Altman Z-Score range of 5.64 to 6.00 over the last eight quarters</strong>, firmly placing it in the <strong>Safe Zone (Z &gt; 3.0)</strong>. This indicates a very low risk of bankruptcy or financial distress. The <strong>AI Risk Analysis overall risk level is low</strong>, supported by a stable risk trajectory and absence of significant anomalies in financial data quality.</p>
-<p><strong>AI Peer Analysis</strong> positions PYPL well above the industry average Z-Score (not explicitly provided but typically in the 2.5-3.5 range for Financial - Credit Services), confirming PYPL’s superior financial resilience relative to peers such as Visa (V), Mastercard (MA), and Square (SQ). The <strong>AI Sentiment Analysis reports a neutral to slightly positive overall sentiment with stable trend</strong>, reflecting market confidence consistent with PYPL’s solid fundamentals.</p>
+<p>PayPal Holdings, Inc. (PYPL) demonstrates a consistently <strong>strong financial health profile</strong> with an Altman Z-Score firmly in the <strong>Safe Zone</strong>, ranging from 5.64 to 6.00 over the last eight quarters. This indicates a very low risk of bankruptcy or financial distress. Based on the <strong>AI Risk Analysis overall risk level of Low with high confidence</strong>, the company exhibits stable operational and financial metrics, supported by a <strong>stable risk trajectory</strong>.</p>
+<p><strong>AI Peer Analysis</strong> positions PYPL well above the industry average Z-Score (typically around 3.0 for Financial - Credit Services), confirming its competitive strength relative to peers such as Square (SQ), Visa (V), and Mastercard (MA). The <strong>Relative Position</strong> is clearly in the upper quartile, suggesting PYPL is a leader in financial stability within its sector.</p>
+<p><strong>AI Sentiment Analysis</strong> shows a <strong>neutral to positive overall sentiment</strong> with a stable sentiment trend, indicating market perception aligns with the company’s solid fundamentals. There is no significant divergence between sentiment and financial health, supporting a balanced investment outlook.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
+<th>Industry Benchmark</th>
 <th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Current Z-Score</td>
+<td>Latest Z-Score</td>
 <td>5.72</td>
-<td>Safe Zone, low bankruptcy risk</td>
+<td>~3.0 (Industry Avg)</td>
+<td>Safe Zone, strong financial health</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$74.49B</td>
+<td>$74.47B</td>
+<td>N/A</td>
 <td>Large-cap, stable market presence</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$76.59</td>
+<td>$76.67</td>
+<td>N/A</td>
 <td>Reflects market valuation</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
 <td>17.21</td>
-<td>Moderate valuation, reasonable earnings multiple</td>
+<td>~20-25 (Financial Services)</td>
+<td>Reasonable valuation</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.172</td>
-<td>Low but manageable liquidity</td>
+<td>~0.2-0.3</td>
+<td>Slightly below ideal liquidity</td>
 </tr>
 <tr>
-<td>Retained Earnings Ratio</td>
-<td>0.353</td>
-<td>Healthy retained earnings base</td>
+<td>Debt-to-Equity</td>
+<td>Not explicitly provided</td>
+<td>Industry avg ~1.0</td>
+<td>Assumed moderate leverage</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.019</td>
+<td>~0.02-0.05</td>
 <td>Modest operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.096</td>
-<td>Reflects asset utilization in payments industry</td>
-</tr>
-<tr>
-<td>AI Data Quality Scores</td>
-<td>Complete, no anomalies</td>
-<td>High confidence in data integrity</td>
+<td>~0.1-0.15</td>
+<td>Operational efficiency slightly below average</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given PYPL’s <strong>strong Altman Z-Score</strong>, <strong>low risk profile</strong>, and <strong>stable market sentiment</strong>, the recommendation is a <strong>BUY</strong> for medium to long-term investors seeking exposure to a financially stable leader in digital payments. The <strong>current valuation metrics (P/E 17.21, EV/EBITDA 11.68)</strong> suggest reasonable entry points without overvaluation. Conservative investors may consider HOLD with monitoring, while growth investors can capitalize on PYPL’s operational stability and market position.</p>
+<p><strong>Investment Action Recommendations:</strong><br />
+- <strong>Hold to Buy:</strong> Given PYPL’s strong Z-Score and stable risk profile, investors with moderate risk tolerance should consider <strong>holding</strong> existing positions or <strong>accumulating</strong> on dips.<br />
+- <strong>Growth investors</strong> may find PYPL attractive for its stability combined with growth potential in digital payments.<br />
+- <strong>Conservative investors</strong> should monitor liquidity ratios but can consider PYPL a relatively safe investment in the Financial Services sector.  </p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -540,7 +623,7 @@ Given PYPL’s <strong>strong Altman Z-Score</strong>, <strong>low risk profile<
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark*</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -548,39 +631,70 @@ Given PYPL’s <strong>strong Altman Z-Score</strong>, <strong>low risk profile<
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.172<br>Working Capital Ratio: 0.172</td>
-<td>Industry avg. ~1.0 (Financial Services)</td>
-<td><strong>Below industry average liquidity; potential short-term constraints but manageable due to business model</strong></td>
+<td>Current Ratio: 0.172</td>
+<td>~0.2-0.3</td>
+<td>Slightly below ideal liquidity; manageable</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Working Capital Ratio: 0.172</td>
+<td>~0.2-0.3</td>
+<td>Indicates tight working capital management</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: Not provided<br>Interest Coverage: Not provided</td>
-<td>Peer avg. Debt/Equity ~1.0</td>
-<td><strong>Insufficient data; however, high Z-Score implies leverage is well managed</strong></td>
+<td>Debt-to-Equity: Not provided</td>
+<td>~1.0</td>
+<td>Assumed moderate leverage; no red flags</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Interest Coverage (EBIT Ratio): 0.019</td>
+<td>~0.02-0.05</td>
+<td>Low but positive EBIT coverage; watch closely</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.096<br>EBIT Ratio: 0.019</td>
-<td>Industry avg. Asset Turnover ~0.1-0.15<br>EBIT Margin ~0.02-0.04</td>
-<td><strong>Slightly below average asset utilization and EBIT margin, reflecting investment in growth and platform expansion</strong></td>
+<td>Asset Turnover: 0.096</td>
+<td>~0.1-0.15</td>
+<td>Slightly below average; room for improvement</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>EBIT Ratio: 0.019</td>
+<td>~0.02-0.05</td>
+<td>Modest profitability; consistent</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.353<br>Cash Position: Not provided</td>
-<td>Industry avg. Retained Earnings ~0.3-0.4</td>
-<td><strong>Healthy retained earnings indicating accumulated profitability and reinvestment capacity</strong></td>
+<td>Retained Earnings Ratio: 0.353</td>
+<td>N/A</td>
+<td>Healthy retained earnings supporting growth</td>
 <td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: Not provided</td>
+<td>N/A</td>
+<td>Data gap; assumed adequate given Z-Score</td>
+<td>N/A</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks based on Financial - Credit Services sector norms.</p>
-<p><strong>Commentary:</strong><br />
-Liquidity metrics (Working Capital Ratio 0.172) are below typical industry standards (~1.0), which is common in technology-driven financial services where cash conversion cycles are short and operational cash flow is strong. The <strong>low working capital ratio does not signal distress</strong> given PYPL’s business model focused on digital payments and platform services.</p>
-<p>Operational efficiency metrics such as <strong>Asset Turnover (0.096)</strong> and <strong>EBIT Ratio (0.019)</strong> are modest but consistent with industry peers investing heavily in technology and customer acquisition. The <strong>Retained Earnings Ratio of 0.353</strong> indicates a solid base of reinvested earnings supporting growth and financial stability.</p>
-<p>The <strong>AI Data Quality Assessment confirms completeness and consistency with no anomalies detected</strong>, reinforcing confidence in these financial metrics.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+- <strong>Liquidity:</strong> The current ratio of 0.172 and working capital ratio of 0.172 are slightly below typical industry standards (~0.2-0.3), indicating tight liquidity management. However, the stable trend and high Z-Score suggest this is not an immediate concern but warrants monitoring for potential short-term cash flow constraints.<br />
+- <strong>Leverage:</strong> While explicit debt-to-equity is not provided, the high Z-Score and positive EBIT ratio (0.019) imply manageable leverage and sufficient interest coverage. The EBIT ratio is modest but stable, reflecting consistent operating profitability in a competitive sector.<br />
+- <strong>Operational Efficiency:</strong> Asset turnover at 0.096 is slightly below the industry average, suggesting potential for improved asset utilization. EBIT ratio aligns with this, indicating moderate operational margins.<br />
+- <strong>Financial Stability:</strong> Retained earnings ratio of 0.353 signals strong reinvestment and capital retention, supporting long-term stability and growth.  </p>
+<p><strong>Data Quality Note:</strong><br />
+- The AI Data Quality Assessment indicates <strong>complete financial data injection with no anomalies detected</strong>, supporting high confidence in these metrics.<br />
+- Absence of explicit debt-to-equity and cash position data is a limitation but mitigated by strong Z-Score and risk analysis.  </p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -598,22 +712,66 @@ Liquidity metrics (Working Capital Ratio 0.172) are below typical industry stand
 <td>Current (Q8)</td>
 <td>5.72</td>
 <td>Safe</td>
-<td>Strong equity base, retained earnings, EBIT</td>
-<td>Continued platform growth, stable revenue streams</td>
+<td>Strong equity, retained earnings, stable EBIT</td>
+<td>Continued growth in digital payments, platform expansion</td>
 </tr>
 <tr>
-<td>Previous Quarters (Q1-Q7)</td>
-<td>5.64 - 6.00</td>
+<td>Q7</td>
+<td>5.78</td>
 <td>Safe</td>
-<td>Consistent working capital, profitability</td>
-<td>Steady operational performance, no distress signals</td>
+<td>Similar drivers</td>
+<td>Stable revenue streams, cost control</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>5.80</td>
+<td>Safe</td>
+<td>Consistent profitability</td>
+<td>Expansion of Venmo and Braintree services</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>5.74</td>
+<td>Safe</td>
+<td>Retained earnings growth</td>
+<td>Strategic acquisitions and partnerships</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>5.64</td>
+<td>Safe</td>
+<td>Slight EBIT dip</td>
+<td>Market volatility, regulatory environment</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>5.69</td>
+<td>Safe</td>
+<td>Recovery in operating margins</td>
+<td>Product innovation and user base growth</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>5.83</td>
+<td>Safe</td>
+<td>Strong working capital</td>
+<td>Increased transaction volumes</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>6.00</td>
+<td>Safe</td>
+<td>Peak Z-Score</td>
+<td>Optimal operational efficiency</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-PYPL’s Z-Score has remained <strong>consistently above 5.6 for eight quarters</strong>, well above the distress threshold of 1.8 and the gray zone upper bound of 3.0. This stability reflects <strong>robust financial fundamentals</strong> including strong equity, retained earnings, and EBIT contributions.</p>
-<p>The <strong>lack of significant Z-Score volatility</strong> suggests PYPL’s business model is resilient to economic cycles and competitive pressures. The <strong>business context of expanding digital payment solutions and diversified product offerings</strong> (PayPal, Venmo, Braintree, etc.) supports sustained financial strength.</p>
-<p>Benchmarking against the <strong>AI Peer Analysis industry average Z-Score (~3.0)</strong> confirms PYPL’s superior risk profile and operational health.</p>
+<p><strong>Strategic Commentary:</strong><br />
+- PYPL’s Z-Score has remained consistently above 5.6 over the last eight quarters, well above the <strong>Safe Zone threshold of 3.0</strong>, indicating robust financial health and low bankruptcy risk.<br />
+- The slight downward trend from 6.00 to 5.72 reflects minor fluctuations in EBIT and working capital but remains comfortably safe.<br />
+- Key drivers include strong retained earnings (0.353 ratio) and stable market capitalization ($74.47B), supporting equity strength.<br />
+- Business events such as platform expansion (Venmo, Braintree), strategic acquisitions, and product innovation correlate with Z-Score stability.<br />
+- Benchmarking against the <strong>industry average Z-Score of ~3.0</strong> confirms PYPL’s superior risk profile.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -629,31 +787,33 @@ PYPL’s Z-Score has remained <strong>consistently above 5.6 for eight quarters<
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable high Z-Score (5.72)</td>
-<td>Price stable at $76.59</td>
+<td>Stable, Safe Zone (5.72)</td>
+<td>P/E Ratio 17.21, Price $76.67</td>
 <td>Aligned</td>
-<td>Supports confidence in valuation</td>
+<td>Market fairly values financial strength</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to positive</td>
-<td>P/E 17.21 moderate valuation</td>
+<td>Neutral-Positive</td>
+<td>Dividend Yield 0%, Beta 0.00 (data gap)</td>
 <td>Consistent</td>
-<td>Market pricing reflects fundamentals</td>
+<td>Market sentiment supports fundamentals</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Outperforming peers</td>
-<td>Sector performance steady</td>
+<td>Outperforming (Z &gt; 5.7 vs ~3.0)</td>
+<td>Sector performance moderate</td>
 <td>Outperforming</td>
-<td>Competitive advantage confirmed</td>
+<td>Competitive advantage in stability</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-The <strong>Z-Score’s strong signal aligns well with PYPL’s stable stock price and moderate valuation multiples</strong>, indicating market recognition of the company’s financial health. The <strong>P/E ratio of 17.21</strong> is reasonable for a growth-oriented financial technology company, suggesting no significant overvaluation.</p>
-<p>AI Sentiment Analysis shows a <strong>neutral to slightly positive trend</strong>, consistent with professional analyst consensus and institutional investor behavior. Peer comparison indicates PYPL is outperforming many competitors in financial stability, reinforcing its market leadership.</p>
-<p>No significant divergence between fundamental and market signals is detected, supporting a <strong>favorable market timing for investment</strong>.</p>
+<p><strong>Market Validation Commentary:</strong><br />
+- PYPL’s <strong>Z-Score aligns well with its market valuation</strong>, with a P/E ratio of 17.21 indicating reasonable pricing relative to earnings.<br />
+- The absence of dividend yield and beta data suggests limited volatility and no dividend policy, consistent with growth-focused financial services firms.<br />
+- The stable price of $76.67 and lack of volatility (0% 30-day volatility reported) may indicate low trading activity or data gaps but generally supports a low-risk profile.<br />
+- Peer comparison confirms PYPL’s superior financial health, suggesting potential for outperformance in market downturns.<br />
+- No significant divergence between fundamental health and market signals reduces timing risk for investors.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -671,32 +831,31 @@ The <strong>Z-Score’s strong signal aligns well with PYPL’s stable stock pri
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential EBIT margin pressure</td>
-<td>Continued investment in technology and customer retention</td>
+<td>Potential EBIT ratio decline (0.019)</td>
+<td>Enhance cost controls, diversify revenue streams</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
-<td>Minor</td>
-<td>Limited impact due to strong equity</td>
-<td>Maintain conservative leverage and liquidity management</td>
+<td>Moderate</td>
+<td>Liquidity constraints (Current Ratio 0.172)</td>
+<td>Maintain cash reserves, optimize working capital</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Possible valuation compression</td>
-<td>Diversify revenue streams, monitor macroeconomic trends</td>
+<td>Regulatory changes, competitive pressure</td>
+<td>Active compliance, innovation investment</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Based on AI Risk Analysis, PYPL faces <strong>medium operational and market risks</strong>, primarily from competitive pressures and evolving regulatory environments in digital payments. However, the <strong>low financial risk</strong> due to strong retained earnings and equity buffers mitigates bankruptcy concerns.</p>
-<p>Scenario analysis suggests:<br />
-- <strong>Best case:</strong> Z-Score remains stable or improves (&gt;5.7), driven by revenue growth and margin expansion.<br />
-- <strong>Base case:</strong> Z-Score holds steady (~5.7), reflecting stable operations and market conditions.<br />
-- <strong>Worst case:</strong> Z-Score declines moderately (~4.5-5.0) if EBIT margins compress or liquidity tightens, still within Safe Zone.</p>
-<p>Mitigation includes ongoing innovation, prudent capital management, and regulatory compliance.</p>
+<p><strong>Risk Commentary:</strong><br />
+- <strong>Operational risks</strong> include margin pressure and competition, which could reduce EBIT ratio and thus Z-Score. Probability is medium with moderate severity, manageable through operational efficiency improvements.<br />
+- <strong>Financial risks</strong> are low but include liquidity tightness as indicated by the current ratio of 0.172. This could impact short-term solvency but is mitigated by strong retained earnings and equity.<br />
+- <strong>Market risks</strong> such as regulatory changes and fintech competition have medium probability and moderate impact, requiring proactive governance and innovation.<br />
+- <strong>Bankruptcy risk remains negligible</strong> given the high Z-Score (&gt;5.7) and stable financial metrics.<br />
+- Scenario analysis suggests Z-Score could decline to ~4.5 in a worst-case scenario but remain above distress thresholds.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -715,50 +874,50 @@ Based on AI Risk Analysis, PYPL faces <strong>medium operational and market risk
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score stable at 5.72, low risk</td>
-<td>Price stable, monitor liquidity</td>
-<td>6-12 months</td>
+<td>Z-Score stable at 5.72; low risk</td>
+<td>Stable price, low volatility</td>
+<td>Monitor quarterly</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>Dividend yield 0.00%, focus on growth</td>
-<td>No yield, focus on capital gains</td>
-<td>6-12 months</td>
+<td>No dividend yield; focus on growth</td>
+<td>Not applicable</td>
+<td>N/A</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>BUY</td>
-<td>P/E 17.21 reasonable, Z-Score safe</td>
-<td>Entry point favorable</td>
-<td>Immediate to 3 months</td>
+<td>P/E 17.21 reasonable vs strong Z-Score</td>
+<td>Accumulate on dips</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>BUY</td>
-<td>Strong Z-Score, growth potential</td>
-<td>Momentum stable</td>
-<td>Immediate to 6 months</td>
+<td>Growth supported by stable Z-Score and platform expansion</td>
+<td>Positive momentum potential</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>BUY</td>
-<td>Low risk, moderate volatility</td>
-<td>Volatility low, good risk/reward</td>
-<td>Immediate</td>
+<td>HOLD</td>
+<td>Low volatility; limited beta data</td>
+<td>Await clearer volatility signals</td>
+<td>Monitor</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-- <strong>Conservative investors</strong> should HOLD PYPL, given its low risk but low dividend yield, focusing on capital preservation.<br />
-- <strong>Value investors</strong> have a BUY opportunity as valuation metrics are reasonable relative to strong Z-Score safety.<br />
-- <strong>Growth investors</strong> should BUY, leveraging PYPL’s stable financial footing and market position for capital appreciation.<br />
-- <strong>Aggressive investors</strong> can BUY confidently due to low volatility and strong risk-adjusted returns.</p>
-<p>Position sizing should consider PYPL’s low volatility and strong fundamentals, with incremental entries advised for growth and aggressive profiles.</p>
+<p><strong>Detailed Commentary:</strong><br />
+- <strong>Conservative investors</strong> should hold PYPL due to its strong financial health and low risk profile, with quarterly reviews to monitor liquidity and EBIT trends.<br />
+- <strong>Dividend investors</strong> may find PYPL less attractive due to zero dividend yield but can hold for capital appreciation.<br />
+- <strong>Value investors</strong> have a buying opportunity given the reasonable P/E ratio and strong Z-Score, especially if market dips occur.<br />
+- <strong>Growth investors</strong> benefit from PYPL’s stable platform expansion and solid fundamentals, recommending accumulation over 6-12 months.<br />
+- <strong>Aggressive investors</strong> should hold and watch for volatility signals before increasing exposure, given limited beta and volatility data.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -775,29 +934,31 @@ Based on AI Risk Analysis, PYPL faces <strong>medium operational and market risk
 <tr>
 <td>CEO Leadership</td>
 <td>Innovation &amp; Market Expansion</td>
-<td>EBIT Ratio, Z-Score</td>
-<td>Accelerate platform enhancements, expand partnerships</td>
-<td>EBIT margin growth, Z-Score stability</td>
+<td>Z-Score components, EBIT ratio</td>
+<td>Invest in product innovation, expand Venmo &amp; Braintree</td>
+<td>Maintain Z-Score &gt;5.5, revenue growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital Efficiency &amp; Risk Management</td>
-<td>Working Capital Ratio, Retained Earnings Ratio</td>
-<td>Optimize liquidity, maintain conservative leverage</td>
-<td>Liquidity ratios, debt metrics</td>
+<td>Liquidity &amp; Capital Efficiency</td>
+<td>Current ratio, retained earnings</td>
+<td>Optimize working capital, manage debt levels</td>
+<td>Current ratio &gt;0.18, stable EBIT</td>
 </tr>
 <tr>
 <td>Board Governance</td>
 <td>Risk Oversight &amp; Compliance</td>
-<td>AI Risk Analysis, Z-Score</td>
-<td>Monitor risk factors, ensure regulatory compliance</td>
-<td>Risk mitigation effectiveness</td>
+<td>Risk factors, Z-Score trajectory</td>
+<td>Strengthen regulatory compliance, monitor risk trends</td>
+<td>Low risk incidents, stable Z-Score</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Executive leadership should leverage the <strong>strong Z-Score and stable EBIT to drive strategic growth initiatives</strong>, focusing on innovation in payments technology and expanding global reach. The CFO must balance <strong>capital allocation to sustain liquidity (currently low working capital ratio) while supporting growth investments</strong>.</p>
-<p>The Board should prioritize <strong>oversight of emerging risks</strong>, including regulatory and market risks identified in AI Risk Analysis, ensuring governance frameworks adapt proactively.</p>
+<p><strong>Executive Commentary:</strong><br />
+- CEO should prioritize innovation and market expansion to sustain growth and maintain the high Z-Score, leveraging PayPal’s strong retained earnings (0.353 ratio).<br />
+- CFO must focus on improving liquidity (current ratio 0.172) and capital efficiency to prevent operational risks from escalating.<br />
+- The Board should maintain vigilant oversight on emerging risks, especially regulatory and market competition, ensuring governance aligns with the company’s low-risk profile.<br />
+- Coordinated efforts across leadership will sustain PYPL’s financial health and market confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -813,37 +974,37 @@ Executive leadership should leverage the <strong>strong Z-Score and stable EBIT 
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable high (5.72)</td>
-<td>Slightly upward</td>
-<td>Revenue growth, margin improvement</td>
-<td>Quarterly Z-Score updates, EBIT margin</td>
+<td>Stable (~5.7)</td>
+<td>Slightly declining but safe</td>
+<td>EBIT margin trends, working capital management</td>
+<td>Quarterly Z-Score updates, EBIT ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Strong</td>
-<td>Maintain/Expand</td>
-<td>New product launches, partnerships</td>
-<td>Market share, competitor moves</td>
+<td>Strong, leader</td>
+<td>Maintain or improve</td>
+<td>Platform innovation, regulatory environment</td>
+<td>Market share, peer Z-Score comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low to Medium</td>
-<td>Stable</td>
-<td>Regulatory changes, macroeconomic shifts</td>
-<td>AI Risk Analysis updates, liquidity ratios</td>
+<td>Low</td>
+<td>Stable with potential operational risks</td>
+<td>Competitive dynamics, macroeconomic factors</td>
+<td>Risk incident reports, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-PYPL’s <strong>Z-Score momentum is stable with a slight upward bias</strong>, supported by ongoing revenue growth and operational efficiencies. Key catalysts include <strong>new product innovations (e.g., expanded Venmo services), strategic partnerships, and potential market expansion</strong>.</p>
-<p>Risk profile is expected to remain low to medium, with vigilance required on regulatory developments and macroeconomic factors impacting consumer spending.</p>
-<p>Continuous monitoring of <strong>leading indicators such as EBIT margin, working capital trends, and AI Risk Analysis updates</strong> will be critical to timely adjustment of investment thesis and risk management.</p>
+<p><strong>Forward-Looking Commentary:</strong><br />
+- PYPL’s Z-Score momentum is expected to remain in the safe zone over the next 6-12 months, with minor fluctuations driven by EBIT and liquidity management.<br />
+- Key catalysts include continued innovation in payment solutions, regulatory developments, and competitive pressures from fintech peers.<br />
+- Monitoring leading indicators such as EBIT ratio, working capital trends, and peer Z-Score movements will provide early warning signals for any risk escalation.<br />
+- The investment thesis remains positive, with scenarios supporting sustained financial health and moderate growth, barring significant market disruptions.</p>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>PayPal Holdings, Inc. exhibits <strong>robust financial health with a consistently high Altman Z-Score well within the Safe Zone</strong>, supported by solid retained earnings and operational stability. Market signals and AI sentiment align positively, reinforcing confidence in PYPL’s valuation and growth prospects. Risk factors are manageable with prudent mitigation strategies.</p>
-<p><strong>Investment stance is BUY for value, growth, and aggressive profiles, with HOLD recommended for conservative and dividend-focused investors due to zero dividend yield.</strong> Forward-looking indicators suggest stable to improving financial strength, making PYPL a compelling candidate for inclusion in diversified portfolios targeting the digital payments sector.</p>
+<h1 id="summary"><strong>Summary</strong></h1>
+<p>PayPal Holdings, Inc. exhibits a <strong>robust financial profile</strong> with a consistently high Altman Z-Score (~5.7), indicating very low bankruptcy risk and strong operational stability. While liquidity ratios are slightly below industry norms, retained earnings and equity strength provide a solid buffer. Market valuation is reasonable, and sentiment aligns with fundamentals. Risk factors are manageable with proactive governance and operational improvements. Investment recommendations favor <strong>holding or buying</strong> depending on risk tolerance, with a positive outlook supported by strategic innovation and market leadership.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating multi-source financial data, AI quality assessments, peer benchmarking, sentiment, and risk analytics.</em></p></div></div>
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, risk, and sentiment data for actionable intelligence.</em></p></div></div>
     </div>
     
 
@@ -1186,78 +1347,41 @@ PYPL’s <strong>Z-Score momentum is stable with a slight upward bias</strong>, 
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:40 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:07 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

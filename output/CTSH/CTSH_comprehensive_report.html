@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Cognizant Technology Solutions Corporation (CTSH)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:21 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:50 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -342,9 +414,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="CTSH_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="CTSH_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -407,15 +479,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$80.98</p>
+                <p>$$81.30</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$39.9B</p>
+                <p>$$40.1B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>17.0</p>
+                <p>17.1</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -427,7 +499,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>51.8</p>
+                <p>58.8</p>
             </div>
         </div>
     </div>
@@ -441,7 +513,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.71</p>
+                <p>0.75</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -462,49 +534,44 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Cognizant Technology Solutions Corporation (CTSH)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:20:58  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:49:51  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Cognizant Technology Solutions Corporation (CTSH) demonstrates a <strong>consistently strong financial health profile</strong> as reflected by its Altman Z-Score, which remains firmly in the <strong>Safe Zone</strong> over the past eight quarters, fluctuating narrowly between <strong>6.58 and 7.36</strong> (latest quarter: <strong>6.68</strong>). This robust Z-Score trajectory signals a very low risk of financial distress, supported by stable operational performance and prudent leverage management.</p>
-<p><strong>AI Risk Analysis</strong> indicates an overall <strong>low risk level</strong>, consistent with the Z-Score safety margin, and a stable risk trajectory, reinforcing confidence in CTSH’s financial resilience. The <strong>AI Peer Analysis</strong> positions CTSH well above the industry average Z-Score (industry average not explicitly provided but typically ranges between 2.5-3.5 for IT services), confirming CTSH’s superior credit and operational standing relative to peers. The <strong>AI Sentiment Analysis</strong> reveals a <strong>positive overall market sentiment</strong> with a strong dividend yield (159.00%) and a reasonable P/E ratio of 17.05, suggesting market recognition of CTSH’s value proposition despite some anomalies in technical indicators.</p>
+<p>Cognizant Technology Solutions Corporation (CTSH) demonstrates a <strong>consistently strong financial health profile</strong>, as evidenced by its <strong>multi-quarter Altman Z-Score range between 6.58 and 7.36</strong>, firmly placing it in the <strong>Safe Zone (Z &gt; 3.0)</strong> throughout the last eight quarters. This indicates a very low risk of bankruptcy or financial distress. The <strong>AI Risk Analysis overall risk level is implicitly low</strong>, supported by stable Z-Score values and no detected anomalies in financial data completeness.</p>
+<p><strong>AI Peer Analysis</strong> positions CTSH well above the typical industry average Z-Score (generally around 3.0 for Information Technology Services), signaling superior financial robustness relative to peers. The company’s <strong>market capitalization of $40.08 billion</strong> and <strong>current share price of $81.30</strong> reflect strong market confidence, although some valuation metrics (e.g., Price/Book ratio at 0.00) suggest data gaps or anomalies that require cautious interpretation.</p>
+<p><strong>AI Sentiment Analysis</strong> is limited by technical indicator data showing zero values (RSI, moving averages, volume), which likely reflects missing or incomplete market trading data rather than true market sentiment. However, the <strong>Dividend Yield of 159.00%</strong> is an outlier and likely erroneous, warranting further validation before factoring into investment decisions.</p>
+<p><strong>Investment Recommendation:</strong><br />
+Given the <strong>robust Z-Score safety margin</strong>, <strong>solid financial ratios</strong>, and <strong>strong market capitalization</strong>, CTSH is positioned as a <strong>BUY</strong> for investors with moderate to low risk tolerance seeking stable growth in the Technology sector. However, <strong>data anomalies in market technicals and valuation ratios reduce confidence</strong>, suggesting a need for supplementary market data verification before aggressive position sizing.</p>
+<hr />
+<p><strong>Key Metrics Summary Table</strong></p>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
-<th>Value</th>
-<th>Notes</th>
+<th>Metric Category</th>
+<th>Key Values</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>6.68</td>
-<td>Safe Zone (&gt;3.0), low bankruptcy risk</td>
+<td>6.68 (Safe Zone)</td>
+<td>Very low bankruptcy risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$39.92B</td>
-<td>Large-cap technology firm</td>
+<td>$40.08 billion</td>
+<td>Large-cap, stable market presence</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$80.98</td>
-<td>Stable valuation</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>17.05</td>
-<td>Moderate valuation</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>159.00%</td>
-<td>Anomalous, likely data anomaly or special dividend</td>
+<td>$81.30</td>
+<td>Reflects market valuation</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.207</td>
-<td>Positive liquidity but below 1.0</td>
+<td>Moderate liquidity</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
@@ -519,12 +586,25 @@
 <tr>
 <td>Asset Turnover</td>
 <td>0.256</td>
-<td>Moderate asset efficiency</td>
+<td>Efficient asset utilization</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>17.12</td>
+<td>Reasonable valuation</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>159.00% (likely anomaly)</td>
+<td>Data anomaly, not reliable</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>0.00</td>
+<td>Data anomaly, no market volatility</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given CTSH’s strong Altman Z-Score, low risk profile, and solid market positioning, a <strong>BUY</strong> recommendation is appropriate for investors with moderate to low risk tolerance seeking stable growth and income. However, the anomalous dividend yield and zero volatility metrics warrant cautious monitoring of market data quality.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -532,7 +612,7 @@ Given CTSH’s strong Altman Z-Score, low risk profile, and solid market positio
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark*</th>
+<th>Industry Benchmark (Info Tech Services)</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -541,65 +621,65 @@ Given CTSH’s strong Altman Z-Score, low risk profile, and solid market positio
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.207</td>
-<td>~1.0 - 1.5</td>
-<td>Below typical benchmark; liquidity adequate but tight</td>
+<td>~1.5 - 2.0</td>
+<td>Below typical benchmark; moderate liquidity risk</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>Working Capital Ratio: 0.207</td>
-<td>Positive expected</td>
-<td>Positive working capital but low buffer</td>
+<td>~0.3 - 0.5</td>
+<td>Slightly low; manageable but watch</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
 <td>Debt-to-Equity: Not provided</td>
-<td>Industry avg ~0.5-1.0</td>
-<td>Unable to assess precisely; Z-Score implies low leverage risk</td>
-<td>Stable</td>
+<td>Industry avg ~0.5 - 1.0</td>
+<td>Data missing; unable to assess fully</td>
+<td>N/A</td>
 </tr>
 <tr>
 <td></td>
 <td>Interest Coverage (EBIT Ratio): 0.043</td>
-<td>Industry avg ~0.05-0.10</td>
-<td>Moderate EBIT margin; coverage adequate</td>
+<td>Industry avg ~0.05 - 0.10</td>
+<td>Moderate coverage; sufficient but cautious</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.256</td>
-<td>Industry avg ~0.3-0.5</td>
-<td>Slightly below average; room for improvement</td>
+<td>Industry avg ~0.20 - 0.30</td>
+<td>In line with peers; efficient asset use</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>EBIT Ratio: 0.043</td>
-<td>Industry avg ~0.05-0.10</td>
-<td>Moderate profitability; consistent</td>
+<td>Industry avg ~0.04 - 0.06</td>
+<td>Moderate profitability</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.753</td>
-<td>High retention favorable</td>
-<td>Strong retained earnings support long-term stability</td>
+<td>Industry avg ~0.6 - 0.8</td>
+<td>Strong retained earnings; solid equity base</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>Cash Position: Not provided</td>
 <td>N/A</td>
-<td>Data unavailable; inferred stable from Z-Score</td>
+<td>Data missing; limits cash flow analysis</td>
 <td>N/A</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks are typical for Information Technology Services sector.</p>
 <p><strong>Interpretive Commentary:</strong><br />
-CTSH’s liquidity position, with a current ratio of 0.207, is below the conventional benchmark of 1.0, indicating a lean working capital structure. However, the positive working capital ratio and high retained earnings ratio (0.753) suggest strong internal financing capacity and earnings retention, which mitigate liquidity concerns. The EBIT ratio of 0.043 and asset turnover of 0.256 indicate moderate operational efficiency, consistent with a large-scale IT services firm balancing consulting and outsourcing segments.</p>
-<p>The <strong>AI Data Quality Assessment</strong> shows no reported anomalies in financial data completeness, supporting confidence in these metrics. The sector context—Information Technology Services—typically involves lower fixed assets and higher intangible assets, which explains moderate asset turnover ratios.</p>
+CTSH’s liquidity position, with a <strong>working capital ratio of 0.207</strong>, is below typical industry standards (~0.3-0.5), indicating a tighter short-term liquidity buffer. However, the <strong>retained earnings ratio of 0.753</strong> suggests strong accumulated profits supporting financial stability. The <strong>EBIT ratio of 0.043</strong> and <strong>asset turnover of 0.256</strong> align well with industry averages, reflecting operational efficiency and moderate profitability.</p>
+<p>The absence of <strong>debt-to-equity and cash position data</strong> limits leverage and liquidity stress testing. The <strong>AI Data Quality Assessment</strong> indicates no anomalies detected in financial data completeness, supporting confidence in the available ratios, but missing leverage data reduces full risk assessment precision.</p>
+<p>Given the company operates in the <strong>Technology sector, Information Technology Services industry</strong>, where capital efficiency and innovation drive value, CTSH’s operational metrics are consistent with a mature, stable service provider.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -617,63 +697,22 @@ CTSH’s liquidity position, with a current ratio of 0.207, is below the convent
 <td>Current (Q8)</td>
 <td>6.68</td>
 <td>Safe</td>
-<td>Strong retained earnings, moderate EBIT, stable market cap</td>
-<td>Continued growth in IT services, diversified segments</td>
+<td>Strong retained earnings, moderate EBIT, asset turnover</td>
+<td>Stable business segments across Financial Services, Healthcare, Products &amp; Resources, Communications</td>
 </tr>
 <tr>
-<td>Q7</td>
-<td>6.66</td>
+<td>Previous Quarters</td>
+<td>6.66 - 7.36</td>
 <td>Safe</td>
-<td>Consistent operational margins</td>
-<td>Stable client base, steady outsourcing demand</td>
-</tr>
-<tr>
-<td>Q6</td>
-<td>6.75</td>
-<td>Safe</td>
-<td>Slight EBIT improvement</td>
-<td>Incremental margin gains in healthcare segment</td>
-</tr>
-<tr>
-<td>Q5</td>
-<td>7.01</td>
-<td>Safe</td>
-<td>Peak Z-Score in period</td>
-<td>Strong financial performance, favorable contracts</td>
-</tr>
-<tr>
-<td>Q4</td>
-<td>7.36</td>
-<td>Safe</td>
-<td>Highest Z-Score</td>
-<td>Possibly seasonal revenue peak</td>
-</tr>
-<tr>
-<td>Q3</td>
-<td>6.58</td>
-<td>Safe</td>
-<td>Stable earnings retention</td>
-<td>Consistent service delivery</td>
-</tr>
-<tr>
-<td>Q2</td>
-<td>6.66</td>
-<td>Safe</td>
-<td>Stable operational metrics</td>
-<td>Continued investment in technology platforms</td>
-</tr>
-<tr>
-<td>Q1</td>
-<td>7.19</td>
-<td>Safe</td>
-<td>Strong market valuation</td>
-<td>Positive market sentiment</td>
+<td>Consistent profitability, working capital management</td>
+<td>No significant distress signals; steady operational performance</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-CTSH’s Z-Score has remained consistently above 6.5, well above the distress threshold of 1.8 and the gray zone upper limit of 3.0, indicating a very low probability of bankruptcy or financial distress. The minor fluctuations reflect normal business cycle variations and operational adjustments across its four business segments.</p>
-<p>The stable Z-Score aligns with the company’s diversified revenue streams and strong retained earnings, which provide a buffer against sector volatility. The absence of significant downward inflection points suggests effective risk management and operational resilience.</p>
+CTSH’s Z-Score has remained <strong>consistently above 6.5 over the last eight quarters</strong>, well above the distress threshold of 1.8 and the gray zone upper bound of 3.0. This stability reflects <strong>robust financial health and low bankruptcy risk</strong>. The absence of significant fluctuations suggests <strong>steady business operations and effective risk management</strong>.</p>
+<p>While detailed component ratios (Working Capital/Total Assets, Retained Earnings/Total Assets, EBIT/Total Assets) for each quarter are unavailable, the overall Z-Score trajectory implies <strong>strong retained earnings and asset utilization</strong> as key drivers. The company’s diversified segment exposure supports resilience against sector-specific downturns.</p>
+<p>Benchmarking against the <strong>industry average Z-Score (~3.0)</strong> confirms CTSH’s superior financial position, reinforcing confidence in its creditworthiness and operational stability.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -689,31 +728,31 @@ CTSH’s Z-Score has remained consistently above 6.5, well above the distress th
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable high Z-Score (6.68)</td>
-<td>Price stable at $80.98</td>
-<td>Aligned</td>
-<td>Supports confidence in valuation</td>
+<td>Stable, high Z-Score (6.68)</td>
+<td>Market Price $81.30, P/E 17.12</td>
+<td>Partial (data gaps)</td>
+<td>Fundamental strength supports buy; market data anomalies require caution</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Positive (P/E 17.05, Dividend Yield 159%)</td>
-<td>Market data anomalies (zero volatility, zero RSI)</td>
-<td>Divergent (data anomaly)</td>
-<td>Caution advised; verify dividend data</td>
+<td>N/A (No sentiment data)</td>
+<td>Dividend Yield 159% (likely anomaly)</td>
+<td>Divergent</td>
+<td>Sentiment unclear; verify market data before action</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Superior Z-Score vs industry avg (~3.0)</td>
-<td>Sector performance moderate</td>
-<td>Outperforming</td>
-<td>Competitive advantage confirmed</td>
+<td>Strong relative position</td>
+<td>Sector performance unknown (data missing)</td>
+<td>Likely outperforming</td>
+<td>Competitive advantage indicated by Z-Score</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-CTSH’s fundamental strength as indicated by the Altman Z-Score correlates well with its stable market price and moderate valuation multiples. However, technical indicators such as RSI, moving averages, and volatility are reported as zero, which is inconsistent with typical market behavior and likely reflects data reporting anomalies.</p>
-<p>The extraordinarily high dividend yield of 159% is likely a data error or a special one-time dividend event; this requires verification before relying on income-based investment decisions. The beta of 0.00 and zero volatility also suggest missing or incomplete market data.</p>
-<p>Overall, the fundamental and peer comparison signals support a positive investment outlook, but market timing decisions should be made cautiously until data anomalies are resolved.</p>
+The <strong>Z-Score’s strong fundamental signal</strong> aligns with CTSH’s <strong>market capitalization of $40 billion</strong> and a reasonable <strong>P/E ratio of 17.12</strong>, suggesting the market generally values the company appropriately. However, <strong>technical indicators (RSI, moving averages, volume) are all zero</strong>, indicating missing or incomplete market trading data, which limits real-time market sentiment validation.</p>
+<p>The <strong>anomalous dividend yield of 159%</strong> is inconsistent with typical payout ratios and likely reflects data errors, reducing confidence in dividend-based investment decisions.</p>
+<p>Overall, the <strong>fundamental health and peer positioning support a positive investment outlook</strong>, but <strong>market timing and sentiment signals require further data verification</strong> before tactical trading decisions.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -731,37 +770,32 @@ CTSH’s fundamental strength as indicated by the Altman Z-Score correlates well
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential EBIT ratio decline (-0.5)</td>
-<td>Diversify client base, invest in innovation</td>
+<td>Potential slight decline</td>
+<td>Diversify service segments; invest in innovation</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
 <td>Minor</td>
-<td>Limited impact due to strong retained earnings</td>
-<td>Maintain conservative leverage levels</td>
+<td>Minimal impact</td>
+<td>Maintain conservative leverage; improve liquidity</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Possible valuation compression (-0.3)</td>
-<td>Hedge currency and interest rate exposure</td>
-</tr>
-<tr>
-<td>Data Quality Risks</td>
-<td>Low</td>
-<td>Minor</td>
-<td>Misinterpretation of dividend yield and volatility</td>
-<td>Cross-verify market data sources</td>
+<td>Possible valuation pressure</td>
+<td>Hedge via derivatives; monitor market trends</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Continued operational efficiency improvements and stable market conditions maintain or increase Z-Score above 7.0, supporting share price appreciation and dividend sustainability.<br />
-- <strong>Base Case:</strong> Z-Score remains stable around 6.5-6.8, reflecting steady earnings and moderate asset turnover, with manageable market volatility.<br />
-- <strong>Worst Case:</strong> Operational disruptions or market downturn reduce EBIT ratio and asset turnover, lowering Z-Score toward 5.5, still within Safe Zone but signaling caution.</p>
-<p>Bankruptcy risk remains negligible given the high Z-Score and strong retained earnings. Liquidity stress is unlikely but should be monitored given the low current ratio (0.207).</p>
+<p><strong>Risk Commentary:</strong><br />
+Based on the <strong>AI Risk Analysis overall risk level (low) and stable Z-Score trajectory</strong>, CTSH faces minimal immediate bankruptcy risk. However, <strong>moderate operational risks</strong> related to competitive pressures and technological disruption exist, which could affect EBIT margins and asset turnover, thereby impacting future Z-Scores.</p>
+<p>The <strong>lack of debt-to-equity data</strong> limits precise financial risk quantification, but the moderate EBIT ratio and retained earnings suggest manageable leverage. Market risks, including valuation volatility and sector cyclicality, pose moderate threats, especially given incomplete market data.</p>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Continued operational efficiency and market expansion sustain or improve Z-Score above 7.0.<br />
+- <strong>Base Case:</strong> Stable performance maintains Z-Score ~6.5-6.7, supporting steady investment returns.<br />
+- <strong>Worst Case:</strong> Operational setbacks or market downturn reduce Z-Score toward 3.0-4.0, signaling caution but no immediate distress.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -779,47 +813,48 @@ CTSH’s fundamental strength as indicated by the Altman Z-Score correlates well
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>BUY</strong></td>
-<td>Z-Score stable ~6.68, low distress risk</td>
-<td>Enter on minor dips</td>
-<td>6-12 months</td>
+<td>BUY</td>
+<td>Z-Score consistently &gt;6.5; low bankruptcy risk</td>
+<td>Hold for stable returns</td>
+<td>12+ months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>HOLD</strong></td>
-<td>Dividend yield anomalous; verify data</td>
-<td>Monitor dividend announcements</td>
-<td>Next quarter review</td>
+<td>HOLD</td>
+<td>Dividend yield data unreliable; verify before buy</td>
+<td>Await data clarity</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>BUY</strong></td>
-<td>P/E 17.05 reasonable vs Z-Score safety</td>
-<td>Initiate position on pullbacks</td>
-<td>3-6 months</td>
+<td>BUY</td>
+<td>P/E 17.12 reasonable; Z-Score confirms financial strength</td>
+<td>Enter on dips</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>BUY</strong></td>
-<td>Stable Z-Score supports growth thesis</td>
-<td>Follow momentum trends</td>
+<td>BUY</td>
+<td>Stable EBIT and asset turnover support growth</td>
+<td>Monitor momentum</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>HOLD</strong></td>
-<td>Low volatility reported; data anomaly</td>
-<td>Await clearer volatility signals</td>
-<td>Monitor quarterly</td>
+<td>HOLD</td>
+<td>Market data anomalies increase risk</td>
+<td>Await clearer signals</td>
+<td>3-6 months</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-Conservative and value investors benefit from CTSH’s strong financial health and moderate valuation. Dividend investors should exercise caution due to the unusual dividend yield figure. Growth investors can capitalize on stable operational performance and market positioning. Aggressive investors should await confirmation of volatility and market dynamics before increasing exposure.</p>
+<p><strong>Commentary:</strong><br />
+For <strong>conservative and value investors</strong>, CTSH’s <strong>strong Altman Z-Score (&gt;6.5)</strong> and reasonable valuation metrics support a <strong>BUY recommendation</strong> with a medium to long-term horizon. Dividend investors should <strong>exercise caution</strong> due to unreliable dividend yield data and await confirmation.</p>
+<p>Growth investors can capitalize on CTSH’s <strong>stable operational efficiency</strong>, but aggressive investors should <strong>hold</strong> until market data anomalies resolve to better assess volatility and momentum.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -835,29 +870,30 @@ Conservative and value investors benefit from CTSH’s strong financial health a
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Sustain operational excellence</td>
-<td>EBIT Ratio (0.043), Asset Turnover (0.256)</td>
-<td>Drive innovation in digital services, expand healthcare segment</td>
-<td>EBIT margin growth, client retention</td>
+<td>Maintain operational excellence</td>
+<td>EBIT Ratio (0.043), Z-Score (6.68)</td>
+<td>Focus on innovation, segment diversification</td>
+<td>Stable or rising Z-Score, EBIT growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Optimize capital structure</td>
-<td>Retained Earnings Ratio (0.753), Current Ratio (0.207)</td>
-<td>Improve liquidity buffer, manage debt prudently</td>
-<td>Improved current ratio, stable leverage</td>
+<td>Optimize liquidity &amp; leverage</td>
+<td>Working Capital Ratio (0.207), Retained Earnings (0.753)</td>
+<td>Improve short-term liquidity, monitor debt levels</td>
+<td>Improved liquidity ratios, stable leverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and compliance</td>
-<td>Z-Score (6.68), Risk Levels (Low)</td>
-<td>Monitor risk factors, ensure data integrity</td>
-<td>Regular risk reports, audit compliance</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Risk factors, Z-Score trajectory</td>
+<td>Enhance risk management frameworks, data quality</td>
+<td>Low risk incidents, consistent Z-Score</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-CTSH’s leadership should focus on maintaining operational efficiency and improving liquidity to strengthen the current ratio. The CFO should prioritize capital allocation to balance growth investments with liquidity needs. The Board must ensure robust risk management frameworks are in place, particularly addressing data quality and market perception risks highlighted by AI Risk Analysis.</p>
+CTSH’s leadership should prioritize <strong>sustaining operational efficiency and financial stability</strong>, leveraging the strong retained earnings base to fund innovation and market expansion. The CFO must address liquidity constraints indicated by the low working capital ratio, ensuring sufficient short-term resources to mitigate operational risks.</p>
+<p>The Board should oversee risk management rigorously, especially given incomplete leverage and market data, to maintain the company’s strong credit profile and investor confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -873,35 +909,35 @@ CTSH’s leadership should focus on maintaining operational efficiency and impro
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable high (~6.68)</td>
-<td>Slight upward</td>
+<td>Stable (~6.68)</td>
+<td>Slightly positive</td>
 <td>Revenue growth, margin expansion</td>
 <td>Quarterly Z-Score updates</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Strong</td>
-<td>Maintain/Improve</td>
-<td>New client acquisitions, tech innovation</td>
-<td>Market share, client retention</td>
+<td>Strong large-cap</td>
+<td>Maintain or improve</td>
+<td>New contract wins, sector growth</td>
+<td>Market share, peer Z-Score</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>Low</td>
-<td>Stable</td>
-<td>Macroeconomic stability, sector trends</td>
-<td>Risk factor incidence, liquidity ratios</td>
+<td>Stable to moderate</td>
+<td>Technological disruption, macro risks</td>
+<td>Risk factor tracking, liquidity</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-CTSH is well-positioned to sustain its strong Altman Z-Score momentum over the next 6-12 months, supported by steady revenue growth and operational improvements. Key catalysts include expansion in healthcare and financial services segments and continued digital transformation initiatives.</p>
-<p>Investors should monitor quarterly Z-Score updates and liquidity ratios as early warning indicators. Potential risks from market volatility and operational disruptions remain low but warrant ongoing surveillance.</p>
+CTSH’s <strong>Z-Score momentum is stable with a slight positive outlook</strong>, supported by consistent operational performance and strong retained earnings. Key catalysts include <strong>successful expansion in healthcare and financial services segments</strong> and <strong>technology innovation</strong>.</p>
+<p>Monitoring should focus on <strong>quarterly Z-Score updates</strong>, <strong>competitive positioning relative to peers</strong>, and <strong>early warning signals from liquidity and operational risk metrics</strong>. Potential risks from macroeconomic shifts or sector disruption warrant vigilance but currently do not threaten the company’s financial safety.</p>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>Cognizant Technology Solutions Corporation exhibits a robust financial profile with a consistently high Altman Z-Score, signaling very low bankruptcy risk and strong operational stability. Despite some anomalies in market technical data, fundamental and peer comparison analyses support a positive investment outlook. Conservative to growth-oriented investors are recommended to <strong>BUY</strong> or <strong>HOLD</strong> positions, while dividend-focused investors should verify dividend data before committing. Strategic leadership should focus on liquidity improvements and risk management to sustain long-term value creation.</p>
+<h1 id="summary-conclusion"><strong>Summary Conclusion:</strong></h1>
+<p>CTSH is a <strong>financially robust, low-risk investment candidate</strong> with a <strong>strong Altman Z-Score consistently above 6.5</strong>, indicating minimal bankruptcy risk and solid operational health. While some <strong>market data anomalies reduce confidence in short-term technical signals</strong>, fundamental analysis supports a <strong>BUY recommendation for conservative, value, and growth investors</strong> with a medium to long-term horizon. Continuous monitoring of liquidity, leverage, and market conditions is advised to maintain risk awareness and optimize timing.</p>
 <hr />
-<p><em>This analysis integrates all injected data elements explicitly, cross-validates financial and AI-driven insights, and applies a risk-aware, time-sensitive investment framework consistent with Altman Z-Score methodology.</em></p></div></div>
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, and risk data for actionable intelligence.</em></p></div></div>
     </div>
     
 
@@ -1244,78 +1280,41 @@ CTSH is well-positioned to sustain its strong Altman Z-Score momentum over the n
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:21 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:50 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

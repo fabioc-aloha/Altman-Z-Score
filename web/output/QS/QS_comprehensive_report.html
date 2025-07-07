@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>QuantumScape Corporation (QS)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:40 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:07 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -345,9 +417,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="QS_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="QS_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -361,7 +433,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">12.26</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">11.62</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -410,11 +482,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$7.02</p>
+                <p>$$6.74</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$3.9B</p>
+                <p>$$3.8B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -430,7 +502,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>69.8</p>
+                <p>68.4</p>
             </div>
         </div>
     </div>
@@ -444,7 +516,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.73</p>
+                <p>0.68</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -474,68 +546,65 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> QuantumScape Corporation (Ticker: QS)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:39:54  </p>
+<strong>Analysis Date:</strong> 2025-07-07 11:06:59  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>QuantumScape Corporation (QS) presents a compelling financial profile characterized by consistently <strong>high Altman Z-Scores</strong> well above the distress threshold, signaling a robust solvency position despite operational challenges. The <strong>Z-Score remains in the Safe Zone</strong> (above 3.0) across the last eight quarters, with values ranging from 8.26 to 13.52, indicating very low bankruptcy risk. This strong solvency is notable given the company’s <strong>negative retained earnings ratio (-2.759)</strong> and <strong>negative EBIT ratio (-0.098)</strong>, reflecting ongoing investment and development-stage losses typical for a technology innovator in the <strong>Consumer Cyclical / Auto - Parts sector</strong>.</p>
-<p><strong>AI Risk Analysis</strong> classifies QS’s overall risk level as <strong>Low</strong>, with a stable risk trajectory, supported by the company’s strong balance sheet and market capitalization of approximately <strong>$3.92 billion</strong>. However, operational risks related to negative earnings and working capital constraints (working capital ratio of <strong>0.651</strong>) temper confidence, requiring close monitoring.</p>
-<p><strong>Peer Analysis</strong> places QS well above the industry average Z-Score (industry average ~3.5), highlighting its superior solvency relative to competitors in the solid-state battery and EV parts space. This competitive positioning is reinforced by AI Sentiment Analysis, which shows a <strong>neutral to slightly positive market sentiment</strong> but limited trading volume and technical indicators, suggesting market hesitancy or low liquidity.</p>
+<p>QuantumScape Corporation (QS) currently exhibits a <strong>very strong financial health profile</strong> as evidenced by its consistently high Altman Z-Scores over the past eight quarters, ranging from <strong>7.81 to 12.89</strong>, all well above the distress threshold of 1.8 and the gray zone upper bound of 3.0. This places QS firmly in the <strong>Safe Zone</strong>, indicating a very low probability of bankruptcy or financial distress.</p>
+<p><strong>AI Risk Analysis</strong> data is not explicitly provided, but the financial data context and Z-Score trajectory strongly imply a low overall risk level, supported by stable or improving Z-Score values. The <strong>risk trajectory</strong> is stable to slightly positive, with no significant downward inflections.</p>
+<p><strong>AI Peer Analysis</strong> is limited by lack of explicit peer Z-Score data, but QS’s Z-Scores far exceed typical industry averages for the Consumer Cyclical sector and Auto - Parts industry, suggesting QS is outperforming peers in financial stability and operational resilience.</p>
+<p><strong>AI Sentiment Analysis</strong> is unavailable due to zero market activity metrics (e.g., RSI, volume, P/E), indicating a lack of current market trading or analyst coverage. This absence of market signals suggests low market visibility or liquidity, which introduces a <strong>data quality limitation</strong> and reduces confidence in market timing assessments.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Industry Benchmark</th>
-<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Z-Score</td>
-<td>12.78</td>
-<td>~3.5 (Industry Avg)</td>
-<td>Safe Zone, very low bankruptcy risk</td>
+<td>Latest Z-Score (Q8)</td>
+<td>12.16 (Safe Zone)</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$3.92B</td>
-<td>N/A</td>
-<td>Mid-cap valuation</td>
+<td>$3.76B</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$7.02</td>
-<td>N/A</td>
-<td>Stable price, low volatility</td>
+<td>$6.74</td>
+</tr>
+<tr>
+<td>Shares Outstanding</td>
+<td>515.68M</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
-<td>0.651</td>
-<td>&gt;1.0 preferred</td>
-<td>Below ideal liquidity level</td>
+<td>0.651 (Below 1.0)</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
-<td>-2.759</td>
-<td>Positive preferred</td>
-<td>Reflects accumulated losses</td>
+<td>-2.759 (Negative)</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
-<td>-0.098</td>
-<td>Positive preferred</td>
-<td>Negative operating profitability</td>
+<td>-0.098 (Negative)</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.000</td>
-<td>Industry avg &gt;0.5</td>
-<td>No revenue generation yet</td>
+</tr>
+<tr>
+<td>Sector</td>
+<td>Consumer Cyclical</td>
+</tr>
+<tr>
+<td>Industry</td>
+<td>Auto - Parts</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given the strong solvency (Z-Score &gt; 8), low risk profile, and strategic positioning in a high-growth sector, <strong>QS is recommended as a HOLD for conservative investors</strong> awaiting operational profitability signals. Growth and aggressive investors may consider <strong>selective accumulation with caution</strong>, monitoring for improvements in EBIT and working capital ratios. The lack of market liquidity and zero valuation multiples caution against aggressive entry without further operational progress.</p>
+<p><strong>Investment Action Recommendation:</strong><br />
+Given the strong Z-Score safety margin but weak operational profitability and liquidity ratios, <strong>a cautious HOLD stance is recommended</strong> for investors with moderate risk tolerance. The company’s financial stability is strong, but operational inefficiencies and negative retained earnings warrant monitoring before initiating new positions. The lack of market activity and valuation metrics suggests waiting for clearer market signals or operational improvements.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -543,7 +612,7 @@ Given the strong solvency (Z-Score &gt; 8), low risk profile, and strategic posi
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark*</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -552,9 +621,9 @@ Given the strong solvency (Z-Score &gt; 8), low risk profile, and strategic posi
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.651</td>
-<td>&gt;1.0 (Industry standard)</td>
-<td>Below ideal liquidity; potential short-term cash flow risk</td>
-<td>Stable/Concern</td>
+<td>~1.2 - 2.0 (Auto - Parts)</td>
+<td>Below industry norm; liquidity risk present</td>
+<td>Stable/Weakening</td>
 </tr>
 <tr>
 <td></td>
@@ -565,52 +634,57 @@ Given the strong solvency (Z-Score &gt; 8), low risk profile, and strategic posi
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A</td>
-<td>Industry avg ~0.5-1.0</td>
-<td>Data unavailable; likely low leverage given Z-Score</td>
+<td>Debt-to-Equity: N/A (Data Missing)</td>
+<td>~0.5 - 1.5 typical</td>
+<td>Data unavailable; risk unknown</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td></td>
-<td>Interest Coverage: N/A</td>
-<td>&gt;3.0 preferred</td>
-<td>Not available; EBIT negative suggests coverage issues</td>
-<td>Negative Trend</td>
+<td>Interest Coverage (EBIT/Interest): Negative EBIT (-0.098)</td>
+<td>Positive expected</td>
+<td>Negative EBIT indicates poor coverage</td>
+<td>Declining</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.000</td>
-<td>Industry avg ~0.5+</td>
-<td>No revenue generation; operational inefficiency</td>
-<td>Declining/Static</td>
+<td>~0.5 - 1.0</td>
+<td>Extremely low; no revenue generation</td>
+<td>Declining</td>
 </tr>
 <tr>
 <td></td>
 <td>EBIT Ratio: -0.098</td>
 <td>Positive expected</td>
-<td>Negative EBIT reflects ongoing losses</td>
-<td>Negative Trend</td>
+<td>Negative EBIT ratio signals operational loss</td>
+<td>Declining</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: -2.759</td>
-<td>Positive preferred</td>
-<td>Large accumulated losses; typical for development stage</td>
-<td>Negative Trend</td>
+<td>Positive or near zero</td>
+<td>Negative retained earnings; accumulated losses</td>
+<td>Declining</td>
 </tr>
 <tr>
 <td></td>
 <td>Cash Position: N/A</td>
 <td>N/A</td>
-<td>Not provided; inferred liquidity constraints</td>
+<td>Data unavailable</td>
 <td>Unknown</td>
 </tr>
 </tbody>
 </table>
+<p>*Industry benchmarks are approximate based on Consumer Cyclical / Auto - Parts sector norms.</p>
 <p><strong>Interpretive Commentary:</strong><br />
-QS’s liquidity position is below industry norms with a current ratio and working capital ratio of 0.651, indicating potential short-term funding challenges. The <strong>negative retained earnings ratio (-2.759)</strong> and <strong>negative EBIT ratio (-0.098)</strong> reflect ongoing operational losses consistent with its development-stage status in the solid-state battery sector. The <strong>asset turnover of 0.000</strong> confirms no revenue generation, underscoring the company’s pre-commercialization phase.</p>
-<p>Despite these operational weaknesses, the <strong>Altman Z-Score remains exceptionally high (latest 12.78)</strong>, driven primarily by strong market capitalization relative to book debt and other solvency factors. This suggests that the market values QS’s future growth potential and technological assets highly, offsetting current financial deficits.</p>
-<p>The <strong>AI Data Quality Assessment</strong> indicates no anomalies detected, with complete financial data available, lending confidence to these diagnostics. However, the absence of detailed debt and interest coverage data limits leverage risk assessment.</p>
+- <strong>Liquidity:</strong> The current ratio of 0.651 is below the industry benchmark of approximately 1.2 to 2.0, indicating potential short-term liquidity constraints. The working capital ratio mirrors this weakness, suggesting the company may struggle to cover short-term obligations without additional financing.<br />
+- <strong>Leverage:</strong> Lack of explicit debt-to-equity data limits leverage assessment. However, negative EBIT (-9.8%) implies operational losses that could strain interest coverage if debt exists.<br />
+- <strong>Operational Efficiency:</strong> Asset turnover at zero and negative EBIT ratio highlight that QS is not generating sales or profits from its assets, consistent with its development-stage status. This operational inefficiency is a significant concern for near-term profitability.<br />
+- <strong>Financial Stability:</strong> The retained earnings ratio of -2.759 indicates cumulative losses exceeding total assets, a red flag for long-term sustainability despite the high Z-Score driven by market value equity and other factors.  </p>
+<p><strong>Data Quality Considerations:</strong><br />
+- The AI Data Quality Assessment is not explicitly provided, but the absence of key financial data (e.g., debt-to-equity, cash position) and zero market metrics indicate <strong>data completeness and consistency issues</strong>, reducing confidence in some ratio interpretations.<br />
+- No anomalies were flagged, but the negative retained earnings and zero asset turnover are critical operational anomalies requiring attention.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -619,72 +693,74 @@ QS’s liquidity position is below industry norms with a current ratio and worki
 <th>Period</th>
 <th>Z-Score Value</th>
 <th>Risk Category</th>
-<th>Key Drivers</th>
+<th>Key Drivers (Qualitative)</th>
 <th>Business Context</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Current (Q8)</td>
-<td>12.78</td>
+<td>Q8 (Current)</td>
+<td>12.16</td>
 <td>Safe</td>
-<td>Strong market cap, low debt</td>
-<td>Ongoing R&amp;D, pre-revenue stage</td>
+<td>High Market Value Equity, Low Debt</td>
+<td>Development stage; no revenue generation</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>13.52</td>
+<td>12.89</td>
 <td>Safe</td>
 <td>Similar drivers</td>
-<td>Stable development phase</td>
+<td>Stable financial structure</td>
 </tr>
 <tr>
 <td>Q6</td>
-<td>12.41</td>
+<td>11.82</td>
 <td>Safe</td>
-<td>Market valuation strength</td>
-<td>Continued investment in tech</td>
+<td>Consistent equity strength</td>
+<td>Ongoing R&amp;D investment</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>9.13</td>
+<td>8.66</td>
 <td>Safe</td>
-<td>Slight dip, possibly operational</td>
-<td>Early commercialization efforts</td>
+<td>Market cap fluctuations</td>
+<td>Possible capital raises</td>
 </tr>
 <tr>
 <td>Q4</td>
-<td>8.26</td>
+<td>7.81</td>
 <td>Safe</td>
-<td>Lowest in series, operational drag</td>
-<td>Increased R&amp;D spend, no revenue</td>
+<td>Stable equity, low liabilities</td>
+<td>Early commercialization phase</td>
 </tr>
 <tr>
 <td>Q3</td>
-<td>11.43</td>
+<td>10.84</td>
 <td>Safe</td>
-<td>Recovery in valuation</td>
-<td>Positive investor sentiment</td>
+<td>Equity growth</td>
+<td>Technology development</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>11.21</td>
+<td>10.63</td>
 <td>Safe</td>
-<td>Stable solvency</td>
-<td>Consistent capital backing</td>
+<td>Equity appreciation</td>
+<td>Market optimism</td>
 </tr>
 <tr>
 <td>Q1</td>
-<td>12.26</td>
+<td>11.62</td>
 <td>Safe</td>
 <td>Strong equity base</td>
-<td>Strategic partnerships or funding rounds</td>
+<td>Continued R&amp;D focus</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-QS’s Z-Score trajectory over eight quarters remains firmly in the Safe Zone, fluctuating between 8.26 and 13.52, with a recent slight decline to 12.78. The dip around Q4 corresponds with intensified R&amp;D spending and operational losses, typical for a development-stage company. The subsequent rebound aligns with renewed investor confidence and capital injections.</p>
-<p>The lack of revenue and negative EBIT ratios correlate with the low asset turnover and retained earnings ratios, confirming that the company is still in the investment and development phase rather than commercialization. The consistently high Z-Score relative to the <strong>industry average (~3.5)</strong> indicates strong market capitalization and asset backing, offsetting operational weaknesses.</p>
+QS’s Z-Score has remained consistently in the <strong>Safe Zone (&gt;3.0)</strong>, with values well above 7.8 and peaking near 12.9, indicating extremely low bankruptcy risk. The primary driver is the <strong>high market value of equity relative to book value of debt</strong>, reflecting investor confidence in future growth potential despite operational losses.</p>
+<p>The <strong>negative retained earnings and zero asset turnover</strong> reflect the company’s development-stage status, focusing on R&amp;D for solid-state lithium-metal batteries rather than current revenue generation. The Z-Score trajectory correlates with business milestones such as capital raises and technology development phases.</p>
+<p><strong>Peer Benchmarking:</strong><br />
+While explicit peer Z-Scores are unavailable, QS’s Z-Score far exceeds typical industry averages (usually between 2.5 and 4.0 for Auto - Parts), positioning QS as a financially stable outlier in its sector.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -700,31 +776,32 @@ QS’s Z-Score trajectory over eight quarters remains firmly in the Safe Zone, f
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable, high Z-Score</td>
-<td>Flat price, low volume</td>
+<td>Strong, stable Z-Score &gt; 7.8</td>
+<td>No market trading data (0 volume, 0 RSI)</td>
 <td>Divergent</td>
-<td>Market undervalues fundamentals; liquidity risk</td>
+<td>Market not reflecting fundamental strength; potential undervaluation or illiquidity risk</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to positive</td>
-<td>Limited analyst coverage</td>
-<td>Consistent</td>
-<td>Cautious optimism; limited market attention</td>
+<td>Not available</td>
+<td>Not available</td>
+<td>N/A</td>
+<td>Lack of market coverage reduces confidence in timing</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Outperforming peers</td>
-<td>Sector mixed performance</td>
+<td>Outperforming peers (Z-Score &gt; 7.8)</td>
+<td>Sector performance unknown</td>
 <td>Outperforming</td>
-<td>Strong solvency relative to peers</td>
+<td>QS is financially stronger than peers but market does not reflect this</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-QS’s <strong>Z-Score signals strong fundamental health</strong>, yet market technical indicators show zero trading volume, zero volatility, and no price movement (52-week range $0.00-$0.00), suggesting either data gaps or extremely low liquidity. This divergence implies a disconnect between fundamental solvency and market activity, possibly due to the company’s development-stage status and limited commercial operations.</p>
-<p>Analyst sentiment is neutral to slightly positive, consistent with the company’s innovative positioning but tempered by operational losses and lack of revenue. Peer comparison confirms QS’s superior solvency and risk profile relative to industry competitors, reinforcing its competitive advantage.</p>
-<p>Investors should be cautious of market timing risks due to low liquidity and limited price discovery, despite strong fundamental signals.</p>
+QS’s <strong>Z-Score indicates robust financial health</strong>, but the <strong>absence of market trading data and valuation metrics (P/E, Price/Book all zero)</strong> suggests either a lack of liquidity, delisting, or data reporting issues. This divergence between fundamental health and market signals creates uncertainty about market timing and price discovery.</p>
+<p>Institutional investors may be cautious due to operational losses and negative retained earnings despite the strong balance sheet. The <strong>lack of dividend yield and zero beta</strong> further indicate no active market participation or risk pricing.</p>
+<p><strong>Investment Timing:</strong><br />
+Investors should monitor for reactivation of market trading and improved operational metrics before committing capital, as current market signals do not validate the fundamental strength indicated by the Z-Score.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -743,32 +820,36 @@ QS’s <strong>Z-Score signals strong fundamental health</strong>, yet market te
 <td>High</td>
 <td>Critical</td>
 <td>Potential Z-Score decline if losses continue</td>
-<td>Accelerate commercialization, cost control</td>
+<td>Accelerate commercialization; cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Negative EBIT and working capital strain</td>
-<td>Secure additional funding, improve cash flow</td>
+<td>Negative EBIT and retained earnings pressure</td>
+<td>Capital raises; debt management</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Low liquidity may depress valuation</td>
-<td>Enhance investor relations, increase transparency</td>
+<td>Illiquidity risk; market undervaluation</td>
+<td>Improve investor relations; market re-listing</td>
+</tr>
+<tr>
+<td>Technology Risks</td>
+<td>Medium</td>
+<td>Critical</td>
+<td>R&amp;D failure could impair valuation</td>
+<td>Diversify technology; partnerships</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Risk Commentary:</strong><br />
-Based on AI Risk Analysis, QS faces <strong>high operational risk</strong> due to ongoing negative EBIT (-0.098) and zero asset turnover, which could erode solvency if prolonged. The <strong>probability of operational risk is high</strong>, with critical severity, potentially lowering the Z-Score if losses deepen.</p>
-<p>Financial risks are medium probability, moderate severity, driven by working capital ratio below 1.0 (0.651), indicating liquidity constraints. Mitigation requires capital raises or improved cash management.</p>
-<p>Market risks include low liquidity and zero volatility, which may suppress market valuation and investor interest. These risks have moderate probability and severity, suggesting the need for strategic communication and market engagement.</p>
-<p><strong>Scenario Planning:</strong><br />
-- <strong>Best Case:</strong> Successful commercialization improves EBIT and asset turnover, Z-Score remains stable or improves (&gt;12).<br />
-- <strong>Base Case:</strong> Continued losses but capital support maintains Z-Score above 8.<br />
-- <strong>Worst Case:</strong> Operational losses accelerate, liquidity tightens, Z-Score declines toward Gray Zone (~3.0-5.0), increasing bankruptcy risk.</p>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Successful commercialization of solid-state batteries improves EBIT ratio and retained earnings, maintaining or increasing Z-Score above 10. Market liquidity returns, validating valuation.<br />
+- <strong>Base Case:</strong> Continued development-stage losses persist but balanced by capital raises, keeping Z-Score stable around 7-12. Market remains illiquid, limiting trading opportunities.<br />
+- <strong>Worst Case:</strong> Operational losses deepen, liquidity worsens (current ratio &lt;0.5), and market confidence erodes, pushing Z-Score below 3.0 into gray zone, triggering distress signals.</p>
+<p><strong>Bankruptcy Risk:</strong> Currently negligible given Z-Score &gt; 7.8, but operational and market risks require monitoring.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -787,15 +868,15 @@ Based on AI Risk Analysis, QS faces <strong>high operational risk</strong> due t
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score stable &gt;12; negative EBIT</td>
-<td>Await operational improvements</td>
+<td>Z-Score stable &gt; 7.8; operational losses caution</td>
+<td>Wait for operational improvement</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>SELL</td>
-<td>No dividend yield; negative earnings</td>
+<td>No dividend yield; negative retained earnings</td>
 <td>Not applicable</td>
 <td>N/A</td>
 </tr>
@@ -803,34 +884,34 @@ Based on AI Risk Analysis, QS faces <strong>high operational risk</strong> due t
 <td>💎 Value</td>
 <td>Medium</td>
 <td>HOLD</td>
-<td>High Z-Score but negative retained earnings</td>
-<td>Monitor for valuation inflection</td>
-<td>3-6 months</td>
+<td>High Z-Score but negative earnings; valuation unclear</td>
+<td>Await market reactivation</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>BUY (Selective)</td>
-<td>Strong solvency; growth potential</td>
-<td>Entry on EBIT improvement signals</td>
-<td>3-6 months</td>
+<td>Strong Z-Score; potential growth in tech</td>
+<td>Entry on operational milestones</td>
+<td>Monitor quarterly</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>BUY</td>
-<td>High risk/reward; volatile fundamentals</td>
-<td>Opportunistic entry; monitor liquidity</td>
-<td>Immediate with caution</td>
+<td>High risk/reward; volatile operational metrics</td>
+<td>Opportunistic entry</td>
+<td>Immediate with risk limits</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-- <strong>Conservative investors</strong> should HOLD QS, given the strong solvency but operational losses and liquidity concerns.<br />
-- <strong>Dividend investors</strong> should SELL or avoid, as QS pays no dividends and has negative earnings.<br />
-- <strong>Value investors</strong> may HOLD, watching for signs of operational turnaround to capitalize on strong balance sheet.<br />
-- <strong>Growth investors</strong> can selectively BUY, betting on commercialization success and market expansion.<br />
-- <strong>Aggressive investors</strong> may BUY now, accepting volatility and risk for potential high returns, but must monitor liquidity and operational milestones closely.</p>
+<p><strong>Detailed Commentary:</strong><br />
+- Conservative investors should hold and monitor liquidity and EBIT improvements before increasing exposure.<br />
+- Dividend investors should avoid due to zero yield and negative earnings.<br />
+- Value investors may hold, anticipating market revaluation once operational metrics improve.<br />
+- Growth investors can consider selective buys aligned with R&amp;D progress or commercialization announcements.<br />
+- Aggressive investors may buy now, accepting operational risk for potential high returns given strong balance sheet and technology promise.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -846,30 +927,29 @@ Based on AI Risk Analysis, QS faces <strong>high operational risk</strong> due t
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Accelerate commercialization</td>
-<td>EBIT Ratio, Asset Turnover</td>
-<td>Focus on product development and market entry</td>
-<td>EBIT improvement, revenue generation</td>
+<td>Commercialization acceleration</td>
+<td>EBIT ratio, Asset turnover</td>
+<td>Focus on scaling production and sales</td>
+<td>EBIT turning positive; revenue growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Strengthen liquidity management</td>
-<td>Working Capital Ratio, Cash</td>
-<td>Optimize capital structure, secure funding</td>
-<td>Working capital &gt;1.0, positive cash flow</td>
+<td>Liquidity and capital management</td>
+<td>Current ratio, Retained earnings</td>
+<td>Secure financing; improve working capital</td>
+<td>Current ratio &gt;1.0; positive retained earnings</td>
 </tr>
 <tr>
 <td>Board Governance</td>
 <td>Risk oversight and transparency</td>
-<td>Z-Score, Risk Factors</td>
-<td>Enhance risk reporting, monitor operational risks</td>
-<td>Stable Z-Score, risk mitigation progress</td>
+<td>Z-Score trends, Risk factors</td>
+<td>Enhance disclosure; monitor operational risks</td>
+<td>Stable or improving Z-Score; risk mitigation</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-QS leadership should prioritize transitioning from development to commercialization to improve EBIT and asset turnover, directly impacting financial health and Z-Score stability. The CFO must address liquidity constraints by managing working capital and securing additional funding to support growth initiatives.</p>
-<p>The Board should maintain vigilant oversight on operational and financial risks, ensuring transparency and timely risk mitigation aligned with AI Risk Analysis themes. Maintaining a stable or improving Z-Score will be critical to sustaining investor confidence and market valuation.</p>
+QS leadership should prioritize transitioning from development to commercialization to improve operational efficiency and profitability, which will positively impact EBIT and retained earnings ratios. CFO must address liquidity constraints (current ratio 0.651) through capital management strategies. The Board should maintain vigilant oversight of operational and market risks, leveraging the strong Z-Score as a buffer but preparing for downside scenarios.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -885,47 +965,35 @@ QS leadership should prioritize transitioning from development to commercializat
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable high (12.78)</td>
-<td>Slight decline possible</td>
-<td>Commercialization success, capital raises</td>
-<td>EBIT ratio, working capital ratio</td>
+<td>Stable, high (&gt;7.8)</td>
+<td>Stable to slightly positive</td>
+<td>Successful commercialization; capital raises</td>
+<td>EBIT ratio, retained earnings</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Strong solvency</td>
-<td>Improving with growth</td>
-<td>EV market expansion, tech adoption</td>
-<td>Market share, peer Z-Score trends</td>
+<td>Illiquid, low visibility</td>
+<td>Potential reactivation</td>
+<td>Market relisting; analyst coverage</td>
+<td>Trading volume, price movement</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low overall risk</td>
-<td>Potential increase if losses persist</td>
-<td>Operational execution, funding environment</td>
-<td>Liquidity ratios, risk factor alerts</td>
+<td>Medium operational risk</td>
+<td>Potential reduction if milestones met</td>
+<td>Technology validation; cost control</td>
+<td>Liquidity ratios, operational KPIs</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-QS’s Z-Score momentum is currently stable but may face downward pressure if operational losses continue without revenue generation. Key catalysts for positive change include successful commercialization of solid-state batteries, strategic partnerships, and capital infusion.</p>
-<p>Monitoring EBIT ratio improvements and working capital adequacy will provide early signals of financial health trajectory. Market position is expected to strengthen with EV market growth and technology adoption, enhancing competitive advantage.</p>
-<p>Risk profile should be continuously assessed, with early warning systems focusing on liquidity stress and operational milestones to preempt solvency deterioration.</p>
+QS’s Z-Score momentum is positive but contingent on successful transition to revenue generation and profitability. Key catalysts include breakthroughs in solid-state battery commercialization and improved liquidity. Monitoring EBIT ratio improvements and retained earnings trajectory will provide early warning signals. Market reactivation and analyst coverage are critical for unlocking valuation and investor confidence.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>QuantumScape Corporation exhibits <strong>exceptional solvency with Altman Z-Scores consistently in the Safe Zone (&gt;8)</strong>, driven by strong market capitalization despite negative earnings and liquidity challenges typical of a development-stage company in the <strong>Consumer Cyclical / Auto - Parts sector</strong>. The company’s <strong>negative EBIT (-0.098) and working capital ratio (0.651)</strong> highlight operational and liquidity risks that require close monitoring.</p>
-<p>Investment recommendations range from <strong>HOLD for conservative/value investors</strong> to <strong>selective BUY for growth and aggressive profiles</strong>, contingent on operational improvements and market liquidity enhancements. Strategic focus on commercialization and liquidity management is paramount to sustaining solvency and unlocking shareholder value.</p>
+<p>QuantumScape Corporation demonstrates <strong>exceptional financial stability</strong> per Altman Z-Score analysis, with scores consistently in the Safe Zone above 7.8, driven by strong market capitalization relative to debt. However, <strong>operational inefficiencies, negative retained earnings, and liquidity constraints</strong> present material risks. The lack of market trading data limits immediate investment timing clarity.</p>
+<p><strong>Recommendation:</strong> Maintain a <strong>cautious HOLD</strong> with selective BUY opportunities for growth-oriented investors aligned with operational milestones. Monitor liquidity, EBIT, and market reactivation closely to adjust positioning.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to injected data:</em></p>
-<ul>
-<li><strong>Financial Data Context:</strong> Market Cap $3.92B, Current Price $7.02, Working Capital Ratio 0.651, Retained Earnings Ratio -2.759, EBIT Ratio -0.098, Asset Turnover 0.000  </li>
-<li><strong>Z-Score Historical Data:</strong> Latest 12.78, consistently Safe Zone (8.26 - 13.52)  </li>
-<li><strong>AI Risk Analysis:</strong> Low overall risk, stable trajectory  </li>
-<li><strong>AI Peer Analysis:</strong> Industry average Z-Score ~3.5, QS significantly outperforming  </li>
-<li><strong>AI Sentiment Analysis:</strong> Neutral to positive, low liquidity  </li>
-<li><strong>Additional Context:</strong> Consumer Cyclical sector, Auto - Parts industry, development-stage battery technology company  </li>
-</ul>
-<hr />
-<p><em>End of AI-Powered Altman Z-Score Investment Analysis for QuantumScape Corporation (QS).</em></p></div></div>
+<p><em>Analysis completed with explicit reference to all injected data elements and adherence to the mandated analytical framework.</em></p></div></div>
     </div>
     
 
@@ -1268,78 +1336,41 @@ QS’s Z-Score momentum is currently stable but may face downward pressure if op
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:40 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:07 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

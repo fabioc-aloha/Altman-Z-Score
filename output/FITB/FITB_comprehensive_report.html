@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Fifth Third Bancorp (FITB)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:23 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:51 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -341,9 +413,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="FITB_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="FITB_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -406,11 +478,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$43.40</p>
+                <p>$$43.39</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$29.0B</p>
+                <p>$$29.0B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -422,11 +494,11 @@
             </div>
             <div class="metric">
                 <h4>Volatility</h4>
-                <p>50.0%</p>
+                <p>30.0%</p>
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>83.2</p>
+                <p>96.3</p>
             </div>
         </div>
     </div>
@@ -440,7 +512,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.76</p>
+                <p>0.74</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -448,7 +520,7 @@
             </div>
             <div class="metric">
                 <h4>Risk Score</h4>
-                <p>6.6/10</p>
+                <p>6.0/10</p>
             </div>
         </div>
     </div>
@@ -469,17 +541,20 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> Fifth Third Bancorp (FITB)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:22:49  </p>
+<p><strong>Company:</strong> Fifth Third Bancorp (Ticker: FITB)<br />
+<strong>Analysis Date:</strong> 2025-07-07 10:51:26  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Fifth Third Bancorp (FITB) currently exhibits a <strong>critical financial distress profile</strong>, with an Altman Z-Score persistently below 1.0 over the last eight quarters, indicating a high bankruptcy risk. The latest Z-Score stands at <strong>0.39</strong>, firmly in the <strong>Distress Zone (Z &lt; 1.8)</strong>, signaling urgent caution for investors. This distress is compounded by a <strong>negative working capital ratio of -0.521</strong>, extremely low EBIT ratio (0.003), and minimal asset turnover (0.014), all pointing to operational inefficiencies and liquidity challenges.</p>
-<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>high</strong>, with a deteriorating risk trajectory, emphasizing severe operational and financial vulnerabilities. The <strong>AI Peer Analysis</strong> places FITB significantly below the industry average Z-Score (not explicitly provided but implied safe zone &gt;3.0 for peers), highlighting its underperformance relative to regional banking peers. The <strong>AI Sentiment Analysis</strong> is unavailable in quantitative terms but inferred to be negative given the distress signals and market metrics.</p>
+<p>Fifth Third Bancorp (FITB) currently exhibits a <strong>critical financial distress profile</strong>, as evidenced by a persistently low Altman Z-Score averaging well below the distress threshold of 1.8 over the past eight quarters. The latest Z-Score is <strong>0.39</strong>, firmly placing the company in the <strong>Distress Zone</strong>. This signals a high probability of financial distress or bankruptcy risk if corrective actions are not taken promptly.</p>
+<p><strong>AI Risk Analysis</strong> confirms an <strong>overall risk level of "High"</strong> with <strong>confidence exceeding 90%</strong>, driven by weak liquidity and operational inefficiencies. The risk trajectory remains negative, with no meaningful improvement in Z-Score over the observed periods.</p>
+<p><strong>AI Peer Analysis</strong> positions FITB significantly below the <strong>industry average Z-Score of approximately 3.2</strong> for Regional Banks, indicating underperformance relative to key peers such as PNC, KeyCorp, and Regions Financial. This relative weakness suggests competitive disadvantages in financial stability and operational efficiency.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a <strong>negative overall sentiment</strong> with a downward trend, reflecting market concerns about FITB’s financial health and growth prospects. Divergence analysis shows sentiment is more pessimistic than sector averages, reinforcing caution.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
+<th>Industry Benchmark</th>
 <th>Notes</th>
 </tr>
 </thead>
@@ -487,47 +562,49 @@
 <tr>
 <td>Latest Z-Score</td>
 <td>0.39</td>
-<td>Distress Zone, high bankruptcy risk</td>
+<td>~3.2 (Regional Banks)</td>
+<td>Distress Zone, critical risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$28.97B</td>
-<td>Mid-large cap financial services firm</td>
+<td>$28.96B</td>
+<td>Peer average varies</td>
+<td>Mid-cap regional bank</td>
 </tr>
 <tr>
-<td>Current Price</td>
-<td>$43.40</td>
-<td>Stable price despite distress signals</td>
-</tr>
-<tr>
-<td>Working Capital Ratio</td>
+<td>Current Ratio</td>
 <td>-0.521</td>
-<td>Negative liquidity position</td>
+<td>&gt;1.0 preferred</td>
+<td>Negative working capital</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.115</td>
-<td>Low retained earnings buffer</td>
+<td>~0.3 typical</td>
+<td>Low retained earnings</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.003</td>
-<td>Near breakeven operating earnings</td>
+<td>~0.05 typical</td>
+<td>Minimal operating profit</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.014</td>
-<td>Very low operational efficiency</td>
+<td>~0.1 typical</td>
+<td>Very low efficiency</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
-<td>360.00%</td>
-<td>Likely data anomaly or unsustainable payout</td>
+<td>360%</td>
+<td>~2-4% typical</td>
+<td>Likely data anomaly or unsustainable</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Investment Recommendation:</strong><br />
-Given the <strong>high risk level</strong> and sustained distress Z-Score, a <strong>conservative investor should avoid initiating new positions</strong> or consider exiting existing holdings. Aggressive investors may view this as a speculative turnaround opportunity but must be prepared for significant volatility and downside risk. Immediate focus should be on monitoring liquidity improvements and operational restructuring signals before reconsidering investment.</p>
+Given the <strong>high risk profile</strong>, <strong>distress-level Z-Score</strong>, and <strong>negative sentiment</strong>, a <strong>SELL or avoid</strong> stance is advised for most investor profiles. Only highly risk-tolerant or distressed asset specialists should consider opportunistic entry, contingent on turnaround evidence. Close monitoring of liquidity and operational metrics is critical.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -535,7 +612,7 @@ Given the <strong>high risk level</strong> and sustained distress Z-Score, a <st
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark (Regional Banks)</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -543,38 +620,39 @@ Given the <strong>high risk level</strong> and sustained distress Z-Score, a <st
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A (Working Capital Ratio: -0.521)</td>
-<td>Positive (&gt;1.0)</td>
-<td><strong>Severe liquidity weakness; negative working capital indicates cash flow stress</strong></td>
-<td>Declining</td>
+<td>Current Ratio: -0.521<br>Working Capital Ratio: -0.521</td>
+<td>&gt;1.0 (healthy banks)</td>
+<td><strong>Severe liquidity weakness</strong>; negative working capital signals potential short-term solvency issues</td>
+<td>Declining/Stable (persistently negative)</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Data missing)</td>
-<td>Moderate leverage typical</td>
-<td>Unable to assess leverage precisely; risk inferred high due to distress</td>
+<td>Debt-to-Equity: N/A (data missing)<br>Interest Coverage: N/A</td>
+<td>Debt-to-Equity ~1.0-1.5 typical</td>
+<td>Insufficient data; likely elevated leverage given distress Z-Score</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.003, Asset Turnover: 0.014</td>
-<td>EBIT Ratio ~0.05-0.10, Asset Turnover ~0.5</td>
-<td><strong>Extremely low EBIT and asset turnover; operational inefficiency critical</strong></td>
-<td>Declining</td>
+<td>Asset Turnover: 0.014<br>EBIT Ratio: 0.003</td>
+<td>Asset Turnover ~0.1<br>EBIT Ratio ~0.05</td>
+<td>Extremely low asset utilization and operating profitability; operational inefficiency</td>
+<td>Stable low</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.115</td>
-<td>Typically &gt;0.3 for stability</td>
-<td><strong>Low retained earnings buffer; limited capacity to absorb losses</strong></td>
-<td>Stable/Weak</td>
+<td>Retained Earnings Ratio: 0.115<br>Cash Position: N/A</td>
+<td>Retained Earnings ~0.3 typical</td>
+<td>Low retained earnings limit buffer against losses; cash position unknown but likely constrained</td>
+<td>Stable low</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Interpretive Commentary:</strong><br />
-The <strong>negative working capital ratio (-0.521)</strong> is a red flag indicating that current liabilities exceed current assets, a liquidity stress indicator uncommon in stable banks. The <strong>EBIT ratio of 0.003</strong> suggests near breakeven operating income, insufficient to cover interest and other fixed costs, while the <strong>asset turnover of 0.014</strong> is drastically below industry norms (~0.5), reflecting poor utilization of assets to generate revenue. The <strong>retained earnings ratio at 0.115</strong> is low, limiting the firm's ability to self-finance growth or absorb shocks.</p>
-<p>The <strong>AI Data Quality Assessment</strong> indicates raw financial data completeness but lacks detailed leverage ratios, limiting full leverage risk evaluation. No anomalies detected in financial data, but market data shows suspicious dividend yield (360%), likely a data anomaly, reducing confidence in dividend sustainability analysis.</p>
-<p>Sector context: As a <strong>regional bank in Financial Services</strong>, liquidity and operational efficiency are critical. FITB’s metrics suggest it is under severe operational and financial stress relative to peers.</p>
+The <strong>negative working capital ratio (-0.521)</strong> is a critical red flag, indicating that current liabilities exceed current assets substantially, undermining short-term financial stability. This is well below the industry standard of &gt;1.0 for healthy banks, confirming liquidity stress.</p>
+<p>The <strong>retained earnings ratio of 0.115</strong> is low relative to typical regional bank benchmarks (~0.3), suggesting limited accumulated profits to absorb shocks or fund growth. The <strong>EBIT ratio of 0.003</strong> indicates near-breakeven operating performance, insufficient to generate meaningful earnings or support debt servicing.</p>
+<p>The <strong>asset turnover ratio of 0.014</strong> is dramatically below the industry norm (~0.1), highlighting poor asset utilization and operational inefficiency. This aligns with the distressed Z-Score and suggests management challenges in generating revenue from assets.</p>
+<p><strong>AI Data Quality Assessment</strong> reports no anomalies in financial data completeness but notes missing leverage and interest coverage ratios, limiting full leverage risk assessment. The data quality scores are high (&gt;95%), supporting confidence in these conclusions.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -593,21 +671,42 @@ The <strong>negative working capital ratio (-0.521)</strong> is a red flag indic
 <td>0.39</td>
 <td>Distress</td>
 <td>Negative working capital, low EBIT, poor asset turnover</td>
-<td>Ongoing liquidity and operational challenges</td>
+<td>Ongoing operational challenges, weak profitability</td>
 </tr>
 <tr>
-<td>Previous Quarters (Q1-Q7)</td>
-<td>0.34 - 0.93</td>
+<td>Q7</td>
+<td>0.60</td>
 <td>Distress</td>
-<td>Persistently negative liquidity and low profitability</td>
-<td>No recovery signs; consistent distress zone</td>
+<td>Slightly better EBIT but still weak</td>
+<td>No significant business turnaround evident</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>0.93</td>
+<td>Distress</td>
+<td>Temporary EBIT improvement</td>
+<td>Possibly transient operational gains</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>0.47</td>
+<td>Distress</td>
+<td>Declining retained earnings</td>
+<td>Continued financial strain</td>
+</tr>
+<tr>
+<td>Q4 to Q1</td>
+<td>0.34 - 0.61</td>
+<td>Distress</td>
+<td>Persistently negative liquidity and profitability</td>
+<td>No recovery signs, consistent distress</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-FITB’s Z-Score has remained <strong>consistently below 1.0 over eight quarters</strong>, indicating chronic financial distress without meaningful improvement. The highest recorded Z-Score was 0.93, still well below the distress threshold of 1.8. The lack of upward momentum in Z-Score suggests no effective turnaround or operational improvement.</p>
-<p>The absence of component data (working capital/total assets, retained earnings/total assets, EBIT/total assets, market value equity/book value debt, sales/total assets) limits granular driver analysis but the overall trend is unmistakable: <strong>FITB is entrenched in financial distress</strong>.</p>
-<p>Compared to the <strong>industry average Z-Score (typically &gt;3.0 for healthy regional banks)</strong>, FITB is a significant outlier on the downside, indicating competitive disadvantage and elevated bankruptcy risk.</p>
+The Z-Score trajectory remains <strong>consistently below 1.0</strong>, indicating persistent distress without meaningful recovery. The brief uptick to 0.93 in Q6 appears to be an anomaly rather than a trend reversal, as subsequent quarters reverted to sub-0.6 levels.</p>
+<p>The lack of improvement in key Z-Score components—working capital, retained earnings, EBIT, and asset turnover—correlates with ongoing operational and financial challenges in the regional banking sector. This is compounded by the sector’s competitive pressures and regulatory environment.</p>
+<p>Compared to the <strong>industry average Z-Score of ~3.2</strong>, FITB’s trajectory signals a severe outlier status, underscoring urgent need for strategic restructuring or capital infusion.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -623,31 +722,31 @@ FITB’s Z-Score has remained <strong>consistently below 1.0 over eight quarters
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Distress (0.39)</td>
-<td>Price stable at $43.40</td>
+<td>Persistently Distress Zone (0.39 latest)</td>
+<td>Price stable at $43.38, no volatility</td>
 <td>Divergent</td>
-<td>Market may be underestimating risk or awaiting catalyst</td>
+<td>Market may be underpricing distress risk</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Not explicitly available</td>
-<td>P/E Ratio 13.78 (moderate)</td>
+<td>Negative, declining</td>
+<td>P/E Ratio 13.77 (moderate)</td>
 <td>Inconsistent</td>
-<td>Market valuation not fully reflecting distress</td>
+<td>Market possibly overlooking risk or expecting turnaround</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
 <td>Significantly below peers</td>
-<td>Sector performance stable</td>
+<td>Sector performance moderate</td>
 <td>Underperforming</td>
-<td>Competitive weakness evident</td>
+<td>Competitive disadvantage evident</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The <strong>Z-Score distress signal contrasts with a relatively stable stock price of $43.40</strong> and a moderate P/E ratio of 13.78, suggesting a disconnect between fundamental distress and market valuation. This divergence may reflect market optimism about potential restructuring or external support, or possibly lagging market recognition of financial deterioration.</p>
-<p>The <strong>lack of volatility (0%) and zero beta</strong> are unusual and likely data artifacts, limiting confidence in risk-return profile interpretation. The <strong>extreme dividend yield of 360%</strong> is likely erroneous or unsustainable, further complicating market signal interpretation.</p>
-<p>Peer comparison confirms FITB is underperforming relative to regional banking peers, reinforcing caution.</p>
+The <strong>market price of $43.38</strong> and <strong>market cap of ~$29B</strong> appear stable but do not reflect the severe distress indicated by the Z-Score. The <strong>lack of volatility (0%)</strong> and <strong>zero volume data</strong> suggest either data gaps or low trading activity, which may mask true market sentiment.</p>
+<p>The <strong>P/E ratio of 13.77</strong> is moderate but may be misleading given the near-zero EBIT ratio and distress signals. The <strong>extremely high dividend yield of 360%</strong> is likely a data anomaly or reflects unsustainable dividend policy, which could exacerbate financial strain.</p>
+<p>The divergence between fundamental distress and market price stability suggests a potential <strong>disconnect</strong>, presenting either a risk of sudden price correction or an opportunity if management can execute a credible turnaround.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -672,23 +771,23 @@ The <strong>Z-Score distress signal contrasts with a relatively stable stock pri
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Bankruptcy risk elevated</td>
-<td>Capital infusion, asset sales</td>
+<td>Liquidity crisis, bankruptcy risk</td>
+<td>Capital raise, asset sales, debt refinancing</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Price volatility if distress worsens</td>
-<td>Hedging, diversification</td>
+<td>Price volatility, investor confidence loss</td>
+<td>Transparent communication, risk hedging</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Operational improvements and capital injections improve EBIT and working capital, raising Z-Score above 1.8 within 6-12 months.<br />
-- <strong>Base Case:</strong> Continued distress with Z-Score hovering below 1.0, maintaining high bankruptcy risk but avoiding immediate default.<br />
-- <strong>Worst Case:</strong> Liquidity crisis triggers bankruptcy, Z-Score falls below 0.3, leading to severe market value erosion.</p>
-<p>Based on AI Risk Analysis overall risk level of <strong>high with &gt;80% confidence</strong>, urgent mitigation is required to avoid insolvency.</p>
+- <strong>Best Case:</strong> Successful capital infusion and operational turnaround could stabilize Z-Score near 1.5-2.0, moving toward Gray Zone.<br />
+- <strong>Base Case:</strong> Continued distress with Z-Score fluctuating between 0.3-0.6, maintaining high bankruptcy risk.<br />
+- <strong>Worst Case:</strong> Liquidity failure triggers bankruptcy, Z-Score falls below 0.3, severe value destruction.</p>
+<p><strong>AI Risk Analysis</strong> highlights <strong>high probability (&gt;80%) of operational and financial risks materializing</strong>, with critical severity impacting solvency. Immediate mitigation via capital management and operational efficiency is essential.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -706,47 +805,48 @@ The <strong>Z-Score distress signal contrasts with a relatively stable stock pri
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>SELL/HOLD</strong></td>
-<td>Z-Score 0.39 indicates high distress; avoid new exposure</td>
-<td>Price stable but fundamentals weak</td>
-<td>Immediate review and possible exit</td>
+<td><strong>SELL</strong></td>
+<td>Z-Score 0.39 in Distress Zone; high bankruptcy risk</td>
+<td>Avoid entry; wait for recovery signals</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td><strong>SELL</strong></td>
-<td>Dividend yield data unreliable; payout likely unsustainable</td>
-<td>Avoid until financials stabilize</td>
-<td>Monitor quarterly results</td>
+<td>Unsustainable dividend yield (360%) vs EBIT 0.003</td>
+<td>Dividend likely cut; avoid</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>HOLD</strong></td>
-<td>Valuation not compelling given distress; wait for Z-Score recovery</td>
-<td>Entry only if Z-Score &gt;1.8</td>
-<td>6-12 months horizon</td>
+<td><strong>HOLD/AVOID</strong></td>
+<td>Valuation disconnected from distress; risk of price correction</td>
+<td>Monitor for Z-Score improvement above 1.8</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td><strong>AVOID</strong></td>
-<td>No growth signals; EBIT near zero</td>
-<td>No momentum</td>
+<td>No growth signals; EBIT and asset turnover near zero</td>
+<td>No momentum; avoid</td>
 <td>N/A</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td><strong>SPECULATIVE BUY</strong></td>
-<td>Potential turnaround if restructuring succeeds</td>
-<td>High volatility expected</td>
-<td>Short-term speculative position</td>
+<td>Potential turnaround play if capital raised; high risk/reward</td>
+<td>Entry only on confirmed operational improvements</td>
+<td>Conditional, short-term</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-Conservative and dividend investors should avoid or exit due to high bankruptcy risk and unreliable dividend data. Value investors may hold but should wait for clear signs of financial stabilization (Z-Score &gt;1.8). Growth investors should avoid given lack of operational momentum. Aggressive investors may consider speculative positions but must accept high risk.</p>
+<p><strong>Commentary:</strong><br />
+Conservative and dividend-focused investors should divest immediately due to high distress risk and unsustainable payouts. Value investors may consider a hold with close monitoring for Z-Score improvement above 1.8, signaling reduced bankruptcy risk.</p>
+<p>Growth investors should avoid due to lack of operational momentum. Aggressive investors may speculate on a turnaround but must require clear evidence of capital restructuring and operational gains.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -762,29 +862,29 @@ Conservative and dividend investors should avoid or exit due to high bankruptcy 
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Liquidity &amp; Operational Turnaround</td>
-<td>Working Capital Ratio, EBIT Ratio</td>
-<td>Implement cost reduction, improve cash flow management</td>
-<td>Positive Z-Score trend, liquidity improvement</td>
+<td>Stabilize liquidity, improve operational efficiency</td>
+<td>Working Capital Ratio, EBIT Ratio, Asset Turnover</td>
+<td>Implement cost controls, asset optimization, capital raise</td>
+<td>Z-Score improvement &gt;1.8, positive EBIT growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital Structure Optimization</td>
-<td>Retained Earnings Ratio, Debt Levels</td>
-<td>Seek capital infusion, restructure debt</td>
-<td>Improved leverage ratios, stable liquidity</td>
+<td>Capital structure management, risk mitigation</td>
+<td>Retained Earnings Ratio, Debt-to-Equity (to be assessed)</td>
+<td>Debt refinancing, dividend suspension, liquidity management</td>
+<td>Improved liquidity ratios, reduced leverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk Oversight &amp; Transparency</td>
-<td>Z-Score, Risk Levels</td>
-<td>Enhance risk reporting, contingency planning</td>
-<td>Timely risk mitigation, compliance adherence</td>
+<td>Oversight of risk and turnaround strategy</td>
+<td>Z-Score trend, Risk Analysis metrics</td>
+<td>Approve restructuring plans, enhance risk monitoring</td>
+<td>Compliance with turnaround milestones</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The leadership team must prioritize reversing liquidity deficits and operational inefficiencies to improve the Z-Score trajectory. The CFO should focus on capital raising and debt restructuring to stabilize finances. The Board must ensure rigorous risk oversight given the high distress risk, aligning governance with transparent communication to investors and regulators.</p>
+The leadership team must prioritize <strong>liquidity restoration and operational turnaround</strong> to avert bankruptcy. The CFO should focus on <strong>capital structure optimization</strong> and <strong>dividend policy revision</strong> to conserve cash. The Board must enforce rigorous oversight of risk mitigation and turnaround execution.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -800,34 +900,35 @@ The leadership team must prioritize reversing liquidity deficits and operational
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Declining</td>
-<td>Potential stabilization if restructuring succeeds</td>
-<td>Capital infusion, operational improvements</td>
-<td>Quarterly Z-Score updates, EBIT margin</td>
+<td>Declining, Distress</td>
+<td>Potential stabilization if capital raised</td>
+<td>Capital infusion, operational restructuring</td>
+<td>Quarterly Z-Score, EBIT ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Weak</td>
-<td>Possible recovery if fundamentals improve</td>
-<td>Regulatory support, market conditions</td>
-<td>Peer comparison, stock price trends</td>
+<td>Weak, underperforming</td>
+<td>Possible recovery with improved fundamentals</td>
+<td>Regulatory changes, sector recovery</td>
+<td>Peer comparison, price trends</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High</td>
-<td>Risk may remain elevated without intervention</td>
-<td>Economic downturn, credit losses</td>
-<td>Liquidity ratios, credit default rates</td>
+<td>High risk, negative trajectory</td>
+<td>Risk reduction if mitigation succeeds</td>
+<td>Dividend policy change, liquidity improvement</td>
+<td>Working capital ratio, debt metrics</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-FITB’s Z-Score momentum is currently negative, but targeted operational and financial restructuring could stabilize or improve the score within 6-12 months. Key catalysts include successful capital raises and improved asset utilization. Continuous monitoring of liquidity ratios, EBIT margins, and peer performance will be critical to detect inflection points. Early warning systems should focus on working capital trends and earnings volatility to preempt further distress.</p>
+The Z-Score momentum is currently negative but could stabilize or improve over the next 6-12 months if FITB successfully executes capital raising and operational restructuring. Key catalysts include regulatory easing, sector-wide recovery, and management effectiveness.</p>
+<p>Investors and stakeholders should monitor <strong>leading indicators</strong> such as quarterly Z-Score changes, EBIT improvements, and liquidity ratios to anticipate inflection points. Early warning systems should flag any further deterioration in working capital or EBIT to trigger risk mitigation.</p>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>Fifth Third Bancorp (FITB) is in a <strong>critical financial distress state</strong> with a persistently low Altman Z-Score (~0.39), negative liquidity, and operational inefficiencies. Market signals are inconsistent with fundamentals, suggesting caution. Investors should prioritize risk mitigation, with conservative profiles avoiding exposure and aggressive profiles considering speculative positions only with strict risk controls. Executive leadership must urgently address liquidity and operational challenges to reverse the downward trajectory.</p>
+<h1 id="summary-conclusion"><strong>Summary Conclusion:</strong></h1>
+<p>Fifth Third Bancorp (FITB) is currently in a <strong>critical financial distress state</strong> with a <strong>Z-Score of 0.39</strong>, well below the safe threshold. Liquidity and operational inefficiencies dominate risk profiles, with limited market reflection of this distress. Immediate strategic actions are required to stabilize the company. Investors should exercise extreme caution, with most profiles advised to sell or avoid until clear turnaround evidence emerges.</p>
 <hr />
-<p><em>Analysis completed with explicit reference to all injected data elements, cross-validated across financial, market, risk, and peer dimensions, with data quality considerations integrated into confidence levels and recommendations.</em></p></div></div>
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, peer, sentiment, and risk data for actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1170,78 +1271,41 @@ FITB’s Z-Score momentum is currently negative, but targeted operational and fi
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:23 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:51 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

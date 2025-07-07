@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>CrowdStrike Holdings, Inc. (CRWD)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:21 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:50 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -357,9 +429,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="CRWD_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="CRWD_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -373,7 +445,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">14.97</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">14.70</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -422,15 +494,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$514.10</p>
+                <p>$$504.67</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$128.1B</p>
+                <p>$$125.8B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>120.4</p>
+                <p>118.2</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -442,7 +514,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>62.7</p>
+                <p>58.8</p>
             </div>
         </div>
     </div>
@@ -456,7 +528,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.71</p>
+                <p>0.67</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -476,88 +548,61 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> CrowdStrike Holdings, Inc. (Ticker: CRWD)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:20:55  </p>
+<p><strong>Company:</strong> CrowdStrike Holdings, Inc. (CRWD)<br />
+<strong>Analysis Date:</strong> 2025-07-07 10:49:48  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>CrowdStrike Holdings, Inc. (CRWD) demonstrates an exceptionally strong financial health profile as evidenced by its Altman Z-Score trajectory, which remains firmly in the <strong>Safe Zone</strong> with a current value of <strong>21.29</strong>. This score is significantly above the distress threshold of 1.8 and the gray zone upper bound of 3.0, indicating a very low risk of bankruptcy or financial distress. The Z-Score has shown a consistent upward trend over the past eight quarters, rising from 14.97 to 21.29, reflecting improving operational and financial stability.</p>
-<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>Low</strong>, with a stable risk trajectory and no significant risk factors threatening the company’s financial position. This low risk is supported by the company’s strong market capitalization of <strong>$128.14 billion</strong> and a current share price of <strong>$514.10</strong>.</p>
-<p><strong>AI Peer Analysis</strong> positions CRWD well above the industry average Z-Score (industry average not explicitly provided but typically ranges between 2.5 and 4.0 for technology software infrastructure firms), indicating superior financial robustness relative to peers. Key peers in the Software - Infrastructure sector typically show Z-Scores in the gray zone, making CRWD a standout performer.</p>
-<p><strong>AI Sentiment Analysis</strong> shows a neutral to positive market sentiment, though technical indicators such as RSI and moving averages are unavailable or zero, suggesting limited recent trading data or market inactivity. The high P/E ratio of <strong>120.40</strong> indicates market expectations of strong future growth but also signals valuation risk.</p>
-<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<p>CrowdStrike Holdings, Inc. (CRWD) demonstrates an exceptionally strong financial health profile as evidenced by its Altman Z-Score trajectory, which remains firmly in the <strong>Safe Zone</strong> with a current value of <strong>20.91</strong>, significantly above the distress threshold of 1.8. This robust Z-Score reflects a very low bankruptcy risk and strong operational fundamentals despite some negative profitability ratios. The AI Risk Analysis, while not explicitly quantified here, aligns with this low risk profile given the Z-Score stability and upward trend over eight quarters.</p>
+<p><strong>AI Peer Analysis</strong> positions CRWD well above the typical industry average Z-Score (generally around 3.0 for Software - Infrastructure), indicating a competitive advantage in financial stability relative to peers. The company’s market capitalization of approximately <strong>$125.8 billion</strong> and current share price of <strong>$504.86</strong> reflect strong market confidence, although valuation metrics such as a high P/E ratio of <strong>118.20</strong> suggest growth expectations are priced in.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are limited due to missing RSI and volume data, but the absence of dividend yield and zero beta imply a growth-oriented, low-dividend, low-volatility profile consistent with technology sector norms.</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
+<th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Current Z-Score</td>
-<td>21.29</td>
-<td>Very safe financial position</td>
+<td>20.91 (Safe Zone)</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$128.14 billion</td>
-<td>Large-cap, stable market presence</td>
+<td>$125.79B</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$514.10</td>
-<td>High valuation reflecting growth</td>
+<td>$504.86</td>
+</tr>
+<tr>
+<td>Shares Outstanding</td>
+<td>249.25M</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>118.20</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.320</td>
-<td>Low liquidity buffer</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>-0.136</td>
-<td>Negative retained earnings</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>-0.014</td>
-<td>Slight operating loss</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.127</td>
-<td>Low asset efficiency</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>120.40</td>
-<td>High growth expectations</td>
-</tr>
-<tr>
-<td>AI Risk Level</td>
-<td>Low</td>
-<td>Minimal financial distress risk</td>
-</tr>
-<tr>
-<td>AI Peer Relative Position</td>
-<td>Above Industry Avg.</td>
-<td>Strong competitive positioning</td>
-</tr>
-<tr>
-<td>AI Sentiment</td>
-<td>Neutral-Positive</td>
-<td>Market cautiously optimistic</td>
 </tr>
 </tbody>
 </table>
-<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
-<ul>
-<li><strong>Buy/Hold</strong> for growth-oriented investors given the strong Z-Score and market cap, despite high valuation.</li>
-<li>Monitor liquidity ratios and operating profitability for signs of operational stress.</li>
-<li>Cautious entry recommended due to elevated P/E; consider partial position sizing.</li>
-<li>Maintain vigilance on market sentiment and risk factors despite current low risk.</li>
-</ul>
+<p><strong>Investment Action Recommendation:</strong><br />
+Given the very strong Altman Z-Score and market position, <strong>a BUY recommendation</strong> is warranted for investors with medium to high risk tolerance focused on growth. Conservative investors should monitor profitability improvements before increasing exposure. The high P/E ratio suggests entering on potential price corrections or consolidations to optimize timing.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -565,7 +610,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark*</th>
+<th>Industry Benchmark (Software - Infrastructure)</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -574,52 +619,39 @@
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.320<br>Working Capital Ratio: 0.320</td>
-<td>Industry Avg. ~1.5-2.0</td>
+<td>Industry average ~1.5 - 2.0</td>
 <td><strong>Weak liquidity</strong>; below industry norms, potential short-term cash flow constraints</td>
 <td>Stable/Low</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
 <td>Debt-to-Equity: Not provided<br>Interest Coverage: Not provided</td>
-<td>Industry Avg. Moderate</td>
-<td>Insufficient data; however, high Z-Score suggests manageable leverage</td>
+<td>Industry average Debt/Equity ~0.3 - 0.5</td>
+<td>Insufficient data; inferred low leverage due to high Z-Score and market equity value</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.127<br>EBIT Ratio: -0.014</td>
-<td>Industry Avg. ~0.3-0.5<br>EBIT positive</td>
-<td><strong>Low asset utilization</strong> and slight operating loss indicate operational inefficiency</td>
-<td>Slight Decline</td>
+<td>Industry average Asset Turnover ~0.3 - 0.5<br>EBIT Margin ~5-10%</td>
+<td><strong>Low asset utilization and negative EBIT margin</strong> indicate operational inefficiencies or growth investments</td>
+<td>Slightly Improving (Z-Score uptrend)</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: -0.136<br>Cash Position: Not provided</td>
-<td>Industry Avg. Positive</td>
-<td>Negative retained earnings suggest accumulated losses or aggressive reinvestment</td>
-<td>Stable</td>
+<td>Positive retained earnings typical</td>
+<td>Negative retained earnings ratio signals accumulated losses or heavy reinvestment</td>
+<td>Stable/Concern</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks based on Software - Infrastructure sector typical ranges.</p>
-<h3 id="commentary">Commentary</h3>
-<ul>
-<li>
-<p><strong>Liquidity Position:</strong> The current ratio and working capital ratio at 0.320 are significantly below typical industry standards (~1.5-2.0), indicating potential short-term liquidity challenges. However, the company’s large market cap and access to capital markets may mitigate immediate liquidity risk. AI Data Quality Assessment shows no anomalies in financial data, lending confidence to these figures.</p>
-</li>
-<li>
-<p><strong>Leverage Management:</strong> While specific debt-to-equity and interest coverage ratios are unavailable, the extremely high Altman Z-Score (21.29) strongly implies low financial leverage and strong equity buffer. This is consistent with the company’s profile as a large-cap technology firm with substantial equity valuation.</p>
-</li>
-<li>
-<p><strong>Operational Efficiency:</strong> Asset turnover at 0.127 is low compared to industry averages, indicating that the company generates relatively low sales per dollar of assets. EBIT ratio is slightly negative (-0.014), suggesting operating losses or high investment in growth initiatives. This aligns with the company’s business model focusing on cloud-delivered cybersecurity services, which may require upfront R&amp;D and sales investments.</p>
-</li>
-<li>
-<p><strong>Financial Stability:</strong> The negative retained earnings ratio (-0.136) signals accumulated losses or aggressive reinvestment strategies, common in high-growth tech companies. Despite this, the company’s financial stability is supported by its market valuation and Z-Score.</p>
-</li>
-<li>
-<p><strong>Data Quality:</strong> AI Data Quality Assessment reports no anomalies or inconsistencies, with high completeness and reliability, supporting confidence in the financial health diagnostic.</p>
-</li>
-</ul>
+<p><strong>Interpretive Commentary:</strong><br />
+- <strong>Liquidity:</strong> The current ratio of 0.320 is significantly below the industry benchmark of approximately 1.5 to 2.0, indicating potential liquidity risk. However, the high Z-Score suggests this is offset by strong market capitalization and equity buffer.<br />
+- <strong>Leverage:</strong> While explicit debt-to-equity data is missing, the Altman Z-Score’s market value equity component implies low financial leverage, reducing bankruptcy risk.<br />
+- <strong>Operational Efficiency:</strong> Asset turnover at 0.127 is low compared to industry averages, and EBIT ratio is slightly negative (-0.014), reflecting ongoing investments in growth and R&amp;D typical for a technology infrastructure company.<br />
+- <strong>Financial Stability:</strong> The negative retained earnings ratio (-0.136) suggests accumulated losses or aggressive reinvestment, which is common in high-growth tech firms but warrants monitoring.</p>
+<p><strong>Data Quality Note:</strong> The AI Data Quality Assessment indicates no anomalies detected, and completeness is high, lending confidence to these financial diagnostics.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -635,70 +667,65 @@
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>21.29</td>
+<td>20.91</td>
 <td>Safe</td>
-<td>Strong equity valuation, low leverage</td>
-<td>Continued market confidence, strong equity market cap</td>
+<td>Strong market equity value, stable working capital</td>
+<td>Continued growth in cloud-delivered security services</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>20.62</td>
+<td>20.24</td>
 <td>Safe</td>
-<td>Stable working capital, equity growth</td>
-<td>Sustained operational investment</td>
+<td>Increasing market cap, operational investments</td>
+<td>Expansion of threat intelligence and Zero Trust offerings</td>
 </tr>
 <tr>
 <td>Q6</td>
-<td>18.09</td>
+<td>17.76</td>
 <td>Safe</td>
-<td>Improving asset base, equity growth</td>
-<td>Expansion phase, product development</td>
+<td>Improved asset management, equity growth</td>
+<td>Scaling managed security services</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>18.26</td>
+<td>17.93</td>
 <td>Safe</td>
-<td>Consistent capital structure</td>
-<td>Market penetration and scaling</td>
+<td>Stable EBIT despite negative margins</td>
+<td>Product innovation and customer acquisition</td>
 </tr>
 <tr>
 <td>Q4</td>
-<td>18.19</td>
+<td>17.86</td>
 <td>Safe</td>
-<td>Stable financial ratios</td>
-<td>Steady revenue growth</td>
+<td>Consistent equity and sales growth</td>
+<td>Market leadership in endpoint protection</td>
 </tr>
 <tr>
 <td>Q3</td>
-<td>16.73</td>
+<td>16.43</td>
 <td>Safe</td>
-<td>Increasing market valuation</td>
-<td>Positive market sentiment</td>
+<td>Increasing retained earnings ratio (less negative)</td>
+<td>Strengthening balance sheet</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>14.57</td>
+<td>14.30</td>
 <td>Safe</td>
-<td>Early growth phase</td>
-<td>Product launches, customer acquisition</td>
+<td>Early growth phase, rising market cap</td>
+<td>Initial cloud platform adoption</td>
 </tr>
 <tr>
 <td>Q1</td>
-<td>14.97</td>
+<td>14.70</td>
 <td>Safe</td>
-<td>Initial strong capital structure</td>
-<td>Foundation building phase</td>
+<td>Baseline strong financial health</td>
+<td>Foundation of cloud security infrastructure</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_1">Commentary</h3>
-<ul>
-<li>The Z-Score has steadily increased from 14.97 to 21.29 over eight quarters, indicating improving financial health and decreasing bankruptcy risk.</li>
-<li>Key drivers include strong market capitalization growth, low financial leverage, and stable working capital management despite low liquidity ratios.</li>
-<li>The company’s business context as a cloud-delivered cybersecurity provider supports ongoing investment in growth and R&amp;D, which may temporarily depress EBIT but build long-term value.</li>
-<li>Compared to the industry average Z-Score (typically 2.5-4.0), CRWD’s score is exceptionally high, underscoring its superior financial position.</li>
-<li>No inflection points indicating distress or gray zone risk have been observed.</li>
-</ul>
+<p><strong>Strategic Commentary:</strong><br />
+The Z-Score has steadily increased from 14.70 to 20.91 over eight quarters, indicating improving financial robustness and decreasing bankruptcy risk. The primary driver is the market value of equity relative to book debt, reflecting investor confidence and capital market strength. Despite some negative profitability ratios, the company’s strategic investments in cloud security and Zero Trust identity protection have translated into strong market positioning and financial stability.</p>
+<p>Compared to the industry average Z-Score (~3.0), CRWD’s values are exceptionally high, underscoring its superior financial health and competitive advantage.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -714,35 +741,30 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Strong upward trend</td>
-<td>Price stable at $514.10</td>
-<td>Divergent</td>
-<td>Potential overvaluation risk; fundamentals strong but price may reflect growth premium</td>
+<td>Strong upward trend, Z-Score 20.91 (Safe)</td>
+<td>P/E Ratio high at 118.20; Price stable at $504.86</td>
+<td>Divergent (high valuation vs fundamentals)</td>
+<td>Growth priced in; caution on valuation</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral-Positive</td>
-<td>P/E Ratio very high (120.40)</td>
-<td>Consistent</td>
-<td>Market expects high growth; cautious optimism warranted</td>
+<td>Not explicitly provided</td>
+<td>RSI and volume data missing</td>
+<td>Inconclusive</td>
+<td>Limited sentiment data; monitor market signals</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Above industry avg.</td>
-<td>Sector performance strong</td>
-<td>Outperforming</td>
-<td>Competitive advantage confirmed</td>
+<td>Outperforming peers with Z-Score &gt;20 vs ~3.0</td>
+<td>Sector performance strong but volatile</td>
+<td>Aligned</td>
+<td>Competitive positioning supports investment thesis</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_2">Commentary</h3>
-<ul>
-<li>The Z-Score indicates robust fundamental health, but market technical indicators such as RSI and moving averages are unavailable or zero, suggesting limited recent trading activity or data gaps.</li>
-<li>The high P/E ratio (120.40) signals that the market prices in significant future growth, which may not be fully supported by current operational profitability (EBIT ratio negative).</li>
-<li>The divergence between strong fundamentals (Z-Score) and high valuation suggests potential volatility or correction risk.</li>
-<li>Peer comparison confirms CRWD’s superior financial position, supporting a positive long-term outlook.</li>
-<li>Investors should consider timing entry points carefully, balancing growth expectations against valuation risks.</li>
-</ul>
+<p><strong>Market Validation Commentary:</strong><br />
+The Altman Z-Score’s strong upward trajectory aligns with CRWD’s market capitalization growth, confirming fundamental strength. However, the very high P/E ratio (118.20) indicates that market prices may be reflecting aggressive growth expectations, which could lead to volatility if earnings disappoint.</p>
+<p>The absence of technical indicators such as RSI and volume limits short-term market timing insights. Peer comparison confirms CRWD’s superior financial health, supporting a positive long-term outlook.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -760,35 +782,30 @@
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential EBIT decline could lower Z-Score</td>
+<td>Potential EBIT margin pressure</td>
 <td>Enhance operational efficiency, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
 <td>Minor</td>
-<td>Low leverage limits financial distress risk</td>
-<td>Maintain conservative capital structure</td>
+<td>Low due to strong equity buffer</td>
+<td>Maintain conservative leverage levels</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>High valuation could lead to price volatility</td>
-<td>Diversify holdings, monitor market sentiment</td>
+<td>Valuation correction could reduce market cap</td>
+<td>Diversify investor base, communicate growth strategy</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_3">Commentary</h3>
-<ul>
-<li><strong>Operational Risks:</strong> The negative EBIT ratio (-0.014) and low asset turnover (0.127) indicate operational inefficiencies that could impact profitability and Z-Score if not addressed. Probability medium with moderate severity.</li>
-<li><strong>Financial Risks:</strong> Low probability and severity due to strong equity base and high Z-Score; minimal impact expected.</li>
-<li><strong>Market Risks:</strong> Elevated P/E ratio and lack of technical trading data increase market risk, potentially impacting stock price volatility without affecting Z-Score directly.</li>
-<li><strong>Scenario Planning:</strong>  </li>
-<li><strong>Best Case:</strong> Continued growth and operational improvements push Z-Score above 22, reinforcing investment thesis.  </li>
-<li><strong>Base Case:</strong> Stable Z-Score around 21 with minor EBIT fluctuations.  </li>
-<li><strong>Worst Case:</strong> Operational losses deepen, EBIT ratio declines further, Z-Score drops toward gray zone (~3.0), triggering caution.</li>
-</ul>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Continued growth in cloud security adoption drives EBIT margin improvement, pushing Z-Score above 22, reinforcing Safe Zone status.<br />
+- <strong>Base Case:</strong> Stable EBIT with ongoing investments maintains Z-Score around 20, preserving low bankruptcy risk.<br />
+- <strong>Worst Case:</strong> Market correction or operational setbacks reduce market cap, lowering Z-Score toward 15, still within Safe Zone but signaling caution.</p>
+<p>Bankruptcy risk remains negligible given the current Z-Score and market capitalization. Liquidity concerns from low current ratio are mitigated by strong equity and investor confidence.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -807,52 +824,49 @@
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score 21.29 indicates safety</td>
-<td>Wait for valuation correction</td>
+<td>Z-Score 20.91 indicates safety but low liquidity and negative EBIT warrant caution</td>
+<td>Monitor for profitability improvements</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>HOLD</td>
-<td>No dividend yield (0.00%)</td>
-<td>Not suitable for income focus</td>
+<td>SELL</td>
+<td>No dividend yield; negative retained earnings ratio</td>
+<td>Not suitable for income-focused investors</td>
 <td>N/A</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>CAUTIOUS BUY</td>
-<td>High Z-Score but high P/E ratio</td>
-<td>Enter on dips or corrections</td>
+<td>HOLD</td>
+<td>High valuation (P/E 118.20) vs strong Z-Score suggests overpricing</td>
+<td>Wait for valuation correction</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>BUY</td>
-<td>Strong Z-Score supports growth</td>
-<td>Momentum expected to continue</td>
-<td>Immediate to 6 months</td>
+<td>Strong Z-Score trend supports growth thesis despite negative EBIT</td>
+<td>Enter on dips or consolidation</td>
+<td>Immediate to 3 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>BUY</td>
-<td>High risk/reward due to valuation</td>
-<td>Volatility expected</td>
+<td>High Z-Score with growth potential justifies risk</td>
+<td>Capitalize on volatility</td>
 <td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_4">Commentary</h3>
-<ul>
-<li><strong>Conservative investors</strong> should hold and monitor liquidity and profitability improvements before increasing exposure.</li>
-<li><strong>Dividend investors</strong> are not recommended to invest due to zero dividend yield.</li>
-<li><strong>Value investors</strong> should be cautious given the stretched valuation but may consider buying on price dips supported by strong Z-Score fundamentals.</li>
-<li><strong>Growth investors</strong> are encouraged to buy, leveraging the company’s strong financial health and market position.</li>
-<li><strong>Aggressive investors</strong> can capitalize on potential volatility and growth opportunities but should manage position sizing carefully.</li>
-</ul>
+<p><strong>Detailed Commentary:</strong><br />
+- <strong>Conservative investors</strong> should hold and await clearer profitability signals given the negative EBIT and liquidity constraints.<br />
+- <strong>Dividend investors</strong> should avoid CRWD due to zero dividend yield and reinvestment focus.<br />
+- <strong>Value investors</strong> face a high valuation environment; waiting for price corrections is prudent.<br />
+- <strong>Growth and aggressive investors</strong> can capitalize on the company’s strong financial health and market leadership, entering positions during short-term price consolidations.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -868,34 +882,29 @@
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational efficiency &amp; growth</td>
-<td>EBIT ratio, Asset turnover</td>
-<td>Focus on improving operational margins and asset utilization</td>
-<td>EBIT margin improvement, Z-Score stability</td>
+<td>Sustain growth and innovation</td>
+<td>Z-Score components, EBIT</td>
+<td>Focus on improving EBIT margin and asset turnover</td>
+<td>Z-Score &gt; 22, EBIT margin &gt; 5%</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; capital structure</td>
-<td>Current ratio, Debt levels</td>
-<td>Enhance liquidity buffers, maintain low leverage</td>
-<td>Improved current ratio, stable Z-Score</td>
+<td>Enhance liquidity and capital efficiency</td>
+<td>Current ratio, retained earnings</td>
+<td>Optimize working capital management, reduce losses</td>
+<td>Current ratio &gt; 1.0, positive retained earnings</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; compliance</td>
-<td>Risk factors, Z-Score trends</td>
-<td>Monitor risk trajectory, enforce governance policies</td>
-<td>Risk mitigation, compliance adherence</td>
+<td>Risk oversight and compliance</td>
+<td>Risk factors, Z-Score trajectory</td>
+<td>Monitor market risks, enforce governance on financial reporting</td>
+<td>Stable Z-Score, low risk incidents</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_5">Commentary</h3>
-<ul>
-<li>CEO should prioritize operational improvements to convert strong market position into sustainable profitability.</li>
-<li>CFO must address liquidity constraints (current ratio 0.320) to avoid short-term cash flow issues.</li>
-<li>Board should maintain oversight on risk factors, ensuring the company remains in the safe Z-Score zone.</li>
-<li>Market perception management is critical given high valuation and growth expectations.</li>
-</ul>
+<p><strong>Executive Commentary:</strong><br />
+The CEO should prioritize operational efficiency to convert strong market positioning into improved profitability, which will further elevate the Z-Score and investor confidence. The CFO must address liquidity constraints by optimizing working capital and managing reinvestment pace. The Board should maintain vigilant oversight on risk factors, ensuring transparency and compliance to sustain the company’s Safe Zone status.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -911,40 +920,35 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Upward trend (21.29)</td>
-<td>Stable to slight increase</td>
-<td>Operational efficiency gains, equity growth</td>
-<td>EBIT ratio, asset turnover, working capital ratio</td>
+<td>Upward, currently 20.91</td>
+<td>Stable to improving</td>
+<td>EBIT margin improvement, market cap growth</td>
+<td>Quarterly Z-Score updates, EBIT ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Strong market cap</td>
+<td>Leading in cloud security</td>
 <td>Maintain leadership</td>
-<td>Innovation, market expansion</td>
-<td>Market share, peer Z-Score comparison</td>
+<td>Innovation in Zero Trust, threat intelligence</td>
+<td>Market share, peer Z-Score trends</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low risk</td>
-<td>Stable to slight increase</td>
-<td>Market volatility, operational risks</td>
-<td>Risk factor incidence, liquidity ratios</td>
+<td>Low risk, medium operational risk</td>
+<td>Slight increase if EBIT weakens</td>
+<td>Market volatility, operational execution</td>
+<td>Liquidity ratios, valuation multiples</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_6">Commentary</h3>
-<ul>
-<li>The Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, contingent on operational improvements and market conditions.</li>
-<li>Key catalysts include successful product innovation and scaling, which could enhance EBIT and asset turnover.</li>
-<li>Monitoring EBIT ratio and liquidity metrics will provide early warning signals for any deterioration.</li>
-<li>Market position is expected to remain strong given the company’s technological leadership and financial strength.</li>
-<li>Risk profile remains low but requires vigilance on operational execution and market valuation trends.</li>
-</ul>
+<p><strong>Forward-Looking Commentary:</strong><br />
+CRWD’s Z-Score momentum is expected to remain stable or improve over the next 6-12 months, contingent on EBIT margin recovery and sustained market capitalization growth. Key catalysts include successful product innovation and expansion in cloud security services. Monitoring should focus on EBIT ratio trends, liquidity improvements, and peer industry Z-Score movements to anticipate inflection points.</p>
+<p>Early warning signals include declining market cap or worsening liquidity ratios, which could signal emerging financial stress despite the current Safe Zone status.</p>
 <hr />
-<h1 id="summary"><strong>Summary</strong></h1>
-<p>CrowdStrike Holdings, Inc. exhibits a robust financial position with an Altman Z-Score well above the safe threshold, reflecting minimal bankruptcy risk and strong equity capitalization. Despite operational inefficiencies and low liquidity ratios, the company’s market leadership and growth potential justify a positive investment stance, especially for growth and aggressive investors. Caution is advised due to high valuation metrics and operational profitability challenges. Continuous monitoring of liquidity, EBIT, and market sentiment is essential to optimize investment timing and risk management.</p>
+<h1 id="summary">Summary</h1>
+<p>CrowdStrike Holdings, Inc. exhibits a <strong>very strong Altman Z-Score profile (20.91)</strong>, indicating minimal bankruptcy risk and robust financial health relative to peers. Despite some operational inefficiencies and liquidity constraints, the company’s market leadership in cloud security and high market capitalization underpin a positive investment outlook. Growth-oriented investors are recommended to BUY, while conservative and value investors should monitor profitability and valuation metrics closely. Strategic focus on improving EBIT margins and liquidity will be critical to sustaining this strong financial position.</p>
 <hr />
-<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Framework.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, market valuation, and sector context to provide actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1287,78 +1291,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:21 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:50 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

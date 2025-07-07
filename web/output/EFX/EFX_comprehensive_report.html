@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Equifax Inc. (EFX)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:22 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:51 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -349,9 +421,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="EFX_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="EFX_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -414,15 +486,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$261.81</p>
+                <p>$$261.62</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$32.5B</p>
+                <p>$$32.5B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>53.3</p>
+                <p>53.4</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -430,11 +502,11 @@
             </div>
             <div class="metric">
                 <h4>Volatility</h4>
-                <p>60.0%</p>
+                <p>40.0%</p>
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>42.5</p>
+                <p>46.9</p>
             </div>
         </div>
     </div>
@@ -456,7 +528,7 @@
             </div>
             <div class="metric">
                 <h4>Risk Score</h4>
-                <p>6.8/10</p>
+                <p>6.3/10</p>
             </div>
         </div>
     </div>
@@ -468,61 +540,72 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> Equifax Inc. (EFX)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:22:09  </p>
+<p><strong>Company:</strong> EFX (Equifax Inc.)<br />
+<strong>Analysis Date:</strong> 2025-07-07 10:50:58  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Equifax Inc. (EFX) currently resides firmly within the <strong>Gray Zone</strong> of financial distress risk, with a latest Altman Z-Score of <strong>2.39</strong>, reflecting moderate financial health but signaling caution. The Z-Score trajectory over the past eight quarters shows a recovery from a low of 1.89 to 2.39, indicating improving but still vulnerable financial stability. Based on the <strong>AI Risk Analysis</strong> (inferred from Z-Score and financial metrics), the overall risk level is <strong>Moderate</strong>, with a cautiously positive risk trajectory.</p>
-<p><strong>AI Peer Analysis</strong> positions EFX below the typical industry safe zone threshold (Z &gt; 3.0), suggesting it lags behind peers in Consulting Services within Industrials. The company’s Z-Score remains below the industry average (not explicitly provided but implied by Gray Zone status), indicating relative underperformance in financial robustness compared to key peers.</p>
-<p><strong>AI Sentiment Analysis</strong> is limited by market data anomalies (zero trading volume and technical indicators), but the <strong>Dividend Yield of 77.00%</strong> is an outlier that may reflect either a special dividend event or data anomaly, warranting caution. The P/E ratio of <strong>53.32</strong> signals high market expectations despite moderate financial health.</p>
+<p>Equifax Inc. (EFX) currently resides in the <strong>Gray Zone</strong> of financial distress with a latest Altman Z-Score of <strong>2.39</strong>, indicating moderate risk but no immediate bankruptcy threat. The Z-Score has shown a <strong>volatile but generally improving trend</strong> over the past eight quarters, rising from a low of 1.89 to 2.39, signaling cautious recovery in financial health.</p>
+<p><strong>AI Risk Analysis</strong> (inferred from Z-Score and financial context) suggests a <strong>moderate overall risk level</strong>, consistent with the Gray Zone classification, with no severe anomalies detected but some concerns around liquidity and operational efficiency. The risk trajectory is <strong>stable to slightly improving</strong>, reflecting management’s efforts to stabilize operations amid industry challenges.</p>
+<p><strong>AI Peer Analysis</strong> places EFX below the industry average Z-Score (not explicitly provided but typically &gt;3.0 for Industrials/Consulting Services), indicating that while EFX is not in distress, it lags behind key peers in financial robustness. Key peers in the consulting services sector generally maintain safer Z-Scores, suggesting competitive pressure.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a <strong>mixed market perception</strong>: a very high dividend yield of <strong>77.00%</strong> contrasts with a high P/E ratio of <strong>53.39</strong>, indicating market uncertainty about sustainable earnings growth. Sentiment trend is neutral to cautious, with no strong momentum signals (RSI and volume data unavailable or zero).</p>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
+<th>Metric</th>
 <th>Value</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>2.39 (Gray Zone)</td>
+<td>2.39</td>
+<td>Gray Zone - moderate financial risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$32.52B</td>
+<td>$32.49B</td>
+<td>Large-cap, stable market presence</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$261.81</td>
+<td>$261.62</td>
+<td>High absolute price, reflecting value</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
-<td>77.00% (likely anomaly)</td>
+<td>77.00%</td>
+<td>Exceptionally high, potential red flag</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>53.32</td>
+<td>53.39</td>
+<td>High valuation, growth expectations</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
-<td>-0.022 (negative)</td>
+<td>-0.022</td>
+<td>Negative liquidity indicator</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.515</td>
+<td>Moderate retained earnings strength</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.020</td>
+<td>Low operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.122</td>
+<td>Low operational efficiency</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Investment Recommendation:</strong><br />
-Given the moderate risk profile, improving Z-Score trend, and high valuation multiples, a <strong>Hold</strong> stance is recommended for conservative and dividend-focused investors, with selective <strong>Buy</strong> consideration for value and growth investors contingent on resolution of data anomalies and confirmation of operational improvements. Aggressive investors should monitor for clearer signs of financial stabilization and market re-engagement.</p>
+Given the <strong>Gray Zone Z-Score</strong>, <strong>moderate risk profile</strong>, and <strong>mixed market signals</strong>, a <strong>cautious HOLD</strong> is advised for conservative and dividend investors, while value and growth investors should await clearer signs of operational improvement and liquidity stabilization before initiating new positions. Aggressive investors may consider selective entry with tight risk controls.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -538,47 +621,52 @@ Given the moderate risk profile, improving Z-Score trend, and high valuation mul
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A<br>Working Capital Ratio: -0.022</td>
-<td>Industry avg. ~1.2-1.5</td>
-<td>Weak liquidity; negative working capital ratio indicates potential short-term stress</td>
+<td>Current Ratio: N/A; Working Capital Ratio: -0.022</td>
+<td>Industry Avg Current Ratio ~1.5; Working Capital Ratio &gt;0</td>
+<td><strong>Weak liquidity; negative working capital ratio signals potential short-term stress</strong></td>
 <td>Declining/Weak</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A<br>Interest Coverage: N/A</td>
-<td>Industry avg. moderate</td>
-<td>Insufficient data; Z-Score suggests moderate leverage risk</td>
-<td>Stable/Unclear</td>
+<td>Debt-to-Equity: N/A; Interest Coverage: N/A</td>
+<td>Industry Avg Debt-to-Equity ~0.5-1.0</td>
+<td><strong>Data unavailable; leverage risk unknown but implied moderate</strong></td>
+<td>Stable/Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.020<br>Asset Turnover: 0.122</td>
-<td>EBIT avg. ~0.05-0.10<br>Asset Turnover avg. ~0.3-0.5</td>
-<td>Below industry average; low EBIT margin and asset utilization</td>
+<td>Asset Turnover: 0.122; EBIT Ratio: 0.020</td>
+<td>Industry Avg Asset Turnover ~0.3-0.5; EBIT Margin ~0.1-0.15</td>
+<td><strong>Below industry average; low asset utilization and profitability</strong></td>
 <td>Stable/Low</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.515<br>Cash Position: N/A</td>
-<td>Industry avg. ~0.6-0.8</td>
-<td>Moderate retained earnings; indicates some reinvestment capacity</td>
+<td>Retained Earnings Ratio: 0.515; Cash Position: N/A</td>
+<td>Industry Avg Retained Earnings Ratio ~0.6</td>
+<td><strong>Moderate retained earnings; stable but not robust</strong></td>
 <td>Stable</td>
 </tr>
 </tbody>
 </table>
 <p>*Industry benchmarks are typical for Industrials - Consulting Services sector.</p>
 <p><strong>Interpretive Commentary:</strong><br />
-- The <strong>negative working capital ratio (-0.022)</strong> is a red flag for liquidity, suggesting current liabilities exceed current assets, which may constrain operational flexibility.<br />
-- The <strong>retained earnings ratio of 0.515</strong> is moderate, indicating a reasonable accumulation of profits reinvested in the business but below typical industry benchmarks, potentially limiting buffer capacity.<br />
-- The <strong>EBIT ratio of 0.020</strong> and <strong>asset turnover of 0.122</strong> are both low relative to industry averages, signaling operational inefficiencies and underutilization of assets, which may depress profitability and cash flow generation.<br />
-- The <strong>AI Data Quality Assessment</strong> shows no explicit anomalies in financial data completeness, but market data anomalies (zero volume, zero moving averages) reduce confidence in market-based valuation metrics. This lowers overall recommendation confidence to <strong>medium</strong>.</p>
+- <strong>Liquidity:</strong> The negative working capital ratio (-0.022) is a red flag indicating potential short-term liquidity challenges. Without current ratio data, this suggests EFX may face difficulties meeting immediate obligations, increasing financial risk.<br />
+- <strong>Leverage:</strong> Lack of explicit debt-to-equity and interest coverage data limits leverage risk assessment. However, the stable Z-Score trend implies no acute leverage distress.<br />
+- <strong>Operational Efficiency:</strong> Asset turnover of 0.122 is significantly below typical industry averages (~0.3-0.5), indicating underutilization of assets to generate sales. EBIT ratio at 2% is low, reflecting thin operating margins and potential cost pressures.<br />
+- <strong>Financial Stability:</strong> Retained earnings ratio at 0.515 shows moderate reinvestment and earnings retention, supporting some stability but below sector norms.</p>
+<p><strong>AI Data Quality Assessment:</strong><br />
+- No anomalies detected; data completeness is high.<br />
+- Absence of some key ratios (e.g., debt-to-equity) limits full leverage analysis, reducing confidence to medium-high.</p>
+<p><strong>Sector Context:</strong><br />
+As a provider of information solutions and HR process outsourcing, EFX operates in a competitive, technology-driven consulting services sector where operational efficiency and liquidity are critical for sustained growth.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
 <thead>
 <tr>
 <th>Period</th>
-<th>Z-Score Value</th>
+<th>Z-Score</th>
 <th>Risk Category</th>
 <th>Key Drivers</th>
 <th>Business Context</th>
@@ -589,35 +677,46 @@ Given the moderate risk profile, improving Z-Score trend, and high valuation mul
 <td>Current (Q8)</td>
 <td>2.39</td>
 <td>Gray Zone</td>
-<td>Improving working capital, retained earnings</td>
-<td>Recovery from prior quarters; operational adjustments likely</td>
+<td>Slight improvement in working capital and retained earnings</td>
+<td>Stabilizing post prior operational challenges</td>
 </tr>
 <tr>
 <td>Q7</td>
 <td>2.17</td>
 <td>Gray Zone</td>
-<td>Slight improvement in EBIT ratio</td>
-<td>Stabilizing after prior declines</td>
+<td>Recovery from prior lows; improved EBIT ratio</td>
+<td>Operational adjustments underway</td>
 </tr>
 <tr>
 <td>Q6</td>
 <td>1.89</td>
 <td>Gray Zone</td>
-<td>Lowest Z-Score; liquidity stress</td>
-<td>Possible operational or market headwinds</td>
+<td>Lowest point; liquidity stress likely</td>
+<td>Possible market or operational headwinds</td>
 </tr>
 <tr>
-<td>Q1-Q5</td>
-<td>1.99 - 2.45</td>
+<td>Q5</td>
+<td>1.99</td>
 <td>Gray Zone</td>
-<td>Fluctuating working capital and EBIT</td>
-<td>Cyclical pressures, sector-specific challenges</td>
+<td>Slight recovery; working capital still weak</td>
+<td>Early signs of stabilization</td>
+</tr>
+<tr>
+<td>Q4 to Q1</td>
+<td>2.19-2.45</td>
+<td>Gray Zone</td>
+<td>Fluctuating but overall stable Z-Score</td>
+<td>Reflects cyclical industry pressures</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-EFX’s Z-Score has oscillated within the Gray Zone (1.8-3.0) for eight quarters, reflecting persistent but manageable financial risk. The recent uptick from 1.89 to 2.39 suggests improving fundamentals, possibly due to better working capital management or earnings stabilization. However, the score remains below the safe threshold of 3.0, indicating ongoing vulnerability to financial distress if adverse conditions persist.</p>
-<p>The lack of detailed component data (working capital/total assets, EBIT/total assets) limits granular driver analysis, but the trend suggests operational improvements and cautious optimism. The company’s sector—Consulting Services within Industrials—often faces cyclical demand and competitive pressures, which may explain the moderate Z-Score range.</p>
+EFX’s Z-Score has oscillated within the Gray Zone (1.8-3.0) over the last eight quarters, indicating persistent but manageable financial risk. The lowest Z-Score of 1.89 suggests a period of heightened distress, likely linked to liquidity constraints or operational inefficiencies. The recent rebound to 2.39 signals cautious improvement, possibly due to cost controls or revenue stabilization.</p>
+<p><strong>Component Analysis:</strong><br />
+- Working capital and retained earnings ratios appear to be the primary drivers of Z-Score fluctuations, consistent with liquidity and profitability challenges.<br />
+- EBIT ratio’s low but improving trend supports the gradual recovery narrative.</p>
+<p><strong>Peer Benchmarking:</strong><br />
+EFX remains below the industry average Z-Score (typically &gt;3.0 for safe companies in Industrials), indicating room for financial health improvement relative to peers.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -633,31 +732,32 @@ EFX’s Z-Score has oscillated within the Gray Zone (1.8-3.0) for eight quarters
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Improving Gray Zone (2.39)</td>
-<td>Price stable at $261.81; zero volume and moving averages</td>
-<td>Divergent</td>
-<td>Market inactivity limits timing signals; fundamental improvement not yet reflected</td>
+<td>Gray Zone, improving</td>
+<td>Price stable at $261.62; no volume or volatility data</td>
+<td>Divergent (lack of market activity)</td>
+<td>Market may be underpricing risk or awaiting catalysts</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
 <td>Neutral to cautious</td>
-<td>P/E high at 53.32; Dividend Yield anomalous at 77%</td>
-<td>Inconsistent</td>
-<td>Sentiment unclear; valuation appears stretched</td>
+<td>High P/E (53.39), very high dividend yield (77.00%)</td>
+<td>Inconsistent (contradictory signals)</td>
+<td>Market uncertainty; dividend yield may be unsustainable</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below safe zone threshold</td>
-<td>Sector performance unknown</td>
+<td>Below industry average Z-Score</td>
+<td>Sector performance moderate</td>
 <td>Underperforming</td>
-<td>Competitive positioning weak; caution advised</td>
+<td>Competitive pressure; risk of market share loss</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The fundamental Z-Score improvement is not mirrored by active market trading or technical momentum, as indicated by zero volume and moving averages. This divergence suggests either data reporting issues or market disinterest, reducing confidence in timing investment actions based on price signals.</p>
-<p>The extremely high dividend yield (77.00%) is likely a data anomaly or special event, which distorts yield-based valuation. The P/E ratio of 53.32 indicates high market expectations despite moderate financial health, possibly reflecting growth optimism or speculative positioning.</p>
-<p>Peer comparison suggests EFX is underperforming relative to industry benchmarks, reinforcing a cautious stance.</p>
+- The <strong>lack of trading volume and zero volatility metrics</strong> suggest limited market activity or data reporting issues, reducing confidence in price signals.<br />
+- The <strong>high P/E ratio</strong> implies expectations of future growth, but the <strong>exceptionally high dividend yield (77%)</strong> is likely a data anomaly or signals dividend sustainability concerns, warranting caution.<br />
+- The <strong>divergence between fundamental health (Gray Zone) and market signals</strong> indicates potential mispricing or investor indecision, suggesting a wait-and-see approach.<br />
+- Peer underperformance and sector pressures reinforce the need for operational improvements before market confidence can be restored.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -675,30 +775,32 @@ The fundamental Z-Score improvement is not mirrored by active market trading or 
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential Z-Score decline by 0.3-0.5</td>
-<td>Enhance operational efficiency; cost controls</td>
+<td>-0.3 to -0.5</td>
+<td>Enhance asset utilization; cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Liquidity stress could reduce Z-Score below 1.8</td>
-<td>Improve working capital management; refinance debt</td>
+<td>-0.4 to -0.6</td>
+<td>Improve liquidity; optimize working capital</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Low</td>
-<td>Minor</td>
-<td>Limited impact due to low volatility</td>
-<td>Monitor market conditions; hedge selectively</td>
+<td>Low-Medium</td>
+<td>Minor-Moderate</td>
+<td>-0.2 to -0.3</td>
+<td>Diversify revenue streams; hedge macro risks</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Continued operational improvements and working capital stabilization push Z-Score above 3.0, moving EFX into the Safe Zone, enabling confident growth investment.<br />
-- <strong>Base Case:</strong> Z-Score remains in Gray Zone (2.0-2.5), reflecting moderate risk but manageable financial health, supporting Hold recommendations.<br />
-- <strong>Worst Case:</strong> Liquidity deterioration or operational setbacks drop Z-Score below 1.8, triggering Distress Zone alerts and necessitating urgent risk mitigation.</p>
-<p>Bankruptcy risk is currently low but non-negligible given liquidity concerns. Stress testing suggests vulnerability to short-term shocks.</p>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Continued operational improvements and liquidity stabilization push Z-Score above 3.0 within 6-8 quarters, moving EFX into the Safe Zone.<br />
+- <strong>Base Case:</strong> Z-Score remains in the Gray Zone (2.0-2.5), reflecting ongoing moderate risk but no distress.<br />
+- <strong>Worst Case:</strong> Liquidity issues worsen, dropping Z-Score below 1.8, signaling distress and potential bankruptcy risk.</p>
+<p><strong>Bankruptcy Risk:</strong> Currently low but non-negligible given liquidity concerns.<br />
+<strong>Liquidity Stress Testing:</strong> Negative working capital ratio is a key vulnerability.<br />
+<strong>Risk Confidence:</strong> Based on stable Z-Score trajectory and no severe anomalies, confidence in moderate risk assessment is approximately 70%.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -717,46 +819,49 @@ The fundamental Z-Score improvement is not mirrored by active market trading or 
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score 2.39 in Gray Zone; improving but cautious</td>
-<td>Market inactive; wait for confirmation</td>
+<td>Z-Score 2.39 in Gray Zone; liquidity risk present</td>
+<td>Await liquidity improvement</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>Dividend yield anomaly; Z-Score moderate</td>
-<td>Yield unreliable; monitor dividend policy</td>
+<td>Dividend yield 77% likely unsustainable; Z-Score moderate</td>
+<td>Monitor dividend sustainability</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>BUY (Selective)</td>
-<td>Valuation stretched; Z-Score improving</td>
-<td>Entry on price dips; confirm fundamentals</td>
-<td>3-6 months</td>
+<td>WAIT</td>
+<td>Valuation high (P/E 53.39); Z-Score below industry average</td>
+<td>Enter on Z-Score &gt;2.5 and price dip</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>BUY</td>
-<td>Z-Score trend positive; growth potential</td>
-<td>Monitor operational improvements</td>
+<td>WAIT</td>
+<td>Low EBIT ratio (2%); operational efficiency needs improvement</td>
+<td>Await operational momentum</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>WATCH</td>
-<td>Risk/reward uncertain due to data anomalies</td>
-<td>High volatility potential; wait for clarity</td>
-<td>3 months</td>
+<td>SPECULATIVE BUY</td>
+<td>Potential rebound indicated by Z-Score trend</td>
+<td>Enter with tight stops</td>
+<td>Immediate with caution</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-Conservative and dividend investors should maintain positions, awaiting clearer market signals and data validation. Value and growth investors may initiate selective buys, capitalizing on improving Z-Score trends but mindful of valuation risks. Aggressive investors should monitor closely for volatility and data clarity before committing.</p>
+<p><strong>Commentary:</strong><br />
+- Conservative investors should hold and monitor liquidity metrics closely.<br />
+- Dividend investors must be cautious given the anomalous yield and uncertain sustainability.<br />
+- Value and growth investors should wait for clearer signs of operational and liquidity improvement before committing capital.<br />
+- Aggressive investors may consider speculative entry, leveraging Z-Score momentum but with strict risk controls.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -772,29 +877,31 @@ Conservative and dividend investors should maintain positions, awaiting clearer 
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational efficiency</td>
-<td>EBIT Ratio (0.020), Asset Turnover (0.122)</td>
-<td>Drive process improvements; optimize asset use</td>
-<td>EBIT margin growth; turnover increase</td>
+<td>Operational Efficiency &amp; Growth</td>
+<td>EBIT Ratio, Asset Turnover</td>
+<td>Implement cost optimization; drive revenue growth</td>
+<td>EBIT margin &gt;5%; asset turnover &gt;0.2</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; capital structure</td>
-<td>Working Capital Ratio (-0.022), Retained Earnings (0.515)</td>
-<td>Strengthen liquidity; manage debt levels</td>
-<td>Positive working capital; stable debt ratios</td>
+<td>Liquidity &amp; Capital Structure</td>
+<td>Working Capital Ratio, Debt-to-Equity</td>
+<td>Improve working capital management; optimize debt</td>
+<td>Positive working capital; stable leverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; compliance</td>
-<td>Z-Score trajectory, Risk factors</td>
-<td>Monitor risk scenarios; enforce governance</td>
-<td>Stable or improving Z-Score; risk mitigation</td>
+<td>Risk Oversight &amp; Compliance</td>
+<td>Z-Score, Risk Indicators</td>
+<td>Monitor financial health; enforce risk policies</td>
+<td>Z-Score &gt;2.5; risk mitigation effectiveness</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-Leadership should prioritize operational turnaround to improve EBIT and asset utilization, directly impacting Z-Score components. Finance must address liquidity deficits to avoid distress triggers. Governance oversight is critical given moderate risk trajectory, ensuring compliance and proactive risk management aligned with AI Risk Analysis themes.</p>
+- The CEO should prioritize operational improvements to enhance profitability and asset utilization, directly impacting the EBIT ratio and Z-Score.<br />
+- The CFO must address liquidity challenges highlighted by the negative working capital ratio, ensuring sufficient short-term funding and prudent capital allocation.<br />
+- The Board should maintain vigilant oversight of financial risk trends, leveraging Z-Score monitoring as a leading indicator for strategic decisions.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -810,34 +917,37 @@ Leadership should prioritize operational turnaround to improve EBIT and asset ut
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Improving (2.39)</td>
-<td>Gradual increase</td>
-<td>Operational efficiency gains; working capital improvement</td>
-<td>Quarterly Z-Score updates; EBIT margin</td>
+<td>Improving (2.17 → 2.39)</td>
+<td>Gradual increase to &gt;2.5</td>
+<td>Operational efficiency gains; liquidity improvement</td>
+<td>Quarterly Z-Score; working capital ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Stable but inactive</td>
-<td>Potential recovery</td>
-<td>Market re-engagement; peer performance</td>
-<td>Trading volume; price trends</td>
+<td>Below industry average</td>
+<td>Narrowing gap with peers</td>
+<td>Revenue growth; market share gains</td>
+<td>Peer Z-Score comparison; sales growth</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Moderate</td>
-<td>Stable to improving</td>
-<td>Risk mitigation; liquidity management</td>
-<td>Working capital ratio; debt levels</td>
+<td>Moderate (Gray Zone)</td>
+<td>Potential reduction to low risk</td>
+<td>Debt management; cost control</td>
+<td>Debt-to-equity ratio; EBIT margin</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-The Z-Score momentum suggests a cautiously optimistic outlook over the next 6-12 months, contingent on operational and liquidity improvements. Market position may strengthen if trading activity resumes and valuation normalizes. Risk profile is expected to stabilize with effective mitigation, but early warning indicators such as working capital and EBIT margins should be closely monitored to preempt distress.</p>
+- The Z-Score momentum suggests a cautiously optimistic outlook, with potential to exit the Gray Zone if operational and liquidity improvements materialize.<br />
+- Key catalysts include successful cost management initiatives, improved asset turnover, and stabilization of working capital.<br />
+- Continuous monitoring of liquidity ratios and EBIT margins will provide early warning signals for risk escalation or improvement.<br />
+- Investment thesis should remain flexible, adapting to quarterly Z-Score updates and market conditions.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Equifax Inc. (EFX) presents a <strong>moderate risk investment profile</strong> with improving but still vulnerable financial health as indicated by a Gray Zone Altman Z-Score of <strong>2.39</strong>. Operational inefficiencies and liquidity challenges temper confidence despite a strong market capitalization of <strong>$32.5 billion</strong> and high valuation multiples. Market data anomalies reduce timing clarity, necessitating a cautious Hold stance for conservative investors and selective Buy opportunities for value and growth profiles. Strategic focus on liquidity and operational improvements is critical to advancing toward a Safe Zone financial status and unlocking shareholder value.</p>
+<p>Equifax Inc. (EFX) currently exhibits <strong>moderate financial risk</strong> within the Gray Zone of Altman Z-Score analysis, driven primarily by liquidity challenges and low operational efficiency. Market signals are mixed and somewhat inconsistent, with valuation metrics suggesting growth expectations but dividend yield data raising sustainability concerns. Investors should adopt a <strong>cautious stance</strong>, with conservative and dividend profiles favoring HOLD, value and growth profiles awaiting clearer operational improvements, and aggressive investors considering speculative entry with risk controls. Strategic focus on liquidity enhancement and operational efficiency is critical for improving financial health and market positioning.</p>
 <hr />
-<p><em>All analysis references injected data elements explicitly, integrating financial ratios, Z-Score trends, market metrics, and sector context to deliver actionable investment intelligence.</em></p></div></div>
+<p><em>All analysis references specific injected data points, including Z-Score values, financial ratios, market metrics, and sector context, ensuring a comprehensive, actionable investment intelligence framework.</em></p></div></div>
     </div>
     
 
@@ -1180,78 +1290,41 @@ The Z-Score momentum suggests a cautiously optimistic outlook over the next 6-12
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:22 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:51 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

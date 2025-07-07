@@ -6,6 +6,7 @@ import json
 import re
 import aiohttp
 import asyncio
+import os
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -20,9 +21,12 @@ class EdgarConnector:
         Args:
             cache_dir: Directory to store cached SEC data
         """
+        # Get User-Agent from environment or use default
+        user_agent = os.getenv('SEC_EDGAR_USER_AGENT', 'RetailModelValidator/1.0 (research@altmanzscore.org)')
+        
         self.headers = {
             # Using proper User-Agent header as required by SEC
-            'User-Agent': 'RetailModelValidator/1.0 (research@altmanzscore.org)'
+            'User-Agent': user_agent
         }
         self.base_url = "https://www.sec.gov/Archives"
         self.edgar_search_url = "https://www.sec.gov/cgi-bin/browse-edgar"
@@ -143,8 +147,11 @@ class EdgarConnector:
             print(f"Could not find CIK for {ticker}")
             return []
         
-        # Get the bankruptcy date
-        from retail_validation.config.validation_config import BANKRUPTCY_DATES
+        # Get the bankruptcy date from main system
+        import sys
+        import os
+        sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', 'altman_zscore'))
+        from data.bankruptcy_dates import BANKRUPTCY_DATES
         if ticker not in BANKRUPTCY_DATES:
             print(f"No bankruptcy date found for {ticker}")
             return []
@@ -225,8 +232,11 @@ class EdgarConnector:
         Returns:
             Dictionary of financial data suitable for Z-Score calculation
         """
-        # Find bankruptcy date
-        from retail_validation.config.validation_config import BANKRUPTCY_DATES
+        # Find bankruptcy date from main system
+        import sys
+        import os
+        sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', 'altman_zscore'))
+        from data.bankruptcy_dates import BANKRUPTCY_DATES
         if ticker not in BANKRUPTCY_DATES:
             print(f"No bankruptcy date found for {ticker}")
             return None
@@ -315,9 +325,8 @@ class EdgarConnector:
             # Add bankruptcy-specific metadata
             transformed['metadata']['quarters_before_bankruptcy'] = financial_data['quarters_before_bankruptcy']
             
-            # Create Z-Score compatible object
-            from altman_zscore.models.data_models import MergedFinancialData
-            return MergedFinancialData(**transformed)
+            # Return as dict - let the data merger handle MergedFinancialData conversion
+            return transformed
         
         return None
 

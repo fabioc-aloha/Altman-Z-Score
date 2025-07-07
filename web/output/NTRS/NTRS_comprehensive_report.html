@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Northern Trust Corporation (NTRS)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:38 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:06 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -361,9 +433,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="NTRS_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="NTRS_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -426,15 +498,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$131.70</p>
+                <p>$$130.65</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$25.6B</p>
+                <p>$$25.4B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>12.3</p>
+                <p>12.2</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -446,7 +518,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>81.9</p>
+                <p>82.5</p>
             </div>
         </div>
     </div>
@@ -460,7 +532,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>1.65</p>
+                <p>1.63</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -490,69 +562,68 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Northern Trust Corporation (NTRS)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:37:51  </p>
+<strong>Analysis Date:</strong> 2025-07-07 11:05:32  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Northern Trust Corporation (NTRS) currently exhibits a <strong>high-risk financial profile</strong>, with its latest Altman Z-Score at <strong>1.05</strong>, placing it firmly in the <strong>Distress Zone (Z &lt; 1.8)</strong>. This signals a significant risk of financial distress or bankruptcy in the near term. The Z-Score trajectory over the past eight quarters has been volatile but predominantly distressing, oscillating between 0.66 and 1.27, with no sustained recovery into the Gray or Safe Zones.</p>
-<p><strong>AI Risk Analysis</strong> indicates an overall <strong>high risk level</strong>, consistent with the Z-Score distress signals, with a deteriorating risk trajectory. Key risk themes include liquidity stress and operational inefficiencies, which are corroborated by the negative Working Capital Ratio (-0.390) and minimal EBIT Ratio (0.003).</p>
-<p><strong>AI Peer Analysis</strong> shows NTRS significantly underperforming against industry averages. The typical Asset Management industry Z-Score benchmark is above 3.0 (Safe Zone), while NTRS remains below 1.8, indicating a weak competitive position relative to peers.</p>
-<p><strong>AI Sentiment Analysis</strong> is limited due to data anomalies (e.g., zero RSI, zero volume), but the extremely high dividend yield reported at 237% is likely an anomaly or unsustainable, suggesting market skepticism or data quality issues.</p>
+<p>Northern Trust Corporation (NTRS) currently exhibits a <strong>high-risk financial profile</strong> as indicated by its Altman Z-Score trajectory, which predominantly resides in the <strong>Distress Zone (Z &lt; 1.8)</strong> with recent scores fluctuating between 0.66 and 1.11. The latest quarter’s Z-Score is <strong>1.05</strong>, signaling ongoing financial vulnerability and elevated bankruptcy risk. This is compounded by a <strong>negative working capital ratio of -0.390</strong>, very low EBIT ratio of <strong>0.003</strong>, and minimal asset turnover at <strong>0.021</strong>, all pointing to operational inefficiencies and liquidity challenges.</p>
+<p><strong>AI Risk Analysis</strong> (inferred from Z-Score and financial ratios) suggests an <strong>overall risk level in the Distress category</strong>, with no signs of upward trajectory, implying persistent financial stress. The <strong>AI Peer Analysis</strong> places NTRS significantly below the industry average Z-Score (typically &gt;3.0 for Financial Services/Asset Management firms), indicating underperformance relative to peers. The <strong>AI Sentiment Analysis</strong> is constrained by market data anomalies (zero volume, zero price range), but the extremely high dividend yield of <strong>237.00%</strong> is a red flag, likely reflecting unsustainable payout or data irregularity, further undermining confidence.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Industry Benchmark</th>
-<th>Implication</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
 <td>1.05</td>
-<td>&gt;3.0 (Safe Zone)</td>
-<td>Distress risk, urgent caution</td>
+<td>Distress Zone; high bankruptcy risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$25.62B</td>
-<td>N/A</td>
-<td>Large cap but financial distress</td>
+<td>$25.42B</td>
+<td>Large-cap, but financial distress evident</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$131.70</td>
-<td>N/A</td>
-<td>Price stability unclear</td>
+<td>$130.64</td>
+<td>Stable nominal price, but market data incomplete</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.390</td>
-<td>Positive (&gt;0)</td>
-<td>Liquidity weakness</td>
+<td>Negative liquidity position</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.096</td>
-<td>Higher preferred</td>
-<td>Low retained earnings</td>
+<td>Low retained earnings relative to assets</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.003</td>
-<td>Industry avg ~0.05+</td>
-<td>Very low profitability</td>
+<td>Minimal operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.021</td>
-<td>Industry avg ~0.5+</td>
-<td>Operational inefficiency</td>
+<td>Very low asset utilization</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>237.00%</td>
+<td>Likely unsustainable or data anomaly</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>12.20</td>
+<td>Moderate valuation, but possibly misleading</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Action Recommendation:</strong><br />
-Given the distressed Z-Score, poor liquidity, and operational inefficiencies, <strong>a cautious stance is warranted</strong>. Investors with low risk tolerance should consider <strong>avoiding or selling</strong> NTRS shares until clear signs of financial stabilization emerge. More aggressive investors may monitor for potential turnaround catalysts but should be prepared for volatility and downside risk.</p>
+<p><strong>Investment Recommendation:</strong> Given the <strong>persistent Distress Zone Z-Scores</strong>, negative liquidity, and operational inefficiencies, <strong>a cautious stance is warranted</strong>. Investors with low risk tolerance should <strong>avoid new positions or consider exiting</strong>, while more aggressive investors may monitor for signs of financial stabilization before committing capital. The data quality issues (zero volume, zero price range) reduce confidence in market signals, emphasizing reliance on fundamental financial health metrics.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -560,7 +631,7 @@ Given the distressed Z-Score, poor liquidity, and operational inefficiencies, <s
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark (Financial Services)</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -569,40 +640,40 @@ Given the distressed Z-Score, poor liquidity, and operational inefficiencies, <s
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: N/A (Working Capital Ratio: -0.390)</td>
-<td>Positive (&gt;0)</td>
-<td><strong>Severe liquidity weakness</strong>; negative working capital signals cash flow stress</td>
+<td>Typically &gt;1.0 for healthy firms</td>
+<td><strong>Weak</strong>: Negative working capital ratio indicates liquidity stress</td>
 <td>Declining/Weak</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
 <td>Debt-to-Equity: N/A (Data missing)</td>
-<td>Moderate (Industry avg ~1.0)</td>
-<td>Unable to assess fully; likely elevated risk given distress</td>
+<td>Industry average ~1.0</td>
+<td><strong>Unknown</strong>: Lack of data limits leverage assessment</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.021, EBIT Ratio: 0.003</td>
-<td>Asset Turnover ~0.5+, EBIT Ratio ~0.05+</td>
-<td><strong>Extremely low efficiency and profitability</strong>, indicating poor asset utilization and earnings generation</td>
-<td>Declining/Weak</td>
+<td>EBIT Ratio: 0.003; Asset Turnover: 0.021</td>
+<td>EBIT Ratio ~0.05-0.10; Asset Turnover ~0.5</td>
+<td><strong>Poor</strong>: Very low EBIT and asset turnover indicate operational inefficiency</td>
+<td>Stable to Declining</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.096</td>
-<td>Higher preferred (&gt;0.2)</td>
-<td>Low retained earnings ratio suggests limited internal capital buffer</td>
-<td>Stable but weak</td>
+<td>Typically &gt;0.2</td>
+<td><strong>Weak</strong>: Low retained earnings relative to assets</td>
+<td>Stable</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Interpretive Commentary:</strong><br />
-- The <strong>negative Working Capital Ratio (-0.390)</strong> is a critical red flag, indicating current liabilities exceed current assets, which is highly unusual for a large financial services firm and suggests liquidity stress.<br />
-- The <strong>EBIT Ratio of 0.003</strong> is near breakeven, signaling minimal operating profitability, which undermines the company’s ability to generate internal cash flow to service debt or invest in growth.<br />
-- The <strong>Asset Turnover of 0.021</strong> is drastically below industry norms (~0.5+), reflecting poor utilization of assets to generate sales, possibly due to operational inefficiencies or business model challenges.<br />
-- The <strong>Retained Earnings Ratio of 0.096</strong> is low, indicating limited accumulated profits retained in the business, which constrains financial flexibility.<br />
-- Data completeness is adequate, but anomalies such as zero market technical indicators and extreme dividend yield (237%) reduce confidence in market data quality. This is reflected in the AI Data Quality Assessment (not explicitly quantified here but implied by anomalies), lowering overall recommendation confidence.</p>
-<p>The sector context—Financial Services, specifically Asset Management—typically demands strong liquidity and operational efficiency, which NTRS currently lacks, increasing risk exposure.</p>
+- <strong>Liquidity:</strong> The working capital ratio of <strong>-0.390</strong> is significantly below the industry norm (&gt;1.0), signaling potential short-term solvency issues. This aligns with the Distress Zone Z-Scores and suggests cash flow constraints.<br />
+- <strong>Leverage:</strong> Absence of debt-to-equity data limits leverage risk evaluation. However, the low EBIT ratio (0.003) implies minimal earnings to cover interest, potentially increasing financial risk.<br />
+- <strong>Operational Efficiency:</strong> EBIT ratio at <strong>0.003</strong> and asset turnover at <strong>0.021</strong> are markedly below typical industry averages (EBIT ~5-10%, asset turnover ~0.5), indicating poor profitability and inefficient asset use. This may stem from business model challenges or market conditions in asset management.<br />
+- <strong>Financial Stability:</strong> Retained earnings ratio of <strong>0.096</strong> is low, reflecting limited reinvestment or accumulated profits, which weakens the company’s buffer against financial shocks.</p>
+<p><strong>Data Quality Considerations:</strong><br />
+The AI Data Quality Assessment highlights <strong>no explicit anomalies detected</strong> in financial data completeness, but market data anomalies (zero volume, zero price range) reduce confidence in market-based valuation metrics. This necessitates a heavier reliance on fundamental financial ratios for analysis.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -611,8 +682,8 @@ Given the distressed Z-Score, poor liquidity, and operational inefficiencies, <s
 <th>Period</th>
 <th>Z-Score Value</th>
 <th>Risk Category</th>
-<th>Key Drivers</th>
-<th>Business Context</th>
+<th>Key Drivers (Unavailable)</th>
+<th>Business Context (Inferred)</th>
 </tr>
 </thead>
 <tbody>
@@ -620,63 +691,23 @@ Given the distressed Z-Score, poor liquidity, and operational inefficiencies, <s
 <td>Current (Q8)</td>
 <td>1.05</td>
 <td>Distress</td>
-<td>Low EBIT, negative working capital, poor asset turnover</td>
-<td>Ongoing liquidity and profitability challenges</td>
+<td>N/A</td>
+<td>Continued financial stress; low EBIT and liquidity</td>
 </tr>
 <tr>
-<td>Q7</td>
-<td>0.66</td>
-<td>Distress</td>
-<td>Further deterioration in liquidity and profitability</td>
-<td>Possible operational setbacks or market pressures</td>
-</tr>
-<tr>
-<td>Q6</td>
-<td>1.27</td>
-<td>Gray Zone</td>
-<td>Slight improvement in retained earnings or working capital</td>
-<td>Temporary relief, but not sustained</td>
-</tr>
-<tr>
-<td>Q5</td>
-<td>0.66</td>
-<td>Distress</td>
-<td>Sharp decline in operational metrics</td>
-<td>Business stress or external shocks</td>
-</tr>
-<tr>
-<td>Q4</td>
-<td>0.99</td>
-<td>Distress</td>
-<td>Marginal EBIT, liquidity issues</td>
-<td>Continued financial strain</td>
-</tr>
-<tr>
-<td>Q3</td>
-<td>1.01</td>
-<td>Distress</td>
-<td>Minimal improvement, still below safe threshold</td>
-<td>No significant recovery</td>
-</tr>
-<tr>
-<td>Q2</td>
-<td>0.81</td>
-<td>Distress</td>
-<td>Declining working capital and profitability</td>
-<td>Worsening financial health</td>
-</tr>
-<tr>
-<td>Q1</td>
-<td>1.11</td>
-<td>Gray Zone</td>
-<td>Slightly better liquidity or earnings</td>
-<td>Early signs of distress</td>
+<td>Previous Quarters (Q7 to Q1)</td>
+<td>0.66 - 1.27</td>
+<td>Distress to Gray Zone</td>
+<td>N/A</td>
+<td>Persistent distress with brief Gray Zone recovery (1.27)</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-The Z-Score trend shows <strong>persistent distress with brief, unsustained improvements</strong> into the Gray Zone. The lack of consistent recovery suggests structural financial weaknesses rather than cyclical fluctuations. The absence of component data (Working Capital/Total Assets, Retained Earnings/Total Assets, EBIT/Total Assets) limits granular driver analysis, but the overall trajectory aligns with operational and liquidity challenges noted in financial ratios.</p>
-<p>Compared to the <strong>industry average Z-Score &gt; 3.0</strong>, NTRS is significantly underperforming, indicating competitive disadvantage and elevated bankruptcy risk.</p>
+- The Z-Score has oscillated mostly in the <strong>Distress Zone (below 1.8)</strong> over the past eight quarters, with a single quarter reaching the Gray Zone (1.27). This indicates <strong>chronic financial distress without sustained recovery</strong>.<br />
+- The lack of component data (Working Capital/Total Assets, Retained Earnings/Total Assets, EBIT/Total Assets, Market Value Equity/Book Value Debt, Sales/Total Assets) limits granular driver analysis, but the overall low EBIT and negative working capital ratio strongly correlate with the low Z-Scores.<br />
+- The <strong>industry average Z-Score for Financial Services firms typically exceeds 3.0</strong>, highlighting NTRS’s underperformance and elevated bankruptcy risk relative to peers.<br />
+- No clear upward inflection points are evident, suggesting no imminent turnaround based on Z-Score trends.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -692,30 +723,32 @@ The Z-Score trend shows <strong>persistent distress with brief, unsustained impr
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Distress (Z=1.05)</td>
-<td>Price stable at $131.70</td>
+<td>Distress Zone (Z=1.05)</td>
+<td>Price stable at $130.64; zero volume and range</td>
 <td>Divergent</td>
-<td>Potential market underpricing or data anomaly</td>
+<td>Market may be ignoring fundamental distress; caution advised</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Limited (0 RSI, 0 volume)</td>
-<td>Unknown (Data missing)</td>
+<td>N/A (AI Sentiment unavailable)</td>
+<td>Dividend Yield 237%, P/E 12.20</td>
 <td>Inconsistent</td>
-<td>Low market confidence or illiquidity</td>
+<td>Dividend yield likely data anomaly; sentiment unclear</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
+<td>Below industry average</td>
+<td>Sector performance unknown due to data gaps</td>
 <td>Underperforming</td>
-<td>Sector performance unknown</td>
-<td>Underperforming</td>
-<td>Weak competitive positioning</td>
+<td>Competitive positioning weak; risk of market share loss</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The <strong>discrepancy between distressed Z-Score and stable share price ($131.70)</strong> suggests either market inefficiency or data quality issues. The <strong>zero RSI and zero volume</strong> indicate very low trading activity or data gaps, reducing confidence in market signals. The <strong>extreme dividend yield (237%)</strong> is likely a data anomaly, further complicating valuation.</p>
-<p>Given these factors, <strong>market timing based on price movements is unreliable</strong>, and investment decisions should prioritize fundamental Z-Score and financial health signals over market sentiment or technical indicators.</p>
+- The <strong>lack of trading volume and zero price range</strong> severely limits market signal reliability, creating a disconnect between fundamental distress signals and market pricing.<br />
+- The <strong>extremely high dividend yield (237%)</strong> is likely a data anomaly or reflects a special dividend event, which distorts valuation metrics and investor sentiment interpretation.<br />
+- The P/E ratio of <strong>12.20</strong> appears moderate but may not reflect true earnings quality given the EBIT ratio of 0.003.<br />
+- Overall, the market signals are <strong>not aligned with the fundamental distress indicated by the Z-Score</strong>, suggesting either market inefficiency or data quality issues.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -734,29 +767,31 @@ The <strong>discrepancy between distressed Z-Score and stable share price ($131.
 <td>High</td>
 <td>Critical</td>
 <td>Significant decline</td>
-<td>Operational restructuring, cost control</td>
+<td>Cost optimization, operational restructuring</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Sharp Z-Score drop</td>
-<td>Liquidity management, debt refinancing</td>
+<td>Further Z-Score decline</td>
+<td>Debt restructuring, liquidity management</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Moderate volatility</td>
+<td>Volatility in valuation</td>
 <td>Hedging, diversification</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Operational improvements and liquidity injections raise Z-Score above 1.8 (Gray Zone), reducing bankruptcy risk.<br />
-- <strong>Base Case:</strong> Continued distress with Z-Score fluctuating between 0.8 and 1.2, maintaining high risk.<br />
-- <strong>Worst Case:</strong> Further deterioration below 0.6, signaling imminent bankruptcy risk.</p>
-<p>Given the <strong>high probability and severity of operational and financial risks</strong>, urgent mitigation is required to avoid further Z-Score decline.</p>
+<p><strong>Risk Commentary:</strong><br />
+- <strong>Operational risks</strong> are high due to extremely low EBIT and asset turnover, threatening ongoing viability.<br />
+- <strong>Financial risks</strong> are critical given negative working capital and low retained earnings, increasing bankruptcy probability.<br />
+- <strong>Market risks</strong> are moderate but complicated by data anomalies and low trading activity, increasing uncertainty.<br />
+- <strong>Best-case scenario:</strong> Stabilization of EBIT and working capital leads to gradual Z-Score improvement above 1.8 (Gray Zone).<br />
+- <strong>Base-case scenario:</strong> Continued distress with Z-Score fluctuating around 1.0, maintaining bankruptcy risk.<br />
+- <strong>Worst-case scenario:</strong> Further deterioration below 0.66, entering deep distress and potential insolvency.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -774,51 +809,51 @@ The <strong>discrepancy between distressed Z-Score and stable share price ($131.
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td>SELL</td>
-<td>Z-Score 1.05 in Distress Zone; liquidity negative</td>
-<td>Price stable but unreliable</td>
-<td>Immediate</td>
+<td><strong>SELL / AVOID</strong></td>
+<td>Persistent Distress Zone Z-Scores (0.66-1.05) indicate high bankruptcy risk</td>
+<td>Market signals unreliable; avoid entry</td>
+<td>Immediate exit or avoid new positions</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>HOLD</td>
-<td>Dividend yield anomaly; unsustainable</td>
-<td>Monitor for correction</td>
-<td>3-6 months</td>
+<td><strong>HOLD WITH CAUTION</strong></td>
+<td>Dividend yield anomaly (237%) undermines sustainability; Z-Score weak</td>
+<td>Monitor for dividend policy changes</td>
+<td>Short-term monitoring; reassess quarterly</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>HOLD/WAIT</td>
-<td>Low retained earnings and EBIT; undervalued if turnaround</td>
-<td>Wait for Z-Score &gt;1.8</td>
-<td>6-12 months</td>
+<td><strong>HOLD / WAIT</strong></td>
+<td>Low retained earnings and EBIT ratios suggest undervaluation but high risk</td>
+<td>Wait for Z-Score improvement above 1.8</td>
+<td>Medium-term (6-12 months)</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>SELL</td>
-<td>Poor operational metrics; no growth signal</td>
-<td>No momentum</td>
-<td>Immediate</td>
+<td><strong>AVOID</strong></td>
+<td>Operational inefficiencies limit growth potential</td>
+<td>No momentum; avoid until turnaround</td>
+<td>N/A</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>SPECULATIVE BUY</td>
-<td>Potential turnaround if risks mitigated</td>
-<td>High volatility expected</td>
-<td>Monitor closely, short term</td>
+<td><strong>SPECULATIVE BUY</strong></td>
+<td>Potential for turnaround if operational improvements occur</td>
+<td>High volatility expected; data gaps increase risk</td>
+<td>Opportunistic, short-term</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-- Conservative investors should <strong>exit</strong> due to high distress risk.<br />
-- Dividend investors should <strong>hold cautiously</strong>, awaiting dividend sustainability confirmation.<br />
-- Value investors may <strong>wait for signs of financial stabilization</strong> before entry.<br />
-- Growth investors should <strong>avoid</strong> given lack of growth indicators.<br />
-- Aggressive investors may consider <strong>speculative positions</strong> if confident in turnaround catalysts, but with high risk.</p>
+<p><strong>Detailed Commentary:</strong><br />
+- Conservative investors should <strong>avoid or divest</strong> due to elevated bankruptcy risk and poor financial health.<br />
+- Dividend investors must be wary of the <strong>unsustainable dividend yield</strong>, which likely reflects data issues or extraordinary payouts.<br />
+- Value investors may consider <strong>waiting for signs of financial stabilization</strong>, particularly Z-Score rising above 1.8, before initiating positions.<br />
+- Growth investors should <strong>avoid</strong> given lack of operational momentum and profitability.<br />
+- Aggressive investors with high risk tolerance may speculate on a turnaround but must be prepared for volatility and potential losses.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -834,29 +869,32 @@ The <strong>discrepancy between distressed Z-Score and stable share price ($131.
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Financial stabilization</td>
+<td>Financial Stabilization</td>
 <td>Z-Score, EBIT Ratio</td>
-<td>Implement cost controls, improve liquidity</td>
-<td>Z-Score &gt;1.8 sustained</td>
+<td>Implement operational efficiency programs; improve liquidity</td>
+<td>Z-Score &gt; 1.8; EBIT ratio &gt; 0.05</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; capital management</td>
-<td>Working Capital Ratio, Debt levels</td>
-<td>Restructure debt, optimize working capital</td>
-<td>Positive working capital ratio</td>
+<td>Liquidity &amp; Capital Structure</td>
+<td>Working Capital Ratio, Debt Levels</td>
+<td>Restructure debt; improve cash flow management</td>
+<td>Positive working capital; reduced debt ratios</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight</td>
-<td>Risk factors, Z-Score trajectory</td>
-<td>Enhance risk monitoring, enforce governance</td>
-<td>Risk reduction, compliance</td>
+<td>Risk Oversight &amp; Transparency</td>
+<td>Risk Indicators, Dividend Policy</td>
+<td>Enhance risk reporting; review dividend sustainability</td>
+<td>Compliance with governance standards; stable dividend policy</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The leadership team must prioritize <strong>improving liquidity and operational efficiency</strong> to reverse the distress trend. The CFO should focus on <strong>capital structure optimization</strong> to alleviate financial strain. The Board must ensure <strong>robust risk governance</strong> to monitor ongoing threats and guide strategic decisions.</p>
+- The CEO must prioritize <strong>operational turnaround</strong> to improve EBIT and asset utilization, directly impacting Z-Score recovery.<br />
+- The CFO should focus on <strong>liquidity enhancement and debt management</strong> to alleviate negative working capital and reduce financial distress.<br />
+- The Board should enforce <strong>rigorous risk oversight</strong> and ensure transparent communication with investors, especially regarding dividend policies and financial health.<br />
+- Aligning these initiatives with AI Risk Analysis themes will help mitigate distress trajectory and restore market confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -872,34 +910,38 @@ The leadership team must prioritize <strong>improving liquidity and operational 
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Declining/Distress</td>
-<td>Potential stabilization if actions taken</td>
-<td>Cost reductions, capital raises</td>
-<td>Quarterly Z-Score updates</td>
+<td>Stable in Distress Zone (~1.05)</td>
+<td>Slight improvement possible if EBIT and liquidity improve</td>
+<td>Operational restructuring; cost control</td>
+<td>Quarterly Z-Score updates; EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Weak</td>
-<td>Possible recovery with operational improvements</td>
-<td>Industry recovery, new contracts</td>
-<td>Peer Z-Score comparison</td>
+<td>Underperforming vs. peers</td>
+<td>Potential stabilization with strategic initiatives</td>
+<td>Market recovery; competitive repositioning</td>
+<td>Relative Z-Score vs. industry; market share</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High</td>
-<td>Risk reduction possible with mitigation</td>
-<td>Debt refinancing, liquidity improvement</td>
-<td>Risk factor tracking</td>
+<td>High risk, stable</td>
+<td>Risk reduction if liquidity and profitability improve</td>
+<td>Debt refinancing; capital infusion</td>
+<td>Working capital ratio; debt-to-equity</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-NTRS’s Z-Score momentum is currently negative but could stabilize or improve within 6-12 months if management executes effective operational and financial restructuring. Key catalysts include improved EBIT margins, positive working capital restoration, and debt management. Continuous monitoring of Z-Score components and risk factors is essential to detect early warning signs and adjust investment theses accordingly.</p>
+- The <strong>Z-Score momentum is currently flat in the Distress Zone</strong>, with no clear signs of recovery.<br />
+- Key catalysts for improvement include <strong>operational efficiency gains, liquidity enhancement, and debt restructuring</strong>.<br />
+- Monitoring should focus on <strong>quarterly Z-Score changes, EBIT improvements, and working capital ratios</strong> as leading indicators of turnaround.<br />
+- Investors should develop an <strong>early warning system</strong> based on these metrics to anticipate shifts in financial health and adjust investment positions accordingly.<br />
+- The investment thesis will evolve contingent on the company’s ability to exit the Distress Zone and demonstrate sustainable profitability.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Northern Trust Corporation (NTRS) is currently in a <strong>financial distress state</strong>, with a Z-Score of 1.05, poor liquidity, and operational inefficiencies. Market data anomalies limit confidence in price-based signals. Investors should exercise caution, with conservative profiles advised to sell, while aggressive investors may consider speculative positions contingent on turnaround evidence. Management must urgently address liquidity and operational risks to restore financial health and investor confidence.</p>
+<p>Northern Trust Corporation (NTRS) is currently in a <strong>financial distress state</strong>, as evidenced by persistent low Altman Z-Scores (latest 1.05), negative liquidity, and operational inefficiencies. Market data anomalies limit confidence in price-based signals, emphasizing fundamental financial health as the primary analysis driver. Risk is elevated, and recovery depends on effective operational and financial restructuring. Investment recommendations range from <strong>avoidance for conservative and growth investors</strong> to <strong>speculative monitoring for aggressive profiles</strong>, with a strong emphasis on monitoring key financial metrics for signs of stabilization.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to all injected data elements, integrating multi-source financial, risk, peer, and market intelligence for actionable investment guidance.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to all injected data elements, integrating multi-source financial and AI-driven insights to provide actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1242,78 +1284,41 @@ NTRS’s Z-Score momentum is currently negative but could stabilize or improve w
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:38 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:06 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

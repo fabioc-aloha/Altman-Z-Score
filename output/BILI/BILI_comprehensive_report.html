@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Bilibili Inc. (BILI)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:18 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:29 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -315,10 +387,6 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
                     Undervalued relative to sector peers</div>
                 
-                <div
-                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
-                    Significant analyst upside potential</div>
-                
             </div>
         </div>
         
@@ -345,9 +413,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="BILI_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="BILI_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -361,7 +429,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">0.68</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">0.72</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -410,15 +478,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$20.88</p>
+                <p>$$22.29</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$8.6B</p>
+                <p>$$9.7B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>34.2</p>
+                <p>36.8</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -430,7 +498,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>51.2</p>
+                <p>68.0</p>
             </div>
         </div>
     </div>
@@ -440,11 +508,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Beta</h4>
-                <p>0.86</p>
+                <p>0.85</p>
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.66</p>
+                <p>0.72</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -465,42 +533,35 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Bilibili Inc. (Ticker: BILI)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:18:07  </p>
+<strong>Analysis Date:</strong> 2025-07-07 12:28:44  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Bilibili Inc. currently resides in a <strong>Distress Zone</strong> with a latest Altman Z-Score of <strong>-0.49</strong>, well below the critical threshold of 1.8, signaling a high risk of financial distress or potential bankruptcy. This is consistent with the historical Z-Score trend over the past eight quarters, which oscillates between negative and low positive values, never breaching the Gray Zone (1.8-3.0) or Safe Zone (&gt;3.0). The company’s <strong>risk trajectory remains negative</strong>, indicating persistent financial instability.</p>
-<p><strong>AI Risk Analysis</strong> confirms an <strong>overall risk level of high distress</strong> with a confidence level of approximately 90%, given the consistent distress-level Z-Scores and lack of improvement. The <strong>risk trajectory is stable to worsening</strong>, with no signs of recovery in key financial metrics.</p>
-<p><strong>AI Peer Analysis</strong> places Bilibili significantly below the <strong>industry average Z-Score</strong>, which typically ranges above 2.5 in the Technology sector’s Electronic Gaming &amp; Multimedia industry. Peers such as Tencent (0700.HK) and NetEase (NTES) maintain healthier Z-Scores, highlighting Bilibili’s relative vulnerability and competitive disadvantage.</p>
-<p><strong>AI Sentiment Analysis</strong> reveals a <strong>neutral to negative overall market sentiment</strong>, with no positive momentum in technical indicators or valuation metrics. The absence of trading volume and zero volatility metrics further suggest market inactivity or delisting concerns, reinforcing the negative sentiment.</p>
-<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<p>Bilibili Inc. currently resides in the <strong>Distress Zone</strong> with an Altman Z-Score fluctuating between <strong>-0.76 and 0.72</strong> over the last eight quarters, consistently below the critical threshold of 1.8. This persistent low Z-Score signals a high probability of financial distress or bankruptcy risk. The <strong>AI Risk Analysis</strong> is implicitly severe given the distress-level Z-Scores, indicating urgent caution with low confidence in financial stability.</p>
+<p><strong>AI Peer Analysis</strong> benchmarks Bilibili against industry peers in the Technology sector, specifically Electronic Gaming &amp; Multimedia, where the industry average Z-Score typically exceeds 2.5, placing Bilibili significantly below its peers. This relative positioning suggests competitive vulnerability and heightened financial risk.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are unavailable explicitly, but market indicators such as zero trading volume and flat technical signals (RSI 0.0, zero volatility) imply extremely low market interest or potential delisting/illiquidity concerns, reinforcing negative sentiment.</p>
 <table>
 <thead>
 <tr>
-<th>Metric Category</th>
-<th>Key Value</th>
-<th>Interpretation</th>
+<th>Key Metrics Summary</th>
+<th>Value</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>-0.49</td>
-<td>Distress zone, high bankruptcy risk</td>
-</tr>
-<tr>
-<td>Historical Z-Score Range</td>
-<td>-0.80 to 0.68</td>
-<td>Persistent distress, no recovery</td>
+<td>-0.46 to 0.72 (fluctuating)</td>
+<td>Consistently in Distress Zone (&lt;1.8)</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$8.62 billion</td>
-<td>Moderate size but distressed</td>
+<td>$9.67B</td>
+<td>Moderate size for sector</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$20.88</td>
-<td>Stable price but low liquidity</td>
+<td>$22.29</td>
+<td>Stable but low trading activity</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
@@ -510,7 +571,7 @@
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.000</td>
-<td>No retained earnings accumulation</td>
+<td>No retained earnings contribution</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
@@ -524,7 +585,7 @@
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>34.23</td>
+<td>36.79</td>
 <td>High valuation despite distress</td>
 </tr>
 <tr>
@@ -532,20 +593,10 @@
 <td>0.00%</td>
 <td>No dividend payout</td>
 </tr>
-<tr>
-<td>Beta</td>
-<td>0.00</td>
-<td>No market correlation or trading</td>
-</tr>
 </tbody>
 </table>
-<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
-<ul>
-<li><strong>Urgent Caution:</strong> Given the persistent distress Z-Scores and poor liquidity ratios, investors should <strong>avoid initiating new positions</strong> and consider <strong>divesting existing holdings</strong> unless a clear turnaround plan emerges.</li>
-<li><strong>High Risk, Low Confidence:</strong> The data quality is complete but reflects severe financial distress, limiting confidence in near-term recovery.</li>
-<li><strong>Monitor for Recovery Signals:</strong> Watch for improvements in EBIT, working capital, and Z-Score crossing above 1.8 before reconsidering investment.</li>
-<li><strong>Peer Benchmarking:</strong> Consider reallocating capital to healthier peers within the Electronic Gaming &amp; Multimedia industry.</li>
-</ul>
+<p><strong>Investment Recommendation:</strong><br />
+Given the <strong>high risk level</strong> (Distress Zone Z-Score), <strong>low liquidity</strong>, and <strong>lack of profitability</strong>, the recommendation is a <strong>SELL</strong> or at best a <strong>HOLD with extreme caution</strong> for risk-tolerant investors. The company’s financial health and market signals do not support a BUY position at this time. Close monitoring for any operational turnaround or capital restructuring is essential before reconsidering investment.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -561,42 +612,68 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.164<br>Working Capital Ratio: 0.164</td>
-<td>Industry Avg Current Ratio ~1.5-2.0</td>
-<td><strong>Severe liquidity weakness</strong>; far below industry norms, indicating inability to cover short-term liabilities</td>
-<td>Declining/Stable Low</td>
+<td>Current Ratio: 0.164</td>
+<td>~1.5 - 2.0 (Tech Sector)</td>
+<td><strong>Severe weakness</strong>; insufficient liquidity</td>
+<td>Declining/Stable at low level</td>
+</tr>
+<tr>
+<td></td>
+<td>Working Capital Ratio: 0.164</td>
+<td>&gt;1.0</td>
+<td>Indicates working capital deficit</td>
+<td></td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Data missing)<br>Interest Coverage: N/A</td>
-<td>Industry Avg Debt-to-Equity ~0.5-1.0</td>
-<td>Insufficient data; likely high leverage given distress status</td>
+<td>Debt-to-Equity: N/A (Data Missing)</td>
+<td>Industry avg ~0.5 - 1.0</td>
+<td>Unable to assess leverage; risk unknown</td>
 <td>Unknown</td>
 </tr>
 <tr>
+<td></td>
+<td>Interest Coverage (EBIT Ratio): 0.000</td>
+<td>&gt;3.0</td>
+<td>No EBIT; unable to cover interest</td>
+<td>Negative</td>
+</tr>
+<tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.210<br>EBIT Ratio: 0.000</td>
-<td>Industry Avg Asset Turnover ~0.5-1.0<br>EBIT Margin ~10-20%</td>
-<td><strong>Very low asset utilization and zero profitability</strong>, signaling operational inefficiency</td>
-<td>Stable Low</td>
+<td>Asset Turnover: 0.210</td>
+<td>~0.5 - 1.0 (Industry avg)</td>
+<td><strong>Low asset utilization</strong></td>
+<td>Stable/Low</td>
+</tr>
+<tr>
+<td></td>
+<td>EBIT Ratio: 0.000</td>
+<td>Positive in peers</td>
+<td>No operating profit; operational losses</td>
+<td>Negative</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.000<br>Cash Position: N/A</td>
-<td>Industry Avg Retained Earnings Ratio &gt;0.2</td>
-<td>No retained earnings accumulation, indicating losses or dividend payouts exceeding profits</td>
-<td>Declining</td>
+<td>Retained Earnings Ratio: 0.000</td>
+<td>Positive in healthy firms</td>
+<td>No retained earnings; no reinvestment</td>
+<td>Negative</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: N/A</td>
+<td>Positive cash reserves</td>
+<td>Data unavailable; liquidity concerns remain</td>
+<td>Unknown</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary">Commentary</h3>
-<ul>
-<li><strong>Liquidity Position:</strong> The working capital ratio of 0.164 is critically low compared to typical industry standards of 1.5 to 2.0, indicating Bilibili struggles to meet short-term obligations. This aligns with the distress-level Z-Scores and suggests potential liquidity crises.</li>
-<li><strong>Leverage Management:</strong> Lack of explicit debt-to-equity data limits precise leverage assessment; however, the distress signals imply elevated financial risk. Absence of interest coverage data further obscures debt servicing capacity.</li>
-<li><strong>Operational Efficiency:</strong> Asset turnover at 0.210 is less than half the industry average, reflecting poor asset utilization. EBIT ratio at zero confirms no operating profitability, consistent with the zero retained earnings ratio.</li>
-<li><strong>Financial Stability:</strong> The zero retained earnings ratio indicates no profit retention, possibly due to ongoing losses or aggressive dividend policies, which is unsustainable in distress scenarios.</li>
-</ul>
-<p><strong>AI Data Quality Assessment</strong> reports no anomalies detected, with completeness and consistency scores at 100%, lending high confidence to these financial diagnostics despite missing leverage details.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+Bilibili’s liquidity position is critically weak, with a current ratio and working capital ratio at 0.164, far below the industry standard of approximately 1.5 to 2.0 for technology firms. This suggests the company struggles to meet short-term obligations, increasing bankruptcy risk.</p>
+<p>The EBIT ratio of 0.000 indicates no operating profitability, corroborated by a zero retained earnings ratio, signaling no accumulated profits to buffer financial shocks. Asset turnover at 0.210 is less than half the industry average, reflecting inefficient use of assets to generate revenue.</p>
+<p>The absence of debt-to-equity and cash position data limits leverage and liquidity risk assessment, but the zero EBIT and working capital deficits imply financial stress.</p>
+<p><strong>Data Quality Note:</strong><br />
+No anomalies or inconsistencies were reported in the AI Data Quality Assessment, but the lack of detailed leverage and cash data reduces confidence in a full risk profile. The zero values in key profitability ratios warrant cautious interpretation.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -611,29 +688,25 @@
 </thead>
 <tbody>
 <tr>
-<td>Current (Q8)</td>
-<td>-0.49</td>
+<td>Current Qtr</td>
+<td>-0.46 to 0.72</td>
 <td>Distress</td>
-<td>Low working capital, zero EBIT, no retained earnings</td>
-<td>Continued financial distress, no operational recovery</td>
+<td>Low working capital, zero EBIT, poor asset turnover</td>
+<td>Continued operational losses, no retained earnings</td>
 </tr>
 <tr>
-<td>Previous Quarters (Q1-Q7)</td>
-<td>Range: -0.80 to 0.68</td>
+<td>Previous 7 Qtrs</td>
+<td>Range: -0.76 to 0.57</td>
 <td>Distress</td>
-<td>Persistent negative working capital and profitability</td>
-<td>No significant business turnaround, ongoing losses</td>
+<td>Persistent liquidity issues, negative profitability</td>
+<td>No signs of recovery; cyclical or structural issues</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_1">Commentary</h3>
-<ul>
-<li>The Z-Score has consistently remained in the <strong>Distress Zone (&lt;1.8)</strong> for all eight quarters analyzed, with values oscillating between negative and low positive but never improving beyond 0.68.</li>
-<li>Key drivers include <strong>zero EBIT ratio</strong>, <strong>no retained earnings</strong>, and <strong>very low working capital ratio</strong>, all contributing to the poor Z-Score.</li>
-<li>The lack of positive inflection points suggests <strong>no effective operational or financial restructuring</strong> has taken place.</li>
-<li>Compared to the <strong>industry average Z-Score of approximately 2.5-3.5</strong>, Bilibili’s position is significantly weaker, indicating competitive disadvantage and elevated bankruptcy risk.</li>
-<li>The business context of providing online entertainment and gaming services in China is highly competitive, requiring strong cash flow and profitability, which Bilibili currently lacks.</li>
-</ul>
+<p><strong>Strategic Commentary:</strong><br />
+Bilibili’s Z-Score has persistently remained below 1.8 over the last eight quarters, indicating chronic financial distress. The lack of positive movement in key components such as working capital/total assets, EBIT/total assets, and retained earnings/total assets suggests no operational turnaround or capital restructuring.</p>
+<p>The absence of positive Z-Score drivers aligns with the company’s business challenges in the competitive Electronic Gaming &amp; Multimedia sector, where innovation and profitability are critical. The company’s inability to generate EBIT or accumulate retained earnings over two years signals deep-rooted financial and operational inefficiencies.</p>
+<p>Compared to the industry average Z-Score (typically &gt;2.5), Bilibili’s trajectory is alarming, with no inflection points indicating recovery.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -649,35 +722,31 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Distress (-0.49)</td>
-<td>Price stable at $20.88, zero volume</td>
+<td>Distress Zone (&lt;1.8)</td>
+<td>Flat price, zero volume</td>
 <td>Divergent</td>
-<td>Price does not reflect distress; potential liquidity trap or market inactivity</td>
+<td>Market possibly ignoring fundamentals or illiquid</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Negative/Neutral</td>
-<td>No active trading, zero volatility</td>
+<td>Negative implied</td>
+<td>No explicit consensus data</td>
 <td>Consistent</td>
-<td>Market sentiment aligns with distress; low confidence in recovery</td>
+<td>Market sentiment likely negative or neutral</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Significantly Underperforming</td>
-<td>Sector performing better</td>
-<td>Divergent</td>
-<td>Competitive weakness; risk of market share loss</td>
+<td>Significantly below peers</td>
+<td>Sector performance stable</td>
+<td>Underperforming</td>
+<td>Competitive disadvantage; risk of market share loss</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_2">Commentary</h3>
-<ul>
-<li>The <strong>Z-Score distress signal contrasts with a seemingly stable stock price of $20.88</strong>, but this is misleading due to <strong>zero reported trading volume and technical indicators at zero</strong>, indicating illiquidity or suspension.</li>
-<li>The <strong>P/E ratio of 34.23</strong> is unusually high given the lack of profitability, suggesting valuation distortions or speculative pricing.</li>
-<li>The <strong>zero beta and volatility metrics</strong> confirm no market correlation or active trading, reducing the reliability of market signals.</li>
-<li>Overall, the <strong>market signals are misaligned with fundamental distress</strong>, indicating a potential market inefficiency or trading suspension.</li>
-<li>Investors should be cautious of price stability as it does not reflect underlying financial health.</li>
-</ul>
+<p><strong>Market Validation Commentary:</strong><br />
+The fundamental distress indicated by the Z-Score is not reflected in active market trading, as technical indicators show zero volume, zero volatility, and flat price movement. This divergence suggests either market neglect, potential delisting, or trading suspension.</p>
+<p>The high P/E ratio of 36.79 contrasts with poor fundamentals, possibly reflecting speculative valuation or outdated price data. The absence of dividends and zero price/book ratio further highlight market disconnect.</p>
+<p>Peer comparison confirms Bilibili’s underperformance relative to sector peers, reinforcing the need for caution.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -693,33 +762,32 @@
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>High (80%)</td>
+<td>High</td>
 <td>Critical</td>
-<td>Large negative impact due to zero EBIT and low asset turnover</td>
-<td>Restructure operations, improve cost controls</td>
+<td>Large negative</td>
+<td>Restructure operations, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>High (85%)</td>
+<td>High</td>
 <td>Critical</td>
-<td>Severe impact from poor liquidity and zero retained earnings</td>
-<td>Debt restructuring, capital infusion</td>
+<td>Large negative</td>
+<td>Capital infusion, debt restructuring</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium (50%)</td>
+<td>Medium</td>
 <td>Moderate</td>
-<td>Moderate impact due to illiquidity and valuation distortions</td>
-<td>Improve transparency, investor relations</td>
+<td>Moderate negative</td>
+<td>Hedge currency/exposure, diversify revenue</td>
 </tr>
 </tbody>
 </table>
-<h3 id="scenario-planning">Scenario Planning</h3>
-<ul>
-<li><strong>Best Case:</strong> Operational turnaround improves EBIT ratio to &gt;5%, working capital ratio rises above 1.0, Z-Score crosses 1.8 within 12 months.  </li>
-<li><strong>Base Case:</strong> Continued distress with marginal improvements, Z-Score remains below 1.0, liquidity remains tight.  </li>
-<li><strong>Worst Case:</strong> Further deterioration leads to Z-Score below -1.0, triggering bankruptcy or restructuring.</li>
-</ul>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Operational turnaround with EBIT improvement and working capital normalization could gradually raise Z-Score above 1.8, reducing bankruptcy risk. Requires aggressive management and capital support.<br />
+- <strong>Base Case:</strong> Continued distress with marginal improvements but no profitability; Z-Score remains below 1.8, sustaining high risk.<br />
+- <strong>Worst Case:</strong> Further deterioration leading to insolvency or bankruptcy, Z-Score falling below zero, triggering default or restructuring.</p>
+<p>Given the current zero EBIT and retained earnings, the probability of financial distress is high, with critical severity impacting shareholder value.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -737,47 +805,48 @@
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>SELL/HOLD</strong></td>
-<td>Z-Score at -0.49 indicates distress; avoid new exposure</td>
-<td>Price illiquidity; wait for recovery signals</td>
-<td>Immediate caution; monitor quarterly</td>
+<td><strong>SELL</strong></td>
+<td>Z-Score persistently &lt;1.8; liquidity risk</td>
+<td>Avoid entry; exit positions</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td><strong>SELL</strong></td>
 <td>No dividend yield; zero retained earnings</td>
-<td>No yield support; avoid</td>
-<td>Immediate exit recommended</td>
+<td>Not suitable</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>SELL</strong></td>
-<td>Overvalued P/E (34.23) despite distress</td>
-<td>Avoid value traps; wait for Z-Score &gt;1.8</td>
-<td>Hold off until fundamentals improve</td>
+<td><strong>HOLD</strong></td>
+<td>High P/E but distressed Z-Score; speculative</td>
+<td>Monitor for turnaround</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td><strong>SELL</strong></td>
-<td>Zero EBIT and asset turnover; no growth evidence</td>
-<td>No momentum; avoid</td>
-<td>No entry until positive EBIT</td>
+<td>No EBIT growth; negative operational metrics</td>
+<td>Avoid entry</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>SPECULATIVE/AVOID</strong></td>
-<td>High risk of bankruptcy; speculative only</td>
-<td>High volatility expected if trading resumes</td>
-<td>Only for risk-tolerant traders; short-term</td>
+<td><strong>SPECULATIVE HOLD</strong></td>
+<td>Potential turnaround if capital injected</td>
+<td>High risk/reward</td>
+<td>Short-term monitoring</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Commentary:</strong><br />
-Given the persistent distress signals and lack of operational profitability, Bilibili is unsuitable for most investment profiles except speculative traders with high risk tolerance. Conservative and dividend investors should divest immediately. Value and growth investors should wait for clear financial recovery signals, particularly Z-Score improvement above 1.8 and EBIT margin recovery.</p>
+Conservative and dividend-focused investors should divest immediately due to high distress risk and no income generation. Value investors may consider a hold with close monitoring for signs of operational recovery or capital restructuring, but the current Z-Score and financials do not justify new investment.</p>
+<p>Growth and aggressive investors face significant risk with no clear growth drivers or profitability; speculative positions should be limited and closely monitored.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -794,28 +863,28 @@ Given the persistent distress signals and lack of operational profitability, Bil
 <tr>
 <td>CEO Leadership</td>
 <td>Operational turnaround</td>
-<td>EBIT Ratio, Asset Turnover</td>
-<td>Implement cost reduction, diversify revenue streams</td>
-<td>EBIT margin &gt;5%, positive cash flow</td>
+<td>EBIT Ratio (0.000), Asset Turnover (0.210)</td>
+<td>Initiate cost reduction, product innovation</td>
+<td>EBIT improvement, Z-Score &gt;1.8</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity and capital structure</td>
-<td>Working Capital Ratio, Debt Levels</td>
-<td>Restructure debt, improve cash management</td>
-<td>Working capital ratio &gt;1.0, reduced leverage</td>
+<td>Liquidity &amp; capital structure</td>
+<td>Working Capital Ratio (0.164), Debt levels (N/A)</td>
+<td>Secure capital infusion, improve liquidity</td>
+<td>Current ratio &gt;1.0, positive cash flow</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and transparency</td>
-<td>Z-Score, Risk Indicators</td>
-<td>Enhance financial reporting, monitor risk metrics</td>
-<td>Z-Score improvement, risk reduction</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Z-Score trend, risk factors</td>
+<td>Enhance risk management, transparency</td>
+<td>Risk reduction, improved disclosures</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Executive leadership must prioritize restoring operational profitability and liquidity. The CFO should focus on capital structure optimization to reduce financial distress. The Board must enforce rigorous risk management and transparency to rebuild investor confidence. The persistent negative Z-Score trajectory demands urgent strategic action.</p>
+<p><strong>Executive Commentary:</strong><br />
+The CEO must prioritize operational efficiency and profitability to reverse the negative EBIT trend. The CFO should focus on liquidity management and capital structure optimization to alleviate working capital constraints. The Board must oversee risk mitigation and ensure transparent communication with investors to rebuild confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -831,34 +900,35 @@ Executive leadership must prioritize restoring operational profitability and liq
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Negative (-0.49)</td>
-<td>Stable to declining</td>
-<td>Operational inefficiencies, liquidity constraints</td>
-<td>EBIT ratio, working capital ratio</td>
+<td>Negative, fluctuating near zero</td>
+<td>Potential gradual improvement if EBIT turns positive</td>
+<td>New product launches, cost cuts</td>
+<td>Quarterly EBIT, working capital</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Weak</td>
-<td>Potential further decline</td>
-<td>Competitive pressures, market inactivity</td>
-<td>Peer Z-Score, market share data</td>
+<td>Weak, underperforming peers</td>
+<td>Possible stabilization with strategic partnerships</td>
+<td>Market share gains, user growth</td>
+<td>Revenue growth, peer comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High distress</td>
-<td>Persistently high risk</td>
-<td>Debt servicing challenges, regulatory changes</td>
-<td>Debt levels, risk factor alerts</td>
+<td>High distress risk</td>
+<td>Risk remains elevated without turnaround</td>
+<td>Capital raise success, regulatory changes</td>
+<td>Debt levels, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
-<h3 id="forward-looking-commentary">Forward-Looking Commentary</h3>
-<p>Without significant operational or financial restructuring, Bilibili’s Z-Score is unlikely to improve in the next 6-12 months. Key catalysts for positive change include improved EBIT margins, working capital enhancement, and successful debt restructuring. Monitoring leading indicators such as EBIT ratio and liquidity metrics will provide early warning signals for turnaround or further distress. Investors should maintain a cautious stance and prepare for scenario-based adjustments to their investment thesis.</p>
+<p><strong>Forward-Looking Commentary:</strong><br />
+Bilibili’s Z-Score momentum is currently negative but could improve with successful operational restructuring and capital support. Key catalysts include new content offerings, monetization improvements, and cost management. Monitoring EBIT trends and working capital ratios will provide early warning signals of recovery or further decline.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Bilibili Inc. is currently in a <strong>critical financial distress state</strong> as evidenced by its persistently negative Altman Z-Scores, poor liquidity, zero profitability, and lack of retained earnings. Market signals are muted due to illiquidity and zero trading volume, masking the underlying financial risks. The company faces high operational and financial risks with limited near-term recovery prospects. Investment recommendations strongly advise caution, with most profiles favoring divestment or avoidance until clear signs of turnaround emerge.</p>
+<p>Bilibili Inc. is currently in a <strong>critical financial distress state</strong> as evidenced by persistently low Altman Z-Scores below 1.8, zero EBIT, and poor liquidity ratios. Market signals show negligible trading activity, indicating low investor confidence or potential delisting risks. The company’s valuation metrics appear disconnected from fundamentals, suggesting speculative pricing or stale data.</p>
+<p><strong>Investment stance:</strong> Predominantly a <strong>SELL</strong> recommendation for most profiles, with a cautious <strong>HOLD</strong> only for speculative value investors monitoring for operational turnaround. Immediate risk mitigation and strategic restructuring are imperative for Bilibili to regain financial health and investor confidence.</p>
 <hr />
-<p><em>Analysis generated with full integration of injected financial data, AI risk and peer analyses, and market intelligence as of 2025-07-03.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, market metrics, and sector context to provide actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1201,78 +1271,41 @@ Executive leadership must prioritize restoring operational profitability and liq
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:18 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:29 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

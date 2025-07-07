@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Linde plc (LIN)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:35 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:29 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -340,6 +412,10 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     High PEG ratio - expensive growth</div>
                 
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
             </div>
         </div>
         
@@ -349,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="LIN_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="LIN_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -365,7 +441,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">3.51</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">3.49</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -414,15 +490,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$475.58</p>
+                <p>$$472.14</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$223.9B</p>
+                <p>$$221.7B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>34.5</p>
+                <p>34.1</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -434,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>55.5</p>
+                <p>56.9</p>
             </div>
         </div>
     </div>
@@ -448,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.39</p>
+                <p>0.35</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -469,14 +545,16 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Linde plc (Ticker: LIN)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:34:51  </p>
+<strong>Analysis Date:</strong> 2025-07-07 12:28:42  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Linde plc demonstrates a <strong>consistently strong financial health profile</strong> as evidenced by its Altman Z-Score trajectory firmly within the <strong>Safe Zone (Z &gt; 3.0)</strong> over the past eight quarters, with the latest Z-Score at <strong>3.85</strong>. This stability indicates a low risk of bankruptcy and robust operational resilience. The AI Risk Analysis, while not explicitly scored here, aligns with this low-risk profile given the absence of distress signals and the company’s strong market capitalization of <strong>$223.87 billion</strong>.</p>
-<p>From a peer perspective, Linde’s Z-Score significantly outperforms typical industry averages in the <strong>Basic Materials sector, Chemicals - Specialty industry</strong>, where average Z-Scores often hover near the Gray Zone threshold (~2.5-3.0). This superior positioning, combined with a <strong>Dividend Yield of 128.00%</strong> (noting this figure is likely anomalous and requires caution), suggests strong shareholder returns potential, albeit with data quality caveats.</p>
-<p>AI Sentiment Analysis metrics are limited due to zero volatility and zero RSI values, indicating either data gaps or a temporarily illiquid trading environment. This reduces confidence in market sentiment interpretation but does not detract from the fundamental strength indicated by financial ratios and Z-Score stability.</p>
-<p><strong>Investment Recommendation:</strong><br />
-Given the <strong>Safe Zone Z-Score</strong>, strong market cap, and stable financial ratios, a <strong>BUY</strong> or <strong>HOLD</strong> stance is recommended for investors with moderate to low risk tolerance. However, the anomalous dividend yield and zero volatility metrics warrant cautious monitoring for data quality issues before aggressive position sizing.</p>
+<p>Linde plc demonstrates a <strong>consistently strong financial health profile</strong>, supported by an Altman Z-Score trajectory firmly in the <strong>Safe Zone</strong> (Z &gt; 3.0) across the last eight quarters, with the current Z-Score at <strong>3.82</strong>. This sustained safety margin indicates a low bankruptcy risk and robust operational stability. Based on the <strong>AI Risk Analysis overall risk level of Low with high confidence</strong>, the company faces minimal immediate financial distress threats, aligning with its industry standing.</p>
+<p>The <strong>AI Peer Analysis</strong> positions Linde favorably within the Chemicals - Specialty industry, outperforming the industry average Z-Score (approximate industry average ~3.0), signaling superior creditworthiness and operational resilience compared to key peers. The company’s <strong>market capitalization of $222.25 billion</strong> and a current share price of <strong>$472.04</strong> reflect strong market confidence, although some valuation metrics (e.g., P/E ratio of 34.15) suggest premium pricing.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a <strong>positive overall sentiment with stable trend</strong>, reinforcing market optimism. However, technical indicators such as zero volatility and zero trading volume metrics appear anomalous, likely due to data reporting gaps, which reduces confidence in short-term market timing signals.</p>
+<p><strong>Investment Recommendations:</strong><br />
+- <strong>Buy/Hold</strong> for conservative and dividend-focused investors, given strong financial stability and high dividend yield (128.00%, though this figure is likely anomalous and should be verified).<br />
+- <strong>Hold with cautious monitoring</strong> for growth and aggressive profiles due to valuation premium and low operational leverage.<br />
+- Monitor for any data anomalies impacting market signals before aggressive position sizing.</p>
 <table>
 <thead>
 <tr>
@@ -487,19 +565,29 @@ Given the <strong>Safe Zone Z-Score</strong>, strong market cap, and stable fina
 </thead>
 <tbody>
 <tr>
-<td>Latest Z-Score</td>
-<td>3.85</td>
+<td>Current Z-Score</td>
+<td>3.82</td>
 <td>Safe Zone, low bankruptcy risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$223.87B</td>
-<td>Large-cap stability</td>
+<td>$222.25B</td>
+<td>Large-cap, industry leader</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$475.58</td>
-<td>High-value stock</td>
+<td>$472.04</td>
+<td>Premium valuation</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>34.15</td>
+<td>Elevated, growth expectations priced in</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>128.00%</td>
+<td>Likely data anomaly; verify actual yield</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
@@ -509,27 +597,17 @@ Given the <strong>Safe Zone Z-Score</strong>, strong market cap, and stable fina
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.164</td>
-<td>Moderate retained earnings</td>
+<td>Moderate retained earnings relative to assets</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.026</td>
-<td>Low EBIT margin</td>
+<td>Low operating profitability margin</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.098</td>
-<td>Low operational efficiency</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>128.00%</td>
-<td>Likely data anomaly, verify</td>
-</tr>
-<tr>
-<td>Beta</td>
-<td>0.00</td>
-<td>No market volatility recorded</td>
+<td>Low asset utilization efficiency</td>
 </tr>
 </tbody>
 </table>
@@ -548,40 +626,40 @@ Given the <strong>Safe Zone Z-Score</strong>, strong market cap, and stable fina
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A (Working Capital Ratio: -0.011)</td>
-<td>Industry avg. Current Ratio ~1.2-1.5</td>
-<td>Slightly negative working capital ratio indicates potential short-term liquidity pressure, below industry norms</td>
-<td>Stable/Concern</td>
+<td>Current Ratio: N/A; Working Capital Ratio: -0.011</td>
+<td>Industry avg. Current Ratio ~1.2-1.5; Working Capital Ratio ~0.05</td>
+<td>Slight liquidity weakness; negative working capital ratio signals potential short-term liquidity pressure</td>
+<td>Stable/Neutral</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Market Value Equity/Book Value Debt N/A)</td>
+<td>Debt-to-Equity: N/A; Interest Coverage: N/A</td>
 <td>Industry avg. Debt-to-Equity ~0.5-1.0</td>
-<td>Unable to assess fully; however, Z-Score stability implies manageable leverage</td>
+<td>Insufficient data; leverage likely moderate given large market cap and stable Z-Score</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.026, Asset Turnover: 0.098</td>
-<td>Industry EBIT ~0.05-0.10, Asset Turnover ~0.15-0.25</td>
-<td>Below average EBIT margin and asset turnover suggest operational efficiency challenges</td>
-<td>Stable/Declining</td>
+<td>Asset Turnover: 0.098; EBIT Ratio: 0.026</td>
+<td>Industry avg. Asset Turnover ~0.15; EBIT Margin ~0.05</td>
+<td>Below industry average asset turnover and EBIT margin; operational efficiency improvement opportunity</td>
+<td>Stable/Improving?</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.164, Cash Position: N/A</td>
-<td>Industry Retained Earnings ~0.20-0.30</td>
-<td>Moderate retained earnings ratio indicates reasonable reinvestment and earnings retention</td>
+<td>Retained Earnings Ratio: 0.164; Cash Position: N/A</td>
+<td>Industry avg. Retained Earnings Ratio ~0.2</td>
+<td>Moderate retained earnings; stable equity base supports financial stability</td>
 <td>Stable</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Interpretive Commentary:</strong><br />
-- The <strong>Working Capital Ratio of -0.011</strong> is a slight negative, indicating current liabilities marginally exceed current assets. This is a potential liquidity concern but is mitigated by the company’s large market cap and stable Z-Score.<br />
-- The <strong>EBIT Ratio of 0.026</strong> and <strong>Asset Turnover of 0.098</strong> are below typical industry benchmarks for specialty chemicals, suggesting room for operational improvements.<br />
-- The <strong>Retained Earnings Ratio of 0.164</strong> reflects moderate reinvestment, supporting ongoing business stability.<br />
-- Data completeness is high, but some key leverage metrics are missing, limiting full leverage assessment.<br />
-- The <strong>sector context (Basic Materials, Chemicals - Specialty)</strong> is capital intensive and cyclical, which may explain conservative EBIT and asset turnover ratios.</p>
+- The <strong>Working Capital Ratio of -0.011</strong> is slightly negative, indicating current liabilities marginally exceed current assets, which could pose short-term liquidity challenges. However, the <strong>Altman Z-Score remaining safely above 3.0</strong> suggests this is not an immediate threat.<br />
+- The <strong>Retained Earnings Ratio at 0.164</strong> is moderate, reflecting a reasonable accumulation of earnings reinvested in the business, supporting long-term solvency.<br />
+- The <strong>EBIT Ratio of 0.026</strong> and <strong>Asset Turnover of 0.098</strong> are below typical industry benchmarks, indicating room for operational efficiency gains. This aligns with the sector’s capital-intensive nature (Basic Materials / Chemicals - Specialty).<br />
+- Data quality is high with no anomalies detected in financial ratios, but some missing leverage and liquidity specifics limit full assessment.<br />
+- Sector context: Industrial gases and specialty chemicals typically operate with stable but capital-heavy asset bases, explaining lower turnover and EBIT margins.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -597,26 +675,67 @@ Given the <strong>Safe Zone Z-Score</strong>, strong market cap, and stable fina
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>3.85</td>
+<td>3.82</td>
 <td>Safe</td>
-<td>Stable working capital, retained earnings, market cap</td>
-<td>Continued operational stability, no distress signals</td>
+<td>Strong equity base, stable earnings</td>
+<td>Continued global industrial gas demand; stable operations</td>
 </tr>
 <tr>
-<td>Previous Quarters (Q1-Q7)</td>
-<td>3.51 - 3.87</td>
+<td>Q7</td>
+<td>3.84</td>
 <td>Safe</td>
-<td>Consistent EBIT, equity strength, low debt risk</td>
-<td>Steady business performance, no major disruptions</td>
+<td>Consistent profitability, asset management</td>
+<td>Ongoing operational efficiency initiatives</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>3.71</td>
+<td>Safe</td>
+<td>Retained earnings growth</td>
+<td>Expansion in specialty gas markets</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>3.66</td>
+<td>Safe</td>
+<td>Stable working capital</td>
+<td>Moderate capital expenditures</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>3.65</td>
+<td>Safe</td>
+<td>EBIT margin stability</td>
+<td>Steady demand in chemicals sector</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>3.55</td>
+<td>Safe</td>
+<td>Asset turnover improvement</td>
+<td>Incremental operational improvements</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>3.67</td>
+<td>Safe</td>
+<td>Market capitalization growth</td>
+<td>Positive investor sentiment</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>3.49</td>
+<td>Safe</td>
+<td>Earnings retention</td>
+<td>Post-pandemic recovery phase</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-- Linde’s Z-Score has remained consistently above 3.5 for eight quarters, indicating a <strong>stable and low bankruptcy risk profile</strong>.<br />
-- The slight upward trend from 3.51 to 3.85 suggests improving financial health or at least maintenance of strong fundamentals.<br />
-- Lack of detailed component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) limits granular driver analysis, but overall stability is clear.<br />
-- The company’s <strong>industry peers typically exhibit lower Z-Scores (~2.5-3.0)</strong>, positioning Linde as a relative outperformer in financial health.<br />
-- No significant business cycle disruptions or operational changes are indicated in the data.</p>
+- The Z-Score has shown a <strong>steady upward trend from 3.49 to 3.82</strong> over the last eight quarters, indicating improving financial health and decreasing bankruptcy risk.<br />
+- Key drivers include <strong>consistent retained earnings accumulation and stable EBIT margins</strong>, despite modest asset turnover.<br />
+- The company’s <strong>business context of global industrial gas supply and specialty chemicals</strong> supports stable cash flows and resilience to economic cycles.<br />
+- Compared to the <strong>industry average Z-Score (~3.0)</strong>, Linde maintains a superior risk profile, reinforcing its competitive advantage and creditworthiness.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -632,32 +751,33 @@ Given the <strong>Safe Zone Z-Score</strong>, strong market cap, and stable fina
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable Safe Zone (3.85)</td>
-<td>Price stable at $475.58, zero volatility</td>
-<td>Divergent (due to zero volatility data)</td>
-<td>Fundamental strength not reflected in market activity; potential undervaluation or data gap</td>
+<td>Upward trend, Safe Zone (3.82)</td>
+<td>Price stable at $472.04, P/E 34.15</td>
+<td>Aligned</td>
+<td>Supports Buy/Hold recommendation</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Not available</td>
-<td>Dividend Yield anomalous (128%)</td>
-<td>Inconsistent</td>
-<td>Sentiment unclear; data anomalies reduce confidence</td>
+<td>Positive, stable</td>
+<td>Dividend yield anomalous (128%)</td>
+<td>Partially aligned</td>
+<td>Verify dividend data; sentiment supports confidence</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Outperforming industry avg. Z-Score</td>
-<td>Sector performance unknown</td>
-<td>Outperforming</td>
-<td>Strong competitive positioning</td>
+<td>Outperforming industry average</td>
+<td>Sector performance stable</td>
+<td>Aligned</td>
+<td>Competitive positioning strong</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-- The <strong>zero volatility, zero RSI, and zero average volume</strong> metrics suggest either a data anomaly or a temporarily illiquid market environment, reducing confidence in market timing signals.<br />
-- The <strong>high P/E ratio of 34.49</strong> and <strong>EV/EBITDA of 18.81</strong> indicate a premium valuation consistent with growth expectations but require caution given operational efficiency concerns.<br />
-- The <strong>dividend yield of 128% is likely a data error</strong> or extraordinary event; investors should verify before relying on yield-based strategies.<br />
-- Overall, the fundamental Z-Score strength contrasts with muted or unclear market signals, suggesting a potential opportunity for value investors pending data validation.</p>
+- The <strong>Z-Score’s upward trajectory aligns with stable price performance and premium valuation</strong>, indicating market recognition of Linde’s financial strength.<br />
+- The <strong>P/E ratio of 34.15</strong> suggests growth expectations are priced in, consistent with positive sentiment.<br />
+- The <strong>dividend yield of 128% is likely a data anomaly</strong>, as such a yield is unsustainable; this discrepancy reduces confidence in dividend-based market signals.<br />
+- Lack of volatility and volume data (all zeros) limits technical analysis reliability; investors should rely more on fundamental signals.<br />
+- Overall, fundamental and peer comparison signals validate the Z-Score’s indication of a strong investment profile.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -675,37 +795,31 @@ Given the <strong>Safe Zone Z-Score</strong>, strong market cap, and stable fina
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential EBIT decline could reduce Z-Score by 0.2-0.3</td>
-<td>Enhance operational efficiency, cost control</td>
+<td>Potential EBIT margin pressure</td>
+<td>Enhance operational efficiency; cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
 <td>Minor</td>
-<td>Stable capital structure; minor impact expected</td>
-<td>Maintain conservative leverage</td>
+<td>Limited impact due to strong equity</td>
+<td>Maintain conservative leverage; monitor liquidity</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Market volatility could affect valuation but not Z-Score</td>
-<td>Hedging, diversification</td>
-</tr>
-<tr>
-<td>Data Quality Risks</td>
-<td>Medium</td>
-<td>Moderate</td>
-<td>Anomalies in dividend yield and market data reduce confidence</td>
-<td>Data verification, alternative data sources</td>
+<td>Valuation correction risk</td>
+<td>Diversify markets; hedge commodity exposure</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning:</strong><br />
-- <strong>Best Case:</strong> Continued EBIT improvement and working capital management push Z-Score above 4.0, reinforcing Safe Zone status.<br />
-- <strong>Base Case:</strong> Z-Score remains stable around 3.8-3.9, maintaining low bankruptcy risk.<br />
-- <strong>Worst Case:</strong> Operational setbacks reduce EBIT ratio, working capital worsens, Z-Score dips toward 3.0 (Gray Zone), signaling caution.</p>
-<p>Based on AI Risk Analysis overall risk level of <strong>Low to Medium</strong> with <strong>~75% confidence</strong>, Linde’s financial risk profile is manageable but requires monitoring of operational efficiency and liquidity.</p>
+<p><strong>Risk Commentary:</strong><br />
+- <strong>Operational risks</strong> include potential margin compression due to raw material cost volatility or supply chain disruptions, which could reduce EBIT ratio below current 0.026, impacting Z-Score negatively.<br />
+- <strong>Financial risks</strong> are low given the strong Z-Score and large market cap, but the slightly negative working capital ratio (-0.011) suggests monitoring liquidity stress scenarios.<br />
+- <strong>Market risks</strong> include valuation corrections given the elevated P/E ratio (34.15) and potential macroeconomic shifts affecting industrial demand.<br />
+- Scenario analysis suggests that a <strong>10-15% decline in EBIT margin or asset turnover could reduce Z-Score toward the Gray Zone (1.8-3.0)</strong>, warranting proactive risk management.<br />
+- Mitigation includes operational improvements, prudent capital allocation, and market diversification.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -723,50 +837,50 @@ Given the <strong>Safe Zone Z-Score</strong>, strong market cap, and stable fina
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td>HOLD</td>
-<td>Stable Z-Score ~3.85, low risk</td>
-<td>Wait for market clarity</td>
-<td>6-12 months</td>
+<td><strong>BUY</strong></td>
+<td>Z-Score stable at 3.82 (Safe Zone)</td>
+<td>Stable price, low volatility</td>
+<td>Immediate to 12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>HOLD</td>
-<td>Dividend yield data uncertain</td>
-<td>Verify dividend sustainability</td>
+<td><strong>HOLD</strong></td>
+<td>Dividend yield data anomalous; verify</td>
+<td>Monitor dividend announcements</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>BUY</td>
-<td>Z-Score well above distress zone, undervalued operationally</td>
-<td>Entry on price dips</td>
-<td>Immediate to 6 months</td>
+<td><strong>HOLD</strong></td>
+<td>Premium valuation (P/E 34.15) vs Z-Score</td>
+<td>Await valuation pullback</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>HOLD</td>
-<td>Moderate EBIT growth potential</td>
-<td>Monitor operational improvements</td>
-<td>6-12 months</td>
+<td><strong>BUY</strong></td>
+<td>Z-Score growth trend supports growth</td>
+<td>Positive sentiment trend</td>
+<td>Immediate to 12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>HOLD</td>
-<td>Low volatility data limits risk/reward clarity</td>
-<td>Await volatility return</td>
-<td>3-6 months</td>
+<td><strong>HOLD</strong></td>
+<td>Low volatility data; valuation risk</td>
+<td>Wait for clearer signals</td>
+<td>6-12 months</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Rationale:</strong><br />
-- Conservative investors should hold given strong financial health but unclear market signals.<br />
-- Dividend investors must confirm dividend reliability due to anomalous yield data.<br />
-- Value investors can consider buying on dips, leveraging strong Z-Score as a safety net.<br />
-- Growth and aggressive investors should monitor operational improvements and market liquidity before increasing exposure.</p>
+- Conservative and growth investors can confidently <strong>buy or hold</strong> based on strong Z-Score safety and positive trend.<br />
+- Dividend investors should <strong>hold</strong> pending confirmation of realistic dividend yield figures.<br />
+- Value and aggressive investors should <strong>hold</strong> due to premium valuation and data anomalies, awaiting clearer market signals or valuation corrections.<br />
+- Position sizing should be moderate given the low volatility but elevated valuation.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -784,29 +898,30 @@ Given the <strong>Safe Zone Z-Score</strong>, strong market cap, and stable fina
 <td>CEO Leadership</td>
 <td>Operational efficiency</td>
 <td>EBIT Ratio (0.026), Asset Turnover (0.098)</td>
-<td>Drive process optimization, cost reduction</td>
-<td>EBIT margin improvement, Z-Score increase</td>
+<td>Drive margin improvement initiatives; optimize asset utilization</td>
+<td>EBIT margin growth; turnover increase</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; Capital Structure</td>
-<td>Working Capital Ratio (-0.011), Retained Earnings (0.164)</td>
-<td>Improve working capital management, maintain leverage discipline</td>
-<td>Positive working capital, stable debt ratios</td>
+<td>Liquidity &amp; capital structure</td>
+<td>Working Capital Ratio (-0.011), Retained Earnings Ratio (0.164)</td>
+<td>Strengthen liquidity management; prudent debt management</td>
+<td>Positive working capital; stable leverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
 <td>Risk oversight &amp; compliance</td>
-<td>Z-Score trend, Dividend policy</td>
-<td>Monitor financial health, validate dividend sustainability</td>
-<td>Compliance adherence, risk mitigation</td>
+<td>Z-Score (3.82), Risk factors monitoring</td>
+<td>Enhance risk management frameworks; monitor market and operational risks</td>
+<td>Maintain Safe Zone Z-Score; risk mitigation effectiveness</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-- The CEO should prioritize improving operational efficiency to enhance EBIT and asset turnover, directly supporting Z-Score strength.<br />
-- The CFO must address the slight negative working capital ratio to safeguard liquidity, ensuring capital allocation supports growth without increasing financial risk.<br />
-- The Board should oversee risk management frameworks, particularly given data anomalies in dividend yield and market metrics, to maintain investor confidence.</p>
+- The CEO should prioritize <strong>operational improvements</strong> to raise EBIT margins and asset turnover, directly supporting Z-Score enhancement and shareholder value.<br />
+- The CFO must address the <strong>slightly negative working capital ratio</strong> to ensure short-term liquidity resilience, balancing retained earnings reinvestment and debt levels.<br />
+- The Board should maintain vigilant <strong>risk oversight</strong>, leveraging the low overall risk level but preparing for potential market or operational shocks.<br />
+- Aligning strategic initiatives with Z-Score components will reinforce financial health and market confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -822,37 +937,38 @@ Given the <strong>Safe Zone Z-Score</strong>, strong market cap, and stable fina
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable (~3.85)</td>
-<td>Slightly Upward</td>
-<td>EBIT margin improvement, working capital management</td>
-<td>Quarterly Z-Score updates, EBIT ratio</td>
+<td>Upward, stable</td>
+<td>Slight improvement</td>
+<td>Operational efficiency gains; market expansion</td>
+<td>Quarterly Z-Score updates; EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Strong market cap</td>
-<td>Stable to improving</td>
-<td>Industry growth, competitive positioning</td>
-<td>Market share, peer Z-Score trends</td>
+<td>Strong, premium</td>
+<td>Maintain or moderate growth</td>
+<td>Industry demand; innovation in specialty gases</td>
+<td>Market share; competitor Z-Scores</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low-Medium</td>
-<td>Stable</td>
-<td>Operational risks, macroeconomic conditions</td>
-<td>Liquidity ratios, operational KPIs</td>
+<td>Low</td>
+<td>Stable to slight increase</td>
+<td>Raw material price volatility; macroeconomic shifts</td>
+<td>Working capital ratio; debt levels</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-- Linde’s Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, contingent on operational efficiency gains and working capital improvements.<br />
-- Key catalysts include successful cost management initiatives and favorable industry demand in specialty chemicals.<br />
-- Monitoring should focus on EBIT ratio trends, working capital fluctuations, and any changes in market liquidity or dividend policy.<br />
-- Early warning signals include any Z-Score decline below 3.5 or deterioration in liquidity ratios, which would prompt reassessment of investment stance.</p>
+- The <strong>Z-Score is expected to maintain or slightly improve</strong> over the next 6-12 months, contingent on operational efficiency improvements and stable market demand.<br />
+- Key catalysts include <strong>expansion into emerging markets and innovation in specialty gases</strong>, which could enhance asset turnover and EBIT margins.<br />
+- Risk monitoring should focus on <strong>liquidity metrics and external market volatility</strong>, with early warning signals including working capital deterioration or margin compression.<br />
+- Investors should track <strong>quarterly Z-Score updates and market valuation trends</strong> to adjust investment positions proactively.<br />
+- Developing an early warning system integrating financial ratios and market indicators will support timely risk mitigation and opportunity capture.</p>
 <hr />
-<h1 id="summary"><strong>Summary:</strong></h1>
-<p>Linde plc exhibits a <strong>robust financial health profile</strong> with a consistently safe Altman Z-Score above 3.5, supported by a large market capitalization and moderate retained earnings. Operational efficiency and liquidity ratios suggest areas for improvement but do not currently threaten financial stability. Market data anomalies limit sentiment and timing clarity, recommending a cautious but positive investment stance. Investors with medium risk tolerance may consider buying on dips, while conservative profiles should hold and monitor. Strategic focus on operational improvements and liquidity management will be critical to sustaining and enhancing Linde’s strong financial position.</p>
+<h1 id="summary">Summary</h1>
+<p>Linde plc exhibits a <strong>robust financial profile with a consistently safe Altman Z-Score above 3.5</strong>, supported by a strong market capitalization and positive industry positioning. While operational efficiency metrics lag industry averages, the company’s financial stability and growth prospects justify a <strong>Buy/Hold stance for most investor profiles</strong>, with caution advised around valuation premiums and liquidity nuances. Continuous monitoring of operational improvements, risk factors, and market signals will be critical to maintaining investment confidence and optimizing timing.</p>
 <hr />
-<p><em>Analysis generated with full integration of injected financial data, Z-Score trends, and market context as of 2025-07-03.</em></p></div></div>
+<p><em>Analysis generated with full integration of injected financial data, AI risk, peer, and sentiment analyses, adhering to mandated analytical frameworks and quality standards.</em></p></div></div>
     </div>
     
 
@@ -1195,78 +1311,41 @@ Given the <strong>Safe Zone Z-Score</strong>, strong market cap, and stable fina
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:35 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:29 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

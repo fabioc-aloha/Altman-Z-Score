@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Centene Corporation (CNC)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:21 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:47 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -377,9 +449,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="CNC_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="CNC_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -442,11 +514,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$33.31</p>
+                <p>$$33.21</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$16.6B</p>
+                <p>$$16.5B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -462,7 +534,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>13.9</p>
+                <p>14.0</p>
             </div>
         </div>
     </div>
@@ -476,11 +548,11 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>-1.06</p>
+                <p>-1.07</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
-                <p>-58.5%</p>
+                <p>-58.6%</p>
             </div>
             <div class="metric">
                 <h4>Risk Score</h4>
@@ -497,73 +569,61 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Centene Corporation (Ticker: CNC)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:20:41  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:47:12  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Centene Corporation (CNC) currently operates within the <strong>Gray Zone</strong> of financial distress risk, with a <strong>latest Altman Z-Score of 1.30</strong>, indicating moderate financial vulnerability but not immediate distress. The Z-Score has fluctuated between 1.22 and 1.63 over the past eight quarters, reflecting persistent but contained risk pressures. Based on the <strong>AI Risk Analysis overall risk level of Gray Zone with moderate confidence</strong>, the company faces ongoing operational and financial challenges, but no imminent bankruptcy threat.</p>
-<p><strong>AI Peer Analysis</strong> positions CNC below the <strong>industry average Z-Score of approximately 2.5</strong> (typical for Healthcare Plans sector), indicating weaker financial health relative to peers such as UnitedHealth Group (UNH) and Humana (HUM). This relative positioning suggests CNC is underperforming in financial stability metrics compared to key competitors.</p>
-<p><strong>AI Sentiment Analysis</strong> reveals a neutral-to-cautious market perception, with a <strong>P/E ratio of 4.91</strong> signaling undervaluation or market skepticism about growth prospects. The absence of dividend yield and zero volatility metrics imply limited market enthusiasm or trading activity, possibly reflecting investor uncertainty.</p>
+<p>Centene Corporation (CNC) currently resides in the <strong>Gray Zone</strong> of financial distress risk, with its latest Altman Z-Score at <strong>1.30</strong>, indicating moderate financial vulnerability but not immediate distress. The Z-Score has fluctuated within the Gray Zone over the past eight quarters, ranging from a high of 1.63 to a low of 1.22, showing no clear upward recovery trend. This persistent sub-1.8 Z-Score level signals caution for investors, as the company remains closer to distress thresholds than to safety.</p>
+<p><strong>AI Risk Analysis</strong> classifies CNC’s overall risk level as <strong>Moderate to Elevated</strong>, consistent with the Gray Zone Z-Score, with risk trajectory showing no significant improvement. Key risk themes include liquidity constraints and operational margin pressures inherent in the healthcare plans sector.</p>
+<p><strong>AI Peer Analysis</strong> places CNC below the industry average Z-Score (typically &gt;3.0 for Healthcare Plans), indicating underperformance relative to peers. This relative positioning suggests CNC faces competitive and operational challenges not fully mitigated by its current financial structure.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a <strong>neutral to slightly negative market sentiment</strong>, with no dividend yield and a low P/E ratio of 4.90, reflecting market skepticism about growth prospects and financial stability.</p>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
+<th>Metric</th>
 <th>Value</th>
-<th>Industry Benchmark</th>
-<th>Notes</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
 <td>1.30</td>
-<td>~2.5 (Healthcare Plans)</td>
-<td>Gray Zone risk, below peers</td>
+<td>Gray Zone - moderate risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$16.58B</td>
-<td>N/A</td>
-<td>Mid-large cap healthcare</td>
+<td>$16.54B</td>
+<td>Large-cap healthcare player</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$33.31</td>
-<td>N/A</td>
-<td>Stable price, low volatility</td>
+<td>$33.17</td>
+<td>Stable but no recent price momentum</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>4.91</td>
-<td>~15-20 (Industry avg)</td>
-<td>Potential undervaluation</td>
+<td>4.90</td>
+<td>Low valuation, possible undervaluation or risk discount</td>
 </tr>
 <tr>
-<td>Working Capital Ratio</td>
-<td>0.048</td>
-<td>&gt;1.0 preferred</td>
-<td>Liquidity concern</td>
+<td>Dividend Yield</td>
+<td>0.00%</td>
+<td>No income return, growth or risk focus</td>
 </tr>
 <tr>
-<td>Retained Earnings Ratio</td>
-<td>0.191</td>
-<td>Higher preferred</td>
-<td>Moderate earnings retention</td>
+<td>AI Risk Level</td>
+<td>Moderate to Elevated</td>
+<td>Caution advised</td>
 </tr>
 <tr>
-<td>EBIT Ratio</td>
-<td>0.018</td>
-<td>~0.05+ industry avg</td>
-<td>Low operating profitability</td>
-</tr>
-<tr>
-<td>Asset Turnover</td>
-<td>0.536</td>
-<td>~0.7-1.0 typical</td>
-<td>Moderate operational efficiency</td>
+<td>Peer Industry Avg. Z-Score</td>
+<td>&gt;3.0</td>
+<td>CNC below peer average</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong> Given CNC’s persistent Gray Zone Z-Score, below-industry financial ratios, and cautious market sentiment, a <strong>Hold</strong> stance is advised for conservative investors, with selective accumulation for value investors monitoring improvement in liquidity and profitability metrics. Aggressive investors should await clearer Z-Score momentum above 1.8 before initiating new positions.</p>
+<p><strong>Investment Recommendation:</strong><br />
+Given the persistent Gray Zone Z-Score, moderate risk profile, and neutral market sentiment, a <strong>Hold</strong> recommendation is appropriate for most investors. Conservative investors should avoid new positions until financial health improves. Value investors may consider selective accumulation if operational improvements materialize. Aggressive investors might explore tactical entry points but must monitor liquidity and risk factors closely.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -579,44 +639,78 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.048<br>Working Capital Ratio: 0.048</td>
-<td>&gt;1.0 Current Ratio<br>Working Capital &gt;0.2</td>
-<td><strong>Weak liquidity</strong>; working capital ratio well below industry norms, indicating potential short-term cash flow constraints.</td>
-<td>Declining/Stable (low but stable)</td>
+<td>Current Ratio: 0.048</td>
+<td>Healthcare avg ~1.5-2.0</td>
+<td><strong>Severe liquidity weakness</strong>; far below industry norms</td>
+<td>Declining/Weak</td>
+</tr>
+<tr>
+<td></td>
+<td>Working Capital Ratio: 0.048</td>
+<td>Industry ~0.5+</td>
+<td>Indicates tight working capital management</td>
+<td></td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (not provided)<br>Interest Coverage: N/A</td>
-<td>Industry average ~1.0-2.0 D/E</td>
-<td>Data unavailable; leverage risk cannot be fully assessed but low EBIT ratio suggests tight coverage.</td>
-<td>Unknown due to data gaps</td>
+<td>Debt-to-Equity: N/A (not provided)</td>
+<td>Industry avg ~0.5-1.0</td>
+<td>Data unavailable; risk assessment limited</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td></td>
+<td>Interest Coverage: N/A</td>
+<td>Industry avg &gt;3.0</td>
+<td>Not available; EBIT ratio low (0.018)</td>
+<td>Concerning</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.536<br>EBIT Ratio: 0.018</td>
-<td>Asset Turnover ~0.7-1.0<br>EBIT Ratio ~0.05+</td>
-<td><strong>Below-average operational efficiency and profitability</strong>, indicating challenges in converting assets to earnings.</td>
-<td>Stable but low</td>
+<td>Asset Turnover: 0.536</td>
+<td>Healthcare avg ~0.6-0.8</td>
+<td>Slightly below average; moderate asset use</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>EBIT Ratio: 0.018</td>
+<td>Industry avg ~0.05-0.10</td>
+<td>Low operating profitability</td>
+<td>Weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.191<br>Cash Position: N/A</td>
-<td>Retained Earnings typically &gt;0.3</td>
-<td>Moderate retained earnings; insufficient data on cash reserves limits full stability assessment.</td>
-<td>Stable</td>
+<td>Retained Earnings Ratio: 0.191</td>
+<td>Industry avg ~0.3-0.5</td>
+<td>Below average retained earnings; limited cushion</td>
+<td>Stable/Low</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: N/A</td>
+<td>Industry avg varies</td>
+<td>Not provided; liquidity concerns implied</td>
+<td>Unknown</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Narrative Commentary:</strong><br />
-Centene operates in the Healthcare Plans sector, characterized by high regulatory scrutiny and reimbursement risk. The <strong>working capital ratio of 0.048</strong> is critically low compared to the industry standard (&gt;1.0), flagging potential liquidity stress. The <strong>EBIT ratio of 0.018</strong> is significantly below the sector average (~0.05), reflecting thin operating margins possibly due to competitive pricing or increased claims costs. The <strong>asset turnover of 0.536</strong> suggests moderate asset utilization but lags behind peers, which may impact revenue generation efficiency.</p>
-<p>The <strong>AI Data Quality Assessment</strong> indicates no anomalies detected, but incomplete leverage data limits full risk profiling. The low liquidity and profitability metrics align with the persistent Gray Zone Z-Score, reinforcing the need for operational improvements.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+- The <strong>extremely low current ratio of 0.048</strong> is a critical red flag, indicating the company has almost no liquid assets relative to current liabilities. This is well below the healthcare industry standard of approximately 1.5 to 2.0, signaling potential near-term liquidity stress.<br />
+- The <strong>working capital ratio mirrors this weakness</strong>, reinforcing the tight liquidity position.<br />
+- The <strong>EBIT ratio of 0.018</strong> is significantly below the industry average (5-10%), reflecting thin operating margins and limited earnings power to cover interest and reinvestment. This low profitability contributes to the Gray Zone Z-Score classification.<br />
+- <strong>Asset turnover at 0.536</strong> is slightly below typical healthcare plan industry averages, suggesting moderate efficiency but room for improvement in asset utilization.<br />
+- The <strong>retained earnings ratio of 0.191</strong> indicates limited accumulated profits relative to total assets, reducing financial stability and the ability to absorb shocks.<br />
+- Absence of debt-to-equity and interest coverage data limits leverage risk assessment, but the low EBIT ratio implies potential coverage challenges.<br />
+- <strong>AI Data Quality Assessment</strong> notes no anomalies detected, and completeness is high, lending confidence to these financial diagnostics.</p>
+<p>Given CNC operates in the <strong>Healthcare sector, Medical - Healthcare Plans industry</strong>, which demands strong liquidity and operational efficiency to manage regulatory and reimbursement risks, these financial weaknesses warrant close monitoring.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
 <thead>
 <tr>
 <th>Period</th>
-<th>Z-Score Value</th>
+<th>Z-Score</th>
 <th>Risk Category</th>
 <th>Key Drivers</th>
 <th>Business Context</th>
@@ -627,22 +721,22 @@ Centene operates in the Healthcare Plans sector, characterized by high regulator
 <td>Current (Q8)</td>
 <td>1.30</td>
 <td>Gray Zone</td>
-<td>Low working capital, EBIT ratio, retained earnings</td>
-<td>Ongoing margin pressure, regulatory environment challenges</td>
+<td>Low working capital, low EBIT</td>
+<td>Ongoing margin pressure, regulatory environment</td>
 </tr>
 <tr>
 <td>Q7</td>
 <td>1.33</td>
 <td>Gray Zone</td>
-<td>Similar drivers</td>
-<td>Stable but weak financial health</td>
+<td>Similar financial constraints</td>
+<td>Stable but no recovery</td>
 </tr>
 <tr>
 <td>Q6</td>
 <td>1.22</td>
 <td>Gray Zone</td>
-<td>Liquidity constraints</td>
-<td>Possible operational stress</td>
+<td>Liquidity tightening</td>
+<td>Possible operational challenges</td>
 </tr>
 <tr>
 <td>Q5</td>
@@ -655,35 +749,39 @@ Centene operates in the Healthcare Plans sector, characterized by high regulator
 <td>Q4</td>
 <td>1.63</td>
 <td>Gray Zone</td>
-<td>Improved working capital</td>
-<td>Short-lived liquidity improvement</td>
+<td>Best recent performance</td>
+<td>Possibly seasonal or one-time factors</td>
 </tr>
 <tr>
 <td>Q3</td>
 <td>1.44</td>
 <td>Gray Zone</td>
-<td>EBIT decline</td>
-<td>Margin compression</td>
+<td>Declining retained earnings</td>
+<td>Increased cost pressures</td>
 </tr>
 <tr>
 <td>Q2</td>
 <td>1.41</td>
 <td>Gray Zone</td>
-<td>Stable but low ratios</td>
-<td>Consistent operational challenges</td>
+<td>Weak asset turnover</td>
+<td>Operational inefficiencies</td>
 </tr>
 <tr>
 <td>Q1</td>
 <td>1.55</td>
 <td>Gray Zone</td>
-<td>Moderate liquidity</td>
-<td>No significant recovery</td>
+<td>Stable but weak fundamentals</td>
+<td>No significant strategic shifts</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-The Z-Score trajectory over eight quarters shows <strong>persistent Gray Zone classification</strong>, with values oscillating narrowly between 1.22 and 1.63. This pattern indicates <strong>no clear inflection toward financial safety</strong>, but also no slide into distress. The primary Z-Score drivers—working capital, retained earnings, and EBIT ratios—have remained subdued, reflecting ongoing operational and liquidity challenges.</p>
-<p>The lack of significant improvement despite minor quarterly upticks suggests structural issues in the business model or external pressures such as reimbursement rate changes and regulatory compliance costs. Compared to the <strong>industry average Z-Score near 2.5</strong>, CNC’s position signals a need for strategic financial and operational interventions.</p>
+- The Z-Score has remained consistently in the Gray Zone (1.22 to 1.63) over the last eight quarters, indicating persistent financial vulnerability without crossing into distress (&lt;1.8) or safety (&gt;3.0).<br />
+- The <strong>lack of upward momentum</strong> suggests that operational improvements or capital structure changes have not been sufficient to materially improve financial health.<br />
+- The <strong>best Z-Score quarter (1.63)</strong> may reflect transient factors such as favorable reimbursement or cost control, but the subsequent decline to 1.30 signals reversion to baseline risk.<br />
+- The absence of detailed component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) limits granular driver analysis, but the overall trend aligns with low liquidity and profitability metrics.<br />
+- Compared to the <strong>industry average Z-Score &gt;3.0</strong>, CNC’s position is weak, underscoring competitive and operational challenges in the healthcare plans market.<br />
+- Business context includes regulatory pressures, Medicaid/Medicare reimbursement risks, and competitive pricing, which likely constrain margin expansion and working capital flexibility.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -699,30 +797,34 @@ The Z-Score trajectory over eight quarters shows <strong>persistent Gray Zone cl
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Persistently Gray Zone (1.22-1.63)</td>
-<td>Flat price, zero volatility</td>
+<td>Declining Gray Zone</td>
+<td>Flat price at $33.17</td>
 <td>Divergent</td>
-<td>Market may be underpricing risk or awaiting catalyst</td>
+<td>Market may not fully price risk</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral/Cautious (P/E 4.91)</td>
-<td>Limited trading activity, no dividends</td>
+<td>Neutral to Negative</td>
+<td>Low P/E (4.90), No Div</td>
 <td>Consistent</td>
-<td>Market skepticism reflected in valuation</td>
+<td>Market cautious, undervaluation possible</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry average Z-Score</td>
-<td>Sector performing better</td>
+<td>Below Industry Avg</td>
+<td>Sector stable</td>
 <td>Underperforming</td>
-<td>Competitive disadvantage; watch for turnaround</td>
+<td>Competitive disadvantage risk</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The <strong>Z-Score’s Gray Zone status</strong> contrasts with a flat market price and zero volatility metrics, indicating a <strong>disconnect between fundamental risk and market movement</strong>. This divergence may reflect low liquidity or investor uncertainty about CNC’s prospects. The <strong>low P/E ratio of 4.91</strong> suggests the market is pricing in risk or undervaluation, consistent with the cautious AI Sentiment Analysis.</p>
-<p>Peer companies in the Healthcare Plans sector generally exhibit stronger financial health and better market performance, reinforcing CNC’s relative underperformance. This misalignment presents a potential <strong>opportunity for value investors</strong> if operational improvements materialize but also signals caution for momentum-based strategies.</p>
+- The <strong>Z-Score’s persistent Gray Zone status</strong> contrasts with a relatively stable stock price around $33.17, indicating a potential disconnect between fundamental risk and market valuation.<br />
+- The <strong>low P/E ratio of 4.90</strong> suggests the market discounts CNC’s earnings, possibly anticipating continued margin pressure or financial risk.<br />
+- Absence of dividend yield (0.00%) aligns with the company’s need to conserve cash amid liquidity constraints.<br />
+- Technical indicators (RSI, moving averages) and volume data are unavailable or zero, limiting momentum analysis.<br />
+- Peer companies in the healthcare plans sector generally exhibit stronger Z-Scores and better liquidity, reinforcing CNC’s relative underperformance.<br />
+- This divergence may present a <strong>market timing opportunity</strong> if CNC can execute operational improvements or deleverage, but also signals caution if risks materialize.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -738,32 +840,42 @@ The <strong>Z-Score’s Gray Zone status</strong> contrasts with a flat market p
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>Medium</td>
+<td>High</td>
 <td>Moderate</td>
-<td>-0.3 to -0.5</td>
-<td>Cost control, process optimization</td>
+<td>Negative</td>
+<td>Cost control, efficiency programs</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Medium</td>
-<td>High</td>
-<td>-0.5 to -0.7</td>
-<td>Improve liquidity, refinance debt</td>
+<td>Critical</td>
+<td>Significant</td>
+<td>Liquidity management, refinancing</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>-0.2 to -0.4</td>
-<td>Diversify revenue streams, hedge reimbursement risk</td>
+<td>Moderate</td>
+<td>Hedging, diversification</td>
+</tr>
+<tr>
+<td>Regulatory Risks</td>
+<td>High</td>
+<td>Critical</td>
+<td>Significant</td>
+<td>Compliance, lobbying, adaptive strategy</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Operational efficiencies and improved reimbursement rates lift EBIT ratio to 0.04+, working capital ratio to &gt;0.1, pushing Z-Score above 1.8, exiting Gray Zone.<br />
-- <strong>Base Case:</strong> Status quo maintained, Z-Score remains 1.2-1.5, moderate risk persists, requiring close monitoring.<br />
-- <strong>Worst Case:</strong> Liquidity deteriorates, EBIT ratio falls below 0.01, Z-Score drops below 1.8, entering Distress Zone, triggering urgent restructuring or bankruptcy risk.</p>
-<p>Based on the <strong>AI Risk Analysis overall risk level of Gray Zone with moderate confidence</strong>, the probability of deterioration is material but manageable with proactive financial management. The absence of leverage data limits precise bankruptcy risk quantification but low EBIT and working capital ratios are concerning.</p>
+- <strong>Operational risks</strong> such as reimbursement cuts or increased claims costs have a high probability and moderate severity, directly pressuring EBIT and Z-Score.<br />
+- <strong>Financial risks</strong> related to liquidity and debt servicing are critical; given the current working capital ratio of 0.048 and low EBIT ratio (0.018), failure to improve liquidity could push CNC into distress (Z &lt; 1.8).<br />
+- <strong>Market risks</strong> include competitive pricing pressures and policy changes, with moderate impact on valuation and operational cash flow.<br />
+- <strong>Regulatory risks</strong> are high in healthcare plans, with potential for sudden reimbursement changes impacting revenue and profitability.<br />
+- <strong>Best case scenario:</strong> Operational improvements and capital structure optimization raise Z-Score above 1.8, moving CNC toward safety zone.<br />
+- <strong>Base case:</strong> Continued Gray Zone status with marginal fluctuations.<br />
+- <strong>Worst case:</strong> Liquidity crisis and margin erosion push Z-Score below 1.8, triggering distress signals.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -782,47 +894,50 @@ The <strong>Z-Score’s Gray Zone status</strong> contrasts with a flat market p
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score stable around 1.3 (Gray Zone), liquidity concerns</td>
-<td>Await Z-Score &gt;1.8 confirmation</td>
-<td>6-12 months monitoring</td>
+<td>Z-Score stable ~1.3 (Gray Zone)</td>
+<td>Wait for liquidity improvement</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>SELL/HOLD</td>
-<td>No dividend yield; weak retained earnings ratio</td>
-<td>Not suitable for income focus</td>
-<td>N/A</td>
+<td>SELL</td>
+<td>No dividend yield, low retained earnings</td>
+<td>Not suitable for income</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>BUY (Selective)</td>
-<td>Undervalued P/E 4.91, potential upside if Z-Score improves</td>
-<td>Entry on improving liquidity/profitability</td>
+<td>WATCH</td>
+<td>Low P/E (4.90) suggests undervaluation</td>
+<td>Monitor for operational turnaround</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>HOLD</td>
-<td>Low EBIT ratio limits growth sustainability</td>
-<td>Wait for margin expansion</td>
+<td>CAUTIOUS BUY</td>
+<td>Growth constrained by low EBIT and liquidity</td>
+<td>Entry on positive Z-Score trend</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>SPECULATIVE BUY</td>
-<td>High risk/reward; Z-Score near distress threshold</td>
-<td>Volatility currently low; watch for catalyst</td>
-<td>Immediate with stop-loss</td>
+<td>High risk/reward due to Gray Zone Z-Score</td>
+<td>Tactical entry with stop-loss</td>
+<td>Short term (3 months)</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Conservative investors should <strong>hold</strong> and monitor improvements in liquidity and EBIT ratios before increasing exposure. Dividend-focused investors should avoid CNC due to zero dividend yield and weak earnings retention. Value investors may find opportunity in the low valuation but must time entry with signs of financial stabilization.</p>
-<p>Growth investors should remain cautious given the low EBIT ratio and lack of momentum. Aggressive investors may consider speculative positions anticipating operational turnarounds but should employ strict risk controls given the proximity to Distress Zone thresholds.</p>
+<p><strong>Detailed Commentary:</strong><br />
+- <strong>Conservative investors</strong> should hold and monitor liquidity and profitability improvements before increasing exposure.<br />
+- <strong>Dividend-focused investors</strong> should avoid CNC due to zero dividend yield and weak retained earnings ratio (0.191).<br />
+- <strong>Value investors</strong> may find CNC’s low valuation attractive but must watch for signs of operational stabilization.<br />
+- <strong>Growth investors</strong> face challenges given low EBIT ratio (0.018) and limited asset turnover (0.536), suggesting growth is constrained until financial health improves.<br />
+- <strong>Aggressive investors</strong> can consider speculative positions if they have high risk tolerance, focusing on short-term catalysts that might improve liquidity or margins.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -838,29 +953,32 @@ Conservative investors should <strong>hold</strong> and monitor improvements in 
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Improve operational efficiency</td>
-<td>EBIT Ratio (0.018), Asset Turnover (0.536)</td>
-<td>Implement cost controls, optimize claims processing</td>
-<td>EBIT ratio &gt;0.03, improved Z-Score</td>
+<td>Improve liquidity &amp; margins</td>
+<td>Current Ratio (0.048), EBIT Ratio (0.018)</td>
+<td>Implement cost controls, optimize reimbursement</td>
+<td>Z-Score improvement &gt;1.8</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Strengthen liquidity position</td>
-<td>Working Capital Ratio (0.048)</td>
-<td>Enhance cash management, renegotiate debt terms</td>
-<td>Current ratio &gt;1.0, stable cash flow</td>
+<td>Capital structure management</td>
+<td>Working Capital Ratio (0.048), Retained Earnings Ratio (0.191)</td>
+<td>Enhance cash flow, refinance debt if needed</td>
+<td>Liquidity ratio &gt;1.0, EBIT growth</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and compliance</td>
-<td>Z-Score trend, Retained Earnings Ratio (0.191)</td>
-<td>Monitor financial health, enforce governance policies</td>
-<td>Avoid Z-Score decline below 1.2</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Z-Score trend, Regulatory risk</td>
+<td>Strengthen compliance, monitor risk factors</td>
+<td>Stable or improving risk profile</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The CEO must prioritize operational improvements to lift EBIT margins and asset utilization, directly impacting the Z-Score trajectory. The CFO should focus on liquidity enhancement to mitigate short-term solvency risks. The Board should maintain vigilant oversight of financial risk indicators, ensuring compliance and proactive risk mitigation to prevent slide into Distress Zone.</p>
+- The CEO must prioritize operational efficiency and margin expansion to lift EBIT ratio and working capital.<br />
+- The CFO should focus on liquidity management and capital allocation to avoid distress, given the critical current ratio of 0.048.<br />
+- The Board should enforce rigorous risk management and compliance frameworks to mitigate regulatory and market risks.<br />
+- Aligning strategic initiatives with Z-Score improvement targets will enhance investor confidence and market perception.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -876,36 +994,39 @@ The CEO must prioritize operational improvements to lift EBIT margins and asset 
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable Gray Zone (~1.3)</td>
-<td>Potential gradual improvement</td>
-<td>Regulatory clarity, cost controls</td>
-<td>Quarterly Z-Score, EBIT ratio</td>
+<td>Stable in Gray Zone</td>
+<td>Slight upward potential</td>
+<td>Cost reduction, reimbursement improvements</td>
+<td>Quarterly Z-Score, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Below industry average</td>
-<td>Narrowing gap if improvements occur</td>
-<td>Market share gains, reimbursement rates</td>
-<td>Relative Z-Score vs peers</td>
+<td>Below peers</td>
+<td>Gradual improvement</td>
+<td>Competitive pricing, market share gains</td>
+<td>Peer Z-Score comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Moderate ongoing risk</td>
-<td>Risk reduction with financial stabilization</td>
-<td>Debt refinancing, liquidity boosts</td>
-<td>Working capital ratio, cash flow</td>
+<td>Moderate to Elevated</td>
+<td>Potential reduction</td>
+<td>Regulatory clarity, liquidity enhancement</td>
+<td>Working capital ratio, debt levels</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-Centene’s Z-Score momentum suggests a <strong>stable but vulnerable financial position</strong> over the next 6-12 months. Key catalysts such as regulatory environment stabilization and operational cost reductions could drive Z-Score improvements above 1.8, signaling exit from Gray Zone risk. Continuous monitoring of EBIT ratio and working capital is critical to detect early warning signs of deterioration.</p>
-<p>Investment thesis evolution will depend on the company’s ability to improve profitability and liquidity metrics. Establishing an early warning system based on quarterly Z-Score changes and cash flow trends will enable timely strategic adjustments.</p>
+- The Z-Score momentum is currently flat but could improve over 6-12 months if operational efficiencies and liquidity management succeed.<br />
+- Market position remains challenged but may benefit from strategic initiatives targeting Medicaid/Medicare program expansions.<br />
+- Risk profile is elevated but manageable with proactive mitigation; early warning indicators include declining working capital and EBIT margins.<br />
+- Investors and management should monitor leading indicators such as quarterly Z-Score changes, cash flow trends, and regulatory developments to adjust strategies dynamically.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Centene Corporation exhibits a <strong>persistent Gray Zone Altman Z-Score (~1.3)</strong> reflecting moderate financial risk primarily driven by low liquidity and weak operating profitability. Market valuation metrics suggest undervaluation but also investor caution. Operational and financial improvements are essential to elevate CNC’s financial health to industry peer levels and reduce risk exposure.</p>
-<p><strong>Recommended action:</strong> Hold for conservative investors, selective buy for value investors with close monitoring, and speculative buy for aggressive investors with strict risk controls. Strategic focus on liquidity enhancement and EBIT margin improvement is critical for risk mitigation and unlocking shareholder value.</p>
+<p>Centene Corporation (CNC) is currently in a <strong>financial Gray Zone</strong> with a Z-Score of <strong>1.30</strong>, reflecting moderate risk primarily driven by severe liquidity constraints (current ratio 0.048) and low profitability (EBIT ratio 0.018). Despite a large market cap ($16.5B) and stable stock price ($33.17), the company underperforms peers and faces operational and regulatory challenges typical of the healthcare plans industry.</p>
+<p>Investment recommendations range from <strong>Hold</strong> for conservative investors to <strong>speculative buy</strong> for aggressive profiles, contingent on improvements in liquidity and margins. Strategic focus on cost control, capital structure optimization, and regulatory compliance is essential to shift CNC toward financial safety and market confidence.</p>
+<p>Continuous monitoring of Z-Score trends, liquidity ratios, and operational metrics is critical for timely investment decisions and risk mitigation.</p>
 <hr />
-<p><em>Analysis completed leveraging all injected data elements with explicit references to financial ratios, Z-Score trends, market metrics, and AI-driven risk and sentiment assessments.</em></p></div></div>
+<p><em>Analysis generated with full integration of injected financial data, AI risk and peer assessments, and market intelligence as of 2025-07-07.</em></p></div></div>
     </div>
     
 
@@ -1248,78 +1369,41 @@ Centene’s Z-Score momentum suggests a <strong>stable but vulnerable financial 
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:21 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:47 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

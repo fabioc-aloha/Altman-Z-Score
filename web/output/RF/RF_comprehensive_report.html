@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Regions Financial Corporation (RF)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:40 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:07 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -319,6 +391,10 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
                     Attractive dividend yield</div>
                 
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Outperforming market benchmark</div>
+                
             </div>
         </div>
         
@@ -349,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="RF_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="RF_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -414,15 +490,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$24.80</p>
+                <p>$$24.67</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$22.3B</p>
+                <p>$$22.2B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>12.0</p>
+                <p>11.9</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -430,11 +506,11 @@
             </div>
             <div class="metric">
                 <h4>Volatility</h4>
-                <p>60.0%</p>
+                <p>40.0%</p>
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>82.9</p>
+                <p>92.8</p>
             </div>
         </div>
     </div>
@@ -448,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.93</p>
+                <p>0.87</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -456,7 +532,7 @@
             </div>
             <div class="metric">
                 <h4>Risk Score</h4>
-                <p>6.5/10</p>
+                <p>6.0/10</p>
             </div>
         </div>
     </div>
@@ -478,12 +554,12 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Regions Financial Corporation (Ticker: RF)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:40:08  </p>
+<strong>Analysis Date:</strong> 2025-07-07 11:07:06  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Regions Financial Corporation (RF) currently exhibits a <strong>critical financial distress profile</strong>, with an Altman Z-Score persistently below zero across the last eight quarters, ranging from -0.50 to -0.19, firmly placing it in the <strong>Distress Zone (Z &lt; 1.8)</strong>. This signals an urgent risk of bankruptcy or severe financial instability. The AI Risk Analysis overall risk level is implicitly <strong>critical</strong>, supported by the Z-Score trajectory showing no recovery signs.</p>
-<p><strong>AI Peer Analysis</strong> positions RF significantly below the industry average Z-Score (not explicitly provided but typically &gt;2.5 for regional banks), indicating RF is underperforming its peers such as key regional banks (e.g., KeyCorp, Fifth Third Bancorp). This relative positioning suggests competitive weakness and elevated default risk.</p>
-<p><strong>AI Sentiment Analysis</strong> metrics are severely negative or non-informative (e.g., RSI 0.0, zero volume), indicating either data anomalies or market disinterest, which compounds the risk perception and reduces confidence in market support.</p>
+<p>Regions Financial Corporation (RF) currently exhibits a <strong>distress-level Altman Z-Score</strong> with a consistent negative trend over the last 8 quarters, ranging from -0.21 to -0.50, all firmly within the <strong>Distress Zone (Z &lt; 1.8)</strong>. This signals a high risk of financial distress or potential bankruptcy without significant operational or financial restructuring.  </p>
+<p><strong>AI Risk Analysis</strong> indicates an <strong>overall risk level of "High"</strong> (implied by distress Z-Scores and financial ratios), with a deteriorating risk trajectory over the observed periods. The <strong>AI Peer Analysis</strong> shows RF significantly underperforms the industry average Z-Score (not explicitly provided but typically &gt; 2.5 for regional banks), placing RF at a competitive disadvantage relative to key peers in the regional banking sector.  </p>
+<p><strong>AI Sentiment Analysis</strong> metrics are unavailable or neutral due to zero volatility and zero RSI, indicating either data anomalies or extremely low market activity, which reduces confidence in market sentiment signals.  </p>
 <table>
 <thead>
 <tr>
@@ -496,17 +572,17 @@
 <tr>
 <td>Latest Z-Score</td>
 <td>-0.44</td>
-<td>Distress Zone, no improvement trend</td>
+<td>Distress Zone, worsening trend</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$22.29B</td>
-<td>Mid-large cap but distressed</td>
+<td>$22.19B</td>
+<td>Mid-cap regional bank scale</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$24.80</td>
-<td>Stable price but low liquidity</td>
+<td>$24.67</td>
+<td>Stable nominal price</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
@@ -521,7 +597,7 @@
 <tr>
 <td>EBIT Ratio</td>
 <td>0.004</td>
-<td>Near breakeven operating earnings</td>
+<td>Minimal operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
@@ -529,14 +605,19 @@
 <td>Extremely low operational efficiency</td>
 </tr>
 <tr>
+<td>P/E Ratio</td>
+<td>11.92</td>
+<td>Moderate valuation, but questionable given distress</td>
+</tr>
+<tr>
 <td>Dividend Yield</td>
-<td>425%</td>
-<td>Likely anomalous or unsustainable</td>
+<td>425.00%</td>
+<td>Likely data anomaly or unsustainable payout</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Investment Action Recommendation:</strong><br />
-Given the persistent distress signals, negative financial health indicators, and lack of market confidence, <strong>a strong SELL recommendation is warranted for all but the most speculative investors</strong>. Conservative and dividend-focused investors should avoid new positions. Aggressive investors may consider distressed debt or turnaround plays only with rigorous risk controls and short time horizons.</p>
+Given the persistent distress signals, negative liquidity, minimal profitability, and poor operational efficiency, <strong>a cautious SELL or avoid new investment stance is warranted</strong> for RF at this time. The extremely high dividend yield figure is likely erroneous or unsustainable, further cautioning against dividend-based investment strategies. Close monitoring for any turnaround signs or restructuring announcements is advised before reconsidering exposure.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -553,39 +634,40 @@ Given the persistent distress signals, negative financial health indicators, and
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: N/A (Working Capital Ratio: -0.581)</td>
-<td>Typically &gt;1.0</td>
-<td>Severe liquidity weakness; negative working capital ratio indicates inability to cover short-term liabilities</td>
-<td>Declining/Distress</td>
+<td>Typically &gt;1.0 (positive WC)</td>
+<td><strong>Severe liquidity weakness</strong>; negative working capital ratio signals cash flow stress</td>
+<td>Declining</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
 <td>Debt-to-Equity: N/A (Data missing)</td>
-<td>~1.0-1.5 typical for banks</td>
-<td>Unable to assess fully; negative working capital suggests leverage stress</td>
-<td>Unknown/Negative</td>
+<td>Industry avg ~1.0-1.5</td>
+<td>Unable to assess leverage fully; likely elevated risk given distress</td>
+<td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>EBIT Ratio: 0.004; Asset Turnover: 0.014</td>
 <td>EBIT Ratio ~0.02-0.05; Asset Turnover ~0.3-0.5</td>
-<td>Extremely poor operational efficiency; near zero EBIT and negligible asset turnover</td>
-<td>Declining/Weak</td>
+<td><strong>Extremely low profitability and asset utilization</strong></td>
+<td>Declining</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.058</td>
 <td>Typically &gt;0.2</td>
-<td>Very low retained earnings, indicating limited reinvestment and capital buffer</td>
-<td>Weak/Declining</td>
+<td><strong>Very low retained earnings</strong>, indicating limited reinvestment or accumulated losses</td>
+<td>Stable/Weak</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Interpretive Commentary:</strong><br />
-- The <strong>negative working capital ratio of -0.581</strong> is a critical red flag, indicating liabilities exceed current assets substantially, which is unusual and alarming for a bank.<br />
-- The <strong>EBIT ratio of 0.004</strong> suggests the company is barely generating operating profits, insufficient to cover interest and other expenses, increasing default risk.<br />
-- <strong>Asset turnover at 0.014</strong> is drastically below industry norms, reflecting poor utilization of assets to generate revenue, possibly due to non-performing loans or asset write-downs.<br />
-- The <strong>retained earnings ratio of 0.058</strong> is minimal, showing limited historical profitability retention and capital accumulation, weakening the financial foundation.<br />
-- The <strong>AI Data Quality Assessment</strong> shows no anomalies detected but the absence of key ratios like debt-to-equity and interest coverage limits full leverage analysis. However, the available data strongly indicates financial distress consistent with the sector context of regional banks.</p>
+<p><strong>Commentary:</strong><br />
+- The <strong>negative working capital ratio (-0.581)</strong> is a critical red flag, indicating liabilities exceed current assets, which is atypical and dangerous for a bank’s short-term solvency.<br />
+- EBIT ratio of 0.004 (0.4%) is far below industry norms, reflecting near-breakeven or loss-making operations.<br />
+- Asset turnover at 0.014 is drastically below the regional banking average (~0.3-0.5), suggesting poor utilization of assets to generate revenue.<br />
+- Retained earnings ratio at 5.8% is minimal, signaling limited capacity to absorb losses or fund growth internally.<br />
+- Data completeness is good, but <strong>AI Data Quality Assessment flags anomalies in dividend yield and zero volatility</strong>, reducing confidence in market-based metrics.  </p>
+<p>Sector context: As a <strong>Regional Bank in Financial Services</strong>, RF is expected to maintain solid liquidity and operational efficiency to manage credit risk and regulatory capital requirements. Current metrics show significant deviation from these norms, indicating operational and financial distress.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -604,22 +686,23 @@ Given the persistent distress signals, negative financial health indicators, and
 <td>-0.44</td>
 <td>Distress</td>
 <td>Negative working capital, low EBIT, poor asset turnover</td>
-<td>Continued operational challenges, possible loan losses</td>
+<td>Ongoing operational challenges, possible credit losses</td>
 </tr>
 <tr>
-<td>Previous Quarters</td>
-<td>-0.50 to -0.19</td>
+<td>Previous Quarters (Q1-Q7)</td>
+<td>-0.21 to -0.50</td>
 <td>Distress</td>
-<td>Persistent negative liquidity and profitability</td>
-<td>No recovery, ongoing financial stress</td>
+<td>Consistently negative liquidity and profitability</td>
+<td>No recovery signs, persistent financial stress</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-- The Z-Score has remained <strong>consistently negative over eight quarters</strong>, with no upward trend or recovery signals, indicating entrenched financial distress.<br />
-- Key drivers include <strong>negative working capital</strong>, minimal EBIT, and extremely low asset turnover, all pointing to operational inefficiencies and liquidity crises.<br />
-- The <strong>business operates in the regional banking sector</strong>, which is sensitive to credit cycles and interest rate fluctuations; RF’s poor metrics suggest it has not adapted well to recent market conditions.<br />
-- Compared to the <strong>industry average Z-Score (typically &gt;3.0 for healthy banks)</strong>, RF’s position is alarmingly weak, highlighting competitive disadvantages and elevated bankruptcy risk.</p>
+- The Z-Score has remained <strong>consistently negative and in distress</strong> for 8 quarters, with no inflection toward recovery.<br />
+- Key drivers such as working capital and EBIT ratios remain negative or near zero, indicating no operational turnaround.<br />
+- The absence of positive retained earnings growth or asset turnover improvement correlates with the business’s inability to generate sustainable profits.<br />
+- Compared to the <strong>industry average Z-Score for regional banks (typically &gt; 3.0)</strong>, RF is severely underperforming, highlighting competitive and financial distress.<br />
+- No significant business events or restructuring are indicated in the data, suggesting ongoing operational inertia or unresolved financial issues.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -635,32 +718,32 @@ Given the persistent distress signals, negative financial health indicators, and
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Persistently Distress (-0.44 latest)</td>
-<td>Price stable at $24.80, zero volume</td>
-<td>Divergent (price stable but no volume)</td>
-<td>Market may be illiquid or ignoring fundamentals; risk of sudden price drop</td>
+<td>Distress (-0.44)</td>
+<td>Price stable at $24.67</td>
+<td>Divergent</td>
+<td>Market price does not reflect distress; potential overvaluation risk</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Negative/Non-informative (RSI 0.0)</td>
-<td>No consensus data available</td>
+<td>Neutral/Unavailable</td>
+<td>RSI 0.0, zero volatility</td>
 <td>Inconsistent</td>
-<td>Lack of market confidence; sentiment weak</td>
+<td>Market sentiment data unreliable; low trading activity or data anomaly</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Significantly Underperforming</td>
-<td>Sector performance stable/moderate</td>
 <td>Underperforming</td>
-<td>Competitive weakness; avoid relative to peers</td>
+<td>Sector performance unknown</td>
+<td>Underperforming</td>
+<td>Competitive disadvantage; risk of market share loss</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-- The <strong>lack of trading volume and zero volatility metrics</strong> indicate a market data anomaly or illiquid trading environment, reducing confidence in price signals.<br />
-- The <strong>P/E ratio of 11.98</strong> is moderate but likely unreliable given the distress context and possible earnings manipulation or one-time items.<br />
-- The <strong>dividend yield of 425% is clearly anomalous</strong>, likely due to a dividend cut or special event, signaling unsustainability and further risk.<br />
-- Overall, the <strong>market signals do not align with the fundamental distress indicated by the Z-Score</strong>, suggesting either market neglect or data quality issues, which increases investment risk.</p>
+- The <strong>stable stock price ($24.67) and moderate P/E (11.92)</strong> contrast sharply with the distress-level Z-Score, indicating a <strong>disconnect between fundamental risk and market valuation</strong>.<br />
+- Technical indicators such as RSI (0.0) and zero volatility suggest <strong>either data anomalies or extremely low trading volume</strong>, limiting market signal reliability.<br />
+- Dividend yield of 425% is likely a data error or reflects a special situation (e.g., special dividend or stock price anomaly), further reducing confidence in market-based valuation.<br />
+- The divergence between fundamental distress and market price suggests <strong>potential market complacency or delayed risk recognition</strong>, increasing downside risk for investors.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -678,30 +761,32 @@ Given the persistent distress signals, negative financial health indicators, and
 <td>Operational Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Further decline due to inefficiencies</td>
-<td>Restructure operations, improve asset quality</td>
+<td>Further Z-Score decline</td>
+<td>Restructure operations, improve asset utilization</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Negative working capital worsens Z-Score</td>
+<td>Negative liquidity worsens Z-Score</td>
 <td>Capital infusion, debt restructuring</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Market illiquidity may cause price shocks</td>
-<td>Enhance investor relations, improve transparency</td>
+<td>Price volatility may increase</td>
+<td>Hedging, cautious position sizing</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Successful capital raise and operational turnaround could improve Z-Score to near Gray Zone (1.8-3.0) over 12-18 months.<br />
-- <strong>Base Case:</strong> Continued distress with Z-Score stable around -0.4 to -0.2, maintaining bankruptcy risk and depressed valuation.<br />
-- <strong>Worst Case:</strong> Further deterioration leads to Z-Score below -0.5, triggering insolvency or forced restructuring.  </p>
-<p>Based on AI Risk Analysis, the <strong>probability of operational and financial risks is high with critical severity</strong>, demanding urgent mitigation to avoid bankruptcy.</p>
+<p><strong>Risk Commentary:</strong><br />
+- <strong>Operational risk is high</strong>, driven by poor asset turnover and EBIT ratios, threatening ongoing viability.<br />
+- <strong>Financial risk is critical</strong>, with negative working capital ratio indicating liquidity stress and potential insolvency risk.<br />
+- Market risk is moderate but could spike if market sentiment shifts or liquidity dries up.<br />
+- Best-case scenario: operational improvements and capital injection stabilize Z-Score near gray zone (1.8-3.0).<br />
+- Base-case: continued distress with Z-Score remaining negative, risking bankruptcy.<br />
+- Worst-case: rapid deterioration leading to insolvency and severe shareholder value loss.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -719,50 +804,50 @@ Given the persistent distress signals, negative financial health indicators, and
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td>SELL</td>
+<td><strong>SELL</strong></td>
 <td>Z-Score persistently &lt;0, distress zone</td>
-<td>Avoid entry; exit if held</td>
+<td>Avoid entry; exit positions</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>SELL</td>
-<td>Dividend yield anomaly (425%) unsustainable</td>
-<td>No yield support</td>
-<td>Immediate</td>
+<td><strong>AVOID</strong></td>
+<td>Dividend yield data unreliable; payout unsustainable</td>
+<td>No entry until stability</td>
+<td>N/A</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>SELL</td>
-<td>Negative working capital and EBIT ratio</td>
-<td>No value recovery signals</td>
-<td>Immediate</td>
+<td><strong>HOLD/AVOID</strong></td>
+<td>Valuation not supported by fundamentals</td>
+<td>Wait for Z-Score improvement</td>
+<td>Monitor quarterly</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>SELL</td>
-<td>No growth in Z-Score or operational metrics</td>
+<td><strong>SELL</strong></td>
+<td>No growth signals; EBIT and asset turnover near zero</td>
 <td>No momentum</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>SPECULATIVE SELL</td>
-<td>High risk/reward but extreme distress</td>
-<td>Only for distressed debt specialists</td>
+<td><strong>SPECULATIVE SELL</strong></td>
+<td>High risk, potential for total loss</td>
+<td>Only for risk-tolerant traders</td>
 <td>Short-term only</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Detailed Commentary:</strong><br />
-- The <strong>persistent negative Z-Score values (-0.44 latest)</strong> provide strong evidence against holding or buying RF shares.<br />
-- The <strong>dividend yield anomaly and zero volume</strong> indicate market dysfunction, increasing risk for dividend and growth investors.<br />
-- Aggressive investors may consider distressed debt or special situations but must apply strict risk controls given bankruptcy risk.<br />
-- Immediate exit or avoidance is recommended for all other profiles.</p>
+<p><strong>Rationale:</strong><br />
+- The <strong>persistent distress Z-Score and poor financial metrics</strong> strongly advise against new investment or holding long positions for conservative and growth investors.<br />
+- Dividend investors should avoid due to unreliable payout data and financial instability.<br />
+- Value investors may consider monitoring for turnaround signals but should not initiate new positions until Z-Score crosses into the gray or safe zone.<br />
+- Aggressive investors may speculate on potential restructuring but must be prepared for high volatility and loss.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -778,32 +863,32 @@ Given the persistent distress signals, negative financial health indicators, and
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Stabilize liquidity and operations</td>
+<td>Stabilize liquidity &amp; operations</td>
 <td>Working Capital Ratio, EBIT Ratio</td>
-<td>Implement cost controls, asset quality review</td>
-<td>Improved liquidity, EBIT growth</td>
+<td>Implement cost control, improve asset utilization, pursue capital raise</td>
+<td>Positive Z-Score trend, liquidity improvement</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital structure optimization</td>
-<td>Retained Earnings Ratio, Debt Levels</td>
-<td>Seek capital infusion, renegotiate debt</td>
-<td>Positive retained earnings trend</td>
+<td>Financial restructuring</td>
+<td>Retained Earnings Ratio, Debt levels</td>
+<td>Restructure debt, improve capital adequacy</td>
+<td>Improved ratios, reduced distress signals</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and transparency</td>
-<td>Z-Score trends, Risk Factors</td>
-<td>Enhance disclosure, monitor risk metrics</td>
-<td>Compliance and risk reduction</td>
+<td>Risk oversight &amp; transparency</td>
+<td>Z-Score, Risk Analysis metrics</td>
+<td>Enhance risk management, communicate turnaround plan</td>
+<td>Compliance, risk reduction, investor confidence</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-- The <strong>CEO must prioritize operational turnaround and liquidity stabilization</strong> to prevent insolvency.<br />
-- The <strong>CFO should focus on capital raising and debt restructuring</strong> to improve financial stability.<br />
-- The <strong>Board must increase governance oversight</strong> given the high risk environment, ensuring transparency and proactive risk management.<br />
-- Aligning these efforts with the <strong>AI Risk Analysis trajectory</strong> is critical to reversing the distress trend.</p>
+- The CEO must prioritize operational turnaround focusing on improving asset turnover and EBIT margins to halt Z-Score decline.<br />
+- The CFO should aggressively manage liquidity and capital structure to avoid insolvency risks highlighted by negative working capital.<br />
+- The Board should enforce governance measures to ensure transparency and risk mitigation, restoring market and investor confidence.<br />
+- Alignment of strategic initiatives with AI Risk Analysis themes is critical to reversing the negative trajectory.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -819,37 +904,37 @@ Given the persistent distress signals, negative financial health indicators, and
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Negative, stable</td>
+<td>Declining</td>
 <td>Potential further decline</td>
-<td>Capital raise success, operational improvements</td>
-<td>Quarterly Z-Score updates</td>
+<td>Capital infusion, operational restructuring</td>
+<td>Quarterly Z-Score updates, liquidity ratios</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Weak, underperforming</td>
-<td>Possible stabilization if turnaround succeeds</td>
-<td>Regulatory changes, market recovery</td>
-<td>Peer comparison, price-volume trends</td>
+<td>Weak</td>
+<td>Potential loss of market share</td>
+<td>Competitor performance, regulatory changes</td>
+<td>Peer Z-Score comparison, market share data</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High risk</td>
-<td>Remains elevated unless mitigated</td>
-<td>Credit market conditions, liquidity events</td>
-<td>Risk factor occurrence, liquidity ratios</td>
+<td>High</td>
+<td>Elevated risk persists</td>
+<td>Credit losses, macroeconomic shocks</td>
+<td>Credit risk indicators, macroeconomic data</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-- The <strong>Z-Score momentum is negative with no signs of recovery</strong>, requiring close monitoring of quarterly financials and operational KPIs.<br />
-- Key catalysts for improvement include <strong>successful capital infusion, asset quality enhancement, and cost reduction</strong>.<br />
-- Early warning indicators such as <strong>further working capital deterioration or EBIT losses</strong> should trigger immediate strategic responses.<br />
-- Investors and management should establish an <strong>early warning system based on Z-Score components and liquidity metrics</strong> to anticipate distress escalation.</p>
+- Without significant operational or financial intervention, RF’s Z-Score is expected to remain in the distress zone over the next 6-12 months.<br />
+- Key catalysts for improvement include successful capital raises, cost reductions, and asset utilization enhancements.<br />
+- Monitoring leading indicators such as quarterly EBIT ratio changes, working capital improvements, and peer Z-Score movements will be critical for early detection of turnaround or further deterioration.<br />
+- Investors and management should develop an early warning system based on these metrics to enable timely strategic decisions.</p>
 <hr />
-<h1 id="summary-conclusion"><strong>Summary Conclusion:</strong></h1>
-<p>Regions Financial Corporation (RF) is in a <strong>critical financial distress state</strong>, with a persistently negative Altman Z-Score, poor liquidity, minimal profitability, and operational inefficiencies. Market signals are inconsistent or anomalous, and peer comparisons highlight significant underperformance. The investment recommendation is a <strong>strong SELL for all but speculative distressed debt investors</strong>, with urgent strategic actions required by management to stabilize and turn around the business. Continuous monitoring of Z-Score components and risk factors is essential to track progress and avoid insolvency.</p>
+<h1 id="summary">Summary</h1>
+<p>Regions Financial Corporation (RF) is currently in a <strong>critical financial distress state</strong>, as evidenced by a persistently negative Altman Z-Score (-0.44 latest) and severely impaired liquidity and operational metrics. Market signals are inconsistent or unreliable, and peer benchmarking confirms underperformance. The investment recommendation is a <strong>strong SELL or avoid stance</strong> pending clear signs of financial and operational recovery. Strategic leadership must urgently address liquidity and profitability challenges to stabilize the company’s financial health and restore investor confidence.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating multi-source financial data, risk assessment, and market intelligence for actionable investment decisions.</em></p></div></div>
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial data, risk assessment, and market intelligence for actionable investment guidance.</em></p></div></div>
     </div>
     
 
@@ -1192,78 +1277,41 @@ Given the persistent distress signals, negative financial health indicators, and
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:40 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:07 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

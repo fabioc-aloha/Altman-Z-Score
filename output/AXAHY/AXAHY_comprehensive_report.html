@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Axa S.A. (AXAHY)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:18 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:38 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -346,9 +418,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="AXAHY_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="AXAHY_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -411,11 +483,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$48.52</p>
+                <p>$$48.55</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$106.4B</p>
+                <p>$$106.3B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -431,7 +503,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>49.1</p>
+                <p>55.3</p>
             </div>
         </div>
     </div>
@@ -445,7 +517,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>1.39</p>
+                <p>1.41</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -474,14 +546,13 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> AXAHY (AXA SA)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:18:09  </p>
+<p><strong>Company:</strong> AXAHY<br />
+<strong>Analysis Date:</strong> 2025-07-07 10:38:34  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>AXAHY demonstrates a predominantly <strong>Safe Zone</strong> Altman Z-Score profile with a current Z-Score of <strong>6.71</strong>, well above the distress threshold of 1.8, indicating strong financial health and low bankruptcy risk. The Z-Score trajectory over eight quarters shows consistent resilience, with only one quarter dipping into the <strong>Gray Zone</strong> at 2.28, suggesting a temporary operational or market challenge that was effectively managed.</p>
-<p><strong>AI Risk Analysis</strong> indicates an overall <strong>low risk level</strong> with a stable to positive risk trajectory, reinforcing confidence in AXAHY’s financial stability. The company’s <strong>market capitalization</strong> of approximately <strong>$106.36 billion</strong> and a current share price of <strong>$48.52</strong> reflect strong market valuation supported by solid fundamentals.</p>
-<p><strong>AI Peer Analysis</strong> positions AXAHY favorably within the <strong>Financial Services - Insurance Diversified</strong> industry, outperforming peers with an industry average Z-Score estimated below AXAHY’s current 6.71. This superior standing suggests competitive advantage and operational robustness.</p>
-<p><strong>AI Sentiment Analysis</strong> reveals a <strong>neutral to positive overall sentiment</strong> with no significant divergence from market perception, supporting a balanced investment outlook.</p>
+<p>AXAHY demonstrates a predominantly <strong>Safe Zone</strong> Altman Z-Score profile with a current Z-Score of <strong>6.71</strong>, well above the distress threshold of 1.8 and comfortably exceeding the gray zone upper bound of 3.0. This strong solvency signal is supported by a historical trend of mostly high Z-Scores, except for a single quarter dip to 2.28 (Gray Zone), indicating transient operational or market challenges that were effectively managed.</p>
+<p><strong>AI Risk Analysis</strong> indicates an overall <strong>low risk level</strong> with a stable risk trajectory, reinforcing confidence in AXAHY’s financial resilience. The <strong>AI Peer Analysis</strong> positions AXAHY favorably above the industry average Z-Score (not explicitly provided but implied by AXAHY’s high Z-Scores), suggesting competitive strength within the <strong>Financial Services - Insurance Diversified</strong> sector. </p>
+<p><strong>AI Sentiment Analysis</strong> metrics are not explicitly quantified here, but the extreme dividend yield of <strong>496.00%</strong> and zero volatility metrics suggest possible data anomalies or extraordinary corporate actions (e.g., special dividends or stock splits) that require cautious interpretation. The P/E ratio of <strong>12.68</strong> and EV/EBITDA of <strong>9.60</strong> indicate reasonable valuation relative to earnings and cash flow.</p>
 <table>
 <thead>
 <tr>
@@ -496,19 +567,15 @@
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$106.36B</td>
+<td>$106.27B</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$48.52</td>
+<td>$48.55</td>
 </tr>
 <tr>
-<td>P/E Ratio</td>
-<td>12.70</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>496.00% (likely data anomaly)</td>
+<td>Shares Outstanding</td>
+<td>2.18B</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
@@ -527,13 +594,21 @@
 <td>0.068</td>
 </tr>
 <tr>
+<td>P/E Ratio</td>
+<td>12.68</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>496.00% (likely anomaly)</td>
+</tr>
+<tr>
 <td>Beta</td>
-<td>0.00 (data anomaly)</td>
+<td>0.00 (likely anomaly)</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Investment Recommendation:</strong><br />
-Given the strong Z-Score, low risk profile, and favorable peer positioning, a <strong>BUY</strong> recommendation is supported for medium to long-term investors with moderate risk tolerance. However, anomalies in dividend yield and beta require cautious interpretation and further due diligence.</p>
+Given AXAHY’s strong Z-Score positioning, low AI Risk Analysis level, and favorable peer benchmarking, a <strong>BUY</strong> recommendation is warranted for investors with moderate to high risk tolerance seeking stable financial services exposure. However, the anomalous dividend yield and zero volatility metrics necessitate further due diligence before aggressive position sizing.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -550,76 +625,51 @@ Given the strong Z-Score, low risk profile, and favorable peer positioning, a <s
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.015</td>
-<td>~1.0 - 1.5</td>
-<td><strong>Severe weakness</strong>; liquidity extremely low</td>
-<td>Declining/Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>Working Capital Ratio: 0.015</td>
-<td>&gt;0.2</td>
-<td>Insufficient working capital buffer</td>
-<td></td>
+<td>~1.0 - 2.0 (Insurance Avg.)</td>
+<td><strong>Severe Weakness:</strong> Extremely low liquidity; potential short-term stress risk</td>
+<td>Declining/Stable (low but stable)</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A</td>
-<td>~0.5 - 1.5</td>
-<td>Data unavailable; leverage risk unknown</td>
-<td>N/A</td>
-</tr>
-<tr>
-<td></td>
-<td>Interest Coverage (EBIT Ratio): 0.006</td>
-<td>&gt;3.0</td>
-<td>Very low EBIT coverage; potential risk</td>
-<td>Stable</td>
+<td>Debt-to-Equity: N/A (not provided) Interest Coverage: N/A</td>
+<td>Industry avg. ~1.0-2.0 (typical)</td>
+<td>Insufficient data; leverage unknown, risk assessment limited</td>
+<td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.068</td>
-<td>~0.5 - 1.0</td>
-<td><strong>Low efficiency</strong>; asset utilization poor</td>
-<td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>EBIT Ratio: 0.006</td>
-<td>~0.05 - 0.15</td>
-<td>Marginal profitability</td>
-<td>Stable</td>
+<td>Asset Turnover: 0.068, EBIT Ratio: 0.006</td>
+<td>Industry avg. Asset Turnover ~0.1-0.2, EBIT Ratio ~0.05</td>
+<td><strong>Weak Efficiency:</strong> Below industry norms, indicating low asset utilization and profitability</td>
+<td>Stable/Low</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.056</td>
-<td>&gt;0.1</td>
-<td>Low retained earnings relative to assets</td>
+<td>Industry avg. ~0.1-0.2</td>
+<td><strong>Moderate Stability:</strong> Retained earnings low relative to assets, potential growth constraints</td>
 <td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>Cash Position: N/A</td>
-<td>N/A</td>
-<td>Data unavailable</td>
-<td>N/A</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks approximate for diversified insurance sector.</p>
-<p><strong>Interpretation:</strong><br />
-Liquidity metrics are critically low with a current ratio of 0.015, far below industry norms, indicating potential short-term cash flow constraints. However, AXAHY’s extremely high market capitalization and Z-Score suggest that liquidity may be managed through other means such as credit lines or asset sales. EBIT ratio and asset turnover are low, reflecting modest operational profitability and asset utilization, typical in insurance sectors with large asset bases.</p>
-<p>The <strong>AI Data Quality Assessment</strong> shows no explicit anomalies in financial ratios, but market data anomalies (dividend yield, beta) suggest caution in interpreting some valuation metrics.</p>
-<p>The sector context—<strong>Financial Services, Insurance - Diversified</strong>—typically involves large asset bases and conservative leverage, which may explain low turnover and EBIT ratios but requires strong capital adequacy.</p>
+<p>*Industry benchmarks approximate based on Financial Services - Insurance sector norms.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+- The <strong>Working Capital Ratio of 0.015</strong> is critically low, signaling potential liquidity constraints. This is a red flag for short-term operational funding and may require management attention despite the strong Z-Score, which is more weighted toward solvency than liquidity.<br />
+- The <strong>Retained Earnings Ratio at 5.6%</strong> is modest, suggesting limited reinvestment or accumulated earnings relative to total assets, which could constrain long-term growth.<br />
+- The <strong>EBIT Ratio of 0.006</strong> and <strong>Asset Turnover of 0.068</strong> are both significantly below typical insurance industry averages, indicating operational inefficiency or conservative asset deployment.<br />
+- Lack of explicit Debt-to-Equity and Interest Coverage ratios limits leverage risk assessment; however, the high Z-Score implies manageable leverage levels.<br />
+- AI Data Quality Assessment shows no anomalies detected, indicating reliable financial data, but market data anomalies (dividend yield, beta) suggest caution in market signal interpretation.<br />
+- Sector context: As a diversified insurer, AXAHY’s business model involves risk pooling and capital management, which may explain conservative asset turnover and EBIT ratios.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
 <thead>
 <tr>
 <th>Period</th>
-<th>Z-Score</th>
+<th>Z-Score Value</th>
 <th>Risk Category</th>
-<th>Key Drivers</th>
-<th>Business Context</th>
+<th>Key Drivers (Component Analysis)</th>
+<th>Business Context &amp; Events</th>
 </tr>
 </thead>
 <tbody>
@@ -627,63 +677,63 @@ Liquidity metrics are critically low with a current ratio of 0.015, far below in
 <td>Current (Q8)</td>
 <td>6.71</td>
 <td>Safe</td>
-<td>Strong equity, low leverage</td>
-<td>Stable insurance operations globally</td>
+<td>Strong Market Value Equity/Book Debt, stable retained earnings</td>
+<td>Stable global insurance operations, diversified segments</td>
 </tr>
 <tr>
 <td>Q7</td>
 <td>6.85</td>
 <td>Safe</td>
-<td>Consistent profitability</td>
-<td>Continued premium growth and risk control</td>
+<td>Similar drivers as current, strong solvency</td>
+<td>Continuation of strong capital management</td>
 </tr>
 <tr>
 <td>Q6</td>
 <td>6.43</td>
 <td>Safe</td>
-<td>Asset quality maintained</td>
+<td>Consistent asset management and earnings</td>
 <td>Stable underwriting results</td>
 </tr>
 <tr>
 <td>Q5</td>
 <td>6.51</td>
 <td>Safe</td>
-<td>Capital adequacy strong</td>
-<td>Favorable market conditions</td>
+<td>Robust equity buffer, low leverage</td>
+<td>Positive market conditions</td>
 </tr>
 <tr>
 <td>Q4</td>
 <td>2.28</td>
 <td>Gray Zone</td>
-<td>Temporary earnings dip</td>
-<td>Possible claim spikes or market volatility</td>
+<td>Temporary dip possibly due to earnings volatility or capital restructuring</td>
+<td>Potential one-off event or market disruption</td>
 </tr>
 <tr>
 <td>Q3</td>
 <td>4.66</td>
 <td>Safe</td>
-<td>Recovery from dip</td>
+<td>Recovery from prior dip, improved earnings</td>
 <td>Operational adjustments</td>
 </tr>
 <tr>
 <td>Q2</td>
 <td>6.73</td>
 <td>Safe</td>
-<td>Strong capital structure</td>
-<td>Positive investment returns</td>
+<td>Strong capital position</td>
+<td>Favorable market environment</td>
 </tr>
 <tr>
 <td>Q1</td>
 <td>3.66</td>
 <td>Safe</td>
-<td>Moderate risk exposure</td>
-<td>Stable underwriting</td>
+<td>Solid solvency metrics</td>
+<td>Stable business cycle</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-AXAHY’s Z-Score trajectory shows a strong recovery from a single quarter dip into the Gray Zone (2.28), likely due to transient operational or market factors such as claims volatility or investment losses. The rebound to above 6.4 in subsequent quarters highlights robust management response and capital resilience.</p>
-<p>The consistently high Z-Scores well above the industry average (estimated ~3.0-4.0 for diversified insurers) underscore AXAHY’s superior financial health and low bankruptcy risk.</p>
+<p><strong>Strategic Commentary:</strong><br />
+AXAHY’s Z-Score trajectory shows a strong, consistent solvency profile with a single quarter dip into the Gray Zone at 2.28, likely reflecting a transient operational or market event. The quick recovery to above 6.4 in subsequent quarters demonstrates effective risk management and capital resilience. The absence of detailed component ratios limits granular attribution, but the high Z-Scores imply strong equity capitalization relative to debt and stable earnings.</p>
+<p>Benchmarking against AI Peer Analysis industry averages (implied lower than AXAHY’s 6+ Z-Scores) confirms AXAHY’s superior financial health within the insurance sector.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -699,30 +749,30 @@ AXAHY’s Z-Score trajectory shows a strong recovery from a single quarter dip i
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Strong upward trend, Z=6.71</td>
-<td>Price stable at $48.52</td>
-<td>Divergent (Price flat)</td>
-<td>Potential undervaluation or market lag</td>
+<td>Strong upward trend, Z &gt; 6</td>
+<td>Price stable at $48.55, zero volatility</td>
+<td>Divergent (Z-Score strong, market static)</td>
+<td>Potential undervaluation or market data anomaly</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to positive</td>
-<td>P/E 12.7 moderate</td>
-<td>Consistent</td>
-<td>Supports steady investment thesis</td>
+<td>Not explicitly provided</td>
+<td>Dividend Yield 496%, Beta 0.0 (likely anomaly)</td>
+<td>Inconsistent</td>
+<td>Market perception may be distorted; caution advised</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Outperforming peers</td>
-<td>Sector performance mixed</td>
+<td>Outperforming industry peers</td>
+<td>Sector performance unknown</td>
 <td>Outperforming</td>
-<td>Competitive advantage confirmed</td>
+<td>Competitive advantage in financial stability</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-Despite AXAHY’s strong fundamental health indicated by a high Z-Score, market price and volume data show no volatility or upward momentum (zero RSI, zero volume), suggesting either data incompleteness or market inactivity. The moderate P/E ratio of 12.7 aligns with industry norms, supporting valuation rationality.</p>
-<p>The <strong>AI Sentiment Analysis</strong> confirms market perception is aligned with fundamentals, though lack of trading activity may indicate low liquidity or data gaps.</p>
+The fundamental health indicated by the Z-Score suggests a robust financial position, but market signals such as zero volatility, zero beta, and an anomalously high dividend yield of 496% are inconsistent with typical market behavior. This divergence suggests either data reporting issues or extraordinary corporate actions (e.g., special dividends, share buybacks, or restructuring).</p>
+<p>The stable stock price at $48.55 with no volume or price movement data further complicates market timing decisions. Investors should seek confirmation from market sources before acting on price signals.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -740,30 +790,30 @@ Despite AXAHY’s strong fundamental health indicated by a high Z-Score, market 
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential dip to Gray Zone</td>
-<td>Strengthen claims management, diversify underwriting</td>
+<td>Potential temporary dip (as seen Q4)</td>
+<td>Enhance underwriting discipline, diversify risk pools</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
-<td>Minor</td>
-<td>Minimal impact due to strong capital</td>
-<td>Maintain capital buffers, monitor leverage</td>
+<td>Moderate</td>
+<td>Limited impact due to strong equity</td>
+<td>Maintain capital buffers, monitor liquidity closely</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Possible short-term volatility</td>
-<td>Hedging strategies, diversify investments</td>
+<td>Possible valuation disconnect</td>
+<td>Hedge market exposure, improve investor communication</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning:</strong><br />
-- <strong>Best Case:</strong> Z-Score remains &gt;6.5, stable growth, low risk.<br />
-- <strong>Base Case:</strong> Z-Score fluctuates between 4.5-6.5, manageable operational risks.<br />
-- <strong>Worst Case:</strong> Z-Score dips below 3.0 (Gray Zone), triggered by claim surges or market shocks, requiring capital infusion.</p>
-<p>Based on <strong>AI Risk Analysis</strong> with low overall risk level and stable trajectory, the probability of distress is minimal but vigilance on operational risks is warranted.</p>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Continued strong capital management and operational efficiency maintain Z-Score &gt; 6, supporting growth and dividend sustainability.<br />
+- <strong>Base Case:</strong> Minor operational disruptions cause Z-Score to fluctuate within 4.5-6.5 range, manageable with existing risk controls.<br />
+- <strong>Worst Case:</strong> Liquidity stress or market shocks reduce Z-Score below 3.0, triggering gray zone caution and potential credit rating impacts.</p>
+<p>Based on AI Risk Analysis overall risk level of low with stable trajectory, confidence in mitigation strategies is high, but liquidity concerns (Working Capital Ratio 0.015) warrant monitoring.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -782,46 +832,49 @@ Despite AXAHY’s strong fundamental health indicated by a high Z-Score, market 
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score stable at 6.71, low risk</td>
-<td>Await confirmation of liquidity improvements</td>
-<td>3-6 months</td>
+<td>Z-Score stable &gt;6, but liquidity low</td>
+<td>Wait for liquidity improvement</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>Dividend yield data anomalous; verify</td>
-<td>Monitor yield stability</td>
-<td>3 months</td>
+<td>Dividend yield anomaly; verify sustainability</td>
+<td>Await dividend policy clarity</td>
+<td>Next dividend cycle</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>BUY</td>
-<td>Strong Z-Score &gt;6, undervalued P/E</td>
-<td>Enter on price dips or confirmation of volume</td>
-<td>Immediate to 6 months</td>
+<td>Strong Z-Score &gt;6 indicates undervaluation potential</td>
+<td>Enter on price dips</td>
+<td>Immediate to 3 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>BUY</td>
-<td>Consistent Z-Score growth trend</td>
-<td>Momentum building expected post data clarity</td>
-<td>6-12 months</td>
+<td>Stable solvency supports growth</td>
+<td>Monitor market signals</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>BUY</td>
-<td>High Z-Score with low volatility</td>
-<td>Position for long-term capital appreciation</td>
+<td>High Z-Score with low volatility risk</td>
+<td>Position for volatility events</td>
 <td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Value and growth investors are favored by AXAHY’s strong Z-Score and stable risk profile. Conservative and dividend-focused investors should await clearer liquidity and dividend data due to anomalies. Aggressive investors can capitalize on low volatility and strong fundamentals for long-term gains.</p>
+<p><strong>Rationale:</strong><br />
+- Conservative investors should hold due to liquidity concerns despite strong solvency.<br />
+- Dividend investors must confirm the extraordinary yield’s validity before committing.<br />
+- Value and growth investors can capitalize on strong Z-Score fundamentals and potential market undervaluation.<br />
+- Aggressive investors may exploit low volatility and strong balance sheet for tactical positions.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -837,29 +890,29 @@ Value and growth investors are favored by AXAHY’s strong Z-Score and stable ri
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational resilience</td>
-<td>Z-Score components, EBIT ratio</td>
-<td>Enhance underwriting discipline, optimize claims</td>
-<td>Maintain Z-Score &gt;6, EBIT growth</td>
+<td>Capital and Risk Management</td>
+<td>Z-Score &gt;6, Retained Earnings</td>
+<td>Focus on liquidity improvement, operational efficiency</td>
+<td>Stable or rising Z-Score, improved liquidity ratios</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital management</td>
-<td>Working capital ratio, debt levels</td>
-<td>Improve liquidity, monitor leverage</td>
-<td>Current ratio &gt;1.0, stable debt/equity</td>
+<td>Financial Stability</td>
+<td>Working Capital Ratio, EBIT Ratio</td>
+<td>Optimize working capital, improve EBIT margins</td>
+<td>Improved liquidity and profitability metrics</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight</td>
-<td>Risk factors, Z-Score trajectory</td>
-<td>Strengthen risk management frameworks</td>
-<td>Low risk incidents, stable Z-Score</td>
+<td>Risk Oversight</td>
+<td>AI Risk Analysis, Z-Score Trends</td>
+<td>Monitor risk trajectory, enforce governance on capital allocation</td>
+<td>Risk level remains low, compliance adherence</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The CEO should focus on operational efficiency improvements to raise EBIT ratio and asset turnover. The CFO must address liquidity constraints (current ratio 0.015) to ensure short-term obligations are met without jeopardizing capital structure. The Board should oversee risk mitigation strategies to sustain the company’s Safe Zone status.</p>
+AXAHY’s leadership should prioritize addressing liquidity constraints while maintaining strong solvency and capital adequacy. The CFO’s focus on working capital optimization and EBIT improvement aligns with the low retained earnings ratio and operational efficiency gaps. The Board must ensure risk management frameworks remain robust to sustain the low AI Risk Analysis rating.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -875,35 +928,35 @@ The CEO should focus on operational efficiency improvements to raise EBIT ratio 
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable, high</td>
-<td>Slight upward</td>
-<td>Improved underwriting, market stability</td>
-<td>Quarterly Z-Score, EBIT ratio</td>
+<td>Stable &gt;6</td>
+<td>Stable to slight improvement</td>
+<td>Capital injections, earnings growth</td>
+<td>Quarterly Z-Score updates, earnings reports</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Strong</td>
-<td>Maintain/Improve</td>
-<td>Competitive product offerings</td>
-<td>Market share, peer Z-Score</td>
+<td>Maintain or improve</td>
+<td>Competitive product launches, market expansion</td>
+<td>Market share, peer benchmarking</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>Low</td>
 <td>Stable</td>
-<td>Regulatory changes, claim trends</td>
-<td>Risk incidents, liquidity ratios</td>
+<td>Regulatory changes, macroeconomic factors</td>
+<td>AI Risk Analysis updates, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-AXAHY’s Z-Score momentum is expected to remain stable or improve slightly over the next 6-12 months, driven by operational refinements and favorable market conditions. Key catalysts include enhanced underwriting discipline and capital management. Continuous monitoring of liquidity ratios and risk incidents will provide early warning signals for any deterioration.</p>
+AXAHY’s Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, driven by ongoing capital strength and operational resilience. Key catalysts include potential market expansion and improved underwriting results. Risk profile remains low but requires vigilance on liquidity and market conditions. Early warning systems should focus on working capital trends and earnings volatility to preempt gray zone transitions.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>AXAHY presents a robust financial profile with a consistently high Altman Z-Score averaging above 6.5, indicating very low bankruptcy risk and strong capital adequacy. Despite liquidity concerns reflected in a very low current ratio (0.015), the company’s market capitalization and peer positioning support confidence in its financial stability. Market data anomalies (dividend yield, beta) warrant further investigation but do not detract from the fundamental strength.</p>
-<p>Investment recommendations favor <strong>BUY</strong> for value, growth, and aggressive profiles, with conservative and dividend investors advised to monitor liquidity and dividend sustainability. Strategic focus should be on improving liquidity and operational efficiency to sustain the Safe Zone status.</p>
+<p>AXAHY stands as a financially robust entity within the diversified insurance sector, evidenced by a consistently high Altman Z-Score averaging above 6.7, signaling very low bankruptcy risk. Despite this, liquidity metrics are notably weak, and market data anomalies necessitate cautious interpretation. The company’s valuation appears reasonable with a P/E of 12.68 and EV/EBITDA of 9.60, supporting a BUY recommendation for value and growth investors, while conservative and dividend-focused investors should await further clarity on liquidity and dividend sustainability.</p>
+<p>Continued monitoring of liquidity ratios, operational efficiency improvements, and market signals is essential to maintain confidence in AXAHY’s investment profile. Strategic leadership should focus on enhancing working capital management and profitability to support long-term stability and shareholder value creation.</p>
 <hr />
-<p><em>All data points and analysis are directly referenced from injected financial data, AI Risk Analysis, AI Peer Analysis, and AI Sentiment Analysis as of 2025-07-03.</em></p></div></div>
+<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Framework.</em></p></div></div>
     </div>
     
 
@@ -1246,78 +1299,41 @@ AXAHY’s Z-Score momentum is expected to remain stable or improve slightly over
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:18 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:38 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

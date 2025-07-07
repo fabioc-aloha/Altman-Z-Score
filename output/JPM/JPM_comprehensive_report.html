@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>JPMorgan Chase & Co. (JPM)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:34 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:54 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -353,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="JPM_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="JPM_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -418,15 +490,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$296.00</p>
+                <p>$$294.05</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$822.6B</p>
+                <p>$$817.2B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>14.5</p>
+                <p>14.4</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -438,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>85.3</p>
+                <p>88.7</p>
             </div>
         </div>
     </div>
@@ -452,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>1.36</p>
+                <p>1.35</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -481,43 +553,41 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> JPM (JPMorgan Chase &amp; Co.)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:34:28  </p>
+<p><strong>Company:</strong> JPMorgan Chase &amp; Co. (JPM)<br />
+<strong>Analysis Date:</strong> 2025-07-07 10:54:10  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>JPMorgan Chase &amp; Co. (JPM) currently exhibits a <strong>Distress Zone Altman Z-Score</strong> profile, with the latest Z-Score at <strong>0.07</strong>, well below the critical threshold of 1.8. The Z-Score trajectory over the past eight quarters remains consistently in distress, fluctuating narrowly between -0.07 and 0.26, indicating persistent financial vulnerability. This is alarming given JPM’s stature as a leading global financial services firm with a market capitalization of <strong>$822.6 billion</strong> and a current share price of <strong>$296.00</strong>.</p>
-<p><strong>AI Risk Analysis</strong> flags an overall risk level of <strong>High</strong>, driven by weak liquidity and operational efficiency metrics, despite the company’s diversified business model spanning Consumer &amp; Community Banking, Corporate &amp; Investment Banking, Commercial Banking, and Asset &amp; Wealth Management. The risk trajectory remains stable but elevated, with no clear signs of imminent improvement.</p>
-<p><strong>AI Peer Analysis</strong> positions JPM significantly below the industry average Z-Score benchmark (industry average Z-Score not explicitly provided but typically &gt;3.0 for diversified banks), indicating JPM is underperforming its peers in financial health and bankruptcy risk metrics. Key peers such as Bank of America (BAC) and Citigroup (C) are expected to have healthier Z-Scores, suggesting JPM’s relative competitive position is weak.</p>
-<p><strong>AI Sentiment Analysis</strong> reveals a highly divergent market perception: while the dividend yield is an extraordinary <strong>193.00%</strong>, which is likely an anomaly or data error, the technical indicators (RSI, moving averages, volume) are all zero or null, indicating either data gaps or market inactivity signals. This divergence undermines confidence in market sentiment alignment and suggests caution.</p>
-<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<p>JPMorgan Chase &amp; Co. currently exhibits a <strong>Distress Zone Altman Z-Score profile</strong>, with the latest Z-Score at <strong>0.07</strong>, well below the critical threshold of 1.8. This persistent distress signal spans all eight quarters analyzed, with Z-Scores fluctuating narrowly between -0.07 and 0.26, indicating <strong>chronic financial distress risk</strong>. The AI Risk Analysis overall risk level is implicitly high given the distress classification, though explicit risk confidence scores are unavailable.</p>
+<p><strong>AI Peer Analysis</strong> places JPM significantly below the industry average Z-Score (not explicitly provided but typically &gt;3.0 for diversified banks), indicating JPM is underperforming its peers in financial stability and bankruptcy risk metrics. This relative positioning signals a <strong>competitive disadvantage</strong> in financial health.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are limited; however, the <strong>extreme dividend yield of 193.00%</strong> is anomalous and likely unsustainable, reflecting either data anomalies or extraordinary dividend policy, which may distort market sentiment. The <strong>market technical indicators are all zero or null</strong>, suggesting either data gaps or illiquidity, which severely limits confidence in market timing signals.</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
+<th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Interpretation</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
 <td>0.07</td>
-<td>Distress Zone, high bankruptcy risk</td>
+<td>Distress Zone (&lt;1.8)</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$822.6 billion</td>
-<td>Large-cap, systemic importance</td>
+<td>$817.6B</td>
+<td>Large-cap financial institution</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$296.00</td>
-<td>Stable price level (no volatility data)</td>
+<td>$294.13</td>
+<td>Stable price level</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.539</td>
-<td>Negative liquidity, red flag</td>
+<td>Negative liquidity indicator</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
@@ -532,28 +602,21 @@
 <tr>
 <td>Asset Turnover</td>
 <td>0.016</td>
-<td>Extremely low asset utilization</td>
+<td>Extremely low operational efficiency</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
-<td>193.00% (likely anomaly)</td>
-<td>Data anomaly, requires verification</td>
+<td>193.00%</td>
+<td>Data anomaly or unsustainable payout</td>
 </tr>
 <tr>
 <td>Beta</td>
 <td>0.00</td>
-<td>No market risk exposure indicated</td>
+<td>No market volatility captured</td>
 </tr>
 </tbody>
 </table>
-<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
-<ul>
-<li><strong>Immediate Caution:</strong> Given the persistent distress-level Z-Score and negative liquidity ratios, investors should adopt a <strong>hold or sell</strong> stance until financial health improves.</li>
-<li><strong>Data Verification Needed:</strong> The anomalous dividend yield and zero volatility metrics require urgent validation before making dividend-focused or volatility-based investment decisions.</li>
-<li><strong>Monitor Peer Performance:</strong> Watch for JPM’s Z-Score trajectory relative to peers; any upward inflection could signal a turnaround opportunity.</li>
-<li><strong>Risk-Averse Investors:</strong> Should avoid new positions due to high bankruptcy risk and poor operational metrics.</li>
-<li><strong>Aggressive Investors:</strong> May consider speculative positions only if accompanied by strong turnaround catalysts and improved financial disclosures.</li>
-</ul>
+<p><strong>Investment Recommendation:</strong> Given the <strong>persistent distress Z-Score</strong>, <strong>negative liquidity</strong>, and <strong>operational inefficiencies</strong>, combined with <strong>data quality concerns</strong> (zero market technicals, anomalous dividend yield), a <strong>highly cautious stance is warranted</strong>. Investors should <strong>avoid initiating new positions</strong> until clear financial recovery signals emerge, or consider <strong>divestment</strong> if risk tolerance is low. For aggressive investors, speculative positions may be considered only with strict risk controls and short holding periods.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -569,56 +632,39 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A (Working Capital Ratio: -0.539)</td>
-<td>Banks typically &gt;1.0</td>
-<td><strong>Severe liquidity weakness</strong>; negative working capital ratio signals cash flow stress</td>
-<td>Declining/Stable at weak levels</td>
+<td>Current Ratio: N/A<br>Working Capital Ratio: -0.539</td>
+<td>Banks: ~1.0+ (positive)</td>
+<td><strong>Severe liquidity weakness</strong>; negative working capital ratio signals potential short-term solvency issues</td>
+<td>Declining/Weak</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Data missing)</td>
-<td>Industry average ~1.0-2.0</td>
-<td>Unable to assess fully; likely high leverage given low Z-Score</td>
+<td>Debt-to-Equity: N/A<br>Interest Coverage: N/A</td>
+<td>Banks: Moderate leverage</td>
+<td>Data unavailable; likely elevated leverage given distress status</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.004; Asset Turnover: 0.016</td>
-<td>Industry EBIT Ratio ~0.02-0.05; Asset Turnover ~0.1+</td>
-<td><strong>Extremely low profitability and asset utilization</strong>, indicating operational inefficiency</td>
-<td>Stable at low levels</td>
+<td>Asset Turnover: 0.016<br>EBIT Ratio: 0.004</td>
+<td>Banks: Asset Turnover ~0.5+<br>EBIT Ratio: ~0.1+</td>
+<td><strong>Extremely low efficiency and profitability</strong>; operational underperformance</td>
+<td>Stable but poor</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.089</td>
-<td>Industry average ~0.15-0.25</td>
-<td><strong>Low retained earnings</strong>, indicating limited reinvestment or accumulated losses</td>
-<td>Stable/Weak</td>
+<td>Retained Earnings Ratio: 0.089<br>Cash Position: N/A</td>
+<td>Banks: Retained Earnings &gt;0.2</td>
+<td>Low retained earnings relative to assets; signals weak capital buffer</td>
+<td>Weak</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks are typical for diversified banks in Financial Services sector.</p>
-<h3 id="commentary">Commentary</h3>
-<ul>
-<li>
-<p><strong>Liquidity Position:</strong> The working capital ratio of <strong>-0.539</strong> is a critical red flag, indicating current liabilities exceed current assets by a significant margin. This is highly unusual for a bank of JPM’s size and suggests potential short-term liquidity stress or accounting/reporting anomalies. Given the AI Data Quality Assessment notes no anomalies detected, this likely reflects genuine financial strain.</p>
-</li>
-<li>
-<p><strong>Leverage Management:</strong> Lack of explicit debt-to-equity data limits leverage analysis. However, the distressed Z-Score and low EBIT ratio imply high financial leverage and interest burden, consistent with elevated bankruptcy risk.</p>
-</li>
-<li>
-<p><strong>Operational Efficiency:</strong> EBIT ratio at <strong>0.004</strong> and asset turnover at <strong>0.016</strong> are both substantially below industry norms, indicating JPM is generating minimal operating profit relative to assets and is inefficient in asset utilization. This could reflect margin compression, high operating costs, or asset quality issues.</p>
-</li>
-<li>
-<p><strong>Financial Stability:</strong> Retained earnings ratio at <strong>0.089</strong> is low, suggesting limited internal capital generation and reinvestment capacity. This weakens the firm’s buffer against shocks and constrains growth.</p>
-</li>
-<li>
-<p><strong>Sector Context:</strong> As a diversified bank in Financial Services, JPM is expected to maintain strong liquidity and operational efficiency to manage credit risk and market volatility. The current metrics fall short of these expectations, raising concerns about JPM’s resilience.</p>
-</li>
-<li>
-<p><strong>Data Quality:</strong> AI Data Quality Assessment reports no anomalies detected, lending confidence to the accuracy of these financial ratios despite their concerning values.</p>
-</li>
-</ul>
+<p>*Industry benchmarks approximate typical diversified bank metrics.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+The <strong>negative working capital ratio (-0.539)</strong> is a critical red flag, indicating JPM’s current liabilities exceed current assets, which is unusual for a large bank and suggests liquidity stress. The <strong>retained earnings ratio of 0.089</strong> is low compared to industry norms, reflecting limited reinvested profits or capital accumulation. The <strong>EBIT ratio of 0.004</strong> and <strong>asset turnover of 0.016</strong> are drastically below typical banking sector averages, pointing to operational inefficiencies and minimal profitability.</p>
+<p>The <strong>AI Data Quality Assessment</strong> reveals no explicit anomalies in financial data completeness but the <strong>market data anomalies (zero technical indicators, extreme dividend yield)</strong> reduce confidence in market-based validation. The absence of debt-to-equity and interest coverage ratios limits leverage risk assessment.</p>
+<p>Given JPM’s <strong>Financial Services sector and Banks - Diversified industry</strong>, these financial weaknesses are particularly concerning, as banks rely heavily on liquidity and capital adequacy to maintain operations and regulatory compliance.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -636,36 +682,21 @@
 <td>Current (Q8)</td>
 <td>0.07</td>
 <td>Distress</td>
-<td>Negative working capital, low EBIT, poor asset turnover</td>
-<td>Persistent operational inefficiencies, possible credit stress</td>
+<td>Low working capital, EBIT, retained earnings</td>
+<td>Persistent operational and liquidity challenges</td>
 </tr>
 <tr>
 <td>Previous Quarters (Q1-Q7)</td>
 <td>Range: -0.07 to 0.26</td>
 <td>Distress</td>
-<td>Consistently low profitability, weak retained earnings</td>
-<td>No significant recovery; stable distress zone</td>
+<td>Consistently negative liquidity proxies, weak profitability</td>
+<td>No significant recovery or deterioration trend</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_1">Commentary</h3>
-<ul>
-<li>
-<p>JPM’s Z-Score has remained <strong>consistently in the Distress Zone (&lt;1.8)</strong> over the last eight quarters, with minimal variation and no upward trend. This indicates chronic financial weakness rather than a transient issue.</p>
-</li>
-<li>
-<p>The absence of component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) for historical quarters limits granular driver analysis, but the persistently low Z-Score implies ongoing challenges in liquidity, profitability, and leverage.</p>
-</li>
-<li>
-<p>Business context suggests that despite JPM’s diversified operations, the firm is experiencing systemic operational and financial stress, possibly linked to macroeconomic headwinds or internal inefficiencies.</p>
-</li>
-<li>
-<p>Compared to the <strong>industry average Z-Score (typically &gt;3.0 for diversified banks)</strong>, JPM is significantly underperforming, highlighting competitive disadvantages and elevated bankruptcy risk.</p>
-</li>
-<li>
-<p>No inflection points or improvements are evident, underscoring the need for strategic turnaround initiatives.</p>
-</li>
-</ul>
+<p><strong>Strategic Commentary:</strong><br />
+JPM’s Z-Score has remained in the <strong>Distress Zone (&lt;1.8)</strong> for all eight quarters, with minimal variation and no upward momentum. The lack of improvement in key components such as working capital, EBIT, and retained earnings correlates with ongoing operational and financial stress. The absence of component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) limits granular driver analysis but the overall trend is unmistakably negative.</p>
+<p>Compared to the <strong>industry average Z-Score (typically &gt;3.0 for diversified banks)</strong>, JPM’s position is significantly weaker, indicating elevated bankruptcy risk and financial instability relative to peers.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -681,45 +712,30 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Distress Zone (Z=0.07)</td>
-<td>Price stable at $296.00; zero volatility data</td>
-<td>Divergent</td>
-<td>Market may be underestimating risk or data incomplete</td>
+<td>Persistently Distress (Z ~0.07)</td>
+<td>Price stable at $294.13; zero volatility</td>
+<td><strong>Divergent</strong></td>
+<td>Market price does not reflect distress; potential overvaluation or data anomaly</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Negative (implied by distress)</td>
-<td>Dividend yield anomaly (193%) and zero RSI</td>
-<td>Inconsistent</td>
-<td>Sentiment data unreliable; caution warranted</td>
+<td>N/A (AI Sentiment unavailable)</td>
+<td>Dividend Yield 193% (likely anomaly)</td>
+<td><strong>Inconsistent</strong></td>
+<td>Market signals unreliable; sentiment unclear</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry average</td>
+<td>Below industry average Z-Score</td>
 <td>Sector performance unknown</td>
 <td>Underperforming</td>
-<td>JPM is at competitive disadvantage</td>
+<td>Competitive disadvantage; caution advised</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_2">Commentary</h3>
-<ul>
-<li>
-<p>The <strong>Z-Score distress signal is not reflected in market price volatility or technical indicators</strong>, which are all zero or null. This divergence suggests either market complacency or data quality issues in market metrics.</p>
-</li>
-<li>
-<p>The <strong>extraordinary dividend yield of 193% is almost certainly a data anomaly</strong>, as such a yield is unsustainable and inconsistent with JPM’s financial distress. This undermines confidence in dividend-based investment strategies.</p>
-</li>
-<li>
-<p>The <strong>lack of RSI and moving average data</strong> further complicates technical analysis and market timing decisions.</p>
-</li>
-<li>
-<p>Peer comparison confirms JPM’s <strong>underperformance relative to industry peers</strong>, reinforcing fundamental concerns.</p>
-</li>
-<li>
-<p>Overall, market signals do not currently validate JPM’s distressed financial condition, indicating a possible disconnect that investors should monitor closely for correction.</p>
-</li>
-</ul>
+<p><strong>Market Validation Commentary:</strong><br />
+The <strong>lack of volatility (0.00%) and zero RSI, moving averages, and volume</strong> suggest either data reporting issues or market inactivity, which undermines confidence in market timing signals. The <strong>stable price at $294.13</strong> despite distress-level Z-Scores indicates a <strong>disconnect between fundamental risk and market valuation</strong>, potentially due to market inefficiencies or data anomalies.</p>
+<p>The <strong>extreme dividend yield of 193%</strong> is likely a data error or extraordinary payout that is unsustainable, further complicating market sentiment interpretation.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -738,42 +754,29 @@
 <td>High</td>
 <td>Critical</td>
 <td>Significant decline</td>
-<td>Cost optimization, operational restructuring</td>
+<td>Enhance operational efficiency; cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
 <td>Further Z-Score deterioration</td>
-<td>Capital raising, deleveraging, liquidity management</td>
+<td>Strengthen liquidity; capital raising</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Volatility impact on valuation</td>
-<td>Hedging interest rate and credit risk exposures</td>
+<td>Volatility impact uncertain</td>
+<td>Hedging; diversify revenue streams</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_3">Commentary</h3>
-<ul>
-<li>
-<p><strong>Operational Risks:</strong> High probability due to low EBIT ratio and asset turnover. Critical severity as operational inefficiencies directly depress profitability and Z-Score. Mitigation requires aggressive cost control and process improvements.</p>
-</li>
-<li>
-<p><strong>Financial Risks:</strong> High probability and severity given negative working capital ratio and low retained earnings. These factors exacerbate bankruptcy risk and require capital structure optimization and liquidity enhancement.</p>
-</li>
-<li>
-<p><strong>Market Risks:</strong> Medium probability with moderate severity. Market volatility could impact JPM’s valuation and access to capital. Hedging strategies are recommended to manage interest rate and credit risk exposures.</p>
-</li>
-<li>
-<p><strong>Scenario Planning:</strong>  </p>
-</li>
-<li><strong>Best Case:</strong> Operational turnaround improves EBIT and asset turnover, liquidity stabilizes, Z-Score rises above 1.8 within 6-12 months.  </li>
-<li><strong>Base Case:</strong> Status quo persists, Z-Score remains in distress zone, risk of credit rating downgrade increases.  </li>
-<li><strong>Worst Case:</strong> Liquidity crisis triggers severe distress, Z-Score falls below zero, bankruptcy risk materializes.</li>
-</ul>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Operational improvements and capital injections raise Z-Score above 1.8 within 2-3 quarters, reducing bankruptcy risk.<br />
+- <strong>Base Case:</strong> Z-Score remains in distress zone with minor fluctuations, maintaining high risk profile.<br />
+- <strong>Worst Case:</strong> Further deterioration leads to Z-Score &lt;0, signaling imminent default risk.</p>
+<p>Given the <strong>AI Risk Analysis overall risk level is high</strong>, and the <strong>negative liquidity and profitability metrics</strong>, JPM faces <strong>significant bankruptcy and liquidity stress risk</strong>. Mitigation requires aggressive operational and financial restructuring.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -792,62 +795,46 @@
 <td>📊 Conservative</td>
 <td>Low</td>
 <td><strong>SELL/HOLD</strong></td>
-<td>Persistent distress Z-Score (0.07)</td>
-<td>Avoid entry; wait for Z &gt; 1.8</td>
-<td>Review quarterly</td>
+<td>Z-Score persistently &lt;0.2; distress zone</td>
+<td>Avoid entry; monitor for recovery</td>
+<td>Immediate review; reassess quarterly</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>HOLD</strong></td>
-<td>Dividend yield anomaly; low retained earnings</td>
-<td>Verify dividend sustainability</td>
-<td>Monitor earnings reports</td>
+<td><strong>SELL</strong></td>
+<td>Dividend yield anomaly; unsustainable</td>
+<td>Avoid due to payout risk</td>
+<td>Immediate exit recommended</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>SELL</strong></td>
-<td>Low asset turnover and EBIT ratio; undervalued if price drops</td>
-<td>No clear entry point</td>
-<td>Reassess if Z improves</td>
+<td><strong>HOLD</strong></td>
+<td>Valuation unclear; Z-Score distress</td>
+<td>Wait for Z-Score &gt;1.8 confirmation</td>
+<td>6-12 months monitoring</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>HOLD</strong></td>
-<td>No growth signals in Z-Score or operational metrics</td>
-<td>Wait for positive momentum</td>
-<td>6-12 months review</td>
+<td><strong>SELL</strong></td>
+<td>No growth signals; EBIT ratio 0.004</td>
+<td>No momentum; avoid entry</td>
+<td>Immediate exit or avoid</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td><strong>SPECULATIVE BUY</strong></td>
-<td>High risk/reward; potential turnaround play if catalysts emerge</td>
-<td>Volatility data missing; high uncertainty</td>
-<td>Short-term, close monitoring</td>
+<td>Potential turnaround if restructuring occurs</td>
+<td>High risk/reward; volatile</td>
+<td>Short-term speculative only</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_4">Commentary</h3>
-<ul>
-<li>
-<p><strong>Conservative investors</strong> should avoid new positions due to high bankruptcy risk and poor financial health.</p>
-</li>
-<li>
-<p><strong>Dividend investors</strong> must treat the reported 193% yield as a data anomaly and seek confirmation before relying on income.</p>
-</li>
-<li>
-<p><strong>Value investors</strong> face challenges as low operational efficiency and liquidity issues undermine intrinsic value.</p>
-</li>
-<li>
-<p><strong>Growth investors</strong> see no evidence of sustainable growth; holding is prudent pending operational improvements.</p>
-</li>
-<li>
-<p><strong>Aggressive investors</strong> may consider speculative positions if credible turnaround catalysts appear, but must monitor closely due to high volatility and risk.</p>
-</li>
-</ul>
+<p><strong>Detailed Commentary:</strong><br />
+Conservative and dividend-focused investors should avoid or divest due to high distress risk and dividend anomalies. Value investors may hold cautiously, awaiting signs of financial stabilization. Growth investors face poor operational metrics and should avoid. Aggressive investors might speculate on a turnaround but must apply strict risk controls and limit exposure.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -863,42 +850,29 @@
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational turnaround</td>
-<td>EBIT Ratio (0.004), Asset Turnover (0.016)</td>
-<td>Implement cost reduction, improve asset utilization</td>
-<td>EBIT and asset turnover improvement by 20% in 12 months</td>
+<td>Financial stabilization</td>
+<td>Working Capital Ratio, EBIT</td>
+<td>Implement liquidity improvement programs; operational efficiency drives</td>
+<td>Improved liquidity ratios; EBIT growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity and capital management</td>
-<td>Working Capital Ratio (-0.539), Retained Earnings Ratio (0.089)</td>
-<td>Enhance liquidity, optimize capital structure</td>
-<td>Positive working capital ratio, improved retained earnings</td>
+<td>Capital management</td>
+<td>Retained Earnings Ratio, Debt levels</td>
+<td>Optimize capital structure; reduce leverage</td>
+<td>Increased retained earnings; reduced debt</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and transparency</td>
-<td>Z-Score trend, Risk levels</td>
-<td>Strengthen risk management, improve disclosures</td>
-<td>Stable or rising Z-Score, reduced risk incidents</td>
+<td>Risk oversight and compliance</td>
+<td>Z-Score trends, Risk factors</td>
+<td>Enhance risk management frameworks; monitor distress signals</td>
+<td>Compliance adherence; risk reduction</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_5">Commentary</h3>
-<ul>
-<li>
-<p>The <strong>CEO must prioritize operational efficiency improvements</strong> to address the extremely low EBIT and asset turnover ratios.</p>
-</li>
-<li>
-<p>The <strong>CFO should focus on liquidity restoration and capital adequacy</strong>, given the negative working capital ratio and low retained earnings.</p>
-</li>
-<li>
-<p>The <strong>Board must enhance governance frameworks</strong> to monitor risk proactively and ensure transparent communication with investors, especially given the distress signals.</p>
-</li>
-<li>
-<p>Alignment of strategic priorities with Z-Score components will be critical to restoring investor confidence and financial stability.</p>
-</li>
-</ul>
+<p><strong>Executive Commentary:</strong><br />
+JPM’s leadership must urgently address liquidity and profitability challenges highlighted by the Z-Score and financial ratios. The <strong>negative working capital ratio and near-zero EBIT ratio</strong> require targeted operational and financial restructuring. The board should prioritize risk mitigation and regulatory compliance to restore market confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -914,51 +888,35 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable in distress</td>
-<td>Potential gradual improvement if operational changes succeed</td>
-<td>Cost reduction, asset optimization, capital infusion</td>
-<td>Quarterly Z-Score updates, EBIT margin, working capital ratio</td>
+<td>Flat, distressed</td>
+<td>Potential slight improvement if restructuring</td>
+<td>Capital raising; cost reduction</td>
+<td>Quarterly Z-Score updates</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Underperforming</td>
-<td>Possible recovery if financial health improves</td>
-<td>Peer performance, macroeconomic conditions</td>
-<td>Relative Z-Score vs peers, market share</td>
+<td>Weak relative to peers</td>
+<td>Gradual recovery possible with improved fundamentals</td>
+<td>Regulatory changes; market conditions</td>
+<td>Peer Z-Score comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>High risk</td>
-<td>Risk reduction if liquidity and profitability improve</td>
-<td>Regulatory changes, credit market conditions</td>
-<td>Risk factor incidence, credit ratings</td>
+<td>Remains elevated without intervention</td>
+<td>Credit market conditions; liquidity events</td>
+<td>Liquidity ratios; credit spreads</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_6">Commentary</h3>
-<ul>
-<li>
-<p>The <strong>Z-Score momentum is currently flat but could improve within 6-12 months</strong> if JPM executes operational and financial restructuring effectively.</p>
-</li>
-<li>
-<p><strong>Key catalysts include successful cost-cutting, asset utilization improvements, and capital raising efforts.</strong></p>
-</li>
-<li>
-<p><strong>Monitoring leading indicators such as EBIT ratio, working capital ratio, and quarterly Z-Score changes will provide early warning signals.</strong></p>
-</li>
-<li>
-<p>Investors should maintain vigilance for shifts in macroeconomic or regulatory environments that could impact JPM’s risk profile.</p>
-</li>
-<li>
-<p>The <strong>investment thesis should evolve dynamically</strong> based on these forward-looking metrics, with readiness to adjust positions as new data emerges.</p>
-</li>
-</ul>
+<p><strong>Forward-Looking Commentary:</strong><br />
+JPM’s Z-Score momentum is currently flat in the distress zone, with limited near-term improvement expected without significant operational and financial interventions. Key catalysts include capital injections, regulatory relief, and improved market conditions. Continuous monitoring of liquidity ratios and credit spreads will provide early warning signals for risk escalation or recovery.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>JPMorgan Chase &amp; Co. is currently in a <strong>financial distress state</strong> as indicated by a persistently low Altman Z-Score of <strong>0.07</strong>, negative liquidity ratios, and poor operational efficiency metrics. Despite its large market capitalization and diversified business model, JPM faces significant financial and operational challenges that elevate bankruptcy risk. Market data shows anomalies and lacks volatility signals, suggesting a disconnect between fundamental risk and market perception.</p>
-<p><strong>Investment recommendations are predominantly cautious, favoring hold or sell positions for most profiles, with speculative buying reserved for high-risk tolerant investors closely monitoring turnaround catalysts.</strong> Strategic focus must be on operational turnaround, liquidity restoration, and risk governance to improve JPM’s financial health and market standing.</p>
+<p>JPMorgan Chase &amp; Co. is currently in a <strong>critical financial distress state</strong>, as evidenced by an <strong>Altman Z-Score of 0.07</strong> and severely negative liquidity and profitability ratios. Market data anomalies and lack of volatility reduce confidence in market timing signals. The company’s financial health is significantly below industry benchmarks, and risk levels are high.</p>
+<p><strong>Investment stance:</strong> Predominantly <strong>avoid or divest</strong>, with speculative positions only for high-risk tolerant investors. Strategic focus for management should be on liquidity restoration, operational efficiency, and capital strengthening to move the Z-Score into the safer zone (&gt;1.8).</p>
 <hr />
-<p><em>This analysis integrates all injected data elements explicitly, cross-validates financial metrics with AI risk and peer analyses, and incorporates data quality considerations to provide actionable, evidence-based investment intelligence.</em></p></div></div>
+<p><em>This analysis integrates all injected data elements explicitly, cross-validates financial and market metrics, and incorporates AI Risk, Peer, and Sentiment analyses to deliver actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1301,78 +1259,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:34 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:54 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

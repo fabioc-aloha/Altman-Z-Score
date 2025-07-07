@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>PyroGenesis Canada Inc. (PYR.TO)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:40 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:07 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -361,9 +433,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="PYR.TO_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="PYR.TO_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -377,7 +449,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">-4.72</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">-4.74</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -426,11 +498,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$0.47</p>
+                <p>$$0.47</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$0.09</p>
+                <p>$$0.1B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -446,7 +518,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>48.5</p>
+                <p>46.9</p>
             </div>
         </div>
     </div>
@@ -460,7 +532,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>-0.48</p>
+                <p>-0.77</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -481,80 +553,81 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> PYR.TO (PyroGenesis Canada Inc.)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:39:49  </p>
+<strong>Analysis Date:</strong> 2025-07-07 11:06:53  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>PyroGenesis Canada Inc. (PYR.TO) currently resides deep within the <strong>Distress Zone</strong> with a latest Altman Z-Score of <strong>-1.71</strong>, reflecting a severe financial distress signal. Historical Z-Scores over the past eight quarters consistently remain negative, ranging from -6.15 to -1.71, indicating persistent financial challenges without meaningful recovery. The AI Risk Analysis, implicitly reflected by this trajectory, signals a <strong>high overall risk level</strong> with a deteriorating risk trajectory, underscoring urgent caution for investors.</p>
-<p><strong>AI Peer Analysis</strong> places PYR.TO significantly below the industry average Z-Score (typically &gt;3.0 for Industrials - Machinery sector), highlighting its weak competitive positioning relative to peers. The company’s <strong>market cap of $88.7M</strong> and share price of <strong>$0.47</strong> reflect this distressed valuation.</p>
-<p><strong>AI Sentiment Analysis</strong> metrics are effectively neutral or unavailable (RSI 0.0, zero volume), indicating negligible market interest or trading activity, which compounds liquidity risk and investor uncertainty.</p>
+<p>PyroGenesis Canada Inc. (PYR.TO) currently resides deep within the <strong>Distress Zone</strong> with a latest Altman Z-Score of <strong>-1.73</strong>, reflecting severe financial distress and elevated bankruptcy risk. The Z-Score trajectory over the past eight quarters shows persistent negative values ranging from -6.17 to -1.73, indicating no recovery trend but a slight improvement from earlier lows (e.g., -6.17). This sustained distress is corroborated by the <strong>AI Risk Analysis</strong> (implied by financial distress indicators) and the company’s weak liquidity and leverage metrics.</p>
+<p><strong>AI Peer Analysis</strong> places PYR.TO significantly below the industry average Z-Score (not explicitly provided but typically &gt;3.0 for Industrials - Machinery sector), confirming its underperformance relative to peers. The company’s <strong>market cap of $87.7M</strong> and share price of <strong>$0.47</strong> reflect market skepticism, supported by valuation metrics such as a low P/E ratio of <strong>4.27</strong> but zero dividend yield and no trading volume or price movement data, suggesting illiquidity or market inactivity.</p>
+<p><strong>AI Sentiment Analysis</strong> data is limited (RSI 0.0, zero volume), indicating negligible market interest or sentiment momentum. This lack of market engagement combined with the distressed financial profile signals a high-risk investment environment.</p>
+<p><strong>Investment Recommendation:</strong> Given the persistent distress signals, negative working capital ratio (-0.316), and negative retained earnings ratio (-4.403), a <strong>high caution SELL or avoid stance</strong> is warranted for most investor profiles. Only speculative or turnaround-focused investors with high risk tolerance might consider opportunistic entry, contingent on clear operational restructuring signals.</p>
+<hr />
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
-<th>Value</th>
-<th>Industry Benchmark</th>
-<th>Notes</th>
+<th>Metric Category</th>
+<th>Key Values</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>-1.71</td>
-<td>&gt;3.0 (Safe Zone)</td>
-<td>Deep distress zone</td>
+<td>-1.73</td>
+<td>Distress Zone, bankruptcy risk</td>
+</tr>
+<tr>
+<td>Z-Score Trend (8 quarters)</td>
+<td>-6.17 to -1.73 (improving)</td>
+<td>Persistent distress, slight improvement</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$88.7M</td>
-<td>Varies by peer</td>
-<td>Small-cap industrial</td>
+<td>$87.7M</td>
+<td>Small-cap, limited market interest</td>
 </tr>
 <tr>
 <td>Current Price</td>
 <td>$0.47</td>
-<td>N/A</td>
-<td>Low liquidity implied</td>
+<td>Low valuation, possible illiquidity</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.316</td>
-<td>Positive (&gt;1.0)</td>
-<td>Negative liquidity</td>
+<td>Negative liquidity, weak short-term solvency</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>-4.403</td>
-<td>Positive</td>
-<td>Accumulated losses</td>
+<td>Accumulated losses, financial instability</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.014</td>
-<td>~0.10+</td>
-<td>Very low profitability</td>
+<td>Very low operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.145</td>
-<td>~0.5+</td>
 <td>Low operational efficiency</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>4.32</td>
-<td>15-20 typical</td>
-<td>Low, but possibly due to losses</td>
+<td>4.27</td>
+<td>Low valuation, possibly distressed</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>0.00%</td>
-<td>Varies</td>
-<td>No dividend</td>
+<td>No income return to investors</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>0.00</td>
+<td>No market correlation or trading</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Action Recommendation:</strong><br />
-Given the <strong>high risk level</strong>, persistent distress signals, and poor financial health, a <strong>SELL or AVOID</strong> stance is recommended for most investor profiles. Only highly risk-tolerant, speculative investors with a contrarian outlook and deep due diligence should consider limited exposure, ideally awaiting signs of operational turnaround or capital restructuring.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -562,7 +635,7 @@ Given the <strong>high risk level</strong>, persistent distress signals, and poo
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark (Est.)</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -571,37 +644,36 @@ Given the <strong>high risk level</strong>, persistent distress signals, and poo
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: N/A (Working Capital Ratio: -0.316)</td>
-<td>&gt;1.0 (positive)</td>
-<td><strong>Severe liquidity weakness</strong>; negative working capital indicates inability to cover short-term liabilities</td>
-<td>Declining/Stable (persistently negative)</td>
+<td>Industry ~1.5-2.0</td>
+<td><strong>Severe liquidity weakness</strong>, negative working capital signals inability to meet short-term obligations</td>
+<td>Declining/Weak</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Data missing)</td>
-<td>Industry average varies</td>
-<td>Insufficient data; Retained Earnings Ratio -4.403 indicates accumulated losses, likely high leverage risk</td>
-<td>Negative (implied)</td>
+<td>Debt-to-Equity: N/A (Retained Earnings Ratio: -4.403)</td>
+<td>Industry ~1.0-2.0</td>
+<td><strong>High financial distress</strong>, negative retained earnings indicate accumulated losses and high leverage risk</td>
+<td>Negative trend</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.014; Asset Turnover: 0.145</td>
-<td>EBIT ~0.10+; Asset Turnover ~0.5+</td>
-<td><strong>Extremely low profitability and asset utilization</strong>; poor operational performance</td>
-<td>Stable/Weak</td>
+<td>EBIT Ratio: 0.014, Asset Turnover: 0.145</td>
+<td>Industry EBIT ~0.10-0.15, Asset Turnover ~0.5-1.0</td>
+<td><strong>Extremely low profitability and asset utilization</strong>, underperforming peers</td>
+<td>Stable but poor</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: -4.403; Cash Position: N/A</td>
-<td>Positive retained earnings</td>
-<td><strong>Highly unstable; accumulated losses far exceed assets</strong></td>
+<td>Retained Earnings Ratio: -4.403, Cash Position: N/A</td>
+<td>Positive retained earnings typical</td>
+<td><strong>Financially unstable with accumulated losses</strong>, no cash data limits full assessment</td>
 <td>Negative</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-The <strong>negative working capital ratio (-0.316)</strong> signals acute liquidity stress, meaning current liabilities exceed current assets, impairing operational flexibility. The <strong>retained earnings ratio of -4.403</strong> is alarmingly negative, reflecting sustained losses eroding shareholder equity. EBIT ratio of 0.014 is near breakeven but insufficient to cover costs or debt service, while asset turnover at 0.145 is well below industry norms, indicating poor asset utilization.</p>
-<p>The <strong>AI Data Quality Assessment</strong> shows complete raw data injection but lacks detailed leverage ratios and cash position, limiting full leverage and liquidity analysis. No anomalies detected, but data gaps reduce confidence in leverage assessment.</p>
-<p>Given the sector (Industrials - Machinery), where capital intensity and operational efficiency are critical, PYR.TO’s financial health is severely compromised, consistent with its distressed Z-Score.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+The liquidity position is critically weak, with a negative working capital ratio of -0.316 indicating liabilities exceed current assets. This is far below typical industry standards (1.5-2.0), signaling imminent liquidity stress. The retained earnings ratio at -4.403 confirms deep accumulated losses, undermining equity and increasing bankruptcy risk. EBIT ratio at 0.014 is negligible, reflecting near-breakeven or loss-making operations, while asset turnover at 0.145 is substantially below industry norms, indicating poor asset utilization and operational inefficiency.</p>
+<p>The <strong>AI Data Quality Assessment</strong> shows no anomalies detected, but the absence of some ratio data (e.g., debt-to-equity, interest coverage) limits granularity. However, the available data is consistent and complete enough to confirm a distressed financial profile. The sector (Industrials - Machinery) typically demands robust operational efficiency and stable financials, which PYR.TO currently lacks.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -617,65 +689,24 @@ The <strong>negative working capital ratio (-0.316)</strong> signals acute liqui
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>-1.71</td>
+<td>-1.73</td>
 <td>Distress</td>
-<td>Negative retained earnings, poor liquidity, low EBIT</td>
-<td>Ongoing operational losses, no recovery signs</td>
+<td>Negative working capital, retained earnings, low EBIT</td>
+<td>Ongoing operational losses, liquidity stress</td>
 </tr>
 <tr>
-<td>Q7</td>
-<td>-2.51</td>
+<td>Prior Quarters</td>
+<td>-6.17 to -2.53</td>
 <td>Distress</td>
-<td>Similar drivers</td>
-<td>Continued financial strain</td>
-</tr>
-<tr>
-<td>Q6</td>
-<td>-3.28</td>
-<td>Distress</td>
-<td>Worsening working capital</td>
-<td>Increasing financial distress</td>
-</tr>
-<tr>
-<td>Q5</td>
-<td>-5.55</td>
-<td>Distress</td>
-<td>Deep losses, negative equity</td>
-<td>Severe distress phase</td>
-</tr>
-<tr>
-<td>Q4</td>
-<td>-6.13</td>
-<td>Distress</td>
-<td>Same as above</td>
-<td>Peak distress</td>
-</tr>
-<tr>
-<td>Q3</td>
-<td>-4.58</td>
-<td>Distress</td>
-<td>Negative financial ratios</td>
-<td>No recovery</td>
-</tr>
-<tr>
-<td>Q2</td>
-<td>-6.15</td>
-<td>Distress</td>
-<td>Negative financial ratios</td>
-<td>No recovery</td>
-</tr>
-<tr>
-<td>Q1</td>
-<td>-4.72</td>
-<td>Distress</td>
-<td>Negative financial ratios</td>
-<td>No recovery</td>
+<td>Persistent negative equity, poor profitability</td>
+<td>No recovery, possible operational challenges</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-The Z-Score trajectory shows persistent distress with slight improvement from -6.15 to -1.71 over eight quarters but remains well below the distress threshold of 1.8. The absence of positive working capital and retained earnings data for individual quarters limits component-level analysis, but the overall trend suggests no meaningful operational turnaround.</p>
-<p>The <strong>industry average Z-Score</strong> for Industrials - Machinery typically exceeds 3.0, underscoring PYR.TO’s severe underperformance relative to peers. The company’s business focus on plasma processes and metal recovery technologies has not translated into financial stability or growth, possibly due to market adoption challenges or operational inefficiencies.</p>
+<p><strong>Strategic Commentary:</strong><br />
+The Z-Score has remained in the Distress Zone (&lt;1.8) for all eight quarters, with values oscillating between -6.17 and -1.73. While the latest quarter shows a modest improvement from the worst point (-6.17), the score remains deeply negative, indicating ongoing financial distress without meaningful recovery.</p>
+<p>Key drivers include severely negative retained earnings and working capital ratios, coupled with negligible EBIT contribution and poor asset turnover. These factors suggest operational inefficiencies and financial erosion, likely linked to the company’s capital-intensive industrial machinery sector and possibly cyclical market pressures.</p>
+<p>Compared to the industry average Z-Score (generally &gt;3.0 for Industrials), PYR.TO is significantly underperforming, highlighting competitive disadvantages and elevated bankruptcy risk.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -691,30 +722,30 @@ The Z-Score trajectory shows persistent distress with slight improvement from -6
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Persistently Distressed (-1.71 latest)</td>
+<td>Persistently Distressed (-1.73 latest)</td>
 <td>Price stagnant at $0.47, zero volume</td>
-<td>Divergent (no price recovery)</td>
-<td>Market reflects distress; low liquidity risk</td>
+<td>Aligned</td>
+<td>Market reflects distress, low liquidity risk</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
 <td>Neutral/Unavailable (RSI 0.0)</td>
-<td>No analyst coverage or volume</td>
-<td>Consistent</td>
-<td>Lack of market interest confirms risk</td>
+<td>No professional consensus data</td>
+<td>Inconsistent</td>
+<td>Lack of market interest, sentiment unclear</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
 <td>Significantly below industry average</td>
-<td>Sector performance stable or better</td>
+<td>Sector performance unknown</td>
 <td>Underperforming</td>
-<td>Weak competitive positioning</td>
+<td>Competitive disadvantage, limited upside</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-The <strong>Z-Score’s distress signal aligns with stagnant share price and zero trading volume</strong>, indicating market consensus on poor fundamentals and low investor interest. The <strong>P/E ratio of 4.32</strong> is low but likely distorted by losses and low earnings quality. Absence of dividends and zero volatility further confirm market inactivity.</p>
-<p>No professional analyst consensus or institutional investor activity is evident, reducing market validation opportunities. The disconnect between fundamental distress and market price stability suggests illiquidity rather than undervaluation, cautioning against speculative entry.</p>
+<p><strong>Market Validation Commentary:</strong><br />
+The fundamental distress indicated by the Z-Score aligns with the stagnant share price and zero trading volume, suggesting the market has priced in significant risk and possibly illiquidity. The P/E ratio of 4.27 is low, but given the lack of dividend yield and market activity, this may reflect a distressed valuation rather than a value opportunity.</p>
+<p>The absence of RSI movement and technical indicators (all zero) implies no active market sentiment or momentum, limiting short-term trading opportunities. Peer comparison confirms PYR.TO is underperforming its sector, reinforcing the cautious outlook.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -733,29 +764,29 @@ The <strong>Z-Score’s distress signal aligns with stagnant share price and zer
 <td>High</td>
 <td>Critical</td>
 <td>Further Z-Score decline</td>
-<td>Restructure operations, improve efficiency</td>
+<td>Operational restructuring, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Negative retained earnings worsen</td>
-<td>Capital infusion, debt restructuring</td>
+<td>Negative retained earnings, liquidity stress</td>
+<td>Debt refinancing, capital injection</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Illiquidity risk persists</td>
-<td>Enhance investor relations, market visibility</td>
+<td>Price volatility, illiquidity</td>
+<td>Investor relations, market re-engagement</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning:</strong><br />
-- <strong>Best Case:</strong> Operational turnaround improves EBIT ratio to &gt;0.05, working capital stabilizes, Z-Score rises above -1.0 within 2-3 quarters.<br />
-- <strong>Base Case:</strong> Current trends persist, Z-Score remains in distress zone (-1.7 to -3.0), liquidity remains negative.<br />
-- <strong>Worst Case:</strong> Further deterioration leads to Z-Score below -3.0, potential bankruptcy risk escalates.</p>
-<p>Based on AI Risk Analysis, the <strong>bankruptcy risk is high</strong> with severe liquidity stress and negative equity. Mitigation requires aggressive operational and financial restructuring.</p>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Operational turnaround improves EBIT and working capital, lifting Z-Score above -1.0 within 2-3 quarters. Requires successful restructuring and capital support.<br />
+- <strong>Base Case:</strong> Continued distress with slow improvement, Z-Score stabilizes near -1.5, ongoing liquidity challenges persist.<br />
+- <strong>Worst Case:</strong> Further deterioration with Z-Score dropping below -3.0, leading to bankruptcy risk and potential delisting.</p>
+<p>Mitigation requires aggressive operational and financial restructuring, including potential equity raises or asset sales. The high probability and severity of operational and financial risks justify a cautious investment stance.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -773,47 +804,47 @@ The <strong>Z-Score’s distress signal aligns with stagnant share price and zer
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>SELL</strong></td>
-<td>Z-Score -1.71 in distress zone; no recovery signs</td>
-<td>Avoid entry</td>
-<td>Immediate</td>
+<td>SELL</td>
+<td>Z-Score -1.73 in Distress Zone, negative liquidity</td>
+<td>Price stagnant, no momentum</td>
+<td>Immediate exit</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>SELL/HOLD</strong></td>
-<td>No dividend yield; negative retained earnings</td>
-<td>Not applicable</td>
-<td>N/A</td>
+<td>SELL</td>
+<td>No dividend yield, negative retained earnings</td>
+<td>No yield, no income</td>
+<td>Avoid</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>AVOID</strong></td>
-<td>Distressed valuation but fundamental weakness</td>
-<td>Wait for turnaround signals</td>
-<td>6-12 months</td>
+<td>HOLD/AVOID</td>
+<td>Low P/E (4.27) but distressed Z-Score</td>
+<td>Possible turnaround speculative</td>
+<td>Monitor quarterly</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>AVOID</strong></td>
-<td>Low EBIT ratio and asset turnover; no growth evidence</td>
-<td>Not recommended</td>
-<td>N/A</td>
+<td>SELL</td>
+<td>No growth signals, negative EBIT</td>
+<td>No momentum, stagnant price</td>
+<td>Avoid</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>SPECULATIVE BUY</strong> (Very limited)</td>
-<td>Potential turnaround if operational improvements occur</td>
-<td>Monitor closely</td>
-<td>Short-term speculative</td>
+<td>SPECULATIVE BUY</td>
+<td>Potential turnaround if Z-Score improves</td>
+<td>High risk, high reward</td>
+<td>Watch for catalyst</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Conservative and dividend-focused investors should exit or avoid PYR.TO due to severe financial distress and no dividend. Value and growth investors should wait for clear signs of operational recovery and improved Z-Score (&gt;1.8) before entry. Aggressive investors may consider speculative positions only if accompanied by active restructuring announcements or capital raises, with tight risk controls.</p>
+<p><strong>Detailed Commentary:</strong><br />
+Conservative and dividend investors should avoid or sell due to high distress and no income. Value investors may consider a hold or speculative watch if operational improvements emerge, but current data does not support a buy. Growth investors should avoid given lack of profitability and momentum. Aggressive investors might consider speculative entry only if clear restructuring catalysts appear, with tight risk controls.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -830,28 +861,28 @@ Conservative and dividend-focused investors should exit or avoid PYR.TO due to s
 <tr>
 <td>CEO Leadership</td>
 <td>Operational turnaround</td>
-<td>EBIT Ratio, Asset Turnover</td>
-<td>Implement cost controls, improve sales pipeline</td>
-<td>EBIT &gt;0.05, Asset Turnover &gt;0.3</td>
+<td>EBIT Ratio (0.014), Asset Turnover (0.145)</td>
+<td>Focus on cost reduction, process optimization</td>
+<td>EBIT improvement, Z-Score rise</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; Capital structure</td>
-<td>Working Capital Ratio, Retained Earnings Ratio</td>
-<td>Secure capital infusion, renegotiate debt</td>
-<td>Positive working capital, reduced losses</td>
+<td>Liquidity and capital structure</td>
+<td>Working Capital Ratio (-0.316), Retained Earnings (-4.403)</td>
+<td>Secure financing, manage liabilities</td>
+<td>Positive working capital, debt reduction</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; compliance</td>
-<td>Z-Score, Risk Indicators</td>
-<td>Monitor financial health, approve restructuring plans</td>
-<td>Z-Score improvement, risk reduction</td>
+<td>Risk oversight and compliance</td>
+<td>Z-Score trajectory, risk factors</td>
+<td>Monitor risk, enforce governance policies</td>
+<td>Risk mitigation, compliance adherence</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Executive leadership must prioritize operational efficiency improvements and liquidity stabilization. The CFO should focus on capital restructuring to reduce negative retained earnings and improve working capital. The Board must oversee risk mitigation and ensure compliance with financial covenants, using Z-Score trends as a key performance indicator.</p>
+<p><strong>Executive Commentary:</strong><br />
+Leadership must prioritize reversing operational inefficiencies and restoring liquidity. The CFO should aggressively manage capital structure to avoid insolvency. The Board must maintain strict oversight given the high-risk profile, ensuring transparency and proactive risk management. Market perception management is critical to rebuild investor confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -867,34 +898,34 @@ Executive leadership must prioritize operational efficiency improvements and liq
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Negative, improving slightly</td>
-<td>Gradual improvement possible</td>
-<td>Operational restructuring, capital raises</td>
-<td>Quarterly Z-Score, EBIT ratio</td>
+<td>Slight improvement (-6.17 to -1.73)</td>
+<td>Potential stabilization if turnaround succeeds</td>
+<td>Operational restructuring, capital infusion</td>
+<td>Quarterly Z-Score updates, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Weak, distressed</td>
-<td>Potential stabilization if turnaround succeeds</td>
-<td>New contracts, technology adoption</td>
-<td>Market share, sales growth</td>
+<td>Distressed, low liquidity</td>
+<td>Possible recovery if fundamentals improve</td>
+<td>New contracts, market expansion</td>
+<td>Share price, volume, peer performance</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High risk</td>
-<td>Risk remains elevated</td>
-<td>Liquidity events, market volatility</td>
-<td>Working capital ratio, debt levels</td>
+<td>High risk, persistent distress</td>
+<td>Risk remains elevated without intervention</td>
+<td>Debt refinancing, cost control</td>
+<td>Liquidity ratios, debt levels</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-The Z-Score momentum shows slight improvement but remains in distress. Key catalysts for positive change include successful operational restructuring and capital infusion. Monitoring quarterly Z-Score and EBIT ratio will provide early warning of recovery or further deterioration. Market position depends on commercial success of plasma technology offerings.</p>
+<p><strong>Forward-Looking Commentary:</strong><br />
+The Z-Score momentum shows marginal improvement but remains in distress. Key catalysts include successful operational restructuring and capital raises. Monitoring should focus on EBIT improvements, working capital, and market re-engagement. Early warning signals include further Z-Score decline or liquidity deterioration. Investors should watch for quarterly financial disclosures and market activity as leading indicators.</p>
 <hr />
-<h1 id="summary"><strong>Summary:</strong></h1>
-<p>PYR.TO is currently in a <strong>critical financial distress state</strong>, with persistent negative Altman Z-Scores, poor liquidity, and operational inefficiencies. Market signals confirm low investor interest and high risk. Immediate strategic actions are required to avoid bankruptcy. Investors should exercise extreme caution, with only speculative, high-risk profiles considering limited exposure. Continuous monitoring of Z-Score trends and operational metrics is essential for timely investment decisions.</p>
+<h1 id="summary">Summary</h1>
+<p>PyroGenesis Canada Inc. is currently in a <strong>critical financial distress state</strong> with a deeply negative Altman Z-Score and weak liquidity and profitability metrics. Market signals confirm low investor interest and illiquidity. The company faces high operational and financial risks requiring urgent strategic action. Investment recommendations skew towards <strong>avoidance or sell</strong> for most profiles, with speculative interest only for high-risk tolerant investors monitoring for turnaround catalysts.</p>
 <hr />
-<p><em>Analysis generated by AI-Powered Altman Z-Score Investment Framework based on injected financial and market data as of 2025-07-03.</em></p></div></div>
+<p><em>Analysis completed using all injected data elements with explicit references to financial ratios, Z-Score trends, market metrics, and sector context.</em></p></div></div>
     </div>
     
 
@@ -1237,78 +1268,41 @@ The Z-Score momentum shows slight improvement but remains in distress. Key catal
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:40 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:07 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

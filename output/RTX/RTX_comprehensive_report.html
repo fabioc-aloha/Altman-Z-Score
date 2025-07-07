@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>RTX Corporation (RTX)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:40 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:07 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -300,10 +372,10 @@
     <div class="section recommendation">
         <h2>Investment Recommendation</h2>
         <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
-            <span class="sell">Strong Sell</span>
+            <span class="hold">Hold</span>
         </div>
         <div style="margin: 15px 0;">
-            <strong>Confidence:</strong> 70.0%
+            <strong>Confidence:</strong> 60.0%
         </div>
 
         
@@ -357,9 +429,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="RTX_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="RTX_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -422,15 +494,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$145.75</p>
+                <p>$$146.54</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$194.7B</p>
+                <p>$$195.8B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>42.7</p>
+                <p>43.0</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -438,11 +510,11 @@
             </div>
             <div class="metric">
                 <h4>Volatility</h4>
-                <p>40.0%</p>
+                <p>20.0%</p>
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>59.9</p>
+                <p>52.1</p>
             </div>
         </div>
     </div>
@@ -456,7 +528,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>1.46</p>
+                <p>1.49</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -464,7 +536,7 @@
             </div>
             <div class="metric">
                 <h4>Risk Score</h4>
-                <p>7.5/10</p>
+                <p>6.9/10</p>
             </div>
         </div>
     </div>
@@ -475,66 +547,75 @@
     
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
-        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis-for-rtx">AI-Powered Altman Z-Score Investment Analysis for RTX</h1>
-<p><strong>Analysis Date:</strong> 2025-07-03 18:40:39</p>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> RTX<br />
+<strong>Analysis Date:</strong> 2025-07-07 11:07:26  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>RTX Corporation currently exhibits a <strong>fragile financial health profile</strong>, with its latest Altman Z-Score at <strong>1.95</strong>, placing it in the <strong>Gray Zone (1.8 - 3.0)</strong>, indicating moderate risk of financial distress but some improvement from prior quarters where it consistently hovered in the Distress Zone (&lt;1.8). The Z-Score trajectory over the past eight quarters shows a <strong>persistent struggle near distress thresholds</strong>, with values ranging from 1.75 to 1.95, signaling ongoing operational and financial challenges.</p>
-<p><strong>AI Risk Analysis</strong> indicates an <strong>overall risk level of Medium-High</strong>, with risk trajectory slightly improving but still elevated, supported by a <strong>confidence level of approximately 75%</strong> based on data quality and consistency. Key risk themes include liquidity constraints and operational inefficiencies.</p>
-<p><strong>AI Peer Analysis</strong> positions RTX below the <strong>industry average Z-Score</strong>, which typically exceeds 3.0 in the Aerospace &amp; Defense sector, highlighting RTX’s relative underperformance versus peers such as Lockheed Martin (LMT) and Northrop Grumman (NOC). This peer gap suggests competitive pressures and potential market share erosion.</p>
-<p><strong>AI Sentiment Analysis</strong> reveals a <strong>neutral to slightly negative overall sentiment</strong>, with sentiment trends flat and no significant divergence from market consensus, reflecting cautious investor perception amid financial uncertainty.</p>
+<p>RTX Corporation currently exhibits a <strong>Z-Score of 1.96</strong>, placing it in the <strong>Gray Zone</strong>—a borderline financial distress signal that warrants cautious monitoring. Historically, RTX’s Z-Score has fluctuated predominantly within the <strong>Distress Zone (Z &lt; 1.8)</strong>, with values ranging from 1.76 to 1.96 over the last eight quarters, indicating persistent financial vulnerability. The recent uptick to 1.96 suggests a slight improvement but remains below the safe threshold of 3.0.</p>
+<p><strong>AI Risk Analysis</strong> classifies RTX’s overall risk level as elevated, consistent with the Gray Zone Z-Score, with risk trajectory showing marginal improvement but still signaling caution. The <strong>AI Peer Analysis</strong> positions RTX below the industry average Z-Score (not explicitly provided but implied higher than RTX’s 1.96), indicating underperformance relative to aerospace &amp; defense peers such as Lockheed Martin (LMT) and Northrop Grumman (NOC). The <strong>AI Sentiment Analysis</strong> reveals a mixed market perception, with a high P/E ratio of 42.97 and an anomalously high dividend yield of 186%, suggesting potential data anomalies or extraordinary dividend events impacting sentiment.</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
-<th>Value</th>
+<th>Metric Category</th>
+<th>Key Value(s)</th>
 <th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Z-Score</td>
-<td>1.95</td>
-<td>Gray Zone - Moderate financial risk</td>
+<td>Current Z-Score</td>
+<td>1.96</td>
+<td>Gray Zone - borderline distress</td>
 </tr>
 <tr>
-<td>Z-Score Range (8 quarters)</td>
-<td>1.75 - 1.95</td>
-<td>Persistent near distress threshold</td>
+<td>Z-Score Historical Range</td>
+<td>1.76 - 1.96</td>
+<td>Persistent distress zone presence</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$194.7B</td>
-<td>Large-cap, stable market presence</td>
+<td>$195.8B</td>
+<td>Large-cap industrial</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$146.51</td>
+<td>Stable price level</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>42.74</td>
-<td>Elevated valuation relative to earnings</td>
+<td>42.97</td>
+<td>High valuation multiple</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
-<td>186.00% (likely anomalous)</td>
-<td>Data anomaly, requires caution</td>
+<td>186.00%</td>
+<td>Data anomaly or special dividend</td>
 </tr>
 <tr>
-<td>AI Risk Level</td>
-<td>Medium-High</td>
-<td>Elevated risk, improving trajectory</td>
+<td>Working Capital Ratio</td>
+<td>0.002</td>
+<td>Extremely low liquidity</td>
 </tr>
 <tr>
-<td>AI Peer Industry Avg Z-Score</td>
-<td>&gt;3.0</td>
-<td>RTX underperforms peers</td>
+<td>Retained Earnings Ratio</td>
+<td>0.329</td>
+<td>Moderate retained earnings</td>
 </tr>
 <tr>
-<td>AI Sentiment</td>
-<td>Neutral to Negative</td>
-<td>Cautious market perception</td>
+<td>EBIT Ratio</td>
+<td>0.012</td>
+<td>Low operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.123</td>
+<td>Low operational efficiency</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong> Given the <strong>Gray Zone Z-Score</strong>, elevated risk profile, and underperformance relative to peers, a <strong>cautious HOLD</strong> is recommended for conservative investors, with selective BUY opportunities for value investors if operational improvements materialize. Aggressive investors should monitor for clearer signs of financial stabilization before initiating positions.</p>
+<p><strong>Investment Recommendation:</strong> Given the borderline Z-Score and financial stress signals, a <strong>cautious HOLD</strong> is recommended for conservative investors, with selective BUY opportunities for value investors if further Z-Score improvements occur. Aggressive investors should await clearer signs of financial stabilization.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -542,7 +623,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark*</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -551,38 +632,37 @@
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.002<br>Working Capital Ratio: 0.002</td>
-<td>Industry Avg Current Ratio: ~1.5 - 2.0</td>
-<td><strong>Severe liquidity weakness</strong>; current ratio near zero indicates critical short-term solvency risk</td>
-<td>Declining/Severe</td>
+<td>Industry avg. ~1.2-1.5</td>
+<td><strong>Severe liquidity weakness</strong>; near insolvency risk</td>
+<td>Declining/Stable (very low)</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: Not provided<br>Interest Coverage: Not provided</td>
-<td>Industry Avg Debt-to-Equity: ~0.5 - 1.0</td>
-<td>Insufficient data; likely elevated leverage given low EBIT ratio and distress Z-Score</td>
-<td>Unknown/Concern</td>
+<td>Debt-to-Equity: N/A<br>Interest Coverage: N/A</td>
+<td>Industry avg. Debt/Equity ~0.6-1.0</td>
+<td>Data unavailable; inferred high leverage risk due to low EBIT</td>
+<td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.123<br>EBIT Ratio: 0.012</td>
-<td>Industry Avg Asset Turnover: ~0.5 - 0.7<br>EBIT Margin: ~0.1 - 0.15</td>
-<td><strong>Low asset utilization and profitability</strong>; EBIT ratio of 1.2% is significantly below industry norms</td>
-<td>Stable but weak</td>
+<td>EBIT Ratio: 0.012<br>Asset Turnover: 0.123</td>
+<td>EBIT avg. ~0.08-0.12<br>Asset Turnover avg. ~0.3-0.5</td>
+<td><strong>Below average profitability and asset utilization</strong></td>
+<td>Stable/Weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.329</td>
-<td>Industry Avg Retained Earnings Ratio: ~0.5</td>
-<td>Moderate retained earnings cushion but insufficient to offset liquidity and operational weaknesses</td>
+<td>Retained Earnings Ratio: 0.329<br>Cash Position: N/A</td>
+<td>Retained Earnings avg. ~0.4-0.6</td>
+<td>Moderate retained earnings; insufficient cash data</td>
 <td>Stable</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Interpretive Commentary:</strong><br />
-The <strong>extremely low current ratio (0.002)</strong> and working capital ratio indicate <strong>critical liquidity stress</strong>, far below the Aerospace &amp; Defense industry standard of approximately 1.5 to 2.0, suggesting potential near-term solvency challenges. The <strong>retained earnings ratio of 0.329</strong> provides some buffer but is below typical sector averages, limiting internal funding capacity.</p>
-<p>Operational efficiency is notably poor, with an <strong>asset turnover of 0.123</strong> and an <strong>EBIT ratio of 0.012 (1.2%)</strong>, both substantially below industry averages (asset turnover ~0.5-0.7; EBIT margin ~10-15%). This signals underutilization of assets and weak profitability, which directly depresses the Z-Score and heightens bankruptcy risk.</p>
-<p>The <strong>AI Data Quality Assessment</strong> shows no anomalies in financial data completeness, but the <strong>dividend yield of 186% is a clear anomaly</strong>, likely a data error or extraordinary event, which reduces confidence in dividend-related valuation metrics.</p>
-<p>RTX’s <strong>sector (Industrials) and Aerospace &amp; Defense industry</strong> context demands robust liquidity and operational efficiency due to capital-intensive operations and long contract cycles. The current financial metrics reveal significant stress inconsistent with sector norms.</p>
+<p>*Industry benchmarks approximate for Aerospace &amp; Defense sector.</p>
+<p><strong>Commentary:</strong><br />
+RTX’s liquidity position is critically weak, with a current ratio and working capital ratio near zero (0.002), indicating potential short-term solvency issues. This is a significant red flag, especially in the capital-intensive aerospace &amp; defense industry where operational continuity depends on liquidity. The absence of explicit debt-to-equity and interest coverage ratios limits leverage assessment, but the low EBIT ratio (1.2%) suggests tight operating margins, which combined with low asset turnover (12.3%) points to operational inefficiencies.</p>
+<p>The retained earnings ratio at 32.9% is moderate but below typical industry levels, reflecting limited internal capital accumulation. The AI Data Quality Assessment notes no anomalies in financial data completeness, but the extreme dividend yield (186%) and zero volatility metrics in market data suggest possible data irregularities affecting confidence.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -598,30 +678,44 @@ The <strong>extremely low current ratio (0.002)</strong> and working capital rat
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>1.95</td>
+<td>1.96</td>
 <td>Gray Zone</td>
-<td>Slight EBIT improvement, marginal asset turnover increase</td>
-<td>Possible early signs of operational stabilization</td>
+<td>Slight improvement in working capital and market equity components</td>
+<td>Possible operational restructuring or asset sales</td>
 </tr>
 <tr>
-<td>Prior Quarters</td>
-<td>1.75 - 1.83</td>
-<td>Distress/Gray</td>
-<td>Persistently low working capital and EBIT ratios</td>
-<td>Ongoing liquidity and profitability challenges</td>
-</tr>
-<tr>
-<td>Earliest Quarters</td>
-<td>1.75 - 1.79</td>
+<td>Q7</td>
+<td>1.80</td>
 <td>Distress</td>
-<td>Weak retained earnings and asset utilization</td>
-<td>Reflects cyclical pressures and operational inefficiencies</td>
+<td>Marginal working capital improvement</td>
+<td>Ongoing financial stress</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>1.79</td>
+<td>Distress</td>
+<td>Stable but weak EBIT and asset turnover</td>
+<td>Industry cyclicality impact</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>1.84</td>
+<td>Gray Zone</td>
+<td>Temporary working capital boost</td>
+<td>Contract wins or short-term liquidity inflows</td>
+</tr>
+<tr>
+<td>Q4-Q1</td>
+<td>1.76-1.78</td>
+<td>Distress</td>
+<td>Consistently low liquidity and profitability</td>
+<td>Legacy operational challenges</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-RTX’s Z-Score has remained <strong>below or near the distress threshold (1.8)</strong> for eight quarters, indicating <strong>persistent financial vulnerability</strong>. The recent uptick to 1.95 suggests <strong>marginal improvement</strong>, potentially driven by slight EBIT ratio gains or asset turnover enhancements, but still well below the <strong>industry average Z-Score &gt;3.0</strong>.</p>
-<p>The lack of detailed component data (working capital/total assets, retained earnings/total assets, etc.) limits precise attribution, but the trend implies that <strong>working capital and EBIT remain key constraints</strong>. This aligns with the business context of RTX operating in a capital-intensive aerospace sector, where contract delays, cost overruns, or geopolitical factors can impact cash flows and profitability.</p>
+<p><strong>Commentary:</strong><br />
+RTX’s Z-Score trajectory over eight quarters shows a persistent struggle to exit the Distress Zone, with only brief forays into the Gray Zone. The recent rise to 1.96 is encouraging but insufficient to signal a return to financial safety. The lack of component data (working capital/total assets, EBIT/total assets) limits granular driver analysis, but the overall trend suggests ongoing operational and liquidity challenges.</p>
+<p>Industry peers typically maintain Z-Scores above 2.5, underscoring RTX’s relative vulnerability. The aerospace &amp; defense sector’s capital intensity and long contract cycles may exacerbate these pressures, especially if contract delays or cost overruns occur.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -637,31 +731,30 @@ RTX’s Z-Score has remained <strong>below or near the distress threshold (1.8)<
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Gray Zone, improving</td>
-<td>P/E Ratio: 42.74 (high)</td>
+<td>Gray Zone (1.96)</td>
+<td>Stable Price ($146.51)</td>
 <td>Divergent</td>
-<td>Market values growth potential despite financial risk</td>
+<td>Market may be pricing in recovery or overvaluing risk</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to Negative</td>
-<td>Dividend Yield anomaly (186%)</td>
-<td>Inconsistent</td>
-<td>Market skepticism; data anomaly reduces confidence</td>
+<td>Mixed (High P/E)</td>
+<td>High P/E (42.97)</td>
+<td>Partially aligned</td>
+<td>Growth expectations high despite risk</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry avg Z-Score</td>
-<td>Sector performing better</td>
+<td>Below Industry Avg</td>
+<td>Sector performing well</td>
 <td>Underperforming</td>
-<td>Competitive disadvantage; caution warranted</td>
+<td>Competitive disadvantage; caution advised</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-RTX’s <strong>high P/E ratio of 42.74</strong> contrasts with its weak Z-Score, indicating the market may be pricing in future growth or strategic initiatives not yet reflected in financials. However, the <strong>divergence between fundamental distress signals and valuation suggests a potential overvaluation risk</strong>.</p>
-<p>The <strong>anomalous dividend yield of 186%</strong> is inconsistent with typical market behavior and likely a data error, undermining confidence in yield-based investment decisions.</p>
-<p>Peer comparison confirms RTX is <strong>underperforming relative to sector peers</strong>, reinforcing the need for caution. The <strong>lack of price and volume data (all zeros)</strong> limits technical analysis and market timing insights.</p>
+<p><strong>Commentary:</strong><br />
+RTX’s fundamental health as indicated by the Z-Score contrasts with a relatively stable and high stock price ($146.51) and an elevated P/E ratio (42.97), suggesting the market is pricing in future growth or strategic turnaround rather than current financial distress. The anomalous dividend yield of 186% is likely a data anomaly or special dividend event, which distorts yield-based valuation.</p>
+<p>The divergence between fundamental risk and market optimism signals potential overvaluation or speculative positioning. Peer companies with stronger Z-Scores and operational metrics may offer safer investment alternatives. Investors should monitor for market corrections aligning price with fundamental health.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -679,30 +772,31 @@ RTX’s <strong>high P/E ratio of 42.74</strong> contrasts with its weak Z-Score
 <td>Operational Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Significant decline</td>
-<td>Cost control, operational efficiency improvements</td>
+<td>-0.3 to -0.5</td>
+<td>Cost control, efficiency programs</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>Medium-High</td>
-<td>Moderate</td>
-<td>Moderate decline</td>
-<td>Liquidity management, debt restructuring</td>
+<td>High</td>
+<td>Critical</td>
+<td>-0.4 to -0.6</td>
+<td>Debt restructuring, liquidity management</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Volatility in valuation</td>
+<td>-0.2</td>
 <td>Hedging, diversification</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> EBIT margin and working capital improve, pushing Z-Score above 2.5, reducing bankruptcy risk and improving investor confidence.<br />
-- <strong>Base Case:</strong> Z-Score remains in Gray Zone (~1.9-2.0), with ongoing liquidity constraints but no immediate distress.<br />
-- <strong>Worst Case:</strong> Z-Score falls below 1.8, triggering distress zone alerts and potential solvency crises.</p>
-<p>Mitigation should focus on <strong>operational restructuring and liquidity enhancement</strong>, with continuous monitoring of EBIT and working capital ratios.</p>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Z-Score improves above 2.5 within 6-12 months due to operational turnaround and liquidity injections, reducing bankruptcy risk substantially.<br />
+- <strong>Base Case:</strong> Z-Score remains in Gray Zone (1.8-2.0), maintaining moderate distress risk but avoiding insolvency.<br />
+- <strong>Worst Case:</strong> Z-Score falls below 1.8, entering Distress Zone with heightened bankruptcy probability.</p>
+<p><strong>Commentary:</strong><br />
+Based on AI Risk Analysis overall risk level of elevated with moderate confidence, operational inefficiencies and liquidity constraints are the top risk factors. Financial risk from leverage and cash flow stress is critical, requiring active mitigation. Market risk is moderate but could exacerbate financial stress if defense budgets or contracts decline.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -721,46 +815,46 @@ RTX’s <strong>high P/E ratio of 42.74</strong> contrasts with its weak Z-Score
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score near distress (1.95); liquidity risk</td>
-<td>Wait for Z-Score &gt; 2.0 confirmation</td>
+<td>Z-Score 1.96 in Gray Zone; persistent distress risk</td>
+<td>Wait for Z-Score &gt; 2.0</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>SELL/HOLD</td>
-<td>Dividend yield anomaly; unstable cash flows</td>
-<td>Avoid until dividend sustainability confirmed</td>
+<td>SELL</td>
+<td>Dividend yield anomaly; unsustainable payout likely</td>
+<td>Avoid until clarity</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>BUY (Selective)</td>
-<td>Potential undervaluation if operational turnaround occurs</td>
-<td>Entry on Z-Score stabilization</td>
+<td>Potential undervaluation if Z-Score improves</td>
+<td>Monitor for Z-Score uptick</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>HOLD</td>
-<td>Weak EBIT and asset turnover limit growth</td>
-<td>Monitor EBIT improvements</td>
+<td>Low EBIT ratio limits growth sustainability</td>
+<td>Await operational improvements</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>SPECULATIVE BUY</td>
-<td>High risk/reward due to low Z-Score and valuation gap</td>
-<td>Opportunistic entry on positive catalyst</td>
+<td>High risk/reward; volatile Z-Score history</td>
+<td>Opportunistic entry on dips</td>
 <td>Short-term</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Commentary:</strong><br />
-Conservative investors should <strong>hold</strong> and monitor for clear financial stabilization. Dividend investors face uncertainty due to anomalous yield data and should avoid new positions. Value investors may find opportunities if operational improvements materialize, while growth investors should wait for stronger EBIT momentum. Aggressive investors may speculate on turnaround catalysts but must accept elevated risk.</p>
+Conservative investors should hold and monitor for improved financial health. Dividend investors should avoid due to unsustainable payout signals. Value investors may find opportunity if operational improvements materialize, while growth investors should wait for clearer profitability signals. Aggressive investors may speculate on volatility but must manage downside risk carefully.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -777,28 +871,28 @@ Conservative investors should <strong>hold</strong> and monitor for clear financ
 <tr>
 <td>CEO Leadership</td>
 <td>Operational turnaround</td>
-<td>EBIT ratio, Asset Turnover</td>
-<td>Implement cost reduction, improve contract execution</td>
-<td>EBIT margin &gt; 5%, Z-Score &gt; 2.5</td>
+<td>EBIT Ratio, Asset Turnover</td>
+<td>Implement cost reduction, improve asset utilization</td>
+<td>EBIT margin &gt; 5%, turnover &gt; 0.3</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; capital structure</td>
-<td>Current Ratio, Debt levels</td>
-<td>Enhance working capital, refinance debt</td>
-<td>Current ratio &gt; 1.0, Debt/Equity &lt; 1.0</td>
+<td>Liquidity &amp; leverage management</td>
+<td>Current Ratio, Debt Levels</td>
+<td>Enhance working capital, restructure debt</td>
+<td>Current ratio &gt; 1.0, reduced leverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
 <td>Risk oversight &amp; compliance</td>
-<td>Z-Score trends, Risk factors</td>
-<td>Strengthen risk management, monitor financial health</td>
-<td>Stable or improving Z-Score, risk mitigation reports</td>
+<td>Z-Score, Risk Indicators</td>
+<td>Tighten risk controls, monitor financial KPIs</td>
+<td>Z-Score &gt; 2.0, risk mitigation effectiveness</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-RTX’s leadership must prioritize <strong>improving liquidity and operational efficiency</strong> to move out of the distress zone. The CFO should focus on <strong>working capital management and debt restructuring</strong> to alleviate short-term solvency risks. The Board must enforce <strong>rigorous risk oversight</strong> to ensure early detection of financial deterioration and compliance with governance standards.</p>
+<p><strong>Commentary:</strong><br />
+Executive focus should be on reversing liquidity and profitability weaknesses highlighted by the Z-Score components. The CEO must drive operational efficiency, while the CFO prioritizes liquidity and capital structure improvements. The Board should enforce rigorous risk management aligned with AI Risk Analysis themes to restore investor confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -816,44 +910,32 @@ RTX’s leadership must prioritize <strong>improving liquidity and operational e
 <td>Z-Score Momentum</td>
 <td>Slightly improving</td>
 <td>Gradual improvement</td>
-<td>EBIT margin growth, asset utilization</td>
-<td>Quarterly Z-Score, EBIT ratio</td>
+<td>Contract wins, cost controls</td>
+<td>Quarterly Z-Score, working capital ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Underperforming</td>
-<td>Potential stabilization</td>
-<td>Contract wins, cost control</td>
-<td>Market share, peer Z-Score</td>
+<td>Below peers</td>
+<td>Stabilization</td>
+<td>New product launches, defense budgets</td>
+<td>Market share, peer Z-Score comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Medium-High</td>
-<td>Risk reduction possible</td>
-<td>Liquidity improvement, debt refinancing</td>
-<td>Current ratio, debt levels</td>
+<td>Elevated</td>
+<td>Moderate decline</td>
+<td>Debt refinancing, operational fixes</td>
+<td>Debt ratios, EBIT margin</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-RTX’s Z-Score momentum suggests <strong>potential for gradual financial stabilization</strong> over the next 6-12 months if EBIT and working capital improve. Key catalysts include successful contract execution, cost containment, and capital structure optimization. Continuous monitoring of <strong>quarterly Z-Score updates and liquidity ratios</strong> will provide early warning signals for risk escalation or improvement.</p>
+<p><strong>Commentary:</strong><br />
+RTX’s Z-Score momentum suggests a tentative recovery, contingent on successful operational and financial initiatives. Key catalysts include contract renewals and cost management. Continuous monitoring of liquidity and profitability ratios will provide early warning signals for risk escalation or improvement. Investment thesis should evolve dynamically with these indicators.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>RTX remains in a <strong>financial gray zone</strong>, with persistent liquidity and operational challenges reflected in a Z-Score just below 2.0. While market valuation suggests optimism, fundamental risks remain elevated. Investors should adopt a <strong>cautious stance</strong>, favoring HOLD or selective BUY strategies contingent on operational improvements. Executive leadership must prioritize liquidity and efficiency to restore financial health and investor confidence.</p>
+<p>RTX remains in a precarious financial position with a Z-Score of 1.96, signaling borderline distress. Liquidity and operational inefficiencies are critical concerns, while market valuation appears optimistic relative to fundamentals. Investors should adopt a cautious stance, emphasizing risk mitigation and monitoring for clear signs of financial stabilization before committing to aggressive positions. Executive leadership must prioritize operational turnaround and liquidity enhancement to shift RTX into a safer financial zone.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to injected data:</em></p>
-<ul>
-<li><strong>Z-Score latest: 1.95 (Gray Zone)</strong> and historical trend (1.75-1.95)  </li>
-<li><strong>Financial ratios:</strong> Current ratio 0.002, Retained earnings ratio 0.329, EBIT ratio 0.012, Asset turnover 0.123  </li>
-<li><strong>Market Cap:</strong> $194.7B, Current Price: $145.75, Shares Outstanding: 1.34B  </li>
-<li><strong>Valuation:</strong> P/E 42.74, Dividend Yield anomaly 186%  </li>
-<li><strong>AI Risk Analysis:</strong> Medium-High risk level, improving trajectory  </li>
-<li><strong>AI Peer Analysis:</strong> Below industry average Z-Score (&gt;3.0)  </li>
-<li><strong>AI Sentiment:</strong> Neutral to negative, flat trend  </li>
-<li><strong>Sector/Industry:</strong> Industrials / Aerospace &amp; Defense  </li>
-</ul>
-<hr />
-<p><strong>End of RTX Altman Z-Score Investment Analysis</strong></p></div></div>
+<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Framework on 2025-07-07.</em></p></div></div>
     </div>
     
 
@@ -1196,78 +1278,41 @@ RTX’s Z-Score momentum suggests <strong>potential for gradual financial stabil
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:40 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:07 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Fastenal Company (FAST)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:22 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:51 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -361,9 +433,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="FAST_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="FAST_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -377,7 +449,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">27.50</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">27.29</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -426,15 +498,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$43.13</p>
+                <p>$$42.76</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$49.5B</p>
+                <p>$$49.1B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>43.1</p>
+                <p>42.8</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -446,7 +518,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>52.5</p>
+                <p>55.8</p>
             </div>
         </div>
     </div>
@@ -460,7 +532,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>1.30</p>
+                <p>1.29</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -481,45 +553,45 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> FAST (Fastenal Company)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:22:18  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:51:25  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Fastenal Company (FAST) demonstrates an exceptionally strong financial position as evidenced by its consistently high Altman Z-Scores over the past eight quarters, all well within the <strong>Safe Zone</strong> (Z &gt; 3.0), with recent values ranging from 27.19 to 29.80. This indicates a very low risk of bankruptcy or financial distress. Based on the <strong>AI Risk Analysis</strong> (inferred from Z-Score stability and financial metrics), the overall risk level is <strong>Minimal</strong>, with a stable risk trajectory and no significant risk factors detected.</p>
-<p><strong>AI Peer Analysis</strong> positions FAST significantly above the industry average Z-Score (industry average typically ranges between 2.5 and 4.0 for industrial distribution firms), indicating superior financial health relative to peers. This strong relative positioning suggests competitive resilience and operational efficiency.</p>
-<p><strong>AI Sentiment Analysis</strong> metrics, while limited by zero volatility and zero RSI values (likely data anomalies), show a <strong>high dividend yield of 210.00%</strong>, which is an outlier and likely a data anomaly, but suggests a historically shareholder-friendly policy. The P/E ratio of 43.13 and EV/EBITDA of 28.65 indicate a premium valuation, consistent with growth expectations and market confidence.</p>
+<p>Fastenal Company (FAST) exhibits an exceptionally strong financial health profile as evidenced by its Altman Z-Score consistently in the <strong>Safe Zone</strong> over the past eight quarters, with values ranging from <strong>26.98 to 29.57</strong>, well above the distress threshold of 1.8. This indicates a very low risk of bankruptcy or financial distress. The Z-Score trajectory is stable with a slight downward trend in the most recent quarter (26.98 from a peak of 29.57), suggesting continued financial robustness but warranting monitoring for any emerging risks.</p>
+<p><strong>AI Risk Analysis</strong> is implicitly low given the Z-Score safety margin, supported by a stable risk trajectory. Market sentiment is mixed, with a <strong>high P/E ratio of 42.76</strong> indicating growth expectations but also a <strong>dividend yield of 210%</strong>, which is anomalous and likely a data anomaly or special dividend event, requiring caution in interpretation. The <strong>beta of 0.00</strong> and zero volatility metrics suggest either data gaps or an illiquid stock, which conflicts with the large market cap of <strong>$49.06 billion</strong> and over 1.14 billion shares outstanding, indicating potential data quality issues.</p>
+<p><strong>AI Peer Analysis</strong> is limited due to absent peer Z-Score data, but the Industrials sector and Industrial Distribution industry typically have Z-Scores in the 2.5-3.5 range, positioning FAST significantly above industry norms, reflecting superior financial stability.</p>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
+<th>Metric</th>
 <th>Value</th>
-<th>Notes</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>27.19</td>
-<td>Safe Zone, very low distress risk</td>
+<td>26.98</td>
+<td>Extremely safe financial position</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$49.48B</td>
+<td>$49.06 billion</td>
 <td>Large-cap industrial distributor</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$43.13</td>
-<td>Reflects premium valuation</td>
+<td>$42.81</td>
+<td>Stable price (data gaps noted)</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>43.13</td>
-<td>Growth-oriented valuation</td>
+<td>42.76</td>
+<td>High valuation, growth expectations</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>210.00%</td>
-<td>Likely data anomaly; verify dividend policy</td>
+<td>Likely data anomaly, caution advised</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
@@ -527,24 +599,23 @@
 <td>Moderate liquidity</td>
 </tr>
 <tr>
-<td>Debt-to-Equity</td>
-<td>N/A</td>
-<td>Not provided; inferred low leverage</td>
+<td>Retained Earnings Ratio</td>
+<td>0.753</td>
+<td>Strong earnings retention</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.081</td>
-<td>Healthy operating profitability</td>
+<td>Moderate operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.402</td>
-<td>Moderate asset efficiency</td>
+<td>Efficient asset utilization</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given the extremely strong Z-Score trend, stable risk profile, and premium valuation metrics, FAST is recommended as a <strong>BUY</strong> for <strong>Conservative</strong>, <strong>Value</strong>, and <strong>Growth</strong> investors with a medium to long-term horizon. The company’s financial health and operational efficiency provide a solid foundation for sustained performance. However, investors should verify dividend yield data due to apparent anomalies before relying on income strategies.</p>
+<p><strong>Investment Recommendation:</strong> Given the strong Z-Score safety margin and solid financial ratios, FAST is a <strong>BUY</strong> candidate for conservative and growth investors, with a note of caution on market data anomalies. Monitoring for dividend sustainability and market liquidity is advised.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -560,68 +631,38 @@ Given the extremely strong Z-Score trend, stable risk profile, and premium valua
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.528</td>
-<td>Industry Avg: ~1.0-1.5</td>
-<td>Below average liquidity; moderate risk</td>
-<td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>Working Capital Ratio: 0.528</td>
-<td>Industry Avg: ~0.5-1.0</td>
-<td>Within acceptable range</td>
-<td>Stable</td>
+<td>Current Ratio: 0.528<br>Working Capital Ratio: 0.528</td>
+<td>Industry Avg Current Ratio ~1.2</td>
+<td>Below industry average liquidity; potential short-term liquidity risk</td>
+<td>Stable but below benchmark</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A</td>
-<td>Industry Avg: ~0.5-1.0</td>
-<td>Data unavailable; inferred low leverage</td>
+<td>Debt-to-Equity: Not provided<br>Interest Coverage: Not provided</td>
+<td>Industry Avg Debt/Equity ~0.5-1.0</td>
+<td>Data missing; leverage unknown, but high Z-Score implies low financial distress</td>
 <td>Unknown</td>
 </tr>
 <tr>
-<td></td>
-<td>Interest Coverage (EBIT Ratio): 0.081</td>
-<td>Industry Avg: ~0.05-0.10</td>
-<td>Healthy operating profit coverage</td>
-<td>Stable</td>
-</tr>
-<tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.402</td>
-<td>Industry Avg: ~0.4-0.6</td>
-<td>Moderate asset utilization</td>
-<td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>EBIT Ratio: 0.081</td>
-<td>Industry Avg: ~0.05-0.10</td>
-<td>Solid operating margin</td>
+<td>Asset Turnover: 0.402<br>EBIT Ratio: 0.081</td>
+<td>Industry Avg Asset Turnover ~0.3-0.5<br>EBIT Margin ~8-10%</td>
+<td>Asset turnover within industry range; EBIT margin moderate but stable</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.753</td>
-<td>Industry Avg: ~0.6-0.8</td>
-<td>Strong retained earnings base</td>
+<td>Retained Earnings Ratio: 0.753<br>Cash Position: Not provided</td>
+<td>Retained Earnings typically &gt;0.5</td>
+<td>Strong retained earnings indicating reinvestment and stability</td>
 <td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>Cash Position: N/A</td>
-<td>Industry Avg: N/A</td>
-<td>Data unavailable</td>
-<td>Unknown</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Interpretive Commentary:</strong><br />
-- <strong>Liquidity:</strong> The current ratio of 0.528 is below the typical industrial distribution benchmark of 1.0-1.5, indicating that FAST maintains a lean liquidity position. However, the working capital ratio aligns with industry norms, suggesting efficient working capital management. This is consistent with the company’s business model focused on inventory turnover and supply chain efficiency.<br />
-- <strong>Leverage:</strong> While explicit debt-to-equity data is missing, the high Z-Score and EBIT ratio of 0.081 imply manageable leverage and strong interest coverage. The absence of leverage concerns is supported by the stable risk trajectory.<br />
-- <strong>Operational Efficiency:</strong> Asset turnover at 0.402 is moderate but within industry expectations, reflecting effective use of assets to generate sales. EBIT ratio at 8.1% confirms operational profitability.<br />
-- <strong>Financial Stability:</strong> Retained earnings ratio of 0.753 indicates substantial reinvestment and earnings retention, supporting long-term stability and growth potential.  </p>
-<p><strong>Data Quality Note:</strong> The AI Data Quality Assessment shows no explicit anomalies in financial ratios, but market data anomalies (e.g., dividend yield) warrant caution. Overall data completeness is high, supporting confidence in financial health diagnostics.</p>
+The liquidity position, with a current ratio of 0.528, is below the typical industrial distribution benchmark (~1.2), suggesting that FAST may have tighter short-term liquidity than peers. However, the high Altman Z-Score (&gt;26) and strong retained earnings ratio (0.753) indicate that the company maintains robust long-term financial stability and profitability. The EBIT ratio of 8.1% and asset turnover of 0.402 reflect operational efficiency consistent with industry norms.</p>
+<p>The absence of debt-to-equity and interest coverage data limits leverage risk assessment, but the Z-Score’s market value equity to book value debt component strongly suggests low leverage risk. The AI Data Quality Assessment flagged no anomalies in financial ratios, but market data anomalies (dividend yield, beta) reduce confidence in market-based metrics.</p>
+<p>Sector context: As an industrial distributor, Fastenal’s business model relies on efficient inventory and working capital management. The working capital ratio of 0.528, while below industry average, may reflect operational efficiency or aggressive working capital management.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -637,24 +678,24 @@ Given the extremely strong Z-Score trend, stable risk profile, and premium valua
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>27.19</td>
+<td>26.98</td>
 <td>Safe</td>
-<td>Strong retained earnings, EBIT, market equity</td>
-<td>Continued operational excellence, stable demand</td>
+<td>Strong retained earnings, high market equity</td>
+<td>Stable industrial distribution demand; no distress signals</td>
 </tr>
 <tr>
 <td>Previous Quarters</td>
-<td>27.19 - 29.80</td>
+<td>27.29 - 29.57</td>
 <td>Safe</td>
-<td>Consistently high working capital and profitability</td>
-<td>Stable industrial distribution market dynamics</td>
+<td>Consistent profitability and asset management</td>
+<td>Steady growth and operational efficiency</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-FAST’s Z-Score has consistently remained in the <strong>Safe Zone</strong>, fluctuating narrowly between 27.19 and 29.80 over eight quarters. This stability reflects robust financial fundamentals, including strong retained earnings and EBIT ratios, which are key Z-Score components. The absence of volatility in the Z-Score suggests resilience to external shocks and effective management of working capital and leverage.</p>
-<p>The business operates in the <strong>Industrials - Industrial Distribution</strong> sector, which typically experiences steady demand aligned with construction and manufacturing cycles. The stable Z-Score trend correlates with consistent operational performance and market positioning.</p>
-<p>Benchmarking against the industry average Z-Score (~3.0-4.0), FAST’s values are an order of magnitude higher, underscoring exceptional financial health and low bankruptcy risk.</p>
+FAST’s Z-Score has remained in the safe zone for at least eight quarters, with a slight downward trend from a peak of 29.57 to 26.98, still well above the distress threshold. This stability correlates with consistent operational performance and strong retained earnings, suggesting resilience against economic cycles.</p>
+<p>The lack of detailed component data (working capital/total assets, EBIT/total assets) for each quarter limits granular driver analysis, but the overall trend confirms a financially sound business. The industrial distribution sector’s steady demand supports this stability.</p>
+<p>Benchmarking against typical industry Z-Scores (~3.0) highlights FAST’s exceptional financial health, likely driven by strong equity capitalization and conservative financial management.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -670,31 +711,30 @@ FAST’s Z-Score has consistently remained in the <strong>Safe Zone</strong>, fl
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Strong, stable Z-Score (27.19 latest)</td>
-<td>Price stable at $43.13</td>
-<td>Aligned</td>
-<td>Supports long-term investment thesis</td>
+<td>Stable, high Z-Score</td>
+<td>P/E 42.76 (high)</td>
+<td>Partially aligned</td>
+<td>Growth expectations justified but valuation premium noted</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to positive (P/E 43.13)</td>
-<td>Market data incomplete (RSI 0.0)</td>
-<td>Divergent (data anomaly)</td>
-<td>Caution on short-term timing</td>
+<td>Not explicitly provided</td>
+<td>Dividend Yield 210% (anomaly), Beta 0.00</td>
+<td>Divergent</td>
+<td>Data anomalies reduce confidence in market sentiment</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Superior relative position</td>
-<td>Sector performance moderate</td>
+<td>Superior Z-Score</td>
+<td>Sector performance unknown</td>
 <td>Outperforming</td>
-<td>Competitive advantage confirmed</td>
+<td>Strong competitive positioning</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The Z-Score’s strong signal aligns with FAST’s stable share price at $43.13 and a market cap of $49.48B, indicating market recognition of the company’s financial strength. However, technical indicators such as RSI and moving averages are reported as zero, likely due to data injection anomalies, limiting short-term market timing analysis.</p>
-<p>The P/E ratio of 43.13 suggests the market prices FAST as a growth stock, consistent with its strong fundamentals and industry positioning. The company outperforms peers in financial health, reinforcing a positive investment outlook.</p>
-<p>Investors should monitor for potential short-term volatility given the lack of reliable technical signals but can rely on fundamental strength for medium to long-term positioning.</p>
+The fundamental health indicated by the Z-Score aligns with a high P/E ratio of 42.76, suggesting market expectations of continued growth. However, the dividend yield of 210% and zero beta/volatility metrics are inconsistent with typical market behavior for a large-cap industrial company, indicating potential data quality issues or extraordinary corporate actions (e.g., special dividends, stock splits).</p>
+<p>The lack of volatility and volume data conflicts with the company’s size and market presence, reducing confidence in market timing signals. Nonetheless, the Z-Score’s strong signal supports a positive investment outlook, especially for investors focused on fundamental strength rather than short-term market fluctuations.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -710,34 +750,31 @@ The Z-Score’s strong signal aligns with FAST’s stable share price at $43.13 
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>Low</td>
+<td>Medium</td>
 <td>Moderate</td>
-<td>Minimal</td>
-<td>Maintain supply chain resilience</td>
+<td>Potential EBIT ratio decline</td>
+<td>Enhance supply chain resilience and inventory management</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
-<td>Low</td>
-<td>Negligible</td>
-<td>Conservative leverage management</td>
+<td>Minor</td>
+<td>Minimal impact given strong equity</td>
+<td>Maintain conservative leverage and liquidity buffers</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential decline</td>
-<td>Diversify markets, monitor cycles</td>
+<td>Valuation correction risk</td>
+<td>Diversify investor base; monitor market sentiment</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Risk Commentary:</strong><br />
-Based on the AI Risk Analysis inferred from stable Z-Scores and financial ratios, FAST faces <strong>low operational and financial risks</strong>. The company’s strong retained earnings and EBIT ratios provide buffers against downturns. Market risks, including cyclical demand fluctuations in industrial distribution, carry medium probability and moderate severity, potentially impacting sales and asset turnover.</p>
-<p><strong>Scenario Planning:</strong><br />
-- <strong>Best Case:</strong> Continued economic growth and industrial demand sustain or improve Z-Score above 27, supporting valuation expansion.<br />
-- <strong>Base Case:</strong> Stable industrial demand maintains Z-Score near current levels (~27), preserving low bankruptcy risk.<br />
-- <strong>Worst Case:</strong> Economic downturn reduces EBIT and working capital, lowering Z-Score toward gray zone (below 3.0), triggering caution.</p>
-<p>Liquidity stress testing is recommended given the current ratio below 1.0, to ensure short-term obligations can be met under adverse conditions.</p>
+Based on the Altman Z-Score’s safe zone status and stable trajectory, bankruptcy risk is negligible. Operational risks such as supply chain disruptions or margin compression could moderately impact EBIT ratio and asset turnover, potentially lowering the Z-Score if sustained.</p>
+<p>Financial risks appear low due to strong retained earnings and implied low leverage. Market risks include valuation correction given the high P/E ratio and anomalous dividend yield, which could lead to price volatility despite fundamental strength.</p>
+<p>Scenario analysis suggests that even under moderate operational stress, FAST’s Z-Score would remain well above distress levels, supporting a resilient investment profile.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -756,8 +793,8 @@ Based on the AI Risk Analysis inferred from stable Z-Scores and financial ratios
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>BUY</td>
-<td>Z-Score stable ~27+, minimal risk</td>
-<td>Price stable, fundamental strength</td>
+<td>Z-Score consistently &gt;26, safe zone</td>
+<td>Monitor for liquidity improvements</td>
 <td>Immediate to 12 months</td>
 </tr>
 <tr>
@@ -765,41 +802,37 @@ Based on the AI Risk Analysis inferred from stable Z-Scores and financial ratios
 <td>Low-Medium</td>
 <td>HOLD</td>
 <td>Dividend yield data anomalous; verify</td>
-<td>Yield uncertainty; monitor announcements</td>
-<td>Short-term review</td>
+<td>Await dividend clarity</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>BUY</td>
-<td>Premium valuation justified by Z-Score</td>
-<td>Entry on minor price dips</td>
-<td>3-6 months</td>
+<td>Strong retained earnings and asset turnover</td>
+<td>Entry on dips supported by fundamentals</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>BUY</td>
-<td>High P/E supported by strong fundamentals</td>
-<td>Momentum stable; watch for volatility</td>
-<td>6-12 months</td>
+<td>High P/E ratio justified by Z-Score</td>
+<td>Positive momentum but watch valuation</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>HOLD</td>
-<td>Low volatility; limited upside in short term</td>
-<td>Limited price movement; monitor market signals</td>
-<td>Ongoing review</td>
+<td>Low volatility data; risk of market anomalies</td>
+<td>Caution due to data gaps</td>
+<td>Monitor closely</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Detailed Commentary:</strong><br />
-- <strong>Conservative investors</strong> can confidently buy FAST given the very high and stable Z-Score (27.19 latest) indicating minimal bankruptcy risk and solid financial health.<br />
-- <strong>Dividend investors</strong> should exercise caution due to the anomalous 210% dividend yield reported, which likely reflects data error; verification needed before increasing exposure.<br />
-- <strong>Value investors</strong> benefit from the premium valuation metrics (P/E 43.13) justified by strong fundamentals and operational efficiency. Entry points on minor price corrections are advisable.<br />
-- <strong>Growth investors</strong> have a favorable outlook supported by stable momentum and operational profitability; however, monitor for any shifts in market sentiment or operational performance.<br />
-- <strong>Aggressive investors</strong> should hold and monitor for volatility or market dislocations, as current data shows low price volatility and limited short-term trading opportunities.</p>
+<p><strong>Commentary:</strong><br />
+Conservative and value investors should consider initiating or adding to positions given the strong Z-Score safety margin and stable financial metrics. Dividend investors should exercise caution until dividend yield anomalies are clarified. Growth investors can capitalize on the high valuation supported by fundamental strength but should monitor for market corrections. Aggressive investors should be cautious due to data inconsistencies and potential liquidity issues.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -815,29 +848,29 @@ Based on the AI Risk Analysis inferred from stable Z-Scores and financial ratios
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational Excellence</td>
-<td>EBIT Ratio (0.081), Z-Score</td>
-<td>Focus on supply chain optimization, margin expansion</td>
-<td>Maintain Z-Score &gt; 25, EBIT growth</td>
+<td>Maintain operational efficiency</td>
+<td>EBIT ratio, Asset turnover</td>
+<td>Focus on supply chain optimization and margin expansion</td>
+<td>EBIT margin improvement, stable Z-Score</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital Efficiency</td>
-<td>Working Capital Ratio (0.528), Retained Earnings Ratio (0.753)</td>
-<td>Optimize liquidity, manage leverage prudently</td>
-<td>Stable liquidity ratios, debt metrics</td>
+<td>Strengthen liquidity position</td>
+<td>Current ratio, Working capital ratio</td>
+<td>Improve short-term liquidity management and capital allocation</td>
+<td>Current ratio &gt;1.0, working capital growth</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk Oversight &amp; Compliance</td>
-<td>Risk Level (Minimal), Market Risks</td>
-<td>Regular risk reviews, scenario planning</td>
-<td>Zero regulatory issues, risk mitigation effectiveness</td>
+<td>Oversight of risk management</td>
+<td>Z-Score trend, Risk factors</td>
+<td>Implement enhanced risk monitoring and scenario planning</td>
+<td>Risk mitigation effectiveness, stable Z-Score</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-FAST’s leadership should leverage the strong Z-Score and financial metrics to reinforce operational efficiency and prudent capital management. The CEO’s focus on margin improvement and supply chain resilience aligns with EBIT and asset turnover metrics. The CFO should prioritize liquidity optimization given the moderate current ratio and maintain strong retained earnings to support growth initiatives. The Board must ensure ongoing risk oversight, especially monitoring market cyclical risks and maintaining compliance standards.</p>
+FAST’s leadership should prioritize improving liquidity ratios to align with industry benchmarks while maintaining operational efficiency. The CFO should focus on optimizing working capital and ensuring capital allocation supports sustainable growth. The Board must oversee risk management frameworks to preempt operational or market risks, leveraging the Z-Score as a key financial health indicator.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -853,37 +886,34 @@ FAST’s leadership should leverage the strong Z-Score and financial metrics to 
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable (~27)</td>
-<td>Stable to Slightly Up</td>
-<td>Continued EBIT growth, earnings retention</td>
-<td>Quarterly EBIT, working capital</td>
+<td>Slight downward trend</td>
+<td>Stable to slight decline</td>
+<td>Operational margin pressure, market conditions</td>
+<td>EBIT ratio, retained earnings ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Strong</td>
-<td>Maintain/Improve</td>
-<td>Market share gains, operational efficiency</td>
-<td>Sales growth, asset turnover</td>
+<td>Maintain or improve</td>
+<td>Expansion into new markets, supply chain resilience</td>
+<td>Market share, asset turnover</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Minimal</td>
+<td>Low</td>
 <td>Stable</td>
-<td>Economic cycles, supply chain risks</td>
-<td>Industry demand indicators, liquidity ratios</td>
+<td>Macroeconomic stability, interest rate environment</td>
+<td>Liquidity ratios, debt levels</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-FAST’s Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, driven by sustained EBIT margins and strong retained earnings. Key catalysts include continued industrial demand, operational improvements, and prudent capital allocation.</p>
-<p>Monitoring should focus on quarterly EBIT trends, working capital changes, and macroeconomic indicators affecting industrial distribution. Early warning signals include declining EBIT ratios or working capital stress, which could presage Z-Score deterioration.</p>
-<p>Investment thesis evolution scenarios range from stable growth underpinned by operational excellence to cautious watchfulness in case of economic downturns impacting industrial demand.</p>
+FAST’s Z-Score momentum suggests continued financial safety with a need to monitor operational efficiency and liquidity. Key catalysts include potential margin pressures or supply chain disruptions. Market position is expected to remain strong given the company’s scale and distribution network. Risk profile remains low but should be continuously monitored for emerging operational or market risks.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Fastenal Company exhibits <strong>exceptional financial health</strong> with Altman Z-Scores consistently in the Safe Zone (~27-30), indicating minimal bankruptcy risk. Financial ratios reflect solid operational efficiency and retained earnings strength, though liquidity is moderate. Market valuation is premium but justified by fundamentals. Data anomalies in dividend yield warrant verification.</p>
-<p><strong>Investment stance:</strong> BUY for most profiles except dividend-focused investors who should verify payout data. Risk is low, and forward outlook is stable with positive momentum. Executive leadership should focus on operational and capital efficiency to sustain this strong position.</p>
+<p>Fastenal Company demonstrates exceptional financial health with an Altman Z-Score consistently in the safe zone (26.98 - 29.57), indicating minimal bankruptcy risk. Despite some liquidity ratio weaknesses and market data anomalies (notably dividend yield and beta), the company’s operational efficiency and retained earnings underpin a strong investment case. Conservative, value, and growth investors are recommended to BUY, while dividend and aggressive profiles should exercise caution pending data clarification. Strategic focus on liquidity improvement and risk management will support sustained financial stability.</p>
 <hr />
-<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Framework.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to all injected data elements, integrating multi-source financial and market intelligence for actionable investment guidance.</em></p></div></div>
     </div>
     
 
@@ -1226,78 +1256,41 @@ FAST’s Z-Score momentum is expected to remain stable or improve modestly over 
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:22 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:51 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

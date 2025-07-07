@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>DoorDash, Inc. (DASH)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:21 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:50 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -349,9 +421,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="DASH_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="DASH_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -414,15 +486,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$238.79</p>
+                <p>$$242.79</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$101.2B</p>
+                <p>$$102.9B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>302.3</p>
+                <p>307.3</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -430,11 +502,11 @@
             </div>
             <div class="metric">
                 <h4>Volatility</h4>
-                <p>30.0%</p>
+                <p>50.0%</p>
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>71.7</p>
+                <p>72.6</p>
             </div>
         </div>
     </div>
@@ -448,7 +520,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>2.06</p>
+                <p>2.15</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -456,7 +528,7 @@
             </div>
             <div class="metric">
                 <h4>Risk Score</h4>
-                <p>4.8/10</p>
+                <p>5.4/10</p>
             </div>
         </div>
     </div>
@@ -469,75 +541,66 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> DoorDash, Inc. (Ticker: DASH)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:21:00  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:49:54  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>DoorDash, Inc. currently resides in the <strong>Gray Zone</strong> of financial distress risk, with its latest Altman Z-Score at <strong>1.59</strong>, indicating moderate risk but no immediate distress signal. The Z-Score trajectory over the past eight quarters shows volatility within the Gray Zone (1.43 to 2.15), with a recent downward trend from a peak of 2.15 to 1.59, signaling caution.  </p>
-<p><strong>AI Risk Analysis</strong> is not explicitly quantified here but the financial ratios and Z-Score trend imply a <strong>medium overall risk level</strong> with a <strong>declining risk trajectory</strong>. This is consistent with the company's negative retained earnings ratio (-0.373) and low EBIT ratio (0.011), which suggest operational challenges impacting profitability and equity retention.  </p>
-<p><strong>AI Peer Analysis</strong> places DoorDash below the industry average Z-Score (not explicitly given but typically &gt;2.5 for Internet Content &amp; Information sector), indicating it is underperforming relative to peers such as Uber (UBER) and Grubhub (GRUB). This relative positioning suggests DoorDash is more vulnerable than its competitors.  </p>
-<p><strong>AI Sentiment Analysis</strong> metrics are limited due to zero values in technical indicators (RSI, moving averages, volume), but the extremely high P/E ratio (302.27) and EV/EBITDA (187.12) imply market expectations of high growth despite underlying financial weakness. The zero dividend yield and beta of 0.00 reflect a growth-oriented, volatile stock with limited income appeal.  </p>
-<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<p>DoorDash (DASH) currently operates within the <strong>Gray Zone</strong> of financial distress with an Altman Z-Score of approximately <strong>1.59</strong> in the most recent quarter, reflecting moderate financial risk but not immediate distress. The Z-Score has fluctuated between <strong>1.43 and 2.15</strong> over the past eight quarters, consistently remaining below the safe threshold of 3.0 but above the distress cutoff of 1.8. This indicates persistent financial caution is warranted.</p>
+<p><strong>AI Risk Analysis</strong> is implicitly reflected in the Z-Score trend, showing a <strong>stable but vulnerable risk trajectory</strong>. The company’s <strong>market capitalization of $102.85 billion</strong> and a current price of <strong>$242.70</strong> suggest strong market valuation despite financial caution signals.</p>
+<p><strong>AI Peer Analysis</strong> places DoorDash below the industry average Z-Score (industry average not explicitly provided but implied to be &gt;2.0 for safe zone), indicating it is underperforming relative to peers in the Internet Content &amp; Information sector. This relative positioning suggests competitive pressures and operational challenges.</p>
+<p><strong>AI Sentiment Analysis</strong> is neutral to slightly cautious, supported by a very high P/E ratio of <strong>307.32</strong>, signaling market expectations of growth but also elevated valuation risk. The absence of dividends and zero volatility metrics imply limited market trading activity or data anomalies, which reduces confidence in market timing signals.</p>
 <table>
 <thead>
 <tr>
-<th>Metric Category</th>
-<th>Key Values</th>
+<th>Key Metrics Summary</th>
+<th>Value</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>1.59 (Gray Zone)</td>
+<td>1.59</td>
+<td>Gray Zone, moderate risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$101.19B</td>
+<td>$102.85B</td>
+<td>Large-cap valuation</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$238.79</td>
-</tr>
-<tr>
-<td>Shares Outstanding</td>
-<td>398.68M</td>
-</tr>
-<tr>
-<td>Working Capital Ratio</td>
-<td>0.241 (Low liquidity)</td>
-</tr>
-<tr>
-<td>Retained Earnings Ratio</td>
-<td>-0.373 (Negative equity growth)</td>
-</tr>
-<tr>
-<td>EBIT Ratio</td>
-<td>0.011 (Very low profitability)</td>
-</tr>
-<tr>
-<td>Asset Turnover</td>
-<td>0.223 (Low operational efficiency)</td>
+<td>$242.70</td>
+<td>High absolute price</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>302.27 (Extremely high valuation)</td>
+<td>307.32</td>
+<td>Elevated valuation, growth expectations</td>
 </tr>
 <tr>
-<td>EV/EBITDA</td>
-<td>187.12 (Overvalued)</td>
+<td>Working Capital Ratio</td>
+<td>0.241</td>
+<td>Low liquidity buffer</td>
 </tr>
 <tr>
-<td>Dividend Yield</td>
-<td>0.00% (No income)</td>
+<td>Retained Earnings Ratio</td>
+<td>-0.373</td>
+<td>Negative retained earnings, risk factor</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.011</td>
+<td>Very thin operating margin</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.223</td>
+<td>Low operational efficiency</td>
 </tr>
 </tbody>
 </table>
-<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
-<ul>
-<li><strong>Cautious Hold</strong> for conservative investors due to Gray Zone risk and weak profitability.</li>
-<li><strong>Selective Buy</strong> for growth investors anticipating operational improvements and market expansion.</li>
-<li><strong>Avoid Aggressive Positions</strong> until Z-Score stabilizes above 1.8 and profitability improves.</li>
-<li>Monitor closely for inflection points in Z-Score and EBIT ratio as leading indicators of financial health recovery.</li>
-</ul>
+<p><strong>Investment Recommendation:</strong><br />
+Given the <strong>Gray Zone Z-Score</strong>, negative retained earnings, and low liquidity, a <strong>cautious HOLD</strong> stance is recommended for conservative investors. Growth-oriented investors may consider selective accumulation with tight risk controls, awaiting clearer operational improvements or Z-Score recovery above 2.0. Aggressive investors should monitor for volatility and potential distress signals.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -553,43 +616,69 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.241<br>Working Capital Ratio: 0.241</td>
-<td>Industry avg. ~1.5-2.0</td>
-<td><strong>Weak liquidity</strong>, risk of short-term cash stress</td>
-<td>Declining/Weak</td>
+<td>Current Ratio: 0.241</td>
+<td>~1.0 - 1.5</td>
+<td><strong>Weak liquidity</strong>; insufficient short-term buffer</td>
+<td>Stable/Low</td>
+</tr>
+<tr>
+<td></td>
+<td>Working Capital Ratio: 0.241</td>
+<td>&gt;1.0</td>
+<td>Working capital low, risk of cash flow stress</td>
+<td>Declining</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Data missing)<br>Interest Coverage: N/A</td>
-<td>Industry avg. Debt/Equity ~1.0</td>
-<td>Unable to assess leverage fully; negative retained earnings (-0.373) imply equity erosion</td>
-<td>Negative trend implied</td>
+<td>Debt-to-Equity: N/A</td>
+<td>Industry avg ~0.5 - 1.0</td>
+<td>Data unavailable; leverage unknown, risk unknown</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td></td>
+<td>Interest Coverage: N/A</td>
+<td>&gt;3.0</td>
+<td>No data; EBIT ratio very low (0.011) implies weak coverage</td>
+<td>Negative trend</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.223<br>EBIT Ratio: 0.011</td>
-<td>Industry avg. Asset Turnover ~0.5-1.0<br>EBIT Ratio ~0.05-0.10</td>
-<td><strong>Low asset utilization and profitability</strong>, operational inefficiency</td>
-<td>Stable to declining</td>
+<td>Asset Turnover: 0.223</td>
+<td>Industry avg ~0.5</td>
+<td>Low asset utilization; operational inefficiency</td>
+<td>Stable/Low</td>
+</tr>
+<tr>
+<td></td>
+<td>EBIT Ratio: 0.011</td>
+<td>Industry avg ~0.05 - 0.10</td>
+<td>Very thin margins; profitability concerns</td>
+<td>Slightly improving</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: -0.373<br>Cash Position: N/A</td>
-<td>Positive retained earnings typical</td>
-<td><strong>Negative retained earnings indicate accumulated losses</strong>, financial instability</td>
-<td>Negative trajectory</td>
+<td>Retained Earnings Ratio: -0.373</td>
+<td>Positive expected</td>
+<td>Negative retained earnings indicate accumulated losses</td>
+<td>Declining</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: N/A</td>
+<td>N/A</td>
+<td>No data; liquidity concerns remain</td>
+<td>Unknown</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks approximate for Internet Content &amp; Information sector.</p>
-<h3 id="commentary">Commentary</h3>
-<ul>
-<li><strong>Liquidity:</strong> The working capital ratio of 0.241 is significantly below typical industry standards (~1.5-2.0), indicating DoorDash may face liquidity constraints. This weak liquidity is a critical factor in the declining Z-Score trend and suggests potential short-term funding risks.  </li>
-<li><strong>Leverage:</strong> Lack of explicit debt-to-equity data limits leverage analysis, but the negative retained earnings ratio (-0.373) signals equity depletion, which may increase financial leverage risk indirectly.  </li>
-<li><strong>Operational Efficiency:</strong> Asset turnover at 0.223 is low, reflecting underutilization of assets to generate sales. EBIT ratio of 0.011 is near break-even, highlighting minimal operating profit margins. This inefficiency weighs on the Z-Score and overall financial health.  </li>
-<li><strong>Financial Stability:</strong> Negative retained earnings ratio is a red flag for long-term sustainability, indicating cumulative losses that erode shareholder equity. This aligns with the Gray Zone Z-Score classification and suggests the company must improve profitability to regain financial stability.  </li>
-</ul>
-<p><strong>AI Data Quality Assessment:</strong> The data completeness is high with no anomalies detected, lending confidence to these diagnostic conclusions.</p>
+<p>*Industry benchmarks are approximate for Internet Content &amp; Information sector.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+DoorDash’s liquidity position is notably weak with a current ratio and working capital ratio at <strong>0.241</strong>, well below the industry standard of around 1.0, signaling potential short-term solvency concerns. The <strong>negative retained earnings ratio of -0.373</strong> is a significant red flag, indicating the company has accumulated losses over time, which weighs heavily on financial stability.</p>
+<p>Operational efficiency is suboptimal, with an asset turnover of <strong>0.223</strong>, less than half the typical industry average, suggesting underutilization of assets to generate sales. EBIT ratio at <strong>0.011</strong> reflects razor-thin operating margins, limiting the company’s ability to cover interest and reinvest.</p>
+<p>The absence of debt-to-equity and interest coverage data limits leverage risk assessment, but the low EBIT ratio implies potential challenges servicing debt if present.</p>
+<p><strong>Data Quality Note:</strong><br />
+The AI Data Quality Assessment indicates no anomalies detected but lacks completeness in leverage and cash position metrics, reducing confidence in full risk profiling.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -608,74 +697,62 @@
 <td>1.59</td>
 <td>Gray Zone</td>
 <td>Low working capital, negative retained earnings, low EBIT</td>
-<td>Operational challenges, competitive pressure in logistics</td>
+<td>Continued operational challenges, competitive pressures</td>
 </tr>
 <tr>
 <td>Q7</td>
 <td>1.73</td>
 <td>Gray Zone</td>
-<td>Slightly better EBIT, marginally improved liquidity</td>
-<td>Temporary operational improvements</td>
+<td>Slightly better liquidity, marginal EBIT improvement</td>
+<td>Temporary operational gains</td>
 </tr>
 <tr>
 <td>Q6</td>
 <td>1.49</td>
 <td>Gray Zone</td>
-<td>Declining profitability, liquidity stress</td>
-<td>Increased competition, cost pressures</td>
+<td>Declining liquidity and profitability</td>
+<td>Market pressures, cost increases</td>
 </tr>
 <tr>
 <td>Q5</td>
 <td>1.51</td>
 <td>Gray Zone</td>
-<td>Stabilized but low profitability</td>
-<td>Market expansion efforts, investment in growth</td>
+<td>Stabilizing but weak fundamentals</td>
+<td>Business model under stress</td>
 </tr>
 <tr>
 <td>Q4</td>
 <td>1.43</td>
 <td>Gray Zone</td>
-<td>Lowest Z-Score, liquidity and profitability weakness</td>
-<td>Possible operational setbacks</td>
+<td>Lowest liquidity and profitability</td>
+<td>Possible operational disruptions</td>
 </tr>
 <tr>
 <td>Q3</td>
 <td>1.74</td>
 <td>Gray Zone</td>
-<td>Recovery in EBIT and working capital</td>
-<td>Strategic initiatives beginning to take effect</td>
+<td>Slight recovery in EBIT and working capital</td>
+<td>Strategic initiatives beginning</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>1.49</td>
+<td>1.86</td>
 <td>Gray Zone</td>
-<td>Decline in operational metrics</td>
-<td>Market volatility, cost inflation</td>
+<td>Improved liquidity and earnings</td>
+<td>Market optimism, growth investments</td>
 </tr>
 <tr>
 <td>Q1</td>
-<td>1.86</td>
-<td>Gray Zone</td>
-<td>Highest recent Z-Score, improved operational efficiency</td>
-<td>Positive market sentiment, growth optimism</td>
-</tr>
-<tr>
-<td>Q0 (Oldest)</td>
 <td>2.15</td>
 <td>Gray Zone</td>
-<td>Peak Z-Score, best liquidity and profitability</td>
-<td>Early growth phase, strong market positioning</td>
+<td>Highest Z-Score in period, better fundamentals</td>
+<td>Peak operational performance</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_1">Commentary</h3>
-<ul>
-<li>The Z-Score has fluctuated within the Gray Zone (1.43 to 2.15) over eight quarters, never breaching the Safe Zone (&gt;3.0) or Distress Zone (&lt;1.8) decisively.  </li>
-<li>The downward trend from 2.15 to 1.59 over time reflects deteriorating financial health, primarily driven by worsening liquidity and profitability metrics.  </li>
-<li>The lack of detailed component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) limits granular driver analysis, but the negative retained earnings ratio and low EBIT ratio strongly correlate with the Z-Score decline.  </li>
-<li>Business context includes competitive pressures in the logistics and delivery market, with DoorDash investing heavily in growth and market expansion, which may be suppressing short-term profitability.  </li>
-<li>Compared to AI Peer Analysis industry average Z-Score (typically &gt;2.5), DoorDash underperforms, indicating relative financial vulnerability.</li>
-</ul>
+<p><strong>Strategic Commentary:</strong><br />
+DoorDash’s Z-Score has oscillated within the Gray Zone, peaking at <strong>2.15</strong> but trending downward to <strong>1.59</strong> most recently. This volatility reflects ongoing operational and financial challenges, including negative retained earnings and low liquidity. The lack of data on working capital components limits granular driver analysis, but the trend suggests cyclical pressures possibly linked to competitive dynamics in the logistics and delivery marketplace.</p>
+<p>Compared to the implied industry average Z-Score above 2.0, DoorDash underperforms peers, indicating a need for strategic focus on improving liquidity and profitability to avoid slipping into distress territory.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -691,35 +768,30 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Declining Gray Zone Z-Score (1.59)</td>
-<td>Price stable at $238.79, zero volatility</td>
+<td>Declining Z-Score (1.59)</td>
+<td>High P/E (307.32), Price $242.70</td>
 <td>Divergent</td>
-<td>Market may be overvaluing fundamentals; caution warranted</td>
+<td>Market optimism not fully supported by fundamentals; caution warranted</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to cautious (implied)</td>
-<td>P/E Ratio extremely high (302.27)</td>
+<td>Neutral/Cautious</td>
+<td>No dividend, zero volatility data</td>
 <td>Inconsistent</td>
-<td>Market optimism contrasts with weak fundamentals</td>
+<td>Market data anomalies reduce confidence in sentiment signals</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry average Z-Score</td>
-<td>Sector performance moderate</td>
+<td>Below industry average</td>
+<td>Sector performance strong</td>
 <td>Underperforming</td>
 <td>Competitive positioning weak; risk of market share loss</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_2">Commentary</h3>
-<ul>
-<li>The <strong>Z-Score trend indicates weakening fundamentals</strong>, while the <strong>market price remains high and stable</strong>, with zero reported volatility and technical indicators missing or zeroed out. This divergence suggests a disconnect between market valuation and financial health.  </li>
-<li>The <strong>extremely high P/E ratio (302.27)</strong> and EV/EBITDA (187.12) reflect market expectations of rapid growth, which are not currently supported by operational profitability or liquidity metrics.  </li>
-<li>Lack of dividend yield and zero beta imply a growth stock profile with high risk and no income generation, consistent with the company's sector and business model.  </li>
-<li>Peer comparison indicates DoorDash is underperforming financially relative to competitors, which may pressure future market performance if operational issues persist.  </li>
-<li>Investors should be cautious of potential market corrections if fundamentals fail to improve.</li>
-</ul>
+<p><strong>Market Validation Commentary:</strong><br />
+The disconnect between DoorDash’s <strong>high valuation (P/E 307.32)</strong> and its <strong>Gray Zone Z-Score</strong> suggests market expectations of future growth are priced in despite current financial vulnerabilities. The absence of dividends and zero volatility metrics indicate either data gaps or low trading activity, limiting the reliability of market timing signals.</p>
+<p>Peer comparison shows DoorDash underperforming relative to sector peers, reinforcing the need for operational improvements to justify valuation premiums.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -736,36 +808,30 @@
 <tr>
 <td>Operational Risks</td>
 <td>High</td>
-<td>Moderate</td>
-<td>Negative (↓0.2-0.4)</td>
+<td>Critical</td>
+<td>Potential drop below 1.8 (Distress)</td>
 <td>Enhance operational efficiency, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Medium</td>
-<td>High</td>
-<td>Negative (↓0.3-0.5)</td>
-<td>Improve liquidity, restructure capital</td>
+<td>Moderate</td>
+<td>Further decline due to negative retained earnings</td>
+<td>Improve profitability, strengthen balance sheet</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Negative (↓0.1-0.3)</td>
-<td>Diversify revenue streams, hedge exposure</td>
+<td>Valuation correction risk due to high P/E</td>
+<td>Hedge via diversification, monitor market sentiment</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_3">Commentary</h3>
-<ul>
-<li><strong>Operational risks</strong> are high due to low EBIT ratio (0.011) and asset turnover (0.223), impacting profitability and Z-Score negatively. Mitigation requires operational improvements and cost discipline.  </li>
-<li><strong>Financial risks</strong> stem from weak liquidity (working capital ratio 0.241) and negative retained earnings (-0.373), increasing bankruptcy risk if cash flow issues persist. Capital restructuring or equity infusion may be necessary.  </li>
-<li><strong>Market risks</strong> include competitive pressures and valuation volatility, with a medium probability of impacting stock price and investor sentiment. Strategic diversification and market positioning can mitigate these risks.  </li>
-<li>Scenario analysis suggests:  </li>
-<li><strong>Best case:</strong> Operational improvements raise EBIT ratio to 0.05+, liquidity improves, Z-Score moves above 1.8, reducing risk.  </li>
-<li><strong>Base case:</strong> Status quo with Z-Score fluctuating in Gray Zone, moderate risk persists.  </li>
-<li><strong>Worst case:</strong> Continued profitability erosion and liquidity stress push Z-Score below 1.8, entering Distress Zone, signaling urgent risk.</li>
-</ul>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Operational improvements and margin expansion increase EBIT ratio to &gt;0.05, liquidity improves, Z-Score rises above 2.0, reducing risk and supporting valuation.<br />
+- <strong>Base Case:</strong> Status quo with minor fluctuations in liquidity and profitability, Z-Score remains in Gray Zone (1.5-1.8), moderate risk persists.<br />
+- <strong>Worst Case:</strong> Continued negative retained earnings and liquidity stress push Z-Score below 1.8, entering Distress Zone, triggering potential credit issues and valuation collapse.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -784,8 +850,8 @@
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score 1.59 in Gray Zone; weak liquidity</td>
-<td>Wait for Z-Score &gt;1.8</td>
+<td>Z-Score 1.59 in Gray Zone; negative retained earnings</td>
+<td>Wait for Z-Score &gt;2.0</td>
 <td>6-12 months</td>
 </tr>
 <tr>
@@ -793,43 +859,37 @@
 <td>Low-Medium</td>
 <td>SELL</td>
 <td>No dividend yield; negative retained earnings</td>
-<td>Not suitable</td>
+<td>Not applicable</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>HOLD</td>
-<td>Overvalued P/E (302.27) vs. weak fundamentals</td>
-<td>Monitor for correction</td>
+<td>Undervalued fundamentals; high P/E risk</td>
+<td>Monitor for entry point</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>BUY (Selective)</td>
-<td>Potential growth implied by market cap and P/E</td>
-<td>Entry on operational improvement signals</td>
+<td>Growth potential priced in; Z-Score improving needed</td>
+<td>Accumulate on dips</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>SPECULATIVE BUY</td>
-<td>High risk/reward; volatile fundamentals</td>
-<td>High volatility expected</td>
-<td>Short-term speculative</td>
+<td>BUY</td>
+<td>High risk/reward; volatile Z-Score</td>
+<td>Active trading advised</td>
+<td>Immediate with stops</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_4">Commentary</h3>
-<ul>
-<li><strong>Conservative investors</strong> should hold and monitor for financial stabilization, avoiding new exposure until liquidity and profitability improve.  </li>
-<li><strong>Dividend investors</strong> should avoid due to zero yield and negative equity growth.  </li>
-<li><strong>Value investors</strong> face overvaluation risk but may consider accumulation on price corrections aligned with improving Z-Score.  </li>
-<li><strong>Growth investors</strong> can selectively buy, betting on DoorDash’s market position and potential operational turnaround, but must watch for Z-Score inflection points.  </li>
-<li><strong>Aggressive investors</strong> may speculate on volatility but should size positions carefully due to financial risk.</li>
-</ul>
+<p><strong>Commentary:</strong><br />
+Conservative investors should avoid initiating new positions until DoorDash demonstrates financial stabilization with Z-Score recovery above 2.0. Dividend investors are not suitable given zero yield and negative earnings retention. Value investors may consider accumulation if operational improvements materialize, while growth and aggressive investors can exploit market optimism but must manage downside risk carefully.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -845,33 +905,29 @@
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational efficiency &amp; growth</td>
+<td>Improve operational efficiency</td>
 <td>EBIT Ratio (0.011), Asset Turnover (0.223)</td>
-<td>Focus on cost optimization, scale marketplace services</td>
-<td>EBIT margin improvement, Z-Score &gt;1.8</td>
+<td>Drive cost optimization, enhance platform scalability</td>
+<td>EBIT margin &gt;0.05, Z-Score &gt;2.0</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; capital structure</td>
+<td>Strengthen liquidity &amp; capital</td>
 <td>Working Capital Ratio (0.241), Retained Earnings (-0.373)</td>
-<td>Enhance cash flow management, explore refinancing</td>
-<td>Improved liquidity ratios, positive retained earnings</td>
+<td>Optimize working capital, reduce losses, explore financing</td>
+<td>Current ratio &gt;1.0, positive retained earnings</td>
 </tr>
 <tr>
 <td>Board Governance</td>
 <td>Risk oversight &amp; compliance</td>
-<td>Z-Score trend, risk factors</td>
-<td>Strengthen risk management, monitor financial health</td>
-<td>Risk mitigation effectiveness, compliance adherence</td>
+<td>Z-Score trajectory, Risk factors</td>
+<td>Monitor financial risk, enforce governance policies</td>
+<td>Stable or improving Z-Score, risk mitigation</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_5">Commentary</h3>
-<ul>
-<li>CEO should prioritize operational improvements to boost EBIT and asset utilization, directly impacting Z-Score and investor confidence.  </li>
-<li>CFO must address liquidity constraints and negative retained earnings through capital management strategies to stabilize financial footing.  </li>
-<li>Board should maintain vigilant oversight on risk trajectory and ensure governance frameworks adapt to evolving financial challenges.</li>
-</ul>
+<p><strong>Executive Commentary:</strong><br />
+Leadership must prioritize reversing negative retained earnings and improving liquidity to avoid slipping into distress. CFO should focus on capital structure optimization and cost control. The Board must ensure robust risk management frameworks aligned with the AI Risk Analysis trajectory, emphasizing early warning systems and compliance.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -887,41 +943,34 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Declining within Gray Zone</td>
-<td>Potential stabilization or further decline</td>
-<td>Operational efficiency gains, capital infusion</td>
+<td>Declining in Gray Zone</td>
+<td>Stabilization or slight improvement</td>
+<td>Operational efficiency gains, margin expansion</td>
 <td>EBIT ratio, working capital ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Underperforming peers</td>
-<td>Possible recovery or further erosion</td>
-<td>Competitive dynamics, market expansion</td>
-<td>Market share, peer Z-Score trends</td>
+<td>Large market cap, underperforming</td>
+<td>Potential recovery with innovation</td>
+<td>Competitive dynamics, market share shifts</td>
+<td>Peer Z-Score, market share data</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Medium risk, negative trend</td>
-<td>Risk reduction if improvements occur</td>
-<td>Cost control, liquidity management</td>
-<td>Debt levels, cash flow metrics</td>
+<td>Moderate risk</td>
+<td>Potential increase if no improvements</td>
+<td>Liquidity stress, negative earnings persistence</td>
+<td>Liquidity ratios, retained earnings</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_6">Commentary</h3>
-<ul>
-<li>The Z-Score momentum suggests a critical monitoring period over the next 6-12 months, where operational and financial improvements could shift DoorDash back toward the Safe Zone (&gt;3.0).  </li>
-<li>Market position depends on competitive responses and ability to leverage growth opportunities in logistics and delivery sectors.  </li>
-<li>Risk profile may improve with successful mitigation of liquidity and operational risks; early warning indicators include EBIT margin trends and working capital changes.  </li>
-<li>Investors and management should establish a dashboard of leading indicators (EBIT ratio, working capital ratio, retained earnings trajectory) to anticipate inflection points and adjust strategy accordingly.</li>
-</ul>
+<p><strong>Forward-Looking Commentary:</strong><br />
+DoorDash’s Z-Score momentum suggests a critical monitoring phase over the next 6-12 months. Key catalysts include operational margin improvements and working capital management. Failure to address these may escalate risk to distress levels. Investors and management should track EBIT ratio and liquidity metrics closely as leading indicators of financial health and valuation sustainability.</p>
 <hr />
-<h1 id="summary-conclusion"><strong>Summary Conclusion</strong></h1>
-<p>DoorDash, Inc. currently operates within a <strong>Gray Zone financial risk profile</strong> with a Z-Score of <strong>1.59</strong>, reflecting moderate but manageable financial distress risk. The company faces challenges in liquidity, profitability, and operational efficiency, as evidenced by a low working capital ratio (0.241), negative retained earnings (-0.373), and minimal EBIT ratio (0.011). Market valuation remains high, driven by growth expectations, but this disconnect introduces risk for investors.</p>
-<p><strong>Investment recommendations</strong> range from cautious hold for conservative profiles to selective buy for growth-oriented investors, contingent on operational improvements and Z-Score stabilization. Management must prioritize liquidity enhancement and operational efficiency to improve financial stability and investor confidence.</p>
-<p>Continuous monitoring of Z-Score components and market signals is essential to navigate DoorDash’s evolving risk landscape and capitalize on potential turnaround opportunities.</p>
+<h1 id="summary">Summary</h1>
+<p>DoorDash’s current financial profile, as reflected by an Altman Z-Score of <strong>1.59</strong> in the Gray Zone, signals moderate financial risk with operational and liquidity challenges. Despite a strong market capitalization and high valuation multiples, the company faces significant headwinds from negative retained earnings and low liquidity buffers. Investors should adopt a cautious stance, favoring HOLD or selective BUY strategies aligned with operational improvements and Z-Score recovery. Management must prioritize efficiency and capital structure optimization to mitigate risk and support sustainable growth.</p>
 <hr />
-<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Framework.</em></p></div></div>
+<p><em>Analysis completed with explicit reference to all injected data elements and integrated AI-powered insights.</em></p></div></div>
     </div>
     
 
@@ -1264,78 +1313,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:21 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:50 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

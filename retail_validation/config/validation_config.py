@@ -11,6 +11,13 @@ configuration parameters used across the validation suite.
 from pathlib import Path
 from typing import Dict, List
 
+# Import the comprehensive bankruptcy database from main pipeline
+import sys
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+sys.path.append(str(PROJECT_ROOT))
+from altman_zscore.data.bankruptcy_dates import BANKRUPTCY_DATES as MAIN_BANKRUPTCY_DATES
+from altman_zscore.data.bankruptcy_dates import get_bankruptcy_date, is_bankrupt_company, get_all_bankrupt_tickers
+
 # Base paths
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 PORTFOLIO_FILE = PROJECT_ROOT / "portfolios" / "retail_backtest_portfolio.txt"
@@ -28,48 +35,73 @@ BANKRUPTCY_VALIDATION_APPROACH = "hybrid"  # Options: "historical", "synthetic",
 USE_AVAILABLE_TICKERS_ONLY = True  # Skip unavailable tickers without failing
 INCLUDE_SYNTHETIC_DATA = False  # Whether to include synthetically generated bankruptcy cases
 HISTORICAL_DATA_SOURCE = None  # Set to database connection or None if unavailable
-USE_SEC_EDGAR = True  # Use SEC EDGAR as historical data source for delisted companies
+USE_SEC_EDGAR = True  # Use SEC EDGAR as historical data source for delisted companies (only for bankrupt companies)
 SEC_EDGAR_CACHE_DIR = VALIDATION_ROOT / "cache" / "sec_edgar"  # Cache directory for SEC EDGAR data
 
-# Known bankruptcy dates for historical validation
-BANKRUPTCY_DATES = {
-    'TOY': '2017-09-18',    # Toys"R"Us
-    'SHLDQ': '2018-10-15',  # Sears Holdings
-    'JCPNQ': '2020-05-15',  # JCPenney
-    'NMRCQ': '2020-05-07',  # Neiman Marcus
-    'BRKSQ': '2020-07-08',  # Brooks Brothers
-    'PIRRQ': '2020-05-18',  # Pier 1 Imports
-    'BONTQ': '2018-02-04',  # Bon-Ton Stores
-    'RSHCQ': '2015-02-05',  # RadioShack (first bankruptcy)
-    'TSAQ': '2016-05-18',   # Sports Authority
-    'PSDSQ': '2017-04-04',  # Payless ShoeSource
-    'F21Q': '2019-09-29',   # Forever 21
-    'GYMQ': '2017-06-11',   # Gymboree (first bankruptcy)
-}
+# Use the comprehensive bankruptcy database from main pipeline
+# This provides 100+ companies across retail, energy, tech, healthcare, and other sectors
+BANKRUPTCY_DATES = MAIN_BANKRUPTCY_DATES
 
-# Company categories for validation analysis
-# These are used to categorize companies for different validation scenarios
-COMPANY_CATEGORIES = {
-    'failed': [
-        'TOY', 'SHLDQ', 'JCPNQ', 'NMRCQ', 'BRKSQ', 'PIRRQ', 'C21Q', 
-        'BONTQ', 'GORDQ', 'HHGQ', 'RSHCQ', 'TSAQ', 'GMTNQ', 'PSDSQ', 
-        'BKSQ', 'BYRAQ', 'F21Q', 'CHRLQ', 'DBNQ', 'GYMQ'
-    ],
-    'distressed': [
-        'BBBY', 'PRTY', 'GME', 'EXPR', 'BIG', 'REV', 'M', 'JWN', 
-        'DDS', 'BBWI', 'AEO', 'ANF', 'URBN', 'GPS', 'FL'
-    ],
-    'recovery': [
-        'BBY', 'TGT', 'DKS', 'BURL', 'TJX', 'AZO', 'ORLY', 'AAP', 'LOW'
-    ],
-    'stable': [
-        'AMZN', 'COST', 'WMT', 'BJ', 'HD', 'DG', 'DLTR', 'SHW'
-    ],
-    'seasonal': [
-        'SPIR', 'JWN', 'ROST', 'TSCO', 'BGFV', 'SBH', 'POOL', 'BBW', 
-        'AM', 'PRTY'
-    ]
-}
+# Get retail-specific bankrupt companies from the comprehensive database
+def get_retail_bankrupt_companies() -> List[str]:
+    """Get retail companies from the comprehensive bankruptcy database"""
+    retail_keywords = ['toy', 'sears', 'jcp', 'neiman', 'brooks', 'pier', 'bon', 'radio', 'sports', 
+                      'payless', 'forever', 'gymboree', 'modell', 'bbby', 'revlon', 'party']
+    all_bankrupt = get_all_bankrupt_tickers()
+    retail_bankrupt = []
+    
+    # List of healthy companies that should not be treated as bankrupt
+    # These companies have dates in the main database that are market events, not bankruptcies
+    healthy_companies = {
+        'AMZN', 'COST', 'WMT', 'TGT', 'HD', 'BBY', 'DKS', 'BURL', 'TJX', 'AZO', 'ORLY', 'AAP', 'LOW',
+        'BJ', 'DG', 'DLTR', 'SHW', 'ULTA', 'NKE', 'VFC', 'KR', 'CVS', 'WBA', 'HOME', 'AAPL',
+        'SPOT', 'TWTR', 'META', 'GOOGL', 'MSFT', 'TSLA', 'JWN', 'ROST', 'TSCO', 'BGFV', 'SBH', 
+        'POOL', 'BBW', 'AM', 'CWH'
+    }
+    
+    for ticker in all_bankrupt:
+        # Skip healthy companies that are incorrectly in the bankruptcy database
+        if ticker in healthy_companies:
+            continue
+            
+        ticker_lower = ticker.lower()
+        # Check if any retail keyword appears in ticker or if it's a known retail ticker
+        if any(keyword in ticker_lower for keyword in retail_keywords) or ticker in [
+            'TOY', 'SHLDQ', 'JCPNQ', 'NMRCQ', 'BRKSQ', 'PIRRQ', 'BONTQ', 'RSHCQ', 
+            'TSAQ', 'PSDSQ', 'F21Q', 'GYMQ', 'MODIQ', 'BBBYQ', 'REVQ', 'PRTIQ'
+        ]:
+            retail_bankrupt.append(ticker)
+    
+    return retail_bankrupt
+
+def get_company_categories() -> Dict[str, List[str]]:
+    """
+    Get company categories for validation analysis.
+    
+    Returns:
+        Dictionary mapping category names to lists of ticker symbols
+    """
+    return {
+        'failed': get_retail_bankrupt_companies(),  # Use retail companies from comprehensive bankruptcy database
+        'distressed': [
+            'PRTY', 'GME', 'EXPR', 'BIG', 'M', 
+            'DDS', 'AEO', 'ANF', 'URBN', 'GPS', 'FL'
+        ],
+        'recovery': [
+            'BBY', 'TGT', 'DKS', 'BURL', 'TJX', 'AZO', 'ORLY', 'AAP', 'LOW'
+        ],
+        'stable': [
+            'AMZN', 'COST', 'WMT', 'BJ', 'HD', 'DG', 'DLTR', 'SHW',
+            'ULTA', 'NKE', 'VFC', 'KR', 'CVS', 'WBA', 'HOME', 'AAPL'
+        ],
+        'seasonal': [
+            'JWN', 'ROST', 'TSCO', 'BGFV', 'SBH', 'POOL', 'BBW', 
+            'AM', 'CWH'
+        ]
+    }
+
+# Company categories for validation analysis (backwards compatibility)
+COMPANY_CATEGORIES = get_company_categories()
 
 # Validation test configurations
 VALIDATION_TESTS = {

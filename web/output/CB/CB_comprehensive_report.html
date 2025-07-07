@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Chubb Limited (CB)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:20 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:30 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -345,9 +417,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="CB_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="CB_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -410,15 +482,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$283.80</p>
+                <p>$$280.74</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$113.7B</p>
+                <p>$$112.5B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>13.7</p>
+                <p>13.5</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -430,7 +502,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>42.9</p>
+                <p>42.3</p>
             </div>
         </div>
     </div>
@@ -444,7 +516,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.50</p>
+                <p>0.44</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -474,80 +546,66 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> CB (Chubb Limited)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:19:35  </p>
+<strong>Analysis Date:</strong> 2025-07-07 12:29:49  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Chubb Limited (CB) currently exhibits a <strong>Gray Zone</strong> Altman Z-Score risk profile with a latest Z-Score of <strong>2.30</strong>, indicating moderate financial distress risk but not immediate bankruptcy threat. This represents a significant decline from prior quarters where the company was firmly in the <strong>Safe Zone</strong> (Z-Score &gt; 3.0), with historical peaks as high as <strong>5.49</strong>. The downward trajectory over the last five quarters signals emerging financial pressures.</p>
-<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>Moderate</strong>, with a trajectory trending downward, highlighting concerns around operational efficiency and capital structure. The <strong>AI Peer Analysis</strong> places CB below the industry average Z-Score of approximately <strong>3.5</strong> for the Insurance - Property &amp; Casualty sector, indicating relative underperformance versus peers such as AIG and Travelers. This peer positioning suggests competitive pressures and potential market share challenges.</p>
-<p><strong>AI Sentiment Analysis</strong> reveals a <strong>neutral to slightly negative sentiment trend</strong>, with market perception tempered by concerns over earnings quality and capital adequacy, despite a strong dividend yield of <strong>134.00%</strong>, which may be unsustainable. The sentiment divergence between valuation metrics (P/E of <strong>13.68</strong>) and dividend yield signals market uncertainty.</p>
+<p>Chubb Limited (CB) currently exhibits a <strong>Gray Zone</strong> Altman Z-Score risk profile with a recent score of <strong>2.30</strong>, indicating moderate financial distress risk but not immediate danger. Historically, CB demonstrated strong financial health with Z-Scores in the <strong>Safe Zone</strong> (above 3.0), peaking at <strong>5.49</strong> in earlier quarters before a notable decline into the Gray Zone over the last five quarters. This downward trajectory signals emerging operational or financial challenges requiring close monitoring.</p>
+<p><strong>AI Risk Analysis</strong> indicates a <strong>moderate overall risk level</strong> consistent with the Gray Zone classification, with a stable but cautious risk trajectory. Key risk themes include operational efficiency pressures and leverage management concerns.</p>
+<p><strong>AI Peer Analysis</strong> positions CB below the <strong>industry average Z-Score of approximately 3.5</strong> for the Insurance - Property &amp; Casualty sector, suggesting relative underperformance versus peers such as AIG and Travelers. This relative positioning implies competitive pressures and potential valuation discounts.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a <strong>mixed to cautious market sentiment</strong>, with a sentiment score reflecting uncertainty amid the Z-Score decline. The sentiment trend is stable but lacks bullish momentum, aligning with the Gray Zone risk status.</p>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
+<th>Metric</th>
 <th>Value</th>
-<th>Industry Benchmark</th>
-<th>Notes</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
 <td>2.30</td>
-<td>~3.5 (Industry Avg)</td>
-<td>Gray Zone risk category</td>
+<td>Gray Zone: Moderate distress risk</td>
+</tr>
+<tr>
+<td>Z-Score Trend (8 quarters)</td>
+<td>Declining from 5.49 to 2.30</td>
+<td>Significant downward trend</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$113.7B</td>
-<td>Large Cap</td>
-<td>Stable market capitalization</td>
+<td>$112.5B</td>
+<td>Large-cap, stable market presence</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$283.80</td>
-<td>N/A</td>
-<td>Price stable, low volatility</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>13.68</td>
-<td>12-15 typical</td>
-<td>Fair valuation</td>
+<td>$282.42</td>
+<td>Reflects market valuation</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
-<td>134.00%</td>
-<td>~3-5% typical</td>
-<td>Likely anomalous or special dividend</td>
+<td>134.00% (likely anomaly)</td>
+<td>Data anomaly; requires caution</td>
 </tr>
 <tr>
-<td>Working Capital Ratio</td>
-<td>0.061</td>
-<td>&gt;1 preferred</td>
-<td>Very low liquidity</td>
+<td>Industry Average Z-Score</td>
+<td>~3.5</td>
+<td>CB below peer average</td>
 </tr>
 <tr>
-<td>Retained Earnings Ratio</td>
-<td>0.242</td>
-<td>Industry avg ~0.3</td>
-<td>Moderate retained earnings</td>
+<td>AI Risk Level</td>
+<td>Moderate</td>
+<td>Balanced caution advised</td>
 </tr>
 <tr>
-<td>EBIT Ratio</td>
-<td>0.007</td>
-<td>~0.05 typical</td>
-<td>Low operating profitability</td>
-</tr>
-<tr>
-<td>Asset Turnover</td>
-<td>0.054</td>
-<td>~0.1-0.2 typical</td>
-<td>Low asset utilization</td>
+<td>AI Sentiment</td>
+<td>Mixed/Cautious</td>
+<td>Market uncertainty</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Investment Recommendation:</strong><br />
-Given the <strong>moderate risk level</strong> and declining Z-Score trend, combined with weak liquidity and operational efficiency metrics, a <strong>cautious HOLD</strong> is advised for conservative investors, with close monitoring of upcoming quarterly results. Growth and aggressive investors should avoid new positions until signs of financial stabilization emerge. Dividend investors should be wary of the unusually high yield, which may not be sustainable.</p>
+Given the Gray Zone Z-Score of 2.30 combined with a declining trend and moderate risk profile, a <strong>Hold</strong> stance is recommended for most investors, with selective <strong>Buy</strong> consideration for value-oriented or dividend-focused profiles pending resolution of operational inefficiencies. Aggressive investors should monitor for inflection points signaling recovery or further deterioration.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -564,37 +622,39 @@ Given the <strong>moderate risk level</strong> and declining Z-Score trend, comb
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.061<br>Working Capital Ratio: 0.061</td>
-<td>Current Ratio &gt;1.0<br>Working Capital Ratio &gt;1.0</td>
-<td><strong>Severe liquidity weakness</strong>; current ratio well below industry norms, indicating potential short-term solvency issues</td>
-<td>Declining</td>
+<td>Industry avg. Current Ratio ~1.2</td>
+<td><strong>Severe liquidity weakness</strong>; current ratio well below industry norms, indicating potential short-term solvency concerns</td>
+<td>Declining/Weak</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
 <td>Debt-to-Equity: Not provided<br>Interest Coverage: Not provided</td>
-<td>Debt-to-Equity ~0.5-1.0 typical</td>
-<td>Insufficient data; however, Z-Score decline suggests leverage concerns</td>
-<td>Negative</td>
+<td>Industry avg. Debt-to-Equity ~0.5-1.0</td>
+<td>Insufficient data; however, Z-Score decline suggests leverage or debt servicing pressures</td>
+<td>Unclear/Negative</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.007<br>Asset Turnover: 0.054</td>
-<td>EBIT Ratio ~0.05<br>Asset Turnover ~0.1-0.2</td>
-<td><strong>Low profitability and asset utilization</strong>; operational inefficiency impacting earnings</td>
-<td>Stable to declining</td>
+<td>Asset Turnover: 0.054<br>EBIT Ratio: 0.007</td>
+<td>Industry avg. Asset Turnover ~0.1-0.15<br>EBIT Margin ~0.05-0.10</td>
+<td><strong>Low operational efficiency and profitability</strong>; EBIT ratio significantly below industry average</td>
+<td>Declining</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.242<br>Cash Position: Not provided</td>
-<td>Retained Earnings ~0.3 typical</td>
-<td>Moderate retained earnings buffer; cash position unknown but likely constrained</td>
-<td>Stable</td>
+<td>Industry avg. Retained Earnings Ratio ~0.3</td>
+<td>Moderate retained earnings; stability compromised by low liquidity and profitability</td>
+<td>Stable to Weak</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Interpretive Commentary:</strong><br />
-The liquidity position is critically weak with a current ratio of <strong>0.061</strong>, far below the industry standard of above 1.0, signaling potential difficulties meeting short-term obligations. This aligns with the downward Z-Score trend and AI Risk Analysis highlighting liquidity stress as a key risk factor. Operational efficiency is also suboptimal, with an EBIT ratio of <strong>0.007</strong> and asset turnover of <strong>0.054</strong>, both below industry averages, indicating underperformance in generating earnings from assets.</p>
-<p>The retained earnings ratio of <strong>0.242</strong> suggests some accumulated profitability but may be insufficient to offset liquidity and operational challenges. The lack of explicit debt-to-equity and interest coverage data limits leverage assessment, but the Z-Score decline implies rising financial risk.</p>
-<p>AI Data Quality Assessment indicates <strong>complete financial data injection</strong> with no anomalies detected, lending high confidence to these conclusions. The sector context of Financial Services and Insurance - Property &amp; Casualty underscores the importance of capital adequacy and risk management, areas where CB appears pressured.</p>
+- The <strong>Current Ratio of 0.061</strong> is critically low compared to the industry benchmark (~1.2), indicating liquidity stress and potential difficulty meeting short-term obligations. This is a key driver behind the Z-Score decline into the Gray Zone.<br />
+- The <strong>Retained Earnings Ratio of 0.242</strong> is moderate but below typical industry levels, suggesting limited internal capital accumulation to buffer operational shocks.<br />
+- The <strong>EBIT Ratio of 0.007</strong> and <strong>Asset Turnover of 0.054</strong> are both substantially below industry averages, highlighting operational inefficiencies and weak profitability. This aligns with the downward Z-Score trend and signals potential margin compression or competitive challenges in the Property &amp; Casualty insurance sector.<br />
+- Data completeness is high with no anomalies detected in financial ratios, but some leverage metrics are missing, limiting full leverage risk assessment.<br />
+- The sector context (Financial Services, Insurance - Property &amp; Casualty) typically demands strong liquidity and capital adequacy; CB’s current liquidity position is a concern in this context.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -609,25 +669,34 @@ The liquidity position is critically weak with a current ratio of <strong>0.061<
 </thead>
 <tbody>
 <tr>
-<td>Historical Peak</td>
-<td>5.49</td>
+<td>Earliest Quarters (Q1-Q3)</td>
+<td>4.87 - 5.49</td>
 <td>Safe</td>
-<td>Strong working capital, retained earnings, EBIT</td>
-<td>Period of robust underwriting and market growth</td>
+<td>Strong Working Capital, EBIT, Equity</td>
+<td>Stable insurance underwriting and risk management</td>
 </tr>
 <tr>
-<td>Recent 8 Quarters</td>
-<td>2.30 (latest)</td>
+<td>Mid Period (Q4-Q6)</td>
+<td>2.44 - 2.43</td>
 <td>Gray Zone</td>
-<td>Declining liquidity, low EBIT, asset turnover</td>
-<td>Emerging operational pressures, competitive market</td>
+<td>Declining EBIT, Liquidity Stress</td>
+<td>Increased claims, underwriting losses, or capital strain</td>
+</tr>
+<tr>
+<td>Recent Quarters (Q7-Q8)</td>
+<td>2.33 - 2.30</td>
+<td>Gray Zone</td>
+<td>Continued operational inefficiency</td>
+<td>Market competition, pricing pressure, or risk exposure</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-CB’s Z-Score has declined sharply from a high of <strong>5.49</strong> (Safe Zone) to <strong>2.30</strong> (Gray Zone) over recent quarters, indicating a material deterioration in financial health. The key drivers of this decline appear to be weakening liquidity and profitability ratios, consistent with operational challenges in the Property &amp; Casualty insurance market, including increased claims or underwriting losses.</p>
-<p>The Z-Score components—working capital, retained earnings, EBIT, market equity to debt, and sales to assets—have collectively weakened, reflecting both internal operational inefficiencies and external market pressures. The company’s business description highlights exposure to diverse insurance lines, which may be facing increased claims volatility or pricing pressures.</p>
-<p>Compared to the industry average Z-Score (~3.5), CB’s position in the Gray Zone signals caution but not immediate distress. The trend suggests the need for strategic operational improvements and capital management to avoid further deterioration.</p>
+- CB’s Z-Score trajectory shows a <strong>sharp decline from a high of 5.49 (Safe Zone) to 2.30 (Gray Zone)</strong> over eight quarters, signaling deteriorating financial health.<br />
+- The lack of detailed component data (Working Capital/Total Assets, Retained Earnings/Total Assets, EBIT/Total Assets) limits granular driver analysis, but the overall trend suggests worsening liquidity and profitability.<br />
+- The Gray Zone classification implies CB is at risk of financial distress if negative trends continue but is not yet in immediate danger.<br />
+- This decline correlates with potential operational challenges in the Property &amp; Casualty insurance market, such as increased claims severity, competitive pricing pressures, or capital allocation inefficiencies.<br />
+- Compared to the industry average Z-Score (~3.5), CB’s position is weaker, indicating competitive disadvantage or sector-specific headwinds.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -644,30 +713,32 @@ CB’s Z-Score has declined sharply from a high of <strong>5.49</strong> (Safe Z
 <tr>
 <td>Fundamental Health</td>
 <td>Declining Z-Score (2.30)</td>
-<td>Stable Price ($283.80), Low Volatility</td>
+<td>Stable Price ($282.42)</td>
 <td>Divergent</td>
-<td>Potential market underestimation of risk; caution warranted</td>
+<td>Potential undervaluation or market complacency</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to Slightly Negative</td>
-<td>Dividend Yield 134%, P/E 13.68</td>
+<td>Mixed/Cautious</td>
+<td>Dividend Yield anomaly (134%)</td>
 <td>Inconsistent</td>
-<td>Market may be pricing in dividend anomaly; risk of correction</td>
+<td>Data anomaly reduces confidence in yield; sentiment cautious</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below Industry Avg Z-Score</td>
+<td>Below Industry Average</td>
 <td>Sector performance moderate</td>
 <td>Underperforming</td>
-<td>Competitive disadvantage; watch for peer-driven market shifts</td>
+<td>Competitive pressure; valuation discount possible</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The fundamental deterioration indicated by the Z-Score is not fully reflected in the stable market price and zero volatility metrics, suggesting a disconnect between financial health and market valuation. The extraordinarily high dividend yield of <strong>134.00%</strong> is likely an anomaly or special dividend event, which distorts typical valuation signals and may mislead income-focused investors.</p>
-<p>Analyst sentiment appears cautious but not bearish, with the P/E ratio of <strong>13.68</strong> within normal bounds for the sector. However, the divergence between fundamental risk and market signals implies potential timing risk for investors.</p>
-<p>Peer comparison confirms CB’s underperformance relative to industry averages, reinforcing the need for careful market timing and selective entry points.</p>
+- The <strong>Z-Score decline contrasts with a stable current price of $282.42</strong>, suggesting a disconnect between fundamental risk signals and market pricing. This divergence may represent a <strong>market opportunity</strong> if fundamentals improve or a risk if deterioration continues.<br />
+- The reported <strong>Dividend Yield of 134% is likely a data anomaly</strong>, undermining confidence in yield-based valuation and requiring caution.<br />
+- Technical indicators (RSI, moving averages, volume) are all zero or unavailable, limiting technical market timing analysis.<br />
+- CB’s <strong>P/E ratio of 13.52</strong> and <strong>EV/EBITDA of 12.50</strong> are within reasonable valuation ranges for the sector, supporting a neutral valuation stance.<br />
+- Peer underperformance in Z-Score terms suggests CB may face competitive challenges impacting market positioning.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -691,24 +762,25 @@ The fundamental deterioration indicated by the Z-Score is not fully reflected in
 <tr>
 <td>Financial Risks</td>
 <td>Medium</td>
-<td>High</td>
-<td>-1.0 to -1.5</td>
+<td>Moderate</td>
+<td>-0.7 to -1.2</td>
 <td>Strengthen liquidity, optimize capital structure</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Low-Medium</td>
+<td>Medium</td>
 <td>Moderate</td>
-<td>-0.3 to -0.7</td>
-<td>Hedge exposures, diversify product lines</td>
+<td>-0.3 to -0.8</td>
+<td>Hedge exposure, diversify product lines</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Operational improvements and capital injections stabilize liquidity and profitability, Z-Score rebounds above 3.0, restoring Safe Zone status.<br />
-- <strong>Base Case:</strong> Current trends persist, Z-Score remains in Gray Zone (2.0-3.0), moderate risk of financial stress but no immediate distress.<br />
-- <strong>Worst Case:</strong> Continued operational losses and liquidity strain push Z-Score below 1.8 (Distress Zone), triggering bankruptcy risk.</p>
-<p>Based on AI Risk Analysis with moderate overall risk level and a downward trajectory, proactive mitigation focusing on operational efficiency and liquidity management is critical to avoid adverse scenarios.</p>
+- <strong>Best Case:</strong> Operational improvements and capital infusion could stabilize or increase Z-Score above 3.0 within 2-3 quarters, returning CB to Safe Zone.<br />
+- <strong>Base Case:</strong> Continued Gray Zone status with Z-Score fluctuating between 2.3 and 2.5, reflecting moderate risk but manageable financial health.<br />
+- <strong>Worst Case:</strong> Further deterioration due to claims shocks or liquidity stress could push Z-Score below 1.8, entering Distress Zone and signaling bankruptcy risk.<br />
+- Risk factors identified by AI Risk Analysis include operational inefficiencies and liquidity constraints, each with moderate probability and severity, cumulatively impacting Z-Score trajectory.<br />
+- Mitigation requires proactive financial management and operational restructuring.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -724,49 +796,53 @@ The fundamental deterioration indicated by the Z-Score is not fully reflected in
 </thead>
 <tbody>
 <tr>
-<td>📊 <strong>Conservative</strong></td>
+<td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score 2.30 in Gray Zone; liquidity concerns</td>
-<td>Wait for stabilization signals</td>
-<td>3-6 months monitoring</td>
-</tr>
-<tr>
-<td>💰 <strong>Dividend</strong></td>
-<td>Low-Medium</td>
-<td>SELL</td>
-<td>Dividend yield anomaly (134%) unsustainable</td>
-<td>Avoid until yield normalizes</td>
-<td>Immediate</td>
-</tr>
-<tr>
-<td>💎 <strong>Value</strong></td>
-<td>Medium</td>
-<td>HOLD</td>
-<td>Valuation fair (P/E 13.68), but Z-Score weak</td>
-<td>Enter on Z-Score rebound &gt;2.8</td>
+<td>Z-Score 2.30 in Gray Zone; risk moderate</td>
+<td>Wait for Z-Score &gt; 3.0</td>
 <td>6-12 months</td>
 </tr>
 <tr>
-<td>📈 <strong>Growth</strong></td>
-<td>Medium-High</td>
-<td>SELL</td>
-<td>Low EBIT ratio (0.007) limits growth potential</td>
-<td>Avoid due to operational risks</td>
-<td>Immediate</td>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>HOLD</td>
+<td>Dividend yield data anomaly; caution advised</td>
+<td>Monitor yield clarity</td>
+<td>3-6 months</td>
 </tr>
 <tr>
-<td>🚀 <strong>Aggressive</strong></td>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>BUY (Selective)</td>
+<td>Valuation reasonable; Z-Score improving potential</td>
+<td>Entry on Z-Score stabilization</td>
+<td>3-6 months</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>HOLD</td>
+<td>Low EBIT ratio; growth uncertain</td>
+<td>Await operational turnaround</td>
+<td>6-12 months</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
 <td>High</td>
-<td>SELL</td>
-<td>High risk of further Z-Score decline</td>
-<td>High volatility expected if distress worsens</td>
-<td>Immediate</td>
+<td>SPECULATIVE BUY</td>
+<td>Risk/reward balanced; volatility low but Z-Score declining</td>
+<td>Monitor for inflection points</td>
+<td>Immediate monitoring</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-Conservative investors should hold and monitor for signs of financial recovery. Dividend investors should avoid due to unsustainable yield. Value investors may consider entry if Z-Score improves, signaling financial health restoration. Growth and aggressive profiles face elevated risk and should avoid or exit positions.</p>
+<p><strong>Commentary:</strong><br />
+- Conservative investors should <strong>hold</strong> given moderate risk and lack of clear recovery signals.<br />
+- Dividend investors should <strong>hold</strong> until dividend sustainability is confirmed due to anomalous yield data.<br />
+- Value investors may consider <strong>selective buying</strong> if operational improvements emerge, leveraging valuation discounts implied by Z-Score below industry average.<br />
+- Growth investors should <strong>hold</strong> pending evidence of EBIT margin recovery and operational efficiency gains.<br />
+- Aggressive investors may take <strong>speculative positions</strong> anticipating a turnaround but must monitor liquidity and risk closely.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -785,26 +861,29 @@ Conservative investors should hold and monitor for signs of financial recovery. 
 <td>Operational turnaround</td>
 <td>EBIT Ratio, Asset Turnover</td>
 <td>Implement underwriting discipline, cost control</td>
-<td>EBIT margin improvement, Z-Score &gt;3.0</td>
+<td>EBIT margin improvement, Z-Score rise</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; capital management</td>
-<td>Current Ratio, Debt Levels</td>
-<td>Optimize working capital, reduce debt reliance</td>
-<td>Current ratio &gt;1.0, stable debt ratios</td>
+<td>Liquidity and capital management</td>
+<td>Current Ratio, Retained Earnings</td>
+<td>Optimize working capital, reduce debt</td>
+<td>Improved liquidity ratios, stable Z-Score</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; compliance</td>
+<td>Risk oversight and compliance</td>
 <td>Z-Score trajectory, Risk factors</td>
-<td>Enhance risk management frameworks, monitor financial KPIs</td>
-<td>Risk mitigation effectiveness, compliance adherence</td>
+<td>Enhance risk management frameworks</td>
+<td>Risk reduction, compliance adherence</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The Z-Score decline and liquidity weakness require urgent executive focus on operational efficiency and capital structure optimization. CEO and CFO must coordinate to improve profitability and liquidity, while the Board should intensify oversight on emerging risks. Transparent communication with investors regarding dividend sustainability and financial health is critical to restore market confidence.</p>
+- The CEO should prioritize operational efficiency improvements to reverse EBIT and asset turnover declines, directly impacting Z-Score components.<br />
+- The CFO must address liquidity constraints (Current Ratio 0.061) through capital allocation and working capital optimization.<br />
+- The Board should intensify oversight on emerging risks highlighted by AI Risk Analysis, ensuring governance structures mitigate financial distress risks.<br />
+- Coordinated leadership action is critical to restore market confidence and stabilize the Z-Score trajectory.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -821,34 +900,46 @@ The Z-Score decline and liquidity weakness require urgent executive focus on ope
 <tr>
 <td>Z-Score Momentum</td>
 <td>Declining (2.30)</td>
-<td>Stabilization or further decline</td>
-<td>Underwriting results, claims trends, capital injections</td>
-<td>Quarterly Z-Score, EBIT ratio</td>
+<td>Stabilization or modest recovery</td>
+<td>Operational improvements, capital infusion</td>
+<td>Quarterly Z-Score updates, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Below industry avg</td>
-<td>Potential recovery if operational improvements</td>
-<td>Competitive pricing, market share gains</td>
-<td>Peer Z-Score comparison, market share</td>
+<td>Below industry avg.</td>
+<td>Potential recovery with competitive repositioning</td>
+<td>Pricing strategy, claims management</td>
+<td>Market share, peer Z-Score comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>Moderate risk</td>
-<td>Potential increase if liquidity worsens</td>
-<td>Regulatory changes, macroeconomic shocks</td>
-<td>Liquidity ratios, risk factor alerts</td>
+<td>Risk reduction with mitigation</td>
+<td>Liquidity management, regulatory changes</td>
+<td>Current ratio, debt levels, risk incidents</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-CB’s Z-Score momentum suggests a critical monitoring phase over the next 6-12 months. Key catalysts include underwriting performance and capital adequacy measures. Early warning indicators such as liquidity ratios and EBIT margin shifts should be tracked closely. A recovery in Z-Score above 3.0 would signal a return to financial safety, while further declines necessitate contingency planning.</p>
+- The Z-Score is expected to <strong>stabilize or modestly improve</strong> over the next 6-12 months if operational and liquidity initiatives succeed.<br />
+- Key catalysts include underwriting discipline, claims cost control, and capital structure optimization.<br />
+- Continuous monitoring of EBIT ratio, working capital, and peer Z-Score trends will provide early warning signals for risk escalation or recovery.<br />
+- The investment thesis should evolve dynamically, with readiness to adjust positioning based on Z-Score inflection points and market sentiment shifts.<br />
+- An early warning system integrating liquidity ratios and operational KPIs is recommended to preempt distress signals.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Chubb Limited’s financial health is currently challenged, reflected in a Gray Zone Altman Z-Score of <strong>2.30</strong> and weak liquidity and operational metrics. Market signals show some disconnect, particularly due to an anomalous dividend yield. Risk is moderate but trending downward, requiring cautious investment positioning and proactive management focus on operational and financial stabilization.</p>
-<p><strong>Recommended action:</strong> Conservative investors HOLD with close monitoring; dividend, growth, and aggressive investors SELL or avoid new exposure until financial metrics improve. Executive leadership must prioritize operational turnaround and capital management to restore financial safety and market confidence.</p>
+<p>Chubb Limited’s Altman Z-Score analysis reveals a <strong>transition from a historically Safe Zone to a current Gray Zone risk profile</strong>, driven by liquidity stress and operational inefficiencies. While the company remains fundamentally sound with a large market cap and stable valuation metrics, the declining Z-Score and below-industry operational ratios warrant cautious monitoring. Investment recommendations favor a <strong>Hold stance with selective buying opportunities</strong> for value investors, pending evidence of financial stabilization. Strategic leadership focus on liquidity and operational turnaround is essential to restore financial health and investor confidence.</p>
 <hr />
-<p><em>Analysis completed with explicit referencing of all injected data elements, cross-validation of financial and AI analytics, and adherence to prescribed analytical frameworks.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to injected data:</em></p>
+<ul>
+<li><strong>Z-Score:</strong> Latest 2.30, historical range 2.30-5.49 (Safe to Gray Zone)  </li>
+<li><strong>Financial Ratios:</strong> Current Ratio 0.061, Retained Earnings Ratio 0.242, EBIT Ratio 0.007, Asset Turnover 0.054  </li>
+<li><strong>Market Metrics:</strong> Market Cap $112.5B, Price $282.42, P/E 13.52, EV/EBITDA 12.50, Dividend Yield anomaly 134%  </li>
+<li><strong>AI Risk Analysis:</strong> Moderate risk level, stable trajectory  </li>
+<li><strong>AI Peer Analysis:</strong> Below industry average Z-Score (~3.5)  </li>
+<li><strong>AI Sentiment:</strong> Mixed/Cautious sentiment trend  </li>
+</ul>
+<p>This comprehensive integration supports a balanced, data-driven investment intelligence framework tailored to CB’s current financial and market realities.</p></div></div>
     </div>
     
 
@@ -1191,78 +1282,41 @@ CB’s Z-Score momentum suggests a critical monitoring phase over the next 6-12 
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:20 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:30 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Johnson & Johnson (JNJ)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:34 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:54 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -340,6 +412,10 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     Overvalued relative to sector peers</div>
                 
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
             </div>
         </div>
         
@@ -349,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="JNJ_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="JNJ_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -414,15 +490,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$156.01</p>
+                <p>$$155.75</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$375.4B</p>
+                <p>$$374.7B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>17.4</p>
+                <p>17.3</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -434,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>47.9</p>
+                <p>45.5</p>
             </div>
         </div>
     </div>
@@ -448,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.36</p>
+                <p>0.39</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -469,73 +545,82 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Johnson &amp; Johnson (JNJ)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:34:13  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:54:09  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Johnson &amp; Johnson (JNJ) demonstrates a robust financial position with a consistently <strong>Safe Zone Altman Z-Score</strong> trajectory, ranging from 3.33 to 4.40 over the last eight quarters, indicating very low bankruptcy risk. The <strong>AI Risk Analysis</strong> (implicitly derived from Z-Score and financial data) suggests a low overall risk level with a stable to slightly improving risk trajectory, supporting confidence in the company’s financial resilience.</p>
-<p><strong>AI Peer Analysis</strong> places JNJ well above the industry average Z-Score (typically around 2.5-3.0 for Drug Manufacturers - General), confirming its superior relative positioning among peers such as Pfizer (PFE) and Merck (MRK). This competitive advantage is reinforced by JNJ’s strong market capitalization of $375.37 billion and stable EBIT ratio of 3.3%.</p>
-<p><strong>AI Sentiment Analysis</strong> metrics are limited due to missing technical indicators (RSI, moving averages at zero), but the exceptionally high dividend yield of 340% (likely a data anomaly) and a P/E ratio of 17.35 suggest market recognition of JNJ’s value and income potential, albeit with caution on data quality.</p>
+<p>Johnson &amp; Johnson (JNJ) demonstrates a consistently <strong>Safe Zone</strong> Altman Z-Score profile over the past eight quarters, with scores ranging from <strong>3.33 to 4.40</strong>, well above the distress threshold of 1.8. This strong financial health is supported by a robust <strong>AI Risk Analysis</strong> indicating a <strong>low overall risk level</strong> and a stable risk trajectory, reinforcing confidence in the company’s operational and financial stability.</p>
+<p><strong>AI Peer Analysis</strong> positions JNJ favorably within the Healthcare sector, outperforming the industry average Z-Score of approximately 3.0, indicating superior creditworthiness and lower bankruptcy risk relative to peers such as Pfizer (PFE) and Merck (MRK). The <strong>AI Sentiment Analysis</strong> reveals a positive overall market sentiment with a stable trend, suggesting investor confidence aligns with fundamental strength.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Interpretation</th>
+<th>Industry Benchmark</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
 <td>3.33</td>
-<td>Safe Zone, low bankruptcy risk</td>
+<td>~3.0 (Industry Avg)</td>
+<td>Safe Zone, slight recent dip</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$375.37B</td>
-<td>Large-cap, stable market presence</td>
+<td>$374.8B</td>
+<td>N/A</td>
+<td>Large-cap stability</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$156.01</td>
-<td>Reflects market valuation</td>
+<td>$155.79</td>
+<td>N/A</td>
+<td>Stable price environment</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>17.35</td>
-<td>Reasonable valuation vs. earnings</td>
+<td>17.32</td>
+<td>Healthcare Avg ~20</td>
+<td>Reasonable valuation</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>340.00%*</td>
-<td>Data anomaly, likely incorrect</td>
+<td>~2.5%</td>
+<td>Data anomaly, likely error</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.076</td>
-<td>Low liquidity buffer</td>
+<td>Industry ~0.1-0.2</td>
+<td>Slightly low liquidity</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.840</td>
+<td>N/A</td>
 <td>Strong earnings retention</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.033</td>
-<td>Moderate operating profitability</td>
+<td>Industry ~0.03</td>
+<td>In line with peers</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.113</td>
-<td>Low asset utilization typical for pharma</td>
+<td>Industry ~0.1</td>
+<td>Efficient asset use</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Action Recommendations:</strong><br />
-- <strong>Hold to Buy:</strong> Given the strong Z-Score safety margin and stable financials, JNJ is a solid candidate for conservative and dividend-focused investors.<br />
-- <strong>Monitor liquidity ratios:</strong> The low working capital ratio (0.076) warrants monitoring for short-term liquidity stress, though mitigated by strong retained earnings.<br />
-- <strong>Validate dividend data:</strong> The anomalous dividend yield requires confirmation before income-based investment decisions.<br />
-- <strong>Watch for market signals:</strong> Absence of technical data suggests reliance on fundamentals and peer benchmarking for timing decisions.</p>
+<p>*Note: Dividend Yield of 340% is an anomaly likely due to data error; treat with caution.</p>
+<p><strong>Investment Recommendations:</strong><br />
+- <strong>Buy/Hold</strong> for conservative and dividend-focused investors given strong Z-Score and stable fundamentals.<br />
+- <strong>Hold/Accumulate</strong> for value and growth profiles, monitoring Z-Score trends and market signals for entry timing.<br />
+- Maintain vigilance on liquidity ratios and market anomalies to adjust risk exposure.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -551,38 +636,65 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 1.076* (implied from Working Capital Ratio 0.076)</td>
-<td>Industry avg ~1.5-2.0</td>
-<td>Below average liquidity; potential short-term risk</td>
+<td>Current Ratio: 0.076</td>
+<td>~0.1-0.2</td>
+<td>Slightly below industry norm; manageable but watch</td>
 <td>Stable/Low</td>
 </tr>
 <tr>
+<td></td>
+<td>Working Capital Ratio: 0.076</td>
+<td>~0.1-0.2</td>
+<td>Indicates tight short-term liquidity</td>
+<td>Stable</td>
+</tr>
+<tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: Not provided; Interest Coverage: EBIT Ratio 3.3%</td>
-<td>Industry EBIT avg ~4-6%</td>
-<td>Moderate profitability; leverage likely conservative</td>
+<td>Debt-to-Equity: N/A (not provided)</td>
+<td>Peers ~0.5-1.0</td>
+<td>Data missing; cannot fully assess leverage risk</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td></td>
+<td>Interest Coverage (EBIT Ratio): 0.033</td>
+<td>~0.03</td>
+<td>EBIT ratio in line with industry, moderate coverage</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.113</td>
-<td>Industry avg ~0.2-0.3</td>
-<td>Low asset turnover typical for pharma; efficiency stable</td>
+<td>~0.1</td>
+<td>Efficient asset utilization</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>EBIT Ratio: 0.033</td>
+<td>~0.03</td>
+<td>Operational profitability consistent</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.840</td>
-<td>Industry avg ~0.7-0.8</td>
-<td>Strong retained earnings indicate solid equity base</td>
-<td>Improving</td>
+<td>N/A</td>
+<td>Strong earnings retention supports stability</td>
+<td>Positive</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: N/A</td>
+<td>N/A</td>
+<td>Data not provided</td>
+<td>Unknown</td>
 </tr>
 </tbody>
 </table>
-<p>*Note: Working Capital Ratio of 0.076 indicates working capital is 7.6% of current liabilities, implying a current ratio near 1.076 (assuming current liabilities ~1).</p>
-<p><strong>Interpretive Commentary:</strong><br />
-JNJ’s liquidity position is slightly below industry norms, with a working capital ratio of 0.076, suggesting limited short-term buffer. However, the <strong>retained earnings ratio of 0.840</strong> is notably strong, reflecting consistent profitability and reinvestment, which supports long-term financial stability. The EBIT ratio of 3.3% is moderate but consistent with the healthcare sector’s capital-intensive nature. Asset turnover at 0.113 is low but typical for drug manufacturers, where R&amp;D and regulatory processes limit rapid asset utilization.</p>
-<p>The <strong>AI Data Quality Assessment</strong> indicates no anomalies in financial data completeness, but market data anomalies (e.g., dividend yield) reduce confidence in some valuation metrics. This necessitates cautious interpretation of market signals but does not undermine core financial health diagnostics.</p>
+<p><strong>Commentary:</strong><br />
+Liquidity metrics such as the current ratio and working capital ratio at 0.076 are slightly below typical industry standards (~0.1-0.2), indicating a relatively tight liquidity position. However, the company’s strong retained earnings ratio of 0.840 suggests robust internal financing capacity, mitigating liquidity concerns. EBIT ratio and asset turnover align well with industry averages, reflecting operational efficiency consistent with the Healthcare sector’s capital-intensive nature.</p>
+<p>The absence of explicit debt-to-equity data limits leverage risk assessment, but the stable EBIT ratio implies manageable interest obligations. The AI Data Quality Assessment confirms data completeness with no critical anomalies except for the dividend yield figure, which is flagged as an anomaly and should be disregarded in decision-making.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -600,64 +712,21 @@ JNJ’s liquidity position is slightly below industry norms, with a working capi
 <td>Current (Q8)</td>
 <td>3.33</td>
 <td>Safe</td>
-<td>Stable EBIT, strong retained earnings</td>
-<td>Mature pharma portfolio, steady cash flows</td>
+<td>Stable EBIT, strong equity</td>
+<td>Slight dip possibly due to market or operational factors</td>
 </tr>
 <tr>
-<td>Previous (Q7)</td>
-<td>4.40</td>
+<td>Previous Quarters</td>
+<td>4.16 - 4.40</td>
 <td>Safe</td>
-<td>Peak working capital, strong equity</td>
-<td>Possible temporary liquidity peak or asset sale</td>
-</tr>
-<tr>
-<td>Previous (Q6)</td>
-<td>4.19</td>
-<td>Safe</td>
-<td>Consistent profitability</td>
-<td>Stable operational environment</td>
-</tr>
-<tr>
-<td>Previous (Q5)</td>
-<td>4.19</td>
-<td>Safe</td>
-<td>Strong retained earnings</td>
-<td>Continued R&amp;D investment and product pipeline</td>
-</tr>
-<tr>
-<td>Previous (Q4)</td>
-<td>3.87</td>
-<td>Safe</td>
-<td>EBIT stability</td>
-<td>Market expansion and product launches</td>
-</tr>
-<tr>
-<td>Previous (Q3)</td>
-<td>3.77</td>
-<td>Safe</td>
-<td>Moderate asset turnover</td>
-<td>Incremental efficiency improvements</td>
-</tr>
-<tr>
-<td>Previous (Q2)</td>
-<td>3.86</td>
-<td>Safe</td>
-<td>Balanced leverage</td>
-<td>Conservative capital structure</td>
-</tr>
-<tr>
-<td>Earliest (Q1)</td>
-<td>4.16</td>
-<td>Safe</td>
-<td>Strong equity and liquidity</td>
-<td>Stable macroeconomic environment</td>
+<td>Strong working capital, retained earnings</td>
+<td>Consistent operational performance and market confidence</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-JNJ’s Z-Score has remained firmly in the <strong>Safe Zone (&gt;3.0)</strong> over the past eight quarters, with a slight downward shift from a peak of 4.40 to 3.33 in the most recent quarter. This decline, while still within safe limits, may reflect modest increases in liabilities or reduced working capital, consistent with industry cyclicality or strategic capital deployment.</p>
-<p>The <strong>lack of detailed component data</strong> (working capital/total assets, EBIT/total assets, etc.) limits granular driver analysis, but the stable EBIT ratio and high retained earnings ratio suggest that profitability and equity strength are the main pillars supporting the Z-Score.</p>
-<p>Compared to the <strong>industry average Z-Score (~2.5-3.0)</strong>, JNJ’s position is strong, indicating superior financial health relative to peers. This supports a strategic posture of measured growth and risk management.</p>
+<p><strong>Commentary:</strong><br />
+JNJ’s Z-Score has remained firmly in the Safe Zone (&gt;3.0) over the past eight quarters, with a peak at 4.40 and a recent dip to 3.33. This slight decline warrants monitoring but does not currently indicate distress. The Z-Score components—working capital, retained earnings, EBIT, market equity—have historically contributed positively, reflecting strong business fundamentals.</p>
+<p>The dip to 3.33 may correlate with market volatility or operational shifts but remains comfortably above the distress threshold. Compared to the industry average Z-Score (~3.0), JNJ maintains a competitive advantage in financial health, consistent with its leadership in the Drug Manufacturers - General industry.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -674,30 +743,29 @@ JNJ’s Z-Score has remained firmly in the <strong>Safe Zone (&gt;3.0)</strong> 
 <tr>
 <td>Fundamental Health</td>
 <td>Stable Safe Zone (3.33)</td>
-<td>Price at $156.01, P/E 17.35</td>
+<td>Price stable at $155.79</td>
 <td>Aligned</td>
-<td>Supports fair valuation, low distress risk</td>
+<td>Supports buy/hold; fundamentals confirm market price stability</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Not explicitly provided</td>
-<td>Dividend yield anomaly (340%)</td>
-<td>Divergent</td>
-<td>Data anomaly reduces confidence in yield-based sentiment</td>
+<td>Positive, stable trend</td>
+<td>P/E Ratio 17.32 (reasonable)</td>
+<td>Consistent</td>
+<td>Market sentiment aligns with fundamentals; moderate valuation</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Strong relative position</td>
-<td>Sector large-cap performance</td>
+<td>Outperforming industry average</td>
+<td>Sector steady</td>
 <td>Outperforming</td>
-<td>Competitive advantage supports investment</td>
+<td>Competitive positioning supports investment confidence</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-The fundamental health indicated by the Z-Score aligns well with JNJ’s market valuation, with a P/E ratio of 17.35 reflecting moderate market expectations consistent with stable earnings growth. The absence of technical indicators (RSI, moving averages at zero) limits short-term market timing insights.</p>
-<p>The <strong>dividend yield of 340% is a clear data anomaly</strong>, likely due to input error, and should be disregarded until verified. This anomaly creates divergence between fundamental and sentiment signals, reducing confidence in income-based investment strategies.</p>
-<p>Peer comparison confirms JNJ’s outperformance relative to sector averages, reinforcing the investment case based on financial strength and market position.</p>
+<p><strong>Commentary:</strong><br />
+The Z-Score’s stable Safe Zone status aligns well with the current market price of $155.79, indicating that the stock price reflects the company’s strong financial health. Analyst sentiment, as inferred from the reasonable P/E ratio of 17.32, is consistent with a stable outlook and moderate growth expectations.</p>
+<p>JNJ’s relative outperformance compared to peers in the Healthcare sector reinforces its competitive advantage and supports a positive investment stance. The lack of volatility and beta data (both zero, likely data gaps) limits risk-return profiling but the Sharpe ratio and max drawdown at zero suggest minimal recent price turbulence.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -715,30 +783,29 @@ The fundamental health indicated by the Z-Score aligns well with JNJ’s market 
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential EBIT decline</td>
-<td>Diversify product portfolio, R&amp;D investment</td>
+<td>Potential slight Z-Score decline</td>
+<td>Continuous process optimization, R&amp;D investment</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
-<td>Minor</td>
-<td>Limited impact due to strong equity</td>
-<td>Maintain conservative leverage, monitor liquidity</td>
+<td>Moderate</td>
+<td>Limited due to strong retained earnings</td>
+<td>Maintain conservative capital structure</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Valuation compression possible</td>
-<td>Hedge via diversification, monitor macro trends</td>
+<td>Possible short-term Z-Score volatility</td>
+<td>Diversify product portfolio, hedge currency exposure</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Continued stable EBIT and retained earnings growth maintain or improve Z-Score above 3.5, supporting share price appreciation and dividend sustainability.<br />
-- <strong>Base Case:</strong> Slight decline in working capital or EBIT reduces Z-Score to ~3.0-3.3, still within safe zone but signaling caution on liquidity management.<br />
-- <strong>Worst Case:</strong> Operational disruption or market downturn reduces EBIT and working capital, pushing Z-Score below 2.5, entering Gray Zone, triggering risk mitigation actions.</p>
-<p>Bankruptcy risk remains very low given current Z-Score &gt;3.0. Liquidity stress testing should focus on working capital improvements given the low current ratio proxy.</p>
+<p><strong>Commentary:</strong><br />
+Based on AI Risk Analysis, JNJ faces a <strong>low overall risk level</strong> with a stable risk trajectory. Operational risks such as regulatory changes or supply chain disruptions pose moderate probability and severity but are mitigated by the company’s diversified product base and R&amp;D capabilities.</p>
+<p>Financial risks are low due to strong retained earnings (0.840) and consistent EBIT ratio (0.033), supporting stable interest coverage and liquidity. Market risks, including competitive pressures and macroeconomic factors, have medium probability and moderate impact, potentially causing short-term fluctuations in Z-Score but unlikely to threaten long-term solvency.</p>
+<p>Scenario analysis suggests that even under a worst-case moderate operational disruption, the Z-Score would likely remain above the distress threshold, preserving investment safety.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -756,47 +823,48 @@ The fundamental health indicated by the Z-Score aligns well with JNJ’s market 
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td>HOLD</td>
-<td>Z-Score stable at 3.33, safe zone</td>
-<td>Price stable, monitor liquidity</td>
+<td><strong>HOLD</strong></td>
+<td>Z-Score stable &gt;3.3, low risk</td>
+<td>Stable price, monitor dips</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>HOLD</td>
-<td>Strong retained earnings; verify dividend yield anomaly</td>
-<td>Confirm dividend data before buy</td>
-<td>3-6 months</td>
+<td><strong>HOLD</strong></td>
+<td>Strong retained earnings support dividend sustainability</td>
+<td>Yield anomaly flagged; verify</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>BUY</td>
-<td>P/E 17.35 reasonable; Z-Score &gt;3.0 supports undervaluation</td>
-<td>Entry on minor price dips</td>
+<td><strong>BUY</strong></td>
+<td>Z-Score above industry average, P/E reasonable</td>
+<td>Accumulate on dips</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>HOLD</td>
-<td>Moderate EBIT growth; asset turnover low</td>
-<td>Await clearer momentum signals</td>
-<td>6-12 months</td>
+<td><strong>HOLD</strong></td>
+<td>EBIT and asset turnover stable, moderate growth potential</td>
+<td>Monitor momentum</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>HOLD</td>
-<td>Low volatility; limited upside in short term</td>
-<td>Monitor for volatility spikes</td>
+<td><strong>HOLD</strong></td>
+<td>Low volatility, low beta (data gaps) suggest low risk</td>
+<td>Wait for volatility signals</td>
 <td>3-6 months</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-Conservative investors should maintain positions given strong financial health but monitor liquidity ratios. Dividend investors must validate yield data before increasing exposure. Value investors can consider accumulation on price weakness supported by solid Z-Score fundamentals. Growth and aggressive profiles should await clearer market momentum signals due to low volatility and limited short-term catalysts.</p>
+<p><strong>Commentary:</strong><br />
+Conservative investors should hold given the strong Z-Score and stable fundamentals, with low risk of distress. Dividend investors should verify the dividend yield anomaly before increasing exposure but can hold based on retained earnings strength.</p>
+<p>Value investors are recommended to buy on price dips, leveraging the company’s superior Z-Score and reasonable valuation metrics. Growth and aggressive profiles should hold and monitor for momentum or volatility signals, as current data shows stability but limited short-term catalysts.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -812,29 +880,30 @@ Conservative investors should maintain positions given strong financial health b
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Maintain financial stability</td>
-<td>Z-Score &gt;3.0, EBIT ratio 3.3%</td>
-<td>Focus on operational efficiency, R&amp;D pipeline</td>
-<td>Stable or improving Z-Score</td>
+<td>Maintain operational excellence</td>
+<td>EBIT Ratio (0.033), Asset Turnover (0.113)</td>
+<td>Invest in innovation, optimize supply chain</td>
+<td>Stable or improving Z-Score, EBIT growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Optimize liquidity &amp; leverage</td>
-<td>Working capital ratio 0.076</td>
-<td>Enhance working capital management, debt control</td>
-<td>Current ratio &gt;1.1, debt metrics</td>
+<td>Capital efficiency &amp; liquidity</td>
+<td>Working Capital Ratio (0.076), Retained Earnings (0.840)</td>
+<td>Enhance liquidity management, prudent debt use</td>
+<td>Improved liquidity ratios, stable debt levels</td>
 </tr>
 <tr>
 <td>Board Governance</td>
 <td>Risk oversight &amp; compliance</td>
-<td>Risk factors, Z-Score trends</td>
-<td>Regular risk reviews, scenario planning</td>
-<td>Risk mitigation effectiveness</td>
+<td>Z-Score trend, AI Risk Analysis</td>
+<td>Regular risk reviews, compliance audits</td>
+<td>No regulatory breaches, risk mitigation effectiveness</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-Leadership should prioritize sustaining the strong Z-Score by improving liquidity buffers and maintaining EBIT margins. CFO should focus on working capital optimization to address the low liquidity ratio. The board must ensure risk frameworks incorporate scenario analyses reflecting potential operational and market risks identified.</p>
+<p><strong>Commentary:</strong><br />
+Executive leadership should focus on sustaining operational efficiency and innovation to maintain EBIT and asset turnover metrics. The CFO must address liquidity constraints indicated by the working capital ratio, balancing capital allocation to support growth without compromising financial stability.</p>
+<p>The Board should leverage AI Risk Analysis insights to ensure proactive risk management and governance, maintaining the company’s strong credit profile and market reputation.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -850,35 +919,37 @@ Leadership should prioritize sustaining the strong Z-Score by improving liquidit
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Slight decline from 4.40 to 3.33</td>
+<td>Slight decline to 3.33</td>
 <td>Stable to slight improvement</td>
-<td>New product launches, cost control</td>
-<td>Quarterly EBIT, working capital</td>
+<td>New product launches, cost controls</td>
+<td>Quarterly Z-Score updates, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Strong large-cap status</td>
+<td>Strong, outperforming peers</td>
 <td>Maintain leadership</td>
-<td>Competitive innovation, M&amp;A activity</td>
-<td>Market share, peer Z-Score trends</td>
+<td>Competitive innovation, regulatory approvals</td>
+<td>Market share, peer Z-Score comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low risk currently</td>
-<td>Potential moderate risk if liquidity worsens</td>
-<td>Regulatory changes, macroeconomic shifts</td>
-<td>Liquidity ratios, debt levels</td>
+<td>Low, stable</td>
+<td>Stable with vigilance</td>
+<td>Macroeconomic shifts, regulatory changes</td>
+<td>AI Risk Analysis updates, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-JNJ’s Z-Score momentum suggests continued financial safety with potential for modest improvement if operational efficiencies and liquidity management improve. Key catalysts include successful product innovation and cost management. Monitoring should focus on EBIT trends and working capital changes as early warning signals. The investment thesis remains stable with low risk, but vigilance on liquidity and market conditions is warranted.</p>
+<p><strong>Commentary:</strong><br />
+The Z-Score momentum shows a minor recent decline but is expected to stabilize or improve over the next 6-12 months, driven by operational efficiencies and potential new product introductions. Market position remains strong, supported by innovation and brand strength in the healthcare sector.</p>
+<p>Risk profile is low but requires ongoing monitoring of macroeconomic and regulatory developments. Leading indicators such as EBIT margin trends, working capital ratios, and AI Risk Analysis updates should be tracked closely to anticipate any shifts in financial health or market conditions.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Johnson &amp; Johnson exhibits a <strong>strong and stable financial profile</strong> with a consistently safe Altman Z-Score above 3.0, signaling low bankruptcy risk and solid operational performance. Despite a low liquidity ratio, the company’s high retained earnings and moderate EBIT ratio underpin financial stability. Market valuation metrics align with fundamentals, though anomalies in dividend yield data require validation.</p>
-<p>Investment recommendations favor <strong>holding or buying</strong> for conservative, dividend, and value investors, with growth and aggressive investors advised to await clearer momentum signals. Strategic focus on liquidity improvement and risk monitoring will support sustained financial health and shareholder value.</p>
+<p>Johnson &amp; Johnson’s Altman Z-Score analysis confirms a <strong>robust financial position</strong> with consistent Safe Zone classification over multiple quarters. Despite a slight recent dip to 3.33, the company remains well-positioned relative to industry peers, supported by strong retained earnings and operational efficiency.</p>
+<p>Market signals and AI sentiment align with fundamental strength, endorsing a <strong>buy/hold recommendation</strong> across most investor profiles, with conservative investors advised to hold and value investors encouraged to accumulate on dips. Risk remains low but requires ongoing monitoring of liquidity and market risks.</p>
+<p>Strategic focus on liquidity improvement, operational excellence, and risk governance will sustain JNJ’s financial health and market leadership, supporting positive forward-looking investment outcomes.</p>
 <hr />
-<p><em>Analysis completed with explicit referencing of all injected data elements and cross-validation across financial, market, risk, and peer analysis dimensions.</em></p></div></div>
+<p><em>This analysis integrates all injected data elements explicitly, cross-validates financial and AI-driven insights, and applies the prescribed analytical frameworks to deliver actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1221,78 +1292,41 @@ JNJ’s Z-Score momentum suggests continued financial safety with potential for 
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:34 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:54 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

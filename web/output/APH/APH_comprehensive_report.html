@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Amphenol Corporation (APH)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:17 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:38 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -342,6 +414,10 @@
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overbought conditions (RSI)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     Very high P/E ratio</div>
                 
                 <div
@@ -357,9 +433,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="APH_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="APH_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -373,7 +449,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">6.81</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">6.82</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -422,15 +498,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$99.46</p>
+                <p>$$99.67</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$120.3B</p>
+                <p>$$120.5B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>48.3</p>
+                <p>48.4</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -442,7 +518,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>69.5</p>
+                <p>83.5</p>
             </div>
         </div>
     </div>
@@ -476,91 +552,74 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> Amphenol Corporation (APH)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:16:58  </p>
+<p><strong>Company:</strong> Amphenol Corporation (Ticker: APH)<br />
+<strong>Analysis Date:</strong> 2025-07-07 10:38:31  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Amphenol Corporation (APH) demonstrates an exceptionally strong financial position with a consistently <strong>Safe Zone Altman Z-Score</strong> trajectory, currently at <strong>10.55</strong>, well above the distress threshold of 1.8 and the gray zone upper bound of 3.0. This places APH in a robust financial health category, indicating minimal bankruptcy risk and strong operational stability.</p>
-<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>Low</strong>, with a stable risk trajectory, supported by a <strong>67.00% dividend yield</strong> and a <strong>P/E ratio of 48.28</strong>, reflecting market confidence in growth prospects despite a relatively high valuation. The <strong>AI Peer Analysis</strong> positions APH significantly above the industry average Z-Score (industry average not explicitly provided but typically ranges 2.5-3.5 in Technology Hardware), indicating superior financial resilience compared to peers. The <strong>AI Sentiment Analysis</strong> metrics, while limited in technical indicators (RSI, moving averages at zero), suggest a neutral to positive market sentiment, reinforced by the high dividend yield and stable beta of 0.00, implying low volatility.</p>
-<h3 id="key-metrics-table">Key Metrics Table</h3>
+<p>Amphenol Corporation (APH) demonstrates a <strong>robust financial health profile</strong> with an exceptionally strong Altman Z-Score trajectory firmly in the <strong>Safe Zone</strong> over the past eight quarters. The latest Z-Score stands at <strong>10.57</strong>, well above the distress threshold of 1.8 and the gray zone upper bound of 3.0, indicating a very low risk of bankruptcy or financial distress. This is supported by a consistent upward trend from 6.82 to 10.57, reflecting improving operational and financial stability.</p>
+<p><strong>AI Risk Analysis</strong> indicates an overall <strong>low risk level</strong> with a stable risk trajectory, reinforcing confidence in APH’s financial resilience. The <strong>AI Peer Analysis</strong> positions APH significantly above the industry average Z-Score (industry average not explicitly provided but implied to be lower given APH’s high scores), highlighting APH’s competitive strength in the Technology sector, specifically within Hardware, Equipment &amp; Parts.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are not explicitly provided, but the <strong>high dividend yield of 67.00%</strong> and a <strong>P/E ratio of 48.38</strong> suggest a market perception of strong earnings growth potential combined with shareholder return focus, albeit with valuation premium considerations.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
-<th>Value</th>
-<th>Benchmark/Industry Average</th>
-<th>Interpretation</th>
+<th>Metric Category</th>
+<th>Key Values</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Current Altman Z-Score</td>
-<td>10.55</td>
-<td>~3.0 (Industry Avg.)</td>
-<td>Very strong financial health</td>
+<td>Latest Z-Score</td>
+<td>10.57 (Safe Zone)</td>
+</tr>
+<tr>
+<td>Z-Score Trend</td>
+<td>Increasing (6.82 → 10.57 over 8 quarters)</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$120.3B</td>
-<td>N/A</td>
-<td>Large-cap, stable market presence</td>
+<td>$120.57 billion</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$99.46</td>
-<td>N/A</td>
-<td>Reflects premium valuation</td>
+<td>$99.62</td>
 </tr>
 <tr>
-<td>P/E Ratio</td>
-<td>48.28</td>
-<td>~25-30 (Tech Avg.)</td>
-<td>High growth expectations</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>67.00%</td>
-<td>~2-3% (Industry Avg.)</td>
-<td>Exceptionally high, requires review</td>
+<td>Shares Outstanding</td>
+<td>1.21 billion</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.198</td>
-<td>Industry standard ~1.0</td>
-<td>Low liquidity, potential concern</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.325</td>
-<td>N/A</td>
-<td>Moderate reinvestment capacity</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.045</td>
-<td>N/A</td>
-<td>Modest operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.210</td>
-<td>N/A</td>
-<td>Moderate asset utilization</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>48.38</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>67.00%</td>
 </tr>
 <tr>
 <td>Beta</td>
-<td>0.00</td>
-<td>~1.0</td>
-<td>Minimal market risk exposure</td>
+<td>0.00 (implying low market volatility)</td>
 </tr>
 </tbody>
 </table>
-<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
-<ul>
-<li><strong>Buy/Hold</strong> recommendation for <strong>Conservative and Dividend investors</strong> due to strong Z-Score and high dividend yield, despite low liquidity ratios.</li>
-<li><strong>Cautious Buy</strong> for <strong>Growth and Value investors</strong> given high P/E and moderate EBIT ratio; monitor for valuation corrections.</li>
-<li><strong>Avoid aggressive positioning</strong> until liquidity ratios improve and market technicals stabilize.</li>
-</ul>
+<h3 id="investment-recommendation">Investment Recommendation</h3>
+<p><strong>Strong Buy / Hold</strong> for investors seeking a financially stable, dividend-yielding technology hardware company with low bankruptcy risk and solid operational metrics. The high Z-Score and dividend yield support confidence, but valuation multiples warrant monitoring for entry timing.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -568,7 +627,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark*</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -577,79 +636,42 @@
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.198</td>
-<td>~1.0 (Tech Industry)</td>
-<td><strong>Weak liquidity</strong>, potential short-term risk</td>
-<td>Declining/Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>Working Capital Ratio: 0.198</td>
-<td>N/A</td>
-<td>Below ideal threshold, watch cash flows</td>
-<td></td>
+<td>Industry avg ~1.0-1.5</td>
+<td>Below typical liquidity norms; potential short-term liquidity constraints</td>
+<td>Stable but low</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: Not provided</td>
-<td>Industry avg ~0.5-1.0</td>
-<td>Unable to assess fully; Z-Score implies low financial distress</td>
-<td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>Interest Coverage (EBIT Ratio): 0.045</td>
-<td>N/A</td>
-<td>Low EBIT margin, moderate coverage</td>
+<td>Debt-to-Equity: Not provided; Interest Coverage: Not provided</td>
+<td>Industry avg varies; typically moderate leverage</td>
+<td>Insufficient data; low risk implied by Z-Score</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.210</td>
-<td>Industry avg ~0.3-0.5</td>
-<td>Moderate asset utilization, room for improvement</td>
-<td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>EBIT Ratio: 0.045</td>
-<td>Industry avg ~0.07-0.10</td>
-<td>Below average profitability</td>
-<td>Stable</td>
+<td>Asset Turnover: 0.210; EBIT Ratio: 0.045</td>
+<td>Industry avg Asset Turnover ~0.3-0.5; EBIT Ratio ~0.05-0.1</td>
+<td>Slightly below average asset turnover; EBIT margin on lower side but positive</td>
+<td>Improving</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.325</td>
-<td>N/A</td>
-<td>Moderate reinvestment, supports growth</td>
+<td>Industry avg ~0.2-0.4</td>
+<td>Healthy retained earnings supporting stability</td>
 <td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>Cash Position: Not provided</td>
-<td>N/A</td>
-<td>Data gap; liquidity concerns flagged</td>
-<td>N/A</td>
 </tr>
 </tbody>
 </table>
+<p>*Industry benchmarks estimated from Technology Hardware sector norms.</p>
 <h3 id="commentary">Commentary</h3>
 <ul>
-<li>
-<p><strong>Liquidity Position:</strong> The current ratio of <strong>0.198</strong> is significantly below the industry standard (~1.0), indicating potential short-term liquidity constraints. This is a critical anomaly that tempers confidence despite the strong Z-Score. The <strong>AI Data Quality Assessment</strong> shows no anomalies in financial data completeness, so this low liquidity is a genuine concern rather than a data artifact.</p>
-</li>
-<li>
-<p><strong>Leverage Management:</strong> While explicit debt-to-equity data is missing, the Altman Z-Score's high value suggests low financial distress and manageable leverage. The EBIT ratio of <strong>4.5%</strong> is modest, indicating limited operating margin, which could constrain interest coverage if debt levels rise.</p>
-</li>
-<li>
-<p><strong>Operational Efficiency:</strong> Asset turnover at <strong>0.210</strong> is moderate but below typical technology hardware industry averages, suggesting potential inefficiencies in asset utilization. EBIT ratio also trails industry norms, signaling room for operational improvement.</p>
-</li>
-<li>
-<p><strong>Financial Stability:</strong> Retained earnings ratio at <strong>0.325</strong> indicates a moderate level of reinvested earnings, supporting sustainable growth. However, the absence of cash position data and low liquidity ratios warrant monitoring.</p>
-</li>
-<li>
-<p><strong>Sector Context:</strong> Operating in the <strong>Technology Hardware, Equipment &amp; Parts</strong> sector, APH faces capital-intensive demands and competitive pressures. The strong Z-Score reflects robust balance sheet management despite operational margin constraints.</p>
-</li>
+<li><strong>Liquidity Position:</strong> The working capital ratio of 0.198 is low, indicating limited short-term liquidity cushion. However, the extremely high Z-Score and stable risk profile suggest that APH manages liquidity effectively, possibly through strong cash flows or credit facilities.  </li>
+<li><strong>Leverage Management:</strong> Although explicit debt-to-equity and interest coverage ratios are not provided, the Altman Z-Score’s market value equity to book value debt component and low risk rating imply manageable leverage levels.  </li>
+<li><strong>Operational Efficiency:</strong> Asset turnover at 0.210 is modest compared to typical industry averages, indicating room for improvement in asset utilization. EBIT ratio at 4.5% is positive but on the lower end, suggesting moderate profitability.  </li>
+<li><strong>Financial Stability:</strong> Retained earnings ratio of 0.325 reflects solid reinvestment and earnings retention, supporting long-term financial health.  </li>
 </ul>
+<p><strong>AI Data Quality Assessment:</strong> The data completeness is high with no anomalies detected, supporting confidence in these financial diagnostics.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -664,71 +686,31 @@
 </thead>
 <tbody>
 <tr>
-<td>Current (Q8)</td>
-<td>10.55</td>
+<td>Current Qtr</td>
+<td>10.57</td>
 <td>Safe</td>
-<td>Strong equity, low leverage, stable earnings</td>
-<td>Continued operational stability, strong market position</td>
+<td>Strong equity base, retained earnings, EBIT</td>
+<td>Stable growth in core segments; strong market position</td>
 </tr>
 <tr>
-<td>Q7</td>
-<td>10.37</td>
+<td>Previous Qtr</td>
+<td>10.39</td>
 <td>Safe</td>
-<td>Consistent retained earnings</td>
-<td>Stable business segments</td>
+<td>Consistent profitability and asset management</td>
+<td>Continued operational efficiency improvements</td>
 </tr>
 <tr>
-<td>Q6</td>
-<td>10.02</td>
+<td>6 Quarters Ago</td>
+<td>6.82 - 10.20</td>
 <td>Safe</td>
-<td>Sustained profitability</td>
-<td>Growth in communications solutions segment</td>
-</tr>
-<tr>
-<td>Q5</td>
-<td>10.18</td>
-<td>Safe</td>
-<td>Improved asset management</td>
-<td>Expansion in harsh environment solutions</td>
-</tr>
-<tr>
-<td>Q4</td>
-<td>8.61</td>
-<td>Safe</td>
-<td>Increased working capital</td>
-<td>Operational efficiency improvements</td>
-</tr>
-<tr>
-<td>Q3</td>
-<td>8.24</td>
-<td>Safe</td>
-<td>EBIT margin growth</td>
-<td>Product portfolio diversification</td>
-</tr>
-<tr>
-<td>Q2</td>
-<td>7.36</td>
-<td>Safe</td>
-<td>Market capitalization increase</td>
-<td>Strong demand in fiber optic connectors</td>
-</tr>
-<tr>
-<td>Q1</td>
-<td>6.81</td>
-<td>Safe</td>
-<td>Equity growth</td>
-<td>Geographic expansion</td>
+<td>Gradual increase in working capital and retained earnings</td>
+<td>Expansion in Harsh Environment and Communications Solutions segments</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_1">Commentary</h3>
-<ul>
-<li>The Z-Score has steadily increased from <strong>6.81</strong> to <strong>10.55</strong> over eight quarters, indicating improving financial health and decreasing bankruptcy risk.</li>
-<li>Key drivers include consistent equity growth, stable retained earnings, and moderate improvements in asset management.</li>
-<li>The business context aligns with strategic expansions in <strong>Harsh Environment Solutions</strong> and <strong>Communications Solutions</strong>, supporting revenue and margin stability.</li>
-<li>APH’s Z-Score significantly outperforms typical industry averages (~3.0), underscoring its competitive financial strength.</li>
-<li>No significant inflection points or declines detected, confirming a stable upward trajectory.</li>
-</ul>
+<p>The Z-Score has steadily increased from 6.82 to 10.57 over eight quarters, indicating improving financial robustness. This trend correlates with Amphenol’s strategic focus on diversified segments (Harsh Environment, Communications, Interconnect Solutions) and global market expansion. The absence of volatility in Z-Score components suggests stable earnings and asset management.</p>
+<p>Compared to the industry average Z-Score (not explicitly stated but typically lower), APH’s position is exceptional, confirming its competitive advantage and low bankruptcy risk.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -744,36 +726,30 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Strong upward trend (10.55)</td>
-<td>Price stable at $99.46</td>
-<td>Divergent*</td>
-<td>Potential undervaluation or market lag</td>
+<td>Strong upward trend, Z=10.57</td>
+<td>Price stable at $99.62, P/E high at 48.38</td>
+<td>Divergent (high valuation vs. strong fundamentals)</td>
+<td>Potential overvaluation; monitor for price correction</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to positive (high dividend yield)</td>
-<td>RSI 0.0, no volume</td>
-<td>Inconsistent</td>
-<td>Market technicals inactive, caution advised</td>
+<td>Not explicitly provided</td>
+<td>Dividend yield very high at 67.00%</td>
+<td>Mixed (high yield suggests positive sentiment)</td>
+<td>Attractive for income investors; valuation caution advised</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Outperforming peers (Z-Score &gt;10 vs ~3)</td>
+<td>Well above industry average Z-Score</td>
 <td>Sector performance moderate</td>
 <td>Outperforming</td>
 <td>Strong competitive positioning</td>
 </tr>
 </tbody>
 </table>
-<p>*Note: Market technical indicators (RSI, moving averages) are zero or missing, suggesting lack of recent trading data or data anomaly.</p>
 <h3 id="commentary_2">Commentary</h3>
-<ul>
-<li>The <strong>Z-Score’s strong fundamental signal</strong> contrasts with flat or missing market technical data, indicating a possible disconnect between fundamental strength and market price action.</li>
-<li>The <strong>high dividend yield of 67.00%</strong> is unusually elevated, which may reflect special dividends or data irregularities; this requires further verification before relying on yield as a positive signal.</li>
-<li>The <strong>P/E ratio of 48.28</strong> suggests the market prices in strong growth expectations, consistent with the company’s financial health.</li>
-<li>The lack of trading volume and zero volatility metrics imply limited recent market activity or data gaps, reducing confidence in market timing signals.</li>
-<li>Overall, fundamental health and peer benchmarking support a positive investment outlook, but market timing signals are inconclusive.</li>
-</ul>
+<p>The fundamental health indicated by the Z-Score is robust and improving, but the market price and valuation multiples (P/E 48.38) suggest the stock is priced for growth, potentially ahead of fundamentals. The exceptionally high dividend yield (67.00%) is unusual and may reflect special dividends or market anomalies; this requires further due diligence.</p>
+<p>The divergence between strong fundamentals and high valuation signals a need for cautious timing in market entry, favoring investors with a longer horizon or income focus.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -791,40 +767,31 @@
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential EBIT ratio decline (-0.5)</td>
-<td>Enhance operational efficiency, diversify product lines</td>
+<td>Potential EBIT margin pressure</td>
+<td>Diversify product lines; enhance operational efficiency</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
 <td>Minor</td>
-<td>Liquidity constraints (-0.3)</td>
-<td>Improve working capital management, optimize cash flow</td>
+<td>Low due to strong equity base</td>
+<td>Maintain conservative leverage; monitor liquidity ratios</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Low</td>
+<td>Medium</td>
 <td>Moderate</td>
-<td>Valuation correction (-1.0)</td>
-<td>Hedge via options, monitor market sentiment</td>
-</tr>
-<tr>
-<td>Data Anomalies</td>
-<td>Low</td>
-<td>Minor</td>
-<td>Dividend yield data irregularity (-0.1)</td>
-<td>Verify dividend policy, adjust valuation models</td>
+<td>Valuation correction could impact market cap</td>
+<td>Hedge via options; stagger entry points</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_3">Commentary</h3>
-<ul>
-<li><strong>Operational risks</strong> center on modest EBIT margins (4.5%) and asset turnover, which could pressure profitability and Z-Score if not addressed.</li>
-<li><strong>Financial risks</strong> are low but include liquidity concerns due to a current ratio of 0.198, which could stress short-term obligations.</li>
-<li><strong>Market risks</strong> include potential valuation corrections given the high P/E ratio and uncertain market technicals.</li>
-<li>The <strong>AI Risk Analysis</strong> confirms a low overall risk level with stable trajectory, supporting a base case scenario of continued financial strength.</li>
-<li>Scenario planning suggests the Z-Score could decline modestly under adverse operational or market conditions but is unlikely to enter distress territory given current buffers.</li>
-</ul>
+<p>Based on AI Risk Analysis, APH faces low overall risk with stable trajectory. Operational risks such as supply chain disruptions or margin compression could moderately affect EBIT and thus Z-Score components. Financial risks are minimal given the strong equity and retained earnings ratios.</p>
+<p>Market risks are moderate due to high valuation multiples and unusual dividend yield, which could lead to price volatility. Scenario analysis suggests:<br />
+- <strong>Best Case:</strong> Continued growth and margin improvement push Z-Score above 11.0.<br />
+- <strong>Base Case:</strong> Stable Z-Score around 10.5 with steady dividends.<br />
+- <strong>Worst Case:</strong> Market correction reduces equity value, lowering Z-Score toward 8.0 but remaining in Safe Zone.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -842,52 +809,52 @@
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>HOLD</strong></td>
-<td>Z-Score 10.55 indicates very low risk</td>
-<td>Price stable, monitor liquidity</td>
+<td>HOLD</td>
+<td>Z-Score 10.57 confirms safety</td>
+<td>Monitor valuation dips</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>HOLD</strong></td>
-<td>High dividend yield (67.00%) but verify sustainability</td>
-<td>Yield attractive, confirm payout</td>
-<td>3-6 months</td>
+<td>BUY</td>
+<td>High dividend yield (67.00%)</td>
+<td>Entry on stable price</td>
+<td>Immediate to 3 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>CAUTIOUS BUY</strong></td>
-<td>Strong Z-Score vs high P/E ratio suggests premium valuation</td>
-<td>Await price consolidation</td>
+<td>HOLD</td>
+<td>P/E 48.38 high; wait for correction</td>
+<td>Await price normalization</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>BUY</strong></td>
-<td>Z-Score growth trend supports expansion potential</td>
-<td>Momentum uncertain due to data gaps</td>
-<td>6-12 months</td>
+<td>BUY</td>
+<td>Strong Z-Score growth trend</td>
+<td>Momentum favorable</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>WAIT</strong></td>
-<td>Low liquidity and market data anomalies increase risk</td>
-<td>Avoid until liquidity improves</td>
-<td>12+ months</td>
+<td>BUY</td>
+<td>Low risk, high yield, but valuation risk</td>
+<td>Exploit volatility</td>
+<td>Short-term</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_4">Commentary</h3>
 <ul>
-<li><strong>Conservative investors</strong> should hold positions given the very low bankruptcy risk but monitor liquidity ratios.</li>
-<li><strong>Dividend investors</strong> should hold but seek confirmation on dividend sustainability due to unusually high yield.</li>
-<li><strong>Value investors</strong> may consider cautious accumulation on price dips, balancing strong fundamentals against valuation.</li>
-<li><strong>Growth investors</strong> can buy on confidence in operational expansion but should watch for market momentum confirmation.</li>
-<li><strong>Aggressive investors</strong> should wait for improved liquidity and clearer market signals before increasing exposure.</li>
+<li><strong>Conservative investors</strong> should hold and monitor for valuation improvements before increasing exposure.  </li>
+<li><strong>Dividend-focused investors</strong> may find the 67% yield attractive but should verify sustainability.  </li>
+<li><strong>Value investors</strong> should be cautious given the high P/E ratio and wait for market corrections.  </li>
+<li><strong>Growth investors</strong> can capitalize on the strong Z-Score momentum and sector growth.  </li>
+<li><strong>Aggressive investors</strong> may leverage low volatility and strong fundamentals for tactical trades.</li>
 </ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
@@ -904,34 +871,29 @@
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational efficiency &amp; growth</td>
-<td>EBIT Ratio (0.045), Asset Turnover (0.210)</td>
-<td>Drive margin improvement, optimize asset use</td>
-<td>EBIT margin &gt;0.06, turnover &gt;0.3</td>
+<td>Sustain growth &amp; innovation</td>
+<td>EBIT Ratio (0.045), Z-Score (10.57)</td>
+<td>Invest in R&amp;D, expand communications segment</td>
+<td>EBIT margin improvement, Z-Score stability</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; capital allocation</td>
-<td>Current Ratio (0.198), Retained Earnings Ratio (0.325)</td>
-<td>Strengthen working capital, manage cash flow</td>
-<td>Current ratio &gt;0.8, stable cash flow</td>
+<td>Optimize capital structure</td>
+<td>Working Capital Ratio (0.198), Retained Earnings (0.325)</td>
+<td>Improve liquidity management, maintain dividend policy</td>
+<td>Liquidity ratio improvement, dividend sustainability</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; dividend policy</td>
-<td>Z-Score (10.55), Dividend Yield (67.00%)</td>
-<td>Validate dividend sustainability, monitor risk factors</td>
-<td>Maintain Z-Score &gt;8, sustainable payout ratio</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Risk Level (Low), Market Valuation</td>
+<td>Monitor market risks, ensure transparency</td>
+<td>Risk mitigation effectiveness, regulatory compliance</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_5">Commentary</h3>
-<ul>
-<li>The <strong>CEO</strong> should prioritize operational improvements to enhance EBIT margins and asset turnover, leveraging the strong balance sheet.</li>
-<li>The <strong>CFO</strong> must address liquidity constraints by improving working capital management and ensuring capital allocation supports growth without risking short-term solvency.</li>
-<li>The <strong>Board</strong> should oversee risk management rigorously, especially validating the unusually high dividend yield and ensuring governance aligns with long-term financial stability.</li>
-<li>Coordination among leadership will sustain APH’s strong Z-Score and market confidence.</li>
-</ul>
+<p>Executive leadership should focus on leveraging the strong financial position to drive innovation and operational efficiency, aiming to improve EBIT margins. The CFO should address liquidity constraints indicated by the low working capital ratio while sustaining shareholder returns. The Board must maintain vigilance on valuation risks and market perception to safeguard long-term stability.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -947,42 +909,35 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Upward (10.55)</td>
-<td>Stable to slightly increasing</td>
-<td>Operational efficiency gains, market expansion</td>
-<td>Quarterly Z-Score, EBIT margin</td>
+<td>Increasing</td>
+<td>Stable to slightly higher</td>
+<td>New product launches, margin expansion</td>
+<td>Quarterly Z-Score updates, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Strong</td>
-<td>Maintain/Improve</td>
-<td>Product innovation, geographic growth</td>
-<td>Market share, peer Z-Score</td>
+<td>Maintain or improve</td>
+<td>Sector growth, competitive innovation</td>
+<td>Market share, peer Z-Score comparisons</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>Low</td>
 <td>Stable</td>
-<td>Liquidity improvements, dividend policy clarity</td>
-<td>Current ratio, dividend payout ratio</td>
+<td>Macroeconomic stability, supply chain resilience</td>
+<td>Risk factor tracking, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_6">Commentary</h3>
-<ul>
-<li>The <strong>Z-Score momentum</strong> is expected to remain stable or improve modestly over the next 6-12 months, driven by operational improvements and market expansion.</li>
-<li>APH’s <strong>market position</strong> is strong; continued innovation and geographic diversification will be key growth catalysts.</li>
-<li>The <strong>risk profile</strong> is low but requires monitoring of liquidity ratios and dividend sustainability to avoid future stress.</li>
-<li>Leading indicators such as EBIT margin improvements, working capital ratios, and dividend payout consistency should be tracked closely.</li>
-<li>Early warning systems should flag any decline in liquidity or EBIT margins below critical thresholds (e.g., EBIT ratio &lt; 0.03, current ratio &lt; 0.15).</li>
-</ul>
+<p>The Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, driven by operational enhancements and market expansion. Key catalysts include successful product innovation and margin improvements. Monitoring should focus on EBIT ratio trends, liquidity metrics, and any shifts in market valuation or risk factors.</p>
+<p>Early warning indicators include any decline in EBIT margins below 4%, working capital ratio deterioration, or sudden market cap contractions, which could presage Z-Score declines.</p>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>Amphenol Corporation (APH) stands out as a financially robust company with an exceptionally high Altman Z-Score of <strong>10.55</strong>, signaling very low bankruptcy risk and strong balance sheet health. Despite some liquidity concerns (current ratio 0.198) and moderate operational margins (EBIT ratio 0.045), the company’s strategic positioning in the technology hardware sector supports a positive investment outlook.</p>
-<p>Investment recommendations favor <strong>holding or cautious buying</strong> across most profiles, with aggressive investors advised to wait for liquidity improvements and clearer market signals. The unusually high dividend yield (67.00%) warrants further verification before relying on dividend income strategies.</p>
-<p>Continuous monitoring of liquidity metrics, operational efficiency, and dividend policies is essential to maintain APH’s strong financial health and market confidence.</p>
+<h1 id="summary"><strong>Summary</strong></h1>
+<p>Amphenol Corporation (APH) stands out as a financially robust, low-risk investment candidate with a strong Altman Z-Score well into the Safe Zone. Despite some liquidity and valuation considerations, the company’s operational stability, dividend yield, and market position support a <strong>Buy/Hold</strong> recommendation tailored to investor risk profiles. Continuous monitoring of liquidity and market valuation is advised to optimize entry and exit timing.</p>
 <hr />
-<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Analyst</em></p></div></div>
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating multi-source financial data and advanced risk intelligence.</em></p></div></div>
     </div>
     
 
@@ -1325,78 +1280,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:17 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:38 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

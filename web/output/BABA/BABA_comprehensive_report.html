@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Alibaba Group Holding Limited (BABA)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:18 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:39 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -357,9 +429,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="BABA_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="BABA_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -422,15 +494,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$108.70</p>
+                <p>$$107.19</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$261.2B</p>
+                <p>$$255.7B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>14.5</p>
+                <p>14.3</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -442,7 +514,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>33.2</p>
+                <p>36.7</p>
             </div>
         </div>
     </div>
@@ -486,66 +558,64 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Alibaba Group Holding Limited (BABA)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:18:08  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:38:36  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Alibaba Group (BABA) currently resides firmly in the <strong>Distress Zone</strong> with a latest Altman Z-Score of <strong>1.51</strong>, indicating a high risk of financial distress and potential bankruptcy. This is consistent with the historical trend over the past eight quarters, where the Z-Score has persistently remained below the critical threshold of 1.8, fluctuating narrowly between 1.30 and 1.60.  </p>
-<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>high</strong>, with a persistent downward trajectory in financial health indicators, underscoring urgent caution. The risk trajectory remains stable but unfavorable, with no signs of recovery in the Z-Score trend.  </p>
-<p><strong>AI Peer Analysis</strong> positions Alibaba significantly below the <strong>industry average Z-Score</strong>, which typically hovers above 3.0 in the Specialty Retail sector, indicating Alibaba is underperforming its peers and facing elevated financial risk. Key peers in the sector maintain healthier financial profiles, suggesting Alibaba’s competitive positioning is currently weak.  </p>
-<p><strong>AI Sentiment Analysis</strong> reveals a <strong>negative overall sentiment</strong> with a stagnant or declining trend, reflecting market skepticism and cautious investor perception. The divergence between sentiment and valuation metrics (notably a high dividend yield) suggests market uncertainty about Alibaba’s sustainability.  </p>
+<p>Alibaba (BABA) currently resides firmly in the <strong>Distress Zone</strong> with a latest Altman Z-Score of <strong>1.51</strong>, reflecting ongoing financial vulnerability. The Z-Score has hovered below the critical threshold of 1.8 for all eight quarters analyzed, indicating persistent bankruptcy risk concerns. The risk trajectory is mildly improving but remains within distress parameters, signaling cautious optimism tempered by structural financial weaknesses.</p>
+<p><strong>AI Risk Analysis</strong> indicates an <strong>overall risk level of Distress</strong> with moderate improvement but no definitive recovery, aligning with the Z-Score trend. The <strong>AI Peer Analysis</strong> positions Alibaba significantly below the industry average Z-Score (not explicitly provided but implied to be &gt;3.0 for Specialty Retail), underscoring competitive disadvantage and elevated financial risk relative to peers such as JD.com and Pinduoduo. The <strong>AI Sentiment Analysis</strong> is muted, with no explicit sentiment score available, but the market data—particularly a high dividend yield of <strong>93.00%</strong>—suggests market skepticism or potential data anomalies.</p>
 <table>
 <thead>
 <tr>
-<th>Metric Category</th>
-<th>Key Data Points</th>
-<th>Interpretation</th>
+<th>Key Metrics Summary</th>
+<th>Value</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
 <td>1.51</td>
-<td>Distress Zone, high bankruptcy risk</td>
-</tr>
-<tr>
-<td>Z-Score Trend</td>
-<td>1.30 - 1.60 over 8 quarters</td>
-<td>Persistent financial distress</td>
+<td>Distress Zone (&lt;1.8)</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$261.2B</td>
-<td>Large-cap, but risk-laden</td>
+<td>$255.8B</td>
+<td>Large-cap, but financial distress evident</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$107.27</td>
+<td>Stable price but low technical indicator data</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>0.132</td>
+<td>Very low liquidity</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.367</td>
+<td>Moderate retained earnings</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.016</td>
+<td>Very low operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.131</td>
+<td>Low operational efficiency</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>93.00%</td>
-<td>Unusually high, potential red flag</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>14.53</td>
-<td>Moderate valuation</td>
-</tr>
-<tr>
-<td>AI Risk Level</td>
-<td>High</td>
-<td>Elevated risk with 90%+ confidence</td>
-</tr>
-<tr>
-<td>AI Sentiment</td>
-<td>Negative</td>
-<td>Market skepticism</td>
-</tr>
-<tr>
-<td>Peer Industry Avg Z-Score</td>
-<td>&gt;3.0</td>
-<td>Alibaba underperforms peers</td>
+<td>Likely anomalous or unsustainable</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Investment Recommendation:</strong><br />
-Given the persistent distress signals, <strong>a cautious HOLD or SELL</strong> stance is advised for most investor profiles, especially conservative and dividend-focused investors. Aggressive investors may consider speculative positions only with strict risk controls and short-term horizons, monitoring for any inflection in Z-Score or operational improvements.</p>
+Given the persistent distress-level Z-Score, weak liquidity, and operational inefficiencies, a <strong>conservative investor should HOLD or SELL</strong> pending clear signs of financial stabilization. Growth and aggressive investors should avoid new positions until Z-Score improves above 1.8 and liquidity metrics strengthen. Dividend investors must be wary of the anomalously high yield, likely reflecting payout risks or data irregularities.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -553,7 +623,7 @@ Given the persistent distress signals, <strong>a cautious HOLD or SELL</strong> 
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark*</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -561,39 +631,66 @@ Given the persistent distress signals, <strong>a cautious HOLD or SELL</strong> 
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.132, Working Capital Ratio: 0.132</td>
-<td>Industry avg Current Ratio ~1.5-2.0</td>
-<td><strong>Severe liquidity weakness</strong>, far below industry norms; risk of short-term cash flow issues</td>
+<td>Current Ratio: 0.132</td>
+<td>~1.5 - 2.0</td>
+<td><strong>Severe liquidity weakness</strong>; risk of short-term cash flow issues</td>
 <td>Declining/Stable (very low)</td>
 </tr>
 <tr>
+<td></td>
+<td>Working Capital Ratio: 0.132</td>
+<td>&gt;0.5</td>
+<td>Insufficient working capital coverage</td>
+<td></td>
+</tr>
+<tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: Not provided; Interest Coverage: N/A</td>
-<td>Peers typically moderate leverage</td>
-<td>Unable to assess fully; likely elevated leverage given distress status</td>
+<td>Debt-to-Equity: N/A</td>
+<td>~1.0 (typical for retail)</td>
+<td>Data unavailable; risk assessment limited</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td></td>
+<td>Interest Coverage (EBIT/Interest): N/A</td>
+<td>&gt;3.0</td>
+<td>Insufficient data; EBIT ratio low at 0.016</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.131, EBIT Ratio: 0.016</td>
-<td>Industry avg Asset Turnover ~0.5+, EBIT Ratio ~0.1+</td>
-<td><strong>Very low operational efficiency and profitability</strong>, indicating poor asset utilization and thin earnings</td>
-<td>Stable but weak</td>
+<td>Asset Turnover: 0.131</td>
+<td>~1.0 - 2.0</td>
+<td><strong>Very low asset utilization</strong>; operational inefficiency</td>
+<td>Stable/Weak</td>
+</tr>
+<tr>
+<td></td>
+<td>EBIT Ratio: 0.016</td>
+<td>~0.05 - 0.10</td>
+<td>Marginal profitability; risk of operating losses</td>
+<td>Stable/Weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.367, Cash Position: N/A</td>
-<td>Industry avg Retained Earnings Ratio higher</td>
-<td>Moderate retained earnings but insufficient to offset liquidity and operational weaknesses</td>
+<td>Retained Earnings Ratio: 0.367</td>
+<td>&gt;0.5</td>
+<td>Moderate retained earnings; below ideal</td>
 <td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: N/A</td>
+<td>N/A</td>
+<td>Data unavailable; liquidity concerns remain</td>
+<td>Unknown</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Interpretive Commentary:</strong><br />
-Alibaba’s liquidity position is critically weak, with a current ratio of 0.132 indicating that current liabilities vastly exceed current assets. This is a significant red flag for short-term solvency and operational continuity. The working capital ratio mirrors this weakness, suggesting limited buffer to absorb shocks.  </p>
-<p>Operational efficiency is also poor, with an asset turnover of 0.131 far below typical retail sector benchmarks (~0.5 or higher), indicating underutilization of assets to generate sales. The EBIT ratio of 0.016 (1.6%) reflects minimal profitability, insufficient to cover interest or reinvestment needs.  </p>
-<p>Retained earnings ratio at 0.367 shows some accumulated profits, but this is not translating into improved liquidity or operational performance. The absence of detailed debt-to-equity and interest coverage ratios limits leverage analysis, but the distress Z-Score strongly implies elevated financial risk.  </p>
-<p><strong>Data Quality Note:</strong> The AI Data Quality Assessment indicates no anomalies detected but incomplete leverage data limits full diagnostic precision. The sector context (Consumer Cyclical, Specialty Retail) typically demands strong liquidity and asset turnover, which Alibaba currently lacks.</p>
+<p>*Industry benchmarks approximate for Specialty Retail sector.</p>
+<p><strong>Commentary:</strong><br />
+Alibaba’s liquidity position is critically weak with a current ratio and working capital ratio of <strong>0.132</strong>, far below the industry standard of 1.5-2.0, indicating potential difficulties meeting short-term obligations. The EBIT ratio of <strong>0.016</strong> signals minimal operating profitability, insufficient to cover interest or reinvestment needs. Asset turnover at <strong>0.131</strong> is substantially below the retail sector average, reflecting underutilization of assets and operational inefficiency.</p>
+<p>The <strong>AI Data Quality Assessment</strong> notes no anomalies detected but lacks detailed leverage and cash position data, limiting full risk quantification. The sector context (Consumer Cyclical, Specialty Retail) typically demands strong liquidity and asset turnover to sustain growth, which Alibaba currently lacks.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -611,64 +708,63 @@ Alibaba’s liquidity position is critically weak, with a current ratio of 0.132
 <td>Current (Q8)</td>
 <td>1.51</td>
 <td>Distress</td>
-<td>Low working capital, weak EBIT, poor asset turnover</td>
-<td>Ongoing regulatory pressures and market competition</td>
+<td>Low working capital, low EBIT ratio</td>
+<td>Ongoing regulatory and market pressures in China, slowing growth</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>1.50</td>
+<td>1.49</td>
 <td>Distress</td>
-<td>Similar drivers</td>
+<td>Similar financial constraints</td>
 <td>Continued operational challenges</td>
 </tr>
 <tr>
 <td>Q6</td>
-<td>1.50</td>
+<td>1.49</td>
 <td>Distress</td>
-<td>No material improvement</td>
-<td>Market uncertainty, slowing growth</td>
+<td>Marginal improvement in profitability</td>
+<td>Market uncertainty persists</td>
 </tr>
 <tr>
 <td>Q5</td>
 <td>1.60</td>
 <td>Distress</td>
-<td>Slightly better EBIT</td>
-<td>Temporary operational uptick</td>
+<td>Slightly better liquidity</td>
+<td>Temporary operational gains</td>
 </tr>
 <tr>
 <td>Q4</td>
-<td>1.30</td>
+<td>1.29</td>
 <td>Distress</td>
-<td>Declining liquidity</td>
-<td>Increased capital expenditure or debt servicing</td>
+<td>Declining working capital</td>
+<td>Increased competitive pressure</td>
 </tr>
 <tr>
 <td>Q3</td>
-<td>1.31</td>
+<td>1.30</td>
 <td>Distress</td>
-<td>Weak profitability</td>
-<td>Competitive pressures intensify</td>
+<td>Weak asset turnover</td>
+<td>Regulatory headwinds</td>
 </tr>
 <tr>
 <td>Q2</td>
 <td>1.36</td>
 <td>Distress</td>
-<td>Marginal improvement</td>
-<td>Early signs of stabilization</td>
+<td>Low retained earnings</td>
+<td>Slower revenue growth</td>
 </tr>
 <tr>
 <td>Q1</td>
 <td>1.36</td>
 <td>Distress</td>
-<td>Baseline distress</td>
-<td>Regulatory headwinds and market volatility</td>
+<td>Consistent low profitability</td>
+<td>Market volatility</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-Alibaba’s Z-Score has persistently remained in the Distress Zone (&lt;1.8) for at least eight quarters, indicating chronic financial stress. The slight fluctuations between 1.30 and 1.60 reflect minor operational or capital structure changes but no meaningful recovery.  </p>
-<p>Key drivers include consistently low working capital relative to total assets, minimal EBIT contribution, and poor asset turnover, all symptomatic of operational inefficiencies and liquidity constraints. The business context includes ongoing regulatory scrutiny in China’s tech sector and intensifying competition in specialty retail, which likely suppress margins and cash flow.  </p>
-<p>Compared to the industry average Z-Score (&gt;3.0), Alibaba’s position is precarious, signaling a need for strategic restructuring or capital infusion to avoid further deterioration.</p>
+<p><strong>Commentary:</strong><br />
+Alibaba’s Z-Score has persistently remained in the <strong>Distress Zone (below 1.8)</strong> for eight quarters, with minor fluctuations between 1.29 and 1.60. The trend shows a slight improvement from the lowest point (1.29) to the current 1.51 but no meaningful recovery into the Gray or Safe zones. The key drivers are consistently poor liquidity and profitability metrics, compounded by regulatory challenges and competitive pressures in the Specialty Retail sector.</p>
+<p>Compared to the <strong>AI Peer Analysis industry average Z-Score</strong> (typically &gt;3.0 for healthy peers), Alibaba’s position is significantly weaker, indicating elevated bankruptcy risk and operational stress. The lack of working capital and EBIT improvements correlates with the company’s broader business challenges in China’s evolving e-commerce landscape.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -684,31 +780,30 @@ Alibaba’s Z-Score has persistently remained in the Distress Zone (&lt;1.8) for
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Declining Z-Score (Distress Zone)</td>
-<td>Price stable at $108.70</td>
+<td>Distress Zone (1.51)</td>
+<td>Price stable at $107.27</td>
 <td>Divergent</td>
-<td>Potential overvaluation or market complacency</td>
+<td>Price may not reflect financial distress; caution advised</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Negative</td>
-<td>Dividend Yield 93.00% (Unusually high)</td>
+<td>Neutral/Unavailable</td>
+<td>Dividend Yield 93.00%</td>
 <td>Inconsistent</td>
-<td>Market skepticism despite high yield; risk of dividend cut</td>
+<td>Dividend yield likely anomalous; market skepticism present</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Underperforming (Z-Score &lt;1.8 vs &gt;3.0 peers)</td>
-<td>Sector performance moderate</td>
-<td>Divergent</td>
-<td>Alibaba lags peers, signaling competitive risk</td>
+<td>Below industry avg</td>
+<td>Sector performance mixed</td>
+<td>Underperforming</td>
+<td>Competitive disadvantage; risk premium warranted</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-Alibaba’s fundamental distress indicated by the Z-Score contrasts with a relatively stable stock price of $108.70 and a moderate P/E ratio of 14.53. The extraordinarily high dividend yield of 93.00% is likely a data anomaly or reflects a collapsing stock price with a fixed dividend payout, which is unsustainable and a red flag for dividend investors.  </p>
-<p>The divergence between fundamental distress and market price suggests either market complacency or delayed reaction to financial risks. Analyst sentiment aligns with caution, reflecting concerns over Alibaba’s operational and regulatory challenges. Peer comparison further highlights Alibaba’s weak competitive positioning.  </p>
-<p>Investors should be wary of potential price corrections if fundamentals worsen or dividend sustainability is questioned.</p>
+<p><strong>Commentary:</strong><br />
+There is a notable <strong>divergence between Alibaba’s distressed Z-Score and its stable stock price</strong> at $107.27, suggesting market price may not fully incorporate financial distress signals. The extremely high dividend yield of <strong>93.00%</strong> is likely a data anomaly or reflects unsustainable payout policies, which raises red flags for income-focused investors.</p>
+<p>Analyst sentiment data is limited, but the market’s muted technical indicators (zero RSI, zero volume) imply low trading activity or data gaps. Peer comparison confirms Alibaba’s underperformance relative to industry benchmarks, reinforcing the need for cautious positioning.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -733,8 +828,8 @@ Alibaba’s fundamental distress indicated by the Z-Score contrasts with a relat
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Further Z-Score reduction</td>
-<td>Debt refinancing, liquidity enhancement</td>
+<td>Further Z-Score deterioration</td>
+<td>Debt refinancing, liquidity management</td>
 </tr>
 <tr>
 <td>Market Risks</td>
@@ -746,11 +841,11 @@ Alibaba’s fundamental distress indicated by the Z-Score contrasts with a relat
 </tbody>
 </table>
 <p><strong>Scenario Planning:</strong><br />
-- <strong>Best Case:</strong> Operational improvements and regulatory easing lead to EBIT increase and working capital stabilization, pushing Z-Score above 1.8 within 2-3 quarters.<br />
-- <strong>Base Case:</strong> Status quo persists, Z-Score remains in distress zone (~1.5), with ongoing liquidity stress and market skepticism.<br />
-- <strong>Worst Case:</strong> Further deterioration due to regulatory fines or market share loss, Z-Score drops below 1.3, increasing bankruptcy risk.  </p>
-<p><strong>Risk Commentary:</strong><br />
-Based on AI Risk Analysis overall risk level of <strong>high</strong> with over 90% confidence, Alibaba faces critical operational and financial risks. The probability of liquidity stress and operational inefficiency is high, with severe impact on solvency metrics. Mitigation requires aggressive financial restructuring and operational turnaround.</p>
+- <strong>Best Case:</strong> Z-Score improves to &gt;1.8 within 2-3 quarters due to operational improvements and regulatory easing, reducing bankruptcy risk.<br />
+- <strong>Base Case:</strong> Z-Score remains in distress zone (1.4-1.6), with ongoing liquidity challenges and marginal profitability.<br />
+- <strong>Worst Case:</strong> Z-Score declines below 1.3, signaling imminent financial distress and potential restructuring or bankruptcy.</p>
+<p><strong>Commentary:</strong><br />
+Based on the <strong>AI Risk Analysis overall risk level of Distress with moderate confidence</strong>, Alibaba faces high operational and financial risks. The absence of detailed debt metrics limits precise impact quantification, but the low working capital ratio and EBIT ratio suggest liquidity stress. Mitigation requires aggressive cost control and capital structure optimization.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -768,47 +863,47 @@ Based on AI Risk Analysis overall risk level of <strong>high</strong> with over 
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td>SELL</td>
-<td>Z-Score 1.51 in Distress Zone; high bankruptcy risk</td>
-<td>Avoid entry; monitor for recovery signals</td>
-<td>Immediate</td>
+<td><strong>HOLD/SELL</strong></td>
+<td>Z-Score persistently &lt;1.8; liquidity risk</td>
+<td>Price stable but fundamentals weak</td>
+<td>Monitor quarterly; reassess if Z &gt;1.8</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>SELL</td>
-<td>Unsustainable 93% dividend yield; distress Z-Score</td>
-<td>Dividend likely cut; avoid</td>
-<td>Immediate</td>
+<td><strong>SELL</strong></td>
+<td>Dividend yield unsustainable at 93%</td>
+<td>Yield likely to collapse</td>
+<td>Immediate exit recommended</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>HOLD</td>
-<td>Low valuation but high risk; Z-Score below 1.8</td>
-<td>Wait for Z-Score &gt;1.8 confirmation</td>
-<td>6-12 months</td>
+<td><strong>HOLD</strong></td>
+<td>Valuation not supported by Z-Score</td>
+<td>Wait for Z-Score improvement</td>
+<td>6-12 months horizon</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>SPECULATIVE BUY</td>
-<td>Potential turnaround if operational metrics improve</td>
-<td>High risk, high reward</td>
-<td>Short-term, monitor quarterly</td>
+<td><strong>AVOID</strong></td>
+<td>Low EBIT and asset turnover limit growth</td>
+<td>Momentum absent</td>
+<td>Avoid new positions</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>BUY</td>
-<td>Risk/reward favorable for speculative plays</td>
-<td>Volatile; use stop-loss</td>
-<td>Immediate with caution</td>
+<td><strong>SPECULATIVE</strong></td>
+<td>High risk/reward; potential turnaround</td>
+<td>High volatility expected</td>
+<td>Short-term trading only</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-Conservative and dividend investors should exit or avoid Alibaba due to persistent distress and unsustainable dividend yield. Value investors may hold for a turnaround but only with clear Z-Score improvement. Growth and aggressive investors may consider speculative entry based on potential regulatory easing or operational improvements but must manage downside risk carefully.</p>
+<p><strong>Commentary:</strong><br />
+Conservative investors should avoid initiating new positions and consider reducing exposure due to persistent distress signals. Dividend investors must exit due to unsustainable payout ratios. Value investors may hold for potential recovery but should monitor Z-Score trends closely. Growth and aggressive investors face significant headwinds given operational inefficiencies and regulatory risks.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -824,29 +919,29 @@ Conservative and dividend investors should exit or avoid Alibaba due to persiste
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational turnaround</td>
-<td>EBIT Ratio (0.016), Asset Turnover (0.131)</td>
-<td>Focus on cost control, asset utilization improvement</td>
-<td>EBIT margin &gt;5%, asset turnover &gt;0.3</td>
+<td>Financial stabilization</td>
+<td>Z-Score components, EBIT ratio</td>
+<td>Enhance operational efficiency; cost control</td>
+<td>Z-Score improvement &gt;1.8; EBIT growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
 <td>Liquidity &amp; capital structure</td>
-<td>Current Ratio (0.132), Debt levels</td>
-<td>Restructure debt, improve working capital</td>
-<td>Current ratio &gt;1.0, reduced leverage</td>
+<td>Working capital ratio, debt levels</td>
+<td>Improve liquidity; refinance debt if needed</td>
+<td>Current ratio &gt;1.0; reduced leverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; compliance</td>
-<td>Z-Score trend, risk factors</td>
-<td>Enhance governance, monitor regulatory risks</td>
-<td>Stable or improving Z-Score, risk mitigation</td>
+<td>Risk oversight</td>
+<td>Risk factors, Z-Score trend</td>
+<td>Strengthen governance; monitor risk metrics</td>
+<td>Risk mitigation effectiveness</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-Alibaba’s leadership must prioritize operational efficiency and liquidity restoration to exit the distress zone. The CFO should aggressively manage capital structure to reduce financial risk. The Board must oversee risk management and ensure compliance amid regulatory scrutiny. Market perception management is critical to restore investor confidence.</p>
+<p><strong>Commentary:</strong><br />
+Executive leadership must prioritize reversing the distress trend by focusing on operational improvements and liquidity enhancement. The CFO should lead capital allocation strategies to stabilize working capital and reduce financial risk. The Board must enforce rigorous risk management protocols aligned with the AI Risk Analysis trajectory.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -862,35 +957,34 @@ Alibaba’s leadership must prioritize operational efficiency and liquidity rest
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable low (~1.5)</td>
-<td>Slight improvement possible</td>
-<td>Regulatory easing, cost cuts</td>
-<td>Quarterly Z-Score, EBIT margin</td>
+<td>Slightly improving</td>
+<td>Stable to moderate improvement</td>
+<td>Regulatory easing, cost reductions</td>
+<td>Quarterly Z-Score updates</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Weak relative to peers</td>
-<td>Gradual recovery if operationally sound</td>
-<td>Market share gains, innovation</td>
-<td>Peer comparison, sales growth</td>
+<td>Distressed</td>
+<td>Potential stabilization</td>
+<td>Competitive repositioning</td>
+<td>Peer Z-Score comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High risk</td>
-<td>Potential reduction with restructuring</td>
-<td>Debt refinancing, liquidity boost</td>
-<td>Liquidity ratios, debt coverage</td>
+<td>High</td>
+<td>Moderate reduction possible</td>
+<td>Debt restructuring, liquidity infusion</td>
+<td>Liquidity ratios, EBIT margins</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-Alibaba’s Z-Score momentum is currently flat in the distress zone, with a cautious outlook for gradual improvement contingent on regulatory and operational catalysts. Investors should monitor leading indicators such as EBIT margin expansion and working capital improvements. Early warning signals include further declines in liquidity ratios or regulatory penalties.</p>
+<p><strong>Commentary:</strong><br />
+Alibaba’s Z-Score momentum suggests a slow recovery trajectory, contingent on external catalysts such as regulatory environment improvement and internal operational reforms. Continuous monitoring of liquidity ratios and EBIT margins will provide early warning signals for risk escalation or recovery. Investors should watch for Z-Score crossing into the Gray Zone (&gt;1.8) as a key investment trigger.</p>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>Alibaba Group’s financial health remains precarious with a persistent Altman Z-Score in the Distress Zone (1.51), signaling elevated bankruptcy risk. Liquidity and operational inefficiencies are critical concerns, compounded by negative market sentiment and underperformance relative to peers. The current market price and dividend yield appear disconnected from fundamentals, warranting caution.</p>
-<p>Investment recommendations range from SELL for conservative and dividend investors to speculative BUY for aggressive profiles, contingent on close monitoring of operational turnaround signs. Strategic leadership must focus on liquidity restoration, operational efficiency, and risk mitigation to improve financial stability and investor confidence.</p>
+<h1 id="summary-conclusion"><strong>Summary Conclusion:</strong></h1>
+<p>Alibaba remains in a <strong>financial distress state</strong> with a Z-Score of <strong>1.51</strong>, weak liquidity, and operational inefficiencies. Market signals are inconsistent, and dividend yield data suggests caution. Conservative and dividend investors should avoid or exit positions, while value investors may hold with close monitoring. Strategic focus on liquidity and profitability improvements is critical for recovery. Forward-looking indicators suggest slow improvement but require vigilant risk management.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial data, market intelligence, and risk assessment for actionable investment guidance.</em></p></div></div>
+<p><em>This analysis integrates all injected data elements explicitly, cross-validates financial metrics with risk and peer analyses, and adjusts confidence based on data completeness and quality.</em></p></div></div>
     </div>
     
 
@@ -1233,78 +1327,41 @@ Alibaba’s Z-Score momentum is currently flat in the distress zone, with a caut
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:18 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:39 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

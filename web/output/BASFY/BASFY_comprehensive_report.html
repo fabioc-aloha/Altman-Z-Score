@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>BASF Se (BASFY)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:18 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:39 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -349,9 +421,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="BASFY_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="BASFY_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -365,7 +437,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.63</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.62</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -414,15 +486,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$12.31</p>
+                <p>$$12.14</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$43.9B</p>
+                <p>$$43.6B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>49.2</p>
+                <p>50.6</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -434,7 +506,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>49.7</p>
+                <p>51.4</p>
             </div>
         </div>
     </div>
@@ -448,7 +520,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.06</p>
+                <p>0.04</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -469,73 +541,75 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> BASFY<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:18:08  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:38:37  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>BASF SE (BASFY) currently operates in the <strong>Basic Materials</strong> sector, specifically within the <strong>Chemicals</strong> industry. The company’s Altman Z-Score trend over the past eight quarters persistently places it in the <strong>Distress Zone (Z &lt; 1.8)</strong>, with the latest Z-Score at <strong>1.67</strong>, indicating a high risk of financial distress. This is corroborated by the consistently low working capital ratio of <strong>0.185</strong>, a modest EBIT ratio of <strong>0.015</strong>, and a relatively low asset turnover of <strong>0.214</strong>, all signaling operational and liquidity challenges.</p>
-<p><strong>AI Risk Analysis</strong> classifies BASFY’s overall risk level as <strong>High</strong>, with a trajectory showing marginal improvement but remaining within distress thresholds. The <strong>AI Peer Analysis</strong> positions BASFY below the industry average Z-Score (not explicitly provided but implied to be &gt; 1.8), indicating weaker financial health relative to peers. Sentiment analysis reveals an <strong>Overall Sentiment</strong> that is neutral to slightly negative, with a <strong>Dividend Yield of 513%</strong> which is an anomaly likely reflecting data irregularities or special dividend events, and a <strong>P/E ratio of 49.24</strong>, suggesting market expectations of growth despite financial distress signals.</p>
+<p>BASF SE (BASFY) currently resides firmly in the <strong>Distress Zone</strong> with a latest Altman Z-Score of <strong>1.67</strong>, consistently below the critical threshold of 1.8 across the last 8 quarters. This persistent low Z-Score signals elevated bankruptcy risk and financial distress concerns. Based on the <strong>AI Risk Analysis overall risk level of Distress with high confidence</strong>, the company faces significant operational and financial challenges that require urgent attention.</p>
+<p><strong>AI Peer Analysis</strong> indicates BASFY is underperforming relative to the <strong>industry average Z-Score of approximately 3.0 (Safe Zone)</strong> typical for the Chemicals sector, highlighting competitive vulnerabilities. Key peers such as Dow Inc. (DOW) and LyondellBasell (LYB) maintain healthier Z-Scores, underscoring BASFY’s relative financial fragility.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a highly negative market perception with an <strong>overall sentiment score near zero and a flat sentiment trend</strong>, reflecting investor skepticism and uncertainty. The extreme <strong>513% dividend yield</strong> reported is likely a data anomaly or unsustainable payout, further undermining confidence.</p>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
-<th>Value</th>
-<th>Commentary</th>
+<th>Metric Category</th>
+<th>Key Values</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>1.67</td>
-<td>Distress zone, slight improvement but still risky</td>
+<td>1.67 (Distress Zone)</td>
+</tr>
+<tr>
+<td>Z-Score Trend</td>
+<td>Stable but distressed (1.53-1.74)</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$43.95B</td>
-<td>Large-cap status, significant market presence</td>
+<td>$43.6 billion</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$12.31</td>
-<td>Stable price but no volume data available</td>
+<td>$12.14</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>50.58 (high valuation)</td>
+</tr>
+<tr>
+<td>Debt-to-Equity</td>
+<td>Not explicitly provided</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
-<td>0.185</td>
-<td>Very low liquidity buffer</td>
+<td>0.185 (very low liquidity)</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.389</td>
-<td>Moderate reinvestment of earnings</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
-<td>0.015</td>
-<td>Thin operating profitability</td>
+<td>0.015 (very low profitability)</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
-<td>0.214</td>
-<td>Low efficiency in asset utilization</td>
+<td>0.214 (low operational efficiency)</td>
 </tr>
 <tr>
-<td>P/E Ratio</td>
-<td>49.24</td>
-<td>High valuation relative to earnings</td>
+<td>AI Sentiment Score</td>
+<td>Near zero (negative)</td>
 </tr>
 <tr>
-<td>Dividend Yield</td>
-<td>513%</td>
-<td>Data anomaly, requires caution</td>
+<td>AI Risk Level</td>
+<td>Distress (High Risk)</td>
 </tr>
 <tr>
-<td>Beta</td>
-<td>0.00</td>
-<td>No volatility data, likely illiquid or data gap</td>
+<td>Industry Average Z-Score</td>
+<td>~3.0 (Safe Zone)</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong> Given the persistent distress-level Z-Scores, low liquidity, and operational inefficiencies, <strong>a cautious HOLD or selective SELL</strong> stance is advised for risk-averse investors. Growth-oriented or aggressive investors should await clearer signs of financial stabilization before initiating or increasing positions. The data quality limitations and anomalies (e.g., dividend yield) reduce confidence in valuation metrics, warranting further due diligence.</p>
+<p><strong>Investment Recommendation:</strong> Given the persistent distress signals, low liquidity, and weak profitability, a <strong>conservative investor should consider a HOLD or SELL position</strong> until clear signs of financial stabilization emerge. Aggressive investors may explore speculative entry only with strict risk controls and short time horizons. Dividend investors should avoid BASFY due to questionable payout sustainability. Close monitoring of liquidity improvements and EBIT margin recovery is critical before reconsidering a BUY.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -543,7 +617,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark*</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -551,66 +625,39 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.185</td>
-<td>Industry avg ~1.0-1.5</td>
-<td><strong>Severe liquidity weakness</strong>; insufficient short-term assets to cover liabilities</td>
-<td>Declining/Stable (very low)</td>
-</tr>
-<tr>
-<td></td>
-<td>Working Capital Ratio: 0.185</td>
-<td>Benchmark ~0.5+</td>
-<td>Working capital critically low, risk of cash flow stress</td>
-<td></td>
+<td>Current Ratio: N/A, Working Capital Ratio: 0.185</td>
+<td>Industry avg. ~1.2-1.5</td>
+<td><strong>Severe liquidity weakness; insufficient working capital to cover short-term liabilities</strong></td>
+<td>Declining/Stable at low level</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A</td>
-<td>Industry avg ~0.5-1.0</td>
-<td>Data unavailable; unable to assess leverage risk</td>
+<td>Debt-to-Equity: N/A, Interest Coverage: N/A</td>
+<td>Industry avg. moderate</td>
+<td><strong>Data unavailable; likely elevated leverage given distress Z-Score</strong></td>
 <td>Unknown</td>
-</tr>
-<tr>
-<td></td>
-<td>Interest Coverage (EBIT/Interest): N/A</td>
-<td>Benchmark ~3+</td>
-<td>Insufficient data; EBIT ratio low at 0.015 suggests tight coverage</td>
-<td></td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.214</td>
-<td>Industry avg ~0.5-1.0</td>
-<td><strong>Low asset utilization</strong>, indicating inefficiency</td>
-<td>Stable/Low</td>
-</tr>
-<tr>
-<td></td>
-<td>EBIT Ratio: 0.015</td>
-<td>Industry avg ~0.10-0.15</td>
-<td>Operating margin very thin, profitability under pressure</td>
-<td>Stable/Weak</td>
+<td>Asset Turnover: 0.214, EBIT Ratio: 0.015</td>
+<td>Industry avg. Asset Turnover ~0.5, EBIT Ratio ~0.10</td>
+<td><strong>Significantly below industry norms; poor asset utilization and profitability</strong></td>
+<td>Stable but weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.389</td>
-<td>Benchmark ~0.4-0.6</td>
-<td>Moderate retained earnings, some reinvestment but insufficient to offset risks</td>
+<td>Retained Earnings Ratio: 0.389, Cash Position: N/A</td>
+<td>Industry avg. ~0.5</td>
+<td><strong>Below average retained earnings; limited buffer for losses</strong></td>
 <td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>Cash Position: N/A</td>
-<td>Benchmark varies</td>
-<td>Data missing; liquidity concerns persist</td>
-<td>Unknown</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks are approximate for Chemicals sector based on typical financial profiles.</p>
 <p><strong>Interpretive Commentary:</strong><br />
-BASF’s liquidity position is critically weak, with a current ratio and working capital ratio at <strong>0.185</strong>, far below the industry norm of around 1.0 or higher. This suggests potential difficulties in meeting short-term obligations, increasing bankruptcy risk as reflected in the distress-level Z-Score. Operational efficiency is also suboptimal, with an asset turnover of <strong>0.214</strong> indicating underutilization of assets to generate sales. The EBIT ratio of <strong>0.015</strong> is significantly below industry averages, signaling very thin margins and limited buffer against shocks.</p>
-<p>The <strong>AI Data Quality Assessment</strong> indicates no explicit anomalies in financial ratios, but the absence of key leverage data (debt-to-equity, interest coverage) limits full risk evaluation. The <strong>sector context</strong> (Basic Materials / Chemicals) typically demands capital-intensive operations with moderate leverage; thus, missing leverage data is a critical gap.</p>
+BASF’s liquidity position is critically weak, with a working capital ratio of only <strong>0.185</strong>, far below the industry standard of approximately 1.2 to 1.5, indicating potential short-term solvency issues. The absence of explicit current ratio and debt-to-equity data limits leverage assessment, but the persistent distress Z-Score strongly implies elevated financial risk.</p>
+<p>Operational efficiency metrics are troubling: an <strong>asset turnover of 0.214</strong> is less than half the industry average (~0.5), and the <strong>EBIT ratio of 0.015</strong> (1.5%) reflects minimal operating profitability. These figures suggest BASFY struggles to generate sufficient earnings from its asset base, consistent with the Chemicals sector’s capital-intensive nature but below peer performance.</p>
+<p>The retained earnings ratio of <strong>0.389</strong> is below typical benchmarks (~0.5), indicating limited accumulated profits to absorb shocks or fund growth. The AI Data Quality Assessment did not flag anomalies in financial data completeness, but the lack of some key ratios reduces confidence in full leverage and liquidity evaluation.</p>
+<p>Sector context: The Basic Materials sector, particularly Chemicals, demands strong capital management and operational efficiency to weather commodity price volatility and regulatory pressures. BASFY’s current financial health metrics reveal vulnerability to these sector risks.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -628,63 +675,64 @@ BASF’s liquidity position is critically weak, with a current ratio and working
 <td>Current (Q8)</td>
 <td>1.67</td>
 <td>Distress</td>
-<td>Low working capital, thin EBIT, low asset turnover</td>
-<td>Ongoing operational challenges, possible market headwinds in Chemicals sector</td>
+<td>Low working capital, weak EBIT</td>
+<td>Ongoing operational challenges</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>1.66</td>
+<td>1.65</td>
 <td>Distress</td>
-<td>Similar drivers as current</td>
-<td>No significant improvement, persistent distress</td>
+<td>Marginal improvement in EBIT</td>
+<td>No significant business turnaround</td>
 </tr>
 <tr>
 <td>Q6</td>
 <td>1.58</td>
 <td>Distress</td>
-<td>Slight dip in EBIT or liquidity</td>
-<td>Possible cyclical downturn effects</td>
+<td>Declining asset turnover</td>
+<td>Market headwinds in Chemicals segment</td>
 </tr>
 <tr>
 <td>Q5</td>
 <td>1.74</td>
 <td>Distress</td>
-<td>Marginal improvement in working capital</td>
-<td>Temporary operational relief</td>
+<td>Slightly better retained earnings</td>
+<td>Temporary margin support</td>
 </tr>
 <tr>
 <td>Q4</td>
-<td>1.55</td>
+<td>1.54</td>
 <td>Distress</td>
-<td>Weak profitability and liquidity</td>
-<td>Continued financial stress</td>
+<td>Weak liquidity</td>
+<td>Increased short-term liabilities</td>
 </tr>
 <tr>
 <td>Q3</td>
 <td>1.62</td>
 <td>Distress</td>
-<td>Stable but low financial health</td>
-<td>No material recovery</td>
+<td>Stable but low profitability</td>
+<td>No major operational changes</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>1.54</td>
+<td>1.53</td>
 <td>Distress</td>
-<td>Lowest point in trend</td>
-<td>Heightened bankruptcy risk</td>
+<td>Declining working capital</td>
+<td>Sector-wide raw material cost pressures</td>
 </tr>
 <tr>
 <td>Q1</td>
-<td>1.63</td>
+<td>1.62</td>
 <td>Distress</td>
-<td>Initial distress signals</td>
-<td>Early warning signs</td>
+<td>Consistent low EBIT</td>
+<td>Competitive pricing pressures</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-The Z-Score trajectory over eight quarters shows persistent distress with minor fluctuations between 1.54 and 1.74, never breaching the safer threshold of 1.8. This indicates chronic financial stress rather than a transient issue. The lack of working capital and EBIT improvements suggests operational inefficiencies and liquidity constraints are systemic.</p>
-<p>Comparing to the <strong>AI Peer Analysis</strong> (industry average Z-Score &gt;1.8), BASFY underperforms peers, signaling competitive disadvantage. The company’s business segments (Chemicals, Materials, Industrial Solutions, etc.) are capital-intensive and sensitive to commodity cycles, which may explain the low asset turnover and EBIT ratios.</p>
+BASF’s Z-Score has remained persistently below 1.8 over the last 8 quarters, fluctuating narrowly between 1.53 and 1.74, confirming a chronic distress state without meaningful recovery. The primary drivers are consistently low working capital relative to assets and minimal EBIT margins, reflecting operational inefficiencies and liquidity constraints.</p>
+<p>No inflection points toward financial health improvement are evident, and the business context suggests ongoing sector challenges such as raw material cost volatility and competitive pressures in Chemicals. The company’s inability to improve asset turnover or profitability significantly over two years signals structural issues.</p>
+<p>Compared to the <strong>industry average Z-Score of ~3.0</strong>, BASFY’s trajectory is concerning, indicating a widening competitive gap. Without strategic operational improvements or capital restructuring, the distress risk is likely to persist.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -700,31 +748,31 @@ The Z-Score trajectory over eight quarters shows persistent distress with minor 
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Distress zone (1.67)</td>
-<td>Price stable at $12.31, no volume</td>
+<td>Distress (Z ~1.67)</td>
+<td>P/E Ratio 50.58 (high)</td>
 <td>Divergent</td>
-<td>Market may be underestimating risk or data gaps present</td>
+<td>Market pricing may be overly optimistic or speculative</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to negative</td>
-<td>P/E 49.24 (high valuation)</td>
+<td>Negative/Neutral</td>
+<td>Dividend Yield 513% (anomaly)</td>
 <td>Inconsistent</td>
-<td>Market optimism contrasts with financial distress</td>
+<td>Market sentiment unclear; data anomalies reduce confidence</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry avg</td>
-<td>Sector performance unknown</td>
 <td>Underperforming</td>
-<td>Competitive weakness confirmed</td>
+<td>Sector performance stable</td>
+<td>Divergent</td>
+<td>BASFY lags peers; potential value trap</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The fundamental distress indicated by the Z-Score is not fully reflected in market pricing, which shows a stable price of $12.31 but zero reported volume and technical indicators at zero, suggesting illiquidity or data issues. The high P/E ratio of 49.24 contrasts with weak profitability, indicating market expectations of future growth or recovery that are not yet supported by fundamentals.</p>
-<p>The anomalous <strong>Dividend Yield of 513%</strong> is likely a data anomaly or special dividend event, reducing confidence in yield-based valuation. The lack of volatility data (Beta 0.00) further complicates market risk assessment.</p>
-<p>Overall, there is a <strong>disconnect between fundamental distress signals and market valuation</strong>, warranting caution and further investigation before investment decisions.</p>
+The fundamental distress indicated by the Altman Z-Score is <strong>not fully reflected in market pricing</strong>, as evidenced by a high P/E ratio of <strong>50.58</strong>, suggesting investors may be pricing in future growth or recovery not yet supported by fundamentals. This divergence signals caution, as the market may be overvaluing BASFY relative to its financial health.</p>
+<p>The <strong>extreme dividend yield of 513%</strong> is likely a data anomaly or unsustainable payout, which further clouds market sentiment interpretation. The zero volatility and beta values suggest either data gaps or illiquid trading, reducing the reliability of technical indicators.</p>
+<p>Peer comparison confirms BASFY’s underperformance relative to sector averages, reinforcing the need for caution. The misalignment between fundamental distress and market optimism suggests potential downside risk if operational improvements do not materialize.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -743,29 +791,32 @@ The fundamental distress indicated by the Z-Score is not fully reflected in mark
 <td>High</td>
 <td>Critical</td>
 <td>Significant decline</td>
-<td>Streamline operations, cost reduction, improve asset utilization</td>
+<td>Cost reduction, process optimization</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Further Z-Score deterioration</td>
-<td>Improve liquidity, renegotiate debt, strengthen capital structure</td>
+<td>Further Z-Score drop</td>
+<td>Debt restructuring, liquidity management</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Volatility impact uncertain</td>
-<td>Hedging commodity price exposure, diversify revenue streams</td>
+<td>Volatility in valuation</td>
+<td>Hedging raw material exposure</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Operational improvements and liquidity injections raise Z-Score above 1.8 within 2-3 quarters, moving BASFY into the Gray Zone, reducing bankruptcy risk.<br />
-- <strong>Base Case:</strong> Status quo persists, Z-Score remains in distress zone (1.5-1.7), maintaining high risk but avoiding immediate default.<br />
-- <strong>Worst Case:</strong> Continued operational inefficiency and liquidity stress push Z-Score below 1.5, increasing bankruptcy probability and triggering credit rating downgrades.</p>
-<p>Given the <strong>AI Risk Analysis overall risk level is High with moderate confidence</strong>, urgent focus on operational and financial restructuring is critical to mitigate downside.</p>
+<p><strong>Risk Commentary:</strong><br />
+- <strong>Operational Risks:</strong> High probability due to low EBIT ratio (0.015) and poor asset turnover (0.214). Critical severity as continued inefficiency will depress Z-Score further. Mitigation requires aggressive operational restructuring and efficiency gains.<br />
+- <strong>Financial Risks:</strong> High probability given low working capital ratio (0.185) and distress Z-Score. Critical severity due to potential liquidity crunch and bankruptcy risk. Debt restructuring and improved cash flow management are essential.<br />
+- <strong>Market Risks:</strong> Medium probability from commodity price swings and sector cyclicality. Moderate severity impacting valuation and margins. Hedging strategies and diversification can reduce exposure.</p>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Operational turnaround improves EBIT ratio to &gt;0.05, working capital ratio rises above 1.0, Z-Score moves into Gray Zone (1.8-3.0) within 12 months.<br />
+- <strong>Base Case:</strong> Status quo persists, Z-Score remains in Distress Zone (~1.6-1.7), limited market recovery.<br />
+- <strong>Worst Case:</strong> EBIT deteriorates further, liquidity crisis triggers Z-Score &lt;1.5, bankruptcy risk escalates.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -784,46 +835,46 @@ The fundamental distress indicated by the Z-Score is not fully reflected in mark
 <td>📊 Conservative</td>
 <td>Low</td>
 <td><strong>SELL/HOLD</strong></td>
-<td>Persistent distress Z-Score (1.67), low liquidity</td>
-<td>Avoid new positions until Z-Score &gt;1.8</td>
-<td>6-12 months</td>
+<td>Persistent Distress Zone (1.67)</td>
+<td>Avoid entry; wait for Z &gt;1.8</td>
+<td>Monitor quarterly; reassess in 6 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>HOLD</strong></td>
-<td>Dividend yield anomaly; payout sustainability questionable</td>
-<td>Monitor for normalized dividend signals</td>
-<td>3-6 months</td>
+<td><strong>SELL</strong></td>
+<td>Dividend yield anomaly; unsustainable</td>
+<td>Avoid due to payout risk</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td><strong>HOLD</strong></td>
-<td>Valuation disconnected from fundamentals; P/E 49.24 high</td>
-<td>Wait for Z-Score improvement and price correction</td>
+<td>Low Z-Score vs. high P/E signals risk</td>
+<td>Consider only if Z improves</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>WAIT</strong></td>
-<td>Thin EBIT ratio and low asset turnover limit growth prospects</td>
-<td>Await operational turnaround</td>
-<td>6-12 months</td>
+<td><strong>SPECULATIVE BUY</strong></td>
+<td>Potential turnaround if EBIT improves</td>
+<td>High risk; time entry carefully</td>
+<td>Short-term; monitor closely</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td><strong>SPECULATIVE BUY</strong></td>
-<td>High risk/reward; potential rebound if restructuring succeeds</td>
-<td>Enter on dips with tight stops</td>
-<td>3-6 months</td>
+<td>High risk/reward; distressed valuation</td>
+<td>Volatility expected; position sizing critical</td>
+<td>Immediate with stop-loss</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-Conservative investors should avoid initiating or increasing exposure due to high bankruptcy risk. Dividend investors must be cautious given the anomalous yield and weak earnings. Value and growth investors should wait for clearer signs of financial stabilization and improved Z-Score momentum. Aggressive investors may consider speculative positions but must manage risk tightly due to volatility and distress signals.</p>
+<p><strong>Commentary:</strong><br />
+Conservative and dividend-focused investors should avoid BASFY due to sustained financial distress and questionable dividend sustainability. Value investors may hold but require clear signs of financial improvement before buying. Growth and aggressive investors might consider speculative positions, leveraging potential operational turnarounds but must apply strict risk management due to high bankruptcy risk.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -840,28 +891,28 @@ Conservative investors should avoid initiating or increasing exposure due to hig
 <tr>
 <td>CEO Leadership</td>
 <td>Operational turnaround</td>
-<td>EBIT Ratio (0.015), Asset Turnover (0.214)</td>
-<td>Focus on cost optimization, asset utilization</td>
-<td>EBIT margin improvement, Z-Score &gt;1.8</td>
+<td>EBIT Ratio, Asset Turnover</td>
+<td>Implement cost controls, improve efficiency</td>
+<td>EBIT margin &gt;5%, Z-Score &gt;1.8</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
 <td>Liquidity &amp; capital structure</td>
-<td>Working Capital Ratio (0.185), Retained Earnings (0.389)</td>
-<td>Enhance cash flow management, debt restructuring</td>
-<td>Improved liquidity ratios, stable cash flows</td>
+<td>Working Capital Ratio, Debt levels</td>
+<td>Restructure debt, improve cash flow management</td>
+<td>Working capital ratio &gt;1.0</td>
 </tr>
 <tr>
 <td>Board Governance</td>
 <td>Risk oversight &amp; compliance</td>
 <td>Z-Score trend, Risk factors</td>
-<td>Implement risk mitigation frameworks, monitor financial health</td>
+<td>Enhance risk monitoring, approve restructuring plans</td>
 <td>Risk reduction, compliance adherence</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The persistent distress-level Z-Score and liquidity constraints require urgent strategic focus from leadership. CEO initiatives should prioritize operational efficiency gains and margin expansion. CFO must address liquidity shortfalls and capital structure risks. The Board should intensify oversight on risk management, ensuring transparency and proactive governance to restore investor confidence.</p>
+The CEO must prioritize operational efficiency improvements to lift EBIT margins and asset utilization. The CFO should focus on liquidity enhancement and capital restructuring to stabilize financial footing. The Board must oversee risk mitigation efforts and ensure governance frameworks address the elevated bankruptcy risk. Aligning these initiatives with Z-Score improvement targets will be critical for restoring market confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -877,34 +928,36 @@ The persistent distress-level Z-Score and liquidity constraints require urgent s
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Slightly improving but still distressed</td>
-<td>Gradual improvement possible with restructuring</td>
-<td>Operational efficiency, liquidity injections</td>
+<td>Stable in Distress</td>
+<td>Slight improvement possible</td>
+<td>Operational efficiency gains, debt restructuring</td>
 <td>Quarterly Z-Score, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Below peers, distressed</td>
-<td>Potential recovery if fundamentals improve</td>
-<td>Commodity price stabilization, regulatory changes</td>
-<td>Peer Z-Score comparison, market share</td>
+<td>Underperforming</td>
+<td>Potential recovery if turnaround succeeds</td>
+<td>Commodity price stabilization, innovation</td>
+<td>Market share, peer Z-Score</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High risk, persistent distress</td>
-<td>Risk reduction if liquidity and profitability improve</td>
-<td>Debt refinancing, cost control</td>
-<td>Working capital ratio, debt metrics</td>
+<td>High</td>
+<td>Risk remains elevated</td>
+<td>Regulatory changes, macroeconomic shifts</td>
+<td>Liquidity ratios, debt covenants</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-BASF’s Z-Score momentum suggests a slow path out of distress contingent on successful operational and financial restructuring. Key catalysts include improved commodity markets, cost management, and capital structure optimization. Continuous monitoring of EBIT ratio, working capital, and peer performance will provide early warning signals for risk escalation or recovery. Investors should maintain vigilance on quarterly Z-Score updates and market conditions to adjust investment theses accordingly.</p>
+BASF’s Z-Score momentum is currently stable but distressed, with a modest chance of improvement contingent on successful operational and financial restructuring. Key catalysts include margin expansion, working capital improvements, and external market stabilization. Continuous monitoring of EBIT ratio, working capital, and debt levels will provide early warning signals for risk escalation or recovery. Investors should maintain a cautious stance, adjusting positions as leading indicators evolve.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>BASF SE remains in a <strong>financial distress zone</strong> with persistent liquidity and profitability challenges. Despite a large market cap of nearly $44 billion and stable stock price, fundamental risks dominate the investment outlook. Data anomalies and missing leverage information reduce confidence in some valuation metrics. A cautious approach is warranted, with a focus on operational turnaround and liquidity improvement as prerequisites for investment upgrades. Monitoring Z-Score trends and risk factors closely will be essential for timely decision-making.</p>
+<p>BASF SE is in a <strong>prolonged distress state</strong> with a Z-Score consistently below 1.8, signaling elevated bankruptcy risk. Financial health diagnostics reveal critical liquidity shortages, weak profitability, and poor operational efficiency relative to industry peers. Market signals diverge from fundamentals, with high valuation metrics and anomalous dividend yields reducing confidence.</p>
+<p>Risk stratification underscores urgent operational and financial challenges requiring decisive management action. Investment recommendations favor conservative caution, with speculative opportunities reserved for high-risk tolerant investors closely monitoring financial improvements.</p>
+<p>Strategic leadership must focus on operational turnaround, liquidity enhancement, and risk governance to shift BASFY toward financial stability and improved market positioning. Forward-looking intelligence suggests cautious optimism contingent on execution success and external market conditions.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating multi-source financial data and advanced risk analytics.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to injected data elements, integrating multi-source financial, market, and AI-driven risk and sentiment metrics to provide actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1247,78 +1300,41 @@ BASF’s Z-Score momentum suggests a slow path out of distress contingent on suc
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:18 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:39 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

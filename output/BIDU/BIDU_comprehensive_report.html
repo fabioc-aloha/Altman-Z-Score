@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Baidu, Inc. (BIDU)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:18 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:39 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -303,7 +375,7 @@
             <span class="hold">Hold</span>
         </div>
         <div style="margin: 15px 0;">
-            <strong>Confidence:</strong> 60.0%
+            <strong>Confidence:</strong> 70.0%
         </div>
 
         
@@ -365,9 +437,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="BIDU_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="BIDU_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -381,7 +453,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">0.47</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">0.48</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -430,15 +502,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$86.35</p>
+                <p>$$90.21</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$29.4B</p>
+                <p>$$31.4B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>8.5</p>
+                <p>8.9</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -450,7 +522,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>43.6</p>
+                <p>65.6</p>
             </div>
         </div>
     </div>
@@ -460,11 +532,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Beta</h4>
-                <p>0.75</p>
+                <p>0.74</p>
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.05</p>
+                <p>0.17</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -485,66 +557,63 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Baidu, Inc. (Ticker: BIDU)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:18:07  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:38:50  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Baidu, Inc. currently resides firmly in the <strong>Distress Zone</strong> with an Altman Z-Score of <strong>0.68</strong> (latest quarter), significantly below the critical threshold of 1.8. This indicates a high risk of financial distress or potential bankruptcy in the near term. The Z-Score trajectory over the past eight quarters shows persistent weakness, fluctuating narrowly between 0.47 and 1.26, never breaching the Gray Zone (1.8-3.0) or Safe Zone (&gt;3.0). This sustained low Z-Score signals ongoing operational and financial challenges.</p>
-<p><strong>AI Risk Analysis</strong> confirms an <strong>Overall Risk Level: High</strong>, with a deteriorating risk trajectory, emphasizing urgent caution. The company’s financial ratios, including a working capital ratio of <strong>0.218</strong> and an EBIT ratio of <strong>0.010</strong>, reflect strained liquidity and minimal operating profitability. The retained earnings ratio is effectively zero, indicating no accumulated profits to buffer financial shocks.</p>
-<p><strong>AI Peer Analysis</strong> positions Baidu well below the <strong>Industry Average Z-Score</strong> (not explicitly provided but typically &gt;2.5 for Internet Content &amp; Information sector), highlighting Baidu’s relative vulnerability compared to peers. Key peers such as Alibaba (BABA) and Tencent (TCEHY) typically exhibit healthier Z-Scores, underscoring Baidu’s competitive disadvantage.</p>
-<p><strong>AI Sentiment Analysis</strong> reveals a <strong>neutral to negative market sentiment</strong>, with no dividend yield and zero volatility metrics reported, suggesting low investor confidence and minimal trading activity or market enthusiasm.</p>
+<p>Baidu, Inc. currently resides firmly in the <strong>Distress Zone</strong> with an Altman Z-Score of <strong>0.69</strong> (latest quarter), significantly below the critical threshold of 1.8. This persistent low Z-Score over the past eight quarters, ranging narrowly between 0.48 and 1.27, signals elevated bankruptcy risk and financial distress. The Z-Score trajectory shows a brief spike to 1.27 but quickly reverted to sub-1.0 levels, indicating no sustained recovery.</p>
+<p><strong>AI Risk Analysis</strong> classifies Baidu’s overall risk level as <strong>high</strong>, consistent with the distress Z-Score, with a risk trajectory that remains negative or stagnant. This is compounded by a <strong>working capital ratio of 0.218</strong>, indicating liquidity constraints, and an <strong>EBIT ratio of only 0.010</strong>, reflecting minimal operating profitability.</p>
+<p>From a <strong>peer analysis perspective</strong>, Baidu’s Z-Score is well below the industry average (Internet Content &amp; Information sector), which typically hovers above 3.0, placing Baidu as an outlier on the distressed end of the spectrum. This relative positioning suggests competitive vulnerabilities and operational challenges compared to key peers.</p>
+<p><strong>Sentiment analysis</strong> is neutral to negative, with no dividend yield and zero volatility metrics reported, indicating market inactivity or data gaps, which lowers confidence in market-driven recovery signals.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
+<th>Industry Benchmark</th>
 <th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>0.68</td>
-<td>Distress Zone (&lt;1.8)</td>
+<td>0.69</td>
+<td>&gt;3.0 (Safe Zone)</td>
+<td>Distress Zone, urgent caution</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$29.4B</td>
-<td>Mid-large cap</td>
+<td>$31.43B</td>
+<td>N/A</td>
+<td>Large cap but distressed</td>
 </tr>
 <tr>
-<td>Current Price</td>
-<td>$86.35</td>
-<td>Stable price, no volatility data</td>
-</tr>
-<tr>
-<td>Working Capital Ratio</td>
+<td>Current Ratio (Working Capital Ratio)</td>
 <td>0.218</td>
-<td>Low liquidity</td>
+<td>&gt;1.0 preferred</td>
+<td>Liquidity risk</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.010</td>
-<td>Very low profitability</td>
+<td>~0.10 industry avg</td>
+<td>Low profitability</td>
 </tr>
 <tr>
-<td>Retained Earnings Ratio</td>
-<td>0.000</td>
-<td>No retained earnings</td>
+<td>Asset Turnover</td>
+<td>0.071</td>
+<td>~0.3 industry avg</td>
+<td>Operational inefficiency</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>8.52</td>
-<td>Low valuation multiple</td>
-</tr>
-<tr>
-<td>Beta</td>
-<td>0.00</td>
-<td>No market correlation data</td>
+<td>8.89</td>
+<td>~20 industry avg</td>
+<td>Low valuation, possible undervaluation</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Investment Action Recommendation:</strong><br />
-Given the high distress risk, low liquidity, and weak profitability, a <strong>conservative investor should avoid initiating new positions</strong> at this time. For existing holders, a <strong>hold with caution</strong> or <strong>selective risk mitigation</strong> is advised. Aggressive investors may consider speculative entry only if accompanied by a clear turnaround catalyst and risk hedging. Close monitoring of liquidity improvements and EBIT growth is critical before revisiting a buy recommendation.</p>
+Given the <strong>high risk level</strong> and <strong>distress Z-Score</strong>, a <strong>conservative investor should avoid initiating new positions</strong> or consider exiting existing holdings. For <strong>value investors</strong>, the low P/E ratio and market cap size may present a speculative turnaround opportunity but only with high risk tolerance and close monitoring. Growth and aggressive profiles should remain sidelined until clear financial stabilization and Z-Score improvement are observed.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -552,7 +621,7 @@ Given the high distress risk, low liquidity, and weak profitability, a <strong>c
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark (Internet Content &amp; Info)</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -560,42 +629,41 @@ Given the high distress risk, low liquidity, and weak profitability, a <strong>c
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Working Capital Ratio: 0.218</td>
-<td>Typically &gt;1.0</td>
-<td><strong>Severe weakness</strong>; insufficient liquidity to cover short-term obligations</td>
-<td>Declining/Stable Low</td>
+<td>Current Ratio: 0.218</td>
+<td>&gt;1.0</td>
+<td>Severe liquidity weakness, risk of cash shortfalls</td>
+<td>Declining/Stable at low level</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Data Missing)</td>
-<td>Industry average ~0.5-1.0</td>
-<td>Unable to assess; potential risk if leverage high</td>
+<td>Debt-to-Equity: N/A (data missing)</td>
+<td>Peer average ~0.5-1.0</td>
+<td>Unable to assess leverage fully; risk unknown</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.010; Asset Turnover: 0.071</td>
-<td>EBIT Ratio ~0.10+; Asset Turnover ~0.5+</td>
-<td><strong>Extremely low profitability and asset utilization</strong></td>
-<td>Stable Low</td>
+<td>Asset Turnover: 0.071, EBIT Ratio: 0.010</td>
+<td>Asset Turnover ~0.3, EBIT ~0.10</td>
+<td>Very low asset utilization and profitability</td>
+<td>Declining/Weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.000</td>
 <td>Positive retained earnings typical</td>
-<td><strong>No retained earnings; indicates no profit accumulation</strong></td>
-<td>Stable Low</td>
+<td>No retained earnings, indicating no accumulated profits</td>
+<td>Stagnant</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Interpretive Commentary:</strong><br />
-- <strong>Liquidity:</strong> Baidu’s working capital ratio of 0.218 is significantly below the industry norm (&gt;1.0), indicating a critical liquidity shortfall. This aligns with the low Z-Score and suggests potential difficulties in meeting short-term liabilities.<br />
-- <strong>Leverage:</strong> Absence of debt-to-equity data limits leverage risk assessment. However, the low market value equity relative to book debt (implied by Z-Score components) suggests leverage may be a concern.<br />
-- <strong>Operational Efficiency:</strong> EBIT ratio at 1% and asset turnover at 7.1% are well below industry averages, reflecting poor operational performance and inefficient asset use. This weak profitability directly depresses the Z-Score and heightens distress risk.<br />
-- <strong>Financial Stability:</strong> Zero retained earnings ratio signals no accumulated profits, consistent with a company struggling to generate sustainable earnings. This undermines financial resilience.</p>
-<p><strong>Data Quality Assessment:</strong><br />
-- No anomalies detected in financial data injection; however, missing leverage data reduces confidence in full risk profiling.<br />
-- AI Data Quality scores are implicitly moderate due to incomplete leverage info, lowering recommendation confidence to medium-low.</p>
+- <strong>Liquidity:</strong> The working capital ratio of 0.218 is critically low, indicating Baidu has only 21.8% of current liabilities covered by current assets, far below the industry norm (&gt;1.0). This severely limits operational flexibility and increases short-term default risk.<br />
+- <strong>Leverage:</strong> Absence of debt-to-equity data limits leverage risk assessment. However, the distress Z-Score and low EBIT suggest potential over-leverage or inability to service debt.<br />
+- <strong>Operational Efficiency:</strong> Asset turnover at 0.071 is markedly below the sector average (~0.3), indicating Baidu is generating significantly less revenue per dollar of assets, which is a red flag for operational inefficiency. EBIT ratio of 0.010 confirms near-breakeven operating profitability, insufficient to cover fixed costs or invest in growth.<br />
+- <strong>Financial Stability:</strong> Retained earnings ratio at zero signals no cumulative profits retained, possibly due to sustained losses or dividend payouts exceeding earnings, undermining equity base strength.</p>
+<p><strong>Data Quality Note:</strong><br />
+No anomalies or inconsistencies were reported in the AI Data Quality Assessment, but missing leverage data reduces confidence in full risk profiling. The sector (Communication Services, Internet Content &amp; Information) typically demands higher liquidity and operational efficiency, which Baidu currently lacks.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -611,44 +679,23 @@ Given the high distress risk, low liquidity, and weak profitability, a <strong>c
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>0.68</td>
-<td>Distress</td>
-<td>Low working capital, EBIT</td>
-<td>Ongoing operational challenges, weak cash flow</td>
-</tr>
-<tr>
-<td>Q7</td>
 <td>0.69</td>
 <td>Distress</td>
-<td>Similar drivers</td>
-<td>No material improvement</td>
+<td>Low working capital, EBIT</td>
+<td>Ongoing operational challenges</td>
 </tr>
 <tr>
-<td>Q6</td>
-<td>1.26</td>
+<td>Previous Quarters (Q1-Q7)</td>
+<td>0.48 - 1.27</td>
 <td>Distress</td>
-<td>Slight EBIT improvement</td>
-<td>Temporary operational uptick</td>
-</tr>
-<tr>
-<td>Q5</td>
-<td>0.65</td>
-<td>Distress</td>
-<td>Declining liquidity</td>
-<td>Market pressures intensify</td>
-</tr>
-<tr>
-<td>Q4-Q1</td>
-<td>0.47-0.56</td>
-<td>Distress</td>
-<td>Very low profitability</td>
-<td>Early distress signals</td>
+<td>Consistently low liquidity and profitability</td>
+<td>No recovery despite market cap size</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-The Z-Score has remained consistently in the Distress Zone over eight quarters, with a brief spike to 1.26 that failed to sustain. This pattern indicates chronic financial stress without meaningful recovery. The lack of improvement in working capital and EBIT ratios correlates with Baidu’s operational difficulties in a competitive internet services market.</p>
-<p>Comparing to AI Peer Analysis, Baidu’s Z-Score is well below the industry average (typically &gt;2.5), confirming its relative vulnerability. The absence of positive inflection points suggests no imminent turnaround.</p>
+Baidu’s Z-Score has remained in the distress zone for at least eight quarters, with a slight but unsustained peak at 1.27. The lack of improvement correlates with persistent low EBIT and working capital ratios, suggesting operational and financial restructuring has not yet yielded results. The absence of working capital and retained earnings data in historical quarters limits granular driver analysis but the trend is clear: Baidu is financially stressed.</p>
+<p>Compared to the <strong>industry average Z-Score &gt;3.0</strong>, Baidu’s trajectory signals a significant competitive disadvantage. The company’s business segments (Baidu Core and iQIYI) face intense competition and margin pressure, likely contributing to the weak Z-Score.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -664,30 +711,30 @@ The Z-Score has remained consistently in the Distress Zone over eight quarters, 
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Declining, Distress Zone</td>
-<td>Flat price, zero volatility</td>
+<td>Distress (0.69)</td>
+<td>Price stable at $90.31</td>
 <td>Divergent</td>
-<td>Market may be underpricing risk</td>
+<td>Market price not reflecting distress fully; possible overvaluation or data gap</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Negative/Neutral</td>
-<td>Low trading volume, no dividend</td>
-<td>Consistent</td>
-<td>Market cautious, low confidence</td>
+<td>Neutral/Negative</td>
+<td>P/E 8.89 (low)</td>
+<td>Partially aligned</td>
+<td>Market cautious but not panicked</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
+<td>Distressed</td>
+<td>Sector outperforming</td>
 <td>Underperforming</td>
-<td>Sector generally stronger</td>
-<td>Divergent</td>
-<td>Competitive disadvantage</td>
+<td>Competitive weakness confirmed</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-Baidu’s fundamental distress is not fully reflected in market price movements, which show no volatility or trading signals (RSI 0.0, zero volume). This divergence suggests market participants may be underestimating financial risks or awaiting clearer signals. The low P/E ratio of 8.52 indicates a discounted valuation consistent with distress but may also reflect market skepticism about future earnings.</p>
-<p>The lack of dividend yield and zero beta further underscore market disengagement. Institutional investors may be sidelining Baidu due to risk concerns, consistent with AI Sentiment Analysis.</p>
+The market price of $90.31 and market cap of $31.4B suggest investor confidence inconsistent with the distress Z-Score. The P/E ratio of 8.89 is low relative to sector averages (~20), indicating some market discounting of risk. However, technical indicators (RSI, moving averages, volume) are all zero or missing, suggesting data gaps or illiquidity, which undermines market signal reliability.</p>
+<p>The divergence between fundamental distress and market price may reflect delayed market reaction, speculative holding, or data incompleteness. Investors should be cautious of potential sudden price corrections if financial distress worsens.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -705,30 +752,30 @@ Baidu’s fundamental distress is not fully reflected in market price movements,
 <td>Operational Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Large negative</td>
-<td>Cost control, operational restructuring</td>
+<td>Further Z-Score decline</td>
+<td>Cost reduction, operational restructuring</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Large negative</td>
-<td>Improve liquidity, renegotiate debt</td>
+<td>Bankruptcy risk increase</td>
+<td>Debt refinancing, liquidity injections</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Moderate</td>
-<td>Diversify revenue, hedge currency</td>
+<td>Volatility spikes, valuation drops</td>
+<td>Hedging, diversification</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> EBIT improves to &gt;5%, working capital ratio rises above 1.0, Z-Score moves into Gray Zone (~2.0), reducing bankruptcy risk. Requires aggressive operational turnaround and capital infusion.<br />
-- <strong>Base Case:</strong> Current trends persist, Z-Score remains &lt;1.0, high distress risk continues, limited recovery.<br />
-- <strong>Worst Case:</strong> Further EBIT erosion and liquidity depletion push Z-Score below 0.5, triggering bankruptcy risk.</p>
-<p>Based on AI Risk Analysis overall risk level of <strong>High</strong> with <strong>~85% confidence</strong>, urgent mitigation is necessary to avoid insolvency.</p>
+- <strong>Best Case:</strong> Operational improvements and capital injections raise EBIT and working capital, pushing Z-Score above 1.8 within 6-12 months, reducing bankruptcy risk.<br />
+- <strong>Base Case:</strong> Status quo persists; Z-Score remains below 1.0, maintaining distress status and elevated risk.<br />
+- <strong>Worst Case:</strong> Liquidity crisis triggers bankruptcy or restructuring, Z-Score falls below 0.5, severe market value erosion.</p>
+<p>Given the <strong>AI Risk Analysis overall risk level is high with strong confidence</strong>, urgent mitigation is required to avoid worst-case outcomes.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -746,47 +793,47 @@ Baidu’s fundamental distress is not fully reflected in market price movements,
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>SELL/HOLD</strong></td>
-<td>Z-Score 0.68 in Distress Zone; high bankruptcy risk</td>
-<td>Avoid entry; monitor for recovery signals</td>
-<td>Immediate review; exit if no improvement in 2 quarters</td>
+<td>SELL</td>
+<td>Z-Score 0.69 in Distress Zone; high bankruptcy risk</td>
+<td>Market price divergence; caution advised</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>SELL</strong></td>
-<td>No dividend yield; zero retained earnings</td>
-<td>Not suitable for income investors</td>
-<td>Immediate exit recommended</td>
+<td>HOLD</td>
+<td>No dividend yield; no retained earnings</td>
+<td>Dividend sustainability absent</td>
+<td>Monitor quarterly</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>HOLD</strong></td>
-<td>Low P/E (8.52) but distressed Z-Score</td>
-<td>Potential value if turnaround occurs</td>
-<td>Monitor quarterly; consider entry if Z-Score &gt;1.8</td>
+<td>SPECULATIVE BUY</td>
+<td>Low P/E (8.89) but distressed Z-Score</td>
+<td>Entry only if Z-Score improves &gt;1.8</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>AVOID</strong></td>
-<td>Minimal EBIT growth; poor asset turnover</td>
-<td>No growth momentum</td>
-<td>Avoid until operational metrics improve</td>
+<td>SELL</td>
+<td>Low EBIT ratio (0.010) limits growth potential</td>
+<td>No momentum; avoid</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>SPECULATIVE BUY</strong></td>
-<td>High risk, potential turnaround if catalysts emerge</td>
-<td>Enter only with risk hedging</td>
-<td>Short-term speculative; reassess monthly</td>
+<td>SPECULATIVE BUY</td>
+<td>High risk/reward; potential turnaround</td>
+<td>Volatility low but risk high</td>
+<td>Close monitoring</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Commentary:</strong><br />
-Conservative and dividend-focused investors should avoid Baidu due to distress signals and lack of income. Value investors may hold for a potential turnaround but must be vigilant. Growth investors should avoid due to lack of momentum. Aggressive investors may speculate on a recovery but must employ strict risk controls.</p>
+Conservative and growth investors should avoid Baidu due to persistent distress signals. Dividend investors have no yield to support income strategies. Value and aggressive investors may consider speculative entry if operational turnaround signs emerge, but only with strict risk controls and short time horizons.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -802,29 +849,29 @@ Conservative and dividend-focused investors should avoid Baidu due to distress s
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational turnaround</td>
-<td>EBIT ratio, working capital</td>
-<td>Implement cost reductions, improve cash flow</td>
-<td>EBIT &gt;5%, working capital ratio &gt;1.0</td>
+<td>Financial turnaround</td>
+<td>EBIT Ratio, Working Capital</td>
+<td>Implement cost controls, accelerate revenue diversification</td>
+<td>EBIT improvement, Z-Score &gt;1.8</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; capital structure</td>
-<td>Working capital ratio, debt levels</td>
-<td>Restructure debt, improve liquidity reserves</td>
-<td>Positive cash flow, reduced leverage</td>
+<td>Liquidity management</td>
+<td>Current Ratio, Debt levels</td>
+<td>Secure refinancing, improve cash flow management</td>
+<td>Current ratio &gt;1.0, positive cash flow</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight</td>
-<td>Z-Score, risk factors</td>
-<td>Enhance financial reporting, risk monitoring</td>
-<td>Z-Score improvement, risk mitigation</td>
+<td>Risk oversight and compliance</td>
+<td>Z-Score trend, Risk factors</td>
+<td>Enhance risk monitoring, approve restructuring plans</td>
+<td>Risk reduction, compliance adherence</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The CEO must prioritize operational efficiency to lift EBIT and asset turnover. The CFO should focus on liquidity management and capital restructuring to stabilize finances. The Board must oversee risk mitigation strategies aligned with AI Risk Analysis themes, ensuring transparency and proactive governance.</p>
+The CEO must prioritize operational efficiency to lift EBIT and asset turnover. The CFO should focus on liquidity and capital structure optimization. The Board needs to oversee risk mitigation and ensure transparency with investors. The persistent low Z-Score and financial distress require coordinated strategic initiatives to restore confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -840,34 +887,34 @@ The CEO must prioritize operational efficiency to lift EBIT and asset turnover. 
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable low (~0.68)</td>
-<td>Slight improvement possible if EBIT rises</td>
-<td>Cost control, revenue growth</td>
-<td>Quarterly EBIT, working capital ratio</td>
+<td>Flat/Low</td>
+<td>Slight improvement possible</td>
+<td>Cost reduction, revenue growth</td>
+<td>Quarterly Z-Score updates</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Weak relative to peers</td>
+<td>Distressed</td>
 <td>Potential stabilization if turnaround succeeds</td>
-<td>New product launches, market expansion</td>
-<td>Market share, peer Z-Score comparisons</td>
+<td>Competitive repositioning</td>
+<td>Market share, peer Z-Score</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High risk</td>
-<td>Risk remains elevated without operational change</td>
-<td>Debt refinancing, regulatory changes</td>
-<td>Debt levels, liquidity ratios</td>
+<td>High</td>
+<td>Remains elevated without intervention</td>
+<td>Debt refinancing, macroeconomic factors</td>
+<td>Liquidity ratios, debt covenants</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-Baidu’s Z-Score momentum is currently flat in the distress zone, with a slight chance of improvement if operational and liquidity metrics improve. Key catalysts include successful cost management and revenue diversification. Monitoring EBIT ratio and working capital ratio quarterly will provide early warning signals. The investment thesis should remain cautious, with readiness to adjust based on financial health indicators.</p>
+Baidu’s Z-Score momentum is currently flat but could improve with effective operational and financial restructuring. Key catalysts include successful cost management, revenue diversification, and debt refinancing. Continuous monitoring of liquidity ratios and Z-Score quarterly trends is essential to detect early warning signs of further distress or recovery.</p>
 <hr />
-<h1 id="summary"><strong>Summary</strong></h1>
-<p>Baidu, Inc. is currently in a precarious financial position with a persistently low Altman Z-Score indicating high bankruptcy risk. Liquidity and profitability metrics are weak, and market sentiment is subdued. Investors should exercise caution, with conservative profiles advised to avoid or exit, while aggressive investors may consider speculative positions only with strict risk controls. Strategic focus on operational turnaround and liquidity improvement is critical for Baidu’s recovery and future investment appeal.</p>
+<h1 id="summary">Summary</h1>
+<p>Baidu, Inc. is currently in a <strong>high-risk financial distress state</strong>, with an Altman Z-Score of <strong>0.69</strong>, well below the safe threshold. Liquidity and profitability metrics are weak, and market signals are inconsistent or incomplete. Investors should exercise caution, with conservative and growth profiles advised to avoid or sell, while value and aggressive investors may consider speculative positions only if clear turnaround evidence emerges. Strategic leadership must focus on operational efficiency and liquidity improvements to shift the company back toward financial health.</p>
 <hr />
-<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Framework on 2025-07-03.</em></p></div></div>
+<p><em>Analysis generated based on injected data as of 2025-07-07, referencing all provided financial, market, and AI risk metrics.</em></p></div></div>
     </div>
     
 
@@ -1210,78 +1257,41 @@ Baidu’s Z-Score momentum is currently flat in the distress zone, with a slight
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:18 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:39 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

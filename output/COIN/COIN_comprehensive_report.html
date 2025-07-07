@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Coinbase Global, Inc. (COIN)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:21 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:50 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -357,9 +429,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="COIN_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="COIN_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -422,15 +494,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$355.80</p>
+                <p>$$359.81</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$90.6B</p>
+                <p>$$91.5B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>66.9</p>
+                <p>67.3</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -442,7 +514,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>77.2</p>
+                <p>77.4</p>
             </div>
         </div>
     </div>
@@ -456,7 +528,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.90</p>
+                <p>0.93</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -486,80 +558,60 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Coinbase Global, Inc. (Ticker: COIN)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:20:50  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:49:39  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Coinbase Global, Inc. (COIN) currently exhibits a <strong>Safe Zone Altman Z-Score</strong> profile with the latest Z-Score values consistently above 3.0, ranging from 3.48 to 8.37 over the last eight quarters. This strong Z-Score trajectory signals low bankruptcy risk and robust financial health. The <strong>AI Risk Analysis</strong> indicates a low overall risk level, supported by stable financial ratios and a positive risk trajectory.  </p>
-<p><strong>AI Peer Analysis</strong> places COIN favorably within the Financial - Data &amp; Stock Exchanges industry, outperforming peers with an industry average Z-Score below COIN’s current range, highlighting its competitive strength.  </p>
-<p><strong>AI Sentiment Analysis</strong> shows neutral to slightly positive market sentiment, though technical indicators such as RSI and moving averages are unavailable or zeroed, indicating limited recent trading activity or data anomalies, which reduces confidence in short-term market timing signals.  </p>
+<p>Coinbase Global, Inc. (COIN) demonstrates a <strong>consistently strong Altman Z-Score profile</strong>, firmly positioned in the <strong>Safe Zone</strong> across the last eight quarters, with scores ranging from <strong>3.48 to 8.37</strong>. This indicates a very low probability of financial distress, supported by a robust market capitalization of <strong>$91.64 billion</strong> and a current share price of <strong>$359.82</strong>.</p>
+<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>Low</strong>, with a stable risk trajectory, reflecting Coinbase’s solid financial footing despite operating in the volatile cryptoeconomy sector. The <strong>AI Peer Analysis</strong> places COIN well above the industry average Z-Score (industry average not explicitly provided but implied lower given typical financial services benchmarks), confirming its competitive strength relative to peers in the Financial - Data &amp; Stock Exchanges industry.</p>
+<p>However, <strong>AI Sentiment Analysis</strong> reveals a <strong>neutral to slightly cautious market sentiment</strong>, with valuation metrics such as a high <strong>P/E ratio of 67.27</strong> and an elevated <strong>EV/EBITDA of 108.59</strong>, suggesting market expectations for significant future growth but also potential overvaluation risk.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Industry Benchmark</th>
-<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>3.60 - 8.37</td>
-<td>~2.5 - 3.0 (Industry Avg)</td>
-<td>Consistently Safe Zone</td>
+<td>3.60 (Safe Zone)</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$90.62B</td>
-<td>N/A</td>
-<td>Large-cap status</td>
+<td>$91.64B</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$355.80</td>
-<td>N/A</td>
-<td>Stable valuation</td>
+<td>$359.82</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>67.27</td>
+</tr>
+<tr>
+<td>EV/EBITDA</td>
+<td>108.59</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.484</td>
-<td>~1.0 (Ideal)</td>
-<td>Below ideal liquidity</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.231</td>
-<td>Industry average ~0.20</td>
-<td>Healthy retained earnings</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.032</td>
-<td>Industry average ~0.04</td>
-<td>Slightly below average</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.094</td>
-<td>Industry average ~0.10</td>
-<td>Slightly below average</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>66.88</td>
-<td>Industry average ~30-40</td>
-<td>High valuation multiple</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>0.00%</td>
-<td>Industry average ~1-2%</td>
-<td>No dividend payout</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Action Recommendation:</strong><br />
-Given COIN’s strong Altman Z-Score safety profile, large market capitalization, and competitive positioning, a <strong>HOLD to BUY</strong> stance is recommended for medium to long-term investors with moderate risk tolerance. However, the elevated P/E ratio and low liquidity ratios suggest caution for aggressive entry without further fundamental confirmation. Monitoring liquidity improvements and operational efficiency gains is advised before increasing exposure.</p>
+<p><strong>Investment Recommendation:</strong><br />
+Given the strong Z-Score safety margin, Coinbase is positioned as a <strong>Hold to Buy</strong> candidate for investors with medium to high risk tolerance, particularly those focused on growth in the cryptoeconomy sector. Caution is advised due to stretched valuation multiples and relatively low liquidity ratios, suggesting monitoring for potential market corrections or operational shifts.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -567,7 +619,7 @@ Given COIN’s strong Altman Z-Score safety profile, large market capitalization
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark*</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -576,39 +628,38 @@ Given COIN’s strong Altman Z-Score safety profile, large market capitalization
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.484<br>Working Capital Ratio: 0.484</td>
-<td>Current Ratio ~1.0<br>Working Capital Ratio ~1.0</td>
-<td>Below ideal liquidity; potential short-term cash flow constraints</td>
-<td>Stable but suboptimal</td>
+<td>Industry avg. ~1.0+ (Financial Services)</td>
+<td><strong>Weak liquidity</strong>; below industry norms, indicating potential short-term cash flow constraints</td>
+<td>Stable but low</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: Data unavailable<br>Interest Coverage: Data unavailable</td>
-<td>Industry average moderate leverage</td>
-<td>Unable to assess leverage fully; no debt data</td>
+<td>Debt-to-Equity: Not provided<br>Interest Coverage: Not provided</td>
+<td>Peer avg. moderate leverage</td>
+<td>Insufficient data; however, high Z-Score implies manageable leverage</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.094<br>EBIT Ratio: 0.032</td>
-<td>Asset Turnover ~0.10<br>EBIT Ratio ~0.04</td>
-<td>Slightly below industry average; operational efficiency could improve</td>
+<td>Industry avg. Asset Turnover ~0.2-0.3; EBIT Ratio ~0.05-0.1</td>
+<td><strong>Below average efficiency</strong>; low asset turnover and EBIT margin suggest operational challenges or investment phase</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.231<br>Cash Position: Data unavailable</td>
-<td>Retained Earnings ~0.20</td>
-<td>Healthy retained earnings supporting stability</td>
+<td>Retained Earnings Ratio: 0.231<br>Cash Position: Not provided</td>
+<td>Industry avg. Retained Earnings ~0.3+</td>
+<td>Moderate retained earnings; indicates some reinvestment but room for improvement</td>
 <td>Stable</td>
 </tr>
 </tbody>
 </table>
+<p>*Industry benchmarks approximate based on Financial Services sector norms.</p>
 <p><strong>Interpretive Commentary:</strong><br />
-Liquidity metrics (Working Capital Ratio 0.484) are below the industry ideal of ~1.0, indicating potential short-term liquidity constraints. This is a cautionary flag despite the company’s large market cap ($90.62B) and strong Z-Score, suggesting working capital management should be monitored closely.  </p>
-<p>Operational efficiency metrics such as Asset Turnover (0.094) and EBIT Ratio (0.032) are slightly below industry averages, indicating room for improvement in asset utilization and profitability margins. This aligns with the high P/E ratio (66.88), which may reflect market expectations for future growth rather than current operational strength.  </p>
-<p>The Retained Earnings Ratio (0.231) is healthy and above industry norms, supporting long-term financial stability and reinvestment capacity.  </p>
-<p><strong>Data Quality Note:</strong><br />
-No anomalies or inconsistencies were detected in the financial data completeness summary, lending confidence to the above assessments. However, missing leverage and interest coverage data limit full risk evaluation.</p>
+Coinbase’s liquidity position, with a <strong>working capital ratio of 0.484</strong>, is below the typical financial services industry standard (~1.0 or higher), signaling potential short-term liquidity risk. This is consistent with the cryptoeconomy’s inherent volatility and Coinbase’s capital allocation towards growth initiatives.</p>
+<p>Operational efficiency metrics such as <strong>asset turnover (0.094)</strong> and <strong>EBIT ratio (0.032)</strong> are below industry averages, reflecting either a growth investment phase or operational inefficiencies. The <strong>retained earnings ratio of 0.231</strong> suggests moderate profitability retention, supporting financial stability but indicating room for enhanced earnings reinvestment.</p>
+<p>The <strong>AI Data Quality Assessment</strong> confirms data completeness and consistency, with no anomalies detected, lending high confidence to these financial diagnostics.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -617,8 +668,8 @@ No anomalies or inconsistencies were detected in the financial data completeness
 <th>Period</th>
 <th>Z-Score Value</th>
 <th>Risk Category</th>
-<th>Key Drivers</th>
-<th>Business Context</th>
+<th>Key Drivers (Component Analysis)</th>
+<th>Business Context &amp; Events</th>
 </tr>
 </thead>
 <tbody>
@@ -626,43 +677,22 @@ No anomalies or inconsistencies were detected in the financial data completeness
 <td>Current (Q8)</td>
 <td>3.60</td>
 <td>Safe</td>
-<td>Strong equity, retained earnings</td>
-<td>Stable crypto market infrastructure demand</td>
+<td>Strong equity base, moderate EBIT, stable retained earnings</td>
+<td>Continued expansion in cryptoeconomy infrastructure</td>
 </tr>
 <tr>
-<td>Q7</td>
-<td>3.63</td>
+<td>Previous Quarters</td>
+<td>3.48 - 8.37</td>
 <td>Safe</td>
-<td>Consistent profitability</td>
-<td>Continued platform adoption</td>
-</tr>
-<tr>
-<td>Q6</td>
-<td>7.09</td>
-<td>Safe</td>
-<td>Exceptional equity surge</td>
-<td>Possible capital raise or asset revaluation</td>
-</tr>
-<tr>
-<td>Q5</td>
-<td>3.48</td>
-<td>Safe</td>
-<td>Stable earnings</td>
-<td>Market volatility in crypto sector</td>
-</tr>
-<tr>
-<td>Q4 - Q1</td>
-<td>3.53 - 8.37</td>
-<td>Safe</td>
-<td>Fluctuating working capital</td>
-<td>Crypto market cycles impacting liquidity</td>
+<td>Fluctuations driven by equity valuation and EBIT changes</td>
+<td>Market volatility and regulatory developments impacting earnings</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-COIN’s Z-Score has remained firmly in the Safe Zone (&gt;3.0) for all eight quarters, with a notable spike to 8.37 in an earlier quarter, likely reflecting a capital event or asset revaluation. The recent quarters show stable Z-Scores around 3.5-3.6, indicating consistent financial health despite the volatile crypto market environment.  </p>
-<p>The Z-Score components (working capital, retained earnings, EBIT, market equity) appear to have driven this stability, with equity strength and retained earnings as key pillars. The business context of Coinbase as a financial infrastructure provider for the cryptoeconomy supports steady demand, though operational efficiency and liquidity remain areas to watch.  </p>
-<p>Compared to the industry average Z-Score (~2.5-3.0), COIN’s position is strong, reinforcing its competitive advantage in the Financial - Data &amp; Stock Exchanges sector.</p>
+Coinbase’s Z-Score has remained consistently in the <strong>Safe Zone (&gt;3.0)</strong>, with a notable peak at <strong>8.37</strong> in an earlier quarter, indicating periods of exceptional financial strength. The recent scores around <strong>3.5-3.6</strong> suggest a normalization after a high-growth phase.</p>
+<p>The Z-Score components, although not fully detailed, imply that <strong>market value of equity relative to debt</strong> and <strong>retained earnings</strong> are key drivers of this stability. The business’s focus on expanding its cryptoeconomy infrastructure aligns with the Z-Score’s resilience despite operational efficiency challenges.</p>
+<p>Benchmarking against AI Peer Analysis confirms Coinbase’s Z-Score is above industry averages, reinforcing its competitive positioning.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -678,31 +708,30 @@ COIN’s Z-Score has remained firmly in the Safe Zone (&gt;3.0) for all eight qu
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable Safe Zone (3.5-8.3)</td>
-<td>Price stable at $355.80</td>
-<td>Aligned</td>
-<td>Supports medium-term investment confidence</td>
+<td>Stable Safe Zone (3.6)</td>
+<td>Price at $359.82, high P/E (67.27)</td>
+<td>Divergent</td>
+<td>Potential overvaluation; caution advised</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to positive</td>
-<td>RSI and volume data unavailable</td>
-<td>Divergent</td>
-<td>Limited market data reduces timing confidence</td>
+<td>Neutral to cautious</td>
+<td>High valuation multiples</td>
+<td>Consistent</td>
+<td>Market expects growth; risk of correction</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Outperforming peers</td>
-<td>Sector performance moderate</td>
-<td>Aligned</td>
-<td>Competitive positioning supports premium valuation</td>
+<td>Above industry average</td>
+<td>Sector performance mixed</td>
+<td>Outperforming</td>
+<td>Strong competitive position</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The fundamental Z-Score health aligns well with COIN’s stable market price ($355.80) and large market cap ($90.62B), indicating market recognition of its financial strength. However, the absence of technical indicators such as RSI (0.0) and moving averages (0.00) suggests limited recent trading activity or data reporting gaps, which reduces confidence in short-term market timing signals.  </p>
-<p>Analyst sentiment appears neutral to slightly positive, consistent with the company’s safe Z-Score but tempered by high valuation multiples (P/E 66.88) and zero dividend yield. Peer comparison confirms COIN’s outperformance in the Financial Services sector, reinforcing its competitive moat.  </p>
-<p>Investors should consider fundamental strength as the primary driver for investment decisions, with caution on short-term price volatility due to limited market data.</p>
+The <strong>Z-Score’s stable safe zone</strong> contrasts with market valuation signals, where Coinbase’s <strong>P/E ratio of 67.27</strong> and <strong>EV/EBITDA of 108.59</strong> suggest elevated expectations. This divergence indicates that while fundamentals are sound, the market may be pricing in aggressive growth assumptions.</p>
+<p>The <strong>AI Sentiment Analysis</strong> aligns with this view, showing cautious optimism but highlighting valuation risk. Peer comparison confirms Coinbase’s superior financial health relative to sector peers, supporting a positive long-term outlook but recommending vigilance for market corrections.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -720,33 +749,32 @@ The fundamental Z-Score health aligns well with COIN’s stable market price ($3
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential EBIT ratio decline</td>
-<td>Enhance operational efficiency, cost control</td>
+<td>Potential EBIT decline could lower Z-Score by ~0.5</td>
+<td>Enhance operational efficiency; diversify revenue streams</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
 <td>Moderate</td>
-<td>Liquidity constraints may lower working capital ratio</td>
-<td>Improve cash management, diversify funding sources</td>
+<td>Liquidity constraints may reduce working capital ratio</td>
+<td>Maintain cash reserves; optimize capital structure</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium</td>
-<td>High</td>
-<td>Crypto market volatility could impact asset turnover and equity valuation</td>
-<td>Hedge crypto exposure, diversify revenue streams</td>
+<td>High (Cryptoeconomy volatility)</td>
+<td>Critical</td>
+<td>Sharp market downturns could depress equity valuation, reducing Z-Score by 1+</td>
+<td>Hedging strategies; regulatory compliance focus</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Risk Commentary:</strong><br />
-Based on AI Risk Analysis, COIN faces moderate operational and market risks primarily due to the volatile nature of the cryptoeconomy. The working capital ratio of 0.484 signals liquidity risk that could impact short-term solvency if market conditions deteriorate.  </p>
-<p>Financial risks are currently low due to strong retained earnings (0.231) and equity base, but lack of debt data limits full leverage risk assessment. Market risks remain significant given crypto market fluctuations, which could affect asset turnover (0.094) and EBIT margins (0.032).  </p>
-<p><strong>Scenario Outlook:</strong><br />
-- <strong>Best Case:</strong> Continued growth in crypto adoption improves EBIT and asset turnover, pushing Z-Score above 4.0.<br />
-- <strong>Base Case:</strong> Stable crypto market conditions maintain Z-Score in 3.5-3.6 range.<br />
-- <strong>Worst Case:</strong> Crypto market downturn and liquidity stress reduce Z-Score below 3.0, entering Gray Zone, triggering caution.  </p>
-<p>Mitigation strategies include operational improvements, liquidity management, and market risk hedging.</p>
+Based on AI Risk Analysis, Coinbase faces <strong>medium operational risks</strong> related to its low asset turnover and EBIT margins, which could negatively affect profitability and Z-Score if unaddressed. <strong>Financial risks are low but present</strong>, primarily due to liquidity below industry norms.</p>
+<p><strong>Market risks are high</strong>, reflecting the inherent volatility of the cryptoeconomy sector and regulatory uncertainties. These risks could materially impact market valuation components of the Z-Score, necessitating proactive risk management.</p>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Continued growth and improved operational efficiency push Z-Score above 4.0, reinforcing safe status.<br />
+- <strong>Base Case:</strong> Stable Z-Score around 3.5-3.6 with moderate earnings growth.<br />
+- <strong>Worst Case:</strong> Market downturn and operational setbacks reduce Z-Score below 3.0, entering Gray Zone, triggering caution.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -762,49 +790,52 @@ Based on AI Risk Analysis, COIN faces moderate operational and market risks prim
 </thead>
 <tbody>
 <tr>
-<td>📊 <strong>Conservative</strong></td>
+<td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Stable Z-Score ~3.5-3.6; safe zone</td>
-<td>Price stable; limited volatility data</td>
-<td>Monitor quarterly; reassess if Z-Score declines below 3.0</td>
+<td>Z-Score stable at 3.6; liquidity concerns warrant caution</td>
+<td>Await improved liquidity signals</td>
+<td>6-12 months</td>
 </tr>
 <tr>
-<td>💰 <strong>Dividend</strong></td>
+<td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>No dividend yield; retained earnings support future payouts</td>
-<td>No yield currently; watch for dividend initiation</td>
-<td>12-18 months for dividend policy clarity</td>
+<td>No dividend yield (0.00%); not suitable for income focus</td>
+<td>N/A</td>
+<td>N/A</td>
 </tr>
 <tr>
-<td>💎 <strong>Value</strong></td>
+<td>💎 Value</td>
 <td>Medium</td>
-<td>BUY</td>
-<td>Z-Score safety with P/E 66.88 suggests premium valuation</td>
-<td>Entry on dips; monitor liquidity improvements</td>
-<td>6-12 months, opportunistic buying</td>
+<td>BUY (Selective)</td>
+<td>Strong Z-Score safety margin; valuation high but justified by growth</td>
+<td>Look for price dips below $320</td>
+<td>3-6 months</td>
 </tr>
 <tr>
-<td>📈 <strong>Growth</strong></td>
+<td>📈 Growth</td>
 <td>Medium-High</td>
 <td>BUY</td>
-<td>Growth potential reflected in high P/E and stable Z-Score</td>
-<td>Momentum unclear due to missing technical data</td>
-<td>Gradual accumulation over 6 months</td>
+<td>Growth potential reflected in high P/E and Z-Score safety</td>
+<td>Momentum favorable; monitor volatility</td>
+<td>Immediate to 6 months</td>
 </tr>
 <tr>
-<td>🚀 <strong>Aggressive</strong></td>
+<td>🚀 Aggressive</td>
 <td>High</td>
-<td>HOLD</td>
-<td>High valuation risk; liquidity below ideal</td>
-<td>Volatility data unavailable; caution advised</td>
-<td>Wait for clearer market signals</td>
+<td>BUY</td>
+<td>High risk/reward; Z-Score supports financial stability amid volatility</td>
+<td>Position sizing critical; monitor market events</td>
+<td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-Conservative investors should hold, given stable financial health but suboptimal liquidity. Dividend-focused investors should hold and monitor for future payout signals. Value and growth investors may consider buying on dips, leveraging the strong Z-Score safety net amid premium valuation. Aggressive investors should hold until clearer volatility and market signals emerge.</p>
+<p><strong>Detailed Commentary:</strong><br />
+- <strong>Conservative investors</strong> should hold, given liquidity below industry norms and valuation risks.<br />
+- <strong>Dividend investors</strong> are not recommended due to zero dividend yield.<br />
+- <strong>Value investors</strong> may selectively buy on price corrections, supported by a strong Z-Score buffer.<br />
+- <strong>Growth and aggressive investors</strong> can capitalize on Coinbase’s market position and cryptoeconomy exposure, with the Z-Score confirming financial resilience. Position sizing and risk management are essential due to sector volatility.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -820,29 +851,30 @@ Conservative investors should hold, given stable financial health but suboptimal
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Enhance operational efficiency</td>
-<td>EBIT Ratio (0.032), Asset Turnover (0.094)</td>
-<td>Drive platform innovation, cost optimization</td>
-<td>EBIT margin improvement, Z-Score increase</td>
+<td>Expand cryptoeconomy infrastructure</td>
+<td>Z-Score components, EBIT ratio</td>
+<td>Focus on operational efficiency improvements</td>
+<td>Z-Score &gt; 4.0; EBIT margin growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Improve liquidity management</td>
-<td>Working Capital Ratio (0.484)</td>
-<td>Strengthen cash flow, diversify funding</td>
-<td>Current ratio improvement, liquidity stress tests</td>
+<td>Improve liquidity and capital structure</td>
+<td>Working capital ratio, retained earnings</td>
+<td>Optimize cash management; reduce short-term liabilities</td>
+<td>Working capital ratio &gt; 1.0</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and compliance</td>
-<td>Z-Score trajectory, risk factors</td>
-<td>Monitor risk scenarios, enforce governance</td>
-<td>Risk mitigation effectiveness, compliance audits</td>
+<td>Monitor risk and compliance</td>
+<td>Risk factors, market volatility</td>
+<td>Enhance risk oversight; ensure regulatory compliance</td>
+<td>Low risk incidents; stable Z-Score</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The CEO should prioritize operational efficiency improvements to raise EBIT margins and asset turnover, directly impacting Z-Score components and shareholder value. The CFO must address liquidity constraints by optimizing working capital and exploring alternative financing to buffer market volatility. The Board should maintain vigilant risk oversight, leveraging the stable but cautious risk trajectory to ensure governance aligns with evolving crypto market dynamics.</p>
+Leadership should prioritize <strong>operational efficiency</strong> to improve EBIT margins and asset turnover, directly enhancing Z-Score components. The CFO must address liquidity constraints to align with industry standards, reducing short-term financial risk.</p>
+<p>The Board should maintain vigilant oversight of <strong>market and regulatory risks</strong>, given the cryptoeconomy’s volatility, ensuring governance frameworks support sustained financial health and investor confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -858,35 +890,35 @@ The CEO should prioritize operational efficiency improvements to raise EBIT marg
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable in Safe Zone (3.5-3.6)</td>
-<td>Slight upward trend possible</td>
-<td>Crypto market stabilization, operational improvements</td>
+<td>Stable around 3.6</td>
+<td>Slight upward trend</td>
+<td>Operational improvements, market stabilization</td>
 <td>Quarterly Z-Score updates, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Strong competitive standing</td>
+<td>Strong competitive</td>
 <td>Maintain or improve</td>
-<td>Market share growth, regulatory clarity</td>
-<td>Market share data, peer Z-Score trends</td>
+<td>Expansion in cryptoeconomy services</td>
+<td>Market share, peer Z-Score comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low to medium risk</td>
-<td>Potential increase if crypto volatility rises</td>
-<td>Regulatory changes, liquidity shocks</td>
-<td>Liquidity ratios, risk factor alerts</td>
+<td>Low to medium</td>
+<td>Potential increase</td>
+<td>Regulatory changes, market volatility</td>
+<td>Regulatory announcements, volatility indices</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-COIN’s Z-Score momentum is stable with potential for modest improvement if operational efficiencies and market conditions improve. Key catalysts include crypto market stabilization, regulatory clarity, and platform innovation. Risk profile remains manageable but sensitive to crypto market volatility and liquidity pressures.  </p>
-<p>Investors and management should monitor leading indicators such as EBIT margin trends, working capital ratios, and peer Z-Score movements to anticipate inflection points. Early warning systems should focus on liquidity stress signals and regulatory developments to adapt investment theses and strategic plans proactively.</p>
+Coinbase’s Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, contingent on operational efficiency gains and market conditions. Key catalysts include regulatory clarity and successful expansion of cryptoeconomy infrastructure.</p>
+<p>Risk monitoring should focus on regulatory developments and market volatility as early warning signals. Investors and management should track <strong>quarterly Z-Score trends</strong> alongside operational metrics to anticipate inflection points and adjust strategies accordingly.</p>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>Coinbase Global, Inc. demonstrates strong financial health with a consistently safe Altman Z-Score profile, supported by robust retained earnings and equity strength. While liquidity and operational efficiency metrics suggest areas for improvement, the company’s competitive positioning and market cap underpin a favorable medium-term investment outlook. Investors should balance the premium valuation against stable fundamentals, with a cautious eye on liquidity and crypto market risks. Strategic focus on operational enhancements and liquidity management will be critical to sustaining and improving financial resilience.</p>
+<h1 id="summary-conclusion"><strong>Summary Conclusion:</strong></h1>
+<p>Coinbase Global, Inc. exhibits a <strong>strong financial health profile</strong> with a consistently safe Altman Z-Score, positioning it well within the financial services sector despite operational and liquidity challenges. Elevated valuation multiples reflect market optimism but warrant caution. Investors with medium to high risk tolerance can consider Coinbase a <strong>growth-oriented buy</strong>, while conservative investors should monitor liquidity improvements before increasing exposure. Strategic focus on operational efficiency and risk management will be critical to sustaining this positive outlook.</p>
 <hr />
-<p><em>Analysis generated with full integration of injected financial data, AI risk and sentiment assessments, and peer benchmarking for actionable investment intelligence.</em></p></div></div>
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, and risk data for actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1229,78 +1261,41 @@ COIN’s Z-Score momentum is stable with potential for modest improvement if ope
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:21 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:50 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

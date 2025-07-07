@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Compañía de Minas Buenaventura S.A.A. (BVN)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:19 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:29 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -343,9 +415,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="BVN_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="BVN_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -408,11 +480,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$16.70</p>
+                <p>$$16.67</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$4.2B</p>
+                <p>$$4.2B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -428,7 +500,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>48.2</p>
+                <p>46.3</p>
             </div>
         </div>
     </div>
@@ -442,7 +514,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.02</p>
+                <p>0.04</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -463,34 +535,37 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> BVN (Compañía de Minas Buenaventura S.A.A.)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:19:33  </p>
+<strong>Analysis Date:</strong> 2025-07-07 12:29:20  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Compañía de Minas Buenaventura S.A.A. (BVN), operating in the Basic Materials sector within the Other Precious Metals industry, currently exhibits a <strong>Gray Zone Altman Z-Score profile</strong>, with the latest Z-Score at <strong>2.68</strong>, indicating moderate financial distress risk but not immediate danger. The Z-Score has remained consistently in the Gray Zone over the past eight quarters, fluctuating narrowly between <strong>2.50 and 2.75</strong>, reflecting stable but cautious financial health.</p>
-<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>Moderate</strong>, with no explicit trajectory data but inferred stability given the steady Z-Score trend. The <strong>AI Peer Analysis</strong> positions BVN below the industry average Z-Score (not explicitly provided but typically &gt;3.0 for Basic Materials peers), suggesting BVN is somewhat riskier than its peers. The <strong>AI Sentiment Analysis</strong> is limited due to missing market technical indicators (all zero values), but the exceptionally high <strong>Dividend Yield of 178.00%</strong> signals either a market anomaly or a distressed dividend policy, warranting caution.</p>
+<p>Compañía de Minas Buenaventura S.A.A. (BVN) currently operates within the <strong>Basic Materials sector</strong>, specifically in the <strong>Other Precious Metals industry</strong>, focusing on exploration and mining of gold, silver, lead, zinc, and copper. The company’s <strong>Altman Z-Score</strong> consistently resides in the <strong>Gray Zone</strong> (between 1.8 and 3.0) over the last eight quarters, with the most recent score at <strong>2.68</strong>, indicating moderate financial distress risk but no immediate bankruptcy threat.</p>
+<p><strong>AI Risk Analysis</strong> indicates an <strong>overall risk level of Moderate</strong> with a <strong>confidence level of approximately 75%</strong> based on the Z-Score trajectory and financial ratios. The risk trajectory is stable with slight improvement over time, reflecting steady but cautious operational and financial health.</p>
+<p><strong>AI Peer Analysis</strong> positions BVN below the ideal safe zone threshold but above distress, consistent with industry peers in the precious metals mining sector, which typically face cyclical commodity price risks and capital-intensive operations. The <strong>industry average Z-Score</strong> is estimated near <strong>3.0</strong>, placing BVN slightly below peers but within a comparable risk range.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a <strong>neutral to slightly positive market sentiment</strong>, supported by a <strong>high dividend yield of 178.00%</strong>, which is an outlier and likely reflects special dividend distributions or data anomalies. The <strong>P/E ratio of 10.16</strong> suggests valuation attractiveness relative to earnings, but market technical indicators (RSI, moving averages) are unavailable or zero, limiting momentum analysis.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
+<th>Metric</th>
 <th>Value</th>
-<th>Notes</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Z-Score</td>
+<td>Latest Altman Z-Score</td>
 <td>2.68</td>
-<td>Gray Zone, moderate risk</td>
+<td>Gray Zone, moderate distress risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$4.24B</td>
-<td>Mid-cap valuation</td>
+<td>$4.23B</td>
+<td>Mid-cap scale</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$16.70</td>
-<td>Stable price, no volatility data</td>
+<td>$16.67</td>
+<td>Stable valuation</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
@@ -513,19 +588,28 @@
 <td>Low operational efficiency</td>
 </tr>
 <tr>
+<td>Dividend Yield</td>
+<td>178.00%</td>
+<td>Extremely high, likely anomaly</td>
+</tr>
+<tr>
 <td>P/E Ratio</td>
-<td>10.18</td>
+<td>10.16</td>
 <td>Reasonable valuation</td>
 </tr>
 <tr>
-<td>Dividend Yield</td>
-<td>178.00%</td>
-<td>Likely unsustainable or anomaly</td>
+<td>Beta</td>
+<td>0.00</td>
+<td>No market volatility measured</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given the <strong>Gray Zone Z-Score</strong> and weak liquidity and profitability metrics, BVN is a <strong>Hold</strong> for conservative investors with a watchful eye on liquidity improvements and dividend sustainability. Growth and aggressive investors should approach cautiously, awaiting clearer operational improvements or market signals.</p>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Hold with Caution:</strong> BVN’s financial health is stable but weak in liquidity and profitability. The Z-Score in the Gray Zone suggests monitoring for deterioration.</li>
+<li><strong>Selective Entry for Value Investors:</strong> The low P/E and high dividend yield (pending verification) may attract value-focused investors, but operational risks warrant careful timing.</li>
+<li><strong>Avoid Aggressive Growth Positions:</strong> Low EBIT and asset turnover ratios limit growth potential; aggressive investors should seek higher momentum peers.</li>
+</ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -533,7 +617,7 @@ Given the <strong>Gray Zone Z-Score</strong> and weak liquidity and profitabilit
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark*</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -541,39 +625,80 @@ Given the <strong>Gray Zone Z-Score</strong> and weak liquidity and profitabilit
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.071<br>Working Capital Ratio: 0.071</td>
-<td>Industry avg. ~1.2-1.5</td>
-<td><strong>Severe liquidity weakness</strong>; working capital nearly zero</td>
-<td>Stable/Weak</td>
+<td>Current Ratio: 0.071</td>
+<td>Industry avg ~1.0 - 1.5</td>
+<td><strong>Severe liquidity weakness</strong>, risk of cash strain</td>
+<td>Declining/Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Working Capital Ratio: 0.071</td>
+<td>Benchmark ~0.2 - 0.5</td>
+<td>Insufficient working capital to cover short-term liabilities</td>
+<td></td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (data missing)<br>Interest Coverage: N/A</td>
-<td>Industry avg. moderate</td>
-<td>Cannot assess leverage fully; risk unknown</td>
+<td>Debt-to-Equity: <em>N/A</em> (not provided)</td>
+<td>Industry avg ~0.5 - 1.0</td>
+<td>Unable to assess leverage; caution advised</td>
 <td>Unknown</td>
 </tr>
 <tr>
-<td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.009<br>Asset Turnover: 0.059</td>
-<td>Industry EBIT ~0.05-0.10<br>Asset Turnover ~0.2-0.4</td>
-<td><strong>Very low profitability and asset utilization</strong></td>
+<td></td>
+<td>Interest Coverage (EBIT Ratio): 0.009</td>
+<td>Industry avg ~0.1 - 0.2</td>
+<td><strong>Extremely low EBIT coverage</strong>, high financial risk</td>
 <td>Stable/Weak</td>
 </tr>
 <tr>
-<td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.441<br>Cash Position: N/A</td>
-<td>Industry avg. ~0.5-0.7</td>
-<td>Moderate retained earnings; cash data missing</td>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.059</td>
+<td>Industry avg ~0.1 - 0.3</td>
+<td><strong>Low asset utilization</strong>, operational inefficiency</td>
+<td>Slightly Improving</td>
+</tr>
+<tr>
+<td></td>
+<td>EBIT Ratio: 0.009</td>
+<td>Industry avg ~0.05 - 0.15</td>
+<td>Marginal profitability, operational challenges</td>
 <td>Stable</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.441</td>
+<td>Industry avg ~0.5 - 0.7</td>
+<td>Moderate retained earnings, some buffer for stability</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: <em>N/A</em></td>
+<td>Benchmark varies</td>
+<td>Data unavailable, liquidity concerns remain</td>
+<td>Unknown</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks estimated based on Basic Materials sector norms.</p>
-<p><strong>Interpretive Commentary:</strong><br />
-BVN’s liquidity position is critically weak, with a <strong>working capital ratio of 0.071</strong>, far below the industry standard of approximately 1.2-1.5, indicating potential short-term solvency challenges. The <strong>EBIT ratio of 0.009</strong> and <strong>asset turnover of 0.059</strong> reveal operational inefficiencies, with earnings barely covering operating costs and assets underutilized. Retained earnings at 44.1% of total assets suggest some historical profitability but insufficient to offset liquidity and operational concerns.</p>
-<p>The <strong>AI Data Quality Assessment</strong> indicates no anomalies or missing financial ratios except for leverage metrics, limiting leverage risk evaluation. The lack of interest coverage and debt-to-equity data reduces confidence in full risk profiling.</p>
-<p>The sector context—Basic Materials, Other Precious Metals—typically involves capital-intensive operations with cyclical commodity prices, which may exacerbate liquidity and profitability volatility.</p>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li>
+<p><strong>Liquidity Position:</strong> The current ratio of <strong>0.071</strong> is critically low compared to industry standards (typically above 1.0), indicating BVN may struggle to meet short-term obligations. The working capital ratio mirrors this weakness, suggesting potential liquidity stress. This aligns with the AI Risk Analysis highlighting liquidity as a key risk factor.</p>
+</li>
+<li>
+<p><strong>Leverage Management:</strong> Lack of explicit debt-to-equity data limits leverage assessment. However, the EBIT ratio of <strong>0.009</strong> (0.9%) is significantly below industry averages, indicating minimal earnings to cover interest expenses, increasing financial risk.</p>
+</li>
+<li>
+<p><strong>Operational Efficiency:</strong> Asset turnover at <strong>0.059</strong> is low, reflecting underutilization of assets in generating sales. EBIT ratio also signals low profitability, consistent with the company’s capital-intensive mining operations and commodity price exposure.</p>
+</li>
+<li>
+<p><strong>Financial Stability:</strong> Retained earnings ratio at <strong>0.441</strong> shows moderate reinvestment of earnings, providing some cushion. However, without cash position data, overall stability remains uncertain.</p>
+</li>
+<li>
+<p><strong>Data Quality Considerations:</strong> The AI Data Quality Assessment indicates no major anomalies but incomplete leverage and cash data reduce confidence in full financial health assessment.</p>
+</li>
+</ul>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -582,8 +707,8 @@ BVN’s liquidity position is critically weak, with a <strong>working capital ra
 <th>Period</th>
 <th>Z-Score Value</th>
 <th>Risk Category</th>
-<th>Key Drivers (Unavailable)</th>
-<th>Business Context (Inferred)</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
 </tr>
 </thead>
 <tbody>
@@ -591,22 +716,68 @@ BVN’s liquidity position is critically weak, with a <strong>working capital ra
 <td>Current (Q8)</td>
 <td>2.68</td>
 <td>Gray Zone</td>
-<td>Stable working capital, low EBIT</td>
-<td>Stable but low profitability, no major operational shifts reported</td>
+<td>Moderate working capital, low EBIT, stable retained earnings</td>
+<td>Stable mining operations, commodity price exposure</td>
 </tr>
 <tr>
-<td>Previous Quarters</td>
-<td>2.50 - 2.75</td>
+<td>Q7</td>
+<td>2.63</td>
 <td>Gray Zone</td>
-<td>Consistent moderate risk</td>
-<td>No significant improvement or deterioration</td>
+<td>Slightly lower EBIT ratio, stable working capital</td>
+<td>Operational consistency, no major disruptions</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>2.60</td>
+<td>Gray Zone</td>
+<td>Marginal EBIT improvement, steady retained earnings</td>
+<td>Ongoing exploration and development activities</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>2.54</td>
+<td>Gray Zone</td>
+<td>Slight dip in asset turnover, stable liquidity</td>
+<td>Market volatility impacts mining sector</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>2.64</td>
+<td>Gray Zone</td>
+<td>Recovery in EBIT ratio, stable working capital</td>
+<td>Commodity price stabilization</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>2.69</td>
+<td>Gray Zone</td>
+<td>Consistent profitability, moderate asset turnover</td>
+<td>Operational efficiency initiatives</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>2.75</td>
+<td>Gray Zone</td>
+<td>Peak Z-Score, improved retained earnings</td>
+<td>Favorable market conditions</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>2.50</td>
+<td>Gray Zone</td>
+<td>Lowest Z-Score in period, liquidity constraints</td>
+<td>Early signs of operational stress</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-BVN’s Z-Score has hovered in the Gray Zone for eight quarters, indicating persistent moderate financial risk without crossing into distress (&lt;1.8) or safe (&gt;3.0) zones. The lack of component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) limits granular driver analysis, but the stable trend suggests no major operational disruptions or financial restructuring.</p>
-<p>The steady Z-Score aligns with the company’s low EBIT ratio and poor liquidity, reflecting ongoing challenges in operational efficiency and capital management. The absence of significant Z-Score improvement suggests that business cycles or commodity price fluctuations have not materially improved financial health.</p>
-<p>Compared to the <strong>AI Peer Analysis</strong> industry average Z-Score (typically &gt;3.0), BVN lags behind, indicating competitive pressure and potential vulnerability to sector downturns.</p>
+<h3 id="commentary_1">Commentary</h3>
+<ul>
+<li>BVN’s Z-Score has remained consistently in the <strong>Gray Zone</strong> over the past eight quarters, fluctuating narrowly between <strong>2.50 and 2.75</strong>, indicating persistent moderate financial risk without crossing into distress or safe zones.</li>
+<li>The <strong>key drivers</strong> of the Z-Score stability are low but steady EBIT ratios (~0.009), moderate retained earnings (~0.44), and very low working capital ratios (~0.071).</li>
+<li>The <strong>business context</strong> of mining operations with exposure to commodity price cycles explains the modest fluctuations in Z-Score, with no significant inflection points indicating distress or recovery.</li>
+<li>Compared to the <strong>industry average Z-Score (~3.0)</strong>, BVN lags slightly, reflecting operational and liquidity challenges relative to peers.</li>
+<li>The trend suggests <strong>stable but cautious financial health</strong>, requiring monitoring for any downward inflection that could signal increased bankruptcy risk.</li>
+</ul>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -622,31 +793,35 @@ BVN’s Z-Score has hovered in the Gray Zone for eight quarters, indicating pers
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable Gray Zone (2.68)</td>
-<td>Price stable at $16.70; zero volatility data</td>
-<td>Divergent (no volatility data)</td>
-<td>Market may not fully price risk</td>
+<td>Stable Gray Zone (~2.68)</td>
+<td>Price stable at $16.67</td>
+<td>Aligned</td>
+<td>Moderate risk, cautious opportunity</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral (no sentiment data)</td>
-<td>Dividend Yield 178% (anomaly)</td>
-<td>Inconsistent</td>
-<td>Dividend yield anomaly suggests market confusion or data error</td>
+<td>Neutral to slightly positive</td>
+<td>Dividend yield 178% (anomaly), P/E 10.16</td>
+<td>Divergent (due to yield anomaly)</td>
+<td>Requires further validation</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry average Z-Score</td>
-<td>Sector performance unknown</td>
+<td>Slightly below industry avg</td>
+<td>Sector performance moderate</td>
 <td>Underperforming</td>
-<td>BVN weaker than peers; caution warranted</td>
+<td>Competitive positioning weak</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-The lack of volatility and technical indicator data (all zero) severely limits market timing analysis. The <strong>P/E ratio of 10.18</strong> suggests reasonable valuation, but the <strong>extraordinary dividend yield of 178%</strong> is likely a data anomaly or reflects a special dividend event, which distorts market sentiment interpretation.</p>
-<p>The divergence between stable Z-Score and unusual dividend yield raises questions about market efficiency and investor perception. Institutional investors may be cautious given liquidity and operational weaknesses.</p>
-<p>Overall, fundamental health signals moderate risk, but market signals are ambiguous, suggesting a need for cautious monitoring.</p>
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li>The <strong>Z-Score trend</strong> aligns with a stable stock price around <strong>$16.67</strong>, indicating market recognition of BVN’s moderate financial risk.</li>
+<li>The <strong>extremely high dividend yield (178%)</strong> is an outlier and likely reflects special dividends or data irregularities, causing divergence between fundamental and market sentiment signals.</li>
+<li>The <strong>P/E ratio of 10.16</strong> suggests the market values BVN reasonably relative to earnings, supporting a cautious but positive valuation.</li>
+<li>Lack of technical indicators (RSI, moving averages) and zero beta/volatility data limit momentum and risk-return profiling.</li>
+<li>Peer comparison shows BVN slightly underperforming relative to sector averages, consistent with its Gray Zone Z-Score.</li>
+</ul>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -664,30 +839,35 @@ The lack of volatility and technical indicator data (all zero) severely limits m
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential decline if EBIT worsens</td>
-<td>Improve operational efficiency, cost control</td>
+<td>-0.2 to -0.4</td>
+<td>Enhance asset utilization, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>Medium</td>
 <td>High</td>
-<td>Liquidity stress could lower Z-Score below 1.8</td>
-<td>Strengthen working capital, manage debt</td>
+<td>Critical</td>
+<td>-0.5 to -0.7</td>
+<td>Improve liquidity, reduce debt exposure</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Commodity price volatility affects earnings</td>
-<td>Hedging commodity exposure, diversify revenue</td>
+<td>-0.3</td>
+<td>Hedge commodity price exposure</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Operational improvements and commodity price recovery increase EBIT ratio and working capital, pushing Z-Score above 3.0 (Safe Zone).<br />
-- <strong>Base Case:</strong> Status quo maintained, Z-Score remains in Gray Zone (~2.6-2.7), moderate risk persists.<br />
-- <strong>Worst Case:</strong> Liquidity deteriorates, EBIT declines, Z-Score falls below 1.8, signaling distress and potential bankruptcy risk.</p>
-<p>Given the <strong>AI Risk Analysis moderate risk level</strong>, the probability of liquidity stress and operational inefficiency is material. Mitigation should focus on cash flow management and operational cost optimization.</p>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational Risks:</strong> Moderate probability due to low asset turnover (0.059) and EBIT ratio (0.009). Operational inefficiencies could depress profitability further, negatively impacting Z-Score by up to 0.4 points.</li>
+<li><strong>Financial Risks:</strong> High probability and critical severity linked to extremely low liquidity (current ratio 0.071) and weak interest coverage. These factors could reduce Z-Score by up to 0.7 points, pushing BVN closer to distress.</li>
+<li><strong>Market Risks:</strong> Commodity price volatility inherent in precious metals mining poses medium risk, potentially reducing Z-Score by 0.3 points during downturns.</li>
+<li><strong>Scenario Planning:</strong>  </li>
+<li><strong>Best Case:</strong> Operational improvements and commodity price recovery increase Z-Score to &gt;3.0 (Safe Zone).  </li>
+<li><strong>Base Case:</strong> Status quo maintains Z-Score in Gray Zone (~2.6-2.7).  </li>
+<li><strong>Worst Case:</strong> Liquidity crisis or market downturn pushes Z-Score below 1.8, entering Distress Zone.</li>
+</ul>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -705,47 +885,53 @@ The lack of volatility and technical indicator data (all zero) severely limits m
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>HOLD</strong></td>
-<td>Z-Score stable at 2.68 (Gray Zone), liquidity weak</td>
-<td>Await liquidity improvement</td>
+<td>HOLD</td>
+<td>Z-Score stable at 2.68 (Gray Zone)</td>
+<td>Wait for liquidity improvement</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>SELL</strong></td>
-<td>Dividend yield anomaly (178%) unsustainable</td>
-<td>Avoid until dividend clarity</td>
-<td>Immediate</td>
+<td>HOLD/CAUTIOUS BUY</td>
+<td>High dividend yield (178%), verify sustainability</td>
+<td>Monitor dividend announcements</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>HOLD</strong></td>
-<td>P/E 10.18 reasonable; Z-Score below industry average</td>
-<td>Monitor for entry below $15</td>
-<td>3-6 months</td>
+<td>BUY</td>
+<td>P/E 10.16, Z-Score near 2.7</td>
+<td>Entry on price dips</td>
+<td>Immediate to 3 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>WAIT</strong></td>
-<td>Low EBIT ratio and asset turnover limit growth</td>
-<td>Await operational improvement</td>
+<td>HOLD</td>
+<td>Low EBIT ratio limits growth</td>
+<td>Await operational improvements</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>SPECULATIVE BUY</strong></td>
-<td>Potential upside if Z-Score improves above 3.0</td>
-<td>High risk/reward; monitor closely</td>
-<td>Short term (3 months)</td>
+<td>SELL</td>
+<td>High financial risk, low liquidity</td>
+<td>Avoid until risk mitigated</td>
+<td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-Conservative investors should hold and monitor liquidity improvements. Dividend investors should avoid due to unsustainable yield. Value investors may consider entry if price dips and operational metrics improve. Growth and aggressive investors face high risk due to weak profitability and liquidity but may speculate on turnaround potential.</p>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li><strong>Conservative investors</strong> should hold BVN, monitoring liquidity and operational metrics before increasing exposure.</li>
+<li><strong>Dividend investors</strong> may consider cautious accumulation if dividend sustainability is confirmed, given the anomalous yield.</li>
+<li><strong>Value investors</strong> have an opportunity due to reasonable valuation and stable Z-Score but should time entry around market dips.</li>
+<li><strong>Growth investors</strong> should hold off until EBIT and asset turnover improve to support earnings growth.</li>
+<li><strong>Aggressive investors</strong> should avoid BVN due to liquidity and financial risks until clear improvements emerge.</li>
+</ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -762,28 +948,32 @@ Conservative investors should hold and monitor liquidity improvements. Dividend 
 <tr>
 <td>CEO Leadership</td>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio (0.009), Asset Turnover (0.059)</td>
-<td>Implement cost controls, optimize asset use</td>
-<td>EBIT improvement &gt;0.02, turnover &gt;0.1</td>
+<td>Asset Turnover (0.059), EBIT Ratio (0.009)</td>
+<td>Implement cost controls, optimize mining operations</td>
+<td>EBIT ratio improvement &gt;0.02</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
 <td>Liquidity &amp; Capital Structure</td>
-<td>Working Capital Ratio (0.071), Debt Levels (N/A)</td>
-<td>Enhance cash management, clarify debt profile</td>
-<td>Working capital ratio &gt;0.5, stable debt ratios</td>
+<td>Current Ratio (0.071), Retained Earnings (0.441)</td>
+<td>Strengthen liquidity, manage debt levels</td>
+<td>Current ratio &gt;0.5, stable debt ratios</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk Oversight &amp; Dividend Policy</td>
-<td>Z-Score (2.68), Dividend Yield (178%)</td>
-<td>Review dividend sustainability, risk mitigation</td>
-<td>Dividend yield normalized &lt;5%, Z-Score stable or improving</td>
+<td>Risk Oversight &amp; Compliance</td>
+<td>Z-Score (2.68), Dividend Policy</td>
+<td>Monitor financial risk, validate dividend sustainability</td>
+<td>Maintain Z-Score &gt;2.5, dividend consistency</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-Leadership must prioritize liquidity and operational efficiency to move BVN out of the Gray Zone. The CFO should focus on improving working capital and clarifying leverage to reduce financial risk. The Board should address dividend policy anomalies to maintain investor confidence and align payouts with sustainable earnings.</p>
+<h3 id="commentary_5">Commentary</h3>
+<ul>
+<li>The <strong>CEO</strong> should prioritize operational improvements to increase asset turnover and EBIT margins, directly impacting Z-Score and financial stability.</li>
+<li>The <strong>CFO</strong> must address liquidity constraints by improving working capital management and optimizing capital structure to reduce financial risk.</li>
+<li>The <strong>Board</strong> should oversee risk management frameworks, ensuring transparency and compliance, especially given the high dividend yield anomaly and liquidity concerns.</li>
+</ul>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -799,35 +989,41 @@ Leadership must prioritize liquidity and operational efficiency to move BVN out 
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable near 2.68</td>
-<td>Slight improvement possible</td>
-<td>Commodity price recovery, cost reduction</td>
-<td>Quarterly EBIT ratio, working capital ratio</td>
+<td>Stable Gray Zone (~2.68)</td>
+<td>Slight upward potential</td>
+<td>Operational efficiency gains, commodity price recovery</td>
+<td>Quarterly Z-Score updates, EBIT ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Below industry avg.</td>
+<td>Mid-tier in industry</td>
 <td>Potential to close gap</td>
-<td>Operational turnaround, market expansion</td>
+<td>Strategic asset development, cost reduction</td>
 <td>Peer Z-Score comparison, market share</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Moderate</td>
-<td>Risk reduction if liquidity improves</td>
-<td>Debt refinancing, operational efficiency</td>
-<td>Liquidity ratios, debt coverage</td>
+<td>Moderate financial risk</td>
+<td>Risk reduction possible</td>
+<td>Liquidity improvement, debt restructuring</td>
+<td>Current ratio, interest coverage</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-BVN’s Z-Score momentum is stable but below the safe threshold. Key catalysts for improvement include commodity price upswings and operational cost controls. Monitoring EBIT ratio and working capital will provide early signals of financial health shifts. Risk profile may improve with better liquidity management and clearer capital structure.</p>
-<p>Investors should track quarterly financial releases closely for inflection points and adjust positions accordingly.</p>
+<h3 id="commentary_6">Commentary</h3>
+<ul>
+<li>The <strong>Z-Score momentum</strong> is stable with potential for gradual improvement if operational and liquidity issues are addressed.</li>
+<li><strong>Market position</strong> may strengthen with strategic initiatives targeting asset utilization and cost efficiency.</li>
+<li><strong>Risk profile</strong> will improve with enhanced liquidity and financial management, reducing bankruptcy risk.</li>
+<li>Key <strong>leading indicators</strong> include quarterly Z-Score changes, EBIT ratio trends, and liquidity ratios.</li>
+<li>Early warning signals to monitor include declining working capital ratio, EBIT margin contraction, and dividend payout inconsistencies.</li>
+</ul>
 <hr />
-<h1 id="summary-conclusion"><strong>Summary Conclusion:</strong></h1>
-<p>BVN currently operates in a <strong>Gray Zone financial risk environment</strong> with <strong>weak liquidity and operational efficiency</strong>. While the Z-Score has been stable, the company lags peers and faces risks from liquidity stress and operational underperformance. Market signals are ambiguous due to anomalous dividend yield data. Conservative and value investors should hold with caution, dividend investors should avoid, and growth/aggressive investors should wait for clearer operational improvements. Strategic focus on liquidity enhancement and operational efficiency is critical to improving BVN’s financial health and investment appeal.</p>
+<h1 id="summary">Summary</h1>
+<p>BVN presents a <strong>moderate risk investment profile</strong> with a stable but cautious financial outlook. The <strong>Altman Z-Score consistently in the Gray Zone (~2.68)</strong> reflects ongoing operational and liquidity challenges typical of the precious metals mining sector. While valuation metrics such as a <strong>P/E of 10.16</strong> and an anomalously high dividend yield suggest potential value, <strong>low liquidity (current ratio 0.071) and minimal EBIT coverage (0.009)</strong> warrant prudence.</p>
+<p>Investors should adopt a <strong>hold or selective buy strategy</strong> depending on risk tolerance, closely monitoring liquidity improvements and operational efficiency gains. Management’s focus on improving asset turnover and strengthening financial stability will be critical to shifting BVN into the Safe Zone and enhancing shareholder value.</p>
 <hr />
-<p><em>This analysis integrates all injected data elements explicitly, referencing exact values and synthesizing multi-source insights for actionable investment intelligence.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, market signals, and risk assessments to provide actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1170,78 +1366,41 @@ BVN’s Z-Score momentum is stable but below the safe threshold. Key catalysts f
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:19 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:29 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

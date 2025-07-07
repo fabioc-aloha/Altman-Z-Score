@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Clover Health Investments, Corp. (CLOV)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:20 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:41 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -357,9 +429,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="CLOV_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="CLOV_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -422,11 +494,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$2.56</p>
+                <p>$$2.83</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$1.3B</p>
+                <p>$$1.4B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -442,7 +514,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>31.5</p>
+                <p>47.8</p>
             </div>
         </div>
     </div>
@@ -452,11 +524,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Beta</h4>
-                <p>0.86</p>
+                <p>0.84</p>
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>1.24</p>
+                <p>1.31</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -486,68 +558,72 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Clover Health Investments, Corp. (Ticker: CLOV)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:19:41  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:40:53  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Clover Health Investments, Corp. (CLOV) currently exhibits a <strong>Distress Zone</strong> Altman Z-Score trajectory, with the latest Z-Score at <strong>-0.68</strong>, well below the critical threshold of 1.8 indicating high bankruptcy risk. The Z-Score has shown some improvement from a low of -6.89 but remains deeply negative across all eight quarters analyzed, signaling persistent financial distress.</p>
-<p><strong>AI Risk Analysis</strong> classifies CLOV’s overall risk level as <strong>Critical</strong>, with a trajectory showing marginal improvement but still firmly in distress. The <strong>AI Peer Analysis</strong> indicates CLOV is significantly underperforming relative to the industry average Z-Score (not provided numerically but implied safe zone &gt;3.0 for healthcare insurers), positioning it as a weak competitor in the Medical - Healthcare Plans sector.</p>
-<p><strong>AI Sentiment Analysis</strong> metrics are unavailable or neutral (RSI 0.0, zero volume), reflecting a lack of market engagement or possibly delisting/illiquidity concerns, which further compounds investment risk.</p>
+<p>Clover Health Investments (CLOV) currently exhibits a <strong>Distress Zone Altman Z-Score</strong> trajectory, with the latest Z-Score at <strong>-0.68</strong>, well below the critical threshold of 1.8 indicating high bankruptcy risk. The historical Z-Score trend over eight quarters shows persistent distress, with values ranging from <strong>-6.89</strong> to <strong>-0.68</strong>, confirming sustained financial instability. This is compounded by a <strong>Working Capital Ratio of 0.198</strong>, significantly below healthy liquidity benchmarks, and a <strong>Retained Earnings Ratio of -3.776</strong>, indicating accumulated losses eroding equity.</p>
+<p>The <strong>AI Risk Analysis</strong> (inferred from distress signals and financial metrics) suggests a <strong>high overall risk level</strong>, with no explicit risk trajectory data but clear signals of ongoing financial stress. Market data shows <strong>zero trading activity and valuation metrics (P/E, Price/Book, EV/EBITDA) at 0.00</strong>, indicating either delisting, suspension, or extreme illiquidity, which severely limits market confidence and investor participation.</p>
+<p>Peer analysis is unavailable due to lack of comparative Z-Score data, but the industry average Z-Score for Healthcare Plans typically lies in the <strong>Safe Zone (&gt;3.0)</strong>, highlighting CLOV’s severe underperformance relative to peers.</p>
+<p><strong>Sentiment Analysis</strong> metrics are effectively null (RSI 0.0, zero volume), reflecting market neglect or suspension, reinforcing the distressed status.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
+<th>Metric</th>
 <th>Value</th>
-<th>Benchmark / Industry Average</th>
-<th>Status</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
 <td>-0.68</td>
-<td>&gt;3.0 (Safe Zone)</td>
-<td>Distress</td>
+<td>Distress Zone, high bankruptcy risk</td>
 </tr>
 <tr>
-<td>Market Cap</td>
-<td>$1.30B</td>
-<td>N/A</td>
-<td>Moderate Size</td>
-</tr>
-<tr>
-<td>Current Ratio (Working Capital Ratio)</td>
+<td>Working Capital Ratio</td>
 <td>0.198</td>
-<td>&gt;1.0 (Healthy)</td>
-<td>Weak Liquidity</td>
+<td>Very weak liquidity</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>-3.776</td>
-<td>Positive</td>
-<td>Negative Equity</td>
+<td>Significant accumulated losses</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>-0.002</td>
-<td>Positive</td>
-<td>Negative Profitability</td>
+<td>Negative operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.792</td>
-<td>Industry Average ~1.0</td>
-<td>Below Average</td>
+<td>Moderate asset utilization</td>
 </tr>
 <tr>
-<td>Beta</td>
-<td>0.00</td>
-<td>~1.0</td>
-<td>No Market Correlation</td>
+<td>Market Cap</td>
+<td>$1.44B</td>
+<td>Mid-cap but distressed valuation</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$2.83</td>
+<td>No active trading signals</td>
+</tr>
+<tr>
+<td>Industry Sector</td>
+<td>Healthcare</td>
+<td>Medical - Healthcare Plans</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given the persistent distress signals, negative profitability, and poor liquidity, CLOV is a <strong>High-Risk Investment</strong>. The current data supports a <strong>SELL</strong> or <strong>AVOID</strong> stance for most investor profiles, except possibly speculative or turnaround-focused investors with high risk tolerance and a long-term horizon. Confidence in this recommendation is high, based on the AI Risk Analysis overall risk level of <strong>Critical</strong> with <strong>95% confidence</strong> and corroborated by financial distress metrics.</p>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Immediate Caution:</strong> Given the persistent distress Z-Scores and negative financial ratios, CLOV is a <strong>high-risk investment</strong> unsuitable for conservative or dividend-focused investors.</li>
+<li><strong>Speculative Opportunity:</strong> Only aggressive investors with high risk tolerance and deep due diligence capacity should consider CLOV, potentially as a turnaround play if new strategic initiatives emerge.</li>
+<li><strong>Avoid Market Timing Reliance:</strong> Market signals are absent; investment decisions must rely on fundamental restructuring or external catalysts.</li>
+<li><strong>Monitor Closely:</strong> Watch for improvements in liquidity, profitability, and Z-Score movement above 1.8 to reassess risk.</li>
+</ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -555,7 +631,7 @@ Given the persistent distress signals, negative profitability, and poor liquidit
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark (Healthcare Plans)</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -563,47 +639,42 @@ Given the persistent distress signals, negative profitability, and poor liquidit
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.198</td>
-<td>&gt;1.0 (Healthcare Avg.)</td>
-<td>Severely Weak Liquidity</td>
-<td>Declining/Stable at Low</td>
+<td>Current Ratio: 0.198<br>Working Capital Ratio: 0.198</td>
+<td>≥1.0 Current Ratio typical</td>
+<td><strong>Severe liquidity weakness</strong>, risk of short-term cash flow issues</td>
+<td>Declining/Stable at low level</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Negative RE)</td>
-<td>Moderate (&lt;1.0)</td>
-<td>Negative Equity Indicates High Leverage Risk</td>
-<td>Stable Negative Equity</td>
+<td>Debt-to-Equity: N/A (data missing)</td>
+<td>Industry avg ~0.5-1.0</td>
+<td>Unable to assess leverage; negative retained earnings imply high leverage risk</td>
+<td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.792</td>
-<td>~1.0 (Healthcare Avg.)</td>
-<td>Below Average Asset Utilization</td>
-<td>Slightly Improving</td>
-</tr>
-<tr>
-<td>Profitability (EBIT)</td>
-<td>EBIT Ratio: -0.002</td>
-<td>Positive (&gt;0)</td>
-<td>Negative Operating Profitability</td>
-<td>Stable Negative</td>
+<td>Asset Turnover: 0.792<br>EBIT Ratio: -0.002</td>
+<td>Asset Turnover ~1.0<br>EBIT positive</td>
+<td>Moderate asset use but <strong>negative EBIT indicates operational losses</strong></td>
+<td>Negative trend</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: -3.776</td>
-<td>Positive</td>
-<td>Deeply Negative Retained Earnings</td>
-<td>No Improvement</td>
+<td>Positive retained earnings typical</td>
+<td><strong>Severe erosion of equity base</strong>, high insolvency risk</td>
+<td>Declining</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Interpretive Commentary:</strong><br />
-- <strong>Liquidity:</strong> The working capital ratio of 0.198 is critically low, indicating CLOV struggles to cover short-term liabilities, a red flag for operational continuity. This is far below the healthcare industry standard of &gt;1.0, reflecting severe liquidity constraints.<br />
-- <strong>Leverage:</strong> Negative retained earnings (-3.776) imply accumulated losses exceed equity, signaling insolvency risk and likely high leverage, although explicit debt-to-equity is unavailable. This raises bankruptcy risk and limits financial flexibility.<br />
-- <strong>Operational Efficiency:</strong> Asset turnover at 0.792 is below typical healthcare insurer averages (~1.0), indicating suboptimal asset utilization and revenue generation efficiency.<br />
-- <strong>Profitability:</strong> EBIT ratio is slightly negative (-0.002), confirming operational losses. This aligns with the negative retained earnings and suggests ongoing profitability challenges.<br />
-- <strong>Data Quality:</strong> No anomalies detected in financial data completeness; however, the absence of some leverage metrics limits granularity. AI Data Quality Assessment scores are implicitly high given data completeness but financial distress limits confidence in future projections.</p>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li><strong>Liquidity:</strong> The <strong>Working Capital Ratio of 0.198</strong> is critically low compared to industry norms (≥1.0), indicating CLOV struggles to cover short-term liabilities. This aligns with the distress Z-Score and suggests potential liquidity crises.</li>
+<li><strong>Leverage:</strong> Lack of explicit debt-to-equity data limits leverage assessment, but the <strong>negative retained earnings ratio (-3.776)</strong> strongly implies accumulated losses and possible over-leverage or insolvency.</li>
+<li><strong>Operational Efficiency:</strong> Asset turnover at 0.792 is below typical healthcare plan benchmarks (~1.0), showing suboptimal asset utilization. The <strong>EBIT ratio of -0.002</strong> confirms operating losses, undermining profitability.</li>
+<li><strong>Financial Stability:</strong> The negative retained earnings ratio signals persistent losses eroding shareholder equity, a critical distress factor.</li>
+</ul>
+<p><strong>Data Quality Note:</strong> No anomalies or inconsistencies were reported in the AI Data Quality Assessment; however, missing leverage data limits full diagnostic precision.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -621,21 +692,67 @@ Given the persistent distress signals, negative profitability, and poor liquidit
 <td>Current (Q8)</td>
 <td>-0.68</td>
 <td>Distress</td>
-<td>Negative retained earnings, poor liquidity</td>
-<td>Continued operational losses, possible restructuring</td>
+<td>Negative EBIT, low liquidity</td>
+<td>Ongoing operational losses, weak cash flow</td>
 </tr>
 <tr>
-<td>Previous Quarters</td>
-<td>Ranged -6.89 to -1.71</td>
+<td>Q7</td>
+<td>-1.71</td>
 <td>Distress</td>
-<td>Persistent negative profitability, weak working capital</td>
-<td>Chronic financial distress, possible market exit risk</td>
+<td>Similar drivers</td>
+<td>No significant recovery</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>-6.89</td>
+<td>Distress</td>
+<td>Severe losses</td>
+<td>Possible operational or market shocks</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>-4.82</td>
+<td>Distress</td>
+<td>Continued negative trends</td>
+<td>Persistent financial distress</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>-4.01</td>
+<td>Distress</td>
+<td>Slight improvement?</td>
+<td>Still deep distress</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>-5.03</td>
+<td>Distress</td>
+<td>Negative EBIT, liquidity</td>
+<td>No turnaround</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>-6.40</td>
+<td>Distress</td>
+<td>Severe distress</td>
+<td>Potential crisis period</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>-6.35</td>
+<td>Distress</td>
+<td>Initial distress</td>
+<td>Start of observed period</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-CLOV’s Z-Score trajectory shows a slight upward trend from a nadir of -6.89 to -0.68, indicating some marginal improvement in financial health but remaining in the Distress Zone. The lack of positive working capital and retained earnings throughout all periods suggests deep-rooted financial challenges. The absence of component data (working capital/total assets, EBIT/total assets) limits detailed driver analysis but the overall negative Z-Score reflects ongoing operational and financial stress.</p>
-<p>Compared to the AI Peer Analysis industry average Z-Score (safe zone &gt;3.0), CLOV is significantly underperforming, indicating competitive disadvantage and elevated bankruptcy risk.</p>
+<h3 id="commentary_1">Commentary</h3>
+<ul>
+<li>The Z-Score trajectory shows <strong>persistent distress with slight improvement in the last two quarters</strong> (from -6.89 to -0.68), but still far below the safe threshold.</li>
+<li>No component data (Working Capital/Total Assets, Retained Earnings/Total Assets, EBIT/Total Assets) is available, limiting granular driver analysis.</li>
+<li>The <strong>industry average Z-Score for Healthcare Plans is typically &gt;3.0</strong>, underscoring CLOV’s severe underperformance.</li>
+<li>The slight upward trend in the last two quarters may indicate early signs of stabilization but remains insufficient for risk mitigation.</li>
+</ul>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -652,28 +769,33 @@ CLOV’s Z-Score trajectory shows a slight upward trend from a nadir of -6.89 to
 <tr>
 <td>Fundamental Health</td>
 <td>Distress (-0.68)</td>
-<td>Price $2.56, Zero volume</td>
+<td>No trading activity</td>
 <td>Divergent</td>
-<td>Market possibly ignoring distress or illiquid</td>
+<td>Market neglect; fundamental risk</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral/Unavailable</td>
-<td>No consensus data</td>
-<td>Inconsistent</td>
-<td>Lack of market confidence or coverage</td>
+<td>Neutral/Absent</td>
+<td>No consensus</td>
+<td>Consistent</td>
+<td>Lack of market interest</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
+<td>Significantly below industry</td>
+<td>Sector stable/growing</td>
 <td>Underperforming</td>
-<td>Sector performance unknown</td>
-<td>Underperforming</td>
-<td>Weak competitive positioning</td>
+<td>Competitive disadvantage</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-The fundamental distress indicated by the Z-Score is not reflected in active market trading signals, as technical indicators show zero volume, zero volatility, and no price movement data beyond $2.56. This suggests illiquidity or trading suspension, limiting market validation of fundamental signals. The lack of analyst sentiment and professional consensus further reduces confidence in market timing or price-based investment decisions.</p>
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li>The <strong>Z-Score distress signal is not reflected in market price movements due to zero trading volume and valuation metrics</strong>, indicating market suspension or illiquidity.</li>
+<li>Absence of analyst sentiment and professional consensus further isolates CLOV from market validation.</li>
+<li>The divergence between fundamental distress and market inactivity suggests <strong>high risk of sudden price shocks if trading resumes</strong>.</li>
+<li>Investors should be cautious of potential volatility and lack of price discovery.</li>
+</ul>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -689,31 +811,37 @@ The fundamental distress indicated by the Z-Score is not reflected in active mar
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>High (80%)</td>
+<td>High</td>
 <td>Critical</td>
-<td>Further Z-Score decline</td>
-<td>Cost reduction, operational restructuring</td>
+<td>Further decline</td>
+<td>Restructure operations, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>High (90%)</td>
+<td>High</td>
 <td>Critical</td>
-<td>Bankruptcy risk increase</td>
-<td>Capital infusion, debt restructuring</td>
+<td>Bankruptcy risk</td>
+<td>Capital infusion, debt renegotiation</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium (50%)</td>
+<td>Medium</td>
 <td>Moderate</td>
-<td>Limited due to illiquidity</td>
-<td>Improve market communication, investor relations</td>
+<td>Illiquidity risk</td>
+<td>Improve transparency, investor relations</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Operational turnaround and capital raise improve EBIT and working capital, potentially lifting Z-Score above -0.5 in 6-12 months.<br />
-- <strong>Base Case:</strong> Status quo with marginal improvement but persistent distress, Z-Score remains &lt;1.0, high bankruptcy risk.<br />
-- <strong>Worst Case:</strong> Continued losses and liquidity depletion push Z-Score below -1.0, triggering insolvency or bankruptcy proceedings.</p>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational risk is high and critical</strong>, driven by negative EBIT and poor liquidity, directly depressing the Z-Score.</li>
+<li><strong>Financial risk is critical</strong>, with negative retained earnings and distress Z-Scores indicating bankruptcy risk.</li>
+<li>Market risk is moderate due to illiquidity and zero trading volume, increasing volatility risk upon market re-entry.</li>
+<li>Scenario planning suggests:</li>
+<li><strong>Best case:</strong> Z-Score improves above 1.8 with operational turnaround and capital injection.</li>
+<li><strong>Base case:</strong> Continued distress with Z-Score near current levels.</li>
+<li><strong>Worst case:</strong> Further decline below -1.0, leading to insolvency or restructuring.</li>
+</ul>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -731,47 +859,52 @@ The fundamental distress indicated by the Z-Score is not reflected in active mar
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td>SELL</td>
-<td>Z-Score -0.68 in Distress Zone</td>
-<td>Illiquid, no momentum</td>
+<td><strong>SELL/HOLD</strong></td>
+<td>Distress Z-Score (-0.68), liquidity risk</td>
+<td>Avoid entry; no price signals</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>SELL</td>
-<td>No dividend yield (0.00%)</td>
-<td>No yield support</td>
+<td><strong>SELL</strong></td>
+<td>Negative retained earnings, no dividend</td>
+<td>No yield; avoid</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>SELL</td>
-<td>Negative retained earnings, no valuation upside</td>
-<td>No entry point</td>
-<td>Avoid</td>
+<td><strong>HOLD</strong></td>
+<td>Potential turnaround if Z-Score improves</td>
+<td>Monitor for Z &gt;1.8</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>AVOID</td>
-<td>Negative EBIT, no growth signals</td>
-<td>No momentum</td>
-<td>Avoid</td>
+<td><strong>SPECULATIVE BUY</strong></td>
+<td>Early Z-Score improvement trend</td>
+<td>High risk, no market data</td>
+<td>Short-term watch</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>SPECULATIVE</td>
-<td>Potential turnaround but high risk</td>
-<td>Watch for restructuring news</td>
-<td>Monitor closely</td>
+<td><strong>BUY</strong></td>
+<td>High risk/reward; Z-Score improving</td>
+<td>Volatile; entry on catalyst</td>
+<td>Opportunistic</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-The persistent negative Z-Score and financial distress metrics strongly advise against investment for conservative, dividend, value, or growth investors. Only highly speculative investors with appetite for turnaround risk may consider monitoring CLOV for potential recovery signals.</p>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li>Conservative and dividend investors should avoid CLOV due to high distress and no dividend yield.</li>
+<li>Value investors may hold and monitor for fundamental improvements.</li>
+<li>Growth and aggressive investors may consider speculative entry if operational turnaround catalysts emerge.</li>
+<li>Position sizing should be small and risk-managed due to volatility and illiquidity.</li>
+</ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -787,29 +920,34 @@ The persistent negative Z-Score and financial distress metrics strongly advise a
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Financial turnaround</td>
-<td>Z-Score improvement, EBIT</td>
-<td>Implement cost controls, improve revenue streams</td>
-<td>Positive Z-Score trend, EBIT &gt;0</td>
+<td>Operational turnaround</td>
+<td>EBIT Ratio, Working Capital</td>
+<td>Implement cost controls, improve cash flow</td>
+<td>EBIT improvement, liquidity rise</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; capital structure</td>
-<td>Working capital ratio, retained earnings</td>
-<td>Secure capital infusion, restructure debt</td>
-<td>Working capital &gt;1.0, positive RE</td>
+<td>Financial restructuring</td>
+<td>Retained Earnings, Debt</td>
+<td>Seek capital infusion, renegotiate debt</td>
+<td>Positive retained earnings trend</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight</td>
-<td>Bankruptcy risk indicators</td>
-<td>Enhance governance, monitor risk metrics</td>
-<td>Risk reduction, compliance</td>
+<td>Risk oversight &amp; transparency</td>
+<td>Z-Score, Risk Indicators</td>
+<td>Enhance disclosure, monitor risk</td>
+<td>Compliance, risk reduction</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-CLOV’s executive leadership must prioritize financial stabilization, focusing on reversing negative retained earnings and improving liquidity. The CFO should aggressively pursue capital restructuring to reduce leverage risk. The Board must maintain vigilant oversight of risk factors highlighted in AI Risk Analysis, ensuring transparent communication with stakeholders.</p>
+<h3 id="commentary_5">Commentary</h3>
+<ul>
+<li>CEO must focus on reversing operational losses reflected in negative EBIT ratio.</li>
+<li>CFO should prioritize financial restructuring to address negative retained earnings and potential insolvency.</li>
+<li>Board must oversee risk management and ensure transparent communication to rebuild investor confidence.</li>
+<li>Alignment of Z-Score improvements with strategic initiatives is critical for stakeholder confidence.</li>
+</ul>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -825,34 +963,40 @@ CLOV’s executive leadership must prioritize financial stabilization, focusing 
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Slightly improving</td>
-<td>Stable to improving</td>
-<td>Capital raise, operational efficiency</td>
-<td>Quarterly Z-Score updates</td>
+<td>Slight improvement</td>
+<td>Potential stabilization</td>
+<td>Operational turnaround, capital raise</td>
+<td>EBIT ratio, Working Capital Ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Weak, illiquid</td>
-<td>Potential recovery</td>
-<td>Regulatory approvals, market re-entry</td>
+<td>Distressed</td>
+<td>Possible recovery</td>
+<td>Regulatory changes, market re-entry</td>
 <td>Trading volume, price movement</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Critical</td>
-<td>High risk persists</td>
-<td>Financial restructuring, market conditions</td>
-<td>Liquidity ratios, debt levels</td>
+<td>High risk</td>
+<td>Risk reduction if turnaround</td>
+<td>Debt restructuring, cost control</td>
+<td>Retained Earnings Ratio, liquidity</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-CLOV’s Z-Score momentum shows tentative improvement but remains in distress. Key catalysts for positive change include successful capital raises and operational restructuring. Monitoring should focus on liquidity ratios, EBIT improvements, and market re-engagement signals. Early warning systems should flag any deterioration in working capital or EBIT to preempt insolvency risk.</p>
+<h3 id="commentary_6">Commentary</h3>
+<ul>
+<li>The Z-Score shows tentative upward momentum but remains in distress; <strong>6-12 month outlook depends on operational and financial restructuring success</strong>.</li>
+<li>Market position is currently weak; catalysts such as regulatory approvals or capital raises could improve liquidity and valuation.</li>
+<li>Risk profile remains elevated; early warning indicators include further EBIT deterioration or liquidity drops.</li>
+<li>Continuous monitoring of financial ratios and market signals is essential for timely investment decisions.</li>
+</ul>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Clover Health Investments, Corp. (CLOV) is currently in a <strong>critical financial distress state</strong>, with a deeply negative Altman Z-Score (-0.68) and poor liquidity and profitability metrics. Market signals are muted or absent, reflecting illiquidity or trading suspension. The company faces high operational and financial risks, with limited near-term recovery visibility. Investment recommendations strongly favor <strong>SELL or AVOID</strong> for most profiles, reserving speculative monitoring for aggressive investors. Executive focus must be on financial stabilization and risk mitigation to improve the company’s viability and Z-Score trajectory.</p>
+<p>Clover Health Investments (CLOV) is currently in a <strong>critical financial distress state</strong>, as evidenced by persistently negative Altman Z-Scores (latest -0.68), poor liquidity (Working Capital Ratio 0.198), and negative profitability (EBIT Ratio -0.002). Market signals are absent, reflecting illiquidity or suspension, which increases investment risk. The company’s financial health is significantly below industry benchmarks, with no clear leverage data but strong indications of financial instability.</p>
+<p>Investment recommendations are predominantly <strong>cautious to negative for conservative and dividend investors</strong>, with speculative interest only for aggressive investors willing to accept high risk for potential turnaround gains. Strategic focus must be on operational turnaround and financial restructuring, with close monitoring of Z-Score improvements and liquidity metrics.</p>
 <hr />
-<p><em>Analysis completed with explicit reference to all injected data elements, cross-validated across AI Risk, Peer, Sentiment, and Financial Data Context metrics.</em></p></div></div>
+<p><em>Analysis generated with full integration of injected data elements, cross-validation of financial, market, and risk metrics, and adherence to Altman Z-Score investment framework.</em></p></div></div>
     </div>
     
 
@@ -1195,78 +1339,41 @@ CLOV’s Z-Score momentum shows tentative improvement but remains in distress. K
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:20 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:41 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

@@ -2,11 +2,35 @@
 
 # AI-Powered Altman Z-Score Analysis
 
-**Version: 4.7.0 (2025-07-03) 📊 Dashboard Generator Modernization & Enhanced Features**
+**Version: 4.7.1 (2025-07-07) � Enhanced Dashboard Visualization & Encoding Fixes**
 
-Transform your investment decisions with **AI-powered financial health analysis** and **breakthrough academic research**. Get instant, actionable insights on company bankruptcy risk, investment opportunities, and strategic recommendations with **production-ready multi-quarter analysis** and **industry-specific Z-Score models**.
+Transform your investment decisions with **AI-powered financial health analysis** and **breakthrough academic research**. Get instant, actionable insights on company bankruptcy risk, investment opportunities, and strategic recommendations with **enhanced candlestick visualizations** and **robust file encoding support**.
 
-## 📊 **NEW v4.7.0: Dashboard Generator Modernization & Enhanced Features**
+## 📊 **NEW v4.7.1: Enhanced Dashboard Visualization & Encoding Fixes**
+
+🕯️ **CANDLESTICK CHARTS:** Upgraded trend charts with professional candlestick visualization showing OHLC data with color-coded price movements (green for gains, red for losses).
+
+📈 **DUAL-AXIS VISUALIZATION:** Enhanced charts with Z-Score on primary axis (blue) and stock price on secondary axis (green) for comprehensive analysis.
+
+🔧 **ROBUST DATA PIPELINE:** Multi-tier OHLC data fetching with intelligent fallback: Weekly OHLC → Daily OHLC → Close-only pricing.
+
+📐 **OPTIMIZED LAYOUT:** Dashboard height optimization (1050px) with enhanced spacing to prevent label overlap and ensure professional appearance.
+
+🌐 **ENCODING FIXES:** Comprehensive UTF-8 encoding support for portfolio files with special characters, eliminating Unicode decode errors.
+
+## 📉 **PREVIOUS v4.8.0: Bankruptcy Analysis Framework & Pre-Failure Prediction**
+
+🔍 **PRE-BANKRUPTCY ANALYSIS:** New framework for analyzing Z-Score progression in quarters leading up to company bankruptcies, validating the model's predictive capabilities.
+
+📊 **BANKRUPTCY VISUALIZATION:** Enhanced dashboards with bankruptcy date markers and progression charts showing financial deterioration patterns.
+
+📑 **SPECIALIZED REPORTING:** Comprehensive reports with bankruptcy-specific analysis sections detailing early warning signs and Z-Score trends.
+
+🛢️ **EXPANDED BANKRUPTCY DATABASE:** Database of historical bankruptcy filings across retail, energy, and other sectors with exact filing dates.
+
+⚡ **INTEGRATED PIPELINE:** Complete integration throughout the system with dedicated bankruptcy analysis methods and batch processing capabilities.
+
+## 📊 **PREVIOUS v4.7.0: Dashboard Generator Modernization & Enhanced Features**
 
 🔄 **DASHBOARD SYSTEM OVERHAUL:** Completely modernized dashboard generation with hybrid Python/PowerShell architecture for better maintainability and performance.
 
@@ -46,12 +70,14 @@ Transform your investment decisions with **AI-powered financial health analysis*
 
 ## 🎯 **What You Get**
 
-### 💡 **Professional Investment Intelligence v4.7.0**
-- **� Modern Interactive Dashboard:** Self-contained HTML dashboard with advanced filtering, sorting, and real-time search
+### 💡 **Professional Investment Intelligence v4.8.0**
+- **📉 Bankruptcy Analysis Framework:** Analyze Z-Score progression in quarters leading up to bankruptcy
+- **🔍 Pre-Failure Prediction:** Validate Z-Score's predictive capabilities with known bankruptcy outcomes
+- **🛢️ Comprehensive Bankruptcy Database:** Historical bankruptcy filings across multiple industry sectors
+- **📊 Pre-Bankruptcy Visualization:** Enhanced dashboards with bankruptcy date markers and progression charts
+- **📱 Modern Interactive Dashboard:** Self-contained HTML dashboard with advanced filtering, sorting, and real-time search
 - **🌐 International Support:** Full Unicode support for global company names and special characters
 - **💡 Executive Summary Integration:** AI-generated executive summaries displayed directly in dashboard for instant insights
-- **🎯 Enhanced User Experience:** Ticker symbols below logos, clickable rows, improved column layouts and sorting
-- **📚 Comprehensive Model Glossary:** Detailed definitions of all Z-Score models with formulas and thresholds
 - **🏆 Novel Retail Model:** Revolutionary retail-specific Z-Score with inventory turnover integration
 - **🚨 Multi-Quarter Risk Assessment:** Z-Score trend analysis over 4-20+ quarters with predictive insights
 - **🤖 AI-Powered Insights:** Comprehensive reports integrating multi-quarter trends and market intelligence
@@ -77,9 +103,21 @@ python main.py AAPL
 .\run_parallel_portfolio.ps1 -PortfolioFile "portfolios/tech_portfolio.txt"
 # ⚡ Now uses 8 parallel processes, 12 quarters, enhanced analysis by default
 
+# NEW v4.8.0: Run bankruptcy analysis on failed companies
+python main.py --bankruptcy-analysis SHLDQ
+# 📉 Analyzes Z-Score progression in quarters leading up to bankruptcy
+
+# NEW v4.8.0: Batch bankruptcy analysis of all failed companies
+python main.py --run-bankruptcy-analysis --quarters 3
+# 🔍 Analyzes all companies in the bankruptcy database for model validation
+
 # Test the novel retail model
 .\run_retail_validation.ps1
 # 🏪 Validate the retail Z-Score model with comprehensive backtesting
+
+# NEW v4.8.0: Run failed company analysis in retail validation framework
+.\retail_validation\run_retail_validation.ps1
+# Then select option 3: "Failed Company Analysis (Pre-Bankruptcy Quarters)"
 
 # Legacy batch processing (still available)
 pwsh.exe -File run_batch_examples.ps1    # Interactive menu for sector analysis

@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Citigroup Inc. (C)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:19 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:28 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -361,9 +433,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="C_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="C_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -426,15 +498,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$88.72</p>
+                <p>$$87.86</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$165.7B</p>
+                <p>$$164.1B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>14.0</p>
+                <p>13.9</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -446,7 +518,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>83.5</p>
+                <p>89.3</p>
             </div>
         </div>
     </div>
@@ -460,7 +532,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>1.10</p>
+                <p>1.04</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -490,17 +562,17 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Citigroup Inc. (Ticker: C)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:19:33  </p>
+<strong>Analysis Date:</strong> 2025-07-07 12:27:51  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Citigroup Inc. currently resides deeply in the <strong>Distress Zone</strong> with an Altman Z-Score of <strong>0.17</strong> (latest quarter), significantly below the distress threshold of 1.8. This persistent low Z-Score over the past eight quarters (ranging narrowly between 0.02 and 0.25) signals severe financial distress and elevated bankruptcy risk. The <strong>AI Risk Analysis</strong> overall risk level is implicitly critical given the Z-Score trajectory, with a stable but alarmingly low trend, indicating no meaningful recovery signs.</p>
-<p><strong>AI Peer Analysis</strong> places Citigroup well below the industry average Z-Score for the <strong>Banks - Diversified</strong> sector, which typically ranges above 3.0 for healthy peers, underscoring Citigroup’s relative vulnerability. The company’s market capitalization of <strong>$165.7 billion</strong> and current share price of <strong>$88.72</strong> contrast sharply with its distressed financial health, suggesting market valuation may be disconnected from fundamental risk.</p>
-<p><strong>AI Sentiment Analysis</strong> is unavailable explicitly, but market technical indicators (zero volume, zero price range) and anomalous dividend yield of <strong>263%</strong> imply data irregularities or extraordinary corporate actions (e.g., special dividends, restructuring), which further complicate sentiment interpretation.</p>
+<p>Citigroup Inc. currently exhibits a <strong>critical financial distress profile</strong>, with an Altman Z-Score persistently below 0.20 across the last eight quarters, firmly placing it in the <strong>Distress Zone (Z &lt; 1.8)</strong>. The latest Z-Score stands at <strong>0.17</strong>, signaling an urgent risk of bankruptcy or severe financial instability. This is compounded by a <strong>negative working capital ratio of -0.549</strong>, indicating liquidity challenges, and a near-zero EBIT ratio of <strong>0.002</strong>, reflecting minimal operational profitability.</p>
+<p><strong>AI Risk Analysis</strong> (inferred from distress-level Z-Scores and financial ratios) suggests an <strong>overall risk level of Critical with high probability</strong>, underscoring the need for immediate risk mitigation. The <strong>AI Peer Analysis</strong> positions Citigroup significantly below the industry average Z-Score (typically &gt;3.0 for diversified banks), highlighting a severe competitive disadvantage. Market sentiment is ambiguous due to anomalous valuation metrics, including an extraordinarily high dividend yield of <strong>263.00%</strong>, which likely reflects data anomalies or unsustainable payout policies.</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
+<th>Key Metrics Summary</th>
 <th>Value</th>
+<th>Industry Benchmark</th>
 <th>Interpretation</th>
 </tr>
 </thead>
@@ -508,41 +580,49 @@
 <tr>
 <td>Latest Z-Score</td>
 <td>0.17</td>
-<td>Deep Distress Zone</td>
-</tr>
-<tr>
-<td>Z-Score Historical Range</td>
-<td>0.02 - 0.25</td>
-<td>Persistently Distressed</td>
+<td>&gt;3.0 (Safe Zone)</td>
+<td>Distress Zone - High bankruptcy risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$165.7B</td>
-<td>Large Cap but distressed</td>
+<td>$164.13B</td>
+<td>Large Cap Banks</td>
+<td>Sizeable but distressed</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$88.72</td>
-<td>Stable price despite distress</td>
+<td>$88.31</td>
+<td>N/A</td>
+<td>Stable price despite distress?</td>
 </tr>
 <tr>
-<td>Dividend Yield</td>
-<td>263.00%</td>
-<td>Likely anomaly or extraordinary event</td>
+<td>Working Capital Ratio</td>
+<td>-0.549</td>
+<td>Positive (&gt;1.0)</td>
+<td>Severe liquidity weakness</td>
 </tr>
 <tr>
-<td>AI Risk Level</td>
-<td>Critical (implied)</td>
-<td>Urgent risk mitigation needed</td>
+<td>Retained Earnings Ratio</td>
+<td>0.081</td>
+<td>Typically &gt;0.2</td>
+<td>Low retained earnings buffer</td>
 </tr>
 <tr>
-<td>Peer Industry Avg. Z-Score</td>
-<td>&gt;3.0 (typical)</td>
-<td>Citigroup significantly underperforms</td>
+<td>EBIT Ratio</td>
+<td>0.002</td>
+<td>~0.05+</td>
+<td>Minimal operational profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.016</td>
+<td>~0.5+</td>
+<td>Extremely low asset utilization</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong> Given the critical distress signals, <strong>a cautious SELL or avoid new positions</strong> stance is warranted for most investors, especially those with low to medium risk tolerance. Only highly risk-tolerant or distressed asset specialists should consider opportunistic entry, contingent on further recovery evidence.</p>
+<p><strong>Investment Action Recommendation:</strong><br />
+Given the persistent distress signals, <strong>a cautious SELL or avoid new positions</strong> is advised for most investor profiles. Only highly risk-tolerant investors with deep turnaround expertise should consider speculative entry, contingent on clear evidence of operational recovery and liquidity improvement.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -558,39 +638,41 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A<br>Working Capital Ratio: -0.549</td>
-<td>Industry avg. Current Ratio ~1.0+</td>
-<td>Severely negative working capital ratio indicates liquidity stress</td>
-<td>Declining/Distressed</td>
+<td>Current Ratio: N/A (Working Capital Ratio: -0.549)</td>
+<td>&gt;1.0 (Banks typically &gt;1.0)</td>
+<td>Severe liquidity deficit; working capital negative</td>
+<td>Declining/Severe</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A<br>Interest Coverage: N/A</td>
-<td>Banks typically moderate leverage</td>
-<td>Data missing; likely high leverage given distress</td>
-<td>Unknown but likely negative</td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>Moderate leverage typical</td>
+<td>Unable to assess leverage; risk likely elevated</td>
+<td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.016<br>EBIT Ratio: 0.002</td>
-<td>Industry avg. Asset Turnover ~0.5+</td>
-<td>Extremely low asset turnover and EBIT ratio indicate poor operational efficiency</td>
-<td>Stable but critically low</td>
+<td>EBIT Ratio: 0.002, Asset Turnover: 0.016</td>
+<td>EBIT ~0.05+, Asset Turnover ~0.5+</td>
+<td>Extremely poor profitability and asset use</td>
+<td>Stable but weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.081<br>Cash Position: N/A</td>
-<td>Positive retained earnings typical</td>
-<td>Low retained earnings ratio signals weak capital base</td>
-<td>Stable but weak</td>
+<td>Retained Earnings Ratio: 0.081</td>
+<td>&gt;0.2 typical for banks</td>
+<td>Low retained earnings; weak equity buffer</td>
+<td>Stable but low</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Interpretive Commentary:</strong><br />
-Citigroup’s <strong>Working Capital Ratio of -0.549</strong> is a critical red flag, indicating current liabilities exceed current assets by a significant margin, a severe liquidity concern in the financial services sector where liquidity is paramount. The <strong>Retained Earnings Ratio of 0.081</strong> is minimal, reflecting limited accumulated profits to buffer losses or fund growth. The <strong>EBIT Ratio of 0.002</strong> and <strong>Asset Turnover of 0.016</strong> are drastically below industry norms, highlighting operational inefficiency and poor asset utilization.</p>
-<p>The absence of explicit Debt-to-Equity and Interest Coverage ratios limits leverage assessment, but given the distress zone Z-Score and liquidity deficits, leverage is likely elevated, exacerbating financial risk.</p>
-<p><strong>AI Data Quality Assessment:</strong><br />
-No anomalies detected in financial data completeness, but several key ratios are missing (Debt-to-Equity, Interest Coverage), reducing confidence in leverage analysis. The overall data quality is sufficient for liquidity and operational diagnostics but incomplete for full leverage profiling.</p>
+- <strong>Liquidity:</strong> The working capital ratio of <strong>-0.549</strong> is a critical red flag, indicating liabilities exceed current assets substantially. This is atypical for diversified banks, which usually maintain positive liquidity buffers. The absence of a current ratio figure limits full liquidity assessment but the negative working capital ratio alone signals distress.<br />
+- <strong>Leverage:</strong> Debt-to-equity data is missing, but given the sector and distress signals, leverage is likely high, exacerbating financial risk.<br />
+- <strong>Operational Efficiency:</strong> EBIT ratio of <strong>0.002</strong> and asset turnover of <strong>0.016</strong> are drastically below industry norms, reflecting poor earnings generation and inefficient asset utilization. This aligns with the distressed Z-Score and suggests operational challenges.<br />
+- <strong>Financial Stability:</strong> Retained earnings ratio at <strong>0.081</strong> is low, indicating limited accumulated profits to absorb losses or fund growth. This weakens the company’s financial resilience.</p>
+<p><strong>Data Quality Consideration:</strong><br />
+The AI Data Quality Assessment indicates no preprocessing anomalies, but several financial ratios are missing or zeroed, limiting full diagnostic precision. The dividend yield of <strong>263%</strong> is likely a data anomaly or reflects extraordinary payout policies unsustainable in distress, reducing confidence in valuation metrics.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -608,21 +690,21 @@ No anomalies detected in financial data completeness, but several key ratios are
 <td>Current (Q8)</td>
 <td>0.17</td>
 <td>Distress</td>
-<td>Negative working capital, low EBIT, poor asset turnover</td>
-<td>Ongoing financial distress, no recovery signs</td>
+<td>Negative working capital, near-zero EBIT</td>
+<td>Ongoing operational and liquidity stress</td>
 </tr>
 <tr>
-<td>Previous Quarters (Q1-Q7)</td>
+<td>Previous 7 Quarters</td>
 <td>0.02 - 0.25</td>
 <td>Distress</td>
-<td>Persistently negative liquidity and operational inefficiency</td>
-<td>Prolonged distress, no inflection points</td>
+<td>Persistently low profitability, weak retained earnings</td>
+<td>No recovery trend; chronic distress</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-The Z-Score has remained in the distress zone for at least eight quarters, with minimal fluctuation and no upward trend. The lack of improvement in working capital, EBIT, and asset turnover components suggests no effective operational or financial restructuring has taken hold. This persistent distress aligns with the company’s sector challenges and possibly legacy risk exposures.</p>
-<p>Compared to the <strong>industry average Z-Score &gt; 3.0</strong>, Citigroup’s trajectory is severely lagging, indicating competitive disadvantage and elevated default risk. The absence of positive inflection points in the Z-Score evolution signals urgent need for strategic turnaround or risk mitigation.</p>
+Citigroup’s Z-Score has remained in the <strong>Distress Zone</strong> for at least eight quarters, fluctuating narrowly between <strong>0.02 and 0.25</strong>, with no meaningful upward trend. The absence of improvement in key components such as working capital and EBIT suggests entrenched financial and operational difficulties. This persistent distress contrasts sharply with the industry average Z-Score for diversified banks, which typically exceeds 3.0, indicating a safe financial position.</p>
+<p>The lack of component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) for each quarter limits granular driver analysis, but the consistently low Z-Score implies all components remain weak. The business context of Citigroup as a global diversified bank with exposure to multiple regions suggests that macroeconomic or sectoral headwinds may be exacerbating these issues.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -638,30 +720,30 @@ The Z-Score has remained in the distress zone for at least eight quarters, with 
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Distress (Z=0.17)</td>
-<td>Price stable at $88.72</td>
+<td>Distress Zone (0.17)</td>
+<td>Stable price at $88.31, zero volatility</td>
 <td>Divergent</td>
-<td>Market may be underestimating risk or awaiting catalyst</td>
+<td>Market may be underestimating risk or data anomaly</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Not explicitly provided</td>
-<td>Dividend yield anomaly (263%)</td>
+<td>Neutral/Unclear (Data anomaly in dividend yield)</td>
+<td>Unknown professional consensus</td>
 <td>Inconsistent</td>
-<td>Market sentiment unclear, possible data anomaly or special event</td>
+<td>Sentiment unclear; caution advised</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Significantly underperforming</td>
+<td>Significantly below industry average (&gt;3.0)</td>
 <td>Sector performance stable</td>
-<td>Divergent</td>
-<td>Competitive weakness evident</td>
+<td>Underperforming</td>
+<td>Competitive disadvantage; risk premium warranted</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The fundamental distress indicated by the Z-Score is not fully reflected in the stock price, which remains relatively stable at $88.72 with a large market cap of $165.7B. This divergence could be due to market anticipation of restructuring, government support, or data anomalies (e.g., dividend yield of 263% is highly unusual and likely reflects extraordinary corporate actions).</p>
-<p>Technical indicators (zero volume, zero price range) suggest low trading activity or data reporting issues, limiting market signal reliability. The disconnect between fundamental distress and market price implies elevated risk for investors relying solely on market trends without fundamental due diligence.</p>
+The fundamental distress indicated by the Altman Z-Score is not reflected in market price volatility or movement, which is effectively zero with a beta of 0.00 and no trading volume. This divergence suggests either a data reporting anomaly or a market inefficiency. The extraordinary dividend yield of <strong>263%</strong> further complicates valuation interpretation, likely reflecting a non-standard payout or data error.</p>
+<p>Peer comparison confirms Citigroup’s financial health is significantly worse than diversified banking peers, reinforcing the distress signal. The lack of price movement and volume raises concerns about liquidity and market confidence.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -680,29 +762,28 @@ The fundamental distress indicated by the Z-Score is not fully reflected in the 
 <td>High</td>
 <td>Critical</td>
 <td>Further Z-Score decline</td>
-<td>Operational restructuring, cost control</td>
+<td>Restructure operations, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Potential bankruptcy</td>
-<td>Capital infusion, deleveraging</td>
+<td>Bankruptcy risk imminent</td>
+<td>Capital raise, asset sales</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Volatility in valuation</td>
-<td>Hedging, diversification</td>
+<td>Market perception risk</td>
+<td>Investor relations, transparency</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Successful operational turnaround and capital injection could stabilize Z-Score near 1.8 (gray zone), reducing bankruptcy risk.<br />
-- <strong>Base Case:</strong> Continued distress with minor improvements keeps Z-Score below 1.0, maintaining high risk.<br />
-- <strong>Worst Case:</strong> Further deterioration leads to Z-Score approaching zero or negative, indicating imminent default.</p>
-<p>Given the <strong>AI Risk Analysis overall risk level is critical</strong>, probability of severe financial distress is high. Mitigation requires aggressive capital management and operational overhaul.</p>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Operational turnaround with improved EBIT and working capital leads to Z-Score rising above 1.8 within 12 months, moving out of distress zone. Requires aggressive restructuring and capital infusion.<br />
+- <strong>Base Case:</strong> Continued distress with Z-Score stable below 0.5, ongoing liquidity stress, and market undervaluation.<br />
+- <strong>Worst Case:</strong> Bankruptcy or forced restructuring with Z-Score approaching zero or negative, leading to severe equity value erosion.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -721,46 +802,46 @@ The fundamental distress indicated by the Z-Score is not fully reflected in the 
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>SELL</td>
-<td>Z-Score at 0.17, deep distress zone</td>
-<td>Avoid entry; wait for recovery signals</td>
+<td>Z-Score 0.17 in Distress Zone; liquidity negative</td>
+<td>Avoid entry; exit if held</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>HOLD</td>
-<td>Dividend yield anomaly; sustainability doubtful</td>
-<td>Monitor dividend policy closely</td>
-<td>Short-term review</td>
+<td>SELL</td>
+<td>Dividend yield anomaly (263%) unsustainable</td>
+<td>Avoid due to payout risk</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>SELL</td>
-<td>Valuation disconnected from distress</td>
-<td>No entry until Z-Score &gt;1.8</td>
-<td>Medium-term</td>
+<td>HOLD/WAIT</td>
+<td>Value impaired; Z-Score indicates high risk</td>
+<td>Wait for Z-Score &gt;1.8</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>SELL</td>
-<td>No growth sustainability; EBIT ratio 0.002</td>
-<td>Avoid momentum plays</td>
+<td>No growth signals; EBIT near zero</td>
+<td>Avoid entry</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>SPECULATIVE BUY</td>
-<td>High risk/reward; potential turnaround</td>
-<td>Entry only on positive Z-Score inflection</td>
-<td>Opportunistic</td>
+<td>Potential turnaround if restructuring succeeds</td>
+<td>Monitor closely</td>
+<td>Short-term</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Conservative and value investors should avoid or exit positions due to severe financial distress. Dividend investors must be cautious given the unsustainable dividend yield. Growth investors face poor operational metrics, making growth unlikely. Only aggressive investors with high risk tolerance might consider speculative entry if clear turnaround catalysts emerge.</p>
+<p><strong>Rationale:</strong><br />
+The persistent distress Z-Score and liquidity deficits strongly advise against new investment for conservative and dividend-focused investors. Value investors may consider a hold with close monitoring for operational improvement. Growth and aggressive investors face high risk but may speculate on a turnaround with tight risk controls.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -776,29 +857,29 @@ Conservative and value investors should avoid or exit positions due to severe fi
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Financial turnaround</td>
+<td>Stabilize liquidity &amp; operations</td>
 <td>Working Capital Ratio, EBIT Ratio</td>
-<td>Implement cost reduction, asset optimization</td>
-<td>Z-Score improvement &gt;1.8</td>
+<td>Implement cost reduction, asset sales</td>
+<td>Improved liquidity, EBIT growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital structure management</td>
-<td>Retained Earnings Ratio, Debt-to-Equity</td>
-<td>Seek capital infusion, deleverage balance sheet</td>
-<td>Liquidity ratio &gt;1.0</td>
+<td>Capital structure optimization</td>
+<td>Retained Earnings Ratio, Debt levels</td>
+<td>Seek capital infusion, manage debt</td>
+<td>Improved equity ratio, Z-Score</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight</td>
-<td>Z-Score, Risk Factors</td>
-<td>Enhance risk management, monitor distress signals</td>
-<td>Compliance with regulatory standards</td>
+<td>Risk oversight &amp; transparency</td>
+<td>Z-Score trend, Risk factors</td>
+<td>Enhance governance, risk reporting</td>
+<td>Compliance, risk mitigation</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The leadership must prioritize reversing liquidity deficits and operational inefficiencies. The CFO should focus on strengthening the capital base and reducing leverage. The board must intensify oversight of risk factors highlighted by the AI Risk Analysis, ensuring transparent communication with investors and regulators.</p>
+Given the critical distress signals, executive focus must prioritize liquidity stabilization and operational efficiency. The CFO should aggressively pursue capital restructuring, while the board must ensure transparent risk communication to rebuild investor confidence. The Z-Score trajectory should be a key performance indicator for leadership accountability.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -815,33 +896,33 @@ The leadership must prioritize reversing liquidity deficits and operational inef
 <tr>
 <td>Z-Score Momentum</td>
 <td>Flat near 0.17</td>
-<td>Slight improvement possible with restructuring</td>
-<td>Capital infusion, asset sales</td>
+<td>Potential decline or stagnation</td>
+<td>Capital raise success, operational turnaround</td>
 <td>Quarterly Z-Score updates</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Distressed</td>
-<td>Potential stabilization if turnaround succeeds</td>
-<td>Regulatory support, market recovery</td>
-<td>Price-volume trends</td>
+<td>Possible recovery or further decline</td>
+<td>Regulatory changes, macroeconomic shifts</td>
+<td>Market price, volume</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>Critical</td>
-<td>High risk persists without intervention</td>
+<td>High risk persists</td>
 <td>Credit rating changes, liquidity events</td>
 <td>Credit spreads, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-Without significant operational and financial restructuring, Citigroup’s Z-Score is unlikely to improve materially in the next 6-12 months. Key catalysts include capital injections, asset divestitures, or regulatory interventions. Continuous monitoring of liquidity ratios, credit spreads, and Z-Score quarterly updates is essential for early warning of further deterioration or recovery.</p>
+Without significant operational or financial restructuring, Citigroup’s Z-Score is unlikely to improve in the near term. Key catalysts include successful capital raises or asset divestitures. Monitoring quarterly Z-Score changes and liquidity ratios will provide early warning of either recovery or further deterioration. Investors should prepare for multiple scenarios, including potential bankruptcy or restructuring.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Citigroup Inc. is currently in a <strong>critical financial distress state</strong> as evidenced by a persistently low Altman Z-Score of <strong>0.17</strong> over eight quarters, combined with severely negative liquidity and operational inefficiencies. Market signals are inconsistent, possibly distorted by extraordinary dividend events or data anomalies. The company’s financial health demands urgent strategic action to avoid bankruptcy risk. Investment recommendations strongly favor <strong>selling or avoiding new positions</strong> for most profiles, with speculative opportunities limited to highly risk-tolerant investors awaiting clear turnaround signs.</p>
+<p>Citigroup Inc. is currently in a <strong>critical financial distress state</strong>, as evidenced by an Altman Z-Score of <strong>0.17</strong> and severely negative liquidity metrics. Market data and peer comparisons confirm this distress, although market price stability and anomalous dividend yields suggest data or market inefficiencies. Investors should exercise extreme caution, with recommendations skewed toward <strong>selling or avoiding new investments</strong> unless a clear turnaround emerges. Executive leadership must prioritize liquidity and operational restructuring to improve financial health and Z-Score trajectory.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial data, risk assessment, and market intelligence for actionable investment decision-making.</em></p></div></div>
+<p><em>Analysis generated with full integration of injected financial data, market metrics, and AI-driven risk and peer analysis components.</em></p></div></div>
     </div>
     
 
@@ -1184,78 +1265,41 @@ Without significant operational and financial restructuring, Citigroup’s Z-Sco
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:19 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:28 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

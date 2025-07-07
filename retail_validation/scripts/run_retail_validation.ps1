@@ -17,6 +17,12 @@
 
 .PARAMETER QuickTest
     Run quick validation on subset of companies
+    
+.PARAMETER FailedCompanyAnalysis
+    Run specialized analysis on failed companies focusing on pre-bankruptcy quarters
+
+.PARAMETER PreBankruptcyQuarters
+    Number of quarters before bankruptcy date to analyze (default: 3)
 
 .PARAMETER CompareModels
     Compare retail model against traditional models
@@ -46,6 +52,9 @@
     .\retail_validation\scripts\run_retail_validation.ps1 -QuickTest
 
 .EXAMPLE
+    .\retail_validation\scripts\run_retail_validation.ps1 -FailedCompanyAnalysis -PreBankruptcyQuarters 3
+    
+.EXAMPLE
     .\retail_validation\scripts\run_retail_validation.ps1 -ShowConfig
     
 .EXAMPLE
@@ -56,13 +65,15 @@
 
 .NOTES
     Requires: Python environment with Altman Z-Score project dependencies
-    Estimated Runtime: 2-3 hours for full validation, 15-30 minutes for quick test
+    Estimated Runtime: 2-3 hours for full validation, 7-10 minutes for quick test
     Output: Comprehensive validation report and raw results in retail_validation/results/
 #>
 
 param(
     [switch]$FullValidation,
     [switch]$QuickTest,
+    [switch]$FailedCompanyAnalysis,
+    [int]$PreBankruptcyQuarters = 3,
     [switch]$UseSECEDGAR,
     [string]$TestEDGAR,
     [switch]$AvailableOnly,
@@ -171,36 +182,33 @@ function Show-ValidationConfig {
     
     try {
         # Get configuration summary from validation config
-        $configSummary = python -c "
+        $env:PYTHONPATH = "$PWD;$env:PYTHONPATH"
+        $output = python -c "
 import sys
 sys.path.append('.')
 from retail_validation.config.validation_config import get_validation_summary
-import json
 summary = get_validation_summary()
-print(json.dumps(summary, indent=2, default=str))
+print('Total Companies:', summary['total_companies'])
+print('Portfolio File:', summary['portfolio_file'])
+print('Results Directory:', summary['results_directory'])
+print('')
+print('Category Distribution:')
+for category, count in summary['categories'].items():
+    print('  •', category.capitalize() + ':', count, 'companies')
+print('')
+print('Validation Tests:', summary['validation_tests'])
+print('Quick Test Companies:', summary['quick_test_companies'])
 " 2>&1
         
+        # Filter out the "Retail Validation Framework v2.0.0 loaded" message
+        $filteredOutput = $output | Where-Object { $_ -notlike "*Retail Validation Framework*loaded*" }
+        
         if ($LASTEXITCODE -eq 0) {
-            $config = $configSummary | ConvertFrom-Json
-            
-            Write-Host "Portfolio Information:" -ForegroundColor Cyan
-            Write-Host "  Total Companies: $($config.total_companies)" -ForegroundColor White
-            Write-Host "  Portfolio File: $($config.portfolio_file)" -ForegroundColor White
-            Write-Host "  Results Directory: $($config.results_directory)" -ForegroundColor White
-            Write-Host ""
-            
-            Write-Host "Category Distribution:" -ForegroundColor Cyan
-            foreach ($category in $config.categories.PSObject.Properties) {
-                Write-Host "  $($category.Name): $($category.Value) companies" -ForegroundColor White
-            }
-            Write-Host ""
-            
-            Write-Host "Validation Tests: $($config.validation_tests)" -ForegroundColor Cyan
-            Write-Host "Quick Test Companies: $($config.quick_test_companies)" -ForegroundColor Cyan
+            $filteredOutput | ForEach-Object { Write-Host $_ -ForegroundColor White }
         }
         else {
             Write-Host "❌ Could not load validation configuration" -ForegroundColor Red
-            Write-Host "Error: $configSummary" -ForegroundColor Red
+            Write-Host "Error: $output" -ForegroundColor Red
         }
     }
     catch {
@@ -344,25 +352,37 @@ function Show-PortfolioSummary {
     
     try {
         # Get portfolio summary from validation config
-        python -c "
+        $env:PYTHONPATH = "$PWD;$env:PYTHONPATH"
+        $output = python -c "
 import sys
 sys.path.append('.')
 from retail_validation.config.validation_config import get_validation_summary
 summary = get_validation_summary()
-print(f'Total Companies: {summary[\"total_companies\"]}')
-print(f'Portfolio File: {summary[\"portfolio_file\"]}')
+print('Total Companies:', summary['total_companies'])
+print('Portfolio File:', summary['portfolio_file'])
 print('')
 print('Category Distribution:')
 for category, count in summary['categories'].items():
-    print(f'  • {category.capitalize()}: {count} companies')
+    print('  •', category.capitalize() + ':', count, 'companies')
 print('')
 print('Validation Framework:')
-print(f'  • Validation Tests: {summary[\"validation_tests\"]}')
-print(f'  • Quick Test Companies: {summary[\"quick_test_companies\"]}')
-"
+print('  • Validation Tests:', summary['validation_tests'])
+print('  • Quick Test Companies:', summary['quick_test_companies'])
+" 2>&1
+        
+        # Filter out the "Retail Validation Framework v2.0.0 loaded" message
+        $filteredOutput = $output | Where-Object { $_ -notlike "*Retail Validation Framework*loaded*" }
+        
+        if ($LASTEXITCODE -eq 0) {
+            $filteredOutput | ForEach-Object { Write-Host $_ -ForegroundColor White }
+        }
+        else {
+            Write-Host "❌ Could not load portfolio summary" -ForegroundColor Red
+            Write-Host "Error: $output" -ForegroundColor Red
+        }
     }
     catch {
-        Write-Host "❌ Could not load portfolio summary" -ForegroundColor Red
+        Write-Host "❌ Could not load portfolio summary: $($_.Exception.Message)" -ForegroundColor Red
     }
     
     Write-Host ""
@@ -396,6 +416,9 @@ function Start-FullValidation {
     }
     
     Write-Host "Running: python $($pythonArgs -join ' ')" -ForegroundColor Gray
+    
+    # Set PYTHONPATH to include the project root so retail_validation module can be imported
+    $env:PYTHONPATH = "$PWD;$env:PYTHONPATH"
     python @pythonArgs
     
     if ($LASTEXITCODE -eq 0) {
@@ -432,6 +455,9 @@ function Start-QuickTest {
     }
     
     Write-Host "Running: python $($pythonArgs -join ' ')" -ForegroundColor Gray
+    
+    # Set PYTHONPATH to include the project root so retail_validation module can be imported
+    $env:PYTHONPATH = "$PWD;$env:PYTHONPATH"
     python @pythonArgs
     
     if ($LASTEXITCODE -eq 0) {
@@ -440,6 +466,39 @@ function Start-QuickTest {
     }
     else {
         Write-Host "❌ Quick test failed with exit code $LASTEXITCODE" -ForegroundColor Red
+        Write-Host "Check the Python output above for specific error details" -ForegroundColor Yellow
+    }
+}
+
+function Start-FailedCompanyAnalysis {
+    Write-Host "STARTING FAILED COMPANY ANALYSIS" -ForegroundColor Red
+    Write-Host "Analyzing $PreBankruptcyQuarters quarters before bankruptcy for failed retailers..." -ForegroundColor Yellow
+    Write-Host ""
+    
+    $pythonArgs = @(
+        "$ScriptsDir/validate_retail_model.py",
+        "--output-dir", $OutputDir,
+        "--failed-company-analysis",
+        "--pre-bankruptcy-quarters", $PreBankruptcyQuarters,
+        "--comparison"  # Always include comparison with traditional models
+    )
+    
+    if ($UseSECEDGAR) {
+        $pythonArgs += "--use-sec-edgar"
+    }
+    
+    Write-Host "Running: python $($pythonArgs -join ' ')" -ForegroundColor Gray
+    
+    # Set PYTHONPATH to include the project root so retail_validation module can be imported
+    $env:PYTHONPATH = "$PWD;$env:PYTHONPATH"
+    python @pythonArgs
+    
+    if ($LASTEXITCODE -eq 0) {
+        Write-Host "✅ Failed company analysis completed successfully" -ForegroundColor Green
+        Show-Results
+    }
+    else {
+        Write-Host "❌ Analysis failed with exit code $LASTEXITCODE" -ForegroundColor Red
         Write-Host "Check the Python output above for specific error details" -ForegroundColor Yellow
     }
 }
@@ -475,6 +534,9 @@ function Start-ModelComparison {
     
     # Run comparison validation
     Write-Host "3. Generating comparative analysis..." -ForegroundColor Cyan
+    
+    # Set PYTHONPATH to include the project root so retail_validation module can be imported
+    $env:PYTHONPATH = "$PWD;$env:PYTHONPATH"
     python "$ScriptsDir/validate_retail_model.py" --output-dir $comparisonDir --comparison --detailed
     
     if ($LASTEXITCODE -eq 0) {
@@ -564,12 +626,14 @@ function Test-SECEDGARRetrieval {
     Write-Host ""
     
     $pythonArgs = @(
-        "$ScriptsDir/validate_retail_model.ps1",
-        "--test-edgar", $Ticker,
-        "--use-sec-edgar"
+        "$ScriptsDir/validate_retail_model.py",
+        "--test-edgar", $Ticker
     )
     
     Write-Host "Running: python $($pythonArgs -join ' ')" -ForegroundColor Gray
+    
+    # Set PYTHONPATH to include the project root so retail_validation module can be imported
+    $env:PYTHONPATH = "$PWD;$env:PYTHONPATH"
     python @pythonArgs
     
     if ($LASTEXITCODE -eq 0) {
@@ -664,6 +728,9 @@ function Main {
     }
     elseif ($QuickTest) {
         Start-QuickTest
+    }
+    elseif ($FailedCompanyAnalysis) {
+        Start-FailedCompanyAnalysis
     }
     elseif ($CompareModels) {
         Start-ModelComparison

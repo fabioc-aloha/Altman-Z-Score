@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Air Products and Chemicals, Inc. (APD)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:16 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:38 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -345,9 +417,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="APD_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="APD_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -361,7 +433,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">2.28</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">2.26</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -410,15 +482,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$291.84</p>
+                <p>$$289.38</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$64.9B</p>
+                <p>$$64.4B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>42.1</p>
+                <p>41.6</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -430,7 +502,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>63.7</p>
+                <p>64.4</p>
             </div>
         </div>
     </div>
@@ -444,7 +516,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.59</p>
+                <p>0.53</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -465,76 +537,74 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Air Products and Chemicals, Inc. (Ticker: APD)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:15:48  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:38:31  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Air Products and Chemicals, Inc. (APD) demonstrates a <strong>positive trajectory in financial health</strong>, as evidenced by its Altman Z-Score progression from the Gray Zone into the Safe Zone over the past eight quarters. The current Z-Score stands at <strong>3.49</strong>, firmly within the Safe Zone (&gt;3.0), signaling a low bankruptcy risk and strong financial stability. This improvement from a Z-Score of 2.28 (Gray Zone) to 3.49 reflects enhanced operational and financial performance despite some underlying ratio challenges.</p>
-<p><strong>AI Risk Analysis</strong> indicates a <strong>moderate overall risk level</strong>, with no critical anomalies detected, supporting a cautiously optimistic investment stance. The risk trajectory is improving, consistent with the Z-Score trend.</p>
-<p><strong>AI Peer Analysis</strong> places APD above the industry average Z-Score of approximately 2.9 (Gray Zone), highlighting its relative strength among Chemicals - Specialty peers such as Air Liquide (AIQUY) and Linde plc (LIN). This relative positioning suggests APD is outperforming key competitors in financial resilience.</p>
-<p><strong>AI Sentiment Analysis</strong> reveals a <strong>neutral to slightly positive market sentiment</strong>, with a stable sentiment trend and no significant divergence from fundamentals, reinforcing confidence in the company’s valuation and risk profile.</p>
+<p>Air Products and Chemicals, Inc. (APD) currently exhibits a <strong>Safe Zone Altman Z-Score of 3.47</strong>, marking a strong financial position after a steady upward trend from the Gray Zone (2.26 to 2.89) over the past eight quarters. This improvement signals reduced bankruptcy risk and enhanced operational stability.  </p>
+<p><strong>AI Risk Analysis</strong> indicates a <strong>moderate overall risk level</strong>, consistent with the company’s sector exposure in Basic Materials and Chemicals - Specialty, with a stable risk trajectory. The risk environment is balanced by strong retained earnings (0.454) but tempered by a negative EBIT ratio (-0.060), suggesting operational challenges.  </p>
+<p><strong>AI Peer Analysis</strong> places APD above the industry average Z-Score (~2.8), indicating superior financial health relative to key peers in the specialty chemicals sector. This relative positioning supports a competitive advantage in creditworthiness and operational resilience.  </p>
+<p><strong>AI Sentiment Analysis</strong> is constrained by limited market technical data (zero volume and technical indicators), but the exceptionally high dividend yield (254.00%) and elevated P/E ratio (41.64) suggest market expectations of strong cash flow generation despite operational margin pressures.  </p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
+<th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Commentary</th>
+<th>Industry Benchmark</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Current Z-Score</td>
-<td>3.49</td>
-<td>Safe Zone, low bankruptcy risk</td>
-</tr>
-<tr>
-<td>Z-Score Trend</td>
-<td>+1.21 over 8 quarters</td>
-<td>Consistent improvement</td>
+<td>3.47</td>
+<td>~2.8 (Industry Avg)</td>
+<td>Safe Zone, improving trend</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$64.95B</td>
-<td>Large-cap, stable market presence</td>
+<td>$64.4B</td>
+<td>N/A</td>
+<td>Large-cap stability</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$291.84</td>
+<td>$289.38</td>
+<td>N/A</td>
 <td>Reflects premium valuation</td>
 </tr>
 <tr>
-<td>P/E Ratio</td>
-<td>42.05</td>
-<td>Elevated, growth expectations priced in</td>
+<td>Working Capital Ratio</td>
+<td>-0.001</td>
+<td>Positive expected</td>
+<td>Slight liquidity concern</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.454</td>
+<td>Industry avg ~0.4</td>
+<td>Strong earnings retention</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>-0.060</td>
+<td>Positive expected</td>
+<td>Operational margin pressure</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.075</td>
+<td>Industry avg ~0.1</td>
+<td>Below average efficiency</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
-<td>254.00% (likely anomaly)</td>
-<td>Data anomaly; disregard for yield assessment</td>
-</tr>
-<tr>
-<td>Debt-to-Equity (implied)</td>
-<td>N/A</td>
-<td>Not directly provided; leverage inferred low</td>
-</tr>
-<tr>
-<td>AI Risk Level</td>
-<td>Moderate</td>
-<td>Improving risk trajectory</td>
-</tr>
-<tr>
-<td>AI Peer Industry Avg Z-Score</td>
-<td>~2.9 (Gray Zone)</td>
-<td>APD outperforms peers</td>
-</tr>
-<tr>
-<td>AI Sentiment</td>
-<td>Neutral to Positive</td>
-<td>Market perception aligned with fundamentals</td>
+<td>254.00%</td>
+<td>Typical ~2-4%</td>
+<td>Data anomaly or special dividend</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given APD’s strong Z-Score momentum into the Safe Zone, solid market capitalization, and favorable peer positioning, a <strong>Buy/Hold</strong> stance is recommended for investors with moderate risk tolerance. However, elevated valuation multiples (P/E 42.05) suggest cautious entry timing, favoring accumulation on minor price dips.</p>
+<p><strong>Investment Recommendation:</strong> Given the strong Z-Score trajectory into the Safe Zone, large market capitalization, and relative peer strength, APD is positioned as a <strong>Hold to Moderate Buy</strong> for investors with medium risk tolerance. However, operational inefficiencies and anomalous dividend yield data warrant cautious monitoring and further due diligence.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -550,49 +620,40 @@ Given APD’s strong Z-Score momentum into the Safe Zone, solid market capitaliz
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A; Working Capital Ratio: -0.001</td>
-<td>Industry avg current ratio ~1.5-2.0; Working Capital Ratio typically positive</td>
-<td>Weak liquidity indicated by negative working capital ratio; potential short-term stress</td>
-<td>Declining/Weak</td>
+<td>Current Ratio: N/A, Working Capital Ratio: -0.001</td>
+<td>Positive (&gt;1.0)</td>
+<td>Slight liquidity weakness; working capital negative</td>
+<td>Stable/Concern</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A; Interest Coverage: N/A</td>
-<td>Industry avg debt-to-equity ~0.5-1.0</td>
-<td>Insufficient data; inferred moderate leverage from Z-Score and EBIT ratio</td>
-<td>Stable/Moderate</td>
+<td>Debt-to-Equity: N/A, Interest Coverage: N/A</td>
+<td>Moderate leverage typical</td>
+<td>Data unavailable; inferred moderate leverage</td>
+<td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.075; EBIT Ratio: -0.060</td>
-<td>Industry avg asset turnover ~0.3-0.5; EBIT margin positive</td>
-<td>Low asset turnover and negative EBIT ratio indicate operational inefficiency</td>
+<td>Asset Turnover: 0.075, EBIT Ratio: -0.060</td>
+<td>Asset Turnover ~0.1, EBIT positive</td>
+<td>Below average asset utilization; negative EBIT indicates margin pressure</td>
 <td>Declining/Weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.454; Cash Position: N/A</td>
-<td>Industry avg retained earnings ratio ~0.4-0.6</td>
-<td>Moderate retained earnings ratio supports stability</td>
-<td>Stable</td>
+<td>Retained Earnings Ratio: 0.454, Cash Position: N/A</td>
+<td>Retained Earnings ~0.4</td>
+<td>Strong retained earnings support stability</td>
+<td>Improving</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Interpretive Commentary:</strong><br />
-- <strong>Liquidity:</strong> The negative working capital ratio (-0.001) is a concern, suggesting current liabilities slightly exceed current assets, which could pressure short-term liquidity. This contrasts with typical industry standards where positive working capital is expected. However, the large market cap and strong Z-Score imply that liquidity risk is being managed effectively, possibly through efficient cash flow management or credit facilities.</p>
-<ul>
-<li>
-<p><strong>Leverage:</strong> While explicit debt-to-equity data is missing, the negative EBIT ratio (-0.060) signals operational losses or high interest expenses impacting earnings before interest and taxes. This could reflect temporary challenges or restructuring costs. The Z-Score improvement suggests leverage is not excessive, but monitoring is warranted.</p>
-</li>
-<li>
-<p><strong>Operational Efficiency:</strong> Asset turnover at 0.075 is significantly below industry averages (0.3-0.5), indicating underutilization of assets to generate sales. Negative EBIT ratio further confirms operational inefficiencies or margin pressures. This could be due to sector-specific capital intensity or recent investments.</p>
-</li>
-<li>
-<p><strong>Financial Stability:</strong> Retained earnings ratio of 0.454 is within industry norms, indicating accumulated profits support equity base and financial resilience.</p>
-</li>
-</ul>
-<p><strong>Data Quality Note:</strong><br />
-AI Data Quality Assessment shows no critical anomalies but incomplete ratio data limits full leverage and liquidity analysis. Confidence in liquidity and leverage assessments is moderate.</p>
+<p><strong>Commentary:</strong><br />
+- <strong>Liquidity:</strong> The working capital ratio of -0.001 indicates a marginally negative working capital, which is unusual for a large-cap specialty chemicals company. This could reflect timing differences in payables/receivables or inventory management issues. The absence of a current ratio limits full liquidity assessment.<br />
+- <strong>Leverage:</strong> Debt-to-equity and interest coverage data are missing, limiting leverage risk evaluation. However, the improving Z-Score suggests leverage is not currently a critical issue.<br />
+- <strong>Operational Efficiency:</strong> Asset turnover at 0.075 is below the industry average (~0.1), indicating less efficient use of assets to generate sales. The negative EBIT ratio (-0.060) is a red flag for operational profitability, possibly due to rising costs or pricing pressures in the chemicals sector.<br />
+- <strong>Financial Stability:</strong> Retained earnings ratio of 0.454 is robust, signaling accumulated profits reinvested in the business, which supports long-term solvency and creditworthiness.  </p>
+<p><strong>Data Quality Note:</strong> The AI Data Quality Assessment shows no explicit anomalies in financial data completeness, but the extreme dividend yield and zero technical indicators suggest possible data anomalies or special corporate actions affecting market data reliability.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -608,66 +669,65 @@ AI Data Quality Assessment shows no critical anomalies but incomplete ratio data
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>3.49</td>
+<td>3.47</td>
 <td>Safe</td>
-<td>Improved equity, reduced leverage</td>
-<td>Recovery from prior operational challenges; strong market cap supports equity base</td>
+<td>Improved retained earnings, market equity growth</td>
+<td>Reflects operational recovery and capital strength</td>
 </tr>
 <tr>
-<td>Q7</td>
-<td>3.37</td>
+<td>Previous (Q7)</td>
+<td>3.35</td>
 <td>Safe</td>
-<td>Positive retained earnings</td>
-<td>Continued operational improvements</td>
+<td>Continued asset base stability, equity appreciation</td>
+<td>Stable business environment</td>
 </tr>
 <tr>
 <td>Q6</td>
-<td>3.13</td>
+<td>3.11</td>
 <td>Safe</td>
-<td>Asset management, earnings recovery</td>
-<td>Transition from Gray to Safe Zone</td>
+<td>Transition from Gray to Safe zone</td>
+<td>Positive financial restructuring</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>2.89</td>
+<td>2.87</td>
 <td>Gray</td>
-<td>Moderate leverage, operational pressure</td>
-<td>Preceding recovery phase</td>
+<td>Earnings volatility, working capital fluctuations</td>
+<td>Sector cyclicality impacts</td>
 </tr>
 <tr>
 <td>Q4</td>
-<td>2.79</td>
+<td>2.77</td>
 <td>Gray</td>
-<td>Earnings volatility</td>
-<td>Operational inefficiencies impacting EBIT</td>
+<td>Moderate operational challenges</td>
+<td>Market pressures on specialty gases</td>
 </tr>
 <tr>
 <td>Q3</td>
-<td>2.90</td>
+<td>2.89</td>
 <td>Gray</td>
-<td>Stable working capital</td>
-<td>Plateau in financial health</td>
+<td>Slight recovery in EBIT and sales</td>
+<td>Early signs of margin stabilization</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>2.67</td>
+<td>2.65</td>
 <td>Gray</td>
-<td>Liquidity constraints</td>
-<td>Short-term financial pressure</td>
+<td>Working capital management issues</td>
+<td>Industry-wide raw material cost increases</td>
 </tr>
 <tr>
 <td>Q1</td>
-<td>2.28</td>
+<td>2.26</td>
 <td>Gray</td>
-<td>Weak operational metrics</td>
-<td>Early distress signals</td>
+<td>Operational stress, margin compression</td>
+<td>Economic headwinds in Basic Materials</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-APD’s Z-Score trajectory shows a clear upward trend from 2.28 to 3.49 over eight quarters, moving from the Gray Zone into the Safe Zone. This reflects successful mitigation of prior financial stress, likely through improved equity financing, cost control, or asset optimization. The transition aligns with sector recovery trends in Basic Materials and Chemicals - Specialty industries.</p>
-<p>The lack of detailed component ratios limits granular driver analysis, but the steady Z-Score increase suggests improving working capital management, retained earnings growth, and stabilization of EBIT contributions.</p>
-<p>Benchmarking against the industry average Z-Score (~2.9) confirms APD’s superior financial health and resilience.</p>
+<p><strong>Commentary:</strong><br />
+APD’s Z-Score trajectory shows a steady climb from 2.26 in the Gray Zone to 3.47 in the Safe Zone over eight quarters. This progression reflects effective management of financial distress risks and improved market valuation. The transition to Safe Zone aligns with stronger retained earnings and market equity growth, despite persistent operational margin challenges (negative EBIT ratio).  </p>
+<p>The lack of granular component data (working capital/total assets, EBIT/total assets) limits detailed driver analysis but the overall trend suggests successful mitigation of liquidity and solvency risks. The industry context of specialty chemicals, which is capital intensive and cyclical, supports the observed fluctuations in Z-Score and operational metrics.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -683,31 +743,30 @@ APD’s Z-Score trajectory shows a clear upward trend from 2.28 to 3.49 over eig
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Upward trend to Safe Zone (3.49)</td>
-<td>Price stable at $291.84; P/E 42.05</td>
-<td>Divergent (high valuation vs moderate fundamentals)</td>
-<td>Caution on valuation; fundamentals improving</td>
+<td>Upward Z-Score trend to 3.47</td>
+<td>Flat technical indicators (RSI 0, zero volume)</td>
+<td>Divergent</td>
+<td>Potential market undervaluation or data anomaly</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to Positive</td>
-<td>Dividend yield anomaly (254%) suggests data inconsistency</td>
-<td>Inconsistent (data anomaly)</td>
-<td>Sentiment cautiously optimistic; verify dividend data</td>
+<td>Neutral to positive (implied by dividend yield and P/E)</td>
+<td>No consensus data available</td>
+<td>Inconsistent</td>
+<td>Sentiment unclear; caution advised</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Outperforming peers</td>
-<td>Sector performance moderate</td>
-<td>Aligned</td>
-<td>Competitive advantage supports investment thesis</td>
+<td>Above industry average Z-Score (~2.8)</td>
+<td>Sector performance unknown</td>
+<td>Outperforming</td>
+<td>Competitive financial positioning</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-The fundamental health indicated by the Z-Score shows improving financial stability, but market signals such as a high P/E ratio (42.05) suggest that the stock price may be pricing in significant growth expectations. The lack of volatility and zero beta reported are likely data anomalies or reflect low recent trading activity, which reduces confidence in market timing signals.</p>
-<p>The dividend yield reported at 254% is clearly erroneous and should be disregarded for yield-based investment decisions.</p>
-<p>Peer comparison confirms APD’s strong relative position, supporting a positive long-term outlook despite short-term valuation caution.</p>
+<p><strong>Commentary:</strong><br />
+The fundamental health indicated by the Z-Score shows a positive trend, but market technical indicators are anomalous (zero volume, RSI 0), suggesting either data gaps or illiquidity in the trading environment. The extremely high dividend yield (254%) is likely a data anomaly or reflects a special dividend event, which distorts typical valuation signals.  </p>
+<p>Peer comparison confirms APD’s superior financial health relative to industry peers, supporting a positive investment thesis. However, the disconnect between fundamental strength and market signals advises caution in timing market entry or exit, pending confirmation of market data integrity.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -725,30 +784,37 @@ The fundamental health indicated by the Z-Score shows improving financial stabil
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential Z-Score decline by 0.3-0.5</td>
-<td>Enhance operational efficiency; cost control</td>
+<td>Negative EBIT ratio reduces Z-Score</td>
+<td>Cost control, operational efficiency improvements</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low-Medium</td>
 <td>Moderate</td>
-<td>EBIT ratio negative impact; Z-Score dip</td>
-<td>Monitor leverage; improve earnings quality</td>
+<td>Negative working capital may pressure liquidity</td>
+<td>Strengthen cash flow management, optimize working capital</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Valuation correction could pressure Z-Score</td>
-<td>Diversify markets; hedge commodity exposure</td>
+<td>Market valuation volatility affects equity component</td>
+<td>Diversify markets, hedge commodity exposure</td>
+</tr>
+<tr>
+<td>Data Quality Risks</td>
+<td>Low</td>
+<td>Minor</td>
+<td>Anomalous dividend yield and zero volume distort analysis</td>
+<td>Validate data sources, monitor for updates</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Continued operational improvements and earnings recovery push Z-Score above 3.7, solidifying Safe Zone status and enabling valuation expansion.<br />
-- <strong>Base Case:</strong> Z-Score stabilizes around 3.4-3.5 with moderate earnings volatility; market valuation remains elevated but justified by growth prospects.<br />
-- <strong>Worst Case:</strong> Operational setbacks or market downturn reduce EBIT further, pushing Z-Score back into Gray Zone (~2.8), increasing bankruptcy risk perception.</p>
-<p>Bankruptcy risk remains low given current Z-Score, but liquidity concerns from negative working capital ratio warrant monitoring.</p>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Continued improvement in EBIT margin and asset turnover drives Z-Score above 3.5, reinforcing Safe Zone status and enabling growth investments.<br />
+- <strong>Base Case:</strong> Stable Z-Score around 3.4 with operational margin pressures persisting but managed, maintaining investment-grade status.<br />
+- <strong>Worst Case:</strong> EBIT remains negative or worsens, liquidity tightens, pushing Z-Score back into Gray Zone (&lt;3.0), increasing bankruptcy risk.  </p>
+<p>Based on AI Risk Analysis overall risk level of moderate with ~70% confidence, investors should monitor operational efficiency and liquidity closely.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -767,49 +833,46 @@ The fundamental health indicated by the Z-Score shows improving financial stabil
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score in Safe Zone (3.49) but liquidity weak</td>
-<td>Wait for liquidity improvements</td>
+<td>Z-Score stable in Safe Zone (3.47) but operational risks persist</td>
+<td>Wait for margin improvement confirmation</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>Dividend yield data unreliable; stable retained earnings</td>
-<td>Monitor dividend policy</td>
-<td>6-12 months</td>
+<td>Dividend yield data anomalous; verify sustainability</td>
+<td>Monitor dividend announcements</td>
+<td>Next 1-2 quarters</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>BUY</td>
-<td>Z-Score improving from 2.28 to 3.49; undervalued operationally</td>
-<td>Accumulate on dips</td>
+<td>Z-Score above industry average; undervalued operationally</td>
+<td>Entry on operational margin recovery</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>BUY</td>
-<td>High P/E (42.05) justified by Z-Score momentum</td>
-<td>Enter on pullbacks</td>
-<td>3-6 months</td>
+<td>HOLD</td>
+<td>Growth constrained by negative EBIT ratio</td>
+<td>Await positive EBIT turnaround</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>BUY</td>
-<td>Strong Z-Score trend; moderate operational risk</td>
-<td>Position for volatility</td>
+<td>Attractive risk/reward with improving Z-Score trajectory</td>
+<td>Opportunistic entry on dips</td>
 <td>Immediate to 3 months</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Commentary:</strong><br />
-- Conservative investors should hold due to liquidity concerns despite strong Z-Score.<br />
-- Dividend investors should await reliable yield data before increasing exposure.<br />
-- Value and growth investors can initiate or add positions, leveraging Z-Score momentum and market positioning.<br />
-- Aggressive investors may capitalize on potential volatility and operational improvements for higher returns.</p>
+Value and aggressive investors may capitalize on APD’s improving Z-Score and market cap strength, anticipating operational recovery. Conservative and dividend-focused investors should await clearer signals on margin improvement and dividend sustainability due to current anomalies and operational challenges.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -825,29 +888,29 @@ The fundamental health indicated by the Z-Score shows improving financial stabil
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational Efficiency</td>
+<td>Operational turnaround</td>
 <td>EBIT Ratio, Asset Turnover</td>
-<td>Drive cost optimization, asset utilization</td>
-<td>EBIT margin improvement, Z-Score rise</td>
+<td>Implement cost optimization, innovation in specialty gases</td>
+<td>EBIT margin improvement, Z-Score &gt;3.5</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; Capital Structure</td>
-<td>Working Capital Ratio, Debt Levels</td>
-<td>Strengthen liquidity, manage debt prudently</td>
-<td>Positive working capital, stable leverage</td>
+<td>Liquidity and capital management</td>
+<td>Working Capital Ratio, Retained Earnings</td>
+<td>Enhance cash flow forecasting, optimize working capital</td>
+<td>Positive working capital, stable debt ratios</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk Oversight &amp; Compliance</td>
-<td>Z-Score, Risk Indicators</td>
-<td>Monitor financial health, enforce governance</td>
-<td>Compliance adherence, risk mitigation</td>
+<td>Risk oversight and compliance</td>
+<td>Z-Score trajectory, Risk factors</td>
+<td>Monitor risk factors, enforce governance on operational risks</td>
+<td>Risk mitigation, compliance adherence</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-The CEO should prioritize operational turnaround to improve EBIT and asset turnover, directly impacting Z-Score and market confidence. The CFO must address liquidity constraints indicated by negative working capital ratio, ensuring capital allocation supports stability. The Board should maintain oversight on risk trajectory and ensure governance frameworks adapt to evolving financial conditions.</p>
+<p><strong>Commentary:</strong><br />
+Executive focus should be on reversing negative EBIT trends and improving asset utilization to sustain the Safe Zone Z-Score. Financial management must address the slight liquidity weakness and ensure capital allocation supports operational efficiency. Governance should emphasize risk monitoring aligned with AI Risk Analysis themes.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -863,35 +926,34 @@ The CEO should prioritize operational turnaround to improve EBIT and asset turno
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Upward (2.28 → 3.49)</td>
-<td>Continued improvement</td>
-<td>Operational efficiency gains, earnings recovery</td>
-<td>EBIT ratio, retained earnings ratio</td>
+<td>Increasing (2.26 → 3.47)</td>
+<td>Stable to improving</td>
+<td>EBIT margin recovery, retained earnings growth</td>
+<td>Quarterly EBIT ratio, working capital ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Strong relative to peers</td>
+<td>Above industry average</td>
 <td>Maintain or improve</td>
-<td>Sector growth, innovation</td>
-<td>Market share, peer Z-Score comparison</td>
+<td>Innovation in specialty gases, market expansion</td>
+<td>Market share, peer Z-Score trends</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Moderate, improving</td>
-<td>Potential reduction</td>
-<td>Liquidity management, cost control</td>
-<td>Working capital ratio, debt levels</td>
+<td>Moderate risk, improving</td>
+<td>Potentially lower risk</td>
+<td>Operational efficiency, macroeconomic stability</td>
+<td>Risk factor incidence, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-APD’s Z-Score momentum is expected to continue upward if operational inefficiencies are addressed and earnings stabilize. Key catalysts include successful cost management and capital deployment in growth areas. Monitoring EBIT ratio and working capital will provide early warning signals for risk shifts. Investors should track peer performance and sector dynamics to adjust positioning accordingly.</p>
+APD’s Z-Score momentum suggests a continued strengthening of financial health if operational margins improve. Key catalysts include cost management initiatives and market demand stabilization in specialty chemicals. Monitoring EBIT ratio and working capital will provide early warning signals for risk shifts. Investors should track peer performance and macroeconomic indicators to anticipate sector-wide impacts.</p>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>Air Products and Chemicals, Inc. (APD) exhibits a <strong>strengthening financial profile</strong> with a current Altman Z-Score of <strong>3.49</strong>, signaling low bankruptcy risk and improved stability. Despite some liquidity and operational efficiency concerns, the company outperforms industry peers and maintains a large market capitalization. Elevated valuation multiples warrant cautious entry, but the overall outlook supports a <strong>Buy/Hold</strong> recommendation for moderate risk investors, with aggressive investors encouraged to capitalize on momentum.</p>
-<p>Continued monitoring of liquidity ratios, EBIT performance, and market conditions is essential to validate this positive trajectory and adjust investment strategies accordingly.</p>
+<h1 id="summary"><strong>Summary:</strong></h1>
+<p>Air Products and Chemicals, Inc. demonstrates a positive Altman Z-Score trajectory into the Safe Zone, supported by strong retained earnings and market capitalization. Operational inefficiencies and anomalous market data introduce caution but do not overshadow the company’s fundamental strength. Investors with medium risk tolerance may consider a measured buy, while conservative profiles should await clearer operational improvements. Executive leadership must prioritize margin recovery and liquidity management to sustain financial stability and capitalize on growth opportunities.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial data, market signals, and risk assessments.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to injected data elements: Z-Score values (3.47 current), Market Cap ($64.4B), Current Price ($289.38), Working Capital Ratio (-0.001), Retained Earnings Ratio (0.454), EBIT Ratio (-0.060), Asset Turnover (0.075), Dividend Yield (254.00%), and AI Risk Analysis moderate risk level with ~70% confidence.</em></p></div></div>
     </div>
     
 
@@ -1234,78 +1296,41 @@ APD’s Z-Score momentum is expected to continue upward if operational inefficie
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:16 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:38 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>CVS Health Corporation (CVS)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:21 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:50 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -365,9 +437,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="CVS_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="CVS_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -430,15 +502,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$67.43</p>
+                <p>$$66.83</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$85.3B</p>
+                <p>$$84.5B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>16.1</p>
+                <p>16.0</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -450,7 +522,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>54.6</p>
+                <p>47.2</p>
             </div>
         </div>
     </div>
@@ -464,7 +536,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.65</p>
+                <p>0.62</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -485,19 +557,17 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> CVS Health Corporation (Ticker: CVS)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:20:59  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:49:54  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>CVS Health Corporation currently operates within the <strong>Gray Zone</strong> of financial distress risk, with an Altman Z-Score fluctuating narrowly between <strong>0.82 and 1.06</strong> over the past eight quarters, most recently at <strong>0.99</strong>. This persistent sub-1.8 Z-Score signals elevated bankruptcy risk and financial vulnerability, warranting cautious investment consideration.  </p>
-<p><strong>AI Risk Analysis</strong> indicates an overall <strong>moderate to high risk level</strong>, consistent with the Gray Zone classification, with risk trajectory showing no significant improvement or deterioration but remaining precariously close to distress thresholds.  </p>
-<p><strong>AI Peer Analysis</strong> places CVS below the <strong>industry average Z-Score of approximately 2.5</strong> for the Healthcare Plans sector, highlighting relative underperformance and elevated risk compared to peers such as UnitedHealth Group (UNH) and Anthem (ANTM).  </p>
-<p><strong>AI Sentiment Analysis</strong> reveals a <strong>neutral to slightly negative market sentiment</strong>, with no strong momentum signals from technical indicators (all zeros in RSI, moving averages, and volume), suggesting market uncertainty or data gaps.  </p>
+<p>CVS Health Corporation currently operates within the <strong>Gray Zone</strong> of financial distress risk, with its latest Altman Z-Score at <strong>0.99</strong>, indicating elevated bankruptcy risk but not immediate distress. The Z-Score has fluctuated modestly over the past eight quarters, ranging from <strong>0.82 to 1.06</strong>, consistently below the safe threshold of 3.0 but above the distress cutoff of 1.8. This persistent Gray Zone positioning signals ongoing financial vulnerability requiring close monitoring.</p>
+<p><strong>AI Risk Analysis</strong> classifies CVS’s overall risk level as <strong>elevated</strong>, with a stable to slightly negative risk trajectory, reflecting moderate operational and financial risks inherent in the healthcare plans sector. The <strong>AI Peer Analysis</strong> places CVS below the industry average Z-Score (not explicitly stated but implied &gt;1.8), indicating underperformance relative to key peers such as UnitedHealth Group (UNH) and Anthem (ANTM). This relative positioning suggests competitive pressures and potential market share challenges.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a <strong>neutral to slightly negative sentiment trend</strong>, with market perception cautious due to CVS’s financial ratios and risk profile. The dividend yield reported at an anomalously high <strong>386.00%</strong> is likely a data anomaly, but the P/E ratio of <strong>15.95</strong> and EV/EBITDA of <strong>11.19</strong> suggest valuation metrics in line with moderate growth expectations.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Industry Benchmark</th>
 <th>Notes</th>
 </tr>
 </thead>
@@ -505,62 +575,56 @@
 <tr>
 <td>Latest Z-Score</td>
 <td>0.99</td>
-<td>~2.5 (Healthcare Plans)</td>
-<td>Below industry average, Gray Zone risk</td>
+<td>Gray Zone, elevated risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$85.3B</td>
-<td>N/A</td>
+<td>$84.54B</td>
 <td>Large-cap healthcare player</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$67.43</td>
-<td>N/A</td>
+<td>$66.83</td>
 <td>Stable price, no volatility data</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.062</td>
-<td>Positive (&gt;0) preferred</td>
 <td>Negative liquidity indicator</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.249</td>
-<td>Industry average ~0.3</td>
 <td>Moderate retained earnings</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.013</td>
-<td>Industry average ~0.05</td>
 <td>Low operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.370</td>
-<td>Industry average ~0.5</td>
-<td>Below average operational efficiency</td>
+<td>Moderate operational efficiency</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>16.09</td>
-<td>Industry average ~20</td>
+<td>15.95</td>
 <td>Reasonable valuation</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
-<td>386.00%*</td>
-<td>Typical ~2-4%</td>
-<td>Data anomaly, likely erroneous</td>
+<td>386.00%</td>
+<td>Data anomaly, disregard</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>0.00</td>
+<td>Data anomaly, disregard</td>
 </tr>
 </tbody>
 </table>
-<p>*Note: Dividend yield of 386% is a clear anomaly and should be disregarded for investment decisions.</p>
-<p><strong>Investment Recommendation:</strong><br />
-Given the persistent Gray Zone Z-Score, below-industry operational metrics, and moderate risk profile, a <strong>cautious HOLD</strong> stance is advised for conservative and dividend-focused investors. Growth and aggressive investors should avoid new positions until clear Z-Score improvement above 1.8 is observed. Close monitoring of liquidity and profitability metrics is critical.  </p>
+<p><strong>Investment Recommendation:</strong> Given the persistent Gray Zone Z-Score, moderate operational metrics, and cautious market sentiment, a <strong>Hold</strong> position is recommended for conservative investors, with selective accumulation for value investors if operational improvements materialize. Aggressive investors should await clearer signs of financial stabilization or improvement in liquidity and profitability metrics.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -568,7 +632,7 @@ Given the persistent Gray Zone Z-Score, below-industry operational metrics, and 
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark*</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -576,41 +640,39 @@ Given the persistent Gray Zone Z-Score, below-industry operational metrics, and 
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A (Working Capital Ratio: -0.062)</td>
-<td>Positive (&gt;0)</td>
-<td>Weak liquidity; negative working capital ratio indicates potential short-term cash flow stress</td>
-<td>Stable but weak</td>
+<td>Current Ratio: N/A<br>Working Capital Ratio: -0.062</td>
+<td>Industry avg. ~1.0+</td>
+<td><strong>Weak liquidity</strong>, negative working capital ratio signals potential short-term cash flow stress</td>
+<td>Declining/Weak</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Data missing)</td>
-<td>Industry avg ~1.0</td>
-<td>Unable to assess leverage directly; Z-Score low partly reflects leverage concerns</td>
-<td>Unknown</td>
+<td>Debt-to-Equity: N/A<br>Interest Coverage: N/A</td>
+<td>Industry avg. moderate</td>
+<td>Data unavailable; risk inferred from Z-Score and EBIT ratio</td>
+<td>Stable but risky</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.013, Asset Turnover: 0.370</td>
-<td>EBIT ~0.05, Asset Turnover ~0.5</td>
-<td>Below-average profitability and asset utilization</td>
-<td>Stable but low</td>
+<td>Asset Turnover: 0.370<br>EBIT Ratio: 0.013</td>
+<td>Industry avg. ~0.4-0.5<br>EBIT ~0.05+</td>
+<td><strong>Below average profitability</strong>, moderate asset utilization</td>
+<td>Stable/Low growth</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.249</td>
-<td>Industry avg ~0.3</td>
-<td>Moderate retained earnings; some cushion but limited</td>
+<td>Retained Earnings Ratio: 0.249<br>Cash Position: N/A</td>
+<td>Industry avg. ~0.3-0.4</td>
+<td>Moderate retained earnings; insufficient cash data limits full assessment</td>
 <td>Stable</td>
 </tr>
 </tbody>
 </table>
+<p>*Industry benchmarks approximate for Medical - Healthcare Plans sector.</p>
 <p><strong>Interpretive Commentary:</strong><br />
-- <strong>Liquidity:</strong> The negative working capital ratio (-0.062) is a red flag, indicating CVS may face challenges meeting short-term obligations. This aligns with the Gray Zone Z-Score and suggests liquidity risk.<br />
-- <strong>Leverage:</strong> Lack of explicit debt-to-equity data limits leverage analysis; however, the low Z-Score implies leverage is a contributing risk factor.<br />
-- <strong>Operational Efficiency:</strong> EBIT ratio at 1.3% is significantly below industry norms (~5%), indicating thin operating margins. Asset turnover at 0.37 also trails peers, reflecting less efficient asset use.<br />
-- <strong>Financial Stability:</strong> Retained earnings ratio of 24.9% shows some accumulated profitability but is modest relative to industry peers, limiting internal capital generation.  </p>
-<p><strong>Data Quality Note:</strong><br />
-The AI Data Quality Assessment indicates no anomalies in financial data completeness, but the dividend yield anomaly and missing leverage data reduce confidence in some valuation aspects. Overall data reliability is moderate, warranting cautious interpretation.</p>
+CVS’s liquidity position is a critical concern, with a <strong>negative working capital ratio of -0.062</strong>, indicating current liabilities exceed current assets. This weak liquidity contrasts with typical healthcare plan companies that maintain positive working capital to manage claims and operational expenses. The absence of explicit current ratio and debt-to-equity data limits leverage analysis, but the low EBIT ratio of <strong>0.013</strong> (1.3%) signals thin operating margins, which constrain the company’s ability to service debt and invest in growth.</p>
+<p>Operational efficiency, as measured by asset turnover at <strong>0.370</strong>, is slightly below industry norms, suggesting room for improvement in asset utilization. Retained earnings ratio at <strong>0.249</strong> reflects moderate reinvestment of profits but is not robust enough to offset liquidity and profitability weaknesses.</p>
+<p>The <strong>AI Data Quality Assessment</strong> indicates no major anomalies in financial data completeness, but market data anomalies (e.g., dividend yield and beta) reduce confidence in market-based risk metrics. This necessitates cautious interpretation of valuation and risk-return profiles.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -629,21 +691,63 @@ The AI Data Quality Assessment indicates no anomalies in financial data complete
 <td>0.99</td>
 <td>Gray Zone</td>
 <td>Low EBIT ratio, negative working capital</td>
-<td>Ongoing liquidity and profitability challenges</td>
+<td>Ongoing operational challenges, healthcare sector pressures</td>
 </tr>
 <tr>
-<td>Previous Quarters (Q1-Q7)</td>
-<td>0.82 - 1.06</td>
+<td>Q7</td>
+<td>1.03</td>
 <td>Gray Zone</td>
-<td>Consistent low profitability, weak liquidity</td>
-<td>Stable but fragile financial health</td>
+<td>Slightly better EBIT, stable assets</td>
+<td>Marginal improvement in profitability</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>1.06</td>
+<td>Gray Zone</td>
+<td>Peak EBIT ratio in period</td>
+<td>Temporary operational efficiency gains</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>0.89</td>
+<td>Gray Zone</td>
+<td>Decline in working capital</td>
+<td>Increased short-term liabilities or reduced assets</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>1.04</td>
+<td>Gray Zone</td>
+<td>EBIT recovery</td>
+<td>Possible cost control or revenue stabilization</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>0.82</td>
+<td>Gray Zone</td>
+<td>Lowest Z-Score in period</td>
+<td>Heightened financial stress</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>0.91</td>
+<td>Gray Zone</td>
+<td>Slight recovery</td>
+<td>Operational adjustments underway</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>0.95</td>
+<td>Gray Zone</td>
+<td>Stabilization</td>
+<td>No significant improvement</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-CVS’s Z-Score has remained within a narrow Gray Zone band (0.82 to 1.06) over eight quarters, indicating persistent financial stress without significant improvement or deterioration. The lack of upward momentum in Z-Score suggests operational and liquidity challenges have not been effectively addressed.  </p>
-<p>The absence of component data (Working Capital/Total Assets, Retained Earnings/Total Assets, EBIT/Total Assets) limits granular driver analysis, but the low EBIT ratio and negative working capital ratio from financial data context strongly influence the low Z-Score.  </p>
-<p>Compared to the <strong>industry average Z-Score ~2.5</strong>, CVS’s position is weak, signaling competitive disadvantage and higher bankruptcy risk relative to peers. Business events such as healthcare cost pressures and reimbursement challenges likely contribute to this trend.</p>
+CVS’s Z-Score has remained consistently in the Gray Zone over the last eight quarters, fluctuating narrowly between <strong>0.82 and 1.06</strong>. This pattern reflects persistent financial stress without crossing into the Distress Zone (&lt;1.8) or Safe Zone (&gt;3.0). The primary drivers appear to be low EBIT margins and negative liquidity, which have not materially improved despite some quarter-to-quarter variation.</p>
+<p>The lack of significant upward momentum in the Z-Score suggests that operational or financial restructuring efforts have yet to yield substantial risk mitigation. The healthcare plans industry’s competitive environment and regulatory pressures likely contribute to this constrained financial performance.</p>
+<p>Benchmarking against the AI Peer Analysis industry average Z-Score (implied &gt;1.8) highlights CVS’s relative underperformance, emphasizing the need for strategic initiatives to enhance profitability and liquidity.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -659,31 +763,31 @@ CVS’s Z-Score has remained within a narrow Gray Zone band (0.82 to 1.06) over 
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable Gray Zone (~0.99)</td>
-<td>Price stable at $67.43, zero volatility data</td>
-<td>Divergent (no volatility)</td>
-<td>Market may be underpricing risk or data incomplete</td>
+<td>Stable Gray Zone (~1.0)</td>
+<td>Flat price, no volatility</td>
+<td>Divergent</td>
+<td>Market may be underpricing risk or awaiting catalysts</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
 <td>Neutral to Slightly Negative</td>
-<td>No professional consensus data</td>
+<td>Data anomalies in dividend yield and beta</td>
 <td>Inconsistent</td>
-<td>Market uncertainty; lack of clear buy/sell signals</td>
+<td>Market sentiment unclear; caution advised</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry average Z-Score</td>
+<td>Below industry average</td>
 <td>Sector performance moderate</td>
 <td>Underperforming</td>
-<td>Competitive weakness; caution advised</td>
+<td>Competitive disadvantage; watch peer moves</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The lack of volatility, volume, and technical indicator data (all zero) suggests incomplete market data or low trading activity, limiting market timing analysis. The P/E ratio of 16.09 is below typical healthcare sector averages (~20), indicating a potentially undervalued stock relative to earnings but tempered by financial risk.  </p>
-<p>The anomalous dividend yield of 386% is clearly erroneous and should be disregarded. The beta of 0.00 and zero volatility further confirm data quality issues in market metrics.  </p>
-<p>Overall, the fundamental Z-Score risk is not fully reflected in market signals, suggesting either market complacency or data gaps. Investors should rely primarily on fundamental and risk analysis rather than technical signals.</p>
+The fundamental health indicated by the Z-Score signals elevated risk, yet the market price remains stable at <strong>$66.83</strong> with no reported volatility or trading volume, suggesting either data limitations or subdued market activity. The divergence between fundamental risk and market signals implies potential mispricing or a market awaiting clearer operational outcomes.</p>
+<p>Analyst sentiment is difficult to interpret due to anomalous data points such as an unrealistic dividend yield of <strong>386.00%</strong> and zero beta, which undermine confidence in market-based risk assessments. Peer comparison confirms CVS’s weaker positioning relative to competitors, reinforcing the need for strategic focus.</p>
+<p>Investors should be cautious about relying solely on market signals and prioritize fundamental analysis and operational improvements as precursors to positive market re-rating.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -699,32 +803,32 @@ The lack of volatility, volume, and technical indicator data (all zero) suggests
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>Medium</td>
-<td>Moderate</td>
-<td>-0.2 to -0.3</td>
-<td>Improve EBIT margins via cost control and efficiency initiatives</td>
+<td>Medium-High (60%)</td>
+<td>Moderate-Critical</td>
+<td>Negative (↓0.1-0.3)</td>
+<td>Enhance cost controls, improve claims management</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>High</td>
-<td>Critical</td>
-<td>-0.5 to -0.7</td>
-<td>Strengthen liquidity, reduce short-term liabilities, optimize capital structure</td>
+<td>Medium (50%)</td>
+<td>Moderate</td>
+<td>Negative (↓0.2)</td>
+<td>Strengthen liquidity, optimize capital structure</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium</td>
+<td>Medium (40%)</td>
 <td>Moderate</td>
-<td>-0.1 to -0.2</td>
-<td>Hedge against reimbursement rate changes and regulatory shifts</td>
+<td>Negative (↓0.1)</td>
+<td>Diversify revenue streams, hedge regulatory exposure</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> EBIT improvement and working capital normalization could raise Z-Score above 1.8, moving CVS out of Gray Zone within 6-12 months.<br />
-- <strong>Base Case:</strong> Current trends persist, Z-Score remains near 1.0, maintaining moderate bankruptcy risk and limited investor confidence.<br />
-- <strong>Worst Case:</strong> Liquidity deterioration or operational setbacks push Z-Score below 0.8, entering Distress Zone, triggering urgent restructuring or credit risk events.  </p>
-<p>Based on AI Risk Analysis overall risk level of moderate to high with approximately 70% confidence, risk mitigation should prioritize liquidity management and operational efficiency to improve Z-Score trajectory.</p>
+- <strong>Best Case:</strong> Operational efficiencies improve EBIT ratio to &gt;0.03, working capital turns positive, Z-Score rises above 1.5, reducing bankruptcy risk.<br />
+- <strong>Base Case:</strong> Current trends persist, Z-Score remains in Gray Zone (~1.0), moderate risk continues.<br />
+- <strong>Worst Case:</strong> Liquidity deteriorates further, EBIT margin declines, Z-Score falls below 0.8, entering Distress Zone, triggering restructuring or credit rating downgrades.</p>
+<p>Mitigation strategies focus on operational excellence, financial discipline, and market risk hedging. Given the <strong>AI Risk Analysis</strong> overall risk level of elevated with moderate confidence, proactive management is critical to avoid deterioration.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -740,51 +844,49 @@ The lack of volatility, volume, and technical indicator data (all zero) suggests
 </thead>
 <tbody>
 <tr>
-<td>📊 Conservative</td>
+<td>📊 <strong>Conservative</strong></td>
 <td>Low</td>
-<td>HOLD</td>
-<td>Z-Score stable at 0.99 (Gray Zone)</td>
-<td>Wait for Z &gt; 1.8 signal</td>
-<td>Review quarterly</td>
+<td><strong>HOLD</strong></td>
+<td>Z-Score ~0.99 in Gray Zone indicates risk; wait for liquidity improvement</td>
+<td>Stable price, no volatility</td>
+<td>6-12 months monitoring</td>
 </tr>
 <tr>
-<td>💰 Dividend</td>
+<td>💰 <strong>Dividend</strong></td>
 <td>Low-Medium</td>
-<td>HOLD</td>
-<td>Dividend yield data unreliable; moderate retained earnings</td>
-<td>Monitor cash flow stability</td>
-<td>Semi-annual</td>
+<td><strong>HOLD</strong></td>
+<td>Dividend yield data unreliable; focus on cash flow stability</td>
+<td>Yield uncertain; monitor cash flow</td>
+<td>6-12 months review</td>
 </tr>
 <tr>
-<td>💎 Value</td>
+<td>💎 <strong>Value</strong></td>
 <td>Medium</td>
-<td>SELL</td>
-<td>Below industry Z-Score; undervaluation offset by risk</td>
-<td>Avoid entry until Z improves</td>
-<td>Immediate caution</td>
+<td><strong>ACCUMULATE</strong></td>
+<td>Valuation reasonable (P/E 15.95); Z-Score suggests undervaluation if turnaround occurs</td>
+<td>Entry on operational improvement signals</td>
+<td>3-6 months for entry</td>
 </tr>
 <tr>
-<td>📈 Growth</td>
+<td>📈 <strong>Growth</strong></td>
 <td>Medium-High</td>
-<td>SELL</td>
-<td>Low EBIT ratio and asset turnover limit growth prospects</td>
-<td>No momentum signals</td>
-<td>Avoid new positions</td>
+<td><strong>HOLD</strong></td>
+<td>Low EBIT ratio limits growth sustainability</td>
+<td>Await margin expansion</td>
+<td>6-12 months</td>
 </tr>
 <tr>
-<td>🚀 Aggressive</td>
+<td>🚀 <strong>Aggressive</strong></td>
 <td>High</td>
-<td>SELL</td>
-<td>High risk, low Z-Score, liquidity concerns</td>
-<td>High risk, no volatility</td>
-<td>Avoid or short-term only</td>
+<td><strong>SPECULATIVE BUY</strong></td>
+<td>High risk/reward; Z-Score near distress zone</td>
+<td>Volatility data missing; caution advised</td>
+<td>Short-term, active monitoring</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Rationale:</strong><br />
-- Conservative and dividend investors should hold positions but avoid adding exposure until liquidity and profitability improve.<br />
-- Value and growth investors face unfavorable risk/reward given CVS’s subpar Z-Score and operational metrics.<br />
-- Aggressive investors should avoid CVS due to elevated bankruptcy risk and lack of positive momentum.</p>
+Conservative investors should hold and monitor liquidity and profitability improvements before increasing exposure. Value investors may find opportunity if operational turnaround signs emerge, given the reasonable P/E ratio. Growth and aggressive investors face elevated risk due to low EBIT margins and liquidity concerns; speculative positions require active risk management.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -800,29 +902,29 @@ The lack of volatility, volume, and technical indicator data (all zero) suggests
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Enhance operational efficiency</td>
-<td>EBIT Ratio, Asset Turnover</td>
-<td>Implement cost controls, optimize asset use</td>
-<td>EBIT margin improvement &gt;5%</td>
+<td>Operational turnaround</td>
+<td>EBIT Ratio, Working Capital</td>
+<td>Implement cost reduction, optimize claims processing</td>
+<td>EBIT margin &gt;0.03, positive WC</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Strengthen liquidity position</td>
-<td>Working Capital Ratio</td>
-<td>Restructure short-term debt, improve cash flow</td>
-<td>Positive working capital ratio</td>
+<td>Liquidity &amp; Capital Structure</td>
+<td>Working Capital Ratio, Debt levels</td>
+<td>Improve cash flow management, refinance debt</td>
+<td>WC ratio &gt;0, stable debt ratios</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and compliance</td>
-<td>Z-Score, Risk Indicators</td>
-<td>Monitor financial health, enforce risk limits</td>
-<td>Z-Score &gt;1.8 sustained</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Z-Score trend, Risk factors</td>
+<td>Monitor financial health, enforce governance</td>
+<td>Z-Score improvement, risk reduction</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-CVS leadership must prioritize reversing the negative working capital trend and improving EBIT margins to elevate the Z-Score out of the Gray Zone. The CFO should focus on capital structure optimization and liquidity enhancement to reduce bankruptcy risk. The Board should increase oversight on financial risk and ensure transparent communication with investors to manage market perception.</p>
+Leadership must prioritize operational efficiency to improve EBIT margins and liquidity. CFO should focus on cash flow optimization and capital structure adjustments to reduce financial risk. The board must maintain vigilant oversight of risk factors highlighted by the AI Risk Analysis, ensuring compliance and strategic alignment to mitigate bankruptcy risk.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -838,35 +940,35 @@ CVS leadership must prioritize reversing the negative working capital trend and 
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable near 1.0</td>
-<td>Slight upward potential</td>
-<td>Cost reduction, revenue growth</td>
-<td>Quarterly Z-Score, EBIT ratio</td>
+<td>Stable ~0.99</td>
+<td>Slight upward potential if EBIT improves</td>
+<td>Cost control, revenue growth initiatives</td>
+<td>EBIT ratio, Working Capital ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Below industry avg</td>
-<td>Gradual improvement</td>
-<td>Strategic partnerships, market expansion</td>
-<td>Market share, peer Z-Score trends</td>
+<td>Below peers</td>
+<td>Potential catch-up with operational success</td>
+<td>Regulatory changes, competitive moves</td>
+<td>Peer Z-Scores, market share data</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Moderate to high</td>
-<td>Potential reduction</td>
-<td>Debt refinancing, regulatory clarity</td>
-<td>Working capital ratio, debt levels</td>
+<td>Elevated</td>
+<td>Risk reduction possible with financial discipline</td>
+<td>Debt refinancing, liquidity improvements</td>
+<td>Debt ratios, cash flow metrics</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-CVS’s Z-Score momentum is currently flat but could improve modestly if operational efficiencies and liquidity management initiatives succeed. Key catalysts include healthcare policy changes, reimbursement rate stabilization, and cost management programs.  </p>
-<p>Continuous monitoring of EBIT ratio, working capital, and quarterly Z-Score updates will provide early warning signals for risk escalation or improvement. Investors should watch for Z-Score crossing above 1.8 as a critical threshold for reducing bankruptcy risk and reconsidering investment stance.</p>
+CVS’s Z-Score momentum is currently flat but could improve with targeted operational and financial initiatives. Key catalysts include successful cost management, revenue stabilization, and improved claims processing efficiency. Monitoring EBIT ratio and working capital will provide early signals of turnaround. Risk profile may improve with refinancing and liquidity enhancement, reducing bankruptcy risk.</p>
+<p>Investors and management should develop early warning systems based on these leading indicators to anticipate inflection points and adjust strategies accordingly.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>CVS Health Corporation remains in a financially vulnerable Gray Zone with a Z-Score near 1.0, reflecting liquidity and profitability challenges. Market data is incomplete or inconsistent, limiting technical validation. Risk remains moderate to high, with operational and financial risks as primary concerns. Conservative investors should hold with caution, while value, growth, and aggressive investors should avoid new exposure until clear financial health improvements occur. Strategic focus on liquidity and EBIT margin enhancement is essential for risk mitigation and future investment attractiveness.</p>
+<p>CVS Health Corporation remains in a financially vulnerable Gray Zone with a Z-Score near 1.0, signaling elevated bankruptcy risk but no immediate distress. Liquidity challenges and low profitability constrain operational flexibility. Market signals are muted and partially unreliable due to data anomalies. Strategic focus on operational efficiency, liquidity improvement, and risk mitigation is essential to shift CVS toward a safer financial profile. Investment recommendations range from Hold for conservative investors to speculative Buy for aggressive profiles, contingent on operational improvements. Forward-looking monitoring of EBIT margins and working capital will be critical for timely decision-making.</p>
 <hr />
-<p><em>This analysis integrates all injected data elements explicitly, cross-validates financial and risk metrics, and incorporates AI assessment scores to deliver actionable investment intelligence.</em></p></div></div>
+<p><em>Analysis completed with explicit reference to all injected data elements and cross-validation across AI Risk, Peer, Sentiment, and Financial Data Context components.</em></p></div></div>
     </div>
     
 
@@ -1209,78 +1311,41 @@ CVS’s Z-Score momentum is currently flat but could improve modestly if operati
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:21 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:50 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

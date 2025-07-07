@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Banco Bradesco S.A. (BBD)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:18 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:39 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -314,6 +386,10 @@
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
                     Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low P/E ratio - potential value</div>
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
@@ -357,9 +433,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="BBD_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="BBD_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -422,15 +498,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$3.10</p>
+                <p>$$3.07</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$30.8B</p>
+                <p>$$30.0B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>10.0</p>
+                <p>9.9</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -442,7 +518,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>60.9</p>
+                <p>58.9</p>
             </div>
         </div>
     </div>
@@ -456,7 +532,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>1.02</p>
+                <p>1.01</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -464,7 +540,7 @@
             </div>
             <div class="metric">
                 <h4>Risk Score</h4>
-                <p>4.2/10</p>
+                <p>3.9/10</p>
             </div>
         </div>
     </div>
@@ -486,69 +562,63 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Banco Bradesco S.A. (Ticker: BBD)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:18:07  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:38:39  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Banco Bradesco S.A. (BBD) presents a highly volatile financial distress profile as evidenced by its Altman Z-Score historical pattern oscillating sharply between <strong>Distress Zone</strong> (Z &lt; 1.8) and <strong>Safe Zone</strong> (Z &gt; 3.0) over the last eight quarters. The most recent quarters show a distress-level Z-Score of approximately <strong>0.53</strong>, signaling urgent financial caution.</p>
-<p><strong>AI Risk Analysis</strong> indicates an <strong>overall risk level of High</strong>, consistent with the distress Z-Score readings, with a negative risk trajectory given the recent downward trend in Z-Score values. This is compounded by a <strong>working capital ratio of -0.208</strong>, a <strong>retained earnings ratio near zero (-0.001)</strong>, and an extremely low <strong>EBIT ratio of 0.003</strong>, all pointing to operational and liquidity challenges.</p>
-<p><strong>AI Peer Analysis</strong> places BBD significantly below the <strong>industry average Z-Score of approximately 3.0 (Safe Zone)</strong> for regional banks, indicating underperformance relative to key peers. This is a critical red flag for investors seeking stability in the financial services sector.</p>
-<p><strong>AI Sentiment Analysis</strong> is not explicitly quantified here, but the market data shows a <strong>dividend yield of 134%</strong>, which is abnormally high and likely unsustainable, suggesting market skepticism or data anomalies affecting sentiment interpretation.</p>
+<p>Banco Bradesco S.A. (BBD) presents a highly volatile Altman Z-Score profile over the last eight quarters, oscillating sharply between the <strong>Distress Zone</strong> (Z &lt; 1.8) and the <strong>Safe Zone</strong> (Z &gt; 3.0). The current Z-Score stands at <strong>0.53</strong>, firmly within the <strong>Distress Zone</strong>, signaling elevated bankruptcy risk and financial instability. This is corroborated by a <strong>negative working capital ratio of -0.208</strong> and a near-zero EBIT ratio of <strong>0.003</strong>, reflecting operational challenges.</p>
+<p><strong>AI Risk Analysis</strong> indicates an <strong>overall high risk level</strong> with a trajectory trending downward, underscoring urgent caution. The <strong>AI Peer Analysis</strong> places BBD significantly below the industry average Z-Score (not explicitly provided but implied safe zone peers), highlighting competitive underperformance relative to regional banking peers. Meanwhile, <strong>AI Sentiment Analysis</strong> is constrained by anomalous market data (zero volume, zero price range), but the reported <strong>dividend yield of 134%</strong> is an extreme outlier, likely reflecting unsustainable payout or data anomaly, reducing confidence in market sentiment signals.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Industry Benchmark</th>
-<th>Notes</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Z-Score</td>
-<td>0.53 (Distress)</td>
-<td>~3.0 (Safe)</td>
-<td>Significant distress risk</td>
+<td>Current Z-Score</td>
+<td>0.53</td>
+<td>Distress Zone - High bankruptcy risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$30.8B</td>
-<td>N/A</td>
-<td>Large cap but distressed</td>
+<td>$30.0B</td>
+<td>Large-cap regional bank</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$3.10</td>
-<td>N/A</td>
-<td>Low price relative to shares</td>
+<td>$3.06</td>
+<td>Low price reflecting distress</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.208</td>
-<td>Positive (&gt;1)</td>
-<td>Negative liquidity indicator</td>
+<td>Negative liquidity position</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>-0.001</td>
-<td>Positive</td>
 <td>Near zero retained earnings</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.003</td>
-<td>Higher in peers</td>
-<td>Minimal earnings</td>
+<td>Minimal operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.034</td>
+<td>Low operational efficiency</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
-<td>134%</td>
-<td>2-5% typical</td>
-<td>Likely unsustainable</td>
+<td>134.00%</td>
+<td>Likely unsustainable or anomalous</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given the <strong>high risk level</strong>, <strong>distress Z-Score</strong>, and <strong>negative liquidity metrics</strong>, a <strong>conservative investor should avoid initiating new positions</strong> at this time. For <strong>value or aggressive investors</strong>, the current low price and market cap may present speculative opportunities but only with strict risk controls and close monitoring. Dividend investors should be wary of the anomalous yield, which likely reflects financial instability rather than genuine income sustainability.</p>
+<p><strong>Investment Recommendation:</strong> Given the distressed Z-Score, poor liquidity, and operational inefficiencies, a <strong>conservative investor should avoid initiating new positions</strong> at this time. However, <strong>aggressive investors may consider speculative entry only with strict risk controls</strong>, anticipating potential turnaround catalysts. Close monitoring of liquidity improvements and EBIT growth is essential before revising this stance.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -556,7 +626,7 @@ Given the <strong>high risk level</strong>, <strong>distress Z-Score</strong>, a
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark*</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -565,40 +635,39 @@ Given the <strong>high risk level</strong>, <strong>distress Z-Score</strong>, a
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: N/A (Working Capital Ratio: -0.208)</td>
-<td>&gt;1.0 (Positive)</td>
-<td><strong>Severe liquidity weakness</strong>; negative working capital signals cash flow stress</td>
+<td>Positive (&gt;1.0)</td>
+<td><strong>Weak liquidity; negative working capital signals distress</strong></td>
 <td>Declining</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
 <td>Debt-to-Equity: N/A (Data missing)</td>
 <td>Industry average ~1.0-2.0</td>
-<td>Unable to assess fully; negative retained earnings (-0.001) suggest equity erosion</td>
-<td>Unclear</td>
+<td>Unable to assess leverage; risk likely elevated given distress</td>
+<td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.003, Asset Turnover: 0.034</td>
-<td>EBIT Ratio &gt;0.05, Asset Turnover ~0.5</td>
-<td>Extremely low profitability and asset utilization; operational inefficiency</td>
-<td>Stable to Declining</td>
+<td>EBIT Ratio: 0.003; Asset Turnover: 0.034</td>
+<td>EBIT Ratio ~0.05-0.10; Asset Turnover ~0.5</td>
+<td><strong>Severely underperforming operational metrics</strong></td>
+<td>Stable to declining</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: -0.001</td>
 <td>Positive (&gt;0)</td>
-<td>Near zero retained earnings indicate weak capital base and poor reinvestment</td>
-<td>Stable to Declining</td>
+<td><strong>Near zero retained earnings; signals erosion of equity base</strong></td>
+<td>Stable</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Interpretive Commentary:</strong><br />
-- <strong>Liquidity:</strong> The negative working capital ratio (-0.208) is a critical red flag, indicating that current liabilities exceed current assets, which may impair the company’s ability to meet short-term obligations. This is particularly concerning in the banking sector where liquidity is paramount.<br />
-- <strong>Leverage:</strong> Although explicit debt-to-equity data is unavailable, the near-zero retained earnings ratio (-0.001) implies that accumulated losses or dividend payouts may have eroded equity, increasing financial risk.<br />
-- <strong>Operational Efficiency:</strong> The EBIT ratio of 0.003 is drastically below industry norms, reflecting minimal operating income relative to assets. Asset turnover at 0.034 is also very low, suggesting inefficient use of assets to generate revenue.<br />
-- <strong>Financial Stability:</strong> The near-zero retained earnings ratio signals a fragile capital structure, which is risky for a bank operating in the <strong>Financial Services sector, specifically Regional Banks</strong> industry, where capital adequacy is critical.</p>
-<p><strong>Data Quality Note:</strong><br />
-No anomalies were explicitly flagged in the AI Data Quality Assessment, but the extreme dividend yield and zero volatility metrics suggest possible data completeness or reporting issues, which lowers confidence in some market metrics.</p>
+<p>*Industry benchmarks are typical for regional banks in Brazil and Latin America.</p>
+<p><strong>Commentary:</strong><br />
+Banco Bradesco’s liquidity position is critically weak, with a working capital ratio of <strong>-0.208</strong>, indicating current liabilities exceed current assets. This is a significant red flag in the Financial Services sector, where liquidity is paramount. The EBIT ratio of <strong>0.003</strong> is drastically below the industry norm (~5-10%), reflecting minimal profitability from core operations. Asset turnover at <strong>0.034</strong> is also extremely low, suggesting inefficient use of assets to generate sales.</p>
+<p>The retained earnings ratio near zero (-0.001) indicates the company has barely retained earnings over time, possibly due to losses or high dividend payouts, which aligns with the anomalous dividend yield reported. The absence of debt-to-equity data limits leverage analysis, but given the distress signals, leverage risk is presumed elevated.</p>
+<p><strong>AI Data Quality Assessment:</strong><br />
+No anomalies were explicitly flagged in financial data completeness, but the extreme dividend yield and zero market volume/price range suggest market data anomalies, reducing confidence in market-based ratios. Financial data completeness is sufficient for ratio analysis but limits leverage insights.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -616,64 +685,64 @@ No anomalies were explicitly flagged in the AI Data Quality Assessment, but the 
 <td>Current (Q8)</td>
 <td>0.53</td>
 <td>Distress</td>
-<td>Negative working capital, low EBIT, poor retained earnings</td>
-<td>Financial distress, liquidity stress</td>
+<td>Negative working capital, low EBIT</td>
+<td>Financial distress, liquidity crunch</td>
 </tr>
 <tr>
 <td>Q7</td>
 <td>0.52</td>
 <td>Distress</td>
-<td>Similar drivers as current</td>
-<td>Continued operational challenges</td>
+<td>Similar drivers</td>
+<td>Continued operational weakness</td>
 </tr>
 <tr>
 <td>Q6</td>
 <td>3.60</td>
 <td>Safe</td>
-<td>Improved liquidity and earnings</td>
+<td>Improved liquidity, profitability</td>
 <td>Temporary recovery phase</td>
 </tr>
 <tr>
 <td>Q5</td>
 <td>3.59</td>
 <td>Safe</td>
-<td>Strong working capital and profitability</td>
-<td>Positive business cycle</td>
+<td>Strong working capital</td>
+<td>Positive business cycle impact</td>
 </tr>
 <tr>
 <td>Q4</td>
 <td>0.61</td>
 <td>Distress</td>
-<td>Deterioration in liquidity and earnings</td>
-<td>Possible market or operational shock</td>
+<td>Liquidity deterioration</td>
+<td>Market or operational shock</td>
 </tr>
 <tr>
 <td>Q3</td>
 <td>3.45</td>
 <td>Safe</td>
-<td>Healthy financial ratios</td>
-<td>Stable business environment</td>
+<td>Strong financials</td>
+<td>Stable banking environment</td>
 </tr>
 <tr>
 <td>Q2</td>
 <td>0.63</td>
 <td>Distress</td>
-<td>Weak liquidity and earnings</td>
-<td>Volatile operational environment</td>
+<td>Weak operational metrics</td>
+<td>Early signs of distress</td>
 </tr>
 <tr>
 <td>Q1</td>
 <td>2.00</td>
 <td>Gray Zone</td>
-<td>Marginal financial health</td>
+<td>Moderate financial health</td>
 <td>Transitional phase</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-The Z-Score trajectory for BBD is highly volatile, swinging between <strong>Safe Zone</strong> and <strong>Distress Zone</strong> multiple times over the last eight quarters. This pattern suggests episodic financial stress possibly linked to external shocks or internal operational inefficiencies. The most recent quarters (Q7 and Q8) show a sharp decline into distress territory, indicating worsening fundamentals.</p>
-<p>The lack of granular component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) limits precise attribution, but the overall trend correlates with the negative liquidity and profitability metrics observed.</p>
-<p>Compared to the <strong>industry average Z-Score ~3.0</strong>, BBD’s current position is significantly weaker, underscoring competitive disadvantage and elevated bankruptcy risk.</p>
+<p><strong>Commentary:</strong><br />
+The Z-Score trajectory for BBD is highly volatile, swinging between <strong>Safe</strong> and <strong>Distress</strong> zones over the last eight quarters. This pattern suggests episodic financial stress possibly linked to macroeconomic shocks or internal operational disruptions. The current quarter’s low Z-Score of <strong>0.53</strong> marks a return to distress, with liquidity and profitability deteriorating sharply.</p>
+<p>The lack of detailed component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) limits granular driver analysis, but the overall pattern indicates cyclical instability. The banking sector’s sensitivity to economic cycles and credit risk likely contributes to these fluctuations.</p>
+<p>Compared to the <strong>AI Peer Analysis</strong> (industry average Z-Score in safe zone), BBD’s position is weak, indicating competitive disadvantage and elevated default risk.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -689,30 +758,31 @@ The Z-Score trajectory for BBD is highly volatile, swinging between <strong>Safe
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Declining, Distress Zone (0.53)</td>
-<td>Price stable at $3.10, zero volatility</td>
+<td>Distress (Z=0.53)</td>
+<td>Price stable at $3.06, zero volume</td>
 <td>Divergent</td>
-<td>Market may be underpricing risk or data incomplete</td>
+<td>Market may be ignoring distress signals or data anomaly</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Not explicitly provided</td>
+<td>Neutral to negative*</td>
 <td>Dividend yield 134% (anomalous)</td>
 <td>Inconsistent</td>
-<td>Market skepticism or data anomaly; caution advised</td>
+<td>Market sentiment unreliable; caution advised</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
 <td>Below industry average</td>
-<td>Sector performance moderate</td>
+<td>Sector performance unknown</td>
 <td>Underperforming</td>
 <td>Competitive weakness confirmed</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-The fundamental distress indicated by the Z-Score is not fully reflected in market price movements, which show zero volatility and stable pricing at $3.10. This divergence may be due to data reporting issues or market inefficiencies. The extraordinarily high dividend yield of 134% is likely unsustainable and may reflect a market anomaly or special dividend event, which should be treated with skepticism.</p>
-<p>Peer comparison confirms BBD is underperforming relative to regional banking peers, reinforcing the fundamental risk signals.</p>
+<p>*Sentiment data limited by market data anomalies.</p>
+<p><strong>Commentary:</strong><br />
+The fundamental distress indicated by the Z-Score is not clearly reflected in market price or volume data, which show zero trading activity and static price levels. This divergence suggests either market data anomalies or illiquidity in the stock. The extremely high dividend yield of 134% is likely a data error or reflects a special dividend payout unsustainable in the long term, further complicating market sentiment interpretation.</p>
+<p>Peer comparison confirms BBD’s underperformance relative to regional banking peers, reinforcing fundamental concerns. The lack of market alignment with fundamentals suggests caution in relying on market signals for timing.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -738,22 +808,33 @@ The fundamental distress indicated by the Z-Score is not fully reflected in mark
 <td>High</td>
 <td>Critical</td>
 <td>Severe Z-Score drop</td>
-<td>Capital raising, asset quality improvement</td>
+<td>Capital raising, liquidity management</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Moderate impact</td>
-<td>Hedging interest rate and currency risks</td>
+<td>Moderate volatility</td>
+<td>Hedging interest rate and credit risk</td>
+</tr>
+<tr>
+<td>Regulatory Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Potential Z-Score impact</td>
+<td>Compliance enhancement, proactive governance</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning:</strong><br />
-- <strong>Best Case:</strong> Operational improvements and capital injections stabilize liquidity, pushing Z-Score back above 3.0 within 2-3 quarters.<br />
-- <strong>Base Case:</strong> Continued volatility with Z-Score fluctuating in the Gray Zone (1.8-3.0), moderate risk persists.<br />
-- <strong>Worst Case:</strong> Further deterioration leads to Z-Score below 1.8, signaling bankruptcy risk within 1 year.</p>
-<p>Based on AI Risk Analysis overall risk level of <strong>High</strong> with <strong>~85% confidence</strong>, urgent mitigation is required to avoid insolvency.</p>
+<p><strong>Scenario Planning:</strong></p>
+<ul>
+<li><strong>Best Case:</strong> Operational turnaround improves EBIT ratio to &gt;0.05, working capital returns positive, Z-Score rises above 3.0 within 2-3 quarters.</li>
+<li><strong>Base Case:</strong> Continued distress with Z-Score fluctuating between 0.5-1.5, liquidity remains tight, risk of default elevated.</li>
+<li><strong>Worst Case:</strong> Further deterioration leads to Z-Score &lt;0.5, triggering bankruptcy risk and potential restructuring or bailout.</li>
+</ul>
+<p><strong>Commentary:</strong><br />
+Based on AI Risk Analysis overall risk level of <strong>high</strong> with <strong>~85% confidence</strong>, operational inefficiencies and liquidity stress are the primary threats. Financial risks from leverage and capital adequacy are critical but unquantified due to missing data. Market and regulatory risks add moderate uncertainty.</p>
+<p>Mitigation requires aggressive financial and operational restructuring, with close monitoring of liquidity ratios and EBIT improvements.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -772,46 +853,46 @@ The fundamental distress indicated by the Z-Score is not fully reflected in mark
 <td>📊 Conservative</td>
 <td>Low</td>
 <td><strong>SELL / AVOID</strong></td>
-<td>Z-Score 0.53 (Distress Zone) indicates high bankruptcy risk</td>
-<td>Avoid entry until Z-Score &gt; 1.8</td>
-<td>Immediate</td>
+<td>Z-Score 0.53 in Distress Zone; negative liquidity</td>
+<td>Avoid entry; wait for Z &gt; 1.8</td>
+<td>Review quarterly</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>SELL</strong></td>
-<td>Dividend yield 134% likely unsustainable</td>
-<td>Yield anomaly suggests risk</td>
+<td><strong>SELL / AVOID</strong></td>
+<td>Dividend yield 134% unsustainable; negative retained earnings</td>
+<td>Avoid due to payout risk</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>HOLD / SPECULATIVE BUY</strong></td>
-<td>Low price and market cap with distress Z-Score; potential turnaround play</td>
-<td>Entry only if Z-Score improves</td>
-<td>Monitor quarterly</td>
+<td><strong>HOLD / CAUTIOUS</strong></td>
+<td>Potential undervaluation but distressed fundamentals</td>
+<td>Consider entry if Z-Score improves</td>
+<td>Monitor next 2 quarters</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>HOLD</strong></td>
-<td>EBIT ratio near zero limits growth prospects</td>
-<td>Wait for operational improvement</td>
-<td>6-12 months</td>
+<td><strong>SPECULATIVE BUY</strong></td>
+<td>Volatile Z-Score with past safe zone spikes</td>
+<td>Entry on confirmed EBIT recovery</td>
+<td>Short-term, high risk</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>SPECULATIVE BUY</strong></td>
-<td>High risk/reward due to volatile Z-Score swings</td>
-<td>High volatility expected</td>
-<td>Short-term with stop-loss</td>
+<td><strong>BUY WITH STOP-LOSS</strong></td>
+<td>High risk/reward; Z-Score volatility</td>
+<td>Enter with tight risk controls</td>
+<td>Immediate, monitor weekly</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Commentary:</strong><br />
-Conservative and dividend investors should avoid or divest due to high distress risk and unsustainable dividend signals. Value and aggressive investors may consider speculative positions if accompanied by rigorous risk management and monitoring of Z-Score improvements. Growth investors should wait for clearer operational recovery signals.</p>
+Conservative and dividend-focused investors should avoid BBD due to high distress risk and unsustainable dividend signals. Value investors may hold positions cautiously, awaiting signs of financial stabilization. Growth and aggressive investors might exploit volatility for speculative gains but must implement strict risk management due to bankruptcy risk.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -827,29 +908,29 @@ Conservative and dividend investors should avoid or divest due to high distress 
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Stabilize liquidity and profitability</td>
+<td>Stabilize liquidity &amp; profitability</td>
 <td>Working Capital Ratio, EBIT Ratio</td>
-<td>Implement cost reduction, improve asset utilization</td>
-<td>Positive Z-Score trend, liquidity improvement</td>
+<td>Implement cost reductions, improve asset quality</td>
+<td>Positive liquidity trend, EBIT &gt; 0.05</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital adequacy and risk management</td>
+<td>Capital adequacy &amp; risk management</td>
 <td>Retained Earnings Ratio, Debt-to-Equity</td>
-<td>Raise capital, manage debt levels</td>
-<td>Improved retained earnings, stable leverage</td>
+<td>Raise capital, optimize debt structure</td>
+<td>Improved equity base, reduced leverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Oversight of risk and compliance</td>
+<td>Risk oversight &amp; compliance</td>
 <td>Z-Score, Risk Factors</td>
 <td>Enhance risk monitoring, enforce governance</td>
-<td>Compliance with regulatory standards, risk reduction</td>
+<td>Compliance adherence, risk reduction</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-The leadership team must prioritize reversing liquidity deficits and operational inefficiencies to improve the Altman Z-Score and restore market confidence. The CFO should focus on capital structure optimization, while the Board must strengthen governance to mitigate high operational and financial risks identified.</p>
+<p><strong>Commentary:</strong><br />
+Executive leadership must prioritize reversing liquidity deficits and operational inefficiencies, as reflected in the Z-Score components. The CFO should focus on capital structure optimization to mitigate financial risks. The Board must strengthen governance frameworks to manage elevated risk themes identified in AI Risk Analysis.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -867,32 +948,32 @@ The leadership team must prioritize reversing liquidity deficits and operational
 <td>Z-Score Momentum</td>
 <td>Declining (0.53)</td>
 <td>Potential stabilization or further decline</td>
-<td>Capital raising, operational turnaround</td>
-<td>Quarterly Z-Score, liquidity ratios</td>
+<td>Economic recovery, operational turnaround</td>
+<td>Quarterly Z-Score, EBIT ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Underperforming</td>
+<td>Weak</td>
 <td>Possible recovery if fundamentals improve</td>
-<td>Regulatory changes, economic environment</td>
-<td>Peer comparison, price trends</td>
+<td>Regulatory changes, market sentiment shifts</td>
+<td>Market cap, price volume trends</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High risk</td>
-<td>Risk may remain elevated without intervention</td>
-<td>Credit market conditions, macroeconomic factors</td>
-<td>Risk factor tracking, stress tests</td>
+<td>High</td>
+<td>Remains elevated without intervention</td>
+<td>Capital raising, asset quality improvement</td>
+<td>Liquidity ratios, credit ratings</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-The outlook for BBD remains uncertain with a current downward Z-Score momentum. Key catalysts such as capital injections, operational restructuring, or favorable macroeconomic shifts could stabilize or improve the financial health. Continuous monitoring of liquidity ratios, retained earnings, and Z-Score quarterly updates is essential for timely investment decisions.</p>
+<p><strong>Commentary:</strong><br />
+The Z-Score momentum currently trends downward but may stabilize if operational and liquidity improvements materialize. Key catalysts include macroeconomic stabilization in Brazil, regulatory support, and internal restructuring. Continuous monitoring of EBIT ratio and working capital is critical as leading indicators of financial health.</p>
 <hr />
-<h1 id="summary"><strong>Summary</strong></h1>
-<p>Banco Bradesco S.A. is currently in a <strong>financial distress state</strong>, with a <strong>Z-Score of 0.53</strong>, negative liquidity, and minimal profitability. Market signals are inconsistent, with anomalous dividend yield and zero volatility metrics suggesting data quality issues or market inefficiencies. The company faces <strong>high operational and financial risks</strong> requiring urgent strategic action. Investment recommendations range from <strong>avoidance for conservative investors</strong> to <strong>speculative opportunities for aggressive profiles</strong>, contingent on close monitoring of financial recovery signals.</p>
+<h1 id="summary">Summary</h1>
+<p>Banco Bradesco’s current financial and Altman Z-Score profile signals <strong>significant distress and elevated bankruptcy risk</strong>, with liquidity deficits and operational inefficiencies at the core. Market data anomalies limit confidence in price and sentiment signals, emphasizing reliance on fundamental analysis. Investors should exercise caution, with conservative profiles avoiding exposure and aggressive profiles considering speculative entry only with stringent risk controls. Executive management must urgently address liquidity and profitability to restore financial stability and improve the Z-Score trajectory.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to injected data elements and cross-validated across financial, risk, peer, and market dimensions.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, risk assessments, and market intelligence for actionable investment guidance.</em></p></div></div>
     </div>
     
 
@@ -1235,78 +1316,41 @@ The outlook for BBD remains uncertain with a current downward Z-Score momentum. 
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:18 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:39 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

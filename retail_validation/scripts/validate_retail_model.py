@@ -43,10 +43,13 @@ sys.path.append(str(PROJECT_ROOT))
 # Import version and validation config
 from altman_zscore._version import __version__
 from retail_validation.config.validation_config import (
-    PORTFOLIO_FILE, BANKRUPTCY_DATES, COMPANY_CATEGORIES, VALIDATION_TESTS,
+    PORTFOLIO_FILE, BANKRUPTCY_DATES, get_company_categories, VALIDATION_TESTS,
     get_category_for_ticker, load_portfolio_tickers, get_validation_summary,
     QUICK_TEST_COMPANIES, DEFAULT_OUTPUT_DIR
 )
+
+# Import bankruptcy utility functions from main pipeline
+from altman_zscore.data.bankruptcy_dates import get_bankruptcy_date, is_bankrupt_company
 
 from altman_zscore.main_pipeline import AltmanZScorePipeline
 from altman_zscore.models.data_models import MergedFinancialData
@@ -72,23 +75,26 @@ class RetailModelValidator:
         # Config for SEC EDGAR
         self.use_sec_edgar = use_sec_edgar
         
-        # Update configuration
-        from retail_validation.config.validation_config import USE_SEC_EDGAR
-        import retail_validation.config.validation_config as config
-        config.USE_SEC_EDGAR = use_sec_edgar
+        # NOTE: Don't set global USE_SEC_EDGAR here as it affects all data loading
+        # SEC EDGAR should only be used for bankrupt/delisted companies as a fallback
         
         # Use centralized configuration
         self.bankruptcy_dates = BANKRUPTCY_DATES
-        self.categories = COMPANY_CATEGORIES
+        self.categories = get_company_categories()
         self.validation_tests = VALIDATION_TESTS
         
         print(f"Retail Model Validator initialized")
         print(f"Output directory: {self.output_dir}")
         print(f"Portfolio file: {PORTFOLIO_FILE}")
     
-    def load_portfolio(self, quick_test: bool = False) -> List[str]:
+    def load_portfolio(self, quick_test: bool = False, failed_company_analysis: bool = False) -> List[str]:
         """Load ticker symbols from portfolio file or quick test set"""
-        if quick_test:
+        if failed_company_analysis:
+            # Only include companies with known bankruptcy dates
+            bankrupt_companies = list(BANKRUPTCY_DATES.keys())
+            print(f"Loading failed companies for analysis: {len(bankrupt_companies)} bankrupt retailers...")
+            return bankrupt_companies
+        elif quick_test:
             print(f"Loading quick test portfolio with {len(QUICK_TEST_COMPANIES)} companies...")
             return QUICK_TEST_COMPANIES.copy()
         else:
@@ -97,11 +103,18 @@ class RetailModelValidator:
             print(f"Loaded {len(tickers)} tickers from portfolio file")
             return tickers
     
-    async def calculate_retail_scores(self, tickers: List[str]) -> Dict:
+    async def calculate_retail_scores(self, tickers: List[str], 
+                              failed_company_analysis: bool = False, 
+                              pre_bankruptcy_quarters: int = 3) -> Dict:
         """Calculate retail Z-Scores for all tickers with enhanced handling for delisted companies"""
         results = {}
         available_tickers = 0
         unavailable_tickers = 0
+        
+        # For failed company analysis, we'll store multiple quarters of data
+        if failed_company_analysis:
+            print(f"Analyzing {pre_bankruptcy_quarters} quarters before bankruptcy for each company")
+            print("This provides a time-series view of Z-Score progression before failure")
         
         print(f"Calculating retail Z-Scores for {len(tickers)} companies...")
         
@@ -109,28 +122,73 @@ class RetailModelValidator:
             try:
                 print(f"Processing {ticker} ({i}/{len(tickers)})...")
                 
-                # Check if this is a known bankrupt company
-                is_bankrupt = ticker in self.bankruptcy_dates
+                # Check if this is a known bankrupt company using main pipeline function
+                is_bankrupt = is_bankrupt_company(ticker)
                 
                 try:
-                    # Get company financial data using data merger
-                    financial_data_list = await self.data_merger.merge_financial_data(ticker, quarters=4)
-                    
-                    if not financial_data_list:
-                        raise ValueError("No financial data available")
-                    
-                    # Use the most recent quarter for analysis
-                    company_data = financial_data_list[0]  # Most recent quarter
-                    
-                    # Calculate retail Z-Score
-                    retail_result = self.calculator.calculate_zscore(
-                        company_data, forced_model="retail"
-                    )
-                    
-                    # Calculate traditional Z-Score for comparison
-                    traditional_result = self.calculator.calculate_zscore(
-                        company_data, forced_model="original"
-                    )
+                    if failed_company_analysis and is_bankrupt_company(ticker):
+                        # For failed company analysis, get financial data for quarters before bankruptcy
+                        bankruptcy_date = get_bankruptcy_date(ticker).strftime('%Y-%m-%d')
+                        print(f"  Analyzing {pre_bankruptcy_quarters} quarters before bankruptcy ({bankruptcy_date})...")
+                        
+                        # Get financial data for multiple quarters before bankruptcy
+                        financial_data_list = await self.data_merger.merge_financial_data(
+                            ticker, 
+                            quarters=max(pre_bankruptcy_quarters + 2, 6),  # Extra quarters for better coverage
+                            end_date=bankruptcy_date  # Data up to bankruptcy date
+                        )
+                        
+                        if not financial_data_list:
+                            raise ValueError(f"No financial data available for {ticker} before bankruptcy")
+                        
+                        # Track Z-scores across multiple quarters
+                        quarter_results = []
+                        for quarter_idx, quarter_data in enumerate(financial_data_list[:pre_bankruptcy_quarters]):
+                            quarters_before_bankruptcy = quarter_idx + 1
+                            retail_score = self.calculator.calculate_zscore(
+                                quarter_data, forced_model="retail"
+                            )
+                            traditional_score = self.calculator.calculate_zscore(
+                                quarter_data, forced_model="original"
+                            )
+                            quarter_results.append({
+                                'quarter': quarters_before_bankruptcy,
+                                'quarter_date': quarter_data.get('date'),
+                                'retail_score': retail_score,
+                                'traditional_score': traditional_score
+                            })
+                        
+                        # Use the most recent quarter for main result
+                        company_data = financial_data_list[0]
+                        retail_result = self.calculator.calculate_zscore(
+                            company_data, forced_model="retail"
+                        )
+                        traditional_result = self.calculator.calculate_zscore(
+                            company_data, forced_model="original"
+                        )
+                        
+                    else:
+                        # Standard analysis - use most recent quarter
+                        financial_data_list = await self.data_merger.merge_financial_data(ticker, quarters=4)
+                        
+                        if not financial_data_list:
+                            raise ValueError("No financial data available")
+                        
+                        # Use the most recent quarter for analysis
+                        company_data = financial_data_list[0]  # Most recent quarter
+                        
+                        # Calculate retail Z-Score
+                        retail_result = self.calculator.calculate_zscore(
+                            company_data, forced_model="retail"
+                        )
+                        
+                        # Calculate traditional Z-Score for comparison
+                        traditional_result = self.calculator.calculate_zscore(
+                            company_data, forced_model="original"
+                        )
+                        
+                        # Initialize empty quarter results for standard analysis
+                        quarter_results = []
                     
                     # Determine category using centralized function
                     category = get_category_for_ticker(ticker)
@@ -141,11 +199,12 @@ class RetailModelValidator:
                         'traditional_score': traditional_result.z_score if traditional_result else None,
                         'traditional_risk': traditional_result.risk_category if traditional_result else None,
                         'category': category,
-                        'bankruptcy_date': self.bankruptcy_dates.get(ticker),
+                        'bankruptcy_date': get_bankruptcy_date(ticker).strftime('%Y-%m-%d') if is_bankrupt_company(ticker) else None,
                         'components': retail_result.component_values if retail_result else {},
                         'warnings': retail_result.warnings if retail_result else [],
                         'metadata': retail_result.metadata if retail_result else {},
-                        'data_source': 'api'
+                        'data_source': 'api',
+                        'quarter_results': quarter_results
                     }
                     available_tickers += 1
                     
@@ -164,7 +223,7 @@ class RetailModelValidator:
                         results[ticker] = {
                             'error': error_message,
                             'category': get_category_for_ticker(ticker),
-                            'bankruptcy_date': self.bankruptcy_dates.get(ticker, None),
+                            'bankruptcy_date': get_bankruptcy_date(ticker).strftime('%Y-%m-%d') if is_bankrupt_company(ticker) else None,
                             'data_source': 'error'
                         }
                 
@@ -189,7 +248,7 @@ class RetailModelValidator:
             return {
                 'error': f"Delisted company - data unavailable",
                 'category': get_category_for_ticker(ticker),
-                'bankruptcy_date': self.bankruptcy_dates.get(ticker),
+                'bankruptcy_date': get_bankruptcy_date(ticker).strftime('%Y-%m-%d') if is_bankrupt_company(ticker) else None,
                 'data_source': 'unavailable'
             }
             
@@ -213,7 +272,7 @@ class RetailModelValidator:
                 'traditional_score': None,  # No score available
                 'traditional_risk': "Distress",  # Known bankruptcy
                 'category': get_category_for_ticker(ticker),
-                'bankruptcy_date': self.bankruptcy_dates.get(ticker),
+                'bankruptcy_date': get_bankruptcy_date(ticker).strftime('%Y-%m-%d') if is_bankrupt_company(ticker) else None,
                 'bankruptcy_confirmed': True,
                 'components': {},
                 'warnings': ["Delisted company - historical data unavailable"],
@@ -278,7 +337,7 @@ class RetailModelValidator:
             'traditional_score': traditional_score,
             'traditional_risk': traditional_risk,
             'category': get_category_for_ticker(ticker),
-            'bankruptcy_date': self.bankruptcy_dates.get(ticker),
+            'bankruptcy_date': get_bankruptcy_date(ticker).strftime('%Y-%m-%d') if is_bankrupt_company(ticker) else None,
             'components': zscore_data.get('components', {}),
             'warnings': financial_data.get('warnings', []),
             'metadata': {
@@ -300,7 +359,7 @@ class RetailModelValidator:
             return None
             
         # This would generate synthetic data based on typical bankruptcy patterns
-        bankruptcy_date = self.bankruptcy_dates.get(ticker)
+        bankruptcy_date = get_bankruptcy_date(ticker).strftime('%Y-%m-%d') if is_bankrupt_company(ticker) else None
         
         # Typical bankruptcy pattern Z-scores in the years leading to bankruptcy
         synthetic_scores = {
@@ -504,11 +563,12 @@ class RetailModelValidator:
         print(f"Testing ticker: {ticker}")
         
         # Check if ticker is in bankruptcy dates
-        if ticker not in self.bankruptcy_dates:
+        if not is_bankrupt_company(ticker):
             print(f"Warning: {ticker} is not in the known bankruptcy dates list.")
-            print(f"Known bankruptcy tickers: {list(self.bankruptcy_dates.keys())}")
+            print(f"Known bankruptcy tickers: {list(BANKRUPTCY_DATES.keys())}")
         else:
-            print(f"Bankruptcy date: {self.bankruptcy_dates[ticker]}")
+            bankruptcy_date = get_bankruptcy_date(ticker)
+            print(f"Bankruptcy date: {bankruptcy_date.strftime('%Y-%m-%d')}")
         
         # Create SEC EDGAR connector
         from retail_validation.data.sec_edgar.edgar_connector import EdgarConnector
@@ -622,7 +682,9 @@ class RetailModelValidator:
         
         print("\nTest completed successfully.")
 
-    def generate_validation_report(self, results: Dict, quick_test: bool = False) -> str:
+    def generate_validation_report(self, results: Dict, quick_test: bool = False,
+                                 failed_company_analysis: bool = False,
+                                 pre_bankruptcy_quarters: int = 3) -> str:
         """Generate comprehensive validation report"""
         
         # Perform analyses
@@ -755,27 +817,121 @@ over traditional Z-Score models for retail company analysis.
 *Configuration: retail_validation/config/validation_config.py*
 *Portfolio: {PORTFOLIO_FILE}*
 *Analysis Date: {datetime.now().strftime('%Y-%m-%d')}*
+
 """
+        
+        # For failed company analysis, add section on pre-bankruptcy quarters
+        if failed_company_analysis:
+            report += "\n\n## Pre-Bankruptcy Quarter Analysis\n\n"
+            report += f"This section analyzes Z-Score evolution during the {pre_bankruptcy_quarters} quarters before bankruptcy.\n\n"
+            
+            # Add a table for each failed company
+            for ticker, data in results.items():
+                if ticker in self.bankruptcy_dates and 'quarter_results' in data and data['quarter_results']:
+                    bankruptcy_date = self.bankruptcy_dates[ticker]
+                    report += f"### {ticker} (Bankruptcy Date: {bankruptcy_date})\n\n"
+                    
+                    # Create a table with quarter data
+                    report += "| Quarters Before Bankruptcy | Date | Retail Z-Score | Traditional Z-Score | Retail Risk | Traditional Risk |\n"
+                    report += "|---------------------------|------|----------------|---------------------|-------------|------------------|\n"
+                    
+                    for qtr in sorted(data['quarter_results'], key=lambda x: x['quarter']):
+                        retail_score = qtr['retail_score']
+                        traditional_score = qtr['traditional_score']
+                        
+                        # Determine risk categories
+                        if retail_score < 1.23:
+                            retail_risk = "Distress"
+                        elif retail_score < 2.9:
+                            retail_risk = "Gray"
+                        else:
+                            retail_risk = "Safe"
+                            
+                        if traditional_score < 1.81:
+                            traditional_risk = "Distress"
+                        elif traditional_score < 2.99:
+                            traditional_risk = "Gray"
+                        else:
+                            traditional_risk = "Safe"
+                            
+                        report += f"| {qtr['quarter']} | {qtr['quarter_date']} | {retail_score:.2f} | {traditional_score:.2f} | {retail_risk} | {traditional_risk} |\n"
+                    
+                    report += "\n"
+                    
+                    # Add observations section
+                    report += "**Observations:**\n\n"
+                    
+                    # Identify trends in the retail Z-Score
+                    if len(data['quarter_results']) > 1:
+                        first_score = data['quarter_results'][-1]['retail_score']
+                        last_score = data['quarter_results'][0]['retail_score']
+                        trend_direction = "declining" if last_score < first_score else "improving"
+                        trend_percentage = abs((last_score - first_score) / first_score) * 100
+                        
+                        report += f"- Retail Z-Score was {trend_direction} during the pre-bankruptcy period ({trend_percentage:.1f}% change)\n"
+                        
+                        # Compare with traditional model
+                        first_trad = data['quarter_results'][-1]['traditional_score']
+                        last_trad = data['quarter_results'][0]['traditional_score']
+                        trad_direction = "declining" if last_trad < first_trad else "improving"
+                        
+                        if trend_direction != trad_direction:
+                            report += f"- Traditional Z-Score showed opposite trend ({trad_direction}), highlighting different sensitivity\n"
+                        
+                        # Check if retail model provided earlier warning
+                        retail_warning_qtr = None
+                        trad_warning_qtr = None
+                        
+                        for qtr in sorted(data['quarter_results'], key=lambda x: x['quarter'], reverse=True):
+                            if retail_warning_qtr is None and qtr['retail_score'] < 1.23:
+                                retail_warning_qtr = qtr['quarter']
+                            if trad_warning_qtr is None and qtr['traditional_score'] < 1.81:
+                                trad_warning_qtr = qtr['quarter']
+                                
+                        if retail_warning_qtr and trad_warning_qtr:
+                            if retail_warning_qtr > trad_warning_qtr:
+                                report += f"- Retail model provided earlier distress warning ({retail_warning_qtr} vs {trad_warning_qtr} quarters before bankruptcy)\n"
+                            elif retail_warning_qtr < trad_warning_qtr:
+                                report += f"- Traditional model provided earlier distress warning ({trad_warning_qtr} vs {retail_warning_qtr} quarters before bankruptcy)\n"
+                        elif retail_warning_qtr and not trad_warning_qtr:
+                            report += f"- Retail model detected distress {retail_warning_qtr} quarters before bankruptcy while traditional model never reached distress zone\n"
+                        elif not retail_warning_qtr and trad_warning_qtr:
+                            report += f"- Traditional model detected distress {trad_warning_qtr} quarters before bankruptcy while retail model never reached distress zone\n"
+                    
+                    report += "\n\n"
         
         return report
     
     async def run_validation(self, comparison: bool = True, seasonal: bool = False, 
-                      detailed: bool = False, quick_test: bool = False) -> None:
+                      detailed: bool = False, quick_test: bool = False,
+                      failed_company_analysis: bool = False, pre_bankruptcy_quarters: int = 3) -> None:
         """Run complete validation analysis"""
         
-        test_type = "QUICK TEST" if quick_test else "COMPREHENSIVE VALIDATION"
+        if failed_company_analysis:
+            test_type = f"FAILED COMPANY ANALYSIS ({pre_bankruptcy_quarters} PRE-BANKRUPTCY QUARTERS)"
+        elif quick_test:
+            test_type = "QUICK TEST"
+        else:
+            test_type = "COMPREHENSIVE VALIDATION"
         print("="*60)
         print(f"RETAIL Z-SCORE MODEL {test_type}")
         print("="*60)
         
         # Load portfolio
-        tickers = self.load_portfolio(quick_test=quick_test)
+        tickers = self.load_portfolio(
+            quick_test=quick_test,
+            failed_company_analysis=failed_company_analysis
+        )
         if not tickers:
             print("No tickers loaded. Exiting.")
             return
         
         # Calculate scores
-        results = await self.calculate_retail_scores(tickers)
+        results = await self.calculate_retail_scores(
+            tickers,
+            failed_company_analysis=failed_company_analysis, 
+            pre_bankruptcy_quarters=pre_bankruptcy_quarters
+        )
         
         # Create timestamped subdirectory for this run
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -789,7 +945,12 @@ over traditional Z-Score models for retail company analysis.
         print(f"Raw results saved to {results_file}")
         
         # Generate validation report
-        report = self.generate_validation_report(results, quick_test=quick_test)
+        report = self.generate_validation_report(
+            results, 
+            quick_test=quick_test,
+            failed_company_analysis=failed_company_analysis,
+            pre_bankruptcy_quarters=pre_bankruptcy_quarters
+        )
         
         # Save report
         report_file = run_dir / "validation_report.md"
@@ -805,7 +966,9 @@ over traditional Z-Score models for retail company analysis.
             'quick_test': quick_test,
             'comparison': comparison,
             'seasonal': seasonal,
-            'detailed': detailed
+            'detailed': detailed,
+            'failed_company_analysis': failed_company_analysis,
+            'pre_bankruptcy_quarters': pre_bankruptcy_quarters if failed_company_analysis else None
         }
         
         config_file = run_dir / "validation_config_snapshot.json"
@@ -846,6 +1009,10 @@ def main():
                        help='Generate detailed company-by-company analysis')
     parser.add_argument('--quick-test', action='store_true',
                        help='Run quick validation on subset of companies')
+    parser.add_argument('--failed-company-analysis', action='store_true',
+                       help='Run specialized analysis focusing on quarters before bankruptcy')
+    parser.add_argument('--pre-bankruptcy-quarters', type=int, default=3,
+                       help='Number of quarters before bankruptcy to analyze (default: 3)')
     parser.add_argument('--use-sec-edgar', action='store_true',
                        help='Use SEC EDGAR for retrieving historical data for delisted companies')
     parser.add_argument('--test-edgar', type=str, metavar='TICKER',
@@ -874,7 +1041,9 @@ def main():
         comparison=args.comparison,
         seasonal=args.seasonal,
         detailed=args.detailed,
-        quick_test=args.quick_test
+        quick_test=args.quick_test,
+        failed_company_analysis=args.failed_company_analysis,
+        pre_bankruptcy_quarters=args.pre_bankruptcy_quarters
     ))
 
 if __name__ == "__main__":

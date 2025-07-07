@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>The Progressive Corporation (PGR)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:39 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:06 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -345,9 +417,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="PGR_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="PGR_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -410,15 +482,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$261.66</p>
+                <p>$$256.83</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$153.4B</p>
+                <p>$$150.5B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>17.7</p>
+                <p>17.3</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -430,7 +502,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>41.7</p>
+                <p>38.0</p>
             </div>
         </div>
     </div>
@@ -444,7 +516,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.91</p>
+                <p>0.84</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -473,68 +545,70 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> Progressive Corporation (PGR)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:38:56  </p>
+<p><strong>Company:</strong> Progressive Corporation (Ticker: PGR)<br />
+<strong>Analysis Date:</strong> 2025-07-07 11:06:16  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Progressive Corporation (PGR) demonstrates a <strong>consistently strong Altman Z-Score profile</strong>, with all eight quarters firmly in the <strong>Safe Zone (Z &gt; 3.0)</strong>, ranging from 3.90 to a peak of 10.45. This sustained financial robustness aligns with its dominant position in the <strong>Financial Services sector</strong>, specifically the <strong>Insurance - Property &amp; Casualty industry</strong>.  </p>
-<p><strong>AI Risk Analysis</strong> indicates an overall <strong>low risk level</strong>, supported by a stable risk trajectory and absence of critical risk anomalies. The <strong>AI Peer Analysis</strong> positions PGR well above the industry average Z-Score (exact peer average not provided but implied lower than PGR’s minimum of 3.90), confirming its competitive strength. Meanwhile, <strong>AI Sentiment Analysis</strong> reveals a highly positive market perception, underscored by an extraordinary <strong>184% dividend yield</strong> (likely an anomaly or special dividend event) and a moderate P/E ratio of 17.66, suggesting reasonable valuation relative to earnings.</p>
+<p>Progressive Corporation (PGR) demonstrates a <strong>consistently strong Altman Z-Score profile</strong>, with all eight quarters firmly in the <strong>Safe Zone (Z &gt; 3.0)</strong>, ranging from 3.90 to 10.45. This signals a very low risk of financial distress. The <strong>latest Z-Score of 3.90</strong> confirms ongoing financial stability, though it shows a moderate decline from earlier peaks above 6.0 and 10.45, indicating some normalization after prior exceptional strength.</p>
+<p><strong>AI Risk Analysis</strong> (implicit from Z-Score and financial data) suggests a <strong>low overall risk level</strong>, supported by a stable risk trajectory. The <strong>AI Peer Analysis</strong> positions PGR well above the industry average Z-Score (not explicitly provided but typical insurance industry averages hover around 2.5-3.5), indicating superior financial health relative to peers. The <strong>AI Sentiment Analysis</strong> is limited by market data anomalies (zero volume, zero price range), but the <strong>high dividend yield of 184.00%</strong> (likely an anomaly or special dividend event) suggests strong shareholder returns, albeit requiring caution.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>3.90 (Safe Zone)</td>
+<td>3.90</td>
+<td>Safe Zone, slight downward trend</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$153.39B</td>
+<td>$150.56B</td>
+<td>Large-cap financial services company</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$261.66</td>
-</tr>
-<tr>
-<td>Shares Outstanding</td>
-<td>586.22M</td>
-</tr>
-<tr>
-<td>Working Capital Ratio</td>
-<td>0.295</td>
-</tr>
-<tr>
-<td>Retained Earnings Ratio</td>
-<td>0.240</td>
-</tr>
-<tr>
-<td>EBIT Ratio</td>
-<td>0.029</td>
-</tr>
-<tr>
-<td>Asset Turnover</td>
-<td>0.183</td>
+<td>$256.94</td>
+<td>Stable valuation</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>17.66</td>
+<td>17.30</td>
+<td>Moderate valuation</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>184.00%</td>
+<td>Likely anomaly, requires verification</td>
 </tr>
 <tr>
-<td>Beta</td>
-<td>0.00 (No volatility)</td>
+<td>Working Capital Ratio</td>
+<td>0.295</td>
+<td>Below 1, potential liquidity concern</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.240</td>
+<td>Moderate retained earnings</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.029</td>
+<td>Low operating margin typical for insurance</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.183</td>
+<td>Low turnover consistent with insurance sector</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Investment Recommendation:</strong><br />
-Given the strong financial health, low risk profile, and positive market sentiment, a <strong>BUY</strong> recommendation is warranted for investors with moderate risk tolerance, particularly those seeking stable growth in the insurance sector. However, the anomalous dividend yield and zero volatility metrics warrant cautious monitoring for data irregularities or extraordinary corporate actions.</p>
+Given the <strong>strong Z-Score safety</strong>, large market capitalization, and moderate valuation, PGR is positioned as a <strong>Hold to Buy</strong> candidate for <strong>conservative and value investors</strong>, with a watchful eye on liquidity ratios and dividend sustainability. The <strong>declining Z-Score trend</strong> suggests monitoring for any emerging operational or market risks.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -550,39 +624,71 @@ Given the strong financial health, low risk profile, and positive market sentime
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.295<br>Working Capital Ratio: 0.295</td>
-<td>Industry average ~1.0+</td>
-<td><strong>Weak liquidity</strong>; below typical insurance industry standards, indicating tight short-term liquidity</td>
-<td>Stable but low</td>
+<td>Current Ratio: 0.295</td>
+<td>~1.0 - 1.5 (Insurance)</td>
+<td>Weak liquidity; below industry norms</td>
+<td>Stable/Low</td>
+</tr>
+<tr>
+<td></td>
+<td>Working Capital Ratio: 0.295</td>
+<td>N/A</td>
+<td>Indicates tight short-term liquidity</td>
+<td></td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: Not provided<br>Interest Coverage: Not provided</td>
-<td>Industry average moderate</td>
-<td>Insufficient data; however, high Z-Score implies manageable leverage</td>
-<td>Stable</td>
+<td>Debt-to-Equity: Not provided</td>
+<td>~0.3 - 0.6 (Insurance)</td>
+<td>Data unavailable; inferred moderate leverage</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td></td>
+<td>Interest Coverage: N/A</td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.183<br>EBIT Ratio: 0.029</td>
-<td>Industry average ~0.2-0.3</td>
-<td>Slightly below average asset utilization and EBIT margin; room for operational improvement</td>
+<td>Asset Turnover: 0.183</td>
+<td>~0.2 - 0.3 (Insurance)</td>
+<td>Slightly below average efficiency</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>EBIT Ratio: 0.029</td>
+<td>~0.03 - 0.05</td>
+<td>Low but typical for insurance sector</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.240<br>Cash Position: Not provided</td>
-<td>Industry average ~0.2-0.3</td>
-<td>Moderate retained earnings supporting stability; cash data missing</td>
+<td>Retained Earnings Ratio: 0.240</td>
+<td>N/A</td>
+<td>Moderate retained earnings accumulation</td>
 <td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: N/A</td>
+<td></td>
+<td>Data unavailable</td>
+<td>Unknown</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks approximate for Property &amp; Casualty insurance sector.</p>
+<p>*Industry benchmarks approximate based on typical insurance sector financials.</p>
 <p><strong>Interpretive Commentary:</strong><br />
-The <strong>liquidity position</strong> is notably low with a current ratio of 0.295, which is below the typical insurance industry benchmark of around 1.0 or higher. This suggests Progressive may rely more on cash flow management and reserves rather than liquid assets for short-term obligations. Despite this, the <strong>Altman Z-Score remains robust</strong>, indicating that liquidity constraints are not currently threatening solvency.</p>
-<p>Operational efficiency metrics such as <strong>asset turnover (0.183)</strong> and <strong>EBIT ratio (0.029)</strong> are slightly below industry averages, reflecting the capital-intensive nature of insurance underwriting and claims management. The <strong>retained earnings ratio (0.240)</strong> is healthy, supporting long-term financial stability.</p>
-<p><strong>AI Data Quality Assessment</strong> shows no anomalies detected, with complete financial data injection, lending high confidence to these diagnostics.</p>
+- <strong>Liquidity:</strong> The current ratio and working capital ratio at 0.295 are significantly below the typical insurance industry benchmark (~1.0), indicating potential liquidity constraints. However, insurance companies often operate with lower liquidity due to predictable cash flows and regulatory capital requirements. This warrants monitoring but is not immediately alarming.<br />
+- <strong>Leverage:</strong> Lack of explicit debt-to-equity data limits leverage assessment. Given the high market cap and stable Z-Score, leverage is likely managed prudently.<br />
+- <strong>Operational Efficiency:</strong> Asset turnover of 0.183 and EBIT ratio of 0.029 are consistent with insurance industry norms, reflecting the capital-intensive and low-margin nature of the business.<br />
+- <strong>Financial Stability:</strong> Retained earnings ratio of 0.240 suggests moderate reinvestment and profit retention, supporting long-term stability.</p>
+<p><strong>Data Quality Assessment:</strong><br />
+- No anomalies detected in financial ratios; however, missing leverage and cash position data reduce confidence in full liquidity and solvency evaluation.<br />
+- AI Data Quality scores are implicitly high given completeness of Z-Score data and financial ratios, but market data anomalies (zero volume, zero price range) reduce confidence in market sentiment analysis.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -600,63 +706,66 @@ The <strong>liquidity position</strong> is notably low with a current ratio of 0
 <td>Current (Q8)</td>
 <td>3.90</td>
 <td>Safe</td>
-<td>Strong equity, moderate EBIT, stable sales/assets</td>
-<td>Continued strong underwriting results and risk management</td>
+<td>Stable EBIT, moderate retained earnings</td>
+<td>Mature insurance market, steady underwriting</td>
 </tr>
 <tr>
-<td>Q7</td>
+<td>Previous (Q7)</td>
 <td>4.01</td>
 <td>Safe</td>
-<td>Similar drivers as current</td>
-<td>Stable insurance market conditions</td>
+<td>Similar financial performance</td>
+<td>Consistent operational efficiency</td>
 </tr>
 <tr>
-<td>Q6</td>
+<td>Previous (Q6)</td>
 <td>4.06</td>
 <td>Safe</td>
-<td>Slightly higher EBIT</td>
-<td>Favorable claims experience</td>
-</tr>
-<tr>
-<td>Q5</td>
-<td>6.45</td>
-<td>Safe</td>
-<td>Elevated equity and working capital</td>
-<td>Possible capital injections or retained earnings growth</td>
-</tr>
-<tr>
-<td>Q4</td>
-<td>6.33</td>
-<td>Safe</td>
-<td>Consistent profitability</td>
+<td>Stable profitability</td>
 <td>Stable premium growth</td>
 </tr>
 <tr>
-<td>Q3</td>
+<td>Previous (Q5)</td>
+<td>6.45</td>
+<td>Safe</td>
+<td>Elevated market equity value</td>
+<td>Possible capital injection or market rally</td>
+</tr>
+<tr>
+<td>Previous (Q4)</td>
+<td>6.33</td>
+<td>Safe</td>
+<td>Strong working capital</td>
+<td>Favorable claims experience</td>
+</tr>
+<tr>
+<td>Previous (Q3)</td>
 <td>6.37</td>
 <td>Safe</td>
-<td>Strong asset base</td>
-<td>Market expansion or product diversification</td>
+<td>High retained earnings</td>
+<td>Operational improvements</td>
 </tr>
 <tr>
-<td>Q2</td>
+<td>Previous (Q2)</td>
 <td>10.45</td>
 <td>Safe</td>
-<td>Peak equity and profitability</td>
-<td>Exceptional underwriting year or asset revaluation</td>
+<td>Peak market valuation</td>
+<td>Exceptional market conditions</td>
 </tr>
 <tr>
-<td>Q1</td>
+<td>Previous (Q1)</td>
 <td>6.53</td>
 <td>Safe</td>
-<td>High retained earnings</td>
-<td>Post-peak normalization</td>
+<td>Strong asset turnover</td>
+<td>Robust underwriting cycle</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-The Z-Score trajectory shows a <strong>gradual decline from a peak of 10.45 to 3.90</strong>, yet remains well within the Safe Zone, indicating sustained financial strength despite normalization after a peak performance quarter. The decline could reflect strategic capital deployment, increased claims, or market adjustments but does not signal distress.</p>
-<p>The <strong>AI Peer Analysis</strong> benchmark (industry average Z-Score lower than 3.90) confirms PGR’s superior financial resilience. The steady Z-Score above 3.0 aligns with the company’s strong market position and operational stability in the Property &amp; Casualty insurance sector.</p>
+- PGR’s Z-Score has trended downward from a peak of 10.45 to 3.90 over the observed quarters, reflecting normalization after a period of exceptional financial strength.<br />
+- Despite the decline, the score remains well above the distress threshold of 1.8, indicating sustained financial health.<br />
+- The decline correlates with a reduction in market equity valuation and possibly more normalized underwriting results.<br />
+- The business context of a mature insurance sector with steady premium growth and claims experience supports the stable Z-Score.<br />
+- Benchmarking against the industry average Z-Score (~2.5-3.5), PGR remains a top-tier performer.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -673,29 +782,31 @@ The Z-Score trajectory shows a <strong>gradual decline from a peak of 10.45 to 3
 <tr>
 <td>Fundamental Health</td>
 <td>Stable Safe Zone (3.90)</td>
-<td>Price stable at $261.66</td>
+<td>Price stable at $256.94</td>
 <td>Aligned</td>
-<td>Supports long-term investment</td>
+<td>Supports Hold/Buy recommendation</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Positive (High Dividend Yield, P/E 17.66)</td>
-<td>Market data shows zero volatility (likely data anomaly)</td>
+<td>Neutral (limited data)</td>
+<td>Dividend Yield anomaly (184%)</td>
 <td>Divergent</td>
-<td>Caution advised; verify data</td>
+<td>Requires caution; verify dividend data</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
 <td>Strong relative position</td>
-<td>Sector performance steady</td>
+<td>Sector performance stable</td>
 <td>Outperforming</td>
 <td>Competitive advantage confirmed</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The <strong>Z-Score’s stable Safe Zone status</strong> aligns with the company’s stable stock price around $261.66, indicating market confidence in Progressive’s fundamentals. However, the <strong>market technical indicators show zero volatility and zero average volume</strong>, which is inconsistent with a large-cap stock and suggests data anomalies or incomplete market data.</p>
-<p>The <strong>extraordinarily high dividend yield of 184%</strong> is unusual and likely reflects a special dividend or data error, warranting further verification before investment decisions. The P/E ratio of 17.66 is reasonable for the sector, supporting valuation stability.</p>
+- The Z-Score’s stable safe zone aligns with a stable stock price around $256.94, indicating market recognition of financial health.<br />
+- The anomalous dividend yield of 184% is inconsistent with typical market signals and may reflect a special dividend or data error, reducing confidence in sentiment analysis.<br />
+- Peer comparison confirms PGR’s superior financial health relative to industry, supporting a positive investment stance.<br />
+- The lack of volume and technical indicator data limits market timing precision; however, fundamental signals favor a stable to positive outlook.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -713,30 +824,30 @@ The <strong>Z-Score’s stable Safe Zone status</strong> aligns with the company
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential Z-Score decline of 0.5-1.0</td>
-<td>Enhance claims management, improve underwriting accuracy</td>
+<td>Potential Z-Score decline by ~0.5</td>
+<td>Enhance underwriting discipline, claims management</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
-<td>Minor</td>
-<td>Minimal impact due to strong equity</td>
-<td>Maintain capital reserves, monitor liquidity ratios</td>
+<td>Moderate</td>
+<td>Minor Z-Score impact due to liquidity</td>
+<td>Maintain capital reserves, improve working capital</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Low</td>
+<td>Medium</td>
 <td>Moderate</td>
-<td>Possible Z-Score fluctuation ±0.3</td>
-<td>Diversify product offerings, hedge against catastrophic events</td>
+<td>Possible valuation-driven Z-Score volatility</td>
+<td>Diversify product lines, hedge market exposure</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-Based on the <strong>AI Risk Analysis overall low risk level</strong>, Progressive faces manageable operational risks primarily related to underwriting and claims volatility. Financial risks are minimal given strong retained earnings and equity buffers. Market risks, including regulatory changes or catastrophic losses, remain moderate but are mitigated by diversified insurance products.</p>
-<p><strong>Best Case:</strong> Z-Score improves above 4.5 with favorable underwriting and market conditions.<br />
-<strong>Base Case:</strong> Z-Score stabilizes around current 3.9-4.1 range.<br />
-<strong>Worst Case:</strong> Z-Score dips toward 3.0 (lower Safe Zone boundary) due to adverse claims or market shocks but no distress expected.</p>
+- <strong>Best Case:</strong> Continued stable underwriting and market conditions maintain or improve Z-Score above 4.0, supporting valuation growth.<br />
+- <strong>Base Case:</strong> Slight operational or market headwinds reduce Z-Score to near 3.5, still in safe zone but signaling caution.<br />
+- <strong>Worst Case:</strong> Significant claims surge or liquidity stress lowers Z-Score below 3.0 (Gray Zone), triggering risk mitigation actions.</p>
+<p>Based on AI Risk Analysis overall risk level of low with moderate confidence, the company’s risk profile is manageable but requires vigilance on liquidity and operational execution.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -755,49 +866,50 @@ Based on the <strong>AI Risk Analysis overall low risk level</strong>, Progressi
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Stable Z-Score ~3.9, strong equity</td>
-<td>Price stable, low volatility</td>
-<td>Monitor quarterly results</td>
+<td>Z-Score stable at 3.90, safe zone</td>
+<td>Stable price, monitor liquidity</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>BUY</td>
-<td>High dividend yield (184%) but verify anomaly</td>
-<td>Favorable yield, moderate P/E</td>
-<td>Immediate, pending data confirmation</td>
+<td>HOLD</td>
+<td>Dividend yield anomaly; verify sustainability</td>
+<td>Cautious due to yield anomaly</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>BUY</td>
-<td>Z-Score well above distress zone, P/E reasonable</td>
-<td>Entry point stable, watch for dips</td>
-<td>3-6 months horizon</td>
+<td>Strong Z-Score vs P/E 17.3</td>
+<td>Entry on minor dips</td>
+<td>Immediate to 3 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>BUY</td>
-<td>Consistent Safe Zone Z-Score, operational stability</td>
-<td>Moderate growth potential</td>
-<td>6-12 months horizon</td>
+<td>HOLD</td>
+<td>Moderate EBIT ratio, stable growth</td>
+<td>Await clearer momentum</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>HOLD</td>
-<td>Low volatility, limited upside volatility</td>
-<td>Limited price movement</td>
-<td>Wait for volatility increase</td>
+<td>Low volatility, stable Z-Score</td>
+<td>Limited volatility; low beta</td>
+<td>6-12 months</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-- <strong>Conservative investors</strong> should hold due to strong financial health but low liquidity ratios.<br />
-- <strong>Dividend investors</strong> may find the yield attractive but must confirm the legitimacy of the 184% figure before committing.<br />
-- <strong>Value and growth investors</strong> have a green light based on solid Z-Score and valuation metrics.<br />
-- <strong>Aggressive investors</strong> should wait for increased volatility or clearer market signals to capitalize on price swings.</p>
+<p><strong>Detailed Commentary:</strong><br />
+- <strong>Conservative investors</strong> should hold, given strong financial health but watch liquidity ratios.<br />
+- <strong>Dividend investors</strong> should verify the extraordinary 184% yield before committing; hold pending confirmation.<br />
+- <strong>Value investors</strong> can consider buying on price dips, supported by strong Z-Score and reasonable valuation.<br />
+- <strong>Growth investors</strong> should hold for clearer momentum signals given moderate EBIT and asset turnover.<br />
+- <strong>Aggressive investors</strong> face low volatility and stable risk; hold with moderate position sizing.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -814,28 +926,30 @@ Based on the <strong>AI Risk Analysis overall low risk level</strong>, Progressi
 <tr>
 <td>CEO Leadership</td>
 <td>Maintain underwriting discipline</td>
-<td>Z-Score components (Equity, EBIT)</td>
-<td>Focus on risk-adjusted growth, optimize claims</td>
-<td>Stable or improving Z-Score</td>
+<td>Z-Score components, EBIT ratio</td>
+<td>Focus on claims management, operational efficiency</td>
+<td>Stable or rising Z-Score, EBIT growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital allocation &amp; liquidity</td>
-<td>Working Capital Ratio, Retained Earnings</td>
-<td>Improve liquidity buffers, manage debt levels</td>
+<td>Improve liquidity position</td>
+<td>Current ratio, working capital ratio</td>
+<td>Optimize cash management, reduce short-term liabilities</td>
 <td>Current ratio improvement &gt;0.5</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; compliance</td>
-<td>Risk factors, Z-Score trends</td>
-<td>Enhance risk management frameworks, monitor anomalies</td>
-<td>Zero regulatory breaches</td>
+<td>Risk oversight and capital adequacy</td>
+<td>Risk factors, Z-Score trajectory</td>
+<td>Regular risk reviews, capital buffer maintenance</td>
+<td>No Z-Score decline below 3.0</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The CEO should leverage the strong Z-Score foundation to pursue measured growth while maintaining underwriting discipline. The CFO must address liquidity constraints (current ratio 0.295) to safeguard operational flexibility. The Board should prioritize governance enhancements to preempt emerging risks, especially given the unusual dividend yield and market data anomalies.</p>
+- The CEO should prioritize operational efficiency and underwriting quality to sustain the Z-Score and profitability.<br />
+- The CFO must address liquidity constraints indicated by a low current ratio (0.295), improving working capital management.<br />
+- The Board should maintain vigilant risk oversight, ensuring capital adequacy to guard against market or operational shocks.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -851,14 +965,14 @@ The CEO should leverage the strong Z-Score foundation to pursue measured growth 
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Slight decline from peak</td>
-<td>Stable to modest improvement</td>
-<td>Underwriting results, capital injections</td>
-<td>Quarterly Z-Score updates</td>
+<td>Slightly declining</td>
+<td>Stable to slight decline</td>
+<td>Market valuation, underwriting results</td>
+<td>Quarterly Z-Score updates, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Strong relative position</td>
+<td>Strong relative</td>
 <td>Maintain or improve</td>
 <td>Competitive pricing, product innovation</td>
 <td>Market share, premium growth</td>
@@ -866,21 +980,22 @@ The CEO should leverage the strong Z-Score foundation to pursue measured growth 
 <tr>
 <td>Risk Profile</td>
 <td>Low risk</td>
-<td>Stable with vigilance</td>
-<td>Regulatory changes, catastrophic events</td>
-<td>Claims ratios, regulatory filings</td>
+<td>Stable risk level</td>
+<td>Regulatory changes, claims environment</td>
+<td>Risk factor incidence, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-Progressive’s Z-Score momentum suggests a <strong>stable financial outlook</strong> with potential for modest improvement driven by operational efficiencies and capital management. Key catalysts include underwriting performance and market conditions. Risk profile remains low but requires monitoring of regulatory and catastrophic risk factors.</p>
-<p>Investors should track <strong>quarterly Z-Score updates</strong> and <strong>claims experience</strong> as leading indicators. Early warning systems should flag any Z-Score decline below 3.5 or liquidity ratio deterioration below 0.25.</p>
+- The Z-Score momentum suggests a stable outlook with slight downward pressure; monitoring underwriting results and market valuation is critical.<br />
+- Market position is expected to remain strong given PGR’s scale and product diversity, with innovation as a potential growth driver.<br />
+- Risk profile remains low but requires ongoing surveillance of claims trends and liquidity metrics to preempt any deterioration.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Progressive Corporation (PGR) exhibits <strong>robust financial health</strong> with a consistently safe Altman Z-Score above 3.9, strong market capitalization of $153.39B, and solid operational metrics. Despite a low liquidity ratio, the company’s risk profile remains low, supported by stable earnings and retained earnings. Market data anomalies, particularly the extraordinary dividend yield and zero volatility, require further validation but do not detract from the fundamental strength.</p>
-<p><strong>Investment stance:</strong> Favorable for value, dividend, and growth investors with a recommendation to <strong>BUY</strong>, while conservative and aggressive profiles should respectively <strong>HOLD</strong> and monitor for volatility changes. Strategic focus should be on improving liquidity and maintaining underwriting discipline to sustain the Safe Zone status.</p>
+<p>Progressive Corporation (PGR) exhibits a <strong>robust financial position</strong> with a <strong>safe Altman Z-Score above 3.9</strong>, signaling low bankruptcy risk. Despite a slight downward trend from historical highs, the company maintains operational and financial stability consistent with the insurance sector. Liquidity ratios warrant attention but are not currently critical. Market data anomalies, particularly the extraordinary dividend yield, require verification before fully integrating into sentiment analysis.</p>
+<p><strong>Investment stance:</strong> Hold for conservative and growth investors, with selective buy opportunities for value investors on price dips. Continuous monitoring of liquidity and underwriting performance is advised to maintain confidence in the investment thesis.</p>
 <hr />
-<p><em>Analysis completed with full integration of all injected data elements, cross-validated across financial, risk, peer, and sentiment dimensions.</em></p></div></div>
+<p><em>This analysis integrates all injected data elements explicitly, cross-validates financial and AI-derived insights, and applies sector-specific context to provide actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1223,78 +1338,41 @@ Progressive’s Z-Score momentum suggests a <strong>stable financial outlook</st
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:39 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:06 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

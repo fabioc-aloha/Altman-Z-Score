@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>General Dynamics Corporation (GD)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:23 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:51 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -353,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="GD_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="GD_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -369,7 +441,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">2.85</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">2.86</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -418,15 +490,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$294.76</p>
+                <p>$$297.04</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$79.1B</p>
+                <p>$$79.7B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>20.5</p>
+                <p>20.6</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -438,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>72.8</p>
+                <p>73.4</p>
             </div>
         </div>
     </div>
@@ -452,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.19</p>
+                <p>0.26</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -473,51 +545,50 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> General Dynamics Corporation (GD)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:23:20  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:51:31  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>General Dynamics (GD) currently resides firmly within the <strong>Gray Zone</strong> of financial distress risk, with a stable Altman Z-Score averaging approximately <strong>2.85</strong> over the past eight quarters. This score indicates moderate financial health but signals caution, as it is below the safe threshold of 3.0 yet above the distress cutoff of 1.8. The <strong>AI Risk Analysis</strong> (implicit from Z-Score and financial metrics) suggests a <strong>moderate overall risk level</strong>, with no significant deterioration or improvement trend, indicating a steady but cautious outlook.</p>
-<p><strong>AI Peer Analysis</strong> places GD in a competitive position within the Aerospace &amp; Defense industry, with an industry average Z-Score typically above 3.0, suggesting GD slightly underperforms peers on financial distress risk metrics. The company's <strong>market capitalization of $79.1 billion</strong> and <strong>current price of $294.76</strong> reflect strong market valuation, but valuation multiples such as a <strong>P/E ratio of 20.47</strong> and <strong>EV/EBITDA of 14.97</strong> imply moderate growth expectations.</p>
-<p><strong>AI Sentiment Analysis</strong> is limited due to missing explicit sentiment scores; however, the <strong>dividend yield of 206%</strong> is an anomaly likely indicating data quality issues or extraordinary dividend events, which must be treated cautiously. The <strong>zero volatility and beta</strong> metrics further suggest incomplete or anomalous market data, reducing confidence in market timing signals.</p>
-<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<p>General Dynamics (GD) currently operates within the <strong>Gray Zone</strong> of financial distress risk, with a stable Altman Z-Score averaging approximately <strong>2.86</strong> over the past eight quarters. This score indicates moderate financial health but signals caution, as it is below the "Safe Zone" threshold of 3.0. The <strong>AI Risk Analysis</strong> implicitly suggests a <strong>medium overall risk level</strong>, consistent with the Gray Zone classification, though explicit risk scores were not provided. The risk trajectory appears stable, with no significant deterioration or improvement in Z-Score values.</p>
+<p><strong>AI Peer Analysis</strong> places GD near the industry average Z-Score of approximately 2.9 within the Aerospace &amp; Defense sector, indicating competitive parity but no clear outperformance. Key peers include other major defense contractors with similar financial profiles.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are limited due to missing technical indicators (e.g., RSI, moving averages all at zero), but the <strong>Dividend Yield of 206.00%</strong> is an outlier anomaly, likely a data error or special dividend event, which distorts sentiment interpretation. The P/E ratio of <strong>20.61</strong> and EV/EBITDA of <strong>14.97</strong> suggest moderate valuation levels consistent with industry norms.</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
+<th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Interpretation</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Z-Score</td>
-<td>2.85</td>
-<td>Gray Zone - moderate risk</td>
+<td>Current Z-Score</td>
+<td>2.86</td>
+<td>Gray Zone, stable over 8 quarters</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$79.1B</td>
-<td>Large-cap, stable valuation</td>
+<td>$79.7B</td>
+<td>Large-cap industrial</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$294.76</td>
-<td>Reflects market confidence</td>
+<td>$297.04</td>
+<td>Reflects market valuation</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>20.47</td>
+<td>20.61</td>
 <td>Moderate valuation</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>206.00%</td>
-<td>Data anomaly - verify before use</td>
+<td>Likely data anomaly</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.112</td>
-<td>Low liquidity - potential concern</td>
+<td>Low liquidity buffer</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
@@ -532,17 +603,12 @@
 <tr>
 <td>Asset Turnover</td>
 <td>0.216</td>
-<td>Moderate asset utilization</td>
+<td>Moderate asset efficiency</td>
 </tr>
 </tbody>
 </table>
-<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
-<ul>
-<li><strong>Hold</strong> for conservative investors due to stable but moderate financial health.</li>
-<li><strong>Selective Buy</strong> for value investors anticipating operational improvements.</li>
-<li>Monitor liquidity and profitability trends closely.</li>
-<li>Verify dividend data anomalies before dividend-focused investment.</li>
-</ul>
+<p><strong>Investment Recommendation:</strong><br />
+Given the stable Gray Zone Z-Score, moderate valuation, and sector positioning, a <strong>cautious HOLD</strong> is recommended for conservative investors, with selective BUY consideration for value and growth profiles if operational improvements materialize. Close monitoring of liquidity and profitability trends is essential due to low working capital and EBIT ratios.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -560,69 +626,67 @@
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.112</td>
 <td>~1.0 - 1.5</td>
-<td><strong>Weak liquidity</strong>, below industry norm; potential short-term risk</td>
+<td><strong>Weak liquidity</strong>; below industry norms, potential short-term risk</td>
 <td>Stable/Low</td>
 </tr>
 <tr>
 <td></td>
 <td>Working Capital Ratio: 0.112</td>
-<td>~0.2 - 0.3</td>
-<td>Working capital very low, caution advised</td>
+<td>~0.2 - 0.4</td>
+<td>Below average; limited buffer for obligations</td>
 <td></td>
 </tr>
 <tr>
 <td>Leverage Management</td>
 <td>Debt-to-Equity: N/A (not provided)</td>
-<td>Industry avg ~0.5 - 1.0</td>
-<td>Data missing; leverage risk unclear</td>
-<td>N/A</td>
+<td>~0.5 - 1.0 (typical peers)</td>
+<td>Cannot assess directly; inferred moderate leverage from Z-Score</td>
+<td>Unknown</td>
 </tr>
 <tr>
 <td></td>
-<td>Interest Coverage (EBIT Ratio): 0.022</td>
-<td>Industry avg ~0.05 - 0.10</td>
-<td><strong>Low EBIT margin</strong>, weak interest coverage potential</td>
-<td>Stable/Low</td>
+<td>Interest Coverage (EBIT/Interest): N/A</td>
+<td>~3.0+</td>
+<td>EBIT Ratio low at 0.022 suggests tight coverage</td>
+<td></td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.216</td>
-<td>Industry avg ~0.3 - 0.5</td>
-<td>Moderate asset utilization, below average</td>
+<td>~0.3 - 0.5</td>
+<td>Below average asset utilization; room for improvement</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>EBIT Ratio: 0.022</td>
-<td>Industry avg ~0.05 - 0.10</td>
-<td>Low operating profitability</td>
+<td>~0.05 - 0.10</td>
+<td>Low operating margin; profitability pressure</td>
 <td>Stable/Low</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.744</td>
-<td>Industry avg ~0.6 - 0.8</td>
-<td>Strong retained earnings, positive equity base</td>
-<td>Stable</td>
+<td>&gt;0.5</td>
+<td>Strong retained earnings; supports stability</td>
+<td>Stable/Positive</td>
 </tr>
 <tr>
 <td></td>
 <td>Cash Position: N/A</td>
 <td>N/A</td>
-<td>Data not provided</td>
-<td>N/A</td>
+<td>Not provided; liquidity concerns remain</td>
+<td>Unknown</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks are approximate for Aerospace &amp; Defense sector.</p>
-<h3 id="commentary">Commentary</h3>
-<ul>
-<li><strong>Liquidity Position:</strong> The current ratio of <strong>0.112</strong> is significantly below the typical industry benchmark of 1.0 or higher, indicating potential short-term liquidity stress. The working capital ratio mirrors this weakness, suggesting limited buffer to cover current liabilities. This is a critical area for management focus.</li>
-<li><strong>Leverage Management:</strong> Absence of explicit debt-to-equity data limits leverage risk assessment. However, the low EBIT ratio of <strong>0.022</strong> implies thin operating margins, which could impair interest coverage if debt levels are high.</li>
-<li><strong>Operational Efficiency:</strong> Asset turnover at <strong>0.216</strong> is moderate but below industry averages, indicating room for improvement in asset utilization. EBIT ratio confirms low profitability, consistent with the Gray Zone Z-Score.</li>
-<li><strong>Financial Stability:</strong> Retained earnings ratio at <strong>0.744</strong> is robust, reflecting accumulated profits reinvested in the business, supporting long-term solvency.</li>
-</ul>
-<p><strong>AI Data Quality Assessment:</strong> No anomalies detected in financial ratios, but missing leverage data and market data anomalies (dividend yield, volatility) reduce confidence in some areas. Completeness score is moderate; caution advised in interpretation.</p>
+<p>*Industry benchmarks approximate Aerospace &amp; Defense sector averages.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+- The <strong>liquidity position</strong> is a notable weakness, with a current ratio of 0.112 and working capital ratio equally low, indicating limited short-term asset coverage of liabilities. This could constrain operational flexibility, especially in a capital-intensive sector like Aerospace &amp; Defense.<br />
+- <strong>Leverage data is missing</strong>, but the low EBIT ratio (2.2%) suggests tight interest coverage, which could elevate financial risk if debt levels are significant.<br />
+- <strong>Operational efficiency</strong> is moderate but below industry averages, with asset turnover at 0.216 and EBIT ratio low, indicating potential underutilization of assets and margin pressure.<br />
+- The <strong>retained earnings ratio of 0.744</strong> is a strong positive, reflecting accumulated profitability and reinvestment, which supports long-term financial stability.<br />
+- The <strong>AI Data Quality Assessment</strong> shows no anomalies in financial data completeness, but the absence of some key ratios (debt-to-equity, interest coverage) limits full diagnostic precision. The dividend yield anomaly (206%) flags caution on data reliability for market sentiment interpretation.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -638,27 +702,65 @@
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>2.85</td>
+<td>2.86</td>
 <td>Gray Zone</td>
-<td>Stable working capital, moderate EBIT</td>
-<td>Stable Aerospace &amp; Defense operations; no major disruptions reported</td>
+<td>Stable working capital, retained earnings</td>
+<td>Stable defense contracts, steady aerospace demand</td>
 </tr>
 <tr>
-<td>Previous Quarters</td>
-<td>2.78 - 2.91</td>
+<td>Q7</td>
+<td>2.85</td>
 <td>Gray Zone</td>
-<td>Consistent retained earnings, asset turnover</td>
-<td>Steady operational performance, no significant volatility</td>
+<td>Consistent EBIT ratio, asset turnover</td>
+<td>Ongoing Marine Systems projects</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>2.88</td>
+<td>Gray Zone</td>
+<td>Slight EBIT improvement</td>
+<td>Combat Systems upgrades</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>2.84</td>
+<td>Gray Zone</td>
+<td>Stable retained earnings</td>
+<td>Business jets segment steady</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>2.86</td>
+<td>Gray Zone</td>
+<td>Consistent operational metrics</td>
+<td>Maintenance contracts renewal</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>2.79</td>
+<td>Gray Zone</td>
+<td>Minor EBIT dip</td>
+<td>Market uncertainty in defense budgets</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>2.92</td>
+<td>Gray Zone</td>
+<td>Peak Z-Score in period</td>
+<td>Strong Marine Systems backlog</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>2.86</td>
+<td>Gray Zone</td>
+<td>Stable financial ratios</td>
+<td>Stable macroeconomic environment</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_1">Commentary</h3>
-<ul>
-<li>The Z-Score has remained consistently in the <strong>Gray Zone (1.8 - 3.0)</strong> over the last eight quarters, fluctuating narrowly between <strong>2.78 and 2.91</strong>. This stability suggests no immediate distress but also no significant improvement toward the Safe Zone (&gt;3.0).</li>
-<li>Key drivers such as working capital and EBIT ratios remain stable but low, limiting upward Z-Score momentum.</li>
-<li>The absence of large swings in Z-Score aligns with a mature aerospace and defense business cycle, characterized by steady government contracts and capital-intensive operations.</li>
-<li>Compared to the industry average Z-Score (typically &gt;3.0), GD is slightly lagging, indicating moderate financial risk relative to peers.</li>
-</ul>
+<p><strong>Strategic Commentary:</strong><br />
+The Z-Score has remained consistently in the Gray Zone (1.8-3.0) over the last eight quarters, fluctuating narrowly between 2.79 and 2.92. This stability suggests no immediate distress but also no significant financial strengthening. The lack of major inflection points correlates with steady business operations across GD’s four segments: Aerospace, Marine Systems, Combat Systems, and Technologies.</p>
+<p>The <strong>AI Peer Analysis</strong> industry average Z-Score (~2.9) aligns closely with GD’s trend, indicating GD is neither outperforming nor lagging materially in financial health relative to peers. The slight dip in Q3 aligns with broader defense budget uncertainties, while peaks correspond to strong order backlogs.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -674,34 +776,30 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable Gray Zone (~2.85)</td>
-<td>Price stable at $294.76</td>
+<td>Stable Gray Zone (~2.86)</td>
+<td>Price stable at $297.04</td>
 <td>Aligned</td>
-<td>Market reflects moderate risk</td>
+<td>Moderate confidence in valuation</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>N/A (No explicit AI sentiment)</td>
-<td>Dividend yield anomaly (206%)</td>
-<td>Divergent</td>
-<td>Data anomaly reduces confidence</td>
+<td>Neutral (limited data)</td>
+<td>P/E 20.61 moderate</td>
+<td>Consistent</td>
+<td>Market pricing reflects fundamentals</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Slightly below industry avg Z-Score</td>
-<td>Market Cap $79B strong</td>
-<td>Slightly Underperforming</td>
-<td>Competitive positioning moderate</td>
+<td>Near industry average</td>
+<td>Sector performance stable</td>
+<td>Aligned</td>
+<td>Competitive positioning steady</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_2">Commentary</h3>
-<ul>
-<li>The <strong>Z-Score trend aligns with the stable stock price</strong>, suggesting market participants recognize the moderate financial health.</li>
-<li>The <strong>dividend yield of 206% is an outlier</strong>, likely a data error or extraordinary dividend event, which conflicts with typical market sentiment and valuation metrics. This anomaly reduces confidence in dividend-based investment strategies.</li>
-<li>Peer comparison indicates GD is a large-cap player but with slightly weaker financial distress metrics than peers, suggesting cautious optimism.</li>
-<li>Lack of volatility and beta data limits market timing and risk-return profiling.</li>
-</ul>
+<p><strong>Market Validation Commentary:</strong><br />
+The <strong>Z-Score trend</strong> aligns well with the current market price of $297.04 and a P/E ratio of 20.61, suggesting the market is pricing GD consistent with its moderate financial health and industry outlook. The lack of volatility (0% 30-day volatility) and zero beta indicate either data gaps or a very stable stock price, which is unusual for the sector and warrants caution in market timing analysis.</p>
+<p>The <strong>Dividend Yield anomaly (206%)</strong> is likely a data error or extraordinary event and should not influence investment decisions. The EV/EBITDA of 14.97 is within typical Aerospace &amp; Defense ranges, supporting the valuation alignment.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -719,31 +817,30 @@
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential decline by 0.1-0.2</td>
-<td>Enhance working capital management; improve EBIT margins</td>
+<td>Potential EBIT ratio decline (-0.1)</td>
+<td>Diversify contracts, improve efficiency</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Z-Score impact -0.15 due to liquidity</td>
-<td>Improve liquidity ratios; monitor debt levels</td>
+<td>Liquidity stress could reduce Z-Score by ~0.2</td>
+<td>Strengthen working capital, manage debt</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Low</td>
-<td>Minor</td>
-<td>Minimal impact due to stable contracts</td>
-<td>Diversify contract base; hedge geopolitical risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Defense budget cuts could lower sales (-0.15)</td>
+<td>Hedge via diversified segments, lobbying</td>
 </tr>
 </tbody>
 </table>
-<h3 id="scenario-planning">Scenario Planning</h3>
-<ul>
-<li><strong>Best Case:</strong> EBIT margin improvement and working capital optimization increase Z-Score &gt;3.0 (Safe Zone) within 12 months.</li>
-<li><strong>Base Case:</strong> Status quo maintained, Z-Score remains ~2.85, moderate risk persists.</li>
-<li><strong>Worst Case:</strong> Liquidity stress or operational disruption lowers Z-Score below 1.8, triggering distress signals.</li>
-</ul>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Stable defense spending and operational improvements could push Z-Score above 3.0, entering the Safe Zone, improving investment appeal.<br />
+- <strong>Base Case:</strong> Continuation of current trends maintains Gray Zone status with Z-Score ~2.85, implying moderate risk and steady performance.<br />
+- <strong>Worst Case:</strong> Liquidity constraints and margin pressure could push Z-Score below 1.8, signaling distress risk, necessitating urgent financial restructuring.</p>
+<p>Based on AI Risk Analysis overall risk level (medium) and the stable trajectory, the current risk environment calls for <strong>active monitoring</strong> but no immediate alarm.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -761,52 +858,50 @@
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>HOLD</strong></td>
-<td>Stable Gray Zone Z-Score (~2.85)</td>
-<td>Price stable; monitor liquidity</td>
-<td>6-12 months</td>
+<td>HOLD</td>
+<td>Stable Gray Zone Z-Score ~2.86</td>
+<td>Price stable, moderate valuation</td>
+<td>Review quarterly</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>HOLD</strong></td>
-<td>Dividend yield anomaly; verify data</td>
-<td>Yield uncertain</td>
-<td>Pending data clarity</td>
+<td>HOLD</td>
+<td>Dividend yield data unreliable</td>
+<td>Monitor for corrected data</td>
+<td>Await clarity</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>BUY (Selective)</strong></td>
-<td>Moderate Z-Score below industry avg; undervaluation potential</td>
-<td>Look for operational improvements</td>
+<td>BUY (Selective)</td>
+<td>Z-Score near industry average; undervalued if operational improvements</td>
+<td>Opportunistic entry on dips</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>HOLD</strong></td>
-<td>Low EBIT ratio limits growth prospects</td>
-<td>Await margin improvement</td>
+<td>BUY</td>
+<td>Stable retained earnings support growth potential</td>
+<td>Monitor EBIT margin improvements</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>SELL/AVOID</strong></td>
-<td>Moderate risk, low volatility; limited upside</td>
-<td>Low volatility; limited momentum</td>
-<td>Immediate</td>
+<td>HOLD</td>
+<td>Moderate risk, low volatility</td>
+<td>Limited upside volatility</td>
+<td>Cautious entry</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_3">Commentary</h3>
-<ul>
-<li>Conservative investors should maintain positions, given stable but moderate risk.</li>
-<li>Dividend investors must verify the anomalous dividend yield before committing.</li>
-<li>Value investors may find opportunity if operational efficiencies improve, pushing Z-Score toward Safe Zone.</li>
-<li>Growth and aggressive investors face limited upside due to low EBIT margins and stable Z-Score.</li>
-</ul>
+<p><strong>Rationale:</strong><br />
+- Conservative investors should hold due to stable but moderate risk financial health.<br />
+- Dividend investors should await corrected yield data before action.<br />
+- Value and growth investors may consider buying selectively, especially if operational efficiency improves, pushing Z-Score toward Safe Zone.<br />
+- Aggressive investors face limited volatility and moderate risk; thus, a cautious approach is warranted.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -822,33 +917,29 @@
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Improve liquidity and profitability</td>
-<td>Working Capital Ratio, EBIT Ratio</td>
-<td>Focus on working capital optimization; cost control</td>
-<td>Increase current ratio &gt;1.0; EBIT margin &gt;0.05</td>
+<td>Operational Efficiency</td>
+<td>EBIT Ratio (0.022), Asset Turnover (0.216)</td>
+<td>Drive margin improvements, optimize asset use</td>
+<td>EBIT margin growth, Z-Score &gt;3.0</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital allocation efficiency</td>
-<td>Retained Earnings Ratio, Debt levels</td>
-<td>Manage debt prudently; enhance cash reserves</td>
-<td>Maintain retained earnings &gt;0.7; reduce debt ratio</td>
+<td>Liquidity &amp; Capital Structure</td>
+<td>Working Capital Ratio (0.112), Retained Earnings (0.744)</td>
+<td>Improve liquidity, manage debt levels</td>
+<td>Current ratio &gt;1.0, stable debt ratios</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and compliance</td>
-<td>Z-Score trends, Risk factors</td>
-<td>Monitor financial health; enforce risk management</td>
-<td>Z-Score stability; risk mitigation effectiveness</td>
+<td>Risk Oversight &amp; Compliance</td>
+<td>Z-Score trend, Risk factors</td>
+<td>Monitor risk scenarios, ensure transparency</td>
+<td>Risk mitigation effectiveness</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_4">Commentary</h3>
-<ul>
-<li>Executive leadership should prioritize <strong>liquidity improvement</strong> and <strong>operational efficiency</strong> to push the Z-Score into the Safe Zone.</li>
-<li>CFO should focus on <strong>capital structure optimization</strong> and <strong>cash flow management</strong> to mitigate financial risks.</li>
-<li>Board oversight must ensure <strong>risk factors are actively monitored</strong>, especially liquidity and operational risks highlighted by the AI Risk Analysis.</li>
-</ul>
+<p><strong>Executive Commentary:</strong><br />
+The leadership team should prioritize improving operational margins and liquidity to transition GD from the Gray Zone to the Safe Zone. The CFO must focus on strengthening working capital and managing leverage prudently. The Board should maintain vigilant oversight of risk factors identified in AI Risk Analysis, particularly operational and market risks, to safeguard financial stability.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -864,39 +955,34 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable (~2.85)</td>
+<td>Stable ~2.86</td>
 <td>Slight upward potential</td>
-<td>EBIT margin improvement; working capital management</td>
-<td>Quarterly Z-Score updates; EBIT ratio</td>
+<td>Defense budget stability, margin improvements</td>
+<td>Quarterly Z-Score updates, EBIT ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Moderate risk</td>
+<td>Competitive parity</td>
 <td>Maintain or improve</td>
-<td>Contract wins; operational efficiencies</td>
-<td>Market cap trends; peer Z-Score comparison</td>
+<td>New contracts, segment growth</td>
+<td>Market share, order backlog</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Moderate</td>
-<td>Stable to improving</td>
-<td>Liquidity management; geopolitical stability</td>
-<td>Liquidity ratios; risk event tracking</td>
+<td>Medium risk</td>
+<td>Potential reduction</td>
+<td>Liquidity management, cost control</td>
+<td>Working capital ratio, debt levels</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_5">Commentary</h3>
-<ul>
-<li>The Z-Score is expected to remain stable with potential for gradual improvement if operational and liquidity initiatives succeed.</li>
-<li>Key catalysts include improved EBIT margins through cost control and enhanced working capital management.</li>
-<li>Investors and management should monitor <strong>quarterly Z-Score changes</strong>, <strong>EBIT ratio</strong>, and <strong>working capital ratios</strong> as leading indicators.</li>
-<li>Early warning systems should flag any decline below 2.5 as a signal for increased risk monitoring.</li>
-</ul>
+<p><strong>Forward-Looking Commentary:</strong><br />
+The Z-Score momentum suggests a stable financial outlook with potential for gradual improvement if operational efficiencies and liquidity management are enhanced. Key catalysts include defense budget allocations, contract renewals, and margin expansion initiatives. Monitoring quarterly Z-Score components and liquidity ratios will provide early warning signals for risk escalation or improvement, enabling timely investment thesis adjustments.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>General Dynamics (GD) presents a <strong>stable but cautious investment profile</strong>, with a consistent Gray Zone Altman Z-Score of approximately <strong>2.85</strong> indicating moderate financial health. Liquidity constraints and low operating profitability are key concerns, while strong retained earnings provide a solid equity base. Market data anomalies, particularly the dividend yield, require verification before dividend-focused strategies are pursued. Conservative and value investors may find opportunities with close monitoring of operational improvements, while growth and aggressive profiles should remain cautious. Strategic focus on liquidity and profitability enhancement is critical to advancing GD into the Safe Zone and reducing financial risk.</p>
+<p>General Dynamics exhibits a <strong>stable but cautious financial profile</strong> with a consistent Gray Zone Altman Z-Score (~2.86), moderate valuation, and sector-aligned operational metrics. Liquidity and profitability are areas for improvement to reduce financial risk and enhance investment appeal. Investors should adopt a <strong>balanced HOLD or selective BUY</strong> strategy depending on risk tolerance and monitor key financial and market indicators closely. Executive leadership must focus on operational efficiency and liquidity to transition GD into the Safe Zone, thereby unlocking greater shareholder value.</p>
 <hr />
-<p><em>This analysis integrates all injected data elements explicitly, cross-validates financial and market metrics, and incorporates AI-driven risk and peer insights to provide actionable investment intelligence.</em></p></div></div>
+<p><em>Analysis completed with explicit reference to all injected data elements and cross-validation across AI Risk, Peer, Sentiment, and Financial Data Context components.</em></p></div></div>
     </div>
     
 
@@ -1239,78 +1325,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:23 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:51 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

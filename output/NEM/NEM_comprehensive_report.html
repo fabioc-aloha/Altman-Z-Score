@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Newmont Corporation (NEM)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:37 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:05 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -327,10 +399,6 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
                     Low market beta - defensive characteristics</div>
                 
-                <div
-                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
-                    Outperforming market benchmark</div>
-                
             </div>
         </div>
         
@@ -353,9 +421,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="NEM_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="NEM_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -369,7 +437,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.99</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.97</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -418,15 +486,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$59.90</p>
+                <p>$$59.38</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$66.7B</p>
+                <p>$$66.1B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>13.6</p>
+                <p>13.5</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -438,7 +506,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>65.9</p>
+                <p>56.7</p>
             </div>
         </div>
     </div>
@@ -473,34 +541,34 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Newmont Corporation (NEM)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:37:24  </p>
+<strong>Analysis Date:</strong> 2025-07-07 11:04:50  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Newmont Corporation (NEM), a leading player in the Basic Materials sector focused on gold mining and exploration, currently exhibits a <strong>Gray Zone Altman Z-Score</strong> of <strong>2.38</strong>, indicating moderate financial distress risk but not immediate bankruptcy threat. The Z-Score trajectory over the last eight quarters shows a recovery from a <strong>Distress Zone low of 1.52</strong> to the current Gray Zone level, signaling improving financial health but still short of the Safe Zone threshold (&gt;3.0).</p>
-<p><strong>AI Risk Analysis</strong> (inferred from Z-Score and financial ratios) suggests a <strong>moderate overall risk level</strong>, with a trajectory trending upward, reflecting improving operational and financial stability. The <strong>AI Peer Analysis</strong> positions NEM below the industry average Z-Score (not explicitly provided but typically &gt;3.0 for gold mining peers), indicating relative vulnerability compared to competitors. <strong>AI Sentiment Analysis</strong> is limited due to zero volatility and beta reported, but the extremely high dividend yield (172%) suggests market skepticism or data anomaly, warranting caution.</p>
+<p>Newmont Corporation (NEM), a leading player in the Basic Materials sector focused on gold mining and exploration, currently exhibits a <strong>Gray Zone Altman Z-Score</strong> of <strong>2.36</strong>, indicating moderate financial distress risk but not immediate bankruptcy threat. The Z-Score trajectory over the last eight quarters shows volatility between the Distress Zone (Z &lt; 1.8) and Gray Zone (1.8 &lt; Z &lt; 3.0), with a recent upward trend from a low of 1.51 to 2.36, suggesting improving financial health.</p>
+<p><strong>AI Risk Analysis</strong> indicates a <strong>moderate overall risk level</strong> consistent with the Gray Zone classification, with risk trajectory improving but still requiring caution. The <strong>AI Peer Analysis</strong> places NEM below the industry average Z-Score (not explicitly provided but typically &gt;3.0 for Basic Materials peers), signaling relative underperformance versus competitors. The <strong>AI Sentiment Analysis</strong> is limited due to zero volatility and zero RSI, but the exceptionally high dividend yield of <strong>172.00%</strong> suggests market skepticism or data anomaly, warranting further scrutiny.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Interpretation</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Current Z-Score</td>
-<td>2.38</td>
-<td>Gray Zone - moderate distress risk</td>
+<td>2.36</td>
+<td>Gray Zone, improving trend</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$66.67B</td>
+<td>$66.07B</td>
 <td>Large-cap status</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$59.90</td>
-<td>Stable price level</td>
+<td>$59.37</td>
+<td>Stable price (no volatility data)</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
@@ -520,22 +588,22 @@
 <tr>
 <td>Asset Turnover</td>
 <td>0.090</td>
-<td>Low asset efficiency</td>
+<td>Low operational efficiency</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>13.64</td>
+<td>13.52</td>
 <td>Moderate valuation</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>172.00%</td>
-<td>Likely data anomaly or unsustainable payout</td>
+<td>Likely data anomaly or special dividend</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Investment Recommendation:</strong><br />
-Given the improving but still moderate distress risk (Z-Score 2.38), low liquidity, and operational challenges, a <strong>cautious HOLD</strong> is recommended for conservative and dividend-focused investors. Growth and aggressive profiles should await clearer signs of financial stabilization and market validation. Close monitoring of liquidity and profitability metrics is essential.</p>
+Given the improving Z-Score trend from distress to gray zone, moderate valuation, and large market capitalization, a <strong>cautious HOLD</strong> is recommended for conservative investors, with selective BUY opportunities for value-oriented investors monitoring liquidity improvements. Aggressive investors should await clearer signs of financial stabilization and market sentiment normalization.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -551,67 +619,40 @@ Given the improving but still moderate distress risk (Z-Score 2.38), low liquidi
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.096</td>
-<td>~1.0 - 1.5</td>
-<td><strong>Severe liquidity weakness</strong>; below industry norms, risk of short-term cash stress</td>
+<td>Current Ratio: 0.096<br>Working Capital Ratio: 0.096</td>
+<td>Industry avg. ~1.0+<br>Working Capital Ratio ~0.2+</td>
+<td><strong>Severe liquidity weakness.</strong> Current ratio well below industry norms indicates potential short-term solvency risk.</td>
 <td>Declining/Stable (very low)</td>
 </tr>
 <tr>
-<td></td>
-<td>Working Capital Ratio: 0.096</td>
-<td>&gt;0.2</td>
-<td>Insufficient working capital buffer</td>
-<td></td>
-</tr>
-<tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (not provided)</td>
-<td>~0.5 - 1.0 (typical gold miners)</td>
-<td>Data unavailable; risk assessment limited</td>
+<td>Debt-to-Equity: N/A (not provided)<br>Interest Coverage: N/A</td>
+<td>Industry avg. Debt-to-Equity ~0.5-1.0</td>
+<td>Data unavailable; risk assessment limited.</td>
 <td>Unknown</td>
 </tr>
 <tr>
-<td></td>
-<td>Interest Coverage (EBIT/Interest): N/A</td>
-<td>&gt;3.0 preferred</td>
-<td>Not available; EBIT ratio low (0.036) suggests tight coverage</td>
-<td></td>
-</tr>
-<tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.090</td>
-<td>~0.3 - 0.5</td>
-<td><strong>Low asset utilization</strong>, indicating underperformance</td>
+<td>EBIT Ratio: 0.036<br>Asset Turnover: 0.090</td>
+<td>Industry EBIT ~0.10+<br>Asset Turnover ~0.2+</td>
+<td><strong>Subpar operational efficiency.</strong> EBIT and asset turnover significantly below industry averages, indicating low profitability and asset utilization.</td>
 <td>Stable/Low</td>
-</tr>
-<tr>
-<td></td>
-<td>EBIT Ratio: 0.036</td>
-<td>~0.10 - 0.15</td>
-<td><strong>Low profitability</strong>, margin pressure evident</td>
-<td>Slightly improving</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.003</td>
-<td>&gt;0.1</td>
-<td><strong>Minimal retained earnings</strong>, weak equity growth</td>
+<td>Retained Earnings Ratio: 0.003<br>Cash Position: N/A</td>
+<td>Industry Retained Earnings ~0.1+</td>
+<td><strong>Minimal retained earnings, indicating weak capital base and reinvestment capacity.</strong></td>
 <td>Stable/Low</td>
-</tr>
-<tr>
-<td></td>
-<td>Cash Position: N/A</td>
-<td>N/A</td>
-<td>Not provided</td>
-<td>N/A</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks approximate for gold mining sector.</p>
-<p><strong>Narrative Commentary:</strong><br />
-Newmont’s liquidity position is critically weak, with a current ratio of 0.096, far below the industry standard of around 1.0, indicating potential difficulties meeting short-term obligations. The working capital ratio confirms this vulnerability. The absence of debt-to-equity and interest coverage data limits leverage risk assessment, but the low EBIT ratio (3.6%) suggests tight operating margins and potential interest coverage challenges.</p>
-<p>Operational efficiency is suboptimal, with asset turnover at 0.09, significantly below typical gold mining peers, reflecting possible underutilization of assets or operational inefficiencies. Retained earnings ratio near zero signals limited reinvestment capacity and equity growth, raising concerns about long-term financial stability.</p>
-<p>The <strong>AI Data Quality Assessment</strong> notes no anomalies detected but lacks completeness in some leverage metrics, reducing confidence in full risk profiling. Given the Basic Materials sector’s capital intensity and commodity price sensitivity, these financial weaknesses warrant cautious interpretation.</p>
+<p>*Industry benchmarks are approximate for Basic Materials/Gold mining sector.</p>
+<p><strong>Commentary:</strong><br />
+The financial health diagnostic reveals critical liquidity constraints with a current ratio of only 0.096, far below the industry standard of around 1.0, signaling potential short-term financial stress. The retained earnings ratio of 0.003 suggests minimal reinvested profits, limiting internal funding capacity. EBIT ratio and asset turnover are also low, reflecting operational inefficiencies possibly due to market conditions or operational challenges in mining activities.</p>
+<p>The absence of debt-to-equity and interest coverage ratios limits leverage risk assessment. However, the large market capitalization ($66.07B) and stable share count (1.11B shares) imply some market confidence despite weak fundamentals.</p>
+<p><strong>AI Data Quality Assessment:</strong><br />
+No anomalies detected in financial data completeness; however, the dividend yield of 172% is an outlier, likely a data anomaly or extraordinary dividend event, reducing confidence in dividend sustainability analysis.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -627,66 +668,65 @@ Newmont’s liquidity position is critically weak, with a current ratio of 0.096
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>2.38</td>
+<td>2.36</td>
 <td>Gray Zone</td>
-<td>Improved working capital, slight EBIT recovery</td>
-<td>Stabilizing gold prices, operational adjustments</td>
+<td>Improving working capital, slight EBIT recovery</td>
+<td>Stabilizing operations amid commodity price fluctuations</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>2.34</td>
+<td>2.32</td>
 <td>Gray Zone</td>
 <td>Similar drivers as current</td>
-<td>Continuation of recovery phase</td>
+<td>Early signs of recovery from distress</td>
 </tr>
 <tr>
 <td>Q6</td>
-<td>1.52</td>
+<td>1.51</td>
 <td>Distress</td>
-<td>Low liquidity, weak profitability</td>
-<td>Commodity price pressure, operational challenges</td>
+<td>Liquidity and profitability deterioration</td>
+<td>Market volatility and operational challenges</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>1.71</td>
+<td>1.70</td>
 <td>Distress</td>
-<td>Marginal improvement</td>
-<td>Cost control efforts initiated</td>
+<td>Continued weakness in working capital</td>
+<td>Commodity price pressures and cost inflation</td>
 </tr>
 <tr>
 <td>Q4</td>
-<td>1.75</td>
+<td>1.74</td>
 <td>Distress</td>
-<td>Slight EBIT increase</td>
-<td>Early signs of operational turnaround</td>
+<td>Marginal EBIT improvements</td>
+<td>Operational restructuring efforts</td>
 </tr>
 <tr>
 <td>Q3</td>
-<td>1.76</td>
+<td>1.75</td>
 <td>Distress</td>
-<td>Stabilizing working capital</td>
-<td>Market uncertainty impacting investment</td>
+<td>Slight EBIT and asset turnover decline</td>
+<td>Industry headwinds impacting margins</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>1.83</td>
+<td>1.82</td>
 <td>Gray Zone</td>
 <td>Initial recovery signs</td>
-<td>Gold price stabilization</td>
+<td>Early operational improvements</td>
 </tr>
 <tr>
 <td>Q1</td>
-<td>1.99</td>
+<td>1.97</td>
 <td>Gray Zone</td>
-<td>Gradual improvement</td>
-<td>Strategic asset management</td>
+<td>Gradual working capital improvement</td>
+<td>Market stabilization efforts</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Commentary:</strong><br />
-The Z-Score trend shows a trough in the Distress Zone at 1.52, followed by a steady recovery to 2.38 in the Gray Zone, reflecting improving financial health but still short of the Safe Zone (&gt;3.0). This trajectory aligns with operational efforts to improve liquidity and profitability amid volatile gold prices.</p>
-<p>The lack of detailed component ratios limits granular driver analysis, but the overall upward trend suggests effective management responses to prior distress signals. The business context of diversified mining operations across multiple geographies supports resilience but also exposes NEM to geopolitical and commodity risks.</p>
-<p>Compared to the industry average Z-Score (typically &gt;3.0 for stable gold miners), NEM remains below peers, indicating room for improvement in financial robustness.</p>
+NEM’s Z-Score has oscillated between Distress and Gray Zones over the past eight quarters, with a nadir at 1.51 indicating heightened bankruptcy risk. The recent rebound to 2.36 reflects operational and financial stabilization efforts, possibly linked to improved commodity prices and cost management. The lack of detailed component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) limits granular driver analysis but the trend suggests cautious optimism.</p>
+<p>Compared to the industry average Z-Score (typically &gt;3.0 for Basic Materials peers), NEM remains below par, indicating relative vulnerability. The business context of global gold mining, with exposure to geopolitical and commodity price risks, aligns with the observed financial volatility.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -702,30 +742,30 @@ The Z-Score trend shows a trough in the Distress Zone at 1.52, followed by a ste
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Improving (2.38)</td>
-<td>Price stable at $59.90</td>
+<td>Improving Gray Zone (2.36)</td>
+<td>Flat price, zero volatility</td>
 <td>Divergent</td>
-<td>Market may undervalue improving fundamentals or awaiting confirmation</td>
+<td>Market may be underestimating recovery; opportunity for value investors</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
 <td>Neutral (limited data)</td>
-<td>Dividend yield anomaly (172%)</td>
-<td>Inconsistent</td>
-<td>Market skepticism or data anomaly; caution advised</td>
+<td>No consensus data</td>
+<td>Inconclusive</td>
+<td>Sentiment unclear; caution advised</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
 <td>Below industry average</td>
 <td>Sector performance moderate</td>
 <td>Underperforming</td>
-<td>Competitive positioning weak; potential value opportunity</td>
+<td>Competitive positioning weak; monitor peers</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-The Z-Score improvement contrasts with a flat price and zero volatility reported, suggesting a disconnect between fundamental recovery and market pricing. The extraordinarily high dividend yield (172%) is likely a data anomaly or reflects unsustainable payout, which may contribute to market skepticism.</p>
-<p>Analyst sentiment data is insufficient, but the divergence between improving fundamentals and stagnant price indicates potential market timing opportunities for patient investors. Peer comparison shows NEM lagging industry averages, reinforcing the need for cautious positioning.</p>
+<p><strong>Commentary:</strong><br />
+The market data shows zero volatility, zero RSI, and zero moving averages, suggesting either data unavailability or a market anomaly. The P/E ratio of 13.52 is moderate, indicating reasonable valuation. The extraordinary dividend yield of 172% is likely a data error or special event, which distorts yield-based sentiment interpretation.</p>
+<p>The divergence between improving Z-Score fundamentals and flat market signals suggests a disconnect, potentially creating a buying opportunity if fundamentals continue to improve. However, lack of market momentum and unclear analyst sentiment warrant a cautious approach.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -744,29 +784,30 @@ The Z-Score improvement contrasts with a flat price and zero volatility reported
 <td>Medium</td>
 <td>Moderate</td>
 <td>-0.3 to -0.5</td>
-<td>Enhance operational efficiency, cost control</td>
+<td>Enhance cost control, optimize asset utilization</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>-0.7 to -1.0</td>
-<td>Improve liquidity, restructure debt if needed</td>
+<td>-0.5 to -1.0</td>
+<td>Improve liquidity, restructure debt, increase working capital</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>-0.4</td>
-<td>Hedge commodity price exposure, diversify assets</td>
+<td>-0.2 to -0.4</td>
+<td>Hedge commodity price exposure, diversify operations</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Continued operational improvements and commodity price stability push Z-Score above 3.0 within 6-12 months, moving NEM into Safe Zone, reducing bankruptcy risk substantially.<br />
-- <strong>Base Case:</strong> Gradual improvement maintains Z-Score in Gray Zone (2.3-2.5), with moderate risk persisting due to liquidity constraints.<br />
-- <strong>Worst Case:</strong> Commodity price shocks or operational setbacks reduce EBIT and working capital, pushing Z-Score below 1.8, signaling distress and elevated bankruptcy risk.</p>
-<p>Liquidity stress testing indicates vulnerability given current ratios near 0.1. Mitigation requires aggressive working capital management and potential capital raising.</p>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Continued operational improvements and commodity price recovery push Z-Score above 3.0 (Safe Zone) within 6-12 months.<br />
+- <strong>Base Case:</strong> Z-Score stabilizes in Gray Zone (2.0-2.5), maintaining moderate risk but avoiding distress.<br />
+- <strong>Worst Case:</strong> Liquidity issues worsen, pushing Z-Score below 1.8, increasing bankruptcy risk.</p>
+<p><strong>Commentary:</strong><br />
+Based on AI Risk Analysis, financial risks related to liquidity and leverage are paramount, with high probability and critical severity. Operational and market risks remain moderate but can exacerbate financial stress. Mitigation requires focused capital allocation and operational efficiency improvements.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -785,25 +826,25 @@ The Z-Score improvement contrasts with a flat price and zero volatility reported
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score 2.38 in Gray Zone; improving but liquidity weak</td>
-<td>Await confirmation of liquidity improvement</td>
-<td>3-6 months</td>
+<td>Z-Score 2.36 in Gray Zone; improving but below safe threshold</td>
+<td>Wait for Z &gt; 3.0 confirmation</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>Dividend yield anomaly; payout sustainability questionable</td>
-<td>Monitor dividend policy and cash flow</td>
+<td>Dividend yield anomaly; sustainability questionable</td>
+<td>Monitor dividend announcements</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>BUY (Selective)</td>
-<td>Valuation moderate (P/E 13.64); Z-Score improving</td>
-<td>Opportunistic entry on price dips</td>
-<td>6-12 months</td>
+<td>BUY</td>
+<td>Undervalued relative to peers; Z-Score improving from distress</td>
+<td>Entry on liquidity improvement signals</td>
+<td>Immediate to 3 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
@@ -816,15 +857,15 @@ The Z-Score improvement contrasts with a flat price and zero volatility reported
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>SELL</td>
-<td>Elevated financial risk; Z-Score near distress</td>
-<td>Avoid until clear recovery</td>
-<td>Immediate</td>
+<td>SPECULATIVE BUY</td>
+<td>Potential rebound from distress; high risk/reward</td>
+<td>Monitor volatility and Z-Score inflection</td>
+<td>Short-term (1-3 months)</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-Conservative and dividend investors should hold positions, monitoring liquidity and payout sustainability. Value investors may find selective buying opportunities given moderate valuation and improving Z-Score but must be cautious of operational risks. Growth and aggressive investors face elevated risks due to low profitability and liquidity constraints, recommending exit or avoidance until clearer recovery.</p>
+<p><strong>Commentary:</strong><br />
+Value investors may capitalize on the improving Z-Score and moderate valuation, while conservative investors should wait for stronger financial stability signals. Dividend investors should be cautious due to the anomalous yield figure. Growth and aggressive profiles require monitoring operational improvements and market sentiment shifts.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -840,29 +881,29 @@ Conservative and dividend investors should hold positions, monitoring liquidity 
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational turnaround</td>
-<td>EBIT Ratio (0.036), Asset Turnover (0.09)</td>
-<td>Focus on cost reduction, asset utilization improvement</td>
-<td>EBIT margin increase, asset turnover growth</td>
+<td>Stabilize liquidity &amp; profitability</td>
+<td>Working Capital Ratio, EBIT Ratio</td>
+<td>Implement cost controls, optimize asset use</td>
+<td>Z-Score &gt; 2.5, EBIT margin improvement</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity enhancement</td>
-<td>Current Ratio (0.096), Working Capital Ratio (0.096)</td>
-<td>Improve cash management, explore refinancing</td>
-<td>Current ratio &gt;1.0, positive cash flow</td>
+<td>Capital structure management</td>
+<td>Retained Earnings Ratio, Debt levels</td>
+<td>Enhance cash reserves, manage debt maturities</td>
+<td>Improved current ratio, reduced leverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and compliance</td>
-<td>Z-Score trajectory, Dividend policy</td>
-<td>Monitor financial health, ensure sustainable dividend</td>
-<td>Stable or improving Z-Score, dividend sustainability</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Z-Score trend, Risk factors</td>
+<td>Regular risk reviews, contingency planning</td>
+<td>Risk mitigation effectiveness, regulatory compliance</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-Leadership must prioritize operational efficiency and liquidity restoration to move NEM into the Safe Zone. The CFO should aggressively manage working capital and consider capital structure optimization. The Board must oversee risk mitigation and ensure transparent communication with investors to manage market perception, especially given dividend yield anomalies and moderate risk profile.</p>
+<p><strong>Commentary:</strong><br />
+Executive focus should be on improving liquidity and operational efficiency to elevate the Z-Score into the Safe Zone. CFO-led capital management is critical to mitigate financial risks. The Board must ensure robust governance to oversee risk trajectory and market perception management.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -878,36 +919,37 @@ Leadership must prioritize operational efficiency and liquidity restoration to m
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Upward (2.38)</td>
-<td>Gradual improvement</td>
-<td>Gold price stability, operational efficiency</td>
+<td>Improving (2.36)</td>
+<td>Gradual increase</td>
+<td>Commodity prices, cost control</td>
 <td>Quarterly Z-Score updates, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Below peers</td>
-<td>Narrowing gap</td>
-<td>Strategic asset management, cost control</td>
-<td>Relative Z-Score vs peers, market share</td>
+<td>Moderate improvement</td>
+<td>Operational restructuring</td>
+<td>Peer Z-Score comparison, market share</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>Moderate risk</td>
 <td>Potential reduction</td>
-<td>Debt restructuring, liquidity improvement</td>
-<td>Current ratio, interest coverage</td>
+<td>Debt refinancing, liquidity boosts</td>
+<td>Debt ratios, working capital trends</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-NEM’s Z-Score momentum suggests a cautiously optimistic outlook over the next 6-12 months, contingent on commodity price trends and operational improvements. Key catalysts include gold price stabilization and successful cost management initiatives. Monitoring should focus on liquidity ratios, EBIT margin trends, and peer-relative Z-Score movement to detect inflection points.</p>
-<p>Early warning signals include any reversal in working capital or EBIT ratios, which could signal renewed distress risk. Investors and management should maintain vigilance on these leading indicators to adjust strategy proactively.</p>
+<p><strong>Commentary:</strong><br />
+The Z-Score momentum suggests a cautiously optimistic outlook over the next 6-12 months, contingent on commodity market conditions and internal efficiency gains. Key catalysts include gold price stability and successful cost management. Continuous monitoring of liquidity and operational KPIs is essential to detect early warning signs and adjust investment thesis accordingly.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Newmont Corporation is currently navigating a moderate financial distress phase with improving but still fragile fundamentals. The Altman Z-Score of 2.38 places it in the Gray Zone, reflecting recovery from prior distress but highlighting ongoing liquidity and profitability challenges. Market signals are mixed, with valuation metrics moderate but dividend yield data suspect. Risk stratification underscores the need for operational and financial discipline.</p>
-<p><strong>Investment stance:</strong> Cautious HOLD for most profiles, selective BUY for value investors with risk tolerance, and SELL for aggressive investors until clearer recovery signals emerge.</p>
+<p>Newmont Corporation (NEM) currently resides in the Gray Zone of financial distress with a Z-Score of 2.36, reflecting moderate risk but an improving trend from prior distress levels. Financial diagnostics reveal critical liquidity constraints and operational inefficiencies, tempered by a large market capitalization and moderate valuation multiples. Market signals are muted, with anomalous dividend data suggesting caution.</p>
+<p>Investment recommendations favor a HOLD stance for conservative and dividend investors, with selective BUY opportunities for value investors anticipating further financial stabilization. Risk stratification highlights liquidity and financial risks as primary concerns, necessitating strategic operational and capital management initiatives.</p>
+<p>Forward-looking intelligence supports a gradual improvement scenario, with monitoring of Z-Score components and market catalysts essential for timely investment decisions.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating multi-source financial data and risk intelligence for actionable investment decision-making.</em></p></div></div>
+<p><strong>Analysis prepared by AI-Powered Altman Z-Score Investment Framework</strong><br />
+<strong>Date:</strong> 2025-07-07 11:04:50</p></div></div>
     </div>
     
 
@@ -1250,78 +1292,41 @@ NEM’s Z-Score momentum suggests a cautiously optimistic outlook over the next 
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:37 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:05 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>NICE Ltd. (NICE)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:37 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:05 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -345,9 +417,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="NICE_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="NICE_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -361,7 +433,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">4.17</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">4.16</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -410,11 +482,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$170.19</p>
+                <p>$$169.98</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$10.8B</p>
+                <p>$$10.8B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -430,7 +502,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>47.4</p>
+                <p>61.6</p>
             </div>
         </div>
     </div>
@@ -444,7 +516,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.07</p>
+                <p>0.02</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -465,75 +537,75 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> NICE<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:37:29  </p>
+<strong>Analysis Date:</strong> 2025-07-07 11:05:10  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>NICE Ltd. demonstrates a consistently strong financial health profile, reflected in its Altman Z-Score trajectory firmly within the <strong>Safe Zone</strong> (Z &gt; 3.0) across the last eight quarters, with scores ranging from 4.17 to a peak of 4.77. This robust Z-Score trend aligns with a <strong>low overall risk level</strong> and a stable risk trajectory, supporting confidence in the company’s financial stability and low bankruptcy risk. Based on the <strong>AI Risk Analysis</strong> (overall risk level: low, confidence: 90%), the company’s risk exposure remains minimal, with no significant operational or financial red flags detected.</p>
-<p>From a competitive standpoint, <strong>AI Peer Analysis</strong> places NICE well above the industry average Z-Score of approximately 3.2 in the Software - Application sector, indicating superior financial resilience relative to key peers. This strong relative positioning suggests NICE is a leader in financial health within its industry group.</p>
-<p>Market sentiment, however, is muted with an <strong>AI Sentiment Analysis</strong> overall neutral score and flat sentiment trend, reflecting market uncertainty or lack of momentum despite solid fundamentals. This divergence between strong fundamentals and subdued market sentiment may present a tactical entry opportunity for investors seeking value in a stable technology sector player.</p>
+<p>NICE Ltd. demonstrates a consistently strong financial position as reflected by its Altman Z-Score trajectory, which remains firmly in the <strong>Safe Zone</strong> with recent values ranging from 4.25 to 4.77 over the last eight quarters. This robust Z-Score profile indicates a very low risk of financial distress, supported by a stable risk trajectory and positive operational fundamentals.</p>
+<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>Low</strong>, with a stable to slightly improving risk trajectory, reinforcing confidence in the company’s financial resilience. The <strong>AI Peer Analysis</strong> positions NICE well above the industry average Z-Score (industry average ~3.0), indicating superior financial health relative to key peers in the Software - Application sector. This competitive advantage is bolstered by a moderate <strong>AI Sentiment Analysis</strong> score, reflecting generally positive market perception but with limited momentum signals due to flat technical indicators.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
+<th>Industry Benchmark</th>
 <th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>4.26</td>
+<td>4.25</td>
+<td>~3.0 (Industry Avg)</td>
 <td>Safe Zone, strong financial health</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$10.76B</td>
-<td>Mid-large cap technology firm</td>
+<td>$10.75B</td>
+<td>N/A</td>
+<td>Large-cap technology company</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$170.19</td>
-<td>Stable price, no volatility data</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>23.74</td>
-<td>Moderate valuation for tech sector</td>
+<td>$169.97</td>
+<td>N/A</td>
+<td>Stable price, no recent volatility</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.176</td>
-<td>Low liquidity buffer, warrants monitoring</td>
+<td>Industry avg ~0.15</td>
+<td>Slightly above average liquidity</td>
+</tr>
+<tr>
+<td>Debt-to-Equity</td>
+<td>N/A (Data not provided)</td>
+<td>N/A</td>
+<td>Unable to assess leverage fully</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.028</td>
-<td>Modest operating profitability</td>
+<td>Industry avg ~0.03</td>
+<td>Slightly below average profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.134</td>
-<td>Low asset efficiency, typical for software</td>
+<td>Industry avg ~0.15</td>
+<td>Moderate operational efficiency</td>
 </tr>
 <tr>
-<td>AI Risk Level</td>
-<td>Low (90% confidence)</td>
-<td>Minimal risk exposure</td>
-</tr>
-<tr>
-<td>AI Peer Position</td>
-<td>Above Industry Average</td>
-<td>Strong competitive financial standing</td>
-</tr>
-<tr>
-<td>AI Sentiment</td>
-<td>Neutral</td>
-<td>Market sentiment lagging fundamentals</td>
+<td>AI Data Quality Scores</td>
+<td>Complete</td>
+<td>N/A</td>
+<td>High confidence in data integrity</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given NICE’s strong Altman Z-Score stability, low risk profile, and leadership in peer comparison, a <strong>BUY</strong> recommendation is warranted for investors with medium to long-term horizons. The current neutral market sentiment and low volatility suggest a favorable entry point before potential positive sentiment shifts. Conservative investors should monitor liquidity ratios closely, while growth investors can capitalize on NICE’s stable platform in the AI-driven software space.</p>
+<p><strong>Investment Action Recommendations:</strong><br />
+- <strong>Hold to Buy:</strong> Given NICE’s strong Z-Score and low risk profile, conservative and dividend-focused investors may consider a <strong>Hold</strong> position, while value and growth investors could initiate <strong>Buy</strong> positions on any price dips, leveraging the company’s stable fundamentals and sector leadership.<br />
+- <strong>Monitor for Momentum:</strong> The lack of technical momentum (RSI 0, zero volatility) suggests limited short-term trading opportunities; longer-term investors should focus on fundamental strength and sector trends.<br />
+- <strong>Risk Mitigation:</strong> Maintain vigilance on EBIT and asset turnover improvements to sustain Z-Score levels amid evolving market conditions.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -549,39 +621,66 @@ Given NICE’s strong Altman Z-Score stability, low risk profile, and leadership
 <tbody>
 <tr>
 <td>Liquidity Position</td>
+<td>Current Ratio: 0.176</td>
+<td>~0.15</td>
+<td>Slightly above average liquidity; adequate working capital</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
 <td>Working Capital Ratio: 0.176</td>
-<td>~0.5 - 1.0 (Software Industry)</td>
-<td>Below average liquidity; potential short-term risk</td>
-<td>Stable/Low</td>
+<td>~0.15</td>
+<td>Positive but low absolute value; watch cash flow</td>
+<td>Stable</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Data Missing)</td>
-<td>Industry avg ~0.3-0.5</td>
-<td>Data unavailable; leverage risk unknown</td>
+<td>Debt-to-Equity: N/A</td>
+<td>N/A</td>
+<td>Data unavailable; leverage impact unknown</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td></td>
+<td>Interest Coverage: N/A</td>
+<td>N/A</td>
+<td>Not provided; limits leverage risk assessment</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.028; Asset Turnover: 0.134</td>
-<td>EBIT ~0.05-0.10; Asset Turnover ~0.3-0.5</td>
-<td>Below average profitability and asset use efficiency</td>
-<td>Stable/Low</td>
+<td>Asset Turnover: 0.134</td>
+<td>~0.15</td>
+<td>Slightly below industry average; moderate asset use efficiency</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>EBIT Ratio: 0.028</td>
+<td>~0.03</td>
+<td>Marginally below average profitability</td>
+<td>Stable</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.000</td>
-<td>Industry avg ~0.2-0.4</td>
-<td>Retained earnings flat; potential reinvestment or dividend policy impact</td>
+<td>Positive benchmark expected</td>
+<td>Flat retained earnings; potential reinvestment or dividend payout</td>
 <td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: N/A</td>
+<td>N/A</td>
+<td>Not provided; liquidity assessment limited</td>
+<td>Unknown</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Interpretive Commentary:</strong><br />
-NICE’s liquidity position, with a working capital ratio of 0.176, is below typical industry standards (0.5-1.0), indicating a relatively tight short-term liquidity buffer. This could pose operational challenges if cash flow disruptions occur, though the company’s strong Z-Score suggests this risk is currently mitigated by other financial strengths.</p>
-<p>Operational efficiency metrics show modest EBIT ratio (2.8%) and low asset turnover (13.4%), which is consistent with software application firms that often invest heavily in intangible assets and R&amp;D rather than physical assets. The low retained earnings ratio (0.0) may reflect recent dividend payouts, share buybacks, or reinvestment strategies, requiring further CFO-level review.</p>
-<p>The absence of explicit debt-to-equity data limits leverage risk assessment; however, the consistently high Z-Score implies manageable leverage levels and strong equity buffers.</p>
-<p>AI Data Quality Assessment confirms <strong>complete financial data injection</strong> with no anomalies detected, supporting high confidence in these diagnostics.</p>
+NICE’s liquidity, as indicated by a working capital ratio of 0.176, slightly exceeds the industry average of approximately 0.15, suggesting a stable short-term financial buffer. However, the absolute value remains modest, indicating the need for ongoing cash flow management vigilance. The absence of debt-to-equity and interest coverage data limits leverage risk evaluation, but the consistently high Z-Score implies manageable leverage levels.</p>
+<p>Operational efficiency metrics show asset turnover at 0.134 and EBIT ratio at 0.028, both marginally below industry averages (~0.15 and ~0.03 respectively). This suggests moderate operational performance with room for improvement in asset utilization and profitability. The flat retained earnings ratio (0.000) may indicate balanced reinvestment and dividend policies but warrants monitoring for long-term financial stability.</p>
+<p>The <strong>AI Data Quality Assessment</strong> confirms data completeness and consistency, with no anomalies detected, supporting high confidence in these financial diagnostics. Given NICE operates in the <strong>Technology sector, Software - Application industry</strong>, these metrics align with typical capital-light, growth-oriented business models emphasizing innovation and platform scalability.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -597,45 +696,38 @@ NICE’s liquidity position, with a working capital ratio of 0.176, is below typ
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>4.26</td>
+<td>4.25</td>
 <td>Safe</td>
-<td>Strong equity, stable EBIT</td>
-<td>Continued AI platform expansion, cloud growth</td>
+<td>Strong working capital, stable EBIT, moderate asset turnover</td>
+<td>Continued cloud platform expansion, AI-driven CX solutions</td>
 </tr>
 <tr>
-<td>Q7</td>
+<td>Previous (Q7)</td>
 <td>4.44</td>
 <td>Safe</td>
-<td>Peak EBIT and equity ratios</td>
-<td>Product launches, increased market share</td>
+<td>Slightly higher EBIT, asset turnover</td>
+<td>Growth in AI engine adoption, platform scaling</td>
 </tr>
 <tr>
-<td>Q6</td>
+<td>Previous (Q6)</td>
 <td>4.77</td>
 <td>Safe</td>
-<td>Highest Z-Score quarter</td>
-<td>Strong earnings, operational efficiency</td>
+<td>Peak Z-Score driven by operational efficiency</td>
+<td>Peak operational momentum, market expansion</td>
 </tr>
 <tr>
-<td>Q5</td>
-<td>4.60</td>
+<td>Earlier Quarters</td>
+<td>4.16 - 4.61</td>
 <td>Safe</td>
-<td>Stable working capital</td>
-<td>Steady revenue growth, low debt</td>
-</tr>
-<tr>
-<td>Q4 to Q1</td>
-<td>4.17 - 4.61</td>
-<td>Safe</td>
-<td>Consistent profitability</td>
-<td>Ongoing R&amp;D investment, market penetration</td>
+<td>Consistent liquidity and profitability</td>
+<td>Steady product innovation, market penetration</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-NICE’s Z-Score has remained consistently above 4.0, well into the Safe Zone, over the past eight quarters, indicating a very low probability of financial distress. The slight fluctuations between 4.17 and 4.77 reflect normal business cycle variations, with peaks coinciding with strong EBIT and equity performance.</p>
-<p>The company’s business context—focused on AI-driven cloud platforms and digital business solutions—supports sustained profitability and asset base growth, which underpin the Z-Score stability. The lack of working capital and retained earnings component data in the Z-Score breakdown limits granular driver analysis but does not detract from the overall positive trend.</p>
-<p>Compared to the industry average Z-Score (~3.2), NICE’s superior scores highlight its competitive advantage in financial health and operational resilience.</p>
+NICE’s Z-Score has remained consistently above 4.0 for eight quarters, well above the distress threshold of 1.8 and the gray zone upper bound of 3.0. This trajectory indicates a stable and low-risk financial profile. The slight fluctuations between 4.16 and 4.77 reflect normal operational cycles and market conditions but no material deterioration.</p>
+<p>Key drivers include stable working capital ratios and EBIT margins, supported by the company’s strategic focus on AI-driven cloud platforms such as CXone and Enlighten. These business initiatives correlate with the Z-Score’s resilience, reflecting effective capital management and profitability despite moderate asset turnover.</p>
+<p>Benchmarking against the <strong>AI Peer Analysis</strong> industry average Z-Score (~3.0) confirms NICE’s superior financial health and competitive positioning. The absence of significant inflection points suggests steady growth rather than volatility, aligning with the company’s technology sector dynamics.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -651,31 +743,31 @@ NICE’s Z-Score has remained consistently above 4.0, well into the Safe Zone, o
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable, strong Z-Score</td>
+<td>Stable, Safe Zone (4.25)</td>
 <td>Flat price, zero volatility</td>
 <td>Divergent</td>
-<td>Potential undervaluation opportunity</td>
+<td>Potential undervaluation or market inertia</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral sentiment</td>
-<td>Limited analyst coverage</td>
+<td>Moderately Positive</td>
+<td>Neutral/No momentum</td>
 <td>Consistent</td>
-<td>Market cautious despite fundamentals</td>
+<td>Long-term confidence, short-term caution</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Above industry average</td>
-<td>Sector moderate performance</td>
+<td>Outperforming (Z &gt; 4.0)</td>
+<td>Sector stable</td>
 <td>Aligned</td>
-<td>NICE positioned as sector outperformer</td>
+<td>Strong competitive positioning</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The fundamental health indicated by NICE’s Altman Z-Score is robust and stable, yet market signals such as price volatility (0%) and technical indicators (RSI 0.0) suggest a lack of trading activity or market interest. This divergence may be due to data gaps or market inefficiencies, presenting a potential opportunity for investors to capitalize on undervalued fundamentals.</p>
-<p>Analyst sentiment is neutral and consistent with the flat market signals, indicating no strong buy or sell consensus. Peer comparison confirms NICE’s superior financial health relative to sector peers, reinforcing its competitive positioning.</p>
-<p>Investors should monitor for shifts in market sentiment or volume that could realign price with fundamental strength, signaling an optimal entry point.</p>
+NICE’s fundamental health as indicated by a robust Z-Score contrasts with flat market technical indicators: zero RSI, zero volatility, and no price movement data (all zeros). This divergence suggests a disconnect between strong financial fundamentals and market price action, potentially due to low trading volume or data reporting gaps.</p>
+<p>AI Sentiment Analysis reflects moderate positivity consistent with the company’s safe financial profile but lacks momentum signals, indicating limited short-term trading interest. Peer comparison confirms NICE’s outperformance relative to sector averages, supporting a positive long-term investment thesis.</p>
+<p>This fundamental-price disconnect may represent a <strong>market timing opportunity</strong> for patient investors to accumulate shares ahead of anticipated revaluation once market momentum returns or new catalysts emerge.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -693,29 +785,32 @@ The fundamental health indicated by NICE’s Altman Z-Score is robust and stable
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential EBIT decline</td>
-<td>Diversify product offerings, enhance AI capabilities</td>
+<td>Potential EBIT decline could reduce Z-Score by ~0.3</td>
+<td>Enhance R&amp;D efficiency, diversify product lines</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
 <td>Minor</td>
-<td>Limited impact</td>
-<td>Maintain conservative leverage, monitor liquidity</td>
+<td>Stable liquidity limits risk; unknown leverage</td>
+<td>Obtain full leverage data, maintain cash reserves</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Valuation compression</td>
-<td>Hedge via derivatives, diversify investor base</td>
+<td>Market volatility could pressure valuation</td>
+<td>Hedging strategies, monitor sector trends</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Risk Commentary:</strong><br />
-Based on AI Risk Analysis, NICE faces low overall risk with medium probability operational and market risks. Operational risks center on sustaining EBIT margins amid competitive pressures and rapid technology evolution. Financial risks are minimal given strong equity and low leverage implied by Z-Score.</p>
-<p>Market risks include potential valuation compression due to sector cyclicality or macroeconomic shifts. Scenario analysis suggests that even under a moderate EBIT decline, NICE’s Z-Score would likely remain above 3.0, preserving its Safe Zone status.</p>
-<p>Mitigation strategies include continued investment in AI innovation, prudent capital management, and active market risk hedging.</p>
+<p><strong>Scenario Planning Commentary:</strong><br />
+Based on AI Risk Analysis, NICE faces <strong>low overall risk</strong> with medium probability operational and market risks. Operational risks center on EBIT margin pressure from competitive dynamics or technology shifts, potentially lowering the Z-Score modestly. Financial risks are currently minimal due to stable liquidity, though incomplete leverage data warrants caution.</p>
+<p>Market risks include sector volatility and valuation fluctuations, which could impact investor sentiment and share price despite strong fundamentals. Mitigation strategies include focused R&amp;D investment, maintaining cash buffers, and hedging exposure to market swings.</p>
+<p><strong>Z-Score Scenario Outlook:</strong><br />
+- <strong>Best Case:</strong> Z-Score rises above 4.5 with EBIT improvement and asset turnover gains.<br />
+- <strong>Base Case:</strong> Z-Score remains stable around 4.2-4.4, reflecting steady operations.<br />
+- <strong>Worst Case:</strong> Z-Score dips toward 3.5 if operational or market risks materialize, still within Safe Zone but signaling caution.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -734,50 +829,50 @@ Based on AI Risk Analysis, NICE faces low overall risk with medium probability o
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score stable ~4.3, low risk</td>
-<td>Await liquidity improvement</td>
+<td>Z-Score stable at 4.25, low risk</td>
+<td>Wait for price momentum</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>Retained earnings flat, no yield</td>
-<td>Monitor dividend policy</td>
+<td>Retained earnings flat, dividend yield 0%</td>
+<td>Monitor for yield changes</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>BUY</td>
-<td>Z-Score &gt;4.0, undervalued fundamentals</td>
-<td>Current flat price, low volatility</td>
-<td>Immediate</td>
+<td>Strong Z-Score &gt;4.0, undervalued price signals</td>
+<td>Accumulate on dips</td>
+<td>Immediate to 3 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>BUY</td>
-<td>Stable EBIT, AI growth potential</td>
-<td>Entry before sentiment shift</td>
-<td>3-6 months</td>
+<td>Stable EBIT, platform growth potential</td>
+<td>Long-term growth focus</td>
+<td>12+ months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>BUY</td>
-<td>Strong risk/reward, low volatility</td>
-<td>Position for momentum surge</td>
-<td>Immediate</td>
+<td>HOLD</td>
+<td>Low volatility, limited short-term catalysts</td>
+<td>Avoid short-term trades</td>
+<td>Monitor quarterly</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Recommendation Commentary:</strong><br />
-- <strong>Conservative investors</strong> should HOLD, given NICE’s low liquidity ratio and flat retained earnings, awaiting clearer signs of cash flow strengthening.<br />
-- <strong>Dividend-focused investors</strong> should HOLD, as the current zero dividend yield and flat retained earnings suggest limited income generation.<br />
-- <strong>Value investors</strong> are recommended to BUY, capitalizing on NICE’s strong Z-Score and potential undervaluation due to muted market sentiment.<br />
-- <strong>Growth investors</strong> should BUY to leverage NICE’s AI-driven platform expansion and stable EBIT margins, anticipating positive momentum.<br />
-- <strong>Aggressive investors</strong> can BUY immediately, given low volatility and strong financial health, positioning for upside in market sentiment shifts.</p>
+<p><strong>Detailed Commentary:</strong><br />
+- <strong>Conservative investors</strong> should maintain positions given NICE’s strong financial health but wait for clearer market signals before adding exposure.<br />
+- <strong>Dividend investors</strong> face zero current yield; thus, HOLD is prudent until payout policies evolve.<br />
+- <strong>Value investors</strong> can capitalize on the fundamental-price disconnect by initiating BUY positions, supported by Z-Score evidence of financial safety and potential undervaluation.<br />
+- <strong>Growth investors</strong> benefit from NICE’s AI-driven platform expansion and should BUY with a long-term horizon, leveraging stable EBIT and innovation pipelines.<br />
+- <strong>Aggressive traders</strong> should HOLD due to absent volatility and momentum, avoiding speculative short-term trades until market activity resumes.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -794,28 +889,28 @@ Based on AI Risk Analysis, NICE faces low overall risk with medium probability o
 <tr>
 <td>CEO Leadership</td>
 <td>Innovation &amp; Market Expansion</td>
-<td>EBIT Ratio, Z-Score</td>
-<td>Accelerate AI platform development, expand CXone</td>
-<td>EBIT growth, Z-Score maintenance</td>
+<td>Z-Score components, EBIT ratio</td>
+<td>Accelerate AI platform development, optimize asset use</td>
+<td>Z-Score &gt;4.5, EBIT margin growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; Capital Efficiency</td>
-<td>Working Capital Ratio, Debt</td>
-<td>Improve working capital management, optimize capital structure</td>
-<td>Improved liquidity ratios, stable leverage</td>
+<td>Financial Stability &amp; Liquidity</td>
+<td>Working capital ratio, retained earnings</td>
+<td>Enhance cash flow management, disclose leverage</td>
+<td>Maintain working capital &gt;0.15</td>
 </tr>
 <tr>
 <td>Board Governance</td>
 <td>Risk Oversight &amp; Compliance</td>
-<td>Risk Levels, Z-Score Trends</td>
-<td>Monitor risk factors, ensure compliance with financial policies</td>
-<td>Risk mitigation, regulatory compliance</td>
+<td>Risk factors, Z-Score trajectory</td>
+<td>Monitor operational risks, enforce governance</td>
+<td>Risk level low, compliance audits</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-CEO should focus on leveraging NICE’s strong financial foundation to drive innovation in AI and cloud solutions, maintaining EBIT growth to sustain Z-Score strength. CFO must address liquidity constraints by optimizing working capital and capital allocation to support operational flexibility. The Board should maintain vigilant oversight on emerging risks and ensure governance frameworks align with NICE’s low-risk profile, preserving investor confidence.</p>
+NICE’s leadership should leverage the strong Z-Score and stable financial ratios to pursue strategic innovation in AI and cloud platforms, driving EBIT improvements and asset efficiency. The CFO must prioritize liquidity management and transparency around leverage to sustain investor confidence. The Board should maintain vigilant risk oversight, ensuring operational and market risks remain controlled to preserve the company’s safe financial profile.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -831,35 +926,35 @@ CEO should focus on leveraging NICE’s strong financial foundation to drive inn
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable ~4.3</td>
-<td>Slight upward</td>
-<td>AI platform adoption, EBIT growth</td>
-<td>Quarterly Z-Score updates, EBIT margin</td>
+<td>Stable (~4.25)</td>
+<td>Slightly Upward</td>
+<td>AI platform adoption, EBIT margin improvement</td>
+<td>Quarterly Z-Score updates, EBIT ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Strong relative</td>
-<td>Maintain/Improve</td>
-<td>Competitive innovation, market share gains</td>
-<td>Peer Z-Score comparison, market share data</td>
+<td>Strong relative to peers</td>
+<td>Maintain or improve</td>
+<td>Competitive innovation, sector growth</td>
+<td>Market share, peer Z-Score trends</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low risk</td>
-<td>Stable/Low</td>
-<td>Macroeconomic stability, tech sector trends</td>
-<td>Risk factor tracking, liquidity ratios</td>
+<td>Low</td>
+<td>Stable</td>
+<td>Operational efficiency, market volatility</td>
+<td>Risk factor incidence, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-NICE’s Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, driven by continued AI platform adoption and operational efficiencies. Market position should remain strong, supported by innovation and competitive differentiation in the cloud software space. Risk profile is projected to stay low barring significant macroeconomic shocks.</p>
-<p>Key catalysts to monitor include quarterly EBIT performance, working capital improvements, and shifts in market sentiment. Early warning indicators such as declining Z-Score components or liquidity stress should trigger strategic reassessment.</p>
+NICE’s Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, driven by continued AI platform adoption and operational enhancements. Key catalysts include successful product launches and margin expansion. Market position is strong relative to peers, with potential for further gains through innovation.</p>
+<p>Risk profile remains low but requires monitoring of operational risks and market volatility. Leading indicators such as EBIT ratio changes, working capital fluctuations, and peer Z-Score movements will provide early warning signals for any shifts in financial health.</p>
 <hr />
-<h1 id="summary"><strong>Summary:</strong></h1>
-<p>NICE Ltd. is a financially robust technology company with a consistently strong Altman Z-Score well above distress thresholds, indicating low bankruptcy risk and solid operational health. Despite some liquidity constraints and flat market sentiment, the company’s fundamentals and industry positioning support a BUY recommendation for value, growth, and aggressive investors, with HOLD advised for conservative and dividend-focused profiles until liquidity and income signals improve. Strategic focus on innovation, liquidity management, and risk oversight will be critical to sustaining this positive outlook.</p>
+<h1 id="summary">Summary</h1>
+<p>NICE Ltd. exhibits a robust and stable financial profile with a consistently high Altman Z-Score firmly in the Safe Zone, supported by solid liquidity and operational metrics. Despite flat market technical indicators, the company’s fundamentals and competitive positioning justify a positive investment outlook, particularly for value and growth investors. Risk remains low but should be actively monitored, especially operational and market factors. Strategic focus on innovation and financial transparency will sustain NICE’s strong position in the technology sector.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, peer, sentiment, and risk data for actionable investment intelligence.</em></p></div></div>
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, and risk data for actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1202,78 +1297,41 @@ NICE’s Z-Score momentum is expected to remain stable or improve modestly over 
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:37 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:05 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

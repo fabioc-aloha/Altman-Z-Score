@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Northern Oil and Gas, Inc. (NOG)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:37 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:05 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -354,10 +426,6 @@
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
-                    Underperforming market benchmark</div>
-                
-                <div
-                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     Poor risk-adjusted returns</div>
                 
             </div>
@@ -369,9 +437,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="NOG_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="NOG_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -385,7 +453,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">0.77</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">0.76</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -434,11 +502,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$29.80</p>
+                <p>$$29.51</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$2.9B</p>
+                <p>$$2.9B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -450,11 +518,11 @@
             </div>
             <div class="metric">
                 <h4>Volatility</h4>
-                <p>70.0%</p>
+                <p>50.0%</p>
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>44.2</p>
+                <p>34.1</p>
             </div>
         </div>
     </div>
@@ -468,7 +536,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>-0.22</p>
+                <p>-0.28</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -476,7 +544,7 @@
             </div>
             <div class="metric">
                 <h4>Risk Score</h4>
-                <p>6.2/10</p>
+                <p>5.7/10</p>
             </div>
         </div>
     </div>
@@ -489,74 +557,81 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Northern Oil and Gas, Inc. (Ticker: NOG)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:37:34  </p>
+<strong>Analysis Date:</strong> 2025-07-07 11:05:30  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Northern Oil and Gas, Inc. (NOG) currently resides firmly in the <strong>Distress Zone</strong> with an Altman Z-Score consistently below 1.8 across the last eight quarters, ranging from 0.57 to 1.21. This persistent low Z-Score signals a high risk of financial distress and potential bankruptcy risk. Based on the <strong>AI Risk Analysis overall risk level of Distress with 90% confidence</strong> (inferred from Z-Score and financial ratios), the company faces significant operational and financial challenges.</p>
-<p><strong>AI Peer Analysis</strong> places NOG well below the <strong>Industry Average Z-Score</strong> (typically &gt;3.0 for Oil &amp; Gas Exploration &amp; Production firms), indicating a weak competitive position relative to peers. The company’s <strong>relative position is in the bottom quartile</strong> among key peers, including major players in the Williston and Appalachian Basins.</p>
-<p><strong>AI Sentiment Analysis</strong> reveals a <strong>negative overall sentiment</strong> with a declining trend, consistent with market skepticism about NOG’s financial health. The sentiment divergence from industry peers further underscores investor wariness.</p>
+<p>Northern Oil and Gas, Inc. (NOG) currently resides deep within the <strong>Distress Zone</strong> of the Altman Z-Score framework, with an average Z-Score over the last eight quarters consistently below 1.8, ranging from 0.57 to 1.20. This persistent low Z-Score signals a high risk of financial distress and potential bankruptcy. Based on the <strong>AI Risk Analysis</strong> implicit in the Z-Score trend and financial ratios, the overall risk level is <strong>critical</strong>, with no indication of recovery or improvement in trajectory.</p>
+<p><strong>AI Peer Analysis</strong> benchmarks NOG well below the industry average Z-Score (not explicitly provided but typical Oil &amp; Gas Exploration &amp; Production peers generally maintain Z-Scores above 2.0), indicating NOG’s competitive position is significantly weaker relative to peers such as EOG, OXY, and DVN. This relative positioning suggests elevated operational and financial risk compared to industry standards.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are not explicitly quantified here, but the market data reveals an anomalous <strong>Dividend Yield of 635%</strong>, which is an extreme outlier likely reflecting a collapsing stock price or special dividend event, and zero volatility and volume, indicating a lack of market confidence and trading activity. This divergence between fundamental distress and market signals implies a market perception of severe risk and uncertainty.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
+<th>Metric</th>
 <th>Value</th>
-<th>Industry Benchmark</th>
-<th>Notes</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Current Z-Score</td>
-<td>0.92 (latest quarter)</td>
-<td>&gt;3.0 (Safe Zone)</td>
-<td>Distress Zone indicator</td>
+<td>Latest Z-Score</td>
+<td>0.92</td>
+<td>Distress zone, high bankruptcy risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$2.94B</td>
-<td>Varies widely</td>
+<td>$2.91 billion</td>
 <td>Mid-cap energy company</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$29.80</td>
-<td>N/A</td>
-<td>Stable but low volume</td>
+<td>$29.50</td>
+<td>Possibly inflated given distress</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.008</td>
-<td>Positive (&gt;1.0 preferred)</td>
-<td>Negative liquidity</td>
+<td>Negative liquidity position</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.000</td>
-<td>Positive</td>
-<td>No retained earnings growth</td>
+<td>No retained earnings accumulation</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.040</td>
-<td>Industry avg ~0.10</td>
-<td>Low operational profitability</td>
+<td>Very low operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.102</td>
-<td>Industry avg ~0.20</td>
-<td>Low asset efficiency</td>
+<td>Low operational efficiency</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>4.60</td>
+<td>Low valuation multiple, possible distress discount</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>635.00%</td>
-<td>Typically 2-5%</td>
-<td>Likely unsustainable anomaly</td>
+<td>Extreme anomaly, likely unsustainable</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>0.00</td>
+<td>No market correlation or data anomaly</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Action Recommendation:</strong><br />
-Given the <strong>high risk profile</strong>, <strong>distress-level Z-Score</strong>, and <strong>negative sentiment</strong>, a <strong>SELL or avoid new positions</strong> stance is advised for most investors. Only highly risk-tolerant or distressed asset specialists should consider opportunistic entry, contingent on clear turnaround catalysts.</p>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Urgent Caution:</strong> Given the persistent distress Z-Score and negative liquidity, investors should avoid initiating new positions.</li>
+<li><strong>Risk Mitigation:</strong> Current holders should consider risk reduction strategies including position trimming or hedging.</li>
+<li><strong>Monitoring Required:</strong> Close monitoring of quarterly financials and any operational restructuring announcements is critical.</li>
+<li><strong>Potential Opportunistic Entry:</strong> Only highly risk-tolerant investors might consider speculative entry if a clear turnaround catalyst emerges.</li>
+</ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -564,7 +639,7 @@ Given the <strong>high risk profile</strong>, <strong>distress-level Z-Score</st
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark*</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -572,40 +647,41 @@ Given the <strong>high risk profile</strong>, <strong>distress-level Z-Score</st
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A (Working Capital Ratio: -0.008)</td>
-<td>&gt;1.0 (positive liquidity)</td>
-<td><strong>Severe liquidity weakness</strong>; negative working capital ratio signals cash flow stress</td>
+<td>Current Ratio: N/A (WCR: -0.008)</td>
+<td>Oil &amp; Gas Avg Current Ratio ~1.2</td>
+<td>Negative working capital ratio indicates liquidity stress</td>
 <td>Declining/Distress</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
 <td>Debt-to-Equity: N/A (Data missing)</td>
-<td>Industry avg ~0.5-1.0</td>
-<td>Unable to assess leverage precisely; low EBIT ratio suggests high financial strain</td>
+<td>Industry Avg ~0.5-1.0</td>
+<td>Unable to assess leverage; likely elevated given distress</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>EBIT Ratio: 0.040; Asset Turnover: 0.102</td>
-<td>EBIT ~0.10; Asset Turnover ~0.20</td>
-<td><strong>Below industry average</strong>; low profitability and asset use efficiency</td>
+<td>EBIT ~0.10-0.15; Asset Turnover ~0.3</td>
+<td>Below industry average; poor profitability and asset use</td>
 <td>Weak/Declining</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.000</td>
-<td>Positive and growing</td>
-<td>No retained earnings growth; signals stagnation or losses</td>
-<td>Stable but weak</td>
+<td>Positive retained earnings typical</td>
+<td>No retained earnings accumulation; signals losses or dividends</td>
+<td>Negative/Stable</td>
 </tr>
 </tbody>
 </table>
+<p>*Industry benchmarks approximate based on Oil &amp; Gas Exploration &amp; Production sector averages.</p>
 <p><strong>Interpretive Commentary:</strong><br />
-- The <strong>negative working capital ratio (-0.008)</strong> indicates that current liabilities exceed current assets, a critical liquidity red flag in the capital-intensive Oil &amp; Gas sector.<br />
-- EBIT ratio at 4% of total assets is less than half the industry average (~10%), reflecting operational inefficiency or margin pressure, possibly due to commodity price volatility or high operating costs.<br />
-- Asset turnover at 0.102 is low, indicating underutilization of assets to generate sales, which is concerning given the capital-heavy nature of exploration and production.<br />
-- Retained earnings ratio at zero suggests no accumulated profits, consistent with distress signals and possibly dividend payouts exceeding earnings or losses.<br />
-- The <strong>AI Data Quality Assessment</strong> shows no anomalies detected, but the absence of some leverage data limits full diagnostic precision. The data completeness is sufficient for liquidity and operational analysis but incomplete for leverage.</p>
+NOG’s liquidity position is critically weak, with a working capital ratio of -0.008, indicating current liabilities slightly exceed current assets. This is a red flag for short-term solvency. The absence of explicit debt-to-equity data limits leverage analysis, but the distress Z-Score implies high financial leverage or poor equity cushion.</p>
+<p>Operational efficiency is subpar, with EBIT ratio at 4% and asset turnover at 10.2%, both significantly below typical industry averages (EBIT ~10-15%, asset turnover ~30%). This suggests poor profitability and inefficient use of assets, likely driven by operational challenges or commodity price pressures.</p>
+<p>The retained earnings ratio at zero indicates no accumulation of profits over time, consistent with ongoing losses or high dividend payouts, which aligns with the anomalous dividend yield observed.</p>
+<p><strong>Data Quality Considerations:</strong><br />
+No AI Data Quality Assessment scores were provided, but the presence of multiple missing financial ratio components and anomalous market data (e.g., zero volume, zero beta) suggests caution in data completeness and reliability. These limitations reduce confidence in granular financial ratio interpretation but do not negate the clear distress signals from Z-Score and liquidity metrics.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -623,23 +699,29 @@ Given the <strong>high risk profile</strong>, <strong>distress-level Z-Score</st
 <td>Current (Q8)</td>
 <td>0.92</td>
 <td>Distress</td>
-<td>Low EBIT, negative working capital, low asset turnover</td>
-<td>Continued operational challenges, no turnaround signs</td>
+<td>Low EBIT, negative WC</td>
+<td>Continued operational and financial stress</td>
 </tr>
 <tr>
-<td>Previous Quarters</td>
-<td>0.57 - 1.21</td>
+<td>Prior Quarters</td>
+<td>0.57 - 1.20</td>
 <td>Distress</td>
-<td>Persistent low profitability, liquidity stress</td>
-<td>No significant improvement over 8 quarters</td>
+<td>Persistently low profitability</td>
+<td>No recovery trend; volatile but low Z-Score</td>
+</tr>
+<tr>
+<td>Historical Range</td>
+<td>0.57 - 1.20</td>
+<td>Distress</td>
+<td>Weak asset turnover, no retained earnings</td>
+<td>Reflects ongoing sector challenges and company-specific issues</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-- NOG’s Z-Score has remained <strong>consistently below 1.8</strong>, with no quarter breaching the Gray Zone threshold (1.8-3.0). This indicates <strong>chronic financial distress</strong> without meaningful recovery.<br />
-- The lack of improvement in key components such as EBIT/Total Assets and Working Capital/Total Assets suggests operational and liquidity issues are structural rather than cyclical.<br />
-- The <strong>absence of market value equity to book debt data</strong> limits full Z-Score component analysis, but the available data points to weak asset management and profitability.<br />
-- Compared to the <strong>industry average Z-Score &gt;3.0</strong>, NOG’s trajectory is significantly below peers, indicating competitive disadvantage and elevated bankruptcy risk.</p>
+NOG’s Z-Score has remained consistently below 1.8 for at least eight quarters, indicating sustained financial distress without meaningful improvement. The lack of upward trajectory or movement into the Gray Zone (1.8-3.0) suggests no effective turnaround or deleveraging.</p>
+<p>Key drivers such as low EBIT ratio (0.040) and negative working capital ratio (-0.008) have persistently suppressed the Z-Score. The absence of retained earnings accumulation further exacerbates financial instability.</p>
+<p>Compared to industry peers, NOG’s Z-Score is significantly below the typical safe zone (&gt;3.0), indicating a competitive disadvantage and elevated bankruptcy risk.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -655,32 +737,30 @@ Given the <strong>high risk profile</strong>, <strong>distress-level Z-Score</st
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Distress Zone (0.92)</td>
-<td>Price stable at $29.80</td>
+<td>Distress (Z ~0.92)</td>
+<td>Price stable at $29.50; zero volume</td>
 <td>Divergent</td>
-<td>Price not reflecting distress fully; potential risk</td>
+<td>Market may be ignoring distress or illiquid; risk of sudden repricing</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Negative, declining</td>
-<td>Unknown professional consensus</td>
-<td>Consistent</td>
-<td>Market sentiment aligns with fundamentals</td>
+<td>Negative implied</td>
+<td>Dividend yield anomaly (635%)</td>
+<td>Inconsistent</td>
+<td>Market sentiment likely bearish or confused; caution advised</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Bottom quartile</td>
-<td>Sector under pressure</td>
 <td>Underperforming</td>
-<td>Competitive weakness confirmed</td>
+<td>Sector performance unknown</td>
+<td>Underperforming</td>
+<td>Competitive weakness confirmed; avoid long-term exposure</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-- Despite the <strong>distress-level Z-Score</strong>, the stock price remains relatively stable at $29.80, with <strong>zero volatility and zero average volume</strong>, suggesting illiquidity or low market interest. This divergence signals a <strong>potential disconnect between fundamentals and market pricing</strong>, possibly due to low trading activity or delayed market reaction.<br />
-- The <strong>extremely high dividend yield (635%)</strong> is an anomaly likely caused by a very low or near-zero stock price denominator or special dividend events, which is unsustainable and should be treated cautiously.<br />
-- The <strong>P/E ratio of 4.64</strong> and EV/EBITDA of 2.83 are low, indicating undervaluation or market skepticism about earnings quality and sustainability.<br />
-- Overall, market signals partially align with fundamental distress but may underestimate near-term risk due to illiquidity.</p>
+The fundamental distress indicated by the Z-Score is not fully reflected in stable price levels, but zero trading volume and zero volatility suggest illiquidity or data anomalies. The extreme dividend yield (635%) is likely a data artifact or reflects a special dividend event amid collapsing share price, signaling market uncertainty or distress.</p>
+<p>The lack of beta and moving average data further complicates market timing analysis. Overall, the market signals are inconsistent with fundamental distress, indicating potential mispricing risk or trading suspension.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -696,35 +776,32 @@ Given the <strong>high risk profile</strong>, <strong>distress-level Z-Score</st
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>High (80%)</td>
+<td>High</td>
 <td>Critical</td>
-<td>Significant decline</td>
-<td>Cost reduction, asset divestiture</td>
+<td>Further Z-Score decline</td>
+<td>Operational restructuring; cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>High (85%)</td>
+<td>High</td>
 <td>Critical</td>
-<td>Further Z-Score drop</td>
-<td>Debt restructuring, liquidity infusion</td>
+<td>Bankruptcy risk increase</td>
+<td>Debt refinancing; liquidity management</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium (60%)</td>
+<td>Medium</td>
 <td>Moderate</td>
-<td>Volatility impact</td>
-<td>Hedging commodity price exposure</td>
+<td>Price volatility; liquidity risk</td>
+<td>Hedging; cautious position sizing</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Operational risk</strong> is paramount due to low EBIT and asset turnover, with an 80% probability of continued negative impact on Z-Score. Without operational turnaround, distress deepens.<br />
-- <strong>Financial risk</strong> is critical, with 85% probability of worsening liquidity and solvency issues, potentially pushing Z-Score below 0.5 in worst-case scenarios.<br />
-- <strong>Market risk</strong> from commodity price fluctuations and sector cyclicality remains moderate but could exacerbate financial strain.<br />
-- <strong>Mitigation strategies</strong> include aggressive cost management, potential asset sales, and capital restructuring to stabilize liquidity and improve EBIT.<br />
-- <strong>Best-case scenario:</strong> Operational improvements and capital infusion raise Z-Score above 1.8 within 12 months.<br />
-- <strong>Base-case:</strong> Continued distress with Z-Score hovering near 1.0.<br />
-- <strong>Worst-case:</strong> Bankruptcy risk materializes with Z-Score below 0.5.</p>
+- <strong>Best Case:</strong> Operational improvements and commodity price recovery could raise EBIT ratio and working capital, improving Z-Score above 1.8 within 6-12 months.<br />
+- <strong>Base Case:</strong> Continued distress with Z-Score fluctuating near 0.9, maintaining bankruptcy risk and illiquidity.<br />
+- <strong>Worst Case:</strong> Further deterioration to Z-Score &lt; 0.5, triggering insolvency or bankruptcy proceedings.</p>
+<p>Mitigation requires aggressive operational and financial restructuring, with close monitoring of liquidity and debt covenants.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -742,50 +819,47 @@ Given the <strong>high risk profile</strong>, <strong>distress-level Z-Score</st
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>SELL</strong></td>
-<td>Z-Score consistently &lt;1.8; high distress risk</td>
-<td>Price stable but illiquid; avoid entry</td>
+<td>SELL / AVOID</td>
+<td>Z-Score consistently &lt;1.8; high bankruptcy risk</td>
+<td>Market illiquidity; avoid entry</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>SELL</strong></td>
-<td>Dividend yield anomaly; no retained earnings</td>
-<td>Unsustainable dividend; avoid</td>
+<td>SELL</td>
+<td>Dividend yield anomaly unsustainable</td>
+<td>Yield likely to collapse</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>HOLD/AVOID</strong></td>
-<td>Low valuation but high risk; Z-Score &lt;1.8</td>
+<td>HOLD / CAUTIOUS</td>
+<td>Low valuation (P/E 4.6) but distress risk high</td>
 <td>Wait for Z-Score improvement</td>
-<td>Monitor quarterly</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>SELL</strong></td>
-<td>No growth in EBIT or asset turnover</td>
-<td>Negative momentum; avoid</td>
-<td>Immediate</td>
+<td>AVOID</td>
+<td>No growth signals; EBIT low</td>
+<td>No momentum; avoid entry</td>
+<td>N/A</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>SPECULATIVE BUY</strong></td>
-<td>Potential turnaround if operational fixes succeed</td>
-<td>High risk/reward; volatile</td>
-<td>Short-term, opportunistic</td>
+<td>SPECULATIVE BUY</td>
+<td>Potential turnaround if restructuring announced</td>
+<td>High risk, high reward</td>
+<td>Monitor closely</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Rationale:</strong><br />
-- The <strong>Conservative and Dividend profiles</strong> should exit or avoid due to high distress and unsustainable dividend signals.<br />
-- <strong>Value investors</strong> may consider monitoring for a turnaround but should not initiate new positions until Z-Score improves above 1.8.<br />
-- <strong>Growth investors</strong> face negative momentum and should avoid.<br />
-- <strong>Aggressive investors</strong> with high risk tolerance might speculate on a turnaround, but this requires close monitoring of operational and financial improvements.</p>
+Conservative and dividend investors should avoid or exit due to high distress risk and unsustainable dividend yield. Value investors may hold cautiously, awaiting signs of operational turnaround and Z-Score improvement. Growth and aggressive investors face high risk with no clear growth momentum but may speculate if credible restructuring catalysts emerge.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -801,31 +875,29 @@ Given the <strong>high risk profile</strong>, <strong>distress-level Z-Score</st
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational turnaround</td>
-<td>EBIT Ratio, Asset Turnover</td>
-<td>Implement cost controls, optimize asset use</td>
-<td>EBIT margin improvement, Z-Score rise</td>
+<td>Stabilize operations</td>
+<td>EBIT Ratio, Working Capital</td>
+<td>Implement cost reductions, asset sales</td>
+<td>EBIT improvement, positive WC</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; solvency</td>
-<td>Working Capital Ratio, Debt levels</td>
-<td>Restructure debt, improve cash flow management</td>
-<td>Positive working capital, improved liquidity ratios</td>
+<td>Manage liquidity and debt</td>
+<td>Current Ratio, Debt Levels</td>
+<td>Restructure debt, improve cash flow</td>
+<td>Improved liquidity ratios</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; compliance</td>
+<td>Risk oversight and compliance</td>
 <td>Z-Score trend, Risk factors</td>
-<td>Enhance risk management, monitor distress signals</td>
-<td>Compliance adherence, risk mitigation effectiveness</td>
+<td>Enhance governance, monitor risk</td>
+<td>Reduced risk exposure, compliance</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-- The CEO must prioritize operational efficiency improvements to halt EBIT decline and improve asset utilization.<br />
-- The CFO should focus on liquidity restoration, possibly through refinancing or asset sales, to reverse negative working capital.<br />
-- The Board must maintain vigilant oversight on risk factors highlighted by the AI Risk Analysis, ensuring timely interventions to avoid insolvency.</p>
+The CEO must prioritize operational stabilization to improve EBIT and working capital. The CFO should focus on liquidity management and debt restructuring to mitigate bankruptcy risk. The Board must enforce rigorous risk oversight given the critical distress signals. Market perception management is crucial to restore investor confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -841,38 +913,35 @@ Given the <strong>high risk profile</strong>, <strong>distress-level Z-Score</st
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Declining/stagnant</td>
-<td>Slight improvement possible if turnaround succeeds</td>
-<td>Cost reduction, asset sales, commodity price recovery</td>
+<td>Declining/Stable low</td>
+<td>Potential further decline or stabilization</td>
+<td>Commodity prices, restructuring</td>
 <td>Quarterly Z-Score, EBIT ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Weak, distressed</td>
-<td>Potential stabilization with operational fixes</td>
-<td>Peer performance, sector recovery</td>
-<td>Relative Z-Score vs industry</td>
+<td>Possible recovery if turnaround</td>
+<td>Operational improvements, M&amp;A</td>
+<td>Market cap, trading volume</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High distress risk</td>
-<td>Remains elevated without intervention</td>
-<td>Debt restructuring success, liquidity events</td>
-<td>Working capital ratio, debt levels</td>
+<td>Critical</td>
+<td>Remains high unless mitigated</td>
+<td>Debt refinancing, cost control</td>
+<td>Liquidity ratios, debt covenants</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-- The Z-Score momentum is currently negative but could improve modestly if operational and financial restructuring initiatives are successful within 6-12 months.<br />
-- Key catalysts include commodity price stabilization, cost optimization, and successful capital restructuring.<br />
-- Continuous monitoring of EBIT ratio, working capital, and debt levels is critical to detect early signs of recovery or further distress.<br />
-- Investors should watch for Z-Score movement above 1.8 as a signal to reconsider risk exposure and potential entry points.</p>
+NOG’s Z-Score momentum is currently negative with no clear inflection point. Critical catalysts include commodity price recovery, successful restructuring, or asset divestitures. Investors should monitor leading indicators such as EBIT ratio changes, working capital improvements, and market liquidity to anticipate shifts in risk profile and valuation.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Northern Oil and Gas, Inc. (NOG) is currently in a <strong>high distress financial state</strong> with an Altman Z-Score consistently below 1.8, signaling elevated bankruptcy risk. Liquidity is negative, operational efficiency is weak, and retained earnings show no growth. Market signals partially reflect this distress but are muted by illiquidity and anomalous dividend data. Risk stratification highlights critical operational and financial risks requiring urgent mitigation.</p>
-<p><strong>Investment stance:</strong> Predominantly <strong>SELL or avoid</strong>, except for speculative, high-risk investors willing to monitor closely for turnaround signs. Executive leadership must prioritize operational and financial restructuring to improve the Z-Score and restore market confidence.</p>
+<p>Northern Oil and Gas, Inc. (NOG) is in a <strong>critical financial distress state</strong> as evidenced by a persistently low Altman Z-Score averaging below 1.0 over eight quarters, negative liquidity, and poor operational efficiency. Market signals are inconsistent and indicate illiquidity and extreme dividend anomalies. The company faces high operational and financial risks with limited near-term recovery prospects.</p>
+<p><strong>Investment Recommendation:</strong> Avoid new investments and consider exiting current positions unless a credible turnaround plan emerges. High-risk investors may speculate cautiously with close monitoring. Executive leadership must focus on operational stabilization and financial restructuring to improve the Z-Score and restore market confidence.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to injected data: Z-Score values (0.57-1.21), Market Cap ($2.94B), Current Price ($29.80), Working Capital Ratio (-0.008), Retained Earnings Ratio (0.000), EBIT Ratio (0.040), Asset Turnover (0.102), Dividend Yield (635%), and sector context (Energy, Oil &amp; Gas Exploration &amp; Production).</em></p></div></div>
+<p><em>Analysis generated with explicit reference to injected data: Z-Score values (0.57-1.20), Market Cap ($2.91B), Current Price ($29.50), Working Capital Ratio (-0.008), EBIT Ratio (0.040), Asset Turnover (0.102), Dividend Yield (635%), and sector context (Energy, Oil &amp; Gas Exploration &amp; Production).</em></p></div></div>
     </div>
     
 
@@ -1215,78 +1284,41 @@ Given the <strong>high risk profile</strong>, <strong>distress-level Z-Score</st
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:37 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:05 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

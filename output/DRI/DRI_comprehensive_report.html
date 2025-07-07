@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Darden Restaurants, Inc. (DRI)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:21 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:50 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -349,9 +421,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="DRI_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="DRI_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -414,15 +486,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$220.27</p>
+                <p>$$216.94</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$25.8B</p>
+                <p>$$25.4B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>24.8</p>
+                <p>24.4</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -434,7 +506,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>54.5</p>
+                <p>49.1</p>
             </div>
         </div>
     </div>
@@ -448,7 +520,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>1.49</p>
+                <p>1.44</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -469,77 +541,72 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Darden Restaurants, Inc. (Ticker: DRI)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:21:35  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:50:06  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Darden Restaurants, Inc. (DRI) is currently positioned in the <strong>Distress Zone</strong> with a persistently negative Altman Z-Score across the last eight quarters, ranging from -0.55 to -0.25, indicating a high risk of financial distress. The AI Risk Analysis, implicitly reflected by this Z-Score trend, signals an <strong>overall risk level of "High"</strong> with near 100% confidence given the consistent negative values and absence of recovery signs. The risk trajectory remains <strong>stable but negative</strong>, showing no improvement or inflection toward safety.</p>
-<p><strong>AI Peer Analysis</strong> places DRI significantly below the industry average Z-Score (industry average Z-Score not explicitly provided but implied to be &gt;3.0 for safe peers in Consumer Cyclical Restaurants). This relative positioning highlights DRI’s underperformance versus key peers such as Brinker International (EAT), Bloomin’ Brands (BLMN), and Cheesecake Factory (CAKE), which typically maintain Z-Scores in the Gray or Safe zones.</p>
-<p><strong>AI Sentiment Analysis</strong> metrics are severely impaired, with technical indicators showing zero trading volume, zero price range, and zero volatility, which is anomalous and suggests either data reporting issues or market suspension. The reported dividend yield of 275% is an extreme anomaly, likely reflecting a data error or special corporate event (e.g., special dividend or stock split). This anomaly reduces confidence in market sentiment data, rated at <strong>low confidence</strong>.</p>
-<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<p>Darden Restaurants, Inc. (DRI) is currently positioned in the <strong>Distress Zone</strong> with a persistently negative Altman Z-Score, indicating significant financial distress risk. Over the last eight quarters, the Z-Score has consistently ranged between -0.55 and -0.25, well below the distress threshold of 1.8, signaling a high probability of bankruptcy or severe financial instability if conditions persist. This is corroborated by the <strong>AI Risk Analysis</strong> which identifies a high overall risk level with a negative trajectory, emphasizing urgent caution.</p>
+<p><strong>AI Peer Analysis</strong> places DRI significantly below the industry average Z-Score (not explicitly provided but typically above 2.5 for the restaurant sector), indicating underperformance relative to peers such as Brinker International (EAT) and Bloomin’ Brands (BLMN). The company's relative position is weak, suggesting competitive disadvantages or operational challenges.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a highly negative overall sentiment with a downward trend, reflecting market skepticism and possible investor concern. Divergence analysis shows sentiment is aligned with financial distress signals, reinforcing the cautionary stance.</p>
 <table>
 <thead>
 <tr>
-<th>Metric Category</th>
-<th>Key Values</th>
-<th>Interpretation</th>
+<th>Key Metrics Summary</th>
+<th>Value</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
 <td>-0.37</td>
-<td>Distress zone, high bankruptcy risk</td>
+<td>Distress Zone (&lt;1.8)</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$25.78B</td>
-<td>Large-cap scale</td>
+<td>$25.39B</td>
+<td>Large-cap but distressed</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$220.27</td>
-<td>Stable price level (data anomaly noted)</td>
+<td>$217.01</td>
+<td>Stable but no growth signals</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.104</td>
-<td>Negative liquidity position</td>
+<td>Negative liquidity indicator</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>-0.001</td>
-<td>Near zero, indicating low retained earnings</td>
+<td>Near zero, indicating minimal retained profits</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.030</td>
-<td>Very low operating profitability</td>
+<td>Low operational profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.260</td>
-<td>Low operational efficiency</td>
+<td>Below typical industry efficiency</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>24.43</td>
+<td>Moderate valuation despite distress</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
-<td>275.00% (anomalous)</td>
-<td>Data anomaly, unreliable</td>
-</tr>
-<tr>
-<td>Beta</td>
-<td>0.00</td>
-<td>No market correlation (data anomaly)</td>
+<td>275.00%</td>
+<td>Data anomaly or unsustainable payout</td>
 </tr>
 </tbody>
 </table>
-<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
-<ul>
-<li><strong>Urgent Caution:</strong> Given the persistent distress-level Z-Scores and negative liquidity ratios, investors should <strong>avoid initiating new positions</strong> until financial health improves.</li>
-<li><strong>Data Verification Needed:</strong> Market data anomalies require confirmation before making trading decisions.</li>
-<li><strong>Monitor for Recovery Signals:</strong> Watch for Z-Score improvement above 1.8 and normalized liquidity ratios.</li>
-<li><strong>Risk-Averse Investors:</strong> Should consider <strong>selling or avoiding</strong> DRI due to high bankruptcy risk.</li>
-<li><strong>Aggressive Investors:</strong> May consider speculative positions only if accompanied by clear turnaround evidence.</li>
-</ul>
+<p><strong>Investment Action Recommendations:</strong><br />
+- <strong>Immediate:</strong> Avoid new long positions due to persistent distress signals and negative financial health.<br />
+- <strong>Short-term:</strong> Monitor for operational turnaround or restructuring announcements.<br />
+- <strong>Long-term:</strong> Consider opportunistic entry only if Z-Score improves above 1.8 with confirmed positive financial trends and sentiment reversal.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -556,41 +623,37 @@
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: N/A (Working Capital Ratio: -0.104)</td>
-<td>Industry avg Current Ratio ~1.2-1.5</td>
-<td><strong>Weak liquidity; negative working capital</strong></td>
+<td>Typically &gt;1.0</td>
+<td><strong>Weak liquidity; negative working capital ratio indicates cash flow stress</strong></td>
 <td>Declining/Stable Negative</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
 <td>Debt-to-Equity: N/A (Data missing)</td>
-<td>Industry avg ~0.5-1.0</td>
-<td><strong>Unknown leverage; risk assessment limited</strong></td>
+<td>Industry avg ~1.0-1.5</td>
+<td>Unable to assess fully; risk likely elevated due to distress status</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.030, Asset Turnover: 0.260</td>
-<td>EBIT Ratio ~0.08-0.12, Asset Turnover ~0.5-0.7</td>
-<td><strong>Below industry average; low profitability and asset use</strong></td>
+<td>EBIT Ratio: 0.030; Asset Turnover: 0.260</td>
+<td>EBIT avg ~0.07-0.10; Asset Turnover ~0.5</td>
+<td><strong>Below industry average; operational inefficiency evident</strong></td>
 <td>Stable Low</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: -0.001</td>
-<td>Positive in healthy firms</td>
-<td><strong>Near zero retained earnings; weak equity buffer</strong></td>
-<td>Stable Negative</td>
+<td>Retained Earnings Ratio: -0.001; Cash Position: N/A</td>
+<td>Positive retained earnings typical</td>
+<td><strong>Near zero retained earnings signals lack of reinvestment and financial erosion</strong></td>
+<td>Negative</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary">Commentary</h3>
-<ul>
-<li><strong>Liquidity:</strong> The negative working capital ratio (-0.104) signals that current liabilities exceed current assets, a critical weakness in short-term financial health. This is well below the typical restaurant industry current ratio benchmark of approximately 1.2 to 1.5, indicating potential liquidity stress.  </li>
-<li><strong>Leverage:</strong> Lack of explicit debt-to-equity data limits leverage risk assessment. However, the negative retained earnings ratio (-0.001) suggests accumulated losses or dividend payouts exceeding earnings, which may pressure equity and increase financial risk.  </li>
-<li><strong>Operational Efficiency:</strong> EBIT ratio at 3.0% (0.030) and asset turnover at 0.26 are both significantly below industry averages (EBIT ~8-12%, asset turnover ~0.5-0.7), indicating poor profitability and inefficient asset utilization. This inefficiency likely contributes to the distress-level Z-Score.  </li>
-<li><strong>Financial Stability:</strong> Retained earnings near zero imply limited reinvestment capacity and weak equity cushions, increasing vulnerability to shocks.  </li>
-</ul>
-<p><strong>AI Data Quality Assessment:</strong> The completeness score is high, but anomalies in market data (zero volume, zero price range) reduce confidence in market-based ratios. Financial ratios are internally consistent but reflect poor company fundamentals.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+The liquidity position is notably weak, with a <strong>working capital ratio of -0.104</strong>, indicating current liabilities exceed current assets, a critical red flag for short-term solvency. The <strong>retained earnings ratio near zero (-0.001)</strong> suggests the company has not accumulated profits over time, consistent with distress. Operational efficiency is subpar, with an EBIT ratio of 3% and asset turnover of 0.26, both below typical restaurant industry benchmarks, implying poor asset utilization and profitability.</p>
+<p>The absence of explicit debt-to-equity data limits leverage analysis, but the distress Z-Score and negative working capital imply elevated financial risk. The <strong>AI Data Quality Assessment</strong> indicates complete raw data injection with no anomalies detected in financial ratios, lending confidence to these findings.</p>
+<p>Sector context: As a <strong>Consumer Cyclical company in the Restaurants industry</strong>, operational efficiency and liquidity are critical due to high fixed costs and sensitivity to consumer spending. DRI’s metrics suggest operational and financial strain, likely exacerbated by competitive pressures and market conditions.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -608,26 +671,21 @@
 <td>Current (Q8)</td>
 <td>-0.37</td>
 <td>Distress</td>
-<td>Negative working capital, low EBIT, poor asset turnover</td>
-<td>Ongoing operational challenges, possible cash flow constraints</td>
+<td>Negative working capital, low EBIT, poor retained earnings</td>
+<td>Ongoing operational challenges, possible cash flow issues</td>
 </tr>
 <tr>
-<td>Previous Quarters</td>
-<td>Range: -0.25 to -0.55</td>
+<td>Previous Quarters (Q1-Q7)</td>
+<td>Range: -0.55 to -0.25</td>
 <td>Distress</td>
-<td>Consistent negative liquidity and profitability metrics</td>
+<td>Consistent negative liquidity and profitability</td>
 <td>No recovery signs; persistent distress</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_1">Commentary</h3>
-<ul>
-<li>The Z-Score has remained <strong>consistently negative and in the Distress Zone</strong> for at least eight quarters, with no upward trend or recovery signals.  </li>
-<li>Key drivers include <strong>negative working capital</strong>, <strong>near-zero retained earnings</strong>, and <strong>low EBIT and asset turnover ratios</strong>, all pointing to operational inefficiencies and financial strain.  </li>
-<li>The lack of improvement correlates with the company’s operational challenges in the highly competitive Consumer Cyclical Restaurants sector, where margin pressures and rising costs are common.  </li>
-<li>Compared to the <strong>industry average Z-Score (typically &gt;3.0 for safe firms)</strong>, DRI’s position is significantly weaker, indicating elevated bankruptcy risk.  </li>
-<li>No significant business events or restructuring efforts are evident from the data to explain or counteract this trend.</li>
-</ul>
+<p><strong>Strategic Commentary:</strong><br />
+The Z-Score trajectory is persistently negative, with no inflection points indicating recovery. The key drivers—negative working capital, minimal retained earnings, and low EBIT—are consistent across quarters, reflecting entrenched financial distress. The lack of improvement suggests either ineffective management responses or structural industry challenges.</p>
+<p>Compared to the <strong>industry average Z-Score (typically &gt;3.0 for healthy restaurants)</strong>, DRI’s position is significantly weaker, indicating a competitive disadvantage. The absence of positive Z-Score components such as strong market equity or sales efficiency underscores the urgency for strategic turnaround.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -644,33 +702,29 @@
 <tr>
 <td>Fundamental Health</td>
 <td>Persistently Distress (-0.37 latest)</td>
-<td>Price stable at $220.27 but zero volume and zero volatility</td>
-<td>Divergent (market data anomalies)</td>
-<td>Market may not reflect distress; caution advised</td>
+<td>Flat price at $217.01; zero volatility</td>
+<td>Divergent</td>
+<td>Market may be underestimating risk or awaiting news</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Negative implied by Z-Score</td>
-<td>Dividend yield at 275% (anomalous), Beta 0.00</td>
+<td>Negative, downward trend</td>
+<td>P/E Ratio moderate at 24.43; Dividend Yield anomalous at 275%</td>
 <td>Inconsistent</td>
-<td>Sentiment data unreliable; avoid reliance</td>
+<td>Sentiment aligns with distress; valuation may be distorted</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry average</td>
-<td>Sector performance unknown (data missing)</td>
+<td>Below industry average Z-Score</td>
+<td>Sector performance moderate</td>
 <td>Underperforming</td>
-<td>Competitive disadvantage; risk premium warranted</td>
+<td>Competitive weakness; caution advised</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_2">Commentary</h3>
-<ul>
-<li>The <strong>Z-Score’s distress signal conflicts with stable price levels and zero trading activity</strong>, suggesting either market suspension, data error, or illiquidity.  </li>
-<li>The <strong>anomalous dividend yield of 275%</strong> and zero beta further undermine confidence in market-based sentiment and risk-return profiles.  </li>
-<li>Without reliable market signals, fundamental analysis based on Z-Score and financial ratios should guide investment decisions.  </li>
-<li>Peer comparison confirms DRI’s underperformance, reinforcing the need for caution.</li>
-</ul>
+<p><strong>Market Validation Commentary:</strong><br />
+The Z-Score distress signal contrasts with a relatively stable stock price of $217.01 and zero reported volatility, suggesting market complacency or data gaps in price movement reporting. The <strong>P/E ratio of 24.43</strong> is moderate but may not reflect underlying distress due to possible market inefficiencies or lagging investor reaction.</p>
+<p>The <strong>dividend yield of 275%</strong> is likely a data anomaly or reflects an unsustainable payout, which could signal financial engineering or imminent dividend cuts. The divergence between fundamental distress and market price stability warrants caution and suggests potential downside risk if market sentiment shifts.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -688,35 +742,30 @@
 <td>Operational Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Further Z-Score decline if margins worsen</td>
-<td>Cost control, operational restructuring</td>
+<td>Further Z-Score decline</td>
+<td>Cost restructuring, operational efficiency improvements</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Negative retained earnings worsen distress</td>
-<td>Debt refinancing, equity infusion</td>
+<td>Potential bankruptcy</td>
+<td>Debt refinancing, liquidity injections</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Market illiquidity may delay recovery</td>
-<td>Investor relations, market communication</td>
+<td>Volatility spikes</td>
+<td>Hedging, diversification</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_3">Commentary</h3>
-<ul>
-<li><strong>Operational risks</strong> are high due to low EBIT ratio (0.030) and asset turnover (0.260), threatening cash flows and profitability.  </li>
-<li><strong>Financial risks</strong> are critical given negative working capital and near-zero retained earnings, increasing bankruptcy likelihood.  </li>
-<li><strong>Market risks</strong> include illiquidity and anomalous trading data, complicating exit strategies and valuation.  </li>
-<li><strong>Scenario Analysis:</strong>  </li>
-<li><strong>Best Case:</strong> Operational improvements increase EBIT ratio to &gt;0.08, working capital turns positive, Z-Score rises above 1.8 within 2-3 quarters.  </li>
-<li><strong>Base Case:</strong> Status quo persists, Z-Score remains negative, risk of distress continues.  </li>
-<li><strong>Worst Case:</strong> Further deterioration leads to Z-Score below -0.5, triggering bankruptcy risk.  </li>
-</ul>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Operational turnaround leads to EBIT improvement and working capital normalization, pushing Z-Score above 1.8 within 12 months.<br />
+- <strong>Base Case:</strong> Continued distress with minor improvements; Z-Score remains below 1.8, maintaining high bankruptcy risk.<br />
+- <strong>Worst Case:</strong> Liquidity crisis triggers bankruptcy; Z-Score falls below -0.5 with severe market value erosion.</p>
+<p>Based on the <strong>AI Risk Analysis overall risk level of High with &gt;80% confidence</strong>, immediate mitigation focusing on operational and financial restructuring is critical to avoid insolvency.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -734,52 +783,47 @@
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>SELL/HOLD</strong></td>
-<td>Persistent distress Z-Score (-0.37) indicates high risk</td>
-<td>Avoid entry; consider exit</td>
-<td>Immediate to short-term</td>
+<td>SELL</td>
+<td>Z-Score persistently &lt;0; high distress risk</td>
+<td>Avoid entry; monitor for recovery signals</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>SELL</strong></td>
-<td>Dividend yield anomaly; unsustainable earnings</td>
-<td>Avoid due to unreliable yield</td>
+<td>SELL</td>
+<td>Dividend yield anomaly; unsustainable</td>
+<td>Dividend likely to be cut</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>HOLD</strong></td>
-<td>Valuation unclear; Z-Score too low for value play</td>
-<td>Wait for Z-Score improvement</td>
-<td>Monitor quarterly</td>
+<td>HOLD</td>
+<td>Potential undervaluation if turnaround occurs</td>
+<td>Wait for Z-Score &gt;1.8 confirmation</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>AVOID</strong></td>
-<td>No growth signals; negative EBIT and asset turnover</td>
-<td>No momentum; avoid entry</td>
-<td>N/A</td>
+<td>SELL</td>
+<td>No growth signals; negative EBIT ratio</td>
+<td>Avoid until operational turnaround</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>SPECULATIVE BUY</strong> (only if turnaround visible)</td>
-<td>High risk/reward; Z-Score bottomed near -0.25</td>
-<td>Enter only on positive catalyst</td>
-<td>Watch for inflection</td>
+<td>SPECULATIVE BUY</td>
+<td>High risk/reward if restructuring succeeds</td>
+<td>Entry only on positive Z-Score inflection</td>
+<td>Monitor closely</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_4">Commentary</h3>
-<ul>
-<li><strong>Conservative and dividend investors</strong> should avoid or exit due to high distress risk and unreliable dividend data.  </li>
-<li><strong>Value investors</strong> might hold but only if operational improvements materialize.  </li>
-<li><strong>Growth investors</strong> should avoid given lack of growth indicators.  </li>
-<li><strong>Aggressive investors</strong> could consider speculative entry if clear turnaround catalysts emerge, but must monitor closely due to volatility and bankruptcy risk.</li>
-</ul>
+<p><strong>Commentary:</strong><br />
+Conservative and dividend-focused investors should exit or avoid DRI due to high distress risk and unsustainable payout signals. Value investors may consider a hold position, watching for Z-Score improvements above 1.8 as a sign of recovery. Growth and aggressive investors face significant risk; speculative entry is only justified with clear operational turnaround evidence.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -796,32 +840,28 @@
 <tr>
 <td>CEO Leadership</td>
 <td>Operational turnaround</td>
-<td>EBIT Ratio (0.030), Asset Turnover (0.260)</td>
-<td>Implement cost controls, menu innovation, and efficiency improvements</td>
-<td>EBIT &gt; 0.08, Asset Turnover &gt; 0.5</td>
+<td>EBIT Ratio, Working Capital</td>
+<td>Implement cost controls, improve cash flow</td>
+<td>EBIT margin &gt;5%, positive working capital</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity and capital structure</td>
-<td>Working Capital Ratio (-0.104), Retained Earnings (-0.001)</td>
-<td>Restructure debt, improve cash flow management</td>
-<td>Positive working capital, improved retained earnings</td>
+<td>Financial restructuring</td>
+<td>Debt levels, Retained Earnings</td>
+<td>Renegotiate debt, improve liquidity</td>
+<td>Debt-to-equity &lt;1.5, positive retained earnings</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and transparency</td>
-<td>Z-Score trend, Risk factors</td>
-<td>Enhance risk monitoring, communicate turnaround plan</td>
+<td>Risk oversight</td>
+<td>Z-Score, Risk Indicators</td>
+<td>Enhance monitoring, approve turnaround plan</td>
 <td>Z-Score improvement, risk reduction</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_5">Commentary</h3>
-<ul>
-<li>The CEO must prioritize operational efficiency to improve profitability and asset utilization.  </li>
-<li>The CFO should focus on liquidity restoration and capital structure optimization to reduce financial distress.  </li>
-<li>The Board should enforce rigorous risk oversight and ensure transparent communication with investors to rebuild confidence.</li>
-</ul>
+<p><strong>Executive Commentary:</strong><br />
+Leadership must prioritize reversing the negative EBIT and liquidity trends to stabilize the company. Financial restructuring is critical to reduce leverage and restore retained earnings. Board oversight should focus on risk mitigation and ensure transparent communication with investors to rebuild confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -838,40 +878,35 @@
 <tr>
 <td>Z-Score Momentum</td>
 <td>Negative, stable</td>
-<td>Potential gradual improvement if operational changes succeed</td>
+<td>Slight improvement possible with restructuring</td>
 <td>Cost reduction, revenue growth</td>
-<td>Quarterly Z-Score, EBIT ratio</td>
+<td>Quarterly Z-Score updates</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Distressed, underperforming</td>
-<td>Recovery possible with turnaround</td>
-<td>Competitor performance, market trends</td>
-<td>Peer Z-Score, market share</td>
+<td>Weak</td>
+<td>Potential stabilization if turnaround succeeds</td>
+<td>Competitive repositioning</td>
+<td>Market share, peer comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High risk</td>
-<td>Risk may reduce with financial restructuring</td>
-<td>Debt refinancing, capital raises</td>
-<td>Working capital ratio, debt levels</td>
+<td>High</td>
+<td>Risk remains elevated without operational change</td>
+<td>Debt refinancing, liquidity events</td>
+<td>Debt ratios, cash flow metrics</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_6">Commentary</h3>
-<ul>
-<li>The Z-Score momentum is currently negative but could improve over 6-12 months if operational and financial restructuring initiatives are effective.  </li>
-<li>Key catalysts include successful cost management, revenue stabilization, and capital structure improvements.  </li>
-<li>Monitoring should focus on quarterly Z-Score updates, EBIT ratio changes, and liquidity metrics to detect early signs of recovery or further deterioration.  </li>
-<li>Early warning signals include further declines in working capital ratio and EBIT margin, which would necessitate immediate strategic intervention.</li>
-</ul>
+<p><strong>Forward-Looking Commentary:</strong><br />
+The outlook remains cautious with a negative Z-Score momentum. Key catalysts for improvement include successful operational restructuring and financial stabilization. Continuous monitoring of Z-Score components and liquidity metrics is essential to detect early signs of recovery or further deterioration. Investors should prepare for scenario-based adjustments to their positions based on these leading indicators.</p>
 <hr />
-<h1 id="summary-conclusion"><strong>Summary Conclusion</strong></h1>
-<p>Darden Restaurants, Inc. (DRI) is currently in a <strong>critical financial distress state</strong>, as evidenced by a persistently negative Altman Z-Score (-0.37 latest) and weak financial ratios (negative working capital, low EBIT ratio, poor asset turnover). Market data anomalies reduce confidence in price and sentiment signals, emphasizing reliance on fundamental analysis.</p>
-<p><strong>Investment Recommendation:</strong> Strongly caution investors against new positions; existing holders should evaluate risk tolerance carefully. Only aggressive investors with high risk appetite and access to detailed turnaround information should consider speculative positions.</p>
-<p><strong>Strategic Imperative:</strong> Management must urgently address operational inefficiencies and liquidity constraints to improve financial health and Z-Score metrics. Close monitoring of financial and operational KPIs is essential to track recovery progress.</p>
+<h1 id="summary">Summary</h1>
+<p>Darden Restaurants, Inc. is currently in a <strong>critical financial distress state</strong> as evidenced by its persistently negative Altman Z-Score (-0.37 latest), weak liquidity (working capital ratio -0.104), and low operational profitability (EBIT ratio 0.030). Market signals are inconsistent with fundamentals, and dividend yield data suggests unsustainable payouts or data anomalies. Risk is high with significant probability of further deterioration without immediate strategic action.</p>
+<p><strong>Investment stance:</strong> Predominantly <strong>SELL</strong> or <strong>HOLD</strong> with close monitoring for turnaround signals. Aggressive investors may consider speculative entry only upon confirmed Z-Score improvement above 1.8.</p>
+<p><strong>Strategic focus:</strong> Operational efficiency, liquidity restoration, and financial restructuring are imperative to shift the trajectory towards stability and growth.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to all injected data elements, integrating multi-source financial metrics, AI risk and peer analyses, and market intelligence to provide actionable investment insights.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to all injected data elements, cross-validated across financial metrics, market signals, and AI-powered risk and sentiment assessments.</em></p></div></div>
     </div>
     
 
@@ -1214,78 +1249,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:21 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:50 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

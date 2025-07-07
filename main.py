@@ -148,7 +148,7 @@ class HelpAction(argparse._HelpAction):
 def load_portfolio_from_file(file_path: str) -> list:
     """Load ticker symbols from a portfolio file."""
     try:
-        with open(file_path, 'r') as f:
+        with open(file_path, 'r', encoding='utf-8') as f:
             tickers = [line.strip().upper() for line in f if line.strip() and not line.startswith('#')]
         return tickers
     except FileNotFoundError:

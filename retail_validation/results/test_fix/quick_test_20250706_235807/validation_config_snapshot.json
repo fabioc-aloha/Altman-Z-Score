@@ -1,0 +1,24 @@
+{
+  "timestamp": "20250706_235807",
+  "validation_config": {
+    "total_companies": 61,
+    "categories": {
+      "failed": 16,
+      "distressed": 11,
+      "recovery": 9,
+      "stable": 16,
+      "seasonal": 9
+    },
+    "validation_tests": 5,
+    "portfolio_file": "C:\\Development\\Altman-Z-Score\\portfolios\\retail_backtest_portfolio.txt",
+    "results_directory": "C:\\Development\\Altman-Z-Score\\retail_validation\\results",
+    "quick_test_companies": 12
+  },
+  "test_type": "QUICK TEST",
+  "quick_test": true,
+  "comparison": false,
+  "seasonal": false,
+  "detailed": false,
+  "failed_company_analysis": false,
+  "pre_bankruptcy_quarters": null
+}

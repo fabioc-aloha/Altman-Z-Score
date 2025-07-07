@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>ICICI Bank Limited (IBN)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:33 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:53 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -300,16 +372,20 @@
     <div class="section recommendation">
         <h2>Investment Recommendation</h2>
         <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
-            <span class="hold">Hold</span>
+            <span class="buy">Strong Buy</span>
         </div>
         <div style="margin: 15px 0;">
-            <strong>Confidence:</strong> 60.0%
+            <strong>Confidence:</strong> 70.0%
         </div>
 
         
         <div style="margin: 20px 0;">
             <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
             <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
@@ -328,26 +404,15 @@
         
 
         
-        <div style="margin: 20px 0;">
-            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
-            <div style="margin-left: 15px;">
-                
-                <div
-                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
-                    High bankruptcy risk based on Z-Score</div>
-                
-            </div>
-        </div>
-        
     </div>
     
 
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="IBN_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="IBN_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -356,16 +421,16 @@
     </div>
     
 
-    <div class="section risk-high">
+    <div class="section risk-low">
         <h2>Z-Score Summary</h2>
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">-0.13</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">3.84</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
-                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Distress</p>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
             </div>
             <div class="metric">
                 <h3>Model Used</h3>
@@ -410,15 +475,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$33.76</p>
+                <p>$$33.54</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$120.5B</p>
+                <p>$$119.8B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>20.3</p>
+                <p>20.2</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -430,7 +495,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>54.4</p>
+                <p>58.4</p>
             </div>
         </div>
     </div>
@@ -444,7 +509,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.64</p>
+                <p>0.62</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -452,7 +517,7 @@
             </div>
             <div class="metric">
                 <h4>Risk Score</h4>
-                <p>5.7/10</p>
+                <p>2.1/10</p>
             </div>
         </div>
     </div>
@@ -474,12 +539,11 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> ICICI Bank Limited (Ticker: IBN)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:33:32  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:53:08  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>ICICI Bank Limited (IBN) currently exhibits a <strong>Distress Zone Altman Z-Score profile</strong>, with the latest Z-Score at <strong>0.09</strong>, well below the safe threshold of 3.0 and even below the gray zone lower bound of 1.8. This persistent distress signal is consistent across the last eight quarters, with Z-Scores ranging from -0.27 to 0.09, indicating ongoing financial vulnerability. The <strong>AI Risk Analysis</strong> (inferred from Z-Score and financial context) suggests a <strong>high overall risk level</strong>, with no improvement trajectory evident.</p>
-<p><strong>AI Peer Analysis</strong> places IBN significantly below the <strong>industry average Z-Score</strong> (not explicitly provided but typically &gt;2.5 for regional banks), indicating underperformance relative to peers in the <strong>Banks - Regional</strong> sector. This weak positioning is compounded by a <strong>negative working capital ratio (-0.545)</strong> and minimal EBIT ratio (0.008), signaling operational and liquidity stress.</p>
-<p><strong>AI Sentiment Analysis</strong> is muted, with technical indicators showing zero volatility and no trading activity, likely reflecting market inactivity or data anomalies. However, the <strong>dividend yield is exceptionally high at 71.00%</strong>, which may be a red flag for sustainability given the distressed financials.</p>
+<p>ICICI Bank Limited (IBN) currently exhibits a <strong>high-risk financial profile</strong> as indicated by its Altman Z-Score trend and financial ratios. The <strong>Z-Score trajectory</strong> over the last eight quarters places the company predominantly in the <strong>Distress Zone (Z &lt; 1.8)</strong>, with the latest available Z-Score at <strong>-0.24</strong>, signaling significant financial distress risk. This contrasts sharply with an earlier outlier quarter showing a safe Z-Score of <strong>3.84</strong>, suggesting a volatile financial condition or data anomaly.</p>
+<p><strong>AI Risk Analysis</strong> (inferred from Z-Score and financial context) indicates an <strong>overall risk level of high distress</strong> with a <strong>negative trajectory</strong>, underscoring urgent caution for investors. The <strong>AI Peer Analysis</strong> positions IBN well below the <strong>industry average Z-Score</strong> (not explicitly provided but implied safe zone &gt;3.0 for peers), indicating underperformance relative to regional banking peers. The <strong>AI Sentiment Analysis</strong> is limited due to zero volatility and no trading volume, but the extremely high dividend yield of <strong>71.00%</strong> suggests market skepticism or data irregularity.</p>
 <table>
 <thead>
 <tr>
@@ -491,53 +555,48 @@
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>0.09</td>
+<td>-0.24</td>
 <td>Distress Zone, high bankruptcy risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$120.45B</td>
-<td>Large-cap, but valuation concerns</td>
+<td>$119.78B</td>
+<td>Large-cap financial institution</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$33.76</td>
-<td>Stable price but no volume</td>
-</tr>
-<tr>
-<td>Working Capital Ratio</td>
-<td>-0.545</td>
-<td>Negative liquidity, red flag</td>
-</tr>
-<tr>
-<td>Retained Earnings Ratio</td>
-<td>0.000</td>
-<td>No retained earnings buffer</td>
-</tr>
-<tr>
-<td>EBIT Ratio</td>
-<td>0.008</td>
-<td>Very low profitability</td>
-</tr>
-<tr>
-<td>Asset Turnover</td>
-<td>0.032</td>
-<td>Extremely low operational efficiency</td>
+<td>$33.55</td>
+<td>Stable price, but no volume data</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>71.00%</td>
-<td>Likely unsustainable high yield</td>
+<td>Unusually high, potential red flag</td>
 </tr>
 <tr>
-<td>Beta</td>
-<td>0.00</td>
-<td>No market correlation, possible data gap</td>
+<td>Working Capital Ratio</td>
+<td>0.000</td>
+<td>Liquidity concerns</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.117</td>
+<td>Low retained earnings relative to assets</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.007</td>
+<td>Very low operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.030</td>
+<td>Low operational efficiency</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Action Recommendation:</strong><br />
-Given the <strong>distress-level Z-Score</strong>, negative liquidity, and operational inefficiencies, <strong>a cautious SELL or avoid stance is recommended for most investor profiles</strong>. Only highly risk-tolerant investors with a speculative horizon might consider opportunistic positions, contingent on significant turnaround evidence. The lack of market activity and anomalous dividend yield further reduce confidence.</p>
+<p><strong>Investment Recommendation:</strong><br />
+Given the <strong>persistent distress Z-Score</strong>, <strong>extreme dividend yield anomaly</strong>, and <strong>poor liquidity and profitability ratios</strong>, a <strong>conservative investor should avoid initiating new positions</strong> at this time. The data quality and market signals suggest <strong>high risk of financial instability</strong>. Only aggressive investors with high risk tolerance and a strong conviction in turnaround potential might consider speculative positions, but with strict risk controls.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -545,7 +604,7 @@ Given the <strong>distress-level Z-Score</strong>, negative liquidity, and opera
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark (Regional Banks)</th>
+<th>Industry Benchmark*</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -553,39 +612,38 @@ Given the <strong>distress-level Z-Score</strong>, negative liquidity, and opera
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A (Working Capital Ratio: -0.545)</td>
-<td>Typically &gt;1.0 (positive working capital)</td>
-<td><strong>Severe liquidity weakness</strong>; negative working capital indicates inability to cover short-term obligations</td>
-<td>Declining/Distress</td>
+<td>Current Ratio: N/A (Working Capital Ratio: 0.000)</td>
+<td>Regional Banks: ~1.2-1.5</td>
+<td>Severely weak liquidity; no buffer</td>
+<td>Declining/Stable at low level</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
 <td>Debt-to-Equity: N/A (Data missing)</td>
-<td>Industry average ~10-15% equity ratio</td>
-<td>Cannot assess leverage directly; implied high risk due to distress Z-Score</td>
+<td>Industry avg: Moderate leverage</td>
+<td>Unable to assess fully; risk likely elevated</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.008; Asset Turnover: 0.032</td>
-<td>EBIT Ratio ~1-2%; Asset Turnover ~0.5-1.0</td>
-<td><strong>Extremely low profitability and asset utilization</strong>; operational inefficiency evident</td>
-<td>Stable but weak</td>
+<td>EBIT Ratio: 0.007; Asset Turnover: 0.030</td>
+<td>Industry EBIT ~0.03-0.05; Asset Turnover ~0.5</td>
+<td>Extremely low profitability and asset utilization</td>
+<td>Declining</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.000; Cash Position: N/A</td>
-<td>Positive retained earnings expected</td>
-<td>No retained earnings buffer; financial stability is compromised</td>
-<td>Stagnant/Weak</td>
+<td>Retained Earnings Ratio: 0.117</td>
+<td>Industry avg: ~0.3-0.5</td>
+<td>Low retained earnings; weak capital buffer</td>
+<td>Stable/Weak</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Interpretive Commentary:</strong><br />
-The <strong>negative working capital ratio (-0.545)</strong> is a critical red flag, indicating that current liabilities exceed current assets by a significant margin, which is unusual for a bank and suggests liquidity stress. The <strong>retained earnings ratio at zero</strong> implies no accumulated profits to cushion losses or fund growth, increasing bankruptcy risk as reflected in the distress Z-Score.</p>
-<p>The <strong>EBIT ratio of 0.008 (0.8%)</strong> and <strong>asset turnover of 0.032</strong> are alarmingly low compared to typical banking industry standards, where operational efficiency is crucial for profitability. This suggests that ICICI Bank is generating minimal earnings from its asset base, possibly due to non-performing assets or operational inefficiencies.</p>
-<p>The <strong>AI Data Quality Assessment</strong> indicates no anomalies detected, but the absence of some key ratios (e.g., debt-to-equity, interest coverage) limits full leverage and risk assessment. The financial data completeness is adequate but lacks granularity in some areas.</p>
-<p>Given the <strong>Financial Services sector and Regional Banks industry context</strong>, these metrics are particularly concerning as banks rely heavily on liquidity and capital adequacy, which appear compromised here.</p>
+<p>*Industry benchmarks are typical for regional banks in India and similar emerging markets.</p>
+<p><strong>Commentary:</strong><br />
+The <strong>Working Capital Ratio of 0.000</strong> indicates a critical liquidity shortfall, raising concerns about the bank’s ability to meet short-term obligations. The <strong>Retained Earnings Ratio at 11.7%</strong> of total assets is significantly below industry norms, suggesting limited internal capital generation or recent losses. The <strong>EBIT Ratio of 0.7%</strong> and <strong>Asset Turnover of 3%</strong> are alarmingly low, indicating poor operational efficiency and profitability, which is atypical for a large regional bank.</p>
+<p>The <strong>AI Data Quality Assessment</strong> shows no explicit anomalies flagged, but the <strong>extreme dividend yield (71%)</strong> and zero trading volume metrics suggest possible data irregularities or market inactivity, which lowers confidence in market-based indicators. The <strong>sector context</strong> (Financial Services, Regional Banks) typically demands strong liquidity and capital adequacy, which IBN currently lacks.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -600,67 +658,24 @@ The <strong>negative working capital ratio (-0.545)</strong> is a critical red f
 </thead>
 <tbody>
 <tr>
-<td>Current (Q8)</td>
-<td>0.09</td>
-<td>Distress</td>
-<td>Negative working capital, low EBIT, zero retained earnings</td>
-<td>Ongoing liquidity and profitability challenges</td>
+<td>Earliest Quarter</td>
+<td>3.84</td>
+<td>Safe</td>
+<td>Strong capital, liquidity</td>
+<td>Possibly pre-crisis or data anomaly</td>
 </tr>
 <tr>
-<td>Q7</td>
-<td>-0.24</td>
+<td>Subsequent 7 Quarters</td>
+<td>-0.14 to -0.27</td>
 <td>Distress</td>
-<td>Similar drivers as current</td>
-<td>No operational improvement observed</td>
-</tr>
-<tr>
-<td>Q6</td>
-<td>-0.27</td>
-<td>Distress</td>
-<td>Persistent negative liquidity</td>
-<td>Continued financial stress</td>
-</tr>
-<tr>
-<td>Q5</td>
-<td>-0.27</td>
-<td>Distress</td>
-<td>No recovery in key financials</td>
-<td>Business under pressure</td>
-</tr>
-<tr>
-<td>Q4</td>
-<td>0.08</td>
-<td>Distress</td>
-<td>Slight uptick but still negative</td>
-<td>No meaningful turnaround</td>
-</tr>
-<tr>
-<td>Q3</td>
-<td>-0.17</td>
-<td>Distress</td>
-<td>Negative financial ratios</td>
-<td>Weak operational performance</td>
-</tr>
-<tr>
-<td>Q2</td>
-<td>-0.13</td>
-<td>Distress</td>
-<td>Consistent distress signals</td>
-<td>No positive inflection</td>
-</tr>
-<tr>
-<td>Q1</td>
-<td>-0.13</td>
-<td>Distress</td>
-<td>Early distress indication</td>
-<td>Beginning of financial deterioration</td>
+<td>Poor working capital, low EBIT, weak retained earnings</td>
+<td>Reflects operational stress, possible financial distress</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-The Z-Score trajectory over eight quarters shows <strong>persistent distress without meaningful recovery</strong>, fluctuating narrowly around zero but never approaching the gray zone (1.8-3.0) or safe zone (&gt;3.0). This indicates <strong>chronic financial instability</strong>.</p>
-<p>Key drivers include <strong>negative working capital and negligible EBIT</strong>, which directly depress the Z-Score components. The lack of retained earnings further exacerbates risk.</p>
-<p>No significant business events or operational improvements are evident from the data to suggest a turnaround. Compared to the <strong>industry average Z-Score (typically &gt;2.5 for regional banks)</strong>, ICICI Bank is severely underperforming.</p>
+The Z-Score evolution shows a dramatic fall from a safe zone (3.84) to sustained distress levels (negative values around -0.2) over the last seven quarters. This suggests either a severe deterioration in financial health or data inconsistency. The lack of component data (Working Capital/Total Assets, Retained Earnings/Total Assets, EBIT/Total Assets) limits granular driver analysis but the overall trend signals a <strong>high bankruptcy risk</strong>.</p>
+<p>This trajectory correlates with the <strong>low liquidity and profitability ratios</strong> observed, indicating operational challenges possibly linked to macroeconomic pressures or internal management issues. The <strong>industry average Z-Score</strong> for regional banks is typically above 3.0, highlighting IBN’s underperformance and elevated risk relative to peers.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -676,32 +691,30 @@ The Z-Score trajectory over eight quarters shows <strong>persistent distress wit
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Distress Zone</td>
-<td>Price stable at $33.76, zero volume</td>
+<td>Distress Zone (-0.24)</td>
+<td>Price stable at $33.55, zero volume</td>
 <td>Divergent</td>
-<td>Market not reflecting distress; possible illiquidity or data gap</td>
+<td>Market may be ignoring distress signals or data is stale</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral/Negative (implied)</td>
-<td>Dividend yield 71%, zero volatility</td>
+<td>N/A (No sentiment data)</td>
+<td>Dividend Yield 71%, Beta 0.0</td>
 <td>Inconsistent</td>
-<td>Dividend yield likely unsustainable; market sentiment unclear</td>
+<td>Market skepticism or data anomaly; low confidence</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Underperforming</td>
+<td>Below industry average</td>
 <td>Sector performance unknown</td>
 <td>Underperforming</td>
-<td>Competitive disadvantage confirmed</td>
+<td>Competitive disadvantage; risk of market share loss</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-The <strong>Z-Score distress signals are not mirrored by market price movements</strong>, which remain stable at $33.76 with zero reported volume and zero volatility. This divergence suggests either <strong>market inactivity, data reporting issues, or investor disengagement</strong>.</p>
-<p>The <strong>exceptionally high dividend yield (71%)</strong> is inconsistent with the financial distress and may indicate a special dividend, data anomaly, or unsustainable payout risking capital erosion.</p>
-<p>Lack of trading volume and zero beta imply no market correlation, reducing confidence in market signals as a validation of fundamental health.</p>
-<p>Overall, the <strong>market signals do not align with the fundamental distress</strong>, indicating caution in relying on market price for timing decisions.</p>
+<p><strong>Market Commentary:</strong><br />
+The <strong>Z-Score distress signal</strong> is not reflected in price movement or volume, which is zero, indicating either illiquidity or data gaps. The <strong>extremely high dividend yield (71%)</strong> is an outlier, suggesting either a special dividend event, data error, or market distress pricing. The <strong>beta of 0.0</strong> and zero volatility further indicate no recent trading activity, limiting market validation of fundamental distress.</p>
+<p>This divergence between fundamental distress and market signals reduces confidence in market timing but highlights a potential <strong>disconnect that could present an opportunity if fundamentals improve</strong> or a risk if distress deepens unnoticed.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -719,30 +732,30 @@ The <strong>Z-Score distress signals are not mirrored by market price movements<
 <td>Operational Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Further Z-Score decline</td>
-<td>Restructure operations, improve asset quality</td>
+<td>Large negative impact</td>
+<td>Strengthen risk management, improve asset quality</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Bankruptcy risk elevated</td>
-<td>Capital infusion, liquidity management</td>
+<td>Significant Z-Score decline</td>
+<td>Capital infusion, cost control, liquidity management</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Market perception risk</td>
-<td>Transparent communication, investor relations</td>
+<td>Moderate impact</td>
+<td>Hedging interest rate and credit risks</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Operational turnaround improves EBIT ratio to &gt;1%, working capital stabilizes, Z-Score rises above 1.8 (gray zone) within 12 months. Requires aggressive cost control and asset quality improvement.<br />
-- <strong>Base Case:</strong> Status quo persists, Z-Score remains below 1.0, liquidity stress continues, dividend unsustainable, risk of credit rating downgrade.<br />
-- <strong>Worst Case:</strong> Further deterioration leads to Z-Score below 0, triggering bankruptcy risk and potential regulatory intervention.</p>
-<p>Given the <strong>AI Risk Analysis inferred high risk level with no positive trajectory</strong>, mitigation requires urgent strategic and financial restructuring.</p>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Operational turnaround improves EBIT and working capital, Z-Score rises above 1.8 within 2-3 quarters, reducing bankruptcy risk.<br />
+- <strong>Base Case:</strong> Continued distress with Z-Score hovering below 1.0, requiring restructuring or capital raising.<br />
+- <strong>Worst Case:</strong> Further deterioration leads to Z-Score below 0, triggering bankruptcy risk and severe market value erosion.</p>
+<p>Based on AI Risk Analysis overall risk level of <strong>high distress</strong> with <strong>~85% confidence</strong>, urgent mitigation is necessary to avoid insolvency.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -760,48 +773,47 @@ The <strong>Z-Score distress signals are not mirrored by market price movements<
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td>SELL</td>
-<td>Z-Score 0.09 in distress zone; negative liquidity</td>
-<td>Avoid entry; wait for recovery signals</td>
-<td>Immediate exit recommended</td>
+<td><strong>SELL/HOLD</strong></td>
+<td>Z-Score &lt; 1.8, persistent distress</td>
+<td>Avoid entry until Z &gt; 1.8</td>
+<td>Monitor quarterly</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>SELL</td>
-<td>Dividend yield 71% unsustainable given financials</td>
-<td>Dividend likely cut; avoid</td>
-<td>Immediate exit recommended</td>
+<td><strong>SELL</strong></td>
+<td>Dividend yield anomaly, unsustainable</td>
+<td>Avoid due to risk of cut</td>
+<td>Immediate review</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>HOLD/AVOID</td>
-<td>Valuation unclear; Z-Score indicates high risk</td>
-<td>Wait for Z-Score &gt;1.8 and liquidity improvement</td>
-<td>Monitor quarterly</td>
+<td><strong>HOLD</strong></td>
+<td>Potential undervaluation but high risk</td>
+<td>Wait for Z-Score recovery</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>SELL</td>
-<td>No growth signals; EBIT ratio near zero</td>
-<td>No momentum; avoid</td>
-<td>No new positions</td>
+<td><strong>SELL</strong></td>
+<td>Low EBIT and asset turnover</td>
+<td>No growth momentum</td>
+<td>Avoid new positions</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>SPECULATIVE BUY</td>
-<td>Potential turnaround if restructuring occurs</td>
-<td>High risk/reward; speculative only</td>
-<td>Short-term, small position</td>
+<td><strong>SPECULATIVE BUY</strong></td>
+<td>High risk/reward if turnaround occurs</td>
+<td>Entry on positive Z-Score inflection</td>
+<td>Short-term, tight stops</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Rationale:</strong><br />
-The <strong>distress-level Z-Score and negative liquidity</strong> strongly advise against new investments for conservative, dividend, and growth investors. The <strong>dividend yield is a warning sign</strong>, not a positive signal.</p>
-<p>Only <strong>aggressive investors</strong> with high risk tolerance and speculative appetite might consider a small position, contingent on clear evidence of operational turnaround and liquidity improvement.</p>
+The <strong>persistent distress Z-Score</strong> and poor financial ratios strongly caution against new investments for conservative and dividend-focused investors. Value investors may hold for a potential turnaround but should monitor closely. Growth and aggressive investors face high volatility and risk but may speculate on a recovery if operational improvements materialize.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -817,30 +829,29 @@ The <strong>distress-level Z-Score and negative liquidity</strong> strongly advi
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Stabilize liquidity and profitability</td>
-<td>Working Capital Ratio, EBIT Ratio, Z-Score</td>
-<td>Implement cost controls, asset quality review, capital raise</td>
-<td>Z-Score improvement &gt;1.8 in 2 quarters</td>
+<td>Stabilize liquidity &amp; profitability</td>
+<td>Working Capital Ratio, EBIT Ratio</td>
+<td>Implement cost controls, improve asset quality</td>
+<td>Z-Score improvement &gt;1.8 within 2 quarters</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital management and risk mitigation</td>
-<td>Retained Earnings, Debt Ratios</td>
-<td>Optimize capital structure, reduce liabilities</td>
-<td>Positive retained earnings, improved liquidity</td>
+<td>Capital adequacy &amp; risk management</td>
+<td>Retained Earnings Ratio, Debt Levels</td>
+<td>Raise capital, optimize debt structure</td>
+<td>Liquidity ratio &gt;1.0, positive cash flow</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Oversight of risk and compliance</td>
-<td>Risk Indicators, Dividend Policy</td>
-<td>Tighten governance, review dividend sustainability</td>
-<td>Risk reduction, compliance adherence</td>
+<td>Oversight on risk &amp; compliance</td>
+<td>Z-Score, Risk Factors</td>
+<td>Enhance risk monitoring, enforce governance</td>
+<td>Risk reduction, regulatory compliance</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The <strong>persistent distress Z-Score and negative liquidity</strong> require urgent executive focus on financial stabilization. The CEO must prioritize operational efficiency and asset quality, while the CFO should focus on capital adequacy and risk mitigation.</p>
-<p>The Board must oversee governance reforms, particularly regarding dividend policy given the unsustainable 71% yield, to restore investor confidence and regulatory compliance.</p>
+The Z-Score trend and financial ratios highlight urgent need for leadership focus on liquidity and operational efficiency. The CFO must prioritize capital raising and cost management to improve financial stability. The Board should intensify oversight to mitigate bankruptcy risk and restore market confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -856,36 +867,46 @@ The <strong>persistent distress Z-Score and negative liquidity</strong> require 
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Flat/Negative</td>
-<td>Slight improvement possible with restructuring</td>
+<td>Negative, distress</td>
+<td>Potential gradual recovery if operational improvements occur</td>
 <td>Capital infusion, asset quality improvement</td>
-<td>Quarterly Z-Score, EBIT ratio</td>
+<td>Quarterly Z-Score, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Weak</td>
-<td>Potential stabilization if turnaround succeeds</td>
-<td>Regulatory support, market confidence</td>
-<td>Market volume, price trends</td>
+<td>Weak, underperforming</td>
+<td>Stabilization or further decline</td>
+<td>Competitor actions, regulatory changes</td>
+<td>Market share, peer Z-Score trends</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High</td>
+<td>High distress risk</td>
 <td>Risk remains elevated without intervention</td>
-<td>Credit rating changes, liquidity events</td>
-<td>Working capital ratio, debt levels</td>
+<td>Macroeconomic factors, credit risk</td>
+<td>Liquidity ratios, credit spreads</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-The outlook for ICICI Bank’s Z-Score remains <strong>challenging</strong>, with only marginal improvement expected absent significant operational and financial restructuring. Key catalysts include capital raises, improved asset quality, and regulatory support.</p>
-<p>Continuous monitoring of <strong>working capital ratio, EBIT ratio, and Z-Score quarterly trends</strong> is essential to detect early signs of recovery or further deterioration.</p>
-<p>Investors and management should prepare for multiple scenarios, with an early warning system based on liquidity and profitability metrics to guide timely decisions.</p>
+The outlook for ICICI Bank’s Z-Score is cautiously negative with potential for recovery contingent on strategic initiatives. Key catalysts include capital raising, operational restructuring, and market stabilization. Continuous monitoring of liquidity, profitability, and risk indicators is essential to detect early signs of turnaround or further distress.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>ICICI Bank Limited is currently in a <strong>financial distress state</strong>, as evidenced by a persistently low Altman Z-Score (~0.09), negative liquidity, and minimal profitability. Market signals are inconsistent, with zero trading volume and an unsustainable dividend yield, limiting confidence in market validation. Risk levels are high, requiring urgent strategic and financial interventions. Investment recommendations favor <strong>selling or avoiding</strong> for most profiles, with speculative buying only for high-risk tolerant investors if turnaround signs emerge. Executive leadership must prioritize liquidity stabilization, operational efficiency, and governance reforms to restore financial health and investor confidence.</p>
+<p>ICICI Bank (IBN) is currently in a <strong>financial distress state</strong> as evidenced by a <strong>negative Altman Z-Score (-0.24)</strong> and poor liquidity and profitability ratios. Market signals are inconsistent, with zero trading volume and an anomalous dividend yield, reducing confidence in market-based validation. The bank faces <strong>high operational and financial risks</strong>, requiring urgent strategic action from leadership.</p>
+<p><strong>Investment stance:</strong><br />
+- <strong>Conservative and dividend investors:</strong> Avoid or sell.<br />
+- <strong>Value investors:</strong> Hold cautiously, monitor for recovery signals.<br />
+- <strong>Growth and aggressive investors:</strong> Speculative only with strict risk management.</p>
+<p><strong>Strategic focus:</strong><br />
+- Improve liquidity and capital adequacy.<br />
+- Enhance operational efficiency and asset utilization.<br />
+- Strengthen governance and risk oversight.</p>
+<p><strong>Monitoring:</strong><br />
+- Quarterly Z-Score updates.<br />
+- Key financial ratios and market indicators.<br />
+- Peer and industry benchmarks.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, market metrics, and sector context for actionable investment intelligence.</em></p></div></div>
+<p><em>This analysis integrates all injected data elements explicitly, cross-validates financial and market signals, and applies AI-powered risk and sentiment insights to deliver actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1228,78 +1249,41 @@ The outlook for ICICI Bank’s Z-Score remains <strong>challenging</strong>, wit
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:33 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:53 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

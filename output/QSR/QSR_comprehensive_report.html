@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Restaurant Brands International Inc. (QSR)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:40 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:07 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -332,6 +404,14 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     High bankruptcy risk based on Z-Score</div>
                 
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Underperforming market benchmark</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Poor risk-adjusted returns</div>
+                
             </div>
         </div>
         
@@ -341,9 +421,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="QSR_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="QSR_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -406,15 +486,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$68.92</p>
+                <p>$$68.43</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$31.2B</p>
+                <p>$$30.9B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>23.4</p>
+                <p>23.2</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -426,7 +506,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>58.2</p>
+                <p>62.7</p>
             </div>
         </div>
     </div>
@@ -436,11 +516,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Beta</h4>
-                <p>0.43</p>
+                <p>0.44</p>
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.04</p>
+                <p>-0.02</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -461,75 +541,79 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> QSR (Restaurant Brands International Inc.)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:39:52  </p>
+<strong>Analysis Date:</strong> 2025-07-07 11:07:07  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Restaurant Brands International Inc. (QSR) currently exhibits a <strong>high-risk financial profile</strong>, with its Altman Z-Score persistently in the <strong>Distress and Gray Zones</strong>, ranging narrowly between <strong>0.40 and 0.60</strong> over the last eight quarters. This sustained low Z-Score signals significant financial distress risk, warranting urgent caution for investors. Based on the <strong>AI Risk Analysis overall risk level of Distress with high confidence</strong>, the company faces elevated bankruptcy and liquidity risks.</p>
-<p><strong>AI Peer Analysis</strong> positions QSR well below the <strong>industry average Z-Score (not explicitly provided but typically &gt;2.5 for Restaurants sector)</strong>, indicating weaker financial health relative to peers such as McDonald's (MCD) and Yum! Brands (YUM). This relative underperformance suggests competitive vulnerabilities.</p>
-<p><strong>AI Sentiment Analysis</strong> metrics are unavailable or neutral due to zero volatility and zero RSI, indicating either data anomalies or market inactivity, which reduces confidence in market sentiment signals. The <strong>Dividend Yield of 374%</strong> is an outlier likely reflecting data anomaly or special dividend events, further complicating sentiment interpretation.</p>
+<p>Restaurant Brands International Inc. (QSR) currently exhibits a <strong>high financial distress risk</strong>, as evidenced by its persistently low Altman Z-Score values averaging around <strong>0.54</strong> over the last eight quarters, placing it firmly in the <strong>Distress to Gray Zone</strong> (Z &lt; 1.8). This signals a significant risk of bankruptcy or financial instability if corrective measures are not taken. The <strong>AI Risk Analysis overall risk level is critically high</strong>, with a trajectory showing no meaningful improvement, underscoring urgent caution.</p>
+<p><strong>Peer Analysis</strong> positions QSR well below the industry average Z-Score (typically &gt; 2.5 for Restaurants sector), indicating underperformance relative to competitors such as McDonald's (MCD) and Yum! Brands (YUM). The <strong>AI Sentiment Analysis reveals a highly negative market sentiment</strong>, with a divergence from typical sector optimism, likely reflecting investor concerns over financial health and operational challenges.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
+<th>Industry Benchmark</th>
 <th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Current Z-Score (latest)</td>
+<td>Latest Z-Score</td>
 <td>0.54</td>
-<td>Distress/Gray Zone, high bankruptcy risk</td>
+<td>~2.5+ (Restaurants)</td>
+<td>Distress/Gray Zone</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$31.2B</td>
-<td>Large-cap status, but financial distress evident</td>
+<td>$30.86B</td>
+<td>N/A</td>
+<td>Large cap but distressed</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$68.92</td>
-<td>Stable price despite distress signals</td>
+<td>$68.47</td>
+<td>N/A</td>
+<td>Stable price despite risk</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.004</td>
-<td>Negative liquidity indicator</td>
+<td>Positive (&gt;1)</td>
+<td>Negative liquidity</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.073</td>
-<td>Low retained earnings relative to assets</td>
+<td>Higher preferred</td>
+<td>Low retained earnings</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.017</td>
-<td>Very low operating profitability</td>
+<td>~0.05+</td>
+<td>Low operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.085</td>
-<td>Low operational efficiency</td>
+<td>~0.5+</td>
+<td>Poor asset utilization</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>23.36</td>
-<td>Moderate valuation, possibly optimistic</td>
-</tr>
-<tr>
-<td>EV/EBITDA</td>
-<td>14.78</td>
-<td>Elevated valuation relative to earnings</td>
+<td>23.20</td>
+<td>~20-25</td>
+<td>Valuation in line but risky</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>374%</td>
-<td>Likely data anomaly; requires caution</td>
+<td>~2-4%</td>
+<td>Data anomaly, likely unsustainable</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Investment Recommendation:</strong><br />
-Given the <strong>persistent low Z-Score in the Distress/Gray Zone</strong>, <strong>negative working capital</strong>, and <strong>low profitability</strong>, a <strong>conservative investor should consider a SELL or AVOID stance</strong> until clear financial recovery signals emerge. Growth or aggressive investors should exercise extreme caution, as risk factors dominate. Monitoring for operational turnaround or restructuring is critical before re-entry.</p>
+Given the <strong>critical distress signals</strong> and <strong>negative risk trajectory</strong>, a <strong>conservative investor should avoid initiating new positions</strong> and consider <strong>divestment or hold with caution</strong>. For aggressive investors, speculative entry could be timed only if operational turnarounds or restructuring announcements emerge. Overall, <strong>high risk and low confidence</strong> due to poor financial health and data anomalies (e.g., dividend yield) warrant a <strong>hold/sell stance</strong> until material improvements occur.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -537,7 +621,7 @@ Given the <strong>persistent low Z-Score in the Distress/Gray Zone</strong>, <st
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark*</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -546,41 +630,40 @@ Given the <strong>persistent low Z-Score in the Distress/Gray Zone</strong>, <st
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: N/A (Working Capital Ratio: -0.004)</td>
-<td>Typical &gt;1.0 for Restaurants</td>
-<td><strong>Severe liquidity weakness</strong>; negative working capital ratio indicates inability to cover short-term liabilities</td>
-<td>Declining/Stable at weak level</td>
+<td>&gt;1.0 (Positive)</td>
+<td><strong>Severe liquidity weakness</strong>, negative working capital ratio indicates potential cash flow stress</td>
+<td>Declining/Stable at low level</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Not provided)</td>
-<td>Industry avg ~1.0-1.5</td>
-<td>Unable to assess fully; likely elevated given distress signals</td>
-<td>Unknown</td>
+<td>Debt-to-Equity: N/A (Data missing) <br> Interest Coverage: N/A</td>
+<td>Industry avg moderate leverage</td>
+<td>Insufficient data but Z-Score distress implies high leverage or poor coverage</td>
+<td>Unknown, likely negative</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.085; EBIT Ratio: 0.017</td>
-<td>Industry avg Asset Turnover ~0.5-1.0; EBIT Ratio ~0.1-0.15</td>
-<td><strong>Very low asset utilization and profitability</strong>; operational inefficiency evident</td>
-<td>Stable low</td>
+<td>Asset Turnover: 0.085 <br> EBIT Ratio: 0.017</td>
+<td>Asset Turnover ~0.5+ <br> EBIT Ratio ~0.05+</td>
+<td><strong>Very low asset utilization and profitability</strong>, indicating operational inefficiency</td>
+<td>Stable but weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.073</td>
-<td>Industry avg ~0.2-0.3</td>
-<td><strong>Low retained earnings relative to assets</strong>; limited internal capital buffer</td>
-<td>Stable low</td>
+<td>Higher preferred (&gt;0.2)</td>
+<td>Low retained earnings ratio signals limited reinvestment and weak equity buffer</td>
+<td>Stable but low</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks based on typical restaurant sector financials.</p>
 <p><strong>Interpretive Commentary:</strong><br />
-- The <strong>negative working capital ratio (-0.004)</strong> is a critical red flag, indicating QSR may struggle to meet short-term obligations, increasing liquidity risk.<br />
-- The <strong>EBIT ratio of 0.017</strong> is substantially below industry norms, reflecting weak operating profitability and potential margin pressures.<br />
-- <strong>Asset turnover at 0.085</strong> is markedly low, suggesting inefficient use of assets to generate sales, possibly due to underperforming segments or excess capacity.<br />
-- The <strong>retained earnings ratio of 0.073</strong> signals limited reinvested earnings, constraining growth and financial stability.<br />
-- Absence of debt-to-equity data limits leverage risk assessment, but the distress Z-Score implies elevated leverage or poor capital structure.<br />
-- <strong>AI Data Quality Assessment</strong> indicates no anomalies detected in financial data completeness, but market data anomalies (e.g., dividend yield) reduce confidence in valuation metrics.</p>
+- The <strong>negative working capital ratio (-0.004)</strong> is a critical red flag, suggesting the company struggles to meet short-term obligations, which aligns with the <strong>Distress Zone Z-Score (0.54)</strong>.<br />
+- The <strong>EBIT ratio of 0.017</strong> is significantly below industry norms, indicating poor operating profitability, which undermines the company’s ability to generate internal cash flow.<br />
+- The <strong>asset turnover of 0.085</strong> is extremely low, reflecting inefficient use of assets to generate sales, a concern in the competitive restaurant sector where operational efficiency drives margins.<br />
+- The <strong>retained earnings ratio at 7.3%</strong> is low, limiting the company’s capacity to absorb losses or fund growth internally.<br />
+- The <strong>AI Data Quality Assessment</strong> notes no anomalies in financial data completeness, but the dividend yield anomaly (374%) suggests possible reporting or extraordinary event distortions, reducing confidence in dividend sustainability.<br />
+- Sector context (Consumer Cyclical, Restaurants) demands strong liquidity and operational efficiency due to competitive pressures and consumer spending variability, which QSR currently lacks.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -598,66 +681,24 @@ Given the <strong>persistent low Z-Score in the Distress/Gray Zone</strong>, <st
 <td>Current (Q8)</td>
 <td>0.54</td>
 <td>Gray Zone</td>
-<td>Low EBIT/Assets, Negative WC</td>
+<td>Low EBIT, negative working capital, low asset turnover</td>
 <td>Ongoing operational challenges, possible restructuring</td>
 </tr>
 <tr>
-<td>Q7</td>
-<td>0.60</td>
-<td>Gray Zone</td>
-<td>Slightly better EBIT, stable WC</td>
-<td>Marginal operational improvements</td>
-</tr>
-<tr>
-<td>Q6</td>
-<td>0.54</td>
-<td>Gray Zone</td>
-<td>EBIT decline, liquidity pressure</td>
-<td>Market pressures, competitive dynamics</td>
-</tr>
-<tr>
-<td>Q5</td>
-<td>0.60</td>
-<td>Gray Zone</td>
-<td>EBIT and WC stable</td>
-<td>No significant recovery</td>
-</tr>
-<tr>
-<td>Q4</td>
-<td>0.40</td>
-<td>Distress</td>
-<td>Sharp EBIT drop, liquidity stress</td>
-<td>Possible one-time charges or market shock</td>
-</tr>
-<tr>
-<td>Q3</td>
-<td>0.57</td>
-<td>Gray Zone</td>
-<td>EBIT recovery attempt</td>
-<td>Operational adjustments</td>
-</tr>
-<tr>
-<td>Q2</td>
-<td>0.56</td>
-<td>Gray Zone</td>
-<td>Stable but low profitability</td>
-<td>Market headwinds persist</td>
-</tr>
-<tr>
-<td>Q1</td>
-<td>0.49</td>
-<td>Distress</td>
-<td>Weak EBIT, negative WC</td>
-<td>Early signs of distress</td>
+<td>Previous Quarters (Q1-Q7)</td>
+<td>0.40 - 0.60</td>
+<td>Distress/Gray Zone</td>
+<td>Consistently low profitability, weak liquidity</td>
+<td>No significant recovery, persistent distress</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-- The Z-Score has <strong>persistently hovered below 1.0</strong>, well within the <strong>Distress (&lt;1.8) and Gray (1.8-3.0) Zones</strong>, indicating chronic financial distress.<br />
-- The <strong>lowest point (0.40)</strong> corresponds to a period of acute operational or market stress, possibly linked to external shocks or internal restructuring.<br />
-- The <strong>lack of meaningful upward trend</strong> suggests no sustained recovery, with EBIT and working capital remaining weak drivers.<br />
-- <strong>Business segments (Tim Hortons, Burger King, Popeyes, Firehouse Subs)</strong> may be underperforming or facing competitive pressure, impacting asset utilization and profitability.<br />
-- Compared to <strong>industry average Z-Scores typically &gt;2.5</strong>, QSR’s position is precarious, highlighting urgent need for strategic turnaround.</p>
+- The Z-Score has remained <strong>consistently below 1.0 over eight quarters</strong>, oscillating between Distress and Gray Zones, indicating <strong>no meaningful financial recovery</strong>.<br />
+- Key drivers such as <strong>negative working capital and low EBIT ratio</strong> have persistently depressed the score.<br />
+- Lack of improvement suggests either operational stagnation or ineffective strategic initiatives.<br />
+- Compared to the <strong>industry average Z-Score (~2.5)</strong>, QSR is significantly underperforming, highlighting competitive disadvantage.<br />
+- Business events such as brand portfolio management (Tim Hortons, Burger King, Popeyes) have not translated into improved financial health, possibly due to market saturation or cost pressures.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -673,33 +714,33 @@ Given the <strong>persistent low Z-Score in the Distress/Gray Zone</strong>, <st
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Persistently low (0.40-0.60)</td>
-<td>Price stable at $68.92</td>
+<td>Persistently low (0.54)</td>
+<td>Stable price at $68.47</td>
 <td>Divergent</td>
-<td>Market price does not reflect distress; potential overvaluation risk</td>
+<td>Market may be underestimating risk or awaiting news</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral/Unavailable</td>
-<td>P/E 23.36 moderate</td>
+<td>Negative (AI Sentiment)</td>
+<td>P/E 23.20 (neutral)</td>
 <td>Inconsistent</td>
-<td>Sentiment unclear; data anomalies reduce confidence</td>
+<td>Market valuation not fully reflecting distress</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry avg</td>
-<td>Sector performance mixed</td>
 <td>Underperforming</td>
-<td>Competitive disadvantage; caution advised</td>
+<td>Sector performing better</td>
+<td>Divergent</td>
+<td>Competitive weakness evident</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-- The <strong>stable stock price ($68.92) despite low Z-Score</strong> suggests a disconnect between fundamental distress signals and market valuation, possibly due to investor optimism or delayed market reaction.<br />
-- The <strong>P/E ratio of 23.36</strong> is moderate but may be inflated relative to weak earnings (EBIT ratio 0.017), indicating potential overvaluation.<br />
-- <strong>Dividend yield of 374%</strong> is likely a data anomaly, undermining yield-based valuation confidence.<br />
-- Lack of volatility and zero RSI indicate either market inactivity or data issues, limiting technical analysis reliability.<br />
-- The divergence between <strong>Z-Score distress and stable price</strong> suggests investors should be cautious of a potential price correction if fundamentals worsen.</p>
+- The <strong>stable stock price ($68.47)</strong> despite distress-level Z-Scores suggests a <strong>disconnect between fundamental risk and market pricing</strong>, possibly due to investor optimism or delayed market reaction.<br />
+- The <strong>P/E ratio of 23.20</strong> is within normal range, but given the financial distress, this valuation appears <strong>overly optimistic</strong>.<br />
+- The <strong>dividend yield anomaly (374%)</strong> is likely a data error or extraordinary event, but if real, it signals unsustainable payout risking further financial strain.<br />
+- Peer companies in the restaurant sector show healthier fundamentals and better market performance, reinforcing QSR’s relative weakness.<br />
+- This divergence suggests a <strong>market timing opportunity for risk-averse investors to avoid or exit</strong>, while speculative investors might monitor for catalysts.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -718,32 +759,31 @@ Given the <strong>persistent low Z-Score in the Distress/Gray Zone</strong>, <st
 <td>High</td>
 <td>Critical</td>
 <td>Significant decline</td>
-<td>Cost reduction, operational restructuring</td>
+<td>Operational restructuring, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Further Z-Score decline</td>
-<td>Debt refinancing, liquidity management</td>
+<td>Further Z-Score drop</td>
+<td>Debt refinancing, liquidity improvement</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Price volatility, valuation risk</td>
+<td>Volatility in valuation</td>
 <td>Hedging, diversification</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Operational risks</strong> such as declining sales or margin compression are highly probable and critically impact EBIT and working capital, directly lowering Z-Score.<br />
-- <strong>Financial risks</strong> include liquidity crunch and potential covenant breaches, with high severity potentially pushing Z-Score below 0.4, increasing bankruptcy risk.<br />
-- <strong>Market risks</strong> are moderate but could exacerbate financial distress through valuation shocks or investor sentiment shifts.<br />
-- <strong>Best case scenario:</strong> Operational improvements and cost control stabilize EBIT ratio above 0.05, lifting Z-Score toward 1.0 (still distress zone but improving).<br />
-- <strong>Base case:</strong> Status quo with Z-Score fluctuating 0.4-0.6, ongoing distress risk.<br />
-- <strong>Worst case:</strong> Further EBIT deterioration and liquidity stress push Z-Score below 0.4, triggering bankruptcy risk.<br />
-- Mitigation requires aggressive operational turnaround and financial restructuring.</p>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Operational turnaround improves EBIT ratio to &gt;0.05, working capital stabilizes, Z-Score rises above 1.8 (Gray Zone), reducing bankruptcy risk.<br />
+- <strong>Base Case:</strong> Status quo persists, Z-Score remains ~0.5, maintaining distress risk and market undervaluation.<br />
+- <strong>Worst Case:</strong> Liquidity crisis triggers bankruptcy risk, Z-Score falls below 0.4, leading to severe market devaluation and potential default.</p>
+<p><strong>Bankruptcy Risk:</strong><br />
+- Based on the <strong>Z-Score consistently below 1.8</strong>, bankruptcy risk is <strong>high</strong>, requiring urgent mitigation.<br />
+- Liquidity stress testing implied by negative working capital ratio confirms vulnerability to short-term shocks.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -761,51 +801,50 @@ Given the <strong>persistent low Z-Score in the Distress/Gray Zone</strong>, <st
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>SELL</strong></td>
-<td>Z-Score persistently &lt;1.0 indicates high bankruptcy risk</td>
-<td>Avoid entry until Z-Score &gt;1.8</td>
-<td>Immediate</td>
+<td><strong>SELL/HOLD</strong></td>
+<td>Z-Score 0.54 in Distress/Gray Zone, high bankruptcy risk</td>
+<td>Avoid entry, monitor for recovery</td>
+<td>Immediate review, exit if no improvement in 2 quarters</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>HOLD/AVOID</strong></td>
-<td>Dividend yield data unreliable; earnings weak</td>
-<td>Wait for stable cash flow signals</td>
-<td>6-12 months</td>
+<td><strong>SELL</strong></td>
+<td>Dividend yield anomaly, unsustainable payout risk</td>
+<td>Avoid due to payout risk</td>
+<td>Immediate exit recommended</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>SELL/HOLD</strong></td>
-<td>Valuation (P/E 23.36) not supported by Z-Score distress</td>
-<td>Monitor for price correction</td>
-<td>3-6 months</td>
+<td><strong>HOLD</strong></td>
+<td>Valuation not supported by fundamentals, Z-Score low</td>
+<td>Wait for Z-Score &gt;1.8</td>
+<td>Reassess quarterly</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td><strong>AVOID</strong></td>
-<td>Low EBIT and asset turnover undermine growth prospects</td>
-<td>No momentum; avoid entry</td>
+<td>Poor operational metrics, no growth signal</td>
+<td>No momentum</td>
 <td>N/A</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>SPECULATIVE BUY</strong> only if turnaround signs emerge</td>
-<td>High risk/reward; Z-Score volatile near distress</td>
-<td>Opportunistic entry on positive catalyst</td>
-<td>Monitor closely</td>
+<td><strong>SPECULATIVE BUY</strong></td>
+<td>Potential turnaround if operational improvements occur</td>
+<td>Monitor for catalysts</td>
+<td>Entry only on positive news</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Detailed Commentary:</strong><br />
-- <strong>Conservative investors</strong> should exit or avoid QSR due to persistent distress signals and negative liquidity.<br />
-- <strong>Dividend investors</strong> face uncertainty due to anomalous yield data and weak earnings; hold only if dividend sustainability confirmed.<br />
-- <strong>Value investors</strong> should be cautious; current price may not reflect underlying financial weakness.<br />
-- <strong>Growth investors</strong> lack fundamental support given low EBIT and asset turnover; avoid until operational metrics improve.<br />
-- <strong>Aggressive investors</strong> may consider speculative positions only if clear operational turnaround or restructuring announcements occur, with tight risk controls.</p>
+<p><strong>Commentary:</strong><br />
+- The <strong>low Z-Score and poor financial health</strong> strongly discourage new investments for conservative and dividend-focused investors.<br />
+- Value investors may hold but should demand clear signs of financial stabilization.<br />
+- Growth and aggressive investors face high risk; speculative positions should be sized small and timed with operational or strategic announcements.<br />
+- The <strong>dividend yield anomaly (374%)</strong> is a red flag, suggesting unsustainable payouts or data errors, advising caution.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -822,31 +861,31 @@ Given the <strong>persistent low Z-Score in the Distress/Gray Zone</strong>, <st
 <tr>
 <td>CEO Leadership</td>
 <td>Operational turnaround</td>
-<td>EBIT Ratio (0.017), Asset Turnover (0.085)</td>
-<td>Focus on cost optimization, brand revitalization</td>
-<td>EBIT improvement &gt;0.05, Z-Score &gt;1.0</td>
+<td>EBIT Ratio, Asset Turnover</td>
+<td>Implement cost controls, improve asset use</td>
+<td>EBIT &gt; 0.05, Asset Turnover &gt; 0.3</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
 <td>Liquidity &amp; capital structure</td>
-<td>Working Capital Ratio (-0.004), Debt levels</td>
-<td>Restructure debt, improve working capital management</td>
-<td>Positive working capital, improved credit metrics</td>
+<td>Working Capital Ratio, Debt Levels</td>
+<td>Restructure debt, improve cash flow management</td>
+<td>Positive working capital, reduced leverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; compliance</td>
-<td>Z-Score trend, risk factors</td>
-<td>Enhance risk monitoring, approve turnaround plans</td>
-<td>Stabilized Z-Score, reduced risk alerts</td>
+<td>Risk oversight &amp; transparency</td>
+<td>Z-Score, Risk Indicators</td>
+<td>Enhance risk reporting, monitor financial health</td>
+<td>Z-Score improvement, risk reduction</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-- CEO must prioritize operational efficiency improvements to lift EBIT and asset utilization.<br />
-- CFO should aggressively manage liquidity and capital structure to reduce financial distress risk.<br />
-- Board must ensure governance frameworks address elevated risk and oversee turnaround execution.<br />
-- Alignment of strategic initiatives with Z-Score improvement targets is critical for restoring investor confidence.</p>
+- The <strong>CEO must prioritize operational efficiency</strong>, targeting EBIT and asset turnover improvements to drive Z-Score recovery.<br />
+- The <strong>CFO should focus on liquidity enhancement and debt management</strong> to alleviate distress signals.<br />
+- The <strong>Board must enforce rigorous risk governance</strong>, ensuring transparency and proactive risk mitigation aligned with AI Risk Analysis findings.<br />
+- Market perception management is critical to align stock price with fundamental realities and restore investor confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -862,37 +901,37 @@ Given the <strong>persistent low Z-Score in the Distress/Gray Zone</strong>, <st
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable low (~0.54)</td>
-<td>Slight improvement possible</td>
-<td>Operational restructuring, cost control</td>
-<td>EBIT ratio, working capital ratio</td>
+<td>Flat/Low (~0.54)</td>
+<td>Slight improvement possible if operational changes occur</td>
+<td>Cost reduction, revenue growth</td>
+<td>Quarterly Z-Score, EBIT ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Below peers</td>
-<td>Potential further decline</td>
-<td>Competitive pressures, market share shifts</td>
-<td>Peer Z-Score, market share data</td>
+<td>Weak relative to peers</td>
+<td>Potential stabilization if turnaround succeeds</td>
+<td>Brand revitalization, market expansion</td>
+<td>Market share, peer comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>High distress risk</td>
-<td>Persistent unless mitigated</td>
-<td>Debt refinancing, macroeconomic conditions</td>
-<td>Liquidity ratios, debt covenants</td>
+<td>Risk remains elevated without intervention</td>
+<td>Debt refinancing, liquidity events</td>
+<td>Working capital, debt ratios</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-- Without significant operational or financial restructuring, QSR’s Z-Score is unlikely to exit the distress zone in the next 6-12 months.<br />
-- Key catalysts for positive change include successful cost-cutting, brand revitalization, and debt restructuring.<br />
-- Continuous monitoring of EBIT ratio and working capital will provide early warning signals for risk escalation or recovery.<br />
-- Investors should watch for inflection points in Z-Score trajectory as leading indicators of turnaround success or failure.</p>
+- Without significant operational and financial restructuring, QSR’s <strong>Z-Score is unlikely to improve beyond the Gray Zone</strong> in the next 6-12 months.<br />
+- Key catalysts include <strong>successful cost control, improved profitability, and liquidity enhancement</strong>.<br />
+- Early warning signals such as further declines in working capital or EBIT should trigger immediate strategic reassessment.<br />
+- Investors and management should monitor <strong>leading indicators</strong> such as quarterly Z-Score changes, cash flow trends, and debt servicing capacity to anticipate risk escalation or recovery.</p>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>QSR is currently in a <strong>financial distress state</strong> with a <strong>persistently low Altman Z-Score (~0.54)</strong>, negative liquidity, and weak profitability. Market valuation appears disconnected from fundamentals, increasing downside risk. Investors should exercise caution, with conservative profiles advised to sell or avoid, and aggressive profiles only speculating on clear turnaround signals. Strategic focus on operational efficiency and financial restructuring is critical for recovery. Continuous monitoring of key financial ratios and Z-Score momentum is essential for timely investment decisions.</p>
+<h1 id="summary"><strong>Summary:</strong></h1>
+<p>QSR is currently in a <strong>financial distress state</strong>, with a persistently low Altman Z-Score (~0.54) signaling high bankruptcy risk. Operational inefficiencies, negative liquidity, and weak profitability compound the risk. Market pricing appears disconnected from fundamentals, creating potential timing risks. Conservative investors should avoid or divest, while speculative investors may consider small positions contingent on clear turnaround signals. Management must urgently address operational and financial weaknesses to restore stability and investor confidence.</p>
 <hr />
-<p><em>This analysis integrates all injected data elements explicitly, cross-validates financial health with Z-Score trends, incorporates risk and market signals, and provides actionable investment intelligence aligned with AI-powered Altman Z-Score framework standards.</em></p></div></div>
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating multi-dimensional financial data, market intelligence, and risk stratification for actionable investment guidance.</em></p></div></div>
     </div>
     
 
@@ -1235,78 +1274,41 @@ Given the <strong>persistent low Z-Score in the Distress/Gray Zone</strong>, <st
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:40 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:07 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>ANSYS, Inc. (ANSS)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:14 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:38 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -349,9 +421,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="ANSS_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="ANSS_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -365,7 +437,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">12.20</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">12.14</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -414,11 +486,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$367.48</p>
+                <p>$$365.63</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$32.3B</p>
+                <p>$$32.1B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -434,7 +506,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>77.9</p>
+                <p>85.1</p>
             </div>
         </div>
     </div>
@@ -448,7 +520,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.36</p>
+                <p>0.38</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -469,76 +541,60 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> ANSS (ANSYS, Inc.)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:14:33  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:38:27  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>ANSYS, Inc. (ANSS) demonstrates an exceptionally strong financial position as evidenced by its consistently high Altman Z-Scores over the past eight quarters, all well above the safe threshold of 3.0, with the latest quarter showing a Z-Score of <strong>12.78</strong>, categorizing the company firmly in the <strong>Safe Zone</strong>. This robust Z-Score trajectory indicates minimal bankruptcy risk and strong operational resilience.</p>
-<p><strong>AI Risk Analysis</strong>: While explicit risk scores were not injected, the absence of distress signals and the stable high Z-Score imply a <strong>low overall risk level</strong> with a <strong>stable to positive risk trajectory</strong>. This is supported by the company’s strong retained earnings ratio of <strong>0.741</strong>, indicating solid accumulated profitability.</p>
-<p><strong>AI Peer Analysis</strong>: ANSS’s Z-Score far exceeds typical industry averages for the Technology sector, particularly within the Software - Application industry, where average Z-Scores generally range between 3.5 and 5.0. This relative positioning confirms ANSS as a leader in financial health among its peers.</p>
-<p><strong>AI Sentiment Analysis</strong>: Market sentiment metrics are limited due to zero volatility and volume data, but the high P/E ratio of <strong>54.44</strong> suggests market expectations of strong future growth, albeit at a premium valuation. The zero dividend yield aligns with growth-focused investor sentiment.</p>
-<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<p>ANSYS, Inc. demonstrates a consistently <strong>Safe Zone</strong> Altman Z-Score profile with values ranging from <strong>11.37 to 12.90</strong> over the past eight quarters, significantly above the distress threshold of 1.8 and the gray zone upper bound of 3.0. This exceptional financial health is supported by a <strong>stable risk trajectory</strong> indicating minimal bankruptcy risk. Based on the <strong>AI Risk Analysis overall risk level</strong> (implicitly low given Z-Score and no anomalies reported), the company exhibits a robust operational and financial foundation.</p>
+<p><strong>AI Peer Analysis</strong> positions ANSS well above the typical industry average Z-Score (generally around 3.0 for software application firms), indicating superior financial resilience relative to peers such as MSFT, ADBE, and ORCL. This strong relative positioning supports a confident investment stance.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are limited due to zero volatility and beta reported, but the high P/E ratio of <strong>54.41</strong> and EV/EBITDA of <strong>34.06</strong> suggest market expectations of sustained growth, albeit at a premium valuation. The absence of dividends (0.00% yield) aligns with a growth-focused business model.</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
+<th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Industry Benchmark / Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>12.78</td>
-<td>Industry average ~3.5 - 5.0</td>
+<td>12.72 (Safe Zone)</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$32.3B</td>
-<td>Large-cap technology company</td>
+<td>$32.14B</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$367.48</td>
-<td>Reflects premium valuation</td>
+<td>$365.63</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>54.41</td>
+</tr>
+<tr>
+<td>Debt-to-Equity</td>
+<td>Not explicitly provided, but implied low leverage</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.259</td>
-<td>Below typical healthy benchmark (~1.0)</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.741</td>
-<td>Strong profitability retention</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.007</td>
-<td>Low EBIT margin, typical for software</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.063</td>
-<td>Low, consistent with software sector</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>54.44</td>
-<td>High, growth premium valuation</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>0.00%</td>
-<td>Growth-oriented, no dividends</td>
 </tr>
 </tbody>
 </table>
-<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
-<ul>
-<li><strong>Buy/Hold</strong>: Given the extremely strong Z-Score and low risk profile, ANSS is a <strong>buy or hold</strong> candidate for investors with medium to high risk tolerance seeking growth exposure in the software sector.</li>
-<li><strong>Caution on Valuation</strong>: The high P/E ratio suggests valuation risk; investors should monitor for market corrections or earnings disappointments.</li>
-<li><strong>Monitor Liquidity</strong>: The working capital ratio of 0.259 is low, warranting monitoring of short-term liquidity despite strong overall financial health.</li>
-</ul>
+<p><strong>Investment Recommendation:</strong><br />
+Given the <strong>strong Altman Z-Score</strong>, low financial distress risk, and premium valuation reflecting growth expectations, a <strong>HOLD</strong> or <strong>BUY</strong> recommendation is appropriate for investors with a medium to high risk tolerance focused on growth. Conservative investors may prefer to HOLD given valuation levels. The lack of dividend yield suggests income-focused investors should look elsewhere.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -546,7 +602,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark*</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -554,42 +610,42 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A (Working Capital Ratio: 0.259)</td>
-<td>Industry standard ~1.0+</td>
-<td><strong>Weak liquidity</strong>; working capital ratio below 1 indicates potential short-term liquidity constraints</td>
-<td>Stable but low</td>
+<td>Current Ratio: 0.259</td>
+<td>~1.5 - 2.0 (Software Industry)</td>
+<td>Below typical industry liquidity norms; potential liquidity constraint</td>
+<td>Stable/Low</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (No data)</td>
-<td>Peer average varies; typically low leverage in software</td>
-<td>Insufficient data; low leverage likely given high Z-Score and market cap</td>
+<td>Debt-to-Equity: Not provided explicitly; implied low leverage</td>
+<td>Industry avg ~0.3 - 0.5</td>
+<td>Low leverage inferred from Z-Score and retained earnings ratio</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>EBIT Ratio: 0.007; Asset Turnover: 0.063</td>
-<td>EBIT margin ~10-15% typical for software; asset turnover low</td>
-<td><strong>Low EBIT margin and asset turnover</strong>, consistent with software industry norms emphasizing R&amp;D and intangible assets</td>
-<td>Stable</td>
+<td>EBIT margin ~10-15%; Asset Turnover ~0.5</td>
+<td>EBIT ratio very low, asset turnover significantly below industry average</td>
+<td>Stable/Weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.741</td>
-<td>Benchmark &gt;0.5 indicates strong retained earnings</td>
-<td><strong>Strong financial stability</strong> with high retained earnings supporting growth and solvency</td>
+<td>Industry avg ~0.6 - 0.7</td>
+<td>Strong retained earnings accumulation; solid equity base</td>
 <td>Stable</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary">Commentary</h3>
-<ul>
-<li><strong>Liquidity Position</strong>: The working capital ratio of <strong>0.259</strong> is below the typical healthy benchmark of 1.0, suggesting that current assets cover only about 25.9% of current liabilities. However, this is not unusual in software companies with strong cash flows and low physical inventory. The AI Data Quality Assessment indicates no anomalies, so this figure is reliable.</li>
-<li><strong>Leverage Management</strong>: Although explicit debt-to-equity data is missing, the extremely high Z-Score and market capitalization imply low financial leverage and strong equity buffers.</li>
-<li><strong>Operational Efficiency</strong>: EBIT ratio of <strong>0.007</strong> (0.7%) is low, reflecting high investment in R&amp;D and operating expenses typical in the software sector. Asset turnover of <strong>0.063</strong> is low but consistent with the intangible-heavy asset base.</li>
-<li><strong>Financial Stability</strong>: Retained earnings ratio of <strong>0.741</strong> shows strong cumulative profitability and reinvestment, supporting long-term stability.</li>
-</ul>
-<p>The sector context (Technology, Software - Application) explains the low liquidity and operational margins, as companies prioritize innovation and market share over short-term profitability.</p>
+<p>*Industry benchmarks based on Software - Application sector averages.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+- <strong>Liquidity:</strong> The current ratio of <strong>0.259</strong> is notably below typical software industry standards (1.5-2.0), indicating limited short-term liquidity buffer. However, the high Z-Score suggests working capital is managed efficiently relative to total assets, possibly due to low current liabilities or strong cash flow generation.<br />
+- <strong>Leverage:</strong> While explicit debt-to-equity is missing, the high retained earnings ratio (0.741) and strong Z-Score imply low financial leverage, reducing bankruptcy risk.<br />
+- <strong>Operational Efficiency:</strong> EBIT ratio at <strong>0.007</strong> (0.7%) and asset turnover at <strong>0.063</strong> are low, suggesting modest operating profitability and asset utilization. This may reflect high R&amp;D and software development costs typical in the sector, or capital-intensive investments.<br />
+- <strong>Financial Stability:</strong> Retained earnings ratio of <strong>0.741</strong> indicates strong reinvestment and equity growth, supporting long-term stability.</p>
+<p><strong>Data Quality Assessment:</strong><br />
+No anomalies or data inconsistencies were detected, and completeness is high, lending confidence to these interpretations.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -605,66 +661,24 @@
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>12.78</td>
+<td>12.72</td>
 <td>Safe</td>
-<td>Strong equity, low leverage</td>
-<td>Continued strong market position in engineering simulation software</td>
+<td>High retained earnings, low leverage</td>
+<td>Continued strong financial health, stable business model</td>
 </tr>
 <tr>
-<td>Q7</td>
-<td>12.96</td>
+<td>Previous Quarters</td>
+<td>11.37 - 12.90</td>
 <td>Safe</td>
-<td>Stable retained earnings</td>
-<td>Consistent product innovation and market demand</td>
-</tr>
-<tr>
-<td>Q6</td>
-<td>11.49</td>
-<td>Safe</td>
-<td>Slight dip, still robust</td>
-<td>Normal business cycle fluctuations</td>
-</tr>
-<tr>
-<td>Q5</td>
-<td>12.48</td>
-<td>Safe</td>
-<td>Strong asset base</td>
-<td>Expansion in simulation software applications</td>
-</tr>
-<tr>
-<td>Q4</td>
-<td>12.61</td>
-<td>Safe</td>
-<td>Stable working capital</td>
-<td>Steady revenue growth</td>
-</tr>
-<tr>
-<td>Q3</td>
-<td>12.32</td>
-<td>Safe</td>
-<td>Strong EBIT contribution</td>
-<td>Investment in R&amp;D maintaining competitive edge</td>
-</tr>
-<tr>
-<td>Q2</td>
-<td>11.42</td>
-<td>Safe</td>
-<td>Slightly lower market cap</td>
-<td>Market volatility impact</td>
-</tr>
-<tr>
-<td>Q1</td>
-<td>12.20</td>
-<td>Safe</td>
-<td>Strong equity and earnings</td>
-<td>Solid financial management</td>
+<td>Consistent working capital and equity growth</td>
+<td>Stable operational performance, no distress signals</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_1">Commentary</h3>
-<p>The Z-Score has remained consistently in the <strong>Safe Zone</strong> (above 3.0) with values ranging from <strong>11.42 to 12.96</strong> over eight quarters, indicating exceptional financial health and minimal bankruptcy risk. The slight fluctuations correspond with normal business cycles and market conditions but do not indicate any distress.</p>
-<p>The high Z-Score is driven primarily by strong market capitalization and retained earnings, reflecting ANSS’s dominant position in the engineering simulation software market. This is consistent with the company’s business description emphasizing multiphysics simulation technologies.</p>
-<p>Compared to the industry average Z-Score (~3.5-5.0), ANSS’s scores are more than double, underscoring its superior financial resilience.</p>
+<p><strong>Strategic Commentary:</strong><br />
+ANSYS has maintained an exceptionally high Z-Score well above the safe threshold for eight consecutive quarters, indicating robust financial health and negligible bankruptcy risk. The stability in Z-Score values correlates with the company’s steady business operations in engineering simulation software, a sector characterized by long product lifecycles and recurring revenue streams.</p>
+<p>The lack of significant volatility in Z-Score suggests no material shifts in working capital, retained earnings, or EBIT relative to assets. This aligns with the company’s business description emphasizing multiphysics engineering simulation technologies, which likely provide stable cash flows and competitive moat.</p>
+<p>Compared to the <strong>industry average Z-Score (~3.0)</strong>, ANSS’s position is exceptional, reinforcing its leadership and financial resilience.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -680,31 +694,31 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Strong, stable Z-Score (~12.78)</td>
-<td>Price at $367.48, high P/E (54.44)</td>
-<td>Divergent (valuation premium)</td>
-<td>Indicates growth expectations; monitor for valuation risk</td>
+<td>Strong, stable Z-Score &gt; 12</td>
+<td>P/E 54.41, EV/EBITDA 34.06</td>
+<td>Divergent (High valuation vs. strong fundamentals)</td>
+<td>Premium valuation reflects growth expectations; monitor for valuation risk</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>N/A (AI Sentiment unavailable)</td>
-<td>Market shows zero volatility and volume</td>
-<td>Inconclusive</td>
-<td>Market data insufficient; rely on fundamentals</td>
+<td>Neutral (no volatility)</td>
+<td>Market consensus implied positive</td>
+<td>Consistent</td>
+<td>Market expects growth; sentiment stable</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Outperforming peers (Z-Score &gt; industry avg)</td>
+<td>Outperforming (Z-Score &gt;&gt; industry avg)</td>
 <td>Sector performance strong</td>
-<td>Aligned</td>
+<td>Outperforming</td>
 <td>Competitive advantage confirmed</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_2">Commentary</h3>
-<p>The fundamental health indicated by the Z-Score is robust and stable, signaling low bankruptcy risk and strong financial footing. However, the market price reflects a <strong>high valuation premium</strong> (P/E 54.44), which may not fully align with the modest EBIT margin (0.7%), suggesting market optimism about future growth rather than current earnings.</p>
-<p>Technical indicators such as RSI, moving averages, and volume are unavailable or zero, limiting short-term market timing analysis. The lack of volatility and volume data may indicate low trading activity or data gaps.</p>
-<p>Peer comparison confirms ANSS’s superior financial health relative to industry averages, supporting a positive investment outlook despite valuation concerns.</p>
+<p><strong>Market Validation Commentary:</strong><br />
+The fundamental strength indicated by the Z-Score is not fully mirrored in traditional valuation multiples, which are elevated, suggesting the market prices in significant growth potential. The divergence between a very high Z-Score and a high P/E ratio signals investor confidence but also potential valuation risk if growth slows.</p>
+<p>The absence of volatility and beta (both 0.00) may indicate low trading activity or data gaps; however, the large market cap ($32.14B) and stable share count support institutional investor interest.</p>
+<p>Peer benchmarking confirms ANSS’s superior financial health relative to competitors, supporting a positive long-term market outlook.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -722,43 +736,30 @@
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential EBIT margin pressure</td>
-<td>Continue R&amp;D investment; diversify product portfolio</td>
+<td>Potential EBIT ratio decline</td>
+<td>Invest in R&amp;D efficiency, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
 <td>Minor</td>
-<td>Minimal due to strong equity</td>
-<td>Maintain conservative leverage; monitor liquidity</td>
+<td>Minimal due to low leverage</td>
+<td>Maintain conservative capital structure</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
 <td>Valuation correction risk</td>
-<td>Hedge via options; monitor market sentiment</td>
-</tr>
-<tr>
-<td>Technological Risks</td>
-<td>Medium</td>
-<td>Moderate</td>
-<td>Innovation obsolescence risk</td>
-<td>Invest in continuous innovation; strategic partnerships</td>
+<td>Monitor market multiples, diversify holdings</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_3">Commentary</h3>
-<ul>
-<li><strong>Operational Risks</strong>: Moderate probability due to competitive pressure and need for ongoing innovation. EBIT margin is low (0.7%), so any operational inefficiency could impact profitability and Z-Score.</li>
-<li><strong>Financial Risks</strong>: Low probability and severity given the strong Z-Score and retained earnings. Liquidity is low but manageable.</li>
-<li><strong>Market Risks</strong>: Medium risk of valuation correction given the high P/E ratio (54.44). Market sentiment could shift, affecting stock price despite strong fundamentals.</li>
-<li><strong>Technological Risks</strong>: Medium risk due to rapid industry evolution. ANSS must sustain innovation to maintain leadership.</li>
-</ul>
-<p><strong>Scenario Planning</strong>:<br />
-- <strong>Best Case</strong>: Continued innovation and market expansion increase EBIT margin and asset turnover, pushing Z-Score higher.<br />
-- <strong>Base Case</strong>: Stable financials with minor fluctuations in EBIT margin and market valuation, maintaining Z-Score above 10.<br />
-- <strong>Worst Case</strong>: Market correction or operational setbacks reduce EBIT margin and market cap, lowering Z-Score toward 5-7 but still in safe zone.</p>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Continued strong revenue growth and operational efficiency improvements could push Z-Score above 13, reinforcing investment confidence.<br />
+- <strong>Base Case:</strong> Stable Z-Score around 12.5-13 with steady EBIT and retained earnings growth, consistent with current trajectory.<br />
+- <strong>Worst Case:</strong> Operational setbacks or market valuation corrections could pressure EBIT margins and investor sentiment, potentially lowering Z-Score toward 10-11 but still within safe zone.</p>
+<p>Bankruptcy risk remains negligible given current metrics. Liquidity stress is a minor concern due to low current ratio but offset by strong equity and cash flows.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -777,53 +778,49 @@
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score 12.78 indicates very low risk</td>
-<td>High valuation caution</td>
-<td>Monitor quarterly results</td>
+<td>Z-Score stable &gt;12; low distress risk</td>
+<td>High valuation; wait for pullback</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>NOT RECOMMENDED</td>
-<td>Zero dividend yield</td>
-<td>N/A</td>
+<td>SELL</td>
+<td>No dividend yield; growth focus</td>
+<td>Not suitable for income</td>
 <td>N/A</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>HOLD</td>
-<td>Premium valuation (P/E 54.44)</td>
-<td>Wait for valuation dips</td>
-<td>6-12 months</td>
+<td>Premium multiples; Z-Score supports value retention</td>
+<td>Monitor for valuation dips</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>BUY</td>
-<td>Strong Z-Score supports growth thesis</td>
-<td>Momentum positive</td>
+<td>Strong Z-Score and growth expectations</td>
+<td>Momentum positive; high P/E justified</td>
 <td>Immediate to 6 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>BUY</td>
-<td>High Z-Score with moderate valuation risk</td>
-<td>Volatility low, monitor</td>
+<td>Low risk of distress; high growth potential</td>
+<td>Volatility low; entry favorable</td>
 <td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_4">Commentary</h3>
-<ul>
-<li><strong>Conservative investors</strong> should hold due to the company’s strong financial health but be cautious about the high valuation.</li>
-<li><strong>Dividend investors</strong> will find no income opportunity as the dividend yield is 0%.</li>
-<li><strong>Value investors</strong> should wait for potential market corrections to enter at more attractive valuations.</li>
-<li><strong>Growth investors</strong> can buy now, supported by the strong Z-Score and market leadership.</li>
-<li><strong>Aggressive investors</strong> may buy immediately, capitalizing on low volatility and strong fundamentals but should monitor for valuation risks.</li>
-</ul>
-<p>Position sizing should be moderate to reflect valuation premium and liquidity considerations.</p>
+<p><strong>Rationale:</strong><br />
+- Conservative investors should hold due to premium valuation and low liquidity ratio.<br />
+- Dividend investors are advised to sell or avoid due to zero yield.<br />
+- Value investors may hold and watch for price corrections to initiate buys.<br />
+- Growth and aggressive investors can buy now, capitalizing on strong fundamentals and growth prospects.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -839,29 +836,29 @@
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Innovation &amp; Market Expansion</td>
-<td>Retained Earnings Ratio (0.741), Z-Score (12.78)</td>
-<td>Invest in R&amp;D, expand simulation software capabilities</td>
-<td>Revenue growth, Z-Score stability</td>
+<td>Sustain innovation and growth</td>
+<td>Retained Earnings Ratio (0.741), EBIT Ratio (0.007)</td>
+<td>Focus on R&amp;D efficiency, expand simulation tech</td>
+<td>Revenue growth, EBIT margin improvement</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Financial Stability &amp; Liquidity</td>
-<td>Working Capital Ratio (0.259), EBIT Ratio (0.007)</td>
-<td>Optimize working capital management, control operating expenses</td>
-<td>Improved liquidity ratios, EBIT margin</td>
+<td>Optimize liquidity and capital</td>
+<td>Current Ratio (0.259), Debt-to-Equity (low)</td>
+<td>Improve working capital management, maintain low leverage</td>
+<td>Improved liquidity ratios, stable Z-Score</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk Oversight &amp; Compliance</td>
-<td>Z-Score trend, Market Cap ($32.3B)</td>
-<td>Monitor risk factors, ensure compliance with financial policies</td>
-<td>Risk mitigation, regulatory compliance</td>
+<td>Risk oversight and compliance</td>
+<td>Z-Score trend, Risk factors</td>
+<td>Monitor risk scenarios, ensure governance on financial controls</td>
+<td>Compliance adherence, risk mitigation effectiveness</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_5">Commentary</h3>
-<p>Executive leadership should leverage the strong Z-Score and retained earnings to fuel innovation and market expansion, ensuring sustained competitive advantage. The CFO should focus on improving liquidity and operational efficiency to support financial stability. The Board must maintain oversight on risk factors, especially market valuation risks and technological disruption, ensuring governance frameworks are robust.</p>
+<p><strong>Executive Commentary:</strong><br />
+The leadership team should prioritize operational efficiency to improve EBIT margins while maintaining the strong equity base reflected in retained earnings. CFO focus on liquidity improvement is critical given the low current ratio, ensuring operational flexibility. The board must oversee risk management, particularly market valuation risks and operational execution.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -877,37 +874,37 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable, high (~12.78)</td>
-<td>Stable to slightly improving</td>
-<td>New product launches, market expansion</td>
-<td>Quarterly Z-Score updates, EBIT margin</td>
+<td>Stable ~12.7</td>
+<td>Slight upward</td>
+<td>Revenue growth, cost control</td>
+<td>Quarterly Z-Score updates</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Leading in simulation software</td>
+<td>Strong relative to peers</td>
 <td>Maintain leadership</td>
-<td>Industry growth, partnerships</td>
-<td>Market share, competitor Z-Scores</td>
+<td>Product innovation, market share</td>
+<td>Market share data, peer Z-Scores</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low overall risk</td>
-<td>Stable, with vigilance on valuation</td>
-<td>Market volatility, innovation pace</td>
-<td>P/E ratio, liquidity ratios, R&amp;D spend</td>
+<td>Low</td>
+<td>Stable to slightly higher</td>
+<td>Market volatility, operational risks</td>
+<td>Volatility indices, EBIT margin</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_6">Commentary</h3>
-<p>The Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, driven by ongoing innovation and market demand for engineering simulation software. Key catalysts include new product introductions and strategic partnerships.</p>
-<p>Investors should monitor quarterly Z-Score updates, EBIT margin trends, and valuation metrics such as P/E ratio to anticipate inflection points. Early warning signals include any significant drop in retained earnings ratio or working capital ratio, which could presage liquidity stress.</p>
+<p><strong>Forward-Looking Commentary:</strong><br />
+ANSYS’s Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, driven by continued innovation and market demand for engineering simulation software. Key catalysts include successful product launches and operational efficiency gains.</p>
+<p>Risk monitoring should focus on potential market valuation corrections and operational execution risks. Early warning indicators include declining EBIT margins, liquidity stress, or peer Z-Score deterioration.</p>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>ANSYS, Inc. (ANSS) stands out as a financially robust, low-risk investment within the Technology sector, supported by an exceptionally high Altman Z-Score consistently above 11.4 over eight quarters. Despite a low working capital ratio and modest EBIT margin typical of its industry, the company’s strong retained earnings and market capitalization underpin its financial stability.</p>
-<p>Investors with growth and aggressive profiles are recommended to buy or hold, while conservative and value investors should monitor valuation levels closely. The absence of dividends limits appeal to income-focused investors.</p>
-<p>Strategic focus on innovation, liquidity management, and risk oversight will be critical to sustaining ANSS’s market leadership and financial health. Forward-looking indicators suggest stable to improving Z-Score momentum, with key monitoring metrics identified for proactive risk management.</p>
+<h1 id="summary-conclusion"><strong>Summary Conclusion:</strong></h1>
+<p>ANSYS, Inc. exhibits exceptional financial health with an Altman Z-Score consistently above 11, indicating negligible bankruptcy risk and strong operational stability. Despite a low liquidity ratio and modest EBIT margins, the company’s retained earnings strength and low leverage underpin a robust financial foundation. Market valuation is elevated, reflecting growth expectations, which introduces some risk for valuation correction.</p>
+<p>Investment recommendations favor growth and aggressive profiles for immediate buying, while conservative and value investors should consider holding and monitoring for better entry points. Dividend investors are advised to avoid due to zero yield.</p>
+<p>Strategic focus on improving liquidity and operational efficiency will further enhance financial resilience and shareholder value.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating multi-source financial data and sector context for actionable investment intelligence.</em></p></div></div>
+<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Framework on 2025-07-07.</em></p></div></div>
     </div>
     
 
@@ -1250,78 +1247,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:14 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:38 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

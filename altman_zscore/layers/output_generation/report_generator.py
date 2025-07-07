@@ -45,16 +45,18 @@ class ReportGenerator:
         zscore_result: ZScoreCalculationResult,
         ai_insights: Optional[str] = None,  # Legacy parameter - now uses ai_analysis.llm_final_commentary
         market_analysis = None,
-        ai_analysis = None
+        ai_analysis = None,
+        zscore_results = None  # Multiple Z-score results for bankruptcy analysis
     ) -> str:
         """
         Generate comprehensive HTML report enhanced with market analysis and AI analysis.
         
         Args:
-            zscore_result: Z-Score calculation result
+            zscore_result: Primary Z-Score calculation result
             ai_insights: Optional AI-generated insights (DEPRECATED - using ai_analysis.llm_final_commentary)
             market_analysis: Optional market analysis results for enhanced insights
             ai_analysis: Optional comprehensive AI analysis results
+            zscore_results: Optional list of Z-Score results for bankruptcy progression analysis
             
         Returns:
             str: Path to generated HTML report
@@ -64,8 +66,16 @@ class ReportGenerator:
             ticker_dir.mkdir(exist_ok=True)
             
             report_path = ticker_dir / f"{zscore_result.ticker}_comprehensive_report.html"
+            
             # Generate report content
-            html_content = self._generate_html_report(zscore_result, ai_insights, market_analysis, ticker_dir, ai_analysis)
+            html_content = self._generate_html_report(
+                zscore_result, 
+                ai_insights, 
+                market_analysis, 
+                ticker_dir, 
+                ai_analysis,
+                zscore_results
+            )
             
             # Write HTML file
             with open(report_path, 'w', encoding='utf-8') as report_file:
@@ -117,7 +127,8 @@ class ReportGenerator:
         ai_insights: Optional[str] = None,
         market_analysis = None,
         output_dir: Path = None,
-        ai_analysis = None
+        ai_analysis = None,
+        zscore_results = None  # Multiple Z-score results for bankruptcy analysis
     ) -> str:
         """Generate HTML report content enhanced with market analysis and AI analysis."""
         
@@ -128,6 +139,11 @@ class ReportGenerator:
         
         template = Template(template_str)
         
+        # Add custom filters for template
+        template.environment.filters['format_market_cap'] = self._format_market_cap
+        template.environment.filters['format_currency'] = self._format_currency
+        template.environment.filters['format_date'] = self._format_date
+        
         # Determine risk class for styling
         risk_class = self._get_risk_class(zscore_result.z_score)
         
@@ -135,6 +151,15 @@ class ReportGenerator:
         model_thresholds = self._get_model_thresholds(zscore_result.model_used)
         model_description = self._get_model_description(zscore_result.model_used)
         
+        # Check if this is a bankruptcy analysis
+        bankruptcy_info = None
+        
+        # Get bankruptcy analysis info from metadata if available
+        if zscore_result.metadata and 'bankruptcy_analysis' in zscore_result.metadata:
+            bankruptcy_info = {
+                'bankruptcy_date': zscore_result.metadata.get('bankruptcy_date', 'Unknown'),
+                'analysis_type': 'Pre-Bankruptcy Analysis'
+            }
         # Prepare base template data
         template_data = {
             'ticker': zscore_result.ticker,
@@ -154,7 +179,9 @@ class ReportGenerator:
             'ai_analysis_html': format_ai_insights_for_html(ai_analysis.llm_final_commentary if ai_analysis and hasattr(ai_analysis, 'llm_final_commentary') else None),  # HTML-formatted comprehensive analysis
             'risk_class': risk_class,
             'generation_date': datetime.now().strftime("%B %d, %Y at %I:%M %p"),
-            'market_analysis': market_analysis
+            'market_analysis': market_analysis,
+            'bankruptcy_info': bankruptcy_info,
+            'zscore_results': zscore_results
         }
         
         # Add simplified AI analysis data if available
@@ -383,18 +410,19 @@ class ReportGenerator:
         else:
             return f"{value:.4f}"
     
-    def _format_currency(self, value: float, suffix: str = "") -> str:
-        """Format currency values with proper comma separators."""
-        if value is None:
+    def _format_currency(self, value: Optional[float], suffix: str = "") -> str:
+        """Format currency values for display."""
+        if not value or value == 0:
             return "N/A"
         
-        # Handle very large numbers (billions)
-        if suffix and value >= 1:
-            return f"{value:,.1f}{suffix}"
-        elif value >= 1000:
-            return f"{value:,.2f}"
+        if suffix == "B":
+            return f"${value:.1f}B"
+        elif suffix == "M":
+            return f"${value:.1f}M"
+        elif suffix == "K":
+            return f"${value:.1f}K"
         else:
-            return f"{value:.2f}"
+            return f"${value:,.2f}"
     
     def _format_percentage(self, value: float) -> str:
         """Format percentage values consistently."""
@@ -671,3 +699,38 @@ class ReportGenerator:
         except Exception as e:
             logger.warning(f"Failed to extract investment thesis: {e}")
             return None
+    
+    def _format_market_cap(self, value: Optional[float]) -> str:
+        """Format market cap for display."""
+        if not value or value == 0:
+            return "N/A"
+        
+        if value >= 1e12:
+            return f"${value / 1e12:.1f}T"
+        elif value >= 1e9:
+            return f"${value / 1e9:.1f}B"
+        elif value >= 1e6:
+            return f"${value / 1e6:.1f}M"
+        elif value >= 1e3:
+            return f"${value / 1e3:.1f}K"
+        else:
+            return f"${value:.2f}"
+    
+    def _format_date(self, value: Optional[str]) -> str:
+        """Format date for display."""
+        if not value:
+            return "N/A"
+        
+        try:
+            # Handle different date formats
+            if 'T' in value:
+                # ISO format: 2023-12-31T00:00:00
+                dt = datetime.fromisoformat(value.replace('Z', ''))
+                return dt.strftime("%Y-%m-%d")
+            elif '-' in value and len(value) == 10:
+                # Simple date format: 2023-12-31
+                return value
+            else:
+                return value
+        except Exception:
+            return value

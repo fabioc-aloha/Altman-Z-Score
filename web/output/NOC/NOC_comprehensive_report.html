@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Northrop Grumman Corporation (NOC)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:38 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:05 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -345,9 +417,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="NOC_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="NOC_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -361,7 +433,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.95</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.96</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -410,15 +482,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$504.20</p>
+                <p>$$508.59</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$72.6B</p>
+                <p>$$73.2B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>19.9</p>
+                <p>20.1</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -430,7 +502,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>53.4</p>
+                <p>45.5</p>
             </div>
         </div>
     </div>
@@ -444,7 +516,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.60</p>
+                <p>0.67</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -465,14 +537,13 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Northrop Grumman Corporation (NOC)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:37:34  </p>
+<strong>Analysis Date:</strong> 2025-07-07 11:05:30  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Northrop Grumman Corporation (NOC) currently resides firmly within the <strong>Gray Zone</strong> of financial distress risk, with its latest Altman Z-Score at <strong>2.26</strong>, reflecting moderate financial health but signaling caution. The Z-Score trajectory over the past eight quarters shows a gradual improvement from <strong>1.95</strong> to <strong>2.26</strong>, indicating a positive but tentative trend toward enhanced solvency and operational stability.</p>
-<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>Moderate</strong>, consistent with the Gray Zone classification, with a stable risk trajectory. Key risk themes include liquidity constraints and modest operational efficiency, which are critical given the company's substantial market capitalization of <strong>$72.57 billion</strong> and a high current share price of <strong>$504.20</strong>.</p>
-<p><strong>AI Peer Analysis</strong> positions NOC slightly below the industry average Z-Score (not explicitly provided but inferred as &gt;2.5 for Aerospace &amp; Defense peers), suggesting that while NOC is competitive, it lags some peers in financial robustness. The company’s <strong>P/E ratio of 19.90</strong> and <strong>EV/EBITDA of 13.94</strong> align with industry norms, but the extremely high <strong>dividend yield of 185%</strong> is anomalous and likely reflects data irregularities or extraordinary dividend events, warranting caution.</p>
-<p><strong>AI Sentiment Analysis</strong> is limited due to missing explicit sentiment scores, but market technical indicators (RSI, moving averages) are unavailable or zeroed, indicating low recent trading activity or data gaps, which reduces confidence in market timing signals.</p>
-<hr />
+<p>Northrop Grumman Corporation (NOC) currently resides in the <strong>Gray Zone</strong> of financial distress risk, with a <strong>latest Altman Z-Score of 2.27</strong>, indicating moderate financial health but caution warranted. The Z-Score has shown a generally positive trajectory over eight quarters, rising from 1.96 to a peak of 2.38 before settling at 2.27, reflecting some operational improvements but still short of the Safe Zone threshold (&gt;3.0).</p>
+<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>moderate</strong>, consistent with the Gray Zone Z-Score, with a stable risk trajectory. Key risk themes include liquidity constraints and modest operational efficiency, which align with financial ratios indicating a <strong>negative working capital ratio (-0.014)</strong> and a low <strong>EBIT ratio (0.012)</strong>.</p>
+<p><strong>AI Peer Analysis</strong> positions NOC below the industry average Z-Score (not explicitly provided but typically &gt;3.0 for Aerospace &amp; Defense peers), suggesting NOC is underperforming relative to key competitors in operational and financial stability. Peers such as Lockheed Martin (LMT) and Raytheon Technologies (RTX) typically exhibit stronger Z-Scores, indicating better distress resilience.</p>
+<p><strong>AI Sentiment Analysis</strong> is limited due to zero volatility and beta, but the <strong>185% dividend yield</strong> is an outlier anomaly, likely reflecting data irregularities or extraordinary dividend events, which tempers confidence in market sentiment signals.</p>
 <h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
@@ -485,33 +556,23 @@
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>2.26</td>
-<td>Gray Zone, moderate distress risk</td>
-</tr>
-<tr>
-<td>Z-Score Trend (8 quarters)</td>
-<td>1.95 → 2.26</td>
-<td>Improving financial health</td>
+<td>2.27 (Gray Zone)</td>
+<td>Moderate distress risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$72.57B</td>
-<td>Large-cap industrial player</td>
+<td>$73.2B</td>
+<td>Large-cap industrial</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$504.20</td>
+<td>$508.59</td>
 <td>High-value stock</td>
-</tr>
-<tr>
-<td>Shares Outstanding</td>
-<td>143.93M</td>
-<td>Moderate float</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.014</td>
-<td>Negative liquidity indicator</td>
+<td>Slightly negative liquidity</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
@@ -529,24 +590,22 @@
 <td>Low asset utilization</td>
 </tr>
 <tr>
-<td>P/E Ratio</td>
-<td>19.90</td>
-<td>Reasonable valuation</td>
+<td>Dividend Yield</td>
+<td>185.00% (anomaly)</td>
+<td>Data anomaly, caution advised</td>
 </tr>
 <tr>
-<td>Dividend Yield</td>
-<td>185.00%*</td>
-<td>Data anomaly; likely unreliable</td>
+<td>Beta</td>
+<td>0.00</td>
+<td>No market volatility captured</td>
 </tr>
 </tbody>
 </table>
-<p>*Dividend yield figure is anomalous and should be verified.</p>
-<hr />
 <h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
 <ul>
-<li><strong>Hold with Caution:</strong> The improving Z-Score trend and moderate risk profile suggest NOC is not in immediate distress but remains vulnerable. Investors should monitor liquidity and operational efficiency metrics closely.</li>
-<li><strong>Selective Entry for Value Investors:</strong> Given the Gray Zone status and stable market cap, value investors may consider phased entry, especially if liquidity ratios improve.</li>
-<li><strong>Avoid Aggressive Positions:</strong> Due to moderate risk and data anomalies (e.g., dividend yield), aggressive growth or speculative positions are not recommended at this time.</li>
+<li><strong>Hold with Caution:</strong> Given the Gray Zone Z-Score and moderate risk profile, investors should maintain positions but monitor liquidity and profitability metrics closely.</li>
+<li><strong>Selective Accumulation:</strong> Value and growth investors may consider selective accumulation on dips, contingent on confirmation of operational improvements.</li>
+<li><strong>Avoid Aggressive Exposure:</strong> High-risk or aggressive profiles should avoid new positions until Z-Score breaches Safe Zone thresholds or liquidity improves.</li>
 </ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
@@ -555,7 +614,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark*</th>
+<th>Industry Benchmark (Aerospace &amp; Defense)</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -563,55 +622,50 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A; Working Capital Ratio: -0.014</td>
-<td>Industry avg. Current Ratio ~1.5-2.0; Working Capital Ratio &gt;0</td>
-<td>Weak liquidity; negative working capital ratio signals potential short-term cash flow stress</td>
-<td>Declining/Weak</td>
+<td>Current Ratio: N/A (Working Capital Ratio: -0.014)</td>
+<td>Industry Avg Current Ratio ~1.5-2.0</td>
+<td>Slightly negative working capital signals liquidity stress</td>
+<td>Stable/Weak</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A; Interest Coverage: N/A</td>
-<td>Aerospace &amp; Defense avg. Debt/Equity ~0.5-1.0</td>
-<td>Data unavailable; leverage unknown, risk assessment limited</td>
+<td>Debt-to-Equity: N/A (Data Missing)</td>
+<td>Industry Avg ~0.5-1.0</td>
+<td>Unable to assess leverage fully; caution due to negative working capital</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.195; EBIT Ratio: 0.012</td>
-<td>Industry avg. Asset Turnover ~0.3-0.5; EBIT Margin ~0.05-0.10</td>
-<td>Below average asset utilization and very low EBIT margin indicate operational inefficiency</td>
-<td>Stable/Low</td>
+<td>EBIT Ratio: 0.012; Asset Turnover: 0.195</td>
+<td>Industry EBIT Ratio ~0.05-0.10; Asset Turnover ~0.3-0.5</td>
+<td>Below industry average profitability and asset utilization</td>
+<td>Slight Improvement</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.309; Cash Position: N/A</td>
-<td>Industry avg. Retained Earnings Ratio ~0.4-0.6</td>
-<td>Moderate retained earnings retention; stability moderate but could improve</td>
+<td>Retained Earnings Ratio: 0.309</td>
+<td>Industry Avg ~0.4-0.6</td>
+<td>Moderate retained earnings; stable but below top peers</td>
 <td>Stable</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks based on Aerospace &amp; Defense sector averages.</p>
-<hr />
 <h3 id="commentary">Commentary</h3>
 <ul>
 <li>
-<p><strong>Liquidity Position:</strong> The negative working capital ratio (-0.014) is a red flag, indicating that current liabilities slightly exceed current assets. This weak liquidity position suggests potential short-term funding challenges. The absence of a current ratio figure limits full liquidity assessment. Based on AI Data Quality Assessment, no anomalies were flagged here, but the negative ratio should be monitored closely.</p>
+<p><strong>Liquidity:</strong> The negative working capital ratio (-0.014) indicates a slight liquidity strain, which is below the industry norm of positive working capital. This aligns with the AI Risk Analysis highlighting liquidity as a key risk factor. The absence of a current ratio figure limits full liquidity assessment but suggests caution.</p>
 </li>
 <li>
-<p><strong>Leverage Management:</strong> Lack of explicit debt-to-equity and interest coverage ratios limits leverage risk evaluation. Given the sector’s capital-intensive nature, this is a critical data gap. The AI Data Quality Assessment completeness score is high, but missing leverage data reduces confidence in risk stratification.</p>
+<p><strong>Leverage:</strong> Debt-to-equity data is missing, which constrains leverage risk evaluation. However, the negative working capital and low EBIT ratio imply potential financial stress. The AI Data Quality Assessment indicates no anomalies in financial data completeness, but missing leverage metrics reduce confidence in full risk profiling.</p>
 </li>
 <li>
-<p><strong>Operational Efficiency:</strong> Asset turnover at 0.195 is substantially below the industry average (0.3-0.5), indicating underutilization of assets to generate sales. EBIT ratio of 0.012 (1.2%) is very low, reflecting thin operating margins. This operational inefficiency may constrain profitability and cash flow generation, impacting financial stability.</p>
+<p><strong>Operational Efficiency:</strong> EBIT ratio at 1.2% is significantly below the industry average (~5-10%), indicating low profitability on assets. Asset turnover at 0.195 is also low, suggesting underutilization of assets compared to peers. This operational inefficiency is consistent with the Gray Zone Z-Score and moderate risk level.</p>
 </li>
 <li>
-<p><strong>Financial Stability:</strong> Retained earnings ratio of 0.309 suggests moderate reinvestment of earnings into the business, supporting some stability. However, without cash position data, full stability assessment is incomplete.</p>
+<p><strong>Financial Stability:</strong> Retained earnings ratio at 30.9% shows moderate reinvestment of earnings, but below industry leaders who typically retain 40-60%. This moderate retention supports some stability but limits growth capital internally.</p>
 </li>
 <li>
-<p><strong>Data Quality Impact:</strong> The AI Data Quality Assessment indicates no major anomalies detected, but missing leverage and liquidity ratios reduce confidence in comprehensive financial health diagnostics.</p>
-</li>
-<li>
-<p><strong>Sector Context:</strong> Aerospace &amp; Defense companies typically maintain strong liquidity and moderate leverage to support long-term contracts and R&amp;D investments. NOC’s liquidity weakness and operational inefficiency are concerns in this context.</p>
+<p><strong>Data Quality:</strong> The AI Data Quality Assessment confirms no anomalies detected in financial data, supporting confidence in these metrics despite some missing leverage details.</p>
 </li>
 </ul>
 <hr />
@@ -623,77 +677,40 @@
 <th>Z-Score Value</th>
 <th>Risk Category</th>
 <th>Key Drivers</th>
-<th>Business Context &amp; Events</th>
+<th>Business Context</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>2.26</td>
+<td>2.27</td>
 <td>Gray Zone</td>
-<td>Improved working capital, stable retained earnings</td>
-<td>Gradual operational improvements; no major distress</td>
+<td>Slightly improved EBIT, stable retained earnings</td>
+<td>Continued aerospace defense contracts, moderate operational improvements</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>2.37</td>
+<td>2.38</td>
 <td>Gray Zone</td>
-<td>Slightly higher EBIT ratio</td>
-<td>Possible one-time operational gains or contract wins</td>
+<td>Peak Z-Score driven by marginally better asset turnover</td>
+<td>Temporary operational gains, possible contract timing effects</td>
 </tr>
 <tr>
-<td>Q6</td>
-<td>2.06</td>
+<td>Q1 - Q6</td>
+<td>1.96 - 2.07</td>
 <td>Gray Zone</td>
-<td>EBIT ratio improvement</td>
-<td>Stabilizing profitability</td>
-</tr>
-<tr>
-<td>Q5</td>
-<td>2.03</td>
-<td>Gray Zone</td>
-<td>Stable retained earnings</td>
-<td>Consistent earnings retention</td>
-</tr>
-<tr>
-<td>Q4</td>
-<td>2.04</td>
-<td>Gray Zone</td>
-<td>Working capital fluctuations</td>
-<td>Minor liquidity adjustments</td>
-</tr>
-<tr>
-<td>Q3</td>
-<td>2.04</td>
-<td>Gray Zone</td>
-<td>Stable operational metrics</td>
-<td>No significant changes</td>
-</tr>
-<tr>
-<td>Q2</td>
-<td>2.00</td>
-<td>Gray Zone</td>
-<td>Slight decline in EBIT</td>
-<td>Operational challenges</td>
-</tr>
-<tr>
-<td>Q1</td>
-<td>1.95</td>
-<td>Gray Zone</td>
-<td>Weak liquidity</td>
-<td>Early signs of financial stress</td>
+<td>Consistent low EBIT and asset turnover, negative working capital</td>
+<td>Stable but constrained liquidity and profitability</td>
 </tr>
 </tbody>
 </table>
-<hr />
 <h3 id="commentary_1">Commentary</h3>
 <ul>
-<li>The Z-Score has remained in the Gray Zone (1.8-3.0) for all eight quarters, indicating persistent moderate financial risk without crossing into distress or safe zones.</li>
-<li>The upward trend from <strong>1.95</strong> to <strong>2.26</strong> suggests incremental improvements in financial health, likely driven by better working capital management and modest EBIT margin gains.</li>
-<li>The slight dip from Q7 (2.37) to Q8 (2.26) may reflect recent operational or market challenges but remains within a stable range.</li>
-<li>Lack of detailed component ratios (e.g., working capital/total assets) limits granular driver analysis.</li>
-<li>Compared to Aerospace &amp; Defense industry average Z-Scores (typically &gt;2.5 for top performers), NOC is slightly below, indicating room for improvement.</li>
-<li>Business context: NOC’s focus on aerospace systems and unmanned aircraft suggests capital-intensive operations with long contract cycles, which may explain liquidity fluctuations and operational margin pressures.</li>
+<li>The Z-Score has trended upward from 1.96 to 2.38 over eight quarters, indicating gradual improvement in financial health but remaining within the Gray Zone, which signals ongoing moderate distress risk.</li>
+<li>The key drivers appear to be marginal improvements in EBIT and asset turnover, though still below industry averages.</li>
+<li>The business context of aerospace and defense, with long-term government contracts, supports some revenue stability but operational efficiency challenges persist.</li>
+<li>The Z-Score remains below the industry average (typically &gt;3.0), indicating NOC lags peers in financial robustness.</li>
+<li>The slight decline from 2.38 to 2.27 in the latest quarter suggests some volatility or operational headwinds.</li>
 </ul>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
@@ -710,35 +727,33 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Gradual Z-Score improvement (1.95 → 2.26)</td>
-<td>Price stable at $504.20; no volume data</td>
-<td>Divergent (Z-Score improving, market static)</td>
-<td>Potential undervaluation or market uncertainty</td>
+<td>Gray Zone, stable trend</td>
+<td>Price stable at $508.59</td>
+<td>Aligned</td>
+<td>Moderate risk, cautious optimism</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Not explicitly available</td>
-<td>P/E ratio 19.90 (reasonable)</td>
-<td>Inconclusive due to missing sentiment data</td>
-<td>Limited market timing signals</td>
+<td>Neutral (data limited)</td>
+<td>Dividend yield anomaly</td>
+<td>Divergent</td>
+<td>Sentiment unclear, caution advised</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry average Z-Score (~2.5)</td>
-<td>Sector performance stable</td>
-<td>Underperforming peers</td>
-<td>Competitive pressure; cautious positioning</td>
+<td>Below industry average</td>
+<td>Sector performance steady</td>
+<td>Underperforming</td>
+<td>Competitive disadvantage noted</td>
 </tr>
 </tbody>
 </table>
-<hr />
 <h3 id="commentary_2">Commentary</h3>
 <ul>
-<li>The <strong>Z-Score trend</strong> indicates improving fundamentals, but the <strong>market price and volume data are static or missing</strong>, suggesting low trading activity or data gaps. This divergence implies the market may not fully recognize improving financial health, presenting a potential opportunity.</li>
-<li>The <strong>P/E ratio of 19.90</strong> is within industry norms, supporting a fair valuation, but the anomalous <strong>dividend yield of 185%</strong> undermines confidence in yield-based valuation.</li>
-<li>Lack of explicit AI Sentiment Analysis data and technical indicators (RSI, moving averages) limits validation of market sentiment and timing.</li>
-<li>Peer comparison shows NOC trailing industry leaders in financial health, indicating competitive challenges.</li>
-<li>Overall, market signals are <strong>inconclusive</strong>, recommending cautious investment timing pending clearer market confirmation.</li>
+<li>The Z-Score’s Gray Zone status aligns with a stable but cautious market price around $508.59.</li>
+<li>The <strong>185% dividend yield</strong> is an anomaly inconsistent with typical market sentiment and volatility data (beta 0.00, volatility 0.00%), suggesting data irregularities or extraordinary dividend events. This divergence reduces confidence in sentiment signals.</li>
+<li>Peer comparison indicates NOC underperforms relative to sector peers, consistent with the Z-Score and operational metrics.</li>
+<li>Market timing opportunities may exist if operational improvements materialize, but current fundamentals suggest holding rather than aggressive buying.</li>
 </ul>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
@@ -758,35 +773,33 @@
 <td>Medium</td>
 <td>Moderate</td>
 <td>-0.2 to -0.3</td>
-<td>Enhance asset utilization; improve EBIT margin</td>
+<td>Enhance asset utilization, improve EBIT margin</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
 <td>-0.3 to -0.5</td>
-<td>Strengthen liquidity; manage working capital</td>
+<td>Improve liquidity, manage working capital</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Low-Medium</td>
-<td>Moderate</td>
-<td>-0.1 to -0.2</td>
+<td>Low</td>
+<td>Minor</td>
+<td>-0.1</td>
 <td>Hedge against defense budget fluctuations</td>
 </tr>
 </tbody>
 </table>
-<hr />
 <h3 id="commentary_3">Commentary</h3>
 <ul>
-<li><strong>Operational Risks:</strong> Low asset turnover (0.195) and EBIT ratio (0.012) expose NOC to operational inefficiencies that could depress the Z-Score by up to 0.3 points if unaddressed.</li>
-<li><strong>Financial Risks:</strong> Negative working capital ratio (-0.014) signals liquidity stress, with potential to reduce Z-Score by up to 0.5 points under adverse conditions.</li>
-<li><strong>Market Risks:</strong> Given the defense sector’s sensitivity to government spending and geopolitical factors, moderate market risk exists but with lower probability.</li>
-<li><strong>Bankruptcy Risk:</strong> With Z-Score well above distress threshold (1.8), bankruptcy risk is low but not negligible given liquidity concerns.</li>
+<li><strong>Operational Risks:</strong> Moderate probability of continued low asset turnover and EBIT margins could depress Z-Score by up to 0.3 points. Mitigation includes operational efficiency programs.</li>
+<li><strong>Financial Risks:</strong> Negative working capital and missing leverage data suggest moderate financial risk, potentially reducing Z-Score by up to 0.5 points if liquidity worsens. Capital structure optimization recommended.</li>
+<li><strong>Market Risks:</strong> Low probability but minor impact risks from defense spending volatility exist; hedging and contract diversification advised.</li>
 <li><strong>Scenario Analysis:</strong>  </li>
-<li><strong>Best Case:</strong> Continued operational improvements and liquidity management push Z-Score above 3.0 (Safe Zone) within 2-3 quarters.  </li>
-<li><strong>Base Case:</strong> Z-Score remains in Gray Zone (2.0-2.5), maintaining moderate risk.  </li>
-<li><strong>Worst Case:</strong> Liquidity deterioration and operational setbacks reduce Z-Score below 1.8, triggering distress signals.</li>
+<li><strong>Best Case:</strong> Z-Score improves &gt;3.0 with operational gains and liquidity improvement.  </li>
+<li><strong>Base Case:</strong> Z-Score remains in Gray Zone (2.0-2.5) with stable but modest improvements.  </li>
+<li><strong>Worst Case:</strong> Z-Score declines &lt;1.8, entering Distress Zone, triggered by liquidity crisis or operational setbacks.</li>
 </ul>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
@@ -806,52 +819,51 @@
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score stable in Gray Zone (2.26); liquidity concerns</td>
-<td>Await liquidity improvement signals</td>
-<td>3-6 months</td>
+<td>Z-Score 2.27 in Gray Zone; moderate risk</td>
+<td>Stable price; monitor liquidity</td>
+<td>3-6 months review</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>Dividend yield data anomalous; verify sustainability</td>
-<td>Avoid until yield normalizes</td>
-<td>3-6 months</td>
+<td>Dividend yield anomaly; verify sustainability</td>
+<td>Yield data unreliable</td>
+<td>Await clarity</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>BUY (Selective)</td>
-<td>Improving Z-Score trend; undervalued vs. peers</td>
-<td>Enter on liquidity ratio improvement</td>
+<td>ACCUMULATE</td>
+<td>Below industry Z-Score; potential undervaluation</td>
+<td>On dips; confirm operational improvements</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>HOLD</td>
-<td>Low EBIT ratio limits growth sustainability</td>
-<td>Monitor operational margin improvements</td>
-<td>6-12 months</td>
+<td>Low EBIT ratio; growth constrained</td>
+<td>Monitor EBIT and asset turnover</td>
+<td>6 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>SELL</td>
-<td>Moderate risk, operational inefficiencies</td>
-<td>Avoid due to volatility and data anomalies</td>
-<td>Immediate</td>
+<td>AVOID</td>
+<td>Moderate distress risk; volatility unknown</td>
+<td>Avoid until Z-Score &gt;3.0</td>
+<td>N/A</td>
 </tr>
 </tbody>
 </table>
-<hr />
 <h3 id="commentary_4">Commentary</h3>
 <ul>
-<li><strong>Conservative investors</strong> should hold and monitor liquidity improvements before increasing exposure.</li>
-<li><strong>Dividend investors</strong> must verify the anomalous 185% dividend yield before considering entry.</li>
-<li><strong>Value investors</strong> may selectively buy on signs of operational and liquidity improvement, leveraging the improving Z-Score.</li>
-<li><strong>Growth investors</strong> should hold and watch for EBIT margin expansion to justify growth positioning.</li>
-<li><strong>Aggressive investors</strong> are advised to avoid or sell due to moderate risk and data quality concerns.</li>
+<li>Conservative investors should hold positions, focusing on liquidity and profitability trends.</li>
+<li>Dividend investors must treat the 185% yield as a data anomaly; await confirmation before action.</li>
+<li>Value investors may accumulate selectively on price dips, leveraging the moderate Z-Score and market cap.</li>
+<li>Growth investors should hold and monitor operational improvements before increasing exposure.</li>
+<li>Aggressive investors should avoid new positions until financial health improves into the Safe Zone.</li>
 </ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
@@ -869,33 +881,32 @@
 <tr>
 <td>CEO Leadership</td>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio (0.012), Asset Turnover (0.195)</td>
-<td>Drive operational improvements; optimize asset use</td>
-<td>EBIT margin &gt;0.05; Asset turnover &gt;0.3</td>
+<td>EBIT Ratio, Asset Turnover</td>
+<td>Drive cost optimization, improve asset utilization</td>
+<td>EBIT margin &gt;5%, asset turnover &gt;0.3</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
 <td>Liquidity &amp; Capital Structure</td>
-<td>Working Capital Ratio (-0.014), Retained Earnings Ratio (0.309)</td>
-<td>Improve liquidity; manage working capital; clarify leverage</td>
-<td>Positive working capital; stable retained earnings</td>
+<td>Working Capital Ratio, Debt-to-Equity</td>
+<td>Enhance liquidity, optimize debt levels</td>
+<td>Positive working capital, D/E &lt;1.0</td>
 </tr>
 <tr>
 <td>Board Governance</td>
 <td>Risk Oversight &amp; Compliance</td>
-<td>Z-Score (2.26), Risk Themes</td>
-<td>Monitor financial risk; ensure transparent reporting</td>
-<td>Maintain Z-Score &gt;2.0; risk mitigation plans</td>
+<td>Z-Score, Risk Factors</td>
+<td>Monitor financial health, enforce risk mitigation</td>
+<td>Z-Score &gt;2.5, risk reduction metrics</td>
 </tr>
 </tbody>
 </table>
-<hr />
 <h3 id="commentary_5">Commentary</h3>
 <ul>
-<li><strong>CEO</strong> should prioritize operational efficiency improvements to enhance profitability and asset utilization, directly impacting Z-Score components.</li>
-<li><strong>CFO</strong> must address liquidity weaknesses and clarify debt structure to reduce financial risk and improve working capital.</li>
-<li><strong>Board</strong> needs to oversee risk management frameworks aligned with the moderate risk profile and ensure compliance with financial reporting standards.</li>
-<li>Executive leadership should communicate clearly with investors to manage market perception, especially given data anomalies and liquidity concerns.</li>
+<li>CEO should prioritize operational improvements to lift EBIT and asset turnover, directly impacting Z-Score.</li>
+<li>CFO must address liquidity constraints and clarify leverage position to reduce financial risk.</li>
+<li>Board should maintain oversight on risk trajectory and ensure governance aligns with risk mitigation strategies.</li>
+<li>Market perception management is critical given the Gray Zone status and data anomalies in dividend yield.</li>
 </ul>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
@@ -912,41 +923,42 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Improving (1.95 → 2.26)</td>
-<td>Gradual increase toward Safe Zone (&gt;3.0)</td>
-<td>Operational efficiency gains; liquidity improvements</td>
-<td>Quarterly Z-Score updates; EBIT margin; Working capital ratio</td>
+<td>Slightly improving</td>
+<td>Gradual improvement</td>
+<td>Contract wins, operational efficiency</td>
+<td>EBIT ratio, working capital ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Stable, below peers</td>
-<td>Potential catch-up with peers</td>
-<td>Contract wins; defense budget increases</td>
-<td>Market share; peer Z-Score comparisons</td>
+<td>Moderate</td>
+<td>Stable to improving</td>
+<td>Defense budget stability, peer performance</td>
+<td>Market cap, peer Z-Score trends</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>Moderate</td>
-<td>Potential reduction if liquidity improves</td>
-<td>Debt management; macroeconomic stability</td>
-<td>Liquidity ratios; debt levels; geopolitical risk indicators</td>
+<td>Stable</td>
+<td>Liquidity management, geopolitical risks</td>
+<td>Debt levels, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
-<hr />
 <h3 id="commentary_6">Commentary</h3>
 <ul>
-<li>The <strong>Z-Score momentum</strong> is positive but requires sustained operational and liquidity improvements to transition into the Safe Zone (&gt;3.0) within 6-12 months.</li>
-<li>Market position may improve with successful contract execution and favorable defense spending, but competitive pressures remain.</li>
-<li>Risk profile could improve if financial risks are mitigated; however, macroeconomic and geopolitical factors remain key risk catalysts.</li>
-<li>Recommended monitoring includes quarterly financial ratio updates, Z-Score recalculations, and tracking of defense sector trends.</li>
-<li>An early warning system should flag any Z-Score decline below 2.0 or worsening liquidity ratios to prompt immediate management action.</li>
+<li>The Z-Score momentum suggests gradual improvement over the next 6-12 months if operational and liquidity initiatives succeed.</li>
+<li>Key catalysts include securing new defense contracts and improving asset utilization.</li>
+<li>Risk profile remains moderate; early warning signals include worsening working capital and EBIT margins.</li>
+<li>Continuous monitoring of EBIT ratio and working capital ratio is essential to anticipate inflection points.</li>
+<li>Investment thesis should evolve with Z-Score crossing above 3.0, signaling transition to Safe Zone and enabling more aggressive positioning.</li>
 </ul>
 <hr />
-<h1 id="summary"><strong>Summary</strong></h1>
-<p>Northrop Grumman Corporation (NOC) exhibits a <strong>moderate financial risk profile</strong> with an improving but still cautious Altman Z-Score of <strong>2.26</strong> in the Gray Zone. Operational inefficiencies and liquidity weaknesses are the primary concerns, while market signals are inconclusive due to data gaps and anomalies. Investors should adopt a <strong>hold or selective buy stance</strong> depending on risk tolerance, with a focus on monitoring liquidity improvements and operational margin expansion. Executive leadership must prioritize efficiency and liquidity management to drive the company toward a safer financial position and enhance investor confidence.</p>
+<h1 id="summary">Summary</h1>
+<p>Northrop Grumman (NOC) currently exhibits moderate financial health with a Gray Zone Altman Z-Score of 2.27, reflecting ongoing liquidity and operational challenges. While the company benefits from a strong market cap and stable business model in aerospace and defense, key financial ratios indicate underperformance relative to industry peers. Data anomalies, particularly the extraordinary dividend yield, reduce confidence in market sentiment signals.</p>
+<p>Investment recommendations favor a cautious hold stance for conservative and growth investors, selective accumulation for value profiles, and avoidance for aggressive risk takers until financial health improves. Strategic focus on operational efficiency and liquidity management is critical for improving the Z-Score and reducing risk.</p>
+<p>Forward-looking analysis anticipates gradual improvement contingent on successful execution of operational initiatives and stable defense sector conditions. Continuous monitoring of key financial metrics and risk factors is essential for timely investment decision-making.</p>
 <hr />
-<p><em>Analysis completed with explicit reference to all injected data elements, cross-validated across financial, risk, peer, and market intelligence components.</em></p></div></div>
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating multi-source financial data, risk assessment, and market intelligence for actionable investment insights.</em></p></div></div>
     </div>
     
 
@@ -1289,78 +1301,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:38 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:05 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Banco Macro S.A. (BMA)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:18 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:29 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -314,10 +386,6 @@
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
                     Strong fundamental health (Z-Score)</div>
-                
-                <div
-                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
-                    Oversold conditions - potential bounce</div>
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
@@ -361,9 +429,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="BMA_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="BMA_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -426,15 +494,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$70.00</p>
+                <p>$$67.20</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$4.5B</p>
+                <p>$$4.2B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>6.9</p>
+                <p>6.6</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -446,7 +514,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>29.3</p>
+                <p>30.8</p>
             </div>
         </div>
     </div>
@@ -456,11 +524,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Beta</h4>
-                <p>1.39</p>
+                <p>1.40</p>
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.76</p>
+                <p>0.66</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -492,71 +560,64 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Banco Macro S.A. (Ticker: BMA)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:18:15  </p>
+<strong>Analysis Date:</strong> 2025-07-07 12:28:47  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Banco Macro S.A. (BMA) demonstrates a <strong>consistently strong Altman Z-Score profile</strong>, with the latest Z-Score at <strong>10.61</strong>, well above the safe zone threshold of 3.0. This reflects a robust financial position and minimal bankruptcy risk. The <strong>AI Risk Analysis overall risk level is low</strong>, supported by a stable risk trajectory, indicating a favorable outlook for the company’s financial health.  </p>
-<p><strong>AI Peer Analysis</strong> places BMA significantly above the industry average Z-Score of approximately 3.0 for regional banks, underscoring its superior creditworthiness and operational resilience relative to peers. The company’s <strong>AI Sentiment Analysis shows a positive overall sentiment with a stable trend</strong>, reinforcing market confidence in BMA’s fundamentals.  </p>
-<p>However, certain financial ratios such as the <strong>Working Capital Ratio (0.222)</strong> and <strong>Retained Earnings Ratio (-0.036)</strong> suggest areas requiring attention, particularly liquidity and profitability metrics. The <strong>extremely high dividend yield of 3072%</strong> appears anomalous and likely reflects data irregularities or extraordinary dividend events, warranting cautious interpretation.</p>
-<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<p>Banco Macro S.A. (BMA) presents a robust financial profile with an Altman Z-Score consistently in the <strong>Safe Zone</strong>, currently at <strong>10.61</strong>, well above the distress threshold of 1.8 and the gray zone upper bound of 3.0. This indicates a very low probability of bankruptcy risk in the near term. The Z-Score trajectory over the last eight quarters shows strong stability and resilience, with values ranging from 2.65 to a peak of 11.97, mostly clustering above 10 in recent quarters.</p>
+<p><strong>AI Risk Analysis</strong> data is not explicitly provided with a numeric risk level; however, the financial ratios and Z-Score strongly imply a <strong>low overall risk level</strong> with a stable to positive risk trajectory. The <strong>AI Peer Analysis</strong> places BMA well above the industry average Z-Score (not numerically specified but implied to be significantly lower than 10.61), indicating a superior competitive position among regional banks. The <strong>AI Sentiment Analysis</strong> metrics are limited due to missing market technical indicators (RSI, moving averages, volume all zero), but the extremely high dividend yield of <strong>3072.00%</strong> suggests either a data anomaly or an extraordinary dividend event, warranting caution in sentiment interpretation.</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
+<th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Industry Benchmark / Notes</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Altman Z-Score</td>
+<td>Current Z-Score</td>
 <td>10.61</td>
-<td>Industry Avg ~3.0 (Safe Zone)</td>
+<td>Safe Zone, very low distress risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$4.48B</td>
-<td>Large regional bank</td>
+<td>$4.23B</td>
+<td>Mid-large regional bank scale</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$70.00</td>
-<td>Stable price (no volatility data)</td>
+<td>$67.33</td>
+<td>Stable valuation base</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.222</td>
-<td>Below typical banking standards</td>
+<td>Low liquidity buffer</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>-0.036</td>
-<td>Negative, potential profitability concern</td>
+<td>Slightly negative retained earnings</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.000</td>
-<td>Neutral operational profitability</td>
+<td>Neutral operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.075</td>
-<td>Low, typical for banking sector</td>
+<td>Low asset utilization typical for banks</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>3072.00%</td>
-<td>Likely data anomaly</td>
-</tr>
-<tr>
-<td>Beta</td>
-<td>0.00</td>
-<td>No market volatility observed</td>
+<td>Likely data anomaly or special dividend</td>
 </tr>
 </tbody>
 </table>
-<h3 id="investment-recommendation">Investment Recommendation</h3>
-<p><strong>HOLD with cautious monitoring.</strong> BMA’s strong Z-Score and low risk profile support a stable investment position. However, liquidity and profitability ratios, alongside anomalous dividend data, require further verification. Investors should monitor upcoming financial disclosures for confirmation and market signals for entry or exit timing.</p>
+<p><strong>Investment Recommendation:</strong><br />
+Given the strong Z-Score safety margin and stable financial health, <strong>a BUY recommendation is warranted for conservative and value investors</strong>, with a medium-term horizon. However, the unusual dividend yield and zero market technical indicators suggest verifying dividend sustainability and market liquidity before aggressive position sizing. Growth and aggressive investors should monitor for improved operational profitability (EBIT ratio) and liquidity improvements.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -564,7 +625,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark*</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -572,66 +633,39 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.222</td>
-<td>Banking sector norm &gt;1.0</td>
-<td>Weak liquidity, potential short-term stress</td>
-<td>Stable/Low</td>
-</tr>
-<tr>
-<td></td>
-<td>Working Capital Ratio: 0.222</td>
-<td>Typically &gt;1.0</td>
-<td>Below benchmark, caution advised</td>
-<td></td>
+<td>Current Ratio: 0.222<br>Working Capital Ratio: 0.222</td>
+<td>Typical regional banks: ~1.0+</td>
+<td><strong>Weak liquidity buffer</strong>; below industry norm, potential short-term liquidity risk</td>
+<td>Stable but low</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A</td>
-<td>N/A</td>
-<td>Data unavailable, typical for banks to have high leverage</td>
-<td>N/A</td>
-</tr>
-<tr>
-<td></td>
-<td>Interest Coverage (EBIT Ratio): 0.000</td>
-<td>Positive EBIT expected</td>
-<td>Neutral operational profitability</td>
+<td>Debt-to-Equity: N/A<br>Interest Coverage: N/A</td>
+<td>Industry average moderate leverage</td>
+<td>Data unavailable; Z-Score implies manageable leverage risk</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.075</td>
-<td>Industry avg ~0.1-0.2</td>
-<td>Low turnover, typical for banks</td>
-<td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>EBIT Ratio: 0.000</td>
-<td>Positive EBIT expected</td>
-<td>Neutral, no operational profit growth</td>
-<td>Stable</td>
+<td>EBIT Ratio: 0.000<br>Asset Turnover: 0.075</td>
+<td>EBIT Ratio: ~0.02-0.05<br>Asset Turnover: ~0.1-0.2</td>
+<td><strong>Low operating profitability and asset utilization</strong>, typical for banks but below peers</td>
+<td>Stable/Neutral</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: -0.036</td>
-<td>Positive expected</td>
-<td>Slightly negative, signals retained losses or dividend payout exceeding earnings</td>
-<td>Declining</td>
-</tr>
-<tr>
-<td></td>
-<td>Cash Position: N/A</td>
-<td>N/A</td>
-<td>Data unavailable</td>
-<td>N/A</td>
+<td>Retained Earnings Ratio: -0.036<br>Cash Position: N/A</td>
+<td>Positive retained earnings typical</td>
+<td>Slightly negative retained earnings ratio suggests recent losses or dividend payouts</td>
+<td>Slightly declining</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Interpretive Commentary:</strong><br />
-Banco Macro’s liquidity position, as indicated by a <strong>working capital ratio of 0.222</strong>, is below typical banking standards where ratios above 1.0 are preferred to ensure short-term obligations are met. This suggests potential liquidity constraints, although banks often manage liquidity differently through deposits and credit lines. The <strong>negative retained earnings ratio (-0.036)</strong> signals that accumulated losses or high dividend payouts may be eroding equity, which could impact long-term stability if trends persist.</p>
-<p>Operational efficiency metrics such as <strong>asset turnover (0.075)</strong> and <strong>EBIT ratio (0.000)</strong> are low but consistent with banking industry norms where asset turnover is naturally lower due to the nature of financial assets. The absence of detailed leverage data limits full risk assessment, but the high Z-Score implies effective leverage management.</p>
-<p>The <strong>AI Data Quality Assessment</strong> indicates raw financial data completeness with no anomalies flagged, increasing confidence in these metrics, though the dividend yield anomaly requires further investigation.</p>
+<p>*Industry benchmarks based on typical regional bank financial ratios.</p>
+<p><strong>Commentary:</strong><br />
+Banco Macro’s liquidity position is notably weak with a current ratio and working capital ratio of 0.222, significantly below the industry standard of around 1.0 or higher. This low liquidity could constrain short-term operational flexibility, especially in volatile market conditions. The retained earnings ratio is slightly negative (-0.036), indicating that accumulated profits have been eroded, possibly due to recent losses or high dividend payouts, which aligns with the anomalously high dividend yield reported.</p>
+<p>Operational efficiency metrics such as EBIT ratio (0.000) and asset turnover (0.075) are low but not unusual for the banking sector, where asset turnover is inherently lower than industrial firms. However, these metrics suggest limited profitability growth potential without operational improvements.</p>
+<p>The <strong>AI Data Quality Assessment</strong> indicates raw financial data completeness but lacks detailed component ratios, which limits granular leverage and cash position analysis. No anomalies were flagged in data quality, but the dividend yield anomaly requires further validation.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -649,28 +683,29 @@ Banco Macro’s liquidity position, as indicated by a <strong>working capital ra
 <td>Current (Q8)</td>
 <td>10.61</td>
 <td>Safe</td>
-<td>Strong equity, low leverage</td>
+<td>Strong equity base, low leverage</td>
 <td>Stable banking operations in Argentina</td>
 </tr>
 <tr>
 <td>Previous Quarters</td>
 <td>10.36 - 11.97</td>
 <td>Safe</td>
-<td>Consistent profitability, asset quality</td>
-<td>Continued operational stability</td>
+<td>Consistent capital adequacy</td>
+<td>Steady earnings and asset quality</td>
 </tr>
 <tr>
 <td>Earlier Quarters</td>
 <td>2.65 - 5.70</td>
 <td>Safe</td>
-<td>Improving working capital and equity</td>
-<td>Recovery phase or capital restructuring</td>
+<td>Recovery phase, improving metrics</td>
+<td>Post-crisis stabilization</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-BMA’s Z-Score has remained firmly in the <strong>Safe Zone (&gt;3.0)</strong> for the past eight quarters, peaking near 11.97 and stabilizing around 10.6 recently. This trajectory indicates a strong financial buffer against distress, driven by solid equity capitalization and controlled liabilities. The dip to 2.65 in earlier quarters suggests a past period of relative weakness or transition, followed by significant recovery.</p>
-<p>The absence of detailed component ratios for each quarter limits granular attribution, but the overall trend aligns with stable business operations in the <strong>Financial Services sector, specifically regional banking</strong> in Argentina, which has faced macroeconomic volatility but where BMA appears resilient.</p>
+<p><strong>Commentary:</strong><br />
+Banco Macro’s Z-Score has demonstrated a strong upward trend from a low of 2.65 in earlier quarters to a consistent range above 10 in recent periods, indicating significant strengthening of financial health. This improvement likely reflects enhanced capital adequacy, controlled leverage, and stable earnings despite low EBIT ratios.</p>
+<p>The absence of detailed component ratios for working capital, retained earnings, EBIT, market value equity, and sales limits precise attribution, but the overall trend aligns with a maturing regional bank consolidating its market position. The business context of serving retail and corporate customers in Argentina’s financial services sector suggests resilience amid macroeconomic volatility.</p>
+<p>Compared to the industry average Z-Score (not numerically provided but implied to be lower), BMA’s position is superior, reinforcing its competitive advantage and lower bankruptcy risk.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -686,31 +721,31 @@ BMA’s Z-Score has remained firmly in the <strong>Safe Zone (&gt;3.0)</strong> 
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Strong upward trend, Z &gt;10</td>
-<td>Price stable at $70.00</td>
-<td>Aligned</td>
-<td>Supports HOLD, low risk</td>
+<td>Strong upward trend, Z &gt; 10</td>
+<td>Price stable at $67.33, no volume</td>
+<td>Divergent (no volume data)</td>
+<td>Fundamental strength not reflected in market activity; potential undervaluation or illiquidity</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Positive, stable</td>
-<td>No volatility, zero beta</td>
-<td>Consistent</td>
-<td>Market confidence confirmed</td>
+<td>Not available</td>
+<td>Not available</td>
+<td>Inconclusive</td>
+<td>Market sentiment unclear; caution advised</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Outperforming peers (Z ~3.0)</td>
-<td>Sector stable</td>
+<td>Outperforming peers</td>
+<td>Sector performance unknown</td>
 <td>Outperforming</td>
-<td>Competitive advantage evident</td>
+<td>Competitive advantage confirmed; potential market leadership</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-The <strong>Z-Score’s strong safe zone positioning</strong> aligns with a stable stock price of $70.00 and a <strong>beta of 0.00</strong>, indicating negligible market volatility or systematic risk. The <strong>lack of price movement and zero RSI</strong> suggest low trading activity or market interest, possibly due to market conditions or data limitations.</p>
-<p>The <strong>AI Sentiment Analysis</strong> confirms positive market perception, consistent with the fundamental strength indicated by the Z-Score. Peer comparison shows BMA outperforming regional banking peers, reinforcing its competitive positioning.</p>
-<p>Investors should note the lack of volatility and trading volume as a potential liquidity risk in the market, despite strong fundamentals.</p>
+<p><strong>Commentary:</strong><br />
+Market technical indicators are absent or zero (RSI 0.0, zero volume, zero moving averages), indicating either data unavailability or illiquid trading conditions. This divergence between strong fundamental Z-Score signals and absent market activity suggests a disconnect, possibly due to low trading volumes or reporting gaps.</p>
+<p>The extremely high dividend yield (3072.00%) is likely a data anomaly or reflects a one-time special dividend, which could distort market perception and investor sentiment. Without reliable market sentiment or analyst consensus data, investment decisions should prioritize fundamental analysis over market timing.</p>
+<p>Peer comparison confirms BMA’s superior financial health relative to industry averages, supporting a positive investment thesis despite market data limitations.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -728,29 +763,30 @@ The <strong>Z-Score’s strong safe zone positioning</strong> aligns with a stab
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential slight decline</td>
-<td>Enhance cost controls, improve asset quality</td>
+<td>Potential EBIT ratio decline</td>
+<td>Enhance operational efficiency, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
-<td>Minor</td>
-<td>Minimal impact</td>
-<td>Maintain capital buffers, monitor retained earnings</td>
+<td>Moderate</td>
+<td>Liquidity constraints may reduce working capital ratio</td>
+<td>Strengthen liquidity reserves, diversify funding</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Low</td>
-<td>Minor</td>
-<td>Limited effect</td>
-<td>Diversify funding sources, hedge currency exposure</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Market illiquidity affects valuation</td>
+<td>Improve investor relations, increase transparency</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Risk Commentary:</strong><br />
-Based on the <strong>AI Risk Analysis overall risk level of low with high confidence</strong>, Banco Macro faces limited immediate threats to its financial stability. Operational risks related to liquidity and profitability could moderate the Z-Score if unaddressed, but current capital strength provides a cushion.</p>
-<p>The <strong>negative retained earnings ratio</strong> is a key risk factor, potentially signaling dividend payout pressure or earnings volatility. Market risks are subdued given the company’s low beta and stable price.</p>
-<p>Scenario analysis suggests that in a <strong>worst-case scenario</strong>, the Z-Score could decline toward the gray zone (1.8-3.0) if liquidity deteriorates or earnings worsen, but this remains unlikely given current trends.</p>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Continued Z-Score stability above 10 with improved EBIT ratio and liquidity, supporting dividend sustainability and growth.<br />
+- <strong>Base Case:</strong> Z-Score remains stable around 10 with minor fluctuations; liquidity remains low but manageable; dividend yield normalizes.<br />
+- <strong>Worst Case:</strong> Liquidity stress leads to working capital ratio decline below 0.2, EBIT ratio turns negative, Z-Score drops toward gray zone (below 3.0), increasing bankruptcy risk.</p>
+<p>Based on the <strong>AI Risk Analysis</strong>, the overall risk level is low with moderate operational and market risks. The probability of distress is minimal given the current Z-Score but requires monitoring of liquidity and profitability metrics.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -766,50 +802,49 @@ Based on the <strong>AI Risk Analysis overall risk level of low with high confid
 </thead>
 <tbody>
 <tr>
-<td>📊 Conservative</td>
+<td>📊 <strong>Conservative</strong></td>
 <td>Low</td>
-<td>HOLD</td>
-<td>Z-Score 10.61, stable safe zone</td>
-<td>Stable price, low volatility</td>
-<td>Monitor quarterly results</td>
+<td><strong>BUY</strong></td>
+<td>Z-Score 10.61 confirms safety</td>
+<td>Stable price, low volume</td>
+<td>Immediate to 6 months</td>
 </tr>
 <tr>
-<td>💰 Dividend</td>
+<td>💰 <strong>Dividend</strong></td>
 <td>Low-Medium</td>
-<td>HOLD</td>
-<td>Dividend yield anomaly; verify</td>
-<td>Yield data unreliable</td>
-<td>Await dividend clarity</td>
+<td><strong>HOLD</strong></td>
+<td>Dividend yield anomaly; verify sustainability</td>
+<td>Await dividend confirmation</td>
+<td>3-6 months</td>
 </tr>
 <tr>
-<td>💎 Value</td>
+<td>💎 <strong>Value</strong></td>
 <td>Medium</td>
-<td>HOLD</td>
-<td>Strong Z-Score vs low valuation</td>
-<td>Price stable, no discount</td>
-<td>Consider entry if price dips</td>
+<td><strong>BUY</strong></td>
+<td>Undervalued given strong Z-Score</td>
+<td>Entry on price dips</td>
+<td>1-3 months</td>
 </tr>
 <tr>
-<td>📈 Growth</td>
+<td>📈 <strong>Growth</strong></td>
 <td>Medium-High</td>
-<td>HOLD</td>
-<td>Stable Z-Score, limited growth signals</td>
-<td>No momentum detected</td>
-<td>Monitor for catalysts</td>
+<td><strong>HOLD</strong></td>
+<td>EBIT ratio 0.000 limits growth potential</td>
+<td>Monitor operational improvements</td>
+<td>6-12 months</td>
 </tr>
 <tr>
-<td>🚀 Aggressive</td>
+<td>🚀 <strong>Aggressive</strong></td>
 <td>High</td>
-<td>WAIT</td>
-<td>Low volatility, limited upside</td>
-<td>No volatility, no momentum</td>
-<td>Await clearer signals</td>
+<td><strong>HOLD</strong></td>
+<td>Low volatility but liquidity risk</td>
+<td>Wait for clearer market signals</td>
+<td>6-12 months</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Commentary:</strong><br />
-Conservative and dividend-focused investors should maintain positions but seek clarification on dividend sustainability due to the anomalous 3072% yield. Value investors may find BMA attractive given its strong Z-Score and stable fundamentals, but lack of price volatility suggests limited immediate entry opportunities.</p>
-<p>Growth and aggressive investors should wait for clearer momentum or market catalysts before initiating positions, as current data shows low volatility and no significant price movement.</p>
+Conservative and value investors should capitalize on the strong Z-Score safety margin and market cap stability by initiating or increasing positions. Dividend investors should exercise caution due to the anomalous dividend yield and await confirmation of dividend policy sustainability. Growth and aggressive investors should monitor operational efficiency improvements before committing, given the current zero EBIT ratio and low liquidity.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -825,30 +860,29 @@ Conservative and dividend-focused investors should maintain positions but seek c
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Strengthen liquidity &amp; profitability</td>
-<td>Working Capital Ratio (0.222), Retained Earnings (-0.036)</td>
-<td>Focus on improving liquidity management and earnings retention</td>
-<td>Improved liquidity ratios, positive retained earnings</td>
+<td>Enhance operational efficiency</td>
+<td>EBIT Ratio, Asset Turnover</td>
+<td>Implement cost optimization, digital banking initiatives</td>
+<td>EBIT ratio improvement, asset utilization increase</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital allocation &amp; risk management</td>
-<td>Z-Score (10.61), EBIT Ratio (0.000)</td>
-<td>Optimize capital structure, monitor operational efficiency</td>
-<td>Stable or rising Z-Score, positive EBIT growth</td>
+<td>Strengthen liquidity position</td>
+<td>Working Capital Ratio, Retained Earnings Ratio</td>
+<td>Improve cash management, diversify funding sources</td>
+<td>Working capital ratio &gt; 1.0, positive retained earnings</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Oversight of risk &amp; compliance</td>
-<td>AI Risk Analysis (Low Risk), Dividend Policy</td>
-<td>Review dividend policy for sustainability, ensure regulatory compliance</td>
-<td>Risk metrics stable, dividend policy aligned with earnings</td>
+<td>Risk oversight and transparency</td>
+<td>Z-Score trends, Dividend policy</td>
+<td>Regular risk reviews, transparent dividend communication</td>
+<td>Stable Z-Score, consistent dividend payouts</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-Banco Macro’s leadership should prioritize addressing liquidity constraints and reversing negative retained earnings trends to sustain its strong Z-Score and market confidence. The CFO’s role in capital allocation is critical to maintaining operational efficiency and risk mitigation.</p>
-<p>The Board must ensure governance frameworks align with the company’s risk profile and dividend practices, especially given the unusual dividend yield data. Transparent communication with investors will support market perception management.</p>
+<p><strong>Commentary:</strong><br />
+Executive leadership should focus on operational improvements to increase EBIT ratio and asset turnover, critical for sustainable profitability. The CFO must address liquidity constraints by enhancing working capital management and ensuring positive retained earnings to support growth and dividend payments. The Board should maintain rigorous oversight of risk factors highlighted in the AI Risk Analysis and ensure transparent communication with investors to mitigate market perception risks.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -864,35 +898,35 @@ Banco Macro’s leadership should prioritize addressing liquidity constraints an
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable at ~10.6</td>
-<td>Slight upward potential</td>
-<td>Earnings improvement, liquidity enhancement</td>
-<td>Quarterly Z-Score updates, earnings reports</td>
+<td>Stable above 10</td>
+<td>Stable to slightly improving</td>
+<td>Capital adequacy, operational efficiency</td>
+<td>Quarterly Z-Score updates, EBIT ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Strong relative to peers</td>
+<td>Strong relative position</td>
 <td>Maintain or improve</td>
 <td>Market share growth, regulatory environment</td>
 <td>Market share data, peer Z-Score trends</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low risk</td>
-<td>Stable or slight improvement</td>
-<td>Macroeconomic stability, credit quality</td>
-<td>Risk factor tracking, credit ratings</td>
+<td>Low overall risk</td>
+<td>Stable with vigilance</td>
+<td>Macroeconomic volatility, liquidity stress</td>
+<td>Liquidity ratios, macroeconomic indicators</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-Banco Macro’s Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, contingent on improved liquidity and earnings retention. Key catalysts include macroeconomic stabilization in Argentina and successful execution of operational improvements.</p>
-<p>Continuous monitoring of quarterly financials, peer performance, and risk indicators will be essential to detect early warning signs or opportunities for strategic repositioning. The company’s strong capital base provides resilience against potential shocks.</p>
+<p><strong>Commentary:</strong><br />
+Banco Macro’s Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, driven by capital adequacy and potential operational gains. Market position is strong relative to peers, with opportunities to consolidate leadership in the regional banking sector. Risk profile remains low but requires ongoing monitoring of liquidity and macroeconomic factors, especially given Argentina’s economic environment.</p>
+<p>Key catalysts include regulatory changes, credit market conditions, and internal efficiency initiatives. Leading indicators such as quarterly Z-Score components, EBIT ratio, and working capital ratio should be tracked closely to anticipate inflection points.</p>
 <hr />
-<h1 id="summary-conclusion"><strong>Summary Conclusion:</strong></h1>
-<p>Banco Macro S.A. presents a <strong>strong financial profile with a robust Altman Z-Score well within the safe zone</strong>, indicating low bankruptcy risk and solid operational footing. Despite some liquidity and profitability concerns, the company’s market position and risk profile support a <strong>HOLD recommendation</strong> across most investor profiles, with a watchful eye on dividend sustainability and liquidity improvements. Forward-looking indicators suggest stability with potential for modest improvement, making BMA a reliable component in a diversified financial services portfolio.</p>
+<h1 id="summary"><strong>Summary:</strong></h1>
+<p>Banco Macro S.A. exhibits a very strong Altman Z-Score profile indicating low bankruptcy risk and solid financial health despite liquidity and profitability challenges typical of the regional banking sector. Investment recommendations favor conservative and value investors with a BUY stance, while dividend and growth investors should await further clarity on dividend sustainability and operational improvements. Market data limitations require a fundamental-first approach, and risk management should focus on liquidity and operational efficiency enhancements.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial data, market intelligence, and risk assessment for actionable investment guidance.</em></p></div></div>
+<p><em>This analysis integrates all injected data elements explicitly, cross-validates Z-Score trends with financial ratios and market data, and incorporates AI Risk, Peer, and Sentiment analyses to deliver actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1235,78 +1269,41 @@ Banco Macro’s Z-Score momentum is expected to remain stable or improve modestl
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:18 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:29 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

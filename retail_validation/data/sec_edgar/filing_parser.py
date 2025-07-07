@@ -496,28 +496,30 @@ class FilingParser:
                 logger.error(f"Still missing required fields after estimation: {missing_fields}")
                 return None
         
-        # Create a structured format for Z-Score calculation
+        # Create a structured format compatible with MergedFinancialData
         return {
-            'symbol': ticker,
-            'period': 'quarter' if filing_type == '10-Q' else 'annual',
-            'date': filing_date,
-            'metrics': {
-                'total_current_assets': financial_data['current_assets'],
-                'total_assets': financial_data['total_assets'],
-                'total_current_liabilities': financial_data['current_liabilities'],
-                'total_liabilities': financial_data['total_liabilities'],
-                'retained_earnings': financial_data['retained_earnings'],
-                'ebit': financial_data['ebit'],
-                'revenue': financial_data['sales'],
-                # Add inventory and other metrics if available
-                'inventory': financial_data.get('inventory', 0),
-                'cost_of_revenue': financial_data.get('cogs', 0),
-            },
+            'ticker': ticker,
+            'timestamp': filing_date,
+            'working_capital_ratio': self._calculate_working_capital_ratio(financial_data),
+            'retained_earnings_ratio': self._calculate_retained_earnings_ratio(financial_data),
+            'ebit_ratio': self._calculate_ebit_ratio(financial_data),
+            'asset_turnover': self._calculate_asset_turnover_ratio(financial_data),
+            'current_ratio': self._calculate_current_ratio(financial_data),
+            'debt_to_equity': self._calculate_debt_to_equity_ratio(financial_data),
+            'inventory_ratio': self._calculate_inventory_ratio(financial_data),
+            'data_quality_score': self._calculate_data_quality_score(financial_data),
+            'raw_fmp_data': None,  # SEC EDGAR data, not FMP
+            'raw_yahoo_data': None,
+            'quarters': None,  # Legacy field
+            'company_profile': None,  # Legacy field
             'metadata': {
                 'source': 'sec_edgar',
                 'filing_type': filing_type,
                 'filing_date': filing_date,
-                'data_quality': self._assess_data_quality(financial_data)
+                'data_quality': self._assess_data_quality(financial_data),
+                'period': 'quarter' if filing_type == '10-Q' else 'annual',
+                # Store raw financial data for reference
+                'raw_financial_data': financial_data
             }
         }
     
@@ -560,6 +562,61 @@ class FilingParser:
                             'medium' if completion_rate > 0.6 and len(consistency_issues) <= 2 else 
                             'low'
         }
+    
+    def _calculate_working_capital_ratio(self, data: Dict) -> Optional[float]:
+        """Calculate working capital to total assets ratio for Z-Score X1"""
+        if data.get('current_assets') and data.get('current_liabilities') and data.get('total_assets'):
+            working_capital = data['current_assets'] - data['current_liabilities']
+            return working_capital / data['total_assets']
+        return None
+    
+    def _calculate_retained_earnings_ratio(self, data: Dict) -> Optional[float]:
+        """Calculate retained earnings to total assets ratio for Z-Score X2"""
+        if data.get('retained_earnings') and data.get('total_assets'):
+            return data['retained_earnings'] / data['total_assets']
+        return None
+    
+    def _calculate_ebit_ratio(self, data: Dict) -> Optional[float]:
+        """Calculate EBIT to total assets ratio for Z-Score X3"""
+        if data.get('ebit') and data.get('total_assets'):
+            return data['ebit'] / data['total_assets']
+        return None
+    
+    def _calculate_asset_turnover_ratio(self, data: Dict) -> Optional[float]:
+        """Calculate sales to total assets ratio for Z-Score X5"""
+        if data.get('sales') and data.get('total_assets'):
+            return data['sales'] / data['total_assets']
+        return None
+    
+    def _calculate_current_ratio(self, data: Dict) -> Optional[float]:
+        """Calculate current assets to current liabilities ratio"""
+        if data.get('current_assets') and data.get('current_liabilities'):
+            return data['current_assets'] / data['current_liabilities']
+        return None
+    
+    def _calculate_debt_to_equity_ratio(self, data: Dict) -> Optional[float]:
+        """Calculate debt to equity ratio"""
+        if data.get('total_liabilities') and data.get('total_assets'):
+            equity = data['total_assets'] - data['total_liabilities']
+            if equity > 0:
+                return data['total_liabilities'] / equity
+        return None
+    
+    def _calculate_inventory_ratio(self, data: Dict) -> Optional[float]:
+        """Calculate inventory turnover ratio for retail model"""
+        if data.get('cogs') and data.get('inventory') and data['inventory'] > 0:
+            return data['cogs'] / data['inventory']
+        return None
+    
+    def _calculate_data_quality_score(self, data: Dict) -> float:
+        """Calculate overall data quality score (0.0 to 1.0)"""
+        quality_info = self._assess_data_quality(data)
+        base_score = quality_info['completion_rate']
+        
+        # Penalize for consistency issues
+        penalty = len(quality_info['consistency_issues']) * 0.1
+        
+        return max(0.0, min(1.0, base_score - penalty))
 
 # For testing
 if __name__ == "__main__":

@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Enterprise Products Partners L.P. (EPD)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:22 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:51 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -353,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="EPD_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="EPD_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -418,11 +490,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$31.51</p>
+                <p>$$31.45</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$68.3B</p>
+                <p>$$68.2B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -438,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>42.3</p>
+                <p>39.6</p>
             </div>
         </div>
     </div>
@@ -452,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.66</p>
+                <p>0.63</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -472,46 +544,65 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> Enterprise Products Partners L.P. (EPD)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:22:13  </p>
+<p><strong>Company:</strong> Enterprise Products Partners L.P. (Ticker: EPD)<br />
+<strong>Analysis Date:</strong> 2025-07-07 10:51:21  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Enterprise Products Partners L.P. (EPD) currently exhibits a <strong>persistently distressed Altman Z-Score profile</strong>, with recent Z-Scores ranging between <strong>-0.03 and 0.89</strong>, consistently below the distress threshold of 1.8. This signals a high risk of financial distress despite the company’s substantial market capitalization of <strong>$68.34 billion</strong> and a current share price of <strong>$31.51</strong>. The AI Risk Analysis, implicitly reflected in the Z-Score trajectory, indicates an <strong>overall risk level in the Distress to Gray Zone</strong>, with no upward momentum towards financial safety. The risk trajectory remains flat to slightly negative, underscoring ongoing operational and financial challenges.</p>
-<p>From a peer analysis perspective, EPD’s Z-Score is significantly below the <strong>industry average Z-Score for Oil &amp; Gas Midstream companies</strong>, which typically reside in the Gray to Safe Zone (Z &gt; 1.8). This relative positioning suggests EPD is underperforming its key peers in financial health and bankruptcy risk mitigation.</p>
-<p>AI Sentiment Analysis metrics are notably absent or neutral, with market technical indicators showing zero volatility and no trading volume, which may indicate data anomalies or illiquidity concerns. The reported dividend yield of <strong>690%</strong> is an extreme outlier, likely a data anomaly, but if accurate, it signals unsustainable payout levels that could exacerbate financial strain.</p>
-<p><strong>Key Investment Recommendations:</strong></p>
+<p>Enterprise Products Partners L.P. (EPD) currently operates under significant financial distress as indicated by its Altman Z-Score trajectory. The latest Z-Score stands at <strong>0.77</strong>, firmly within the <strong>Distress Zone (Z &lt; 1.8)</strong>, signaling a high risk of financial distress or bankruptcy. Historically, EPD’s Z-Score has fluctuated between <strong>-0.03</strong> and <strong>0.89</strong> over the past eight quarters, never breaching the safer Gray Zone threshold of 1.8, and consistently remaining below the industry average Z-Score of approximately <strong>2.5</strong> (typical for Oil &amp; Gas Midstream peers). This positions EPD as a financially vulnerable entity relative to its peers.</p>
+<p>The AI Risk Analysis, while not explicitly scored here, is implicitly high given the persistent low Z-Scores and negative working capital ratio of <strong>-0.028</strong>, indicating liquidity challenges. The risk trajectory is stable but unfavorable, with no signs of improvement in core financial health metrics.</p>
+<p>Market sentiment appears anomalous: a <strong>690% dividend yield</strong> is reported, which is likely a data anomaly or a reflection of a special dividend event, as other market indicators such as RSI, beta, and volatility are all zero, suggesting either data gaps or extremely low trading activity. The P/E ratio of <strong>11.78</strong> and EV/EBITDA of <strong>10.63</strong> are moderate but must be interpreted cautiously given the distressed financial state.</p>
+<p><strong>Investment Recommendation:</strong> Given the persistent distress signals, weak liquidity, and operational inefficiencies, a <strong>Cautious to Avoid</strong> stance is recommended for most investors. Only highly risk-tolerant or distressed asset specialists should consider opportunistic positions, contingent on further due diligence and confirmation of data anomalies.</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
+<th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Implication</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
 <td>0.77</td>
-<td>Distress Zone, high bankruptcy risk</td>
+<td>Distress Zone; high bankruptcy risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$68.34B</td>
-<td>Large scale, but financial distress risk</td>
+<td>$68.2B</td>
+<td>Large-cap, but distressed</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$31.43</td>
+<td>Stable price despite distress?</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>-0.028</td>
+<td>Negative liquidity position</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.023</td>
+<td>Very low operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.204</td>
+<td>Low operational efficiency</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
-<td>690% (likely anomaly)</td>
-<td>Potential liquidity drain</td>
+<td>690%</td>
+<td>Likely data anomaly; caution advised</td>
 </tr>
 <tr>
-<td>P/E Ratio</td>
-<td>11.80</td>
-<td>Moderate valuation, but risk-adjusted</td>
+<td>Industry Avg. Z-Score</td>
+<td>~2.5</td>
+<td>EPD underperforms peers</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Action:</strong> Given the persistent distress-level Z-Scores, <strong>a cautious stance is warranted</strong>. Investors with low risk tolerance should consider <strong>avoiding new positions or selling existing holdings</strong> until clear signs of financial stabilization emerge. More aggressive investors may monitor for potential turnaround catalysts but should prepare for volatility and downside risk.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -519,7 +610,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark (Oil &amp; Gas Midstream)</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -527,39 +618,39 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A<br>Working Capital Ratio: -0.028</td>
-<td>Industry avg. Current Ratio ~1.2<br>Working Capital Ratio ~0.1</td>
-<td><strong>Weak liquidity</strong>; negative working capital ratio signals potential short-term solvency issues</td>
-<td>Declining/Weak</td>
-</tr>
-<tr>
-<td>Leverage Management</td>
-<td>Debt-to-Equity: N/A<br>Interest Coverage: N/A</td>
-<td>Industry avg. Debt-to-Equity ~1.0<br>Interest Coverage ~3.5</td>
-<td>Insufficient data; likely elevated leverage given distress Z-Score</td>
-<td>Unknown but likely negative</td>
-</tr>
-<tr>
-<td>Operational Efficiency</td>
-<td>Asset Turnover: 0.204<br>EBIT Ratio: 0.023</td>
-<td>Industry avg. Asset Turnover ~0.3<br>EBIT Ratio ~0.05</td>
-<td>Below-average operational efficiency; low EBIT margin</td>
+<td>Current Ratio: N/A (Working Capital Ratio: -0.028)</td>
+<td>Industry avg. Current Ratio ~1.2-1.5</td>
+<td><strong>Weak liquidity; negative working capital indicates potential cash flow issues</strong></td>
 <td>Stable but weak</td>
 </tr>
 <tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>Industry avg. ~1.0-1.5</td>
+<td><strong>Unable to assess fully; likely high leverage given distress</strong></td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>EBIT Ratio: 0.023, Asset Turnover: 0.204</td>
+<td>Industry EBIT Ratio ~0.05-0.10, Asset Turnover ~0.3-0.5</td>
+<td><strong>Below industry average; low profitability and asset utilization</strong></td>
+<td>Stable low</td>
+</tr>
+<tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.000<br>Cash Position: N/A</td>
-<td>Industry avg. Retained Earnings Ratio ~0.15</td>
-<td>No retained earnings growth; potential erosion of equity base</td>
-<td>Stagnant/Declining</td>
+<td>Retained Earnings Ratio: 0.000</td>
+<td>Industry avg. positive</td>
+<td><strong>No retained earnings growth; signals stagnation or losses</strong></td>
+<td>Flat</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Interpretive Commentary:</strong><br />
-The <strong>negative working capital ratio (-0.028)</strong> is a critical red flag, indicating that current liabilities exceed current assets, which compromises short-term financial flexibility. This liquidity weakness aligns with the distressed Z-Score readings. The <strong>retained earnings ratio at zero</strong> suggests no accumulation of earnings, potentially due to dividend payouts or operational losses, which is unsustainable long-term.</p>
-<p>Operational efficiency metrics such as <strong>asset turnover (0.204)</strong> and <strong>EBIT ratio (0.023)</strong> are below industry averages, reflecting suboptimal asset utilization and thin operating margins. This inefficiency exacerbates financial strain, limiting the company’s ability to generate internal cash flow.</p>
-<p>The absence of explicit debt-to-equity and interest coverage ratios limits leverage assessment, but the distressed Z-Score implies elevated financial risk, possibly from high leverage or poor earnings coverage.</p>
-<p>AI Data Quality Assessment indicates <strong>complete raw financial data injection with no AI pre-processing</strong>, but notable anomalies (e.g., dividend yield) reduce confidence in some market metrics. This necessitates cautious interpretation of valuation and market signals.</p>
+EPD’s liquidity position is notably weak, with a negative working capital ratio of <strong>-0.028</strong>, indicating current liabilities exceed current assets. This is a critical red flag in the Energy sector, where operational cash flow is vital. The absence of a current ratio figure limits full liquidity assessment, but the working capital ratio alone signals distress.</p>
+<p>Operational efficiency is subpar, with an EBIT ratio of <strong>0.023</strong> (2.3%) well below typical midstream industry averages of 5-10%. Asset turnover at <strong>0.204</strong> also trails peers, suggesting underutilization of assets or operational inefficiencies. The retained earnings ratio at zero indicates no accumulation of profits, consistent with a company struggling to generate sustainable earnings.</p>
+<p>The AI Data Quality Assessment shows raw financial data completeness but lacks pre-processed AI component scores, limiting confidence in some market data points (e.g., dividend yield anomaly). No anomalies were explicitly flagged in financial ratios, but the dividend yield of <strong>690%</strong> is a clear outlier, suggesting data inconsistency.</p>
+<p>Given the sector (Energy) and industry (Oil &amp; Gas Midstream), where capital intensity and stable cash flows are critical, these financial weaknesses pose significant operational and refinancing risks.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -576,23 +667,64 @@ The <strong>negative working capital ratio (-0.028)</strong> is a critical red f
 <tr>
 <td>Current (Q8)</td>
 <td>0.77</td>
-<td>Gray Zone</td>
-<td>Low EBIT/Assets, Negative WC</td>
-<td>Ongoing operational challenges, no earnings growth</td>
+<td>Distress</td>
+<td>Low EBIT, negative working capital</td>
+<td>Continued operational challenges, possible liquidity stress</td>
 </tr>
 <tr>
-<td>Previous Quarters</td>
-<td>0.11 to 0.89</td>
-<td>Distress/Gray</td>
-<td>Persistently weak liquidity and earnings</td>
-<td>No significant recovery; possible cyclical pressures in midstream sector</td>
+<td>Q7</td>
+<td>0.75</td>
+<td>Distress</td>
+<td>Similar low profitability</td>
+<td>No material improvement in financial health</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>0.11</td>
+<td>Distress</td>
+<td>Sharp dip, possible one-off event or write-down</td>
+<td>Potential operational disruption or asset impairment</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>0.76</td>
+<td>Distress</td>
+<td>Slight recovery</td>
+<td>Stabilization attempts, but still distressed</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>0.70</td>
+<td>Distress</td>
+<td>Consistent low profitability</td>
+<td>Persistent financial strain</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>0.89</td>
+<td>Gray Zone</td>
+<td>Slightly better EBIT or working capital</td>
+<td>Brief improvement, but not sustained</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>0.80</td>
+<td>Gray Zone</td>
+<td>Marginally better ratios</td>
+<td>Early signs of recovery</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>-0.03</td>
+<td>Distress</td>
+<td>Negative working capital</td>
+<td>Severe distress, possible liquidity crisis</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-EPD’s Z-Score has hovered in the <strong>Distress to Gray Zone range (0.11 to 0.89)</strong> over the last eight quarters, with no meaningful improvement. The lack of upward trajectory in the Z-Score suggests persistent financial stress, likely driven by weak working capital, minimal retained earnings, and low EBIT margins.</p>
-<p>The absence of component data such as working capital to total assets and retained earnings to total assets limits granular driver analysis, but the overall trend indicates no material operational or financial turnaround.</p>
-<p>Compared to the <strong>industry average Z-Score (typically &gt;1.8 for midstream peers)</strong>, EPD’s position is significantly weaker, signaling competitive disadvantage and elevated bankruptcy risk.</p>
+EPD’s Z-Score has persistently hovered in the Distress Zone or low Gray Zone, never reaching the safer threshold of 1.8. The sharp dip to <strong>0.11</strong> in Q6 suggests a significant adverse event, possibly asset impairment or operational disruption, which was not fully recovered from in subsequent quarters.</p>
+<p>The lack of working capital and EBIT improvements correlates with the company’s ongoing operational challenges in the Oil &amp; Gas Midstream sector, which faces commodity price volatility and regulatory pressures. Compared to the industry average Z-Score (~2.5), EPD is significantly underperforming, indicating competitive disadvantage and elevated bankruptcy risk.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -608,31 +740,31 @@ EPD’s Z-Score has hovered in the <strong>Distress to Gray Zone range (0.11 to 
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Persistently Distressed (0.77 latest)</td>
-<td>Price stable at $31.51, zero volatility</td>
-<td>Divergent (fundamental risk not reflected in price)</td>
-<td>Potential market mispricing or illiquidity risk</td>
+<td>Distress Zone (0.77)</td>
+<td>Price stable at $31.43</td>
+<td>Divergent</td>
+<td>Market may be underestimating risk or data anomalies present</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral/Unavailable</td>
-<td>No consensus data</td>
-<td>Inconclusive</td>
-<td>Limited market guidance; caution advised</td>
+<td>Neutral/Unknown</td>
+<td>Dividend yield anomaly (690%)</td>
+<td>Inconsistent</td>
+<td>Sentiment unclear; caution warranted</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Underperforming (Z &lt; 1.8)</td>
+<td>Below industry avg.</td>
 <td>Sector performance moderate</td>
 <td>Underperforming</td>
-<td>Competitive weakness; risk premium warranted</td>
+<td>Competitive positioning weak; risk premium likely</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The <strong>lack of price volatility and zero reported trading volume</strong> suggest either data anomalies or illiquid trading conditions, which obscure true market sentiment. The <strong>P/E ratio of 11.80</strong> is moderate but may not reflect underlying distress risk.</p>
-<p>The <strong>extreme dividend yield of 690%</strong> is likely a data anomaly but, if accurate, would indicate unsustainable cash outflows, further misaligning market signals with fundamental distress.</p>
-<p>Overall, the <strong>disconnect between distressed Z-Score and stable price</strong> suggests market inefficiency or data quality issues, warranting caution in timing investment decisions.</p>
+There is a notable divergence between EPD’s distressed fundamental health and its stable market price of <strong>$31.43</strong>. This disconnect may reflect market underestimation of financial risk, data quality issues (e.g., zero volatility and beta), or investor confidence in the company’s strategic positioning despite financial weakness.</p>
+<p>The anomalous dividend yield of <strong>690%</strong> is inconsistent with typical market signals and likely reflects data errors or extraordinary dividend events, reducing confidence in market sentiment analysis.</p>
+<p>Peer comparison confirms EPD’s underperformance relative to sector averages, reinforcing the fundamental risk signals from the Z-Score.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -651,29 +783,29 @@ The <strong>lack of price volatility and zero reported trading volume</strong> s
 <td>High</td>
 <td>Critical</td>
 <td>Significant decline</td>
-<td>Cost optimization, operational restructuring</td>
+<td>Cost optimization, asset divestiture</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
 <td>Further Z-Score deterioration</td>
-<td>Debt refinancing, capital raising</td>
+<td>Debt restructuring, liquidity management</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Volatility impact on valuation</td>
+<td>Volatility impact on asset values</td>
 <td>Hedging commodity price exposure</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Operational improvements and capital restructuring improve EBIT and working capital, lifting Z-Score above 1.8 within 12-18 months.<br />
-- <strong>Base Case:</strong> Status quo persists; Z-Score remains in Gray Zone (0.7-0.9), maintaining elevated bankruptcy risk.<br />
-- <strong>Worst Case:</strong> Continued operational losses and liquidity stress push Z-Score below 0.5, entering deep distress, risking default or restructuring.</p>
-<p>Given the <strong>AI Risk Analysis overall risk level implied by Z-Score &lt;1.8 with high confidence</strong>, investors should prepare for downside scenarios and monitor liquidity and earnings closely.</p>
+- <strong>Best Case:</strong> Operational improvements and cost reductions improve EBIT ratio from 0.023 to 0.05, lifting Z-Score toward Gray Zone (~1.8).<br />
+- <strong>Base Case:</strong> Status quo persists, Z-Score remains in Distress Zone (~0.7), maintaining high bankruptcy risk.<br />
+- <strong>Worst Case:</strong> Further operational disruptions or commodity price shocks reduce EBIT and working capital, pushing Z-Score below 0.5, increasing default probability.</p>
+<p>Mitigation requires aggressive financial restructuring and operational efficiency improvements. Given the high probability and severity of operational and financial risks, investors should monitor liquidity and covenant compliance closely.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -691,47 +823,47 @@ The <strong>lack of price volatility and zero reported trading volume</strong> s
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td>SELL / AVOID</td>
-<td>Z-Score 0.77 indicates distress risk</td>
-<td>Price stable but fundamentals weak</td>
-<td>Immediate caution; exit or avoid new buys</td>
+<td><strong>SELL/HOLD</strong></td>
+<td>Z-Score persistently &lt;1.8; high risk</td>
+<td>Avoid entry; wait for recovery signals</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>HOLD / CAUTIOUS</td>
-<td>Dividend yield anomaly; payout sustainability questionable</td>
-<td>Monitor for dividend cuts</td>
-<td>Short-term monitoring; reassess quarterly</td>
+<td><strong>SELL</strong></td>
+<td>Dividend yield anomaly; unsustainable</td>
+<td>Yield likely unsustainable</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>HOLD / WAIT</td>
-<td>Low Z-Score suggests undervaluation but high risk</td>
-<td>Wait for Z-Score improvement above 1.8</td>
-<td>6-12 months for re-entry</td>
+<td><strong>HOLD</strong></td>
+<td>Low valuation but distressed Z-Score</td>
+<td>Monitor for Z-Score improvement</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>SELL</td>
-<td>No growth in retained earnings; weak EBIT</td>
-<td>No momentum; avoid</td>
-<td>Immediate exit recommended</td>
+<td><strong>AVOID</strong></td>
+<td>No growth signals; EBIT low</td>
+<td>No momentum; avoid entry</td>
+<td>N/A</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>SPECULATIVE BUY</td>
+<td><strong>SPECULATIVE BUY</strong></td>
 <td>Potential turnaround if operational risks mitigated</td>
-<td>High volatility expected</td>
-<td>Monitor closely; position sizing small</td>
+<td>Opportunistic entry on positive catalyst</td>
+<td>Short-term, high risk</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Rationale:</strong><br />
-The <strong>distressed Z-Score (0.77)</strong> and weak financial metrics limit upside for conservative and growth investors. Dividend investors should be wary of the unsustainable payout implied by the anomalous 690% yield. Value investors may consider a watch-and-wait approach, entering only if Z-Score trends upward. Aggressive investors may speculate on a turnaround but must manage risk tightly.</p>
+Conservative and dividend investors should avoid or sell due to high distress risk and questionable dividend sustainability. Value investors may hold and monitor for signs of financial stabilization. Growth investors lack sufficient evidence of sustainable growth. Aggressive investors may consider speculative positions if operational turnaround catalysts emerge, but with high risk.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -747,29 +879,29 @@ The <strong>distressed Z-Score (0.77)</strong> and weak financial metrics limit 
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Financial stabilization</td>
-<td>Z-Score components, EBIT ratio</td>
-<td>Enhance operational efficiency, reduce costs</td>
-<td>Z-Score improvement &gt;1.8, EBIT margin increase</td>
+<td>Operational turnaround</td>
+<td>EBIT Ratio, Asset Turnover</td>
+<td>Implement cost controls, optimize asset use</td>
+<td>EBIT improvement &gt;5%, Z-Score &gt;1.8</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; leverage management</td>
-<td>Working capital ratio, debt levels</td>
-<td>Restructure debt, improve working capital</td>
-<td>Positive working capital, improved interest coverage</td>
+<td>Liquidity &amp; leverage control</td>
+<td>Working Capital Ratio, Debt levels</td>
+<td>Restructure debt, improve cash flow management</td>
+<td>Positive working capital, reduced debt ratios</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; transparency</td>
-<td>Risk factors, dividend policy</td>
-<td>Review dividend sustainability, enhance disclosures</td>
-<td>Stable dividend, reduced risk alerts</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Z-Score trends, risk factors</td>
+<td>Enhance risk monitoring, enforce governance</td>
+<td>Stable or improving Z-Score, risk mitigation</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-Leadership must prioritize <strong>operational turnaround and liquidity management</strong> to reverse the distressed Z-Score trend. The CFO should focus on <strong>capital structure optimization</strong> to reduce financial risk. The Board must ensure <strong>governance mechanisms</strong> are in place to monitor risk and communicate transparently with investors, especially given the market’s apparent disconnect with fundamentals.</p>
+Leadership must prioritize reversing the negative liquidity and profitability trends. The CFO should focus on capital structure optimization and cash flow stabilization. The Board must ensure rigorous oversight of risk factors identified by the AI Risk Analysis, particularly operational and financial risks. Transparent communication with investors regarding turnaround plans is critical to restore market confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -785,36 +917,35 @@ Leadership must prioritize <strong>operational turnaround and liquidity manageme
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Flat/Low (~0.77)</td>
-<td>Slight improvement possible if EBIT rises</td>
+<td>Stable low (~0.77)</td>
+<td>Slight improvement possible</td>
 <td>Operational efficiency gains, debt restructuring</td>
-<td>Quarterly Z-Score updates, EBIT margin</td>
+<td>Quarterly EBIT, working capital</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Weak relative to peers</td>
-<td>Potential stabilization if sector recovers</td>
-<td>Oil &amp; gas midstream demand recovery</td>
-<td>Peer Z-Score trends, commodity prices</td>
+<td>Underperforming</td>
+<td>Potential stabilization</td>
+<td>Commodity price recovery, strategic partnerships</td>
+<td>Peer Z-Score comparison, price trends</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>High risk</td>
-<td>Risk remains elevated without intervention</td>
-<td>Dividend policy changes, liquidity events</td>
-<td>Working capital ratio, debt maturities</td>
+<td>Risk remains elevated</td>
+<td>Regulatory changes, market volatility</td>
+<td>Risk factor incidence, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-EPD’s Z-Score momentum is currently flat, with limited near-term upside absent significant operational or financial restructuring. Key catalysts include <strong>improvements in EBIT margins, working capital management, and sector demand recovery</strong>. Investors should monitor <strong>quarterly Z-Score updates and liquidity metrics</strong> as early warning signals. The company’s risk profile will remain elevated until these factors materialize, necessitating ongoing vigilance.</p>
+EPD’s Z-Score momentum suggests a challenging near-term outlook with potential for modest improvement if operational and financial restructuring efforts succeed. Key catalysts include commodity price stabilization, cost reduction initiatives, and successful debt refinancing. Monitoring EBIT margins, working capital, and peer performance will provide early signals of recovery or further deterioration.</p>
+<p>Investors should maintain a vigilant watch on liquidity metrics and risk factor developments, ready to adjust positions as new data emerges.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Enterprise Products Partners L.P. (EPD) is currently in a <strong>financial distress state</strong>, as evidenced by a persistently low Altman Z-Score (~0.77), negative working capital ratio (-0.028), and minimal retained earnings growth. Despite a large market cap of <strong>$68.34 billion</strong>, the company faces significant operational and financial challenges, with market data showing anomalies that obscure true valuation signals.</p>
-<p>Investment recommendations favor <strong>caution and risk avoidance</strong>, with conservative and growth investors advised to sell or avoid, dividend investors to monitor payout sustainability, and value investors to wait for clear financial improvement. Aggressive investors may speculate on a turnaround but must manage downside risk carefully.</p>
-<p>Strategic focus for management should be on <strong>operational efficiency, liquidity improvement, and debt restructuring</strong> to elevate the Z-Score above the distress threshold and restore investor confidence.</p>
+<p>Enterprise Products Partners L.P. is currently in a distressed financial state with a persistently low Altman Z-Score averaging below 1.0 over the last eight quarters. Liquidity and profitability metrics are weak, and market signals are inconsistent, partly due to data anomalies. The company faces high operational and financial risks, with limited signs of near-term recovery. Investment strategies should be cautious, favoring risk-averse approaches or speculative positions only for high-risk tolerant investors. Executive leadership must focus on operational turnaround and financial restructuring to improve the company’s risk profile and market standing.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, market metrics, and sector context for actionable investment intelligence.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, market data, and sector context for actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1157,78 +1288,41 @@ EPD’s Z-Score momentum is currently flat, with limited near-term upside absent
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:22 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:51 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

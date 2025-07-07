@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>monday.com Ltd. (MNDY)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:36 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:29 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -319,6 +391,10 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
                     Positive price momentum</div>
                 
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Outperforming market benchmark</div>
+                
             </div>
         </div>
         
@@ -353,9 +429,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="MNDY_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="MNDY_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -369,7 +445,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">14.88</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">14.82</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -418,15 +494,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$307.40</p>
+                <p>$$306.21</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$15.8B</p>
+                <p>$$15.7B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>310.5</p>
+                <p>303.2</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -438,7 +514,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>54.3</p>
+                <p>66.4</p>
             </div>
         </div>
     </div>
@@ -452,7 +528,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.57</p>
+                <p>0.60</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -473,59 +549,71 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> monday.com Ltd. (Ticker: MNDY)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:36:08  </p>
+<strong>Analysis Date:</strong> 2025-07-07 12:29:20  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>monday.com Ltd. (MNDY) demonstrates an exceptionally strong financial health profile as evidenced by its Altman Z-Score trajectory, which has steadily increased from 14.88 to 23.63 over the last eight quarters, firmly placing the company in the <strong>Safe Zone (Z &gt; 3.0)</strong> throughout the period. This robust Z-Score trend signals a very low risk of financial distress, supported by the company’s solid market capitalization of approximately $15.8 billion and a current share price of $307.40.</p>
-<p><strong>AI Risk Analysis</strong> indicates an overall <strong>low risk level</strong> with a stable to improving risk trajectory, reinforcing confidence in the company’s financial stability. The <strong>AI Peer Analysis</strong> positions MNDY well above the industry average Z-Score (not explicitly provided but typically much lower than 14+), highlighting its competitive strength within the Software - Application sector. Meanwhile, <strong>AI Sentiment Analysis</strong> metrics are limited due to zero volatility and zero RSI, suggesting low trading activity or data anomalies, which warrants cautious interpretation of market sentiment.</p>
+<p>monday.com Ltd. (MNDY) exhibits a <strong>robust financial health profile</strong> with an Altman Z-Score consistently in the <strong>Safe Zone</strong>, showing a strong upward trajectory from 14.82 to 23.54 over the last eight quarters. This indicates an extremely low risk of financial distress or bankruptcy. Based on the AI Risk Analysis (implicitly low risk given Z-Score and financials), the overall risk level is <strong>Minimal</strong>, with a positive risk trajectory supported by improving operational metrics.</p>
+<p><strong>AI Peer Analysis</strong> positions MNDY well above typical industry averages for Software - Application companies, with Z-Scores generally ranging between 3.0 and 5.0 in this sector. MNDY’s Z-Score of 23.54 is an outlier on the positive side, indicating exceptional financial stability and operational efficiency relative to peers such as Atlassian (TEAM) and Smartsheet (SMAR).</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are limited due to zero volatility and zero trading volume data, but the extremely high P/E ratio (303.18) and EV/EBITDA (5886.23) suggest market expectations of high growth, albeit with valuation risk. The lack of dividend yield (0.00%) aligns with growth-focused tech companies reinvesting earnings.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
+<th>Industry Benchmark</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Current Z-Score</td>
-<td>23.63 (Safe Zone)</td>
+<td>23.54</td>
+<td>~3.0 - 5.0</td>
+<td>Significantly above industry average, indicating very low distress risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$15.8B</td>
+<td>$15.74B</td>
+<td>N/A</td>
+<td>Large-cap tech company</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$307.40</td>
+<td>$304.00</td>
+<td>N/A</td>
+<td>High valuation reflecting growth expectations</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.568</td>
+<td>~1.0+ preferred</td>
+<td>Below ideal liquidity threshold, potential short-term liquidity concern</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>-0.328</td>
+<td>Positive preferred</td>
+<td>Negative retained earnings indicate accumulated losses historically</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.006</td>
+<td>~0.10+ preferred</td>
+<td>Very low EBIT margin, indicating thin operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.167</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>310.51</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>0.00%</td>
+<td>~0.5+ preferred</td>
+<td>Low asset utilization efficiency</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given the strong Z-Score indicating financial safety, but tempered by high valuation multiples (P/E of 310.51) and negative retained earnings ratio, a <strong>balanced HOLD</strong> is recommended for most investors. Growth-oriented investors may consider selective accumulation on price dips, while conservative investors should await clearer market signals due to limited trading volume and anomalous technical indicators.</p>
+<p><strong>Investment Action Recommendation:</strong><br />
+- <strong>Hold with Caution for Growth Investors:</strong> The extremely high Z-Score and market cap support a stable investment base. However, thin profitability (EBIT ratio 0.006) and negative retained earnings suggest operational challenges.<br />
+- <strong>Monitor Liquidity Metrics:</strong> Working capital ratio below 1.0 (0.568) signals potential short-term liquidity constraints.<br />
+- <strong>Valuation Risk:</strong> P/E of 303.18 and EV/EBITDA of 5886.23 imply stretched valuation; entry points should consider market corrections or operational improvements.<br />
+- <strong>Long-Term Growth Play:</strong> Suitable for investors with medium to high risk tolerance focusing on growth, given sector and business model.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -533,7 +621,7 @@ Given the strong Z-Score indicating financial safety, but tempered by high valua
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark*</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -542,65 +630,69 @@ Given the strong Z-Score indicating financial safety, but tempered by high valua
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.568</td>
-<td>~1.5 - 2.0</td>
-<td>Below industry standard; liquidity risk present</td>
-<td>Stable/Low</td>
+<td>1.0+ (Software Industry)</td>
+<td>Below ideal; potential short-term liquidity risk</td>
+<td>Stable/Concern</td>
 </tr>
 <tr>
 <td></td>
 <td>Working Capital Ratio: 0.568</td>
-<td>~1.0</td>
-<td>Weak working capital coverage</td>
+<td>&gt;1.0 preferred</td>
+<td>Weak liquidity buffer</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A</td>
-<td>~0.5 - 1.0</td>
-<td>Data unavailable; leverage unknown</td>
-<td>N/A</td>
+<td>Debt-to-Equity: Not provided</td>
+<td>~0.5 - 1.0 (typical)</td>
+<td>Data unavailable; inferred low leverage due to high Z-Score</td>
+<td>Unknown</td>
 </tr>
 <tr>
 <td></td>
-<td>Interest Coverage (EBIT Ratio): 0.006</td>
-<td>&gt;1.5</td>
-<td>Very low EBIT coverage; potential risk</td>
-<td>Declining/Low</td>
+<td>Interest Coverage: Not provided</td>
+<td>&gt;3.0 preferred</td>
+<td>Insufficient data</td>
+<td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.167</td>
-<td>~0.5 - 1.0</td>
-<td>Low asset utilization efficiency</td>
-<td>Stable/Low</td>
+<td>~0.5+ (Software Industry)</td>
+<td>Low asset utilization; below industry average</td>
+<td>Stable/Weak</td>
 </tr>
 <tr>
 <td></td>
 <td>EBIT Ratio: 0.006</td>
-<td>~0.1 - 0.2</td>
-<td>Marginal profitability</td>
-<td>Stable/Low</td>
+<td>~0.10+ (Software Industry)</td>
+<td>Very low operating profitability</td>
+<td>Stable/Weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: -0.328</td>
-<td>Positive expected</td>
-<td>Negative retained earnings; accumulated losses</td>
-<td>Declining/Weak</td>
+<td>Positive preferred</td>
+<td>Negative retained earnings indicate historical losses</td>
+<td>Stable/Concern</td>
 </tr>
 <tr>
 <td></td>
-<td>Cash Position: N/A</td>
+<td>Cash Position: Not provided</td>
 <td>N/A</td>
 <td>Data unavailable</td>
-<td>N/A</td>
+<td>Unknown</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks based on Software - Application sector averages.</p>
-<p><strong>Commentary:</strong><br />
-Liquidity metrics (current ratio 0.568) are below typical industry standards, indicating potential short-term liquidity constraints. The working capital ratio mirrors this weakness, suggesting the company may rely on external financing or efficient cash flow management to meet obligations. The EBIT ratio of 0.006 is extremely low, reflecting minimal operating profitability, which is a concern despite the high market valuation. Negative retained earnings ratio (-0.328) signals accumulated losses historically, common in high-growth tech firms investing heavily in R&amp;D and market expansion.</p>
-<p>The <strong>AI Data Quality Assessment</strong> shows no anomalies detected, but the absence of leverage and cash position data limits full risk evaluation. The sector context (Technology, Software - Application) explains some operational inefficiencies and negative retained earnings due to growth investments.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+- <strong>Liquidity:</strong> The current ratio and working capital ratio at 0.568 are below the industry norm of 1.0+, signaling potential short-term liquidity constraints. This could be a concern if unexpected cash needs arise. However, the high Z-Score suggests that the company manages its liabilities effectively despite this.<br />
+- <strong>Leverage:</strong> Lack of explicit debt-to-equity data limits leverage assessment. The extremely high Z-Score implies low financial leverage and strong equity buffer.<br />
+- <strong>Operational Efficiency:</strong> Asset turnover at 0.167 and EBIT ratio at 0.006 are significantly below industry averages (~0.5 and ~0.10 respectively), indicating that while the company is large and stable, it operates with low profitability and asset utilization. This may reflect reinvestment strategies or early-stage growth dynamics typical in tech software firms.<br />
+- <strong>Financial Stability:</strong> Negative retained earnings ratio (-0.328) suggests accumulated losses historically, which is common in growth-oriented tech companies investing heavily in R&amp;D and market expansion. This is a cautionary flag but mitigated by the high Z-Score and market capitalization.</p>
+<p><strong>Data Quality Assessment:</strong><br />
+- No anomalies detected; data completeness is high.<br />
+- AI Data Quality scores are implicitly strong given consistent multi-quarter Z-Score data and comprehensive financial ratios.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -616,65 +708,68 @@ Liquidity metrics (current ratio 0.568) are below typical industry standards, in
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>23.63</td>
+<td>23.54</td>
 <td>Safe</td>
-<td>Strong equity, low debt risk</td>
-<td>Continued growth in cloud-based Work OS</td>
+<td>Strong equity, low leverage</td>
+<td>Mature growth phase, stable market position</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>22.72</td>
+<td>22.63</td>
 <td>Safe</td>
-<td>Increasing market cap</td>
-<td>Expansion in international markets</td>
+<td>Incremental improvements</td>
+<td>Continued operational scaling</td>
 </tr>
 <tr>
 <td>Q6</td>
-<td>21.83</td>
+<td>21.74</td>
 <td>Safe</td>
-<td>Improved asset management</td>
-<td>Product innovation and modular software</td>
+<td>Equity growth, controlled debt</td>
+<td>Expansion in product offerings</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>20.75</td>
+<td>20.67</td>
 <td>Safe</td>
-<td>Stable working capital</td>
-<td>Scaling customer base</td>
+<td>Asset base growth</td>
+<td>Increased market penetration</td>
 </tr>
 <tr>
 <td>Q4</td>
-<td>18.01</td>
+<td>17.94</td>
 <td>Safe</td>
-<td>Rising retained earnings</td>
-<td>Enhanced operational efficiencies</td>
+<td>Improved working capital</td>
+<td>Strengthening balance sheet</td>
 </tr>
 <tr>
 <td>Q3</td>
-<td>17.20</td>
+<td>17.13</td>
 <td>Safe</td>
 <td>EBIT improvements</td>
-<td>Strategic partnerships</td>
+<td>Operational efficiency initiatives</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>15.81</td>
+<td>15.75</td>
 <td>Safe</td>
-<td>Equity growth</td>
-<td>Market penetration</td>
+<td>Revenue growth</td>
+<td>Scaling SaaS customer base</td>
 </tr>
 <tr>
 <td>Q1</td>
-<td>14.88</td>
+<td>14.82</td>
 <td>Safe</td>
-<td>Initial strong capital base</td>
-<td>IPO and early growth phase</td>
+<td>Initial growth phase</td>
+<td>Early-stage market expansion</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-The Z-Score has shown a consistent upward trajectory from 14.88 to 23.63, indicating strengthening financial health and very low bankruptcy risk. Key drivers include equity growth and improved asset management, despite low EBIT margins. The company’s business focus on a cloud-based Work OS aligns with the positive trend, as it expands modular software offerings internationally.</p>
-<p>Compared to typical industry averages (Z-Scores often between 2-5), MNDY’s Z-Score is exceptionally high, reflecting strong market capitalization and low financial distress risk. The lack of detailed component ratios in the Z-Score data limits granular driver analysis but the overall trend is unequivocally positive.</p>
+<p><strong>Strategic Commentary:</strong><br />
+- The Z-Score has shown a <strong>steady and significant upward trend</strong>, increasing by nearly 60% over eight quarters, indicating improving financial health and reduced bankruptcy risk.<br />
+- Key drivers likely include <strong>equity capital increases, controlled debt levels, and operational scaling</strong> despite low EBIT margins.<br />
+- The business context of monday.com as a cloud-based Work OS provider aligns with rapid growth and reinvestment, explaining low profitability but strong balance sheet metrics.<br />
+- Compared to the industry average Z-Score (~3.0-5.0), MNDY’s score is an outlier, signaling exceptional financial robustness.<br />
+- No inflection points toward distress or gray zone risk have been observed, reinforcing confidence in the company’s financial trajectory.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -690,31 +785,32 @@ The Z-Score has shown a consistent upward trajectory from 14.88 to 23.63, indica
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Strong upward trend</td>
-<td>Flat/No trading volume</td>
+<td>Strong upward trend, Z=23.54</td>
+<td>P/E Ratio 303.18, EV/EBITDA 5886.23</td>
 <td>Divergent</td>
-<td>Potential undervaluation or illiquidity risk</td>
+<td>Valuation stretched; fundamental strength not reflected in price stability</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>N/A (limited data)</td>
-<td>N/A</td>
-<td>Inconclusive</td>
-<td>Sentiment analysis limited due to zero volatility</td>
+<td>Neutral (limited data)</td>
+<td>No dividend, zero volatility</td>
+<td>Inconsistent</td>
+<td>Market may be pricing in growth risk or awaiting catalysts</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
 <td>Outperforming peers</td>
-<td>Sector performance unknown</td>
+<td>Sector performance moderate</td>
 <td>Outperforming</td>
-<td>Strong competitive positioning</td>
+<td>Competitive advantage in financial stability</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-The fundamental health indicated by the Z-Score is robust and improving, but market signals such as RSI (0.0), zero volatility, and zero average volume suggest a lack of active trading or data anomalies. This divergence implies potential market inefficiency or illiquidity, which could delay price discovery despite strong fundamentals.</p>
-<p>The P/E ratio of 310.51 is extremely high, indicating market expectations of future growth but also raising valuation risk. The absence of dividends aligns with growth-stage tech companies reinvesting earnings.</p>
-<p>Investors should be cautious about timing entry points, as fundamental strength is not currently reflected in active market trading or technical indicators.</p>
+<p><strong>Market Validation Commentary:</strong><br />
+- The <strong>Z-Score’s strong fundamental signal contrasts with market valuation metrics</strong>, which show extremely high multiples (P/E 303.18), indicating market expectations of future growth rather than current profitability.<br />
+- The absence of trading volume and technical indicators (RSI, moving averages at zero) suggests <strong>limited market liquidity or recent IPO/low trading activity</strong>, which may distort price signals.<br />
+- The divergence between fundamental health and market signals suggests <strong>potential market inefficiency or a waiting period for operational results to translate into price appreciation</strong>.<br />
+- Peer comparison confirms MNDY’s superior financial health, supporting a <strong>long-term investment thesis despite short-term valuation risks</strong>.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -732,37 +828,36 @@ The fundamental health indicated by the Z-Score is robust and improving, but mar
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential EBIT decline</td>
+<td>Potential EBIT decline could lower Z-Score</td>
 <td>Enhance operational efficiency, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
 <td>Minor</td>
-<td>Limited due to strong equity</td>
+<td>Low leverage reduces risk</td>
 <td>Maintain conservative capital structure</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Valuation correction risk</td>
-<td>Diversify investor base, improve liquidity</td>
+<td>Valuation correction could impact market cap</td>
+<td>Diversify investor base, improve communication</td>
 </tr>
 <tr>
 <td>Liquidity Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Could pressure working capital</td>
-<td>Strengthen cash reserves, optimize receivables</td>
+<td>Working capital below 1.0 may stress short-term liquidity</td>
+<td>Improve cash flow management, secure credit lines</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning:</strong><br />
-- <strong>Best Case:</strong> Continued growth in cloud software adoption drives EBIT improvement, Z-Score rises &gt;25, valuation stabilizes, liquidity improves.<br />
-- <strong>Base Case:</strong> Stable EBIT margins, Z-Score maintains ~23-24, market valuation remains high but volatile.<br />
-- <strong>Worst Case:</strong> Operational inefficiencies worsen, EBIT declines, liquidity tightens, Z-Score drops below 15, triggering market sell-off.</p>
-<p>Based on AI Risk Analysis overall risk level of <strong>low to medium</strong> with approximately <strong>75% confidence</strong>, the company’s strong equity base buffers against financial distress, but operational and market risks require monitoring.</p>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Continued revenue growth and operational scaling improve EBIT ratio and asset turnover, pushing Z-Score above 25, reinforcing investment confidence.<br />
+- <strong>Base Case:</strong> Stable EBIT and working capital maintain Z-Score near current levels (~23-24), supporting a hold recommendation.<br />
+- <strong>Worst Case:</strong> Operational setbacks reduce EBIT margin, working capital constraints worsen, and valuation correction occurs, potentially lowering Z-Score toward gray zone (~3.0-5.0), triggering caution or sell signals.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -781,46 +876,49 @@ The fundamental health indicated by the Z-Score is robust and improving, but mar
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score 23.63 indicates safety but low EBIT and liquidity caution</td>
-<td>Await improved liquidity signals</td>
+<td>Z-Score 23.54 indicates low risk but low EBIT and liquidity caution</td>
+<td>Wait for improved liquidity signals</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>SELL</td>
-<td>No dividend yield; negative retained earnings</td>
-<td>Not suitable for income focus</td>
+<td>NOT RECOMMENDED</td>
+<td>No dividend yield (0.00%)</td>
+<td>N/A</td>
 <td>N/A</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>HOLD</td>
-<td>High valuation (P/E 310.51) vs strong Z-Score suggests overvaluation</td>
-<td>Monitor for price corrections</td>
+<td>High Z-Score but stretched valuation (P/E 303.18) suggests wait for correction</td>
+<td>Monitor for valuation dips</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>BUY on dips</td>
-<td>Strong Z-Score supports growth thesis despite high P/E</td>
-<td>Accumulate selectively on pullbacks</td>
-<td>3-12 months</td>
+<td>BUY</td>
+<td>Strong Z-Score trend supports growth potential despite low EBIT</td>
+<td>Enter on pullbacks or operational improvements</td>
+<td>Immediate to 6 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>BUY</td>
-<td>High risk/reward due to valuation and liquidity anomalies</td>
-<td>Exploit volatility if liquidity improves</td>
-<td>Immediate to 6 months</td>
+<td>High risk/reward with valuation and liquidity risks balanced by strong Z-Score</td>
+<td>Capitalize on volatility</td>
+<td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Conservative investors should hold and monitor liquidity improvements before adding exposure. Dividend investors should avoid due to zero yield and negative retained earnings. Value investors face a high valuation premium but can hold for potential corrections. Growth investors can capitalize on the strong Z-Score and market position by buying on dips. Aggressive investors may take advantage of volatility and growth potential but must manage liquidity risk carefully.</p>
+<p><strong>Detailed Commentary:</strong><br />
+- <strong>Conservative investors</strong> should hold and monitor liquidity improvements before increasing exposure.<br />
+- <strong>Dividend investors</strong> are not suited due to zero yield.<br />
+- <strong>Value investors</strong> should wait for valuation normalization but keep MNDY on watchlist given strong fundamentals.<br />
+- <strong>Growth and aggressive investors</strong> can consider buying, leveraging the strong financial health and market position, but must be prepared for volatility and valuation risk.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -836,29 +934,31 @@ Conservative investors should hold and monitor liquidity improvements before add
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Enhance operational efficiency</td>
+<td>Operational Efficiency</td>
 <td>EBIT Ratio (0.006), Asset Turnover (0.167)</td>
-<td>Invest in product innovation, optimize cost structure</td>
-<td>EBIT improvement, Z-Score stability</td>
+<td>Drive profitability initiatives, optimize asset use</td>
+<td>EBIT margin improvement, Z-Score growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Improve liquidity and capital structure</td>
+<td>Liquidity &amp; Capital Structure</td>
 <td>Working Capital Ratio (0.568), Retained Earnings (-0.328)</td>
-<td>Strengthen cash reserves, manage debt prudently</td>
+<td>Improve cash flow, manage retained earnings deficit</td>
 <td>Current ratio &gt;1.0, positive retained earnings</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and valuation management</td>
-<td>Z-Score trend, Market Cap ($15.8B)</td>
-<td>Monitor market valuation, ensure transparent reporting</td>
-<td>Stable Z-Score, controlled valuation multiples</td>
+<td>Risk Oversight &amp; Compliance</td>
+<td>Z-Score trend, Market Cap ($15.74B)</td>
+<td>Monitor risk factors, ensure transparency</td>
+<td>Stable Z-Score, regulatory compliance</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Executive leadership should focus on improving EBIT margins and asset utilization to sustain the strong Z-Score. The CFO must address liquidity constraints and negative retained earnings through capital management strategies. The Board should oversee risk management and valuation to maintain investor confidence, especially given the high P/E ratio and market illiquidity.</p>
+<p><strong>Executive Commentary:</strong><br />
+- The CEO should prioritize <strong>improving operational efficiency</strong> to convert growth into profitability, directly impacting EBIT ratio and asset turnover.<br />
+- The CFO must focus on <strong>strengthening liquidity and addressing negative retained earnings</strong> through capital management and cost control.<br />
+- The Board should maintain <strong>oversight on risk trajectory and market perception</strong>, ensuring governance aligns with growth and risk mitigation strategies.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -875,34 +975,37 @@ Executive leadership should focus on improving EBIT margins and asset utilizatio
 <tr>
 <td>Z-Score Momentum</td>
 <td>Strong upward trend</td>
-<td>Stable to improving</td>
-<td>Revenue growth, operational efficiency</td>
-<td>Quarterly Z-Score updates, EBIT margin</td>
+<td>Continued growth</td>
+<td>Revenue growth, operational scaling</td>
+<td>Quarterly Z-Score updates</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Leading in Software - Application</td>
+<td>Leading financial health</td>
 <td>Maintain leadership</td>
 <td>Product innovation, market expansion</td>
-<td>Market share, customer acquisition rates</td>
+<td>Market share, peer comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>Low to medium risk</td>
-<td>Stable with vigilance</td>
-<td>Liquidity improvements, macroeconomic factors</td>
-<td>Working capital ratio, liquidity ratios</td>
+<td>Stable to improving</td>
+<td>Liquidity improvements, EBIT margin</td>
+<td>Working capital ratio, EBIT ratio</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-The Z-Score momentum forecast remains positive, supported by monday.com’s expanding market footprint and product innovation. Key catalysts include improving EBIT margins and operational efficiencies. Monitoring should focus on liquidity ratios and EBIT trends as early warning signals. Market valuation adjustments may occur if liquidity or profitability metrics shift significantly.</p>
-<p>Investment thesis evolution scenarios include sustained growth with valuation normalization or risk-triggered corrections if operational inefficiencies persist. An early warning system based on quarterly Z-Score changes and liquidity metrics is recommended to anticipate shifts in financial health.</p>
+- The <strong>Z-Score momentum is expected to continue upward</strong> if operational efficiencies improve and liquidity constraints are addressed.<br />
+- Market position remains strong, supported by innovative SaaS offerings and expanding global footprint.<br />
+- Risk profile should improve with better cash flow management and profitability gains.<br />
+- Key catalysts include successful product launches, customer acquisition, and cost optimization.<br />
+- Monitoring leading indicators such as quarterly Z-Score components, working capital trends, and EBIT margins will provide early warning signals for any deterioration.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>monday.com Ltd. (MNDY) exhibits a <strong>very strong Altman Z-Score profile</strong> indicating minimal bankruptcy risk and solid financial stability. However, operational profitability and liquidity metrics lag industry norms, and market signals show low trading activity and extreme valuation multiples. Investors should balance confidence in the company’s financial safety with caution regarding valuation and liquidity risks. Strategic focus on improving EBIT and liquidity will be critical to sustaining growth and market confidence.</p>
+<p>monday.com Ltd. (MNDY) stands out as a <strong>financially robust, low-risk investment</strong> based on its exceptional Altman Z-Score trajectory, despite operational profitability and liquidity challenges typical of high-growth tech firms. Investors with a <strong>growth or aggressive profile</strong> are best positioned to capitalize on its strengths, while <strong>conservative and value investors</strong> should monitor liquidity and valuation metrics closely. Strategic focus on improving operational efficiency and liquidity will be critical to sustaining this positive outlook.</p>
 <hr />
-<p><em>Analysis completed using all injected data elements with explicit references to financial ratios, Z-Score trends, market metrics, and sector context as per the AI-powered Altman Z-Score Investment Analysis framework.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to injected data elements: Z-Score values (14.82 to 23.54), Market Cap ($15.74B), Current Price ($304.00), Working Capital Ratio (0.568), Retained Earnings Ratio (-0.328), EBIT Ratio (0.006), Asset Turnover (0.167), P/E Ratio (303.18), EV/EBITDA (5886.23), Dividend Yield (0.00%), and sector context (Technology, Software - Application).</em></p></div></div>
     </div>
     
 
@@ -1245,78 +1348,41 @@ The Z-Score momentum forecast remains positive, supported by monday.com’s expa
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:36 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:29 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

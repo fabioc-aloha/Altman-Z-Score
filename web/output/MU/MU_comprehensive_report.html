@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Micron Technology, Inc. (MU)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:37 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:05 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -365,9 +437,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="MU_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="MU_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -381,7 +453,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">4.27</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">4.18</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -430,15 +502,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$122.29</p>
+                <p>$$118.96</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$136.9B</p>
+                <p>$$133.1B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>22.0</p>
+                <p>21.4</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -450,7 +522,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>62.5</p>
+                <p>56.2</p>
             </div>
         </div>
     </div>
@@ -460,11 +532,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Beta</h4>
-                <p>2.13</p>
+                <p>2.14</p>
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.13</p>
+                <p>0.10</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -485,64 +557,62 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Micron Technology, Inc. (Ticker: MU)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:37:04  </p>
+<strong>Analysis Date:</strong> 2025-07-07 11:04:31  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Micron Technology (MU) demonstrates a <strong>robust financial position</strong> with an Altman Z-Score consistently in the <strong>Safe Zone</strong>, ranging from 4.27 to 5.26 over the last eight quarters. This indicates a very low risk of bankruptcy and strong operational resilience. The AI Risk Analysis, while not explicitly quantified here, aligns with this low-risk profile given the stable and improving Z-Score trajectory.  </p>
-<p><strong>AI Peer Analysis</strong> places MU well above the industry average Z-Score (typically around 3.0 for semiconductors), confirming MU’s superior financial health relative to peers. Key peers in the semiconductor sector generally exhibit Z-Scores in the gray zone (1.8-3.0), making MU’s position notably strong.  </p>
-<p><strong>AI Sentiment Analysis</strong> metrics are limited due to missing technical indicators (RSI, moving averages, volume all zero), but the high dividend yield of 37.00% and a moderate P/E ratio of 22.03 suggest market recognition of MU’s value and income potential. The zero beta and volatility metrics may indicate data anomalies or lack of recent trading data, which should be considered in confidence assessments.</p>
+<p>Micron Technology (MU) demonstrates a <strong>robust financial health profile</strong> with a consistently strong Altman Z-Score trajectory firmly in the <strong>Safe Zone</strong> (Z &gt; 3.0) over the past eight quarters. The latest Z-Score of <strong>5.15</strong> significantly exceeds the industry average and distress thresholds, indicating a very low probability of bankruptcy risk. This is supported by a <strong>stable risk trajectory</strong> and a positive outlook from AI Risk Analysis (overall risk level: <strong>Low</strong>, confidence: <strong>95%</strong>).</p>
+<p><strong>AI Peer Analysis</strong> positions MU well above the semiconductor industry average Z-Score of approximately 3.2, reflecting superior operational and financial stability relative to key peers such as Intel (INTC) and Texas Instruments (TXN). This competitive advantage is reinforced by MU’s strong market capitalization of <strong>$133.12 billion</strong> and a current share price of <strong>$119.08</strong>.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals an <strong>overall positive market sentiment</strong> with a high dividend yield of <strong>37.00%</strong>, which is unusually elevated and suggests either a special dividend event or data anomaly; however, the P/E ratio of <strong>21.43</strong> and EV/EBITDA of <strong>9.13</strong> indicate reasonable valuation metrics consistent with growth potential and moderate risk.</p>
 <table>
 <thead>
 <tr>
-<th>Metric Category</th>
-<th>Key Metrics</th>
-<th>Interpretation</th>
+<th>Key Metrics Summary</th>
+<th>Value</th>
+<th>Industry Benchmark</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Z-Score (Latest)</td>
-<td>5.26</td>
-<td>Safe Zone, very low bankruptcy risk</td>
+<td>Latest Altman Z-Score</td>
+<td>5.15</td>
+<td>~3.2 (Semiconductors)</td>
+<td>Strong safety margin</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$136.86B</td>
-<td>Large-cap, stable market presence</td>
+<td>$133.12B</td>
+<td>Large-cap tech sector</td>
+<td>Reflects market confidence</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$119.08</td>
+<td>N/A</td>
+<td>Stable price environment</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>21.43</td>
+<td>20-25 typical</td>
+<td>Fair valuation</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>37.00%</td>
-<td>Exceptionally high, income focus</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>22.03</td>
-<td>Reasonable valuation for tech sector</td>
+<td>~1-3% typical</td>
+<td>Potential anomaly or special event</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.227</td>
-<td>Low liquidity buffer</td>
-</tr>
-<tr>
-<td>Debt-to-Equity</td>
-<td>Not explicitly provided</td>
-<td>See leverage assessment below</td>
-</tr>
-<tr>
-<td>AI Risk Level</td>
-<td>Low (inferred from Z-Score)</td>
-<td>Low risk with stable trajectory</td>
-</tr>
-<tr>
-<td>AI Peer Position</td>
-<td>Above industry average</td>
-<td>Competitive advantage in financial health</td>
+<td>&gt;0.2 healthy</td>
+<td>Adequate liquidity</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong> Given MU’s strong Z-Score, large market cap, and attractive dividend yield, a <strong>BUY</strong> recommendation is supported for investors with low to medium risk tolerance. However, liquidity concerns and missing market technical data warrant a cautious monitoring approach.</p>
+<p><strong>Investment Recommendation:</strong><br />
+Given MU’s <strong>strong Z-Score safety zone</strong>, stable financial ratios, and positive peer positioning, the recommendation is a <strong>BUY</strong> for medium to long-term investors with a <strong>medium risk tolerance</strong>. The company’s strong fundamentals and low bankruptcy risk support a confident entry, while the elevated dividend yield warrants further due diligence. Conservative investors should HOLD pending clarification on dividend sustainability.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -550,7 +620,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark (Semiconductors)</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -558,68 +628,38 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.227</td>
-<td>~1.0 - 1.5</td>
-<td>Weak liquidity; below industry norm</td>
-<td>Stable/Low</td>
-</tr>
-<tr>
-<td></td>
-<td>Working Capital Ratio: 0.227</td>
-<td>N/A</td>
-<td>Low working capital relative to assets</td>
+<td>Current Ratio: 0.227<br>Working Capital Ratio: 0.227</td>
+<td>Industry standard &gt;0.2</td>
+<td>Adequate liquidity but on the lower bound; manageable short-term obligations</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: Not provided</td>
-<td>~0.5 - 1.0 (typical)</td>
-<td>Unable to assess precisely; inferred moderate leverage</td>
+<td>Debt-to-Equity: N/A (data missing)<br>Interest Coverage: N/A</td>
+<td>Peer average ~1.0-1.5</td>
+<td>Insufficient data; however, high Z-Score implies manageable leverage</td>
 <td>Unknown</td>
 </tr>
 <tr>
-<td></td>
-<td>Interest Coverage (EBIT Ratio): 0.028</td>
-<td>Industry average ~0.05-0.10</td>
-<td>Low EBIT margin; potential risk if debt high</td>
-<td>Stable/Low</td>
-</tr>
-<tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.119</td>
-<td>Industry average ~0.2-0.3</td>
-<td>Below average asset utilization</td>
-<td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>EBIT Ratio: 0.028</td>
-<td>Industry average ~0.05-0.10</td>
-<td>Low profitability margin</td>
+<td>Asset Turnover: 0.119<br>EBIT Ratio: 0.028</td>
+<td>Industry avg Asset Turnover ~0.1-0.15<br>EBIT margin ~0.02-0.05</td>
+<td>Moderate asset utilization; EBIT margin within industry norms</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.581</td>
-<td>N/A</td>
-<td>Strong retained earnings buffer</td>
-<td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>Cash Position: Not provided</td>
-<td>N/A</td>
-<td>Unknown</td>
-<td>Unknown</td>
+<td>Retained Earnings Ratio: 0.581<br>Cash Position: N/A</td>
+<td>Retained Earnings &gt;0.5 favorable</td>
+<td>Strong retained earnings indicate reinvestment and profitability</td>
+<td>Improving</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Interpretive Commentary:</strong><br />
-- <strong>Liquidity:</strong> The current ratio of 0.227 is significantly below the industry benchmark of approximately 1.0 to 1.5, indicating potential short-term liquidity constraints. This low liquidity could pose operational risks if cash flow tightens, despite the company’s strong overall financial health.<br />
-- <strong>Leverage:</strong> While explicit debt-to-equity is missing, the EBIT ratio of 0.028 suggests low operating profitability relative to assets, which could be a concern if leverage is high. The absence of interest coverage data limits precise risk quantification.<br />
-- <strong>Operational Efficiency:</strong> Asset turnover at 0.119 is below typical semiconductor industry averages, indicating less efficient use of assets to generate sales. EBIT margin is also on the lower side, suggesting margin pressures or high operating costs.<br />
-- <strong>Financial Stability:</strong> A retained earnings ratio of 0.581 is strong, reflecting accumulated profits reinvested in the business, supporting long-term stability.  </p>
-<p><strong>Data Quality Note:</strong> The AI Data Quality Assessment indicates no anomalies detected but missing key ratios such as debt-to-equity and cash position reduce confidence in leverage and liquidity risk assessments. The zero values in market technical indicators also suggest incomplete market data.</p>
+Liquidity metrics (Working Capital Ratio at 0.227) are just above the industry minimum threshold, suggesting MU maintains sufficient short-term assets to cover liabilities, consistent with the <strong>stable Z-Score trend</strong>. The absence of explicit debt-to-equity and interest coverage data limits leverage risk assessment; however, the high Z-Score and market cap imply prudent financial management.</p>
+<p>Operational efficiency is moderate with an asset turnover of 0.119, reflecting the capital-intensive nature of semiconductor manufacturing. EBIT ratio at 2.8% aligns with industry averages, indicating steady profitability. The retained earnings ratio of 0.581 is a strong indicator of cumulative profitability and financial stability, supporting ongoing business growth.</p>
+<p>AI Data Quality Assessment shows <strong>no anomalies detected</strong> and <strong>high completeness and consistency scores (above 95%)</strong>, enhancing confidence in these financial diagnostics.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -635,65 +675,37 @@
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>5.26</td>
+<td>5.15</td>
 <td>Safe</td>
-<td>Strong retained earnings, stable working capital</td>
-<td>Continued product demand in memory/storage segments</td>
+<td>Strong retained earnings, stable EBIT, market equity</td>
+<td>Continued product innovation and market expansion</td>
 </tr>
 <tr>
-<td>Q7</td>
-<td>5.09</td>
+<td>Previous (Q7)</td>
+<td>4.99</td>
 <td>Safe</td>
-<td>Consistent EBIT and asset management</td>
-<td>Stable semiconductor market conditions</td>
+<td>Consistent working capital, steady asset turnover</td>
+<td>Stable demand in memory/storage segments</td>
 </tr>
 <tr>
-<td>Q6</td>
-<td>5.13</td>
+<td>Previous (Q6)</td>
+<td>5.02</td>
 <td>Safe</td>
-<td>Improved equity market valuation</td>
-<td>Positive investor sentiment</td>
+<td>Improved market cap, operational efficiency</td>
+<td>Expansion in Compute and Networking Business Unit</td>
 </tr>
 <tr>
-<td>Q5</td>
-<td>5.13</td>
+<td>Earlier Quarters</td>
+<td>4.18 - 4.58</td>
 <td>Safe</td>
-<td>Stable operational metrics</td>
-<td>Incremental product innovation</td>
-</tr>
-<tr>
-<td>Q4</td>
-<td>4.65</td>
-<td>Safe</td>
-<td>Working capital improvements</td>
-<td>Expansion in mobile and embedded units</td>
-</tr>
-<tr>
-<td>Q3</td>
-<td>4.64</td>
-<td>Safe</td>
-<td>Retained earnings growth</td>
-<td>Strong sales in storage business</td>
-</tr>
-<tr>
-<td>Q2</td>
-<td>4.67</td>
-<td>Safe</td>
-<td>Asset turnover optimization</td>
-<td>Industry-wide memory demand increase</td>
-</tr>
-<tr>
-<td>Q1</td>
-<td>4.27</td>
-<td>Safe</td>
-<td>Initial recovery phase</td>
-<td>Post-cyclical recovery in semiconductor sector</td>
+<td>Gradual improvement in EBIT and retained earnings</td>
+<td>Recovery from prior market volatility</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-MU’s Z-Score has steadily improved from 4.27 to 5.26 over eight quarters, consistently remaining in the Safe Zone (&gt;3.0). This upward trend reflects strengthening financial fundamentals, particularly in retained earnings and market valuation components. The steady Z-Score growth correlates with Micron’s strategic expansion in high-growth segments such as mobile and embedded memory, as well as sustained demand in storage technologies.  </p>
-<p>Compared to the semiconductor industry average Z-Score (~3.0), MU’s superior score indicates a competitive advantage in financial stability and bankruptcy risk mitigation. The absence of significant volatility in the Z-Score suggests stable business operations and effective risk management.</p>
+MU’s Z-Score has steadily increased from 4.18 to 5.15 over eight quarters, indicating enhanced financial robustness. The consistent Safe Zone classification reflects strong working capital management, retained earnings growth, and EBIT stability. This trajectory correlates with Micron’s strategic investments in emerging memory technologies and diversified business units (Compute, Mobile, Storage, Embedded).</p>
+<p>Benchmarking against the semiconductor industry average Z-Score (~3.2) confirms MU’s superior financial health and lower distress risk. The upward trend suggests resilience to cyclical semiconductor market fluctuations and effective capital allocation.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -709,31 +721,31 @@ MU’s Z-Score has steadily improved from 4.27 to 5.26 over eight quarters, cons
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Increasing Z-Score (4.27 → 5.26)</td>
-<td>P/E Ratio 22.03, Dividend Yield 37%</td>
-<td>Divergent*</td>
-<td>Strong fundamentals, but market data incomplete</td>
+<td>Increasing (5.15 latest)</td>
+<td>Stable price at $119.08</td>
+<td>Aligned</td>
+<td>Supports accumulation</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>N/A (AI Sentiment data missing)</td>
-<td>Technical indicators zeroed out</td>
-<td>Inconsistent</td>
-<td>Market sentiment unclear; caution advised</td>
+<td>Positive (high dividend yield, P/E 21.43)</td>
+<td>Mixed (data anomalies in dividend yield)</td>
+<td>Partially aligned</td>
+<td>Cautious optimism advised</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Above industry average Z-Score</td>
-<td>Sector performance stable</td>
-<td>Aligned</td>
-<td>MU outperforms peers financially</td>
+<td>Outperforming industry average</td>
+<td>Sector performance steady</td>
+<td>Outperforming</td>
+<td>Competitive advantage confirmed</td>
 </tr>
 </tbody>
 </table>
-<p>*Note: Market technical indicators (RSI, moving averages, volume) are all zero, indicating missing or anomalous data. This divergence reduces confidence in market timing signals.</p>
 <p><strong>Market Validation Commentary:</strong><br />
-The fundamental health indicated by the Z-Score trend is robust and improving, suggesting a favorable investment environment. However, the absence of reliable market technical data (RSI, volume, moving averages all zero) creates a disconnect between fundamental strength and market price signals. The high dividend yield of 37.00% is unusually elevated, which may reflect special dividends or data anomalies and should be verified.  </p>
-<p>Peer comparison confirms MU’s superior financial health relative to semiconductor sector competitors, reinforcing the investment thesis. The divergence between fundamental and market signals suggests a potential opportunity for value investors to capitalize on underappreciated fundamentals, but also calls for caution due to incomplete market data.</p>
+The strong and rising Z-Score aligns well with MU’s stable share price, indicating market recognition of fundamental strength. The P/E ratio of 21.43 is within a reasonable range for technology growth stocks, supporting valuation sustainability.</p>
+<p>However, the <strong>exceptionally high dividend yield of 37.00%</strong> is an outlier compared to typical semiconductor yields (~1-3%) and may reflect a data anomaly or a one-time special dividend. This discrepancy introduces some caution in sentiment interpretation and suggests further verification is needed.</p>
+<p>Peer comparison confirms MU’s superior financial health relative to competitors, reinforcing confidence in its market positioning and investment appeal.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -751,37 +763,30 @@ The fundamental health indicated by the Z-Score trend is robust and improving, s
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential EBIT ratio decline (-0.5)</td>
-<td>Enhance operational efficiency, cost control</td>
+<td>Potential EBIT decline (-0.5)</td>
+<td>Diversify product portfolio; R&amp;D investment</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>Low-Medium</td>
-<td>Moderate</td>
-<td>Liquidity stress could reduce Z-Score by ~0.3</td>
-<td>Improve working capital management, reduce short-term liabilities</td>
+<td>Low</td>
+<td>Minor</td>
+<td>Limited (Z-Score impact &lt;0.2)</td>
+<td>Maintain conservative leverage; monitor liquidity</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Market valuation shifts could affect equity component (-0.4)</td>
-<td>Diversify product portfolio, hedge market exposure</td>
-</tr>
-<tr>
-<td>Data Quality Risks</td>
-<td>Low</td>
-<td>Minor</td>
-<td>Anomalies in market data reduce confidence</td>
-<td>Validate data sources, monitor for updates</td>
+<td>Possible sales volatility (-0.7)</td>
+<td>Hedging strategies; market diversification</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Continued Z-Score improvement to &gt;5.5 driven by operational efficiency gains and stable market demand. Liquidity improves, supporting growth investments.<br />
-- <strong>Base Case:</strong> Z-Score remains stable around 5.2-5.3 with minor fluctuations due to cyclical semiconductor market dynamics. Dividend yield remains attractive.<br />
-- <strong>Worst Case:</strong> Liquidity constraints and margin pressure reduce EBIT ratio, lowering Z-Score toward 4.5, still within Safe Zone but signaling caution. Market volatility could pressure equity valuation.  </p>
-<p>Bankruptcy risk remains negligible given Z-Score well above 3.0. However, liquidity and operational efficiency risks warrant monitoring, especially given the low current ratio (0.227) and EBIT margin (0.028).</p>
+- <strong>Best Case:</strong> Continued innovation and market expansion sustain EBIT margins and retained earnings, pushing Z-Score above 5.3.<br />
+- <strong>Base Case:</strong> Stable operations maintain Z-Score near current 5.15, preserving Safe Zone status.<br />
+- <strong>Worst Case:</strong> Semiconductor cyclical downturn reduces EBIT and sales, potentially lowering Z-Score toward 3.5 but remaining above distress threshold.</p>
+<p>Bankruptcy risk is minimal given the current Z-Score and financial ratios. Liquidity stress tests indicate manageable short-term obligations. Risk mitigation should focus on operational agility and market diversification to counteract semiconductor industry cyclicality.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -799,49 +804,50 @@ The fundamental health indicated by the Z-Score trend is robust and improving, s
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>BUY</strong></td>
-<td>Z-Score 5.26, stable Safe Zone</td>
-<td>Monitor liquidity signals</td>
-<td>Immediate, with quarterly reviews</td>
+<td>HOLD</td>
+<td>Z-Score 5.15 confirms safety but monitor dividend anomaly</td>
+<td>Await dividend clarity</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>BUY</strong></td>
-<td>High dividend yield (37.00%)</td>
-<td>Confirm dividend sustainability</td>
-<td>Next 1-2 quarters</td>
+<td>BUY</td>
+<td>High dividend yield (37.00%) with strong Z-Score</td>
+<td>Entry on dividend confirmation</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>BUY</strong></td>
-<td>Z-Score well above industry avg</td>
-<td>Price undervaluation possible due to market data gaps</td>
-<td>Entry on price dips</td>
+<td>BUY</td>
+<td>Z-Score well above distress zone; P/E 21.43 reasonable</td>
+<td>Favorable entry point</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>HOLD</strong></td>
-<td>Moderate EBIT ratio (0.028) limits growth margin</td>
-<td>Await improved operational efficiency</td>
+<td>BUY</td>
+<td>Stable EBIT and retained earnings support growth</td>
+<td>Momentum stable</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>HOLD</strong></td>
-<td>Low liquidity ratio (0.227) adds risk</td>
-<td>Volatility data missing; caution advised</td>
-<td>Monitor for volatility data</td>
+<td>BUY</td>
+<td>Low bankruptcy risk; moderate volatility</td>
+<td>Monitor for volatility spikes</td>
+<td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-- Conservative and dividend investors benefit from MU’s strong financial health and exceptional dividend yield, with low risk of distress.<br />
-- Value investors can capitalize on the strong Z-Score and potential market undervaluation, but should monitor liquidity and operational metrics.<br />
-- Growth and aggressive investors should hold pending clearer signs of margin expansion and improved liquidity, given current EBIT and working capital constraints.</p>
+<p><strong>Detailed Commentary:</strong><br />
+- Conservative investors should HOLD until dividend yield anomalies are clarified to avoid unexpected downside.<br />
+- Dividend-focused investors can BUY if the yield is confirmed sustainable, leveraging MU’s strong cash flow.<br />
+- Value and growth investors are recommended to BUY based on strong Z-Score evidence and reasonable valuation metrics.<br />
+- Aggressive investors can BUY with confidence given low risk and growth potential, but should monitor market volatility.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -857,29 +863,29 @@ The fundamental health indicated by the Z-Score trend is robust and improving, s
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational efficiency &amp; innovation</td>
-<td>EBIT Ratio (0.028), Asset Turnover (0.119)</td>
-<td>Invest in R&amp;D, streamline operations</td>
-<td>EBIT margin improvement, Z-Score growth</td>
+<td>Innovation &amp; Market Expansion</td>
+<td>Z-Score components, EBIT ratio</td>
+<td>Accelerate R&amp;D in emerging memory tech; expand Compute and Networking segments</td>
+<td>Z-Score &gt;5.0; EBIT margin growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; capital structure</td>
-<td>Current Ratio (0.227), Retained Earnings (0.581)</td>
-<td>Optimize working capital, manage debt levels</td>
-<td>Improved liquidity ratios, stable debt-to-equity</td>
+<td>Financial Stability &amp; Liquidity</td>
+<td>Working Capital Ratio, Retained Earnings</td>
+<td>Optimize capital structure; monitor liquidity ratios</td>
+<td>Maintain Working Capital &gt;0.2; Retained Earnings &gt;0.5</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; dividend policy</td>
-<td>Z-Score (5.26), Dividend Yield (37.00%)</td>
-<td>Ensure sustainable dividend policy, monitor risk</td>
-<td>Dividend sustainability, risk mitigation</td>
+<td>Risk Oversight &amp; Compliance</td>
+<td>Risk factors, Z-Score trends</td>
+<td>Implement risk mitigation frameworks; oversee dividend policy</td>
+<td>Low risk rating; stable dividend policy</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The CEO should prioritize enhancing operational efficiency to improve EBIT margins and asset turnover, directly supporting Z-Score components. The CFO must address liquidity constraints by optimizing working capital and carefully managing capital allocation to sustain growth without increasing financial risk. The Board should oversee risk management closely, ensuring dividend policies remain sustainable given the unusually high yield and maintain strong governance to preserve investor confidence.</p>
+The Z-Score trajectory and price stability provide a strong foundation for strategic initiatives. CEO focus on innovation aligns with financial strength, while CFO should ensure liquidity and leverage remain within safe bounds. The Board must oversee risk management, especially operational and market risks identified, to sustain MU’s Safe Zone status.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -895,36 +901,36 @@ The CEO should prioritize enhancing operational efficiency to improve EBIT margi
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Increasing (4.27 → 5.26)</td>
-<td>Stable to slightly improving</td>
-<td>Product innovation, market demand</td>
-<td>Quarterly Z-Score updates, EBIT margin</td>
+<td>Increasing (5.15)</td>
+<td>Stable to Slight Increase</td>
+<td>Product innovation, market expansion</td>
+<td>Quarterly EBIT, Working Capital</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Strong relative to peers</td>
-<td>Maintain or improve</td>
-<td>Semiconductor cycle, competitive dynamics</td>
-<td>Market share, peer Z-Score trends</td>
+<td>Strong</td>
+<td>Maintain/Improve</td>
+<td>Competitive product launches, sector growth</td>
+<td>Market share, peer Z-Score</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low risk currently</td>
-<td>Stable with potential liquidity risk</td>
-<td>Interest rate changes, supply chain disruptions</td>
-<td>Liquidity ratios, debt levels, macroeconomic indicators</td>
+<td>Low</td>
+<td>Stable</td>
+<td>Semiconductor cycle, geopolitical factors</td>
+<td>Risk factor incidence, volatility</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-Micron’s Z-Score momentum is positive, supported by strong retained earnings and market valuation. Key catalysts for further improvement include successful product innovation in memory and storage segments and favorable semiconductor market conditions. However, liquidity risk remains a watchpoint, necessitating close monitoring of working capital and short-term liabilities.  </p>
-<p>Investors should track quarterly Z-Score updates, EBIT margin trends, and peer performance to anticipate shifts in financial health. Early warning signals include declining liquidity ratios or EBIT margins, which could presage a downward Z-Score trend. Maintaining a proactive risk management approach will be critical to sustaining MU’s Safe Zone status.</p>
+MU’s Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, driven by continued innovation and market demand. Key catalysts include successful product launches in memory and storage segments and expansion into emerging markets.</p>
+<p>Risk profile remains low but requires monitoring of semiconductor cyclical trends and geopolitical risks that could impact supply chains or demand. Leading indicators such as EBIT margin trends and working capital changes should be tracked closely to anticipate inflection points.</p>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>Micron Technology (MU) exhibits a <strong>strong and improving Altman Z-Score profile</strong>, signaling very low bankruptcy risk and solid financial health relative to semiconductor peers. Despite some liquidity and operational efficiency concerns, the company’s large market cap, attractive dividend yield, and stable retained earnings support a <strong>BUY recommendation</strong> for conservative, dividend, and value investors. Growth and aggressive investors should monitor operational improvements and liquidity metrics before increasing exposure.  </p>
-<p>Data quality limitations, particularly in market technical indicators and some financial ratios, reduce confidence in market timing signals and risk quantification, underscoring the need for ongoing data validation and monitoring.</p>
+<h1 id="summary"><strong>Summary:</strong></h1>
+<p>Micron Technology (MU) exhibits a <strong>strong financial position</strong> with a high and stable Altman Z-Score of <strong>5.15</strong>, well above the semiconductor industry average and distress thresholds. Financial ratios indicate adequate liquidity, operational efficiency, and retained earnings strength. Market signals and peer comparisons reinforce MU’s competitive advantage and investment appeal.</p>
+<p><strong>Recommendation:</strong> BUY for most investor profiles, with HOLD advised for conservative investors pending dividend yield verification. Risk remains low, but cyclical and operational risks warrant ongoing monitoring.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, and risk data for actionable investment intelligence.</em></p></div></div>
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating multi-source financial data, peer benchmarking, and risk assessment for actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1267,78 +1273,41 @@ Micron’s Z-Score momentum is positive, supported by strong retained earnings a
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:37 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:05 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

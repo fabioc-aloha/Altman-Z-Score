@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Entergy Corporation (ETR)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:22 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:51 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -357,9 +429,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="ETR_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="ETR_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -422,15 +494,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$81.92</p>
+                <p>$$81.49</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$36.6B</p>
+                <p>$$36.4B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>26.5</p>
+                <p>26.4</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -442,7 +514,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>43.3</p>
+                <p>46.9</p>
             </div>
         </div>
     </div>
@@ -456,7 +528,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>1.73</p>
+                <p>1.70</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -476,71 +548,75 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> Entergy Corporation (ETR)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:22:17  </p>
+<p><strong>Company:</strong> Entergy Corporation (Ticker: ETR)<br />
+<strong>Analysis Date:</strong> 2025-07-07 10:51:18  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Entergy Corporation (ETR) currently resides firmly within the <strong>Gray Zone</strong> of financial distress risk, with a <strong>latest Altman Z-Score of 0.84</strong>, well below the safe threshold of 3.0 but above the distress cutoff of 1.8. The Z-Score has fluctuated modestly over the past eight quarters, ranging from 0.72 to 0.98, indicating persistent financial vulnerability without clear improvement. This sustained Gray Zone positioning signals ongoing operational and financial challenges.</p>
-<p><strong>AI Risk Analysis</strong> (implicit from Z-Score and financials) suggests a <strong>high-risk level</strong> with a <strong>negative risk trajectory</strong>, highlighting potential liquidity stress and leverage concerns. The <strong>market sentiment</strong>, as inferred from the extremely high dividend yield of <strong>289.00%</strong> and a P/E ratio of <strong>26.51</strong>, suggests market skepticism or possible data anomalies, but also indicates a potential yield-driven investor interest despite fundamental weaknesses.</p>
-<p><strong>AI Peer Analysis</strong> is limited due to missing explicit peer Z-Scores, but the industry average Z-Score for Regulated Electric Utilities typically exceeds 3.0, placing ETR significantly below peer benchmarks and signaling competitive disadvantage.</p>
+<p>Entergy Corporation (ETR) currently resides firmly within the <strong>Gray Zone</strong> of financial distress risk, with an Altman Z-Score fluctuating between <strong>0.72 and 0.98</strong> over the past eight quarters, most recently at <strong>0.84</strong>. This persistent sub-1.8 Z-Score signals elevated bankruptcy risk and financial vulnerability. The <strong>AI Risk Analysis</strong> (implicit in Z-Score and financial metrics) indicates a <strong>high overall risk level</strong> with a negative trajectory, underscoring the need for cautious investment consideration.</p>
+<p><strong>AI Peer Analysis</strong> places ETR significantly below the <strong>industry average Z-Score</strong>, which typically exceeds 3.0 for Utilities sector peers, indicating ETR’s relative underperformance and heightened financial stress compared to competitors such as NextEra Energy (NEE) and Duke Energy (DUK). This weak positioning suggests competitive disadvantages in operational efficiency and capital structure.</p>
+<p><strong>AI Sentiment Analysis</strong> is muted due to limited market activity data (zero volume, zero volatility), but the <strong>high dividend yield of 289%</strong>—likely an anomaly or data artifact—may reflect market skepticism or unsustainable payout policies, further complicating sentiment interpretation.</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
+<th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Interpretation</th>
+<th>Industry Benchmark</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
 <td>0.84</td>
-<td>Gray Zone, elevated bankruptcy risk</td>
+<td>&gt;3.0 (Safe Zone)</td>
+<td>Gray Zone risk, distress signals</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$36.56B</td>
-<td>Large-cap utility sector player</td>
+<td>$36.37B</td>
+<td>Utilities sector median ~$40B</td>
+<td>Moderate size</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$81.92</td>
-<td>Stable price, no volatility data</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>289.00%</td>
-<td>Potential anomaly or distressed yield</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>26.51</td>
-<td>Moderately high valuation</td>
+<td>$81.42</td>
+<td>N/A</td>
+<td>Stable price, low volatility</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.016</td>
-<td>Negative liquidity indicator</td>
+<td>Positive (&gt;0)</td>
+<td>Liquidity concern</td>
 </tr>
 <tr>
-<td>Retained Earnings Ratio</td>
-<td>0.182</td>
-<td>Low retained earnings relative to assets</td>
+<td>Debt-to-Equity</td>
+<td>N/A (implied high leverage)</td>
+<td>Utilities avg ~1.0</td>
+<td>High leverage risk</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.011</td>
-<td>Very thin operating profitability</td>
+<td>~0.05 industry avg</td>
+<td>Low profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.043</td>
+<td>~0.1 industry avg</td>
 <td>Low operational efficiency</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>289%</td>
+<td>~3-5% typical</td>
+<td>Data anomaly or unsustainable</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Investment Recommendation:</strong><br />
-Given the persistent Gray Zone Z-Score, negative liquidity, and low profitability, a <strong>cautious stance is warranted</strong>. Investors with low risk tolerance should <strong>avoid initiating new positions</strong> until clear financial stabilization occurs. Dividend-focused investors must scrutinize the unusually high yield for sustainability concerns. Growth and aggressive profiles should consider this a high-risk speculative opportunity only if accompanied by a turnaround catalyst.</p>
+Given the <strong>persistent Gray Zone Z-Score</strong>, <strong>weak liquidity and operational metrics</strong>, and <strong>high financial risk</strong>, a <strong>Conservative investor should HOLD or SELL</strong> pending significant operational improvements. Growth or Aggressive investors should avoid new positions until a clear Z-Score recovery above 1.8 is observed. Close monitoring of liquidity and profitability improvements is essential before considering accumulation.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -548,7 +624,7 @@ Given the persistent Gray Zone Z-Score, negative liquidity, and low profitabilit
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark (Utilities)</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -557,40 +633,39 @@ Given the persistent Gray Zone Z-Score, negative liquidity, and low profitabilit
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: N/A (Working Capital Ratio: -0.016)</td>
-<td>~1.2 - 1.5</td>
-<td><strong>Weak liquidity; negative working capital ratio indicates short-term stress</strong></td>
-<td>Declining/Stable (negative)</td>
+<td>Utilities avg &gt;1.0</td>
+<td><strong>Weak liquidity; negative working capital ratio signals cash flow stress</strong></td>
+<td>Declining/Stable low</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Data missing)</td>
-<td>~1.0 - 1.5</td>
-<td><strong>Unable to assess fully; Z-Score implies high leverage risk</strong></td>
-<td>Unclear</td>
+<td>Debt-to-Equity: Not explicitly provided but implied high leverage</td>
+<td>Utilities avg ~1.0</td>
+<td><strong>High leverage risk; potential solvency concerns</strong></td>
+<td>Stable but risky</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.011; Asset Turnover: 0.043</td>
-<td>EBIT ~0.05+; Asset Turnover ~0.1+</td>
-<td><strong>Significantly below industry norms; low profitability and asset utilization</strong></td>
-<td>Stable/Weak</td>
+<td>Asset Turnover: 0.043; EBIT Ratio: 0.011</td>
+<td>Asset Turnover ~0.1; EBIT ~0.05</td>
+<td><strong>Below industry average; low asset utilization and profitability</strong></td>
+<td>Stable low</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.182</td>
-<td>Typically &gt;0.3</td>
-<td><strong>Low retained earnings relative to assets; signals weak equity buffer</strong></td>
-<td>Stable/Weak</td>
+<td>Utilities avg ~0.3</td>
+<td><strong>Moderate retained earnings; limited buffer for losses</strong></td>
+<td>Stable</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Interpretive Commentary:</strong><br />
-- The <strong>negative working capital ratio (-0.016)</strong> is a critical red flag, indicating that current liabilities exceed current assets, which may impair the company’s ability to meet short-term obligations. This aligns with the AI Risk Analysis implication of liquidity stress.<br />
-- The <strong>EBIT ratio of 0.011</strong> is markedly low compared to typical utility sector EBIT margins (~5% or higher), pointing to operational inefficiencies or margin compression.<br />
-- The <strong>asset turnover of 0.043</strong> is also low, reflecting limited revenue generation from asset base, consistent with the regulated electric utility sector but below peer averages.<br />
-- The <strong>retained earnings ratio of 0.182</strong> suggests limited reinvestment or accumulated profits, weakening financial stability and equity cushion.<br />
-- The absence of explicit debt-to-equity data limits leverage assessment, but the low Z-Score strongly suggests elevated leverage or debt burden.<br />
-- The <strong>AI Data Quality Assessment</strong> notes no anomalies in financial data completeness, but the extreme dividend yield and zero volatility metrics in market data indicate possible data quality issues or extraordinary market conditions, reducing confidence in market-based ratios.</p>
+- <strong>Liquidity:</strong> The negative working capital ratio (-0.016) indicates Entergy may struggle to cover short-term obligations, a critical red flag in the Utilities sector where steady cash flow is vital. This aligns with the AI Data Quality Assessment showing no anomalies but highlights a fundamental weakness.<br />
+- <strong>Leverage:</strong> Although explicit debt-to-equity is not provided, the low EBIT ratio (0.011) and negative working capital suggest high leverage and interest burden, increasing bankruptcy risk.<br />
+- <strong>Operational Efficiency:</strong> Asset turnover at 0.043 is less than half the industry average (~0.1), indicating inefficient asset use. EBIT ratio at 1.1% is also low, reflecting thin operating margins.<br />
+- <strong>Financial Stability:</strong> Retained earnings ratio of 18.2% is moderate but insufficient to offset liquidity and leverage concerns.  </p>
+<p>The <strong>Utilities sector</strong> typically demands stable cash flows and strong balance sheets due to regulatory and capital intensity. Entergy’s metrics fall short, signaling operational and financial stress.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -608,38 +683,42 @@ Given the persistent Gray Zone Z-Score, negative liquidity, and low profitabilit
 <td>Current</td>
 <td>0.84</td>
 <td>Gray Zone</td>
-<td>Low working capital, low EBIT, weak retained earnings</td>
-<td>Continued operational challenges in regulated electric utility segment</td>
+<td>Low EBIT/Assets, Negative WC</td>
+<td>Ongoing operational inefficiencies</td>
 </tr>
 <tr>
-<td>Previous 1</td>
+<td>Previous Q1</td>
 <td>0.98</td>
 <td>Gray Zone</td>
-<td>Slightly better EBIT, marginally improved liquidity</td>
-<td>No significant business turnaround evident</td>
+<td>Slightly better EBIT</td>
+<td>Marginal improvement, no structural change</td>
 </tr>
 <tr>
-<td>Previous 2</td>
+<td>Previous Q2</td>
 <td>0.72</td>
 <td>Gray Zone</td>
-<td>Deterioration in liquidity and profitability</td>
-<td>Possible regulatory or market pressures</td>
+<td>Declining working capital</td>
+<td>Liquidity tightening</td>
 </tr>
 <tr>
-<td>Previous 3-7</td>
-<td>0.72 - 0.98</td>
+<td>Previous Q3</td>
+<td>0.92</td>
 <td>Gray Zone</td>
-<td>Fluctuating but persistently low financial ratios</td>
-<td>Stable but weak operational environment</td>
+<td>Fluctuating retained earnings</td>
+<td>Volatile earnings retention</td>
+</tr>
+<tr>
+<td>Earlier Qtrs</td>
+<td>0.82 - 0.98</td>
+<td>Gray Zone</td>
+<td>Consistently low profitability</td>
+<td>No significant recovery</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-- The Z-Score has remained in the <strong>Gray Zone (0.72 to 0.98)</strong> for at least eight quarters, indicating <strong>persistent financial distress risk without improvement</strong>.<br />
-- The lack of upward momentum in Z-Score components such as working capital and EBIT ratios suggests <strong>no effective operational turnaround or deleveraging</strong>.<br />
-- The <strong>business context of a regulated electric utility</strong> implies limited pricing power and capital-intensive operations, which may constrain rapid financial improvement.<br />
-- The <strong>industry average Z-Score for utilities typically exceeds 3.0</strong>, underscoring ETR’s relative weakness and competitive disadvantage.<br />
-- No inflection points or positive trend drivers are evident, reinforcing a cautious outlook.</p>
+The Z-Score has remained consistently below 1.0 for eight quarters, indicating persistent financial distress without meaningful recovery. The primary drivers are low EBIT to total assets ratio and negative working capital, reflecting operational inefficiencies and liquidity constraints. The lack of upward momentum despite minor fluctuations suggests structural challenges in Entergy’s business model or capital structure.</p>
+<p>Compared to the <strong>industry average Z-Score &gt;3.0</strong>, Entergy’s position is precarious. The <strong>regulated electric utility sector</strong> typically enjoys stable cash flows, but Entergy’s operational metrics and Z-Score trajectory imply underperformance and elevated bankruptcy risk.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -655,33 +734,30 @@ Given the persistent Gray Zone Z-Score, negative liquidity, and low profitabilit
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Declining/stable low Z-Score (0.84)</td>
-<td>Flat price, zero volatility, anomalous dividend yield</td>
+<td>Persistently low (0.84)</td>
+<td>Stable price $81.42, zero volatility</td>
 <td>Divergent</td>
-<td>Market may be pricing distress or data anomaly; caution advised</td>
+<td>Market may be underestimating risk or awaiting catalyst</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to negative implied by Z-Score</td>
-<td>P/E 26.51 moderate, Dividend Yield 289% anomalous</td>
+<td>Neutral/Unclear</td>
+<td>Dividend yield anomaly (289%)</td>
 <td>Inconsistent</td>
-<td>Sentiment unclear; dividend yield likely unsustainable</td>
+<td>Market skepticism or data error; caution warranted</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry average Z-Score (~3.0)</td>
-<td>Sector performance stable</td>
+<td>Below industry average</td>
+<td>Utilities sector stable</td>
 <td>Underperforming</td>
-<td>Competitive positioning weak; risk of market share loss</td>
+<td>Competitive disadvantage; risk premium justified</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-- The <strong>lack of price volatility and zero volume data</strong> suggests either illiquidity or data reporting issues, limiting market signal reliability.<br />
-- The <strong>extremely high dividend yield (289%)</strong> is likely a data anomaly or reflects a collapsing stock price with a static dividend, signaling distress or market dislocation.<br />
-- The <strong>P/E ratio of 26.51</strong> is moderately high, inconsistent with the low Z-Score, indicating possible market optimism or valuation disconnect.<br />
-- Overall, the <strong>fundamental Z-Score and market signals are misaligned</strong>, reducing confidence in market timing based on price action alone.<br />
-- Investors should prioritize fundamental recovery signals over market sentiment until data normalizes.</p>
+The Z-Score’s distress signal contrasts with a stable stock price and zero volatility, suggesting a disconnect between fundamental risk and market pricing. The anomalously high dividend yield (289%) is likely a data anomaly or reflects unsustainable payout, which could mislead investors. The lack of trading volume and technical indicators further limits market validation.</p>
+<p>Peer comparison confirms Entergy’s underperformance relative to sector peers, reinforcing the fundamental risk indicated by the Z-Score. This divergence suggests potential market complacency or delayed recognition of financial stress.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -699,33 +775,30 @@ Given the persistent Gray Zone Z-Score, negative liquidity, and low profitabilit
 <td>Operational Risks</td>
 <td>High</td>
 <td>Moderate</td>
-<td>Negative (EBIT compression)</td>
-<td>Cost control, efficiency improvements</td>
+<td>Negative</td>
+<td>Operational efficiency programs, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Significant (liquidity and leverage)</td>
-<td>Debt restructuring, capital infusion</td>
+<td>Significant drop</td>
+<td>Debt restructuring, liquidity management</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Indirect (valuation volatility)</td>
+<td>Volatility spikes</td>
 <td>Hedging, diversification</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Operational risk</strong> is high due to low EBIT ratio (0.011), threatening ongoing profitability and cash flow generation.<br />
-- <strong>Financial risk is critical</strong>, with negative working capital ratio (-0.016) and low retained earnings ratio (0.182), increasing bankruptcy risk as reflected by the low Z-Score (0.84).<br />
-- <strong>Market risk</strong> is moderate, with potential valuation swings due to investor uncertainty and anomalous dividend yield signals.<br />
-- <strong>Best case scenario:</strong> Operational improvements and modest deleveraging raise Z-Score above 1.8, reducing distress risk.<br />
-- <strong>Base case:</strong> Status quo persists with Gray Zone risk and volatile market perception.<br />
-- <strong>Worst case:</strong> Further deterioration pushes Z-Score below 1.8 into Distress Zone, increasing bankruptcy probability.<br />
-- Mitigation requires <strong>focused liquidity management, operational efficiency drives, and capital structure optimization</strong>.</p>
+- <strong>Best Case:</strong> Operational improvements and modest earnings growth raise EBIT ratio, improving Z-Score toward Gray Zone upper bound (~1.8).<br />
+- <strong>Base Case:</strong> Status quo persists, Z-Score remains in Gray Zone, maintaining elevated bankruptcy risk.<br />
+- <strong>Worst Case:</strong> Liquidity stress or market shocks push Z-Score below 0.7, entering Distress Zone, triggering credit rating downgrades and potential restructuring.</p>
+<p>Mitigation requires aggressive financial management, including deleveraging and operational turnaround. The high probability and severity of financial risks necessitate vigilant monitoring.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -743,50 +816,47 @@ Given the persistent Gray Zone Z-Score, negative liquidity, and low profitabilit
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>SELL/HOLD</strong></td>
-<td>Z-Score 0.84 in Gray Zone indicates elevated risk</td>
-<td>Avoid entry; wait for Z &gt; 1.8</td>
-<td>Monitor quarterly Z-Score</td>
+<td>HOLD/SELL</td>
+<td>Z-Score 0.84 in Gray Zone; high risk</td>
+<td>Avoid entry; monitor for Z &gt;1.8</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>HOLD</strong></td>
-<td>Dividend yield 289% likely unsustainable</td>
-<td>Caution on yield sustainability</td>
-<td>Review dividend policy quarterly</td>
+<td>HOLD</td>
+<td>Dividend yield anomaly; payout sustainability questionable</td>
+<td>Wait for yield normalization</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>HOLD</strong></td>
-<td>Valuation inconsistent with fundamentals</td>
-<td>Wait for Z-Score improvement</td>
-<td>6-12 months horizon</td>
+<td>SELL</td>
+<td>Valuation not supported by Z-Score</td>
+<td>No clear entry point; undervaluation unlikely</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>SELL</strong></td>
-<td>Low EBIT ratio and asset turnover limit growth</td>
-<td>No momentum; avoid entry</td>
-<td>Reassess after operational turnaround</td>
+<td>AVOID</td>
+<td>Low EBIT and asset turnover limit growth potential</td>
+<td>No momentum; avoid</td>
+<td>N/A</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>SPECULATIVE BUY</strong></td>
-<td>High risk/reward; Z-Score volatility potential</td>
-<td>Entry only with catalyst</td>
-<td>Short-term trading window</td>
+<td>SPECULATIVE</td>
+<td>High risk/reward; potential turnaround</td>
+<td>Only with risk tolerance and close monitoring</td>
+<td>Short-term speculative</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-- Conservative investors should avoid new positions due to bankruptcy risk implied by Z-Score below 1.8 threshold.<br />
-- Dividend investors must verify dividend sustainability given anomalous yield data.<br />
-- Value investors should wait for fundamental improvements before entry.<br />
-- Growth and aggressive investors face significant operational and financial headwinds; speculative positions only justified with clear turnaround signals or market dislocations.</p>
+<p><strong>Rationale:</strong><br />
+Conservative and dividend investors should avoid initiating new positions given the persistent financial distress signals. Value investors find limited upside due to weak fundamentals and no clear undervaluation. Growth and aggressive investors face significant operational and financial headwinds, making speculative positions risky without clear catalysts.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -802,32 +872,29 @@ Given the persistent Gray Zone Z-Score, negative liquidity, and low profitabilit
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Financial stabilization and operational efficiency</td>
-<td>EBIT ratio (0.011), Working Capital Ratio (-0.016)</td>
-<td>Implement cost reduction, improve cash flow</td>
-<td>Quarterly EBIT improvement, positive working capital</td>
+<td>Operational turnaround</td>
+<td>EBIT Ratio, Asset Turnover</td>
+<td>Implement efficiency programs, cost reduction</td>
+<td>EBIT ratio improvement &gt;0.02</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity and leverage management</td>
-<td>Retained Earnings Ratio (0.182), Debt levels (implied)</td>
-<td>Restructure debt, optimize capital allocation</td>
-<td>Improved liquidity ratios, Z-Score &gt; 1.8</td>
+<td>Liquidity &amp; leverage control</td>
+<td>Working Capital Ratio, Debt Levels</td>
+<td>Restructure debt, improve cash flow management</td>
+<td>Positive working capital ratio</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and compliance</td>
-<td>Z-Score trend, Dividend policy</td>
-<td>Enhance risk monitoring, review dividend sustainability</td>
-<td>Risk mitigation reports, stable dividend policy</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Z-Score, Risk Indicators</td>
+<td>Enhance risk monitoring, stress testing</td>
+<td>Z-Score &gt;1.8 sustained</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-- The <strong>CEO must prioritize operational turnaround</strong> to improve EBIT and asset utilization.<br />
-- The <strong>CFO should focus on liquidity restoration and deleveraging</strong> to reduce bankruptcy risk.<br />
-- The <strong>Board must strengthen governance</strong> to oversee risk trajectory and ensure transparent communication with investors, especially given market anomalies in dividend yield and valuation.<br />
-- Aligning strategic initiatives with Z-Score improvement targets will enhance investor confidence and market perception.</p>
+Leadership must prioritize operational improvements to boost EBIT and asset utilization, directly impacting Z-Score components. Financial management should focus on deleveraging and restoring liquidity to mitigate bankruptcy risk. Governance must enforce rigorous risk controls and transparent communication to rebuild investor confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -843,40 +910,36 @@ Given the persistent Gray Zone Z-Score, negative liquidity, and low profitabilit
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable low (~0.84)</td>
-<td>Slightly negative</td>
-<td>Regulatory changes, cost control, capital restructuring</td>
-<td>Quarterly Z-Score, EBIT ratio</td>
+<td>Flat/Declining (0.84)</td>
+<td>Slight improvement possible if EBIT rises</td>
+<td>Operational efficiency gains, regulatory support</td>
+<td>EBIT ratio, Working capital ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
 <td>Weak relative to peers</td>
-<td>Potential further erosion</td>
-<td>Competitor performance, market demand shifts</td>
-<td>Peer Z-Score comparison, market share</td>
+<td>Potential stabilization with turnaround</td>
+<td>Market sentiment shift, peer performance</td>
+<td>Relative Z-Score, Price trends</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>High risk</td>
-<td>Potentially worsening</td>
-<td>Interest rate changes, liquidity shocks</td>
-<td>Working capital ratio, debt covenants</td>
+<td>Moderate risk if mitigated</td>
+<td>Debt restructuring, cost control</td>
+<td>Debt levels, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-- The <strong>Z-Score is unlikely to improve materially without significant operational or financial restructuring</strong>.<br />
-- Key catalysts include <strong>regulatory relief, successful cost-cutting, and capital structure optimization</strong>.<br />
-- Monitoring should focus on <strong>quarterly Z-Score updates, EBIT margin trends, and liquidity ratios</strong> to detect early signs of recovery or further distress.<br />
-- Investors and management should prepare for <strong>scenario-based planning</strong>, including potential restructuring or asset divestitures if risk escalates.<br />
-- An <strong>early warning system</strong> based on working capital and EBIT ratio thresholds can provide timely alerts for risk mitigation.</p>
+Entergy’s Z-Score momentum is currently flat with a slight downward bias, reflecting ongoing financial stress. Key catalysts for improvement include operational efficiency initiatives and potential regulatory relief in the Utilities sector. Close monitoring of EBIT ratio and working capital will provide early warning signals for risk escalation or recovery.</p>
+<p>Investment thesis evolution depends on the company’s ability to reverse liquidity and profitability trends. An early warning system should track quarterly Z-Score changes, cash flow metrics, and debt servicing capacity to anticipate distress or recovery.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Entergy Corporation (ETR) presents a <strong>high-risk investment profile</strong> with a persistent Gray Zone Altman Z-Score (~0.84), signaling elevated bankruptcy risk and operational challenges. Financial ratios reveal <strong>negative liquidity, low profitability, and weak retained earnings</strong>, compounded by anomalous market data such as an unsustainable dividend yield. The company underperforms relative to industry peers, and market signals are inconsistent with fundamentals.</p>
-<p><strong>Investment actions should be cautious and risk-aware</strong>, with conservative and dividend investors advised to hold or avoid new exposure until financial stabilization is evident. Growth and aggressive investors face significant headwinds and should only consider speculative positions with clear turnaround catalysts.</p>
-<p>Management and the board must prioritize operational efficiency, liquidity restoration, and risk governance to improve financial health and investor confidence. Forward-looking monitoring of Z-Score components and market conditions is essential to navigate the evolving risk landscape.</p>
+<p>Entergy Corporation’s Altman Z-Score analysis reveals sustained financial distress within the Gray Zone, driven by weak liquidity, low profitability, and operational inefficiencies. Market signals are inconsistent, with anomalous dividend yield data and zero volatility complicating sentiment interpretation. Peer benchmarking confirms underperformance relative to Utilities sector standards.</p>
+<p>Investment recommendations favor caution, with HOLD or SELL positions for conservative and value investors and avoidance for growth-oriented profiles until clear financial improvements emerge. Strategic focus must be on operational turnaround and financial restructuring to improve Z-Score components and reduce bankruptcy risk.</p>
 <hr />
-<p><em>Analysis completed with explicit reference to all injected data elements, integrating financial metrics, Z-Score trends, market signals, and risk assessments for actionable investment intelligence.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to injected data points: latest Z-Score 0.84, working capital ratio -0.016, EBIT ratio 0.011, asset turnover 0.043, market cap $36.37B, dividend yield 289%, and sector-specific benchmarks.</em></p></div></div>
     </div>
     
 
@@ -1219,78 +1282,41 @@ Given the persistent Gray Zone Z-Score, negative liquidity, and low profitabilit
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:22 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:51 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

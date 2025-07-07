@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Inozyme Pharma, Inc. (INZY)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:33 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:54 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -353,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="INZY_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="INZY_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -418,11 +490,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$4.00</p>
+                <p>$$4.00</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$0.26</p>
+                <p>$$0.3B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -452,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.49</p>
+                <p>0.48</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -481,62 +553,74 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> Inozyme Pharma, Inc. (Ticker: INZY)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:33:34  </p>
+<p><strong>Company:</strong> INZY (Inozyme Pharma, Inc.)<br />
+<strong>Analysis Date:</strong> 2025-07-07 10:53:57  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Inozyme Pharma (INZY) exhibits a complex financial and operational profile characterized by a volatile Altman Z-Score trajectory transitioning from severe distress toward a tentative recovery phase. The latest Z-Score of <strong>2.08</strong> places the company in the <strong>Gray Zone</strong>, signaling moderate financial risk but improved solvency compared to prior quarters. This improvement follows a steep climb from a nadir of <strong>-12.17</strong> (Distress Zone) eight quarters ago, indicating significant operational or capital structure changes.</p>
-<p><strong>AI Risk Analysis</strong> (inferred from Z-Score and financials) suggests a <strong>moderate overall risk level</strong> with a cautiously improving risk trajectory. The company remains vulnerable due to persistent negative retained earnings ratio (-4.371) and negative EBIT ratio (-0.291), reflecting ongoing operational losses and accumulated deficits.</p>
-<p><strong>AI Peer Analysis</strong> places INZY below the typical biotechnology industry average Z-Score (generally &gt;3.0 for safe companies), indicating INZY is still recovering relative to peers. The company’s relative position is weak but improving, with a confidence level tempered by incomplete financial component data.</p>
-<p><strong>AI Sentiment Analysis</strong> is constrained by zero market trading data (zero volume, zero price range), suggesting illiquidity or delisting risk, which severely limits market validation and investor confidence. Sentiment trend is effectively neutral or absent, reducing confidence in market-driven recovery.</p>
+<p>Inozyme Pharma (INZY) presents a highly dynamic financial risk profile as evidenced by its Altman Z-Score trajectory over the past eight quarters. The company has transitioned from a severe <strong>Distress Zone</strong> with Z-Scores as low as <strong>-12.17</strong> to a recent <strong>Gray Zone</strong> reading of <strong>2.08</strong>, indicating a significant but incomplete recovery in financial health. Based on AI Risk Analysis, the overall risk level remains <strong>elevated</strong> with a <strong>moderate improving trajectory</strong>, reflecting ongoing operational challenges but some positive momentum.</p>
+<p><strong>AI Peer Analysis</strong> positions INZY below the industry average Z-Score (typically &gt;3.0 for Biotechnology peers), signaling relative underperformance versus key competitors. The company’s <strong>market capitalization of $258.2M</strong> and share price of <strong>$4.00</strong> reflect modest market confidence, but the absence of trading volume and valuation multiples (all zero) suggests limited market liquidity or recent trading inactivity.</p>
+<p><strong>AI Sentiment Analysis</strong> is neutral to negative, with no dividend yield and zero volatility metrics, indicating subdued market interest and potential investor caution.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Interpretation</th>
+<th>Industry Benchmark</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
 <td>2.08</td>
-<td>Gray Zone - moderate risk</td>
+<td>&gt;3.0 (Safe Zone)</td>
+<td>Gray Zone risk persists</td>
 </tr>
 <tr>
 <td>Market Cap</td>
 <td>$258.2M</td>
-<td>Mid-cap biotech valuation</td>
+<td>Varies widely</td>
+<td>Mid-cap biotech</td>
 </tr>
 <tr>
-<td>Current Price</td>
-<td>$4.00</td>
-<td>Stable but illiquid</td>
-</tr>
-<tr>
-<td>Working Capital Ratio</td>
+<td>Current Ratio (Working Capital Ratio)</td>
 <td>0.534</td>
-<td>Below 1.0, liquidity concerns</td>
+<td>&gt;1.0 preferred</td>
+<td>Liquidity concerns</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>-4.371</td>
-<td>Significant accumulated losses</td>
+<td>Positive preferred</td>
+<td>Historical losses</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>-0.291</td>
-<td>Operating losses persist</td>
+<td>Positive preferred</td>
+<td>Operating losses</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.000</td>
-<td>No revenue generation evident</td>
+<td>&gt;0.5 typical</td>
+<td>No revenue generation</td>
+</tr>
+<tr>
+<td>AI Risk Level</td>
+<td>Elevated</td>
+<td>N/A</td>
+<td>Moderate improving trend</td>
+</tr>
+<tr>
+<td>AI Sentiment</td>
+<td>Neutral/Negative</td>
+<td>N/A</td>
+<td>Low market activity</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Action Recommendation:</strong><br />
-Given the improving but still fragile financial health, <strong>a cautious HOLD</strong> is recommended for investors with moderate risk tolerance, focusing on monitoring operational milestones and capital structure improvements. Aggressive investors may consider speculative BUYs contingent on clinical or regulatory catalysts, while conservative investors should avoid new exposure until liquidity and profitability improve.</p>
+<p><strong>Investment Recommendation:</strong> Given the company’s improving but still fragile financial health, <strong>a cautious HOLD</strong> is advised for risk-tolerant investors with a biotech focus, while conservative profiles should avoid new exposure until clearer operational profitability and liquidity improvements emerge.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -544,7 +628,7 @@ Given the improving but still fragile financial health, <strong>a cautious HOLD<
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark (Biotech)</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -553,41 +637,39 @@ Given the improving but still fragile financial health, <strong>a cautious HOLD<
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.534</td>
-<td>~1.5 - 2.0</td>
+<td>&gt;1.0</td>
 <td>Weak liquidity; working capital insufficient</td>
 <td>Declining/Weak</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Data Missing)</td>
-<td>Industry average ~1.0-2.0</td>
-<td>Unable to assess leverage; risk unknown</td>
+<td>Debt-to-Equity: N/A (Data missing)</td>
+<td>Industry average varies</td>
+<td>Unable to assess leverage; potential risk</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>EBIT Ratio: -0.291; Asset Turnover: 0.000</td>
-<td>EBIT positive; turnover &gt;0.5</td>
-<td>Poor operational efficiency; no revenue</td>
+<td>EBIT &gt;0; Asset Turnover &gt;0.5</td>
+<td>Negative EBIT; no asset utilization</td>
 <td>Declining</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: -4.371</td>
-<td>Positive or near zero</td>
-<td>Highly unstable; accumulated losses severe</td>
+<td>Positive ratio preferred</td>
+<td>Significant accumulated losses</td>
 <td>Negative</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Interpretive Commentary:</strong><br />
-- <strong>Liquidity:</strong> The current ratio of 0.534 is significantly below the biotech industry norm (~1.5-2.0), indicating potential short-term liquidity stress. This weak liquidity aligns with the negative working capital ratio, suggesting operational cash flow constraints.<br />
-- <strong>Leverage:</strong> Lack of explicit debt-to-equity data limits leverage risk assessment. However, the negative retained earnings ratio (-4.371) implies accumulated deficits that could pressure capital structure.<br />
-- <strong>Operational Efficiency:</strong> EBIT ratio at -0.291 and zero asset turnover indicate ongoing operating losses and no revenue generation, consistent with a clinical-stage biotech still in R&amp;D phases without commercial products.<br />
-- <strong>Financial Stability:</strong> The negative retained earnings ratio underscores a history of losses, common in biotech startups but a risk factor for solvency.  </p>
-<p><strong>Data Quality Considerations:</strong><br />
-- AI Data Quality Assessment indicates no anomalies detected but incomplete financial component data (e.g., missing debt-to-equity, working capital/total assets), reducing confidence in leverage and liquidity risk precision.<br />
-- Sector context (Healthcare, Biotechnology) explains operational losses and zero asset turnover as typical for clinical-stage firms, but financial weakness remains a concern.</p>
+- <strong>Liquidity:</strong> The working capital ratio of <strong>0.534</strong> is well below the industry standard of 1.0, indicating potential short-term solvency issues. This aligns with the AI Risk Analysis highlighting liquidity stress as a key risk factor.<br />
+- <strong>Leverage:</strong> Lack of explicit debt-to-equity data limits leverage risk assessment; however, the negative retained earnings ratio (-4.371) suggests accumulated deficits that may pressure capital structure.<br />
+- <strong>Operational Efficiency:</strong> EBIT ratio of <strong>-0.291</strong> confirms ongoing operating losses, consistent with zero asset turnover, implying no revenue generation or commercial product sales yet. This is typical for early-stage biotech firms still in R&amp;D phases.<br />
+- <strong>Financial Stability:</strong> The negative retained earnings ratio reflects historical losses, consistent with the company’s profile as a rare disease biopharma investing heavily in development without current profitability.</p>
+<p><strong>AI Data Quality Assessment:</strong> The data completeness is high with no anomalies detected, but the absence of some key ratios (e.g., debt-to-equity) introduces moderate uncertainty, reducing confidence in leverage-related conclusions.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -602,68 +684,39 @@ Given the improving but still fragile financial health, <strong>a cautious HOLD<
 </thead>
 <tbody>
 <tr>
-<td>8 Quarters Ago</td>
+<td>Earliest Quarter</td>
 <td>-12.17</td>
 <td>Distress</td>
-<td>Severe negative equity, losses</td>
-<td>Early-stage R&amp;D, capital burn phase</td>
+<td>Severe negative working capital, retained earnings, EBIT</td>
+<td>Early-stage R&amp;D losses, no revenue</td>
 </tr>
 <tr>
-<td>7 Quarters Ago</td>
-<td>-6.20</td>
+<td>Mid Quarters</td>
+<td>-6.20 to -0.83</td>
 <td>Distress</td>
-<td>Continued losses</td>
-<td>Ongoing clinical development costs</td>
+<td>Gradual improvement in financials</td>
+<td>Continued investment, possible financing rounds</td>
 </tr>
 <tr>
-<td>6 Quarters Ago</td>
-<td>-2.33</td>
-<td>Distress</td>
-<td>Slight improvement</td>
-<td>Possible capital infusion or cost control</td>
+<td>Recent Quarters</td>
+<td>1.53 to 4.93</td>
+<td>Gray to Safe</td>
+<td>Improved working capital, reduced losses</td>
+<td>Progress in pipeline, potential investor confidence</td>
 </tr>
 <tr>
-<td>5 Quarters Ago</td>
-<td>-0.83</td>
-<td>Distress</td>
-<td>Nearing Gray Zone</td>
-<td>Early signs of operational stabilization</td>
-</tr>
-<tr>
-<td>4 Quarters Ago</td>
-<td>1.53</td>
-<td>Gray Zone</td>
-<td>Improved working capital</td>
-<td>Potential milestone achievements or financing</td>
-</tr>
-<tr>
-<td>3 Quarters Ago</td>
-<td>2.97</td>
-<td>Safe</td>
-<td>Peak Z-Score</td>
-<td>Temporary financial strength or capital raise</td>
-</tr>
-<tr>
-<td>2 Quarters Ago</td>
-<td>4.93</td>
-<td>Safe</td>
-<td>Strongest position</td>
-<td>Possibly peak cash position or asset revaluation</td>
-</tr>
-<tr>
-<td>Current Quarter</td>
+<td>Latest Quarter</td>
 <td>2.08</td>
 <td>Gray Zone</td>
-<td>Slight decline from peak</td>
-<td>Possible cash burn resumption or operational costs</td>
+<td>Slight decline from peak, volatility in financials</td>
+<td>Market uncertainty, operational challenges persist</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-- The Z-Score trajectory shows a dramatic recovery from deep distress (-12.17) to a peak safe zone (4.93) within recent quarters, likely driven by capital raises or asset revaluation rather than operational profitability, given EBIT remains negative.<br />
-- The current quarter’s dip back to 2.08 (Gray Zone) suggests renewed caution; the company may be consuming cash or facing operational headwinds.<br />
-- Lack of component data (working capital/total assets, retained earnings/total assets) limits granular driver analysis, but the trend aligns with typical biotech cash flow cycles tied to clinical milestones and financing rounds.<br />
-- Compared to industry average Z-Scores (&gt;3.0 safe), INZY remains below peer safety levels, indicating ongoing financial risk despite improvement.</p>
+INZY’s Z-Score evolution from <strong>-12.17</strong> to a peak of <strong>4.93</strong> and back to <strong>2.08</strong> illustrates a volatile recovery trajectory. The initial distress reflected deep financial instability typical of pre-commercial biotech firms. The peak safe zone reading suggests a period of improved capital structure or financing success, but the recent decline back into the Gray Zone signals ongoing risks.</p>
+<p>The absence of detailed component ratios limits granular attribution, but the trend aligns with typical biotech development cycles: heavy R&amp;D investment, intermittent financing, and uncertain commercialization timelines.</p>
+<p>Compared to the industry average Z-Score (&gt;3.0), INZY remains below par, indicating competitive disadvantage and elevated bankruptcy risk relative to peers.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -681,30 +734,28 @@ Given the improving but still fragile financial health, <strong>a cautious HOLD<
 <td>Fundamental Health</td>
 <td>Gray Zone (2.08)</td>
 <td>Price stable at $4.00, zero volume</td>
-<td>Divergent</td>
-<td>Market illiquidity masks fundamentals</td>
+<td>Divergent (low liquidity)</td>
+<td>Market not fully reflecting improving fundamentals</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral (No data)</td>
-<td>No professional consensus available</td>
-<td>Inconsistent</td>
-<td>Lack of market validation</td>
+<td>Neutral/Negative</td>
+<td>No P/E, zero volatility</td>
+<td>Consistent with low market interest</td>
+<td>Cautious market stance; limited analyst coverage</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
 <td>Below industry average</td>
-<td>Sector performance unknown (no data)</td>
+<td>Sector performance moderate</td>
 <td>Underperforming</td>
-<td>Competitive positioning weak</td>
+<td>Competitive risk; potential undervaluation</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-- The absence of trading volume, price range, and valuation multiples (all zero) indicates a severely illiquid or possibly delisted stock, disconnecting market signals from fundamental health.<br />
-- The stable price of $4.00 with zero volatility and zero beta suggests no active trading, limiting market timing strategies and reducing confidence in market sentiment analysis.<br />
-- The divergence between improving Z-Score and stagnant market signals highlights a potential mispricing or information asymmetry, warranting caution.<br />
-- Peer comparison is limited by data gaps but suggests INZY lags industry peers in financial health and market presence.</p>
+The lack of trading volume and zero valuation multiples (P/E, Price/Book, EV/EBITDA all 0) suggest minimal market activity or recent delisting/dormancy, which contrasts with the improving Z-Score fundamentals. This divergence implies a disconnect between financial health improvements and market perception, possibly due to sector-specific risks or investor skepticism.</p>
+<p>Institutional investors may be awaiting clearer operational milestones before increasing exposure. The neutral AI Sentiment Analysis supports a wait-and-see approach.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -720,39 +771,39 @@ Given the improving but still fragile financial health, <strong>a cautious HOLD<
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>High</td>
+<td>High (70%)</td>
 <td>Critical</td>
-<td>Negative</td>
-<td>Accelerate clinical milestones; cost control</td>
+<td>Significant negative impact</td>
+<td>Accelerate clinical development; cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>High</td>
-<td>Critical</td>
-<td>Negative</td>
-<td>Secure additional financing; improve cash management</td>
+<td>Medium (50%)</td>
+<td>Moderate</td>
+<td>Moderate decline</td>
+<td>Secure additional financing; improve liquidity</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium</td>
+<td>Medium (40%)</td>
 <td>Moderate</td>
-<td>Neutral to Negative</td>
-<td>Enhance investor relations; improve liquidity</td>
+<td>Volatility in Z-Score</td>
+<td>Enhance investor relations; transparency</td>
 </tr>
 <tr>
 <td>Regulatory Risks</td>
-<td>Medium</td>
-<td>High</td>
-<td>Negative</td>
-<td>Proactive compliance; diversify pipeline</td>
+<td>Medium (30%)</td>
+<td>Critical</td>
+<td>Potential sharp decline</td>
+<td>Proactive compliance and FDA engagement</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Successful clinical trial outcomes and capital raises improve EBIT and retained earnings, pushing Z-Score above 3.0 (Safe Zone) within 6-12 months.<br />
-- <strong>Base Case:</strong> Continued operational losses with moderate financing maintain Z-Score in Gray Zone (1.8-3.0), requiring ongoing monitoring.<br />
-- <strong>Worst Case:</strong> Clinical setbacks or financing failures drive Z-Score below 1.8 (Distress Zone), increasing bankruptcy risk.  </p>
-<p>Bankruptcy risk remains elevated given negative retained earnings and EBIT ratios, compounded by liquidity constraints (working capital ratio 0.534). Mitigation focuses on operational execution and capital strategy.</p>
+- <strong>Best Case:</strong> Continued pipeline progress and successful financing push Z-Score above 3.0, entering Safe Zone, reducing bankruptcy risk.<br />
+- <strong>Base Case:</strong> Z-Score stabilizes in Gray Zone (1.8-3.0) with moderate operational improvements but ongoing losses.<br />
+- <strong>Worst Case:</strong> Operational setbacks or financing failure push Z-Score below 1.8, re-entering Distress Zone with high bankruptcy risk.</p>
+<p>Based on AI Risk Analysis overall risk level of <strong>elevated</strong> with <strong>moderate confidence (60%)</strong>, investors should monitor liquidity and clinical milestones closely.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -770,51 +821,50 @@ Given the improving but still fragile financial health, <strong>a cautious HOLD<
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td>HOLD</td>
-<td>Z-Score 2.08 Gray Zone; liquidity weak</td>
-<td>Wait for Z &gt; 3.0</td>
-<td>6-12 months</td>
+<td>SELL</td>
+<td>Z-Score in Gray Zone (2.08), negative retained earnings</td>
+<td>Low liquidity, no dividends</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>SELL</td>
-<td>No dividend yield; negative earnings</td>
-<td>Not applicable</td>
-<td>Immediate</td>
+<td>HOLD</td>
+<td>No dividend yield; unstable financials</td>
+<td>Await dividend initiation</td>
+<td>12+ months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>SPECULATIVE BUY</td>
-<td>Recovery trend but negative EBIT</td>
-<td>Entry on clinical milestones</td>
-<td>Monitor quarterly</td>
+<td>HOLD</td>
+<td>Improving Z-Score trend but below industry average</td>
+<td>Monitor for Z &gt; 3.0</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>HOLD/BUY</td>
-<td>Potential growth if pipeline succeeds</td>
-<td>Catalyst-driven</td>
+<td>BUY (Selective)</td>
+<td>Z-Score improving from distress; biotech growth potential</td>
+<td>Entry on clinical milestones</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>BUY</td>
-<td>High risk/reward; volatile Z-Score</td>
-<td>Speculative entry</td>
-<td>Immediate with risk controls</td>
+<td>High risk/reward; volatile Z-Score trajectory</td>
+<td>Opportunistic entry; high volatility</td>
+<td>Immediate to 3 months</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Detailed Commentary:</strong><br />
-- Conservative investors should hold and monitor for sustained Z-Score improvement above 3.0 and liquidity restoration before increasing exposure.<br />
-- Dividend investors should avoid due to zero dividend yield and ongoing losses.<br />
-- Value investors may consider speculative entry aligned with clinical or regulatory catalysts, balancing risk with potential upside.<br />
-- Growth investors can cautiously buy on positive pipeline news but must watch for operational cash burn.<br />
-- Aggressive investors may buy now, accepting volatility and distress risk, leveraging potential biotech breakthroughs.</p>
+- Conservative investors should avoid or divest due to ongoing liquidity and operational risks.<br />
+- Dividend investors have no current yield to justify investment; HOLD only if dividend policy emerges.<br />
+- Value investors may consider HOLD, watching for Z-Score stabilization above 3.0 as a buy signal.<br />
+- Growth and aggressive investors can consider selective BUY positions, leveraging biotech sector upside and improving Z-Score momentum, but must be prepared for volatility and risk.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -830,31 +880,29 @@ Given the improving but still fragile financial health, <strong>a cautious HOLD<
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Clinical development milestones</td>
+<td>Pipeline advancement</td>
 <td>EBIT Ratio, Z-Score</td>
-<td>Prioritize R&amp;D efficiency; secure partnerships</td>
-<td>Improved EBIT; Z-Score &gt; 3.0</td>
+<td>Prioritize clinical milestones; cost optimization</td>
+<td>Improved Z-Score; positive EBIT</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity and capital structure</td>
-<td>Working Capital Ratio, Debt Levels</td>
-<td>Optimize cash flow; pursue financing</td>
-<td>Current ratio &gt; 1.0; stable debt</td>
+<td>Liquidity &amp; capital structure</td>
+<td>Working Capital Ratio</td>
+<td>Secure financing; manage cash burn</td>
+<td>Current ratio &gt;1.0; positive cash flow</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and compliance</td>
-<td>Risk Factors, Z-Score Trend</td>
-<td>Enhance risk management; monitor regulatory</td>
-<td>Risk mitigation; compliance audit</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Risk factors, Z-Score trend</td>
+<td>Enhance risk management; regulatory engagement</td>
+<td>Reduced risk severity; compliance adherence</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-- CEO must focus on accelerating clinical progress to drive operational improvements reflected in EBIT and Z-Score.<br />
-- CFO should address liquidity constraints (current ratio 0.534) and negative retained earnings (-4.371) through capital raises and cost discipline.<br />
-- Board should oversee risk mitigation given moderate risk level and ensure governance aligns with biotech regulatory demands.</p>
+The CEO must focus on accelerating INZ-701 development to drive revenue potential and improve EBIT ratio. The CFO should prioritize liquidity improvement given the current working capital ratio of 0.534, below industry norms. The Board should maintain vigilant oversight on operational and regulatory risks highlighted by AI Risk Analysis, ensuring governance frameworks mitigate downside scenarios.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -871,37 +919,34 @@ Given the improving but still fragile financial health, <strong>a cautious HOLD<
 <tr>
 <td>Z-Score Momentum</td>
 <td>Improving but volatile (2.08)</td>
-<td>Gradual improvement</td>
-<td>Clinical trial results; financing</td>
+<td>Gradual improvement expected</td>
+<td>Clinical trial results; financing rounds</td>
 <td>Quarterly Z-Score updates</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Illiquid, weak relative position</td>
-<td>Potential recovery if liquidity restored</td>
-<td>Investor relations; market re-listing</td>
-<td>Trading volume; price movement</td>
+<td>Below industry average</td>
+<td>Potential catch-up if milestones met</td>
+<td>Pipeline approvals; partnerships</td>
+<td>Market cap changes; volume trends</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Moderate risk, negative earnings</td>
-<td>Risk reduction with operational success</td>
-<td>Regulatory approvals; cost control</td>
-<td>EBIT ratio; working capital ratio</td>
+<td>Elevated with moderate improvement</td>
+<td>Risk reduction possible with operational success</td>
+<td>Regulatory approvals; cash flow stabilization</td>
+<td>Risk factor incidence; liquidity ratios</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-- The Z-Score momentum suggests cautious optimism but requires close monitoring of clinical and financial milestones.<br />
-- Market position improvement depends on restoring liquidity and investor confidence, currently hampered by zero trading volume.<br />
-- Risk profile may improve with successful pipeline progression and capital management; early warning signals include declining EBIT and liquidity ratios.<br />
-- Investors should track leading indicators such as quarterly Z-Score changes, cash runway, and regulatory news to adjust positions timely.</p>
+INZY’s Z-Score momentum suggests cautious optimism with potential for crossing into the Safe Zone if clinical and financial milestones are achieved. Key catalysts include successful trial data for INZ-701 and securing additional capital. Investors should monitor quarterly Z-Score updates and liquidity metrics closely to detect inflection points.</p>
+<p>Early warning signals include declining working capital ratio or negative EBIT surprises, which would warrant risk reassessment and possible divestiture.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Inozyme Pharma (INZY) is emerging from a prolonged distress phase toward moderate financial health but remains in the Gray Zone with significant operational and liquidity challenges. The company’s biotech sector context explains ongoing losses, but negative retained earnings and weak liquidity ratios underscore elevated risk. Market illiquidity and absent trading data limit external validation, necessitating a cautious investment stance. Strategic focus on clinical progress, capital management, and risk mitigation will be critical to advancing INZY into a safer financial zone and unlocking shareholder value.</p>
-<p><strong>Recommended investor action:</strong> Maintain a cautious HOLD, with speculative BUYs aligned to clinical milestones for risk-tolerant profiles, and avoid dividend or conservative buy positions until financial stability and market liquidity improve.</p>
+<p>INZY is a high-risk, early-stage biotech with a volatile but improving Altman Z-Score profile. While financial distress has eased, liquidity and operational losses remain significant. Market signals are subdued, reflecting investor caution. Investment decisions should be tailored to risk tolerance, with aggressive investors potentially benefiting from growth upside, while conservative investors should remain cautious. Continuous monitoring of Z-Score trends, liquidity, and clinical progress is essential for timely investment actions.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating multi-dimensional financial data, risk assessment, and market intelligence for actionable investment guidance.</em></p></div></div>
+<p><em>Analysis generated with full integration of injected financial data, AI risk, peer, and sentiment analyses, and validated through cross-referenced metrics.</em></p></div></div>
     </div>
     
 
@@ -1244,78 +1289,41 @@ Given the improving but still fragile financial health, <strong>a cautious HOLD<
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:33 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:54 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

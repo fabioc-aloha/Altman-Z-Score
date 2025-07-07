@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>NVIDIA Corporation (NVDA)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:38 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:06 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -361,9 +433,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="NVDA_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="NVDA_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -377,7 +449,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">58.64</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">58.06</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -426,15 +498,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$159.34</p>
+                <p>$$157.74</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$3,885.9B</p>
+                <p>$$3846.5B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>51.4</p>
+                <p>50.7</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -446,7 +518,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>71.0</p>
+                <p>74.1</p>
             </div>
         </div>
     </div>
@@ -460,7 +532,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.62</p>
+                <p>0.57</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -481,70 +553,60 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> NVIDIA Corporation (NVDA)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:38:21  </p>
+<strong>Analysis Date:</strong> 2025-07-07 11:05:39  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>NVIDIA Corporation (NVDA) exhibits an exceptionally strong financial health profile as evidenced by its Altman Z-Score consistently residing in the <strong>Safe Zone</strong>, with the latest quarter’s Z-Score at <strong>107.31</strong>, far exceeding the traditional safe threshold of 3.0. This extraordinary Z-Score level indicates an extremely low risk of bankruptcy or financial distress. The Z-Score trajectory over the past eight quarters shows sustained strength with minor fluctuations but no downward trend, underscoring robust operational and financial stability.</p>
-<p><strong>AI Risk Analysis</strong> classifies NVDA’s overall risk level as <strong>Low</strong>, with a stable risk trajectory and no significant risk factors detected, supporting a high-confidence investment stance. The <strong>AI Peer Analysis</strong> positions NVDA well above the semiconductor industry average Z-Score (industry average not explicitly provided but typically ranges between 2-4), confirming NVDA’s superior competitive and financial standing relative to peers such as AMD and Intel. </p>
-<p><strong>AI Sentiment Analysis</strong> reveals a <strong>positive overall sentiment</strong> with a stable upward trend, reflecting strong market perception and investor confidence. Despite a high P/E ratio of <strong>51.40</strong>, the market appears to price in NVDA’s growth potential and technological leadership.</p>
+<p>NVIDIA Corporation (NVDA) demonstrates an exceptionally robust financial health profile with a consistently <strong>Safe Zone Altman Z-Score</strong> trajectory, ranging from <strong>58.06 to 112.52</strong> over the last eight quarters, with the latest quarter at <strong>106.23</strong>. This places NVDA far above the distress threshold of 1.8 and the gray zone upper limit of 3.0, signaling an extremely low bankruptcy risk and strong operational fundamentals.</p>
+<p><strong>AI Risk Analysis</strong> indicates an overall <strong>low risk level</strong>, supported by stable financial ratios and a positive risk trajectory, reinforcing confidence in NVDA’s resilience. The <strong>AI Peer Analysis</strong> positions NVDA as a clear industry leader with a Z-Score vastly exceeding the typical semiconductor industry average (usually in the 2-4 range), underscoring its competitive advantage and financial strength.</p>
+<p>Market sentiment, as per <strong>AI Sentiment Analysis</strong>, is moderately positive with a <strong>3.00% dividend yield</strong> and a high valuation reflected in a <strong>P/E ratio of 50.71</strong> and <strong>EV/EBITDA of 43.19</strong>, indicating strong growth expectations but also premium pricing. The sentiment trend is stable, with no significant anomalies detected.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>107.31</td>
-<td>Extremely safe financial position</td>
+<td>106.23 (Safe Zone)</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$3.89 trillion</td>
-<td>Large-cap, market leader</td>
+<td>$3.85 Trillion</td>
 </tr>
 <tr>
-<td>Current Ratio (Working Capital Ratio)</td>
-<td>0.506</td>
-<td>Moderate liquidity, manageable</td>
-</tr>
-<tr>
-<td>Debt-to-Equity</td>
-<td>Not directly provided, but implied low leverage</td>
-<td>Low financial risk</td>
+<td>Current Price</td>
+<td>$157.75</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>51.40</td>
-<td>Premium valuation, growth priced in</td>
+<td>50.71</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>3.00%</td>
-<td>Attractive income component</td>
 </tr>
 <tr>
-<td>AI Risk Level</td>
-<td>Low</td>
-<td>Minimal financial distress risk</td>
+<td>Working Capital Ratio</td>
+<td>0.506</td>
 </tr>
 <tr>
-<td>AI Sentiment</td>
-<td>Positive</td>
-<td>Market confidence high</td>
+<td>Retained Earnings Ratio</td>
+<td>0.576</td>
 </tr>
 <tr>
-<td>AI Peer Position</td>
-<td>Outperforming peers</td>
-<td>Competitive advantage</td>
+<td>EBIT Ratio</td>
+<td>0.173</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.352</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Investment Recommendation:</strong><br />
-Given the extremely strong Z-Score, low risk profile, positive sentiment, and leadership position in the semiconductor industry, NVDA is a <strong>Strong Buy</strong> for investors with medium to high risk tolerance seeking growth and income. Conservative investors should consider holding due to premium valuation but can benefit from the 3% dividend yield. Timing is favorable given stable Z-Score momentum and positive market sentiment.</p>
+Given NVDA’s exceptional Altman Z-Score, strong financial ratios, and stable risk profile, the recommendation is a <strong>BUY</strong> for investors with medium to high risk tolerance seeking growth and stability in the technology semiconductor sector. Conservative investors may consider a <strong>HOLD</strong> due to premium valuation but strong fundamentals. Market timing should consider entry on minor price corrections given the high valuation multiples.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -561,40 +623,65 @@ Given the extremely strong Z-Score, low risk profile, positive sentiment, and le
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.506</td>
-<td>~1.0 (Tech Sector Avg.)</td>
-<td>Moderate liquidity; below ideal but manageable given strong cash flows</td>
+<td>~1.0 - 1.5</td>
+<td>Below ideal liquidity; moderate working capital</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Working Capital Ratio: 0.506</td>
+<td>Industry avg ~0.8</td>
+<td>Slightly weak liquidity but manageable</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: Not explicitly provided; implied low leverage</td>
-<td>Industry average ~0.5-1.0</td>
-<td>Low leverage, low financial risk</td>
+<td>Debt-to-Equity: N/A (not provided)</td>
+<td>Industry avg ~0.5-1.0</td>
+<td>Data unavailable; inferred low leverage from Z-Score</td>
 <td>Stable</td>
 </tr>
 <tr>
+<td></td>
+<td>Interest Coverage (EBIT Ratio): 0.173</td>
+<td>Industry avg ~0.10-0.15</td>
+<td>Strong EBIT coverage indicates good debt servicing</td>
+<td>Improving</td>
+</tr>
+<tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.352, EBIT Ratio: 0.173</td>
-<td>Asset Turnover ~0.3-0.5, EBIT Ratio ~0.1-0.15</td>
-<td>Strong operational efficiency; EBIT margin above average</td>
+<td>Asset Turnover: 0.352</td>
+<td>Industry avg ~0.3-0.4</td>
+<td>In line with semiconductor peers</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>EBIT Ratio: 0.173</td>
+<td>Industry avg ~0.12-0.15</td>
+<td>Above average operational profitability</td>
 <td>Improving</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.576</td>
-<td>Industry average ~0.4-0.5</td>
-<td>Healthy retained earnings supporting growth and stability</td>
+<td>Industry avg ~0.4-0.5</td>
+<td>Strong retained earnings supporting growth</td>
 <td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: N/A</td>
+<td>N/A</td>
+<td>Data not provided</td>
+<td>N/A</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks approximate based on semiconductor sector norms.</p>
+<p>*Industry benchmarks are approximate based on semiconductor sector norms.</p>
 <p><strong>Interpretive Commentary:</strong><br />
-- <strong>Liquidity:</strong> NVDA’s current ratio of 0.506 is below the typical benchmark of 1.0, indicating working capital is less than current liabilities. However, the company’s strong cash generation and low debt mitigate liquidity concerns. The AI Data Quality Assessment confirms no anomalies in liquidity data, supporting confidence in this measure.<br />
-- <strong>Leverage:</strong> While explicit debt-to-equity is unavailable, the Z-Score’s high magnitude and EBIT ratio of 0.173 imply low leverage and strong interest coverage, consistent with a conservative capital structure.<br />
-- <strong>Operational Efficiency:</strong> Asset turnover of 0.352 and EBIT ratio of 0.173 indicate efficient asset utilization and profitability, outperforming typical semiconductor peers. This aligns with NVIDIA’s leadership in high-margin GPU and AI compute markets.<br />
-- <strong>Financial Stability:</strong> Retained earnings ratio at 0.576 reflects strong reinvestment and earnings retention, supporting sustainable growth and cushioning against downturns.</p>
-<p>The <strong>AI Data Quality Assessment</strong> reports no anomalies or inconsistencies, with high completeness and reliability scores, reinforcing the robustness of this financial health profile. The Technology sector context emphasizes capital-intensive R&amp;D and rapid innovation cycles, where NVDA’s financial metrics demonstrate resilience and competitive advantage.</p>
+NVDA’s liquidity position, with a current ratio of 0.506, is below the typical industry benchmark of 1.0-1.5, indicating a lean working capital structure. However, the company’s strong EBIT ratio of 0.173 and retained earnings ratio of 0.576 suggest robust profitability and reinvestment capacity, mitigating liquidity concerns. The asset turnover ratio of 0.352 aligns well with industry standards, reflecting efficient asset utilization.</p>
+<p>The absence of explicit debt-to-equity data limits leverage analysis, but the high Altman Z-Score and EBIT coverage imply conservative leverage and strong debt servicing ability. The AI Data Quality Assessment confirms data completeness with no anomalies, supporting high confidence in these financial diagnostics.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -610,65 +697,65 @@ Given the extremely strong Z-Score, low risk profile, positive sentiment, and le
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>107.31</td>
+<td>106.23</td>
 <td>Safe</td>
-<td>Strong EBIT, retained earnings, market cap</td>
-<td>Continued dominance in AI and gaming GPU markets</td>
+<td>High retained earnings, EBIT, equity</td>
+<td>Continued innovation in GPUs, AI, data centers</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>113.67</td>
+<td>112.52</td>
 <td>Safe</td>
 <td>Peak operational efficiency</td>
-<td>Peak product cycle, strong demand</td>
+<td>Strong product cycle, market expansion</td>
 </tr>
 <tr>
 <td>Q6</td>
-<td>104.76</td>
+<td>103.70</td>
 <td>Safe</td>
 <td>Stable profitability</td>
-<td>Expansion in data center and AI compute segments</td>
+<td>Diversification into networking solutions</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>85.80</td>
+<td>84.95</td>
 <td>Safe</td>
-<td>High retained earnings</td>
-<td>Growth in automotive and professional visualization</td>
+<td>Growing market cap, EBIT</td>
+<td>Expansion in AI and cloud infrastructure</td>
 </tr>
 <tr>
 <td>Q4</td>
-<td>88.60</td>
+<td>87.72</td>
 <td>Safe</td>
-<td>Consistent asset turnover</td>
-<td>Diversification of product portfolio</td>
+<td>Increasing retained earnings</td>
+<td>Strong gaming and professional graphics sales</td>
 </tr>
 <tr>
 <td>Q3</td>
-<td>79.97</td>
+<td>79.17</td>
 <td>Safe</td>
-<td>Increasing market cap</td>
-<td>Strong investor confidence</td>
-</tr>
-<tr>
-<td>Q2</td>
-<td>74.83</td>
-<td>Safe</td>
-<td>EBIT margin improvement</td>
+<td>Asset turnover improvements</td>
 <td>New product launches</td>
 </tr>
 <tr>
-<td>Q1</td>
-<td>58.64</td>
+<td>Q2</td>
+<td>74.09</td>
 <td>Safe</td>
-<td>Operational scaling</td>
-<td>Early stages of AI market penetration</td>
+<td>EBIT growth</td>
+<td>Strategic partnerships</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>58.06</td>
+<td>Safe</td>
+<td>Initial growth phase</td>
+<td>Market share gains</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-NVDA’s Z-Score has shown a remarkable upward trajectory from 58.64 to a peak of 113.67 before a slight normalization to 107.31, all well within the Safe Zone. This trend correlates strongly with NVIDIA’s business expansion into AI, data centers, and gaming, driving EBIT and retained earnings growth. The absence of any dip into the Gray or Distress zones confirms excellent financial health and operational execution.</p>
-<p>Compared to the semiconductor industry average Z-Score (typically 2-4), NVDA’s values are anomalously high, reflecting its unique market position and scale. The Z-Score components, though not individually detailed here, are evidently driven by strong EBIT/Total Assets and Market Value Equity/Book Value Debt ratios, consistent with NVIDIA’s premium valuation and low leverage.</p>
+NVDA’s Z-Score has shown a strong upward trajectory from 58.06 to a peak of 112.52 before a slight normalization to 106.23, all well within the Safe Zone. This reflects sustained operational excellence, strong profitability (EBIT ratio consistently above 0.17), and robust equity growth. The company’s business context—dominated by leadership in GPUs, AI computing, and networking—has driven these financial improvements.</p>
+<p>Compared to the semiconductor industry average Z-Score (~2-4), NVDA’s values are extraordinary, indicating a uniquely strong financial position. The slight dip from Q7 to Q8 is not concerning given the absolute magnitude and may reflect normal business cycle fluctuations or strategic investments.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -685,29 +772,29 @@ NVDA’s Z-Score has shown a remarkable upward trajectory from 58.64 to a peak o
 <tr>
 <td>Fundamental Health</td>
 <td>Strong upward trend, Z &gt; 100</td>
-<td>P/E 51.40, Price stable at $159.34</td>
-<td>Aligned</td>
-<td>Confirms premium valuation; growth priced in</td>
+<td>Price stable at $157.75, high P/E (50.71)</td>
+<td>Divergent (valuation premium)</td>
+<td>Indicates growth premium; caution on entry price</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Positive, stable</td>
-<td>Dividend yield 3.00%, positive sentiment</td>
+<td>Positive (3.00% dividend yield)</td>
+<td>Market sentiment stable, no volatility</td>
 <td>Consistent</td>
-<td>Supports buy recommendation; market confidence high</td>
+<td>Supports long-term holding strategy</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Outperforming peers</td>
-<td>Sector performance strong</td>
+<td>Outperforming peers by wide margin</td>
+<td>Sector performance strong but lower valuation</td>
 <td>Outperforming</td>
-<td>Competitive advantage sustained</td>
+<td>Confirms competitive advantage and market leadership</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The Z-Score’s strong signal aligns well with market valuation metrics, including a high P/E ratio of 51.40, reflecting investor expectations of continued growth. The 3% dividend yield adds an income component, enhancing appeal to income-focused investors. Despite the high valuation, the absence of volatility (0% reported) and zero beta suggest market stability, though these may be data anomalies or reflect a snapshot with limited trading activity.</p>
-<p>Peer comparison confirms NVDA’s superior financial health and market position relative to semiconductor competitors, reinforcing confidence in the investment thesis. The alignment between fundamental health and market signals supports a strategic entry or hold position depending on investor risk tolerance.</p>
+NVDA’s fundamental strength as indicated by the Altman Z-Score is not fully mirrored in price volatility or volume data (all zero or unavailable), suggesting either data limitations or a stable trading environment. The high P/E ratio of 50.71 and EV/EBITDA of 43.19 reflect market expectations of continued growth, consistent with AI Sentiment Analysis showing stable positive sentiment and a 3.00% dividend yield.</p>
+<p>The divergence between fundamental strength and price suggests potential overvaluation risk, recommending careful timing for new investments. However, the alignment of analyst sentiment and peer outperformance supports a bullish medium-to-long-term outlook.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -725,29 +812,35 @@ The Z-Score’s strong signal aligns well with market valuation metrics, includi
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential EBIT margin pressure</td>
-<td>Diversify product lines; R&amp;D investment</td>
+<td>Potential EBIT ratio decline (-10%)</td>
+<td>Diversify product lines, R&amp;D investment</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
 <td>Minor</td>
-<td>Minimal due to low leverage</td>
-<td>Maintain conservative capital structure</td>
+<td>Minimal due to strong retained earnings</td>
+<td>Maintain conservative leverage policy</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Valuation correction risk</td>
-<td>Hedge via options; monitor market trends</td>
+<td>Valuation correction could reduce market cap (-15%)</td>
+<td>Hedge with options, diversify portfolio</td>
+</tr>
+<tr>
+<td>Technological Risks</td>
+<td>Medium</td>
+<td>Critical</td>
+<td>Innovation failure could reduce asset turnover (-20%)</td>
+<td>Accelerate innovation pipeline, partnerships</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Risk Commentary:</strong><br />
-Based on AI Risk Analysis overall risk level of <strong>Low</strong> with <strong>high confidence</strong>, NVDA faces minimal financial distress risk. Operational risks, including supply chain disruptions or competitive pressures, have a medium probability but moderate severity, potentially impacting EBIT margins and thus Z-Score components. Financial risks are low due to strong balance sheet and low leverage.</p>
-<p>Market risks, including potential valuation corrections given the high P/E ratio, carry medium probability and moderate severity. Scenario analysis suggests that even in a worst-case valuation contraction, NVDA’s Z-Score would remain in the Safe Zone due to strong asset base and earnings.</p>
-<p>Mitigation strategies include continued innovation, diversification, and prudent capital management. Best-case scenarios project Z-Score growth with expanding market share; base case maintains current levels; worst case involves moderate valuation adjustment without distress.</p>
+<p><strong>Scenario Planning Commentary:</strong><br />
+Based on AI Risk Analysis, NVDA faces moderate operational and market risks, primarily from competitive pressures and valuation corrections. The company’s strong retained earnings and EBIT ratio provide buffers against financial distress. Best-case scenarios see continued Z-Score growth above 110, base case maintains above 100, while worst-case scenarios (e.g., tech disruption or market downturn) could reduce Z-Score toward 70-80, still within Safe Zone.</p>
+<p>Mitigation strategies focus on maintaining innovation leadership, prudent capital management, and market risk hedging.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -766,50 +859,46 @@ Based on AI Risk Analysis overall risk level of <strong>Low</strong> with <stron
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score &gt; 100 indicates safety; premium valuation warrants caution</td>
-<td>Stable price, dividend yield 3% supports hold</td>
-<td>6-12 months review</td>
+<td>Z-Score &gt; 100 confirms safety</td>
+<td>Wait for valuation dip</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>BUY</td>
-<td>Strong retained earnings and dividend yield 3% support income</td>
-<td>Favorable yield in tech sector</td>
-<td>Immediate to 6 months</td>
+<td>Stable dividend yield 3.00%</td>
+<td>Entry on price stability</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>HOLD</td>
-<td>High P/E suggests limited value upside; Z-Score confirms low risk</td>
-<td>Wait for valuation dip</td>
-<td>Monitor quarterly</td>
+<td>High P/E suggests premium</td>
+<td>Await price correction</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>BUY</td>
-<td>Z-Score growth trend and EBIT margin expansion support growth thesis</td>
-<td>Positive momentum</td>
-<td>Immediate entry</td>
+<td>Strong Z-Score growth trend</td>
+<td>Immediate entry possible</td>
+<td>0-3 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>BUY</td>
-<td>Exceptional Z-Score and market leadership justify risk/reward</td>
-<td>Volatility low but monitor for spikes</td>
-<td>Immediate with active monitoring</td>
+<td>Exceptional risk buffer</td>
+<td>Exploit volatility</td>
+<td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-- Conservative investors should hold NVDA, benefiting from safety and dividends while awaiting potential valuation normalization.<br />
-- Dividend-focused investors can buy to capture the 3% yield with low risk.<br />
-- Value investors should wait for a price correction given the high P/E ratio despite strong fundamentals.<br />
-- Growth and aggressive investors are encouraged to buy now, capitalizing on strong Z-Score momentum and market leadership.<br />
-- Position sizing should consider Z-Score stability; volatility is currently reported as zero, but real-world monitoring is advised.</p>
+<p><strong>Rationale:</strong><br />
+Conservative investors should hold due to premium valuation despite strong fundamentals. Dividend-focused investors can buy given stable yield and financial strength. Value investors should wait for price corrections to improve entry multiples. Growth and aggressive investors are encouraged to buy immediately, capitalizing on NVDA’s dominant market position and exceptional Z-Score safety margin.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -826,28 +915,28 @@ Based on AI Risk Analysis overall risk level of <strong>Low</strong> with <stron
 <tr>
 <td>CEO Leadership</td>
 <td>Innovation &amp; Market Expansion</td>
-<td>EBIT Ratio (0.173), Z-Score (107.31)</td>
-<td>Accelerate AI and data center investments</td>
+<td>EBIT Ratio (0.173), Z-Score</td>
+<td>Accelerate AI and GPU development</td>
 <td>Revenue growth, Z-Score stability</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital Efficiency &amp; Risk Management</td>
+<td>Capital Efficiency &amp; Risk Mgmt</td>
 <td>Working Capital Ratio (0.506), Retained Earnings Ratio (0.576)</td>
-<td>Optimize liquidity, maintain low leverage</td>
-<td>Liquidity ratios, debt levels</td>
+<td>Optimize liquidity, manage capital allocation</td>
+<td>Improved liquidity, debt ratios</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Oversight of Risk &amp; Compliance</td>
-<td>AI Risk Level (Low), Dividend Yield (3%)</td>
-<td>Ensure risk mitigation strategies, dividend policy review</td>
-<td>Risk reports, shareholder satisfaction</td>
+<td>Risk Oversight &amp; Compliance</td>
+<td>Risk Levels (Low), Market Risks</td>
+<td>Monitor valuation risks, ensure governance</td>
+<td>Compliance audits, risk reports</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The CEO should focus on sustaining innovation leadership, leveraging the strong EBIT margin and Z-Score to fund growth initiatives. The CFO must balance liquidity management with capital allocation to maintain the company’s low-risk profile. The Board should oversee risk management frameworks aligned with the AI Risk Analysis low-risk classification, ensuring governance supports long-term stability and shareholder returns.</p>
+NVDA’s leadership should focus on sustaining innovation momentum to maintain EBIT and asset turnover ratios, which drive the Z-Score. CFO should balance liquidity constraints with growth investments, given the below-average current ratio but strong retained earnings. The Board must oversee risk management, especially valuation and market risks, ensuring governance frameworks adapt to rapid sector changes.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -863,35 +952,36 @@ The CEO should focus on sustaining innovation leadership, leveraging the strong 
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable, high</td>
-<td>Slight upward</td>
-<td>Continued AI market growth, product innovation</td>
-<td>Quarterly Z-Score updates, EBIT margins</td>
+<td>Stable above 100</td>
+<td>Slight growth</td>
+<td>New product launches, AI adoption</td>
+<td>EBIT ratio, retained earnings</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Market leader</td>
+<td>Industry leader</td>
 <td>Maintain/expand</td>
-<td>New product launches, strategic partnerships</td>
-<td>Market share, competitor performance</td>
+<td>Strategic partnerships, market share</td>
+<td>Market cap, peer comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>Low</td>
-<td>Stable</td>
-<td>Supply chain stability, macroeconomic conditions</td>
-<td>Risk factor tracking, geopolitical events</td>
+<td>Stable with vigilance</td>
+<td>Tech disruption, macroeconomic shifts</td>
+<td>Volatility indices, debt levels</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-NVDA’s Z-Score momentum is expected to remain stable or improve over the next 6-12 months, driven by ongoing AI adoption and product innovation. Key catalysts include expansion into new AI workloads and data center growth. Market position is expected to remain dominant, supported by strong R&amp;D and strategic partnerships.</p>
-<p>Risk profile remains low but should be monitored for operational disruptions or macroeconomic shocks. Leading indicators include quarterly financial ratios, market share data, and AI Risk Analysis updates. Early warning systems should focus on EBIT margin compression and liquidity shifts.</p>
+NVDA’s Z-Score momentum is expected to remain strong or improve slightly over the next 6-12 months, driven by continued innovation and market expansion in AI and gaming sectors. Key catalysts include new GPU architectures and cloud computing partnerships. Risk profile remains low but requires monitoring of technological disruption and valuation corrections.</p>
+<p>Early warning systems should track EBIT ratio fluctuations, working capital changes, and market volatility to anticipate shifts in financial health or market sentiment.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>NVIDIA Corporation’s financial and market profile, as analyzed through the AI-powered Altman Z-Score framework, indicates an exceptionally strong investment opportunity with minimal risk of distress. The company’s dominant market position, robust operational efficiency, and stable risk profile support a <strong>Strong Buy</strong> recommendation for growth and dividend investors, with conservative investors advised to hold pending valuation normalization. Continuous monitoring of operational and market risks is recommended to maintain investment confidence.</p>
+<p>NVIDIA Corporation exhibits an unparalleled Altman Z-Score profile, signaling exceptional financial health and minimal bankruptcy risk. Despite a below-average liquidity ratio, strong profitability and retained earnings underpin operational resilience. Market valuation is high, warranting cautious timing for conservative and value investors, while growth and aggressive profiles can capitalize immediately on NVDA’s dominant position. Risk remains low but requires ongoing monitoring of innovation and market dynamics.</p>
+<p><strong>Recommended Action:</strong> Medium to high-risk investors should <strong>BUY</strong> NVDA shares with confidence, while conservative investors should <strong>HOLD</strong> and monitor for valuation-driven entry points.</p>
 <hr />
-<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Analyst.</em></p></div></div>
+<p><em>Analysis completed using injected financial data, AI risk and sentiment metrics, and industry benchmarks as of 2025-07-07.</em></p></div></div>
     </div>
     
 
@@ -1234,78 +1324,41 @@ NVDA’s Z-Score momentum is expected to remain stable or improve over the next 
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:38 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:06 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Humana Inc. (HUM)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:41 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:53 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -369,9 +441,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="HUM_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="HUM_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -434,15 +506,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$239.68</p>
+                <p>$$237.60</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$28.9B</p>
+                <p>$$28.7B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>16.9</p>
+                <p>16.8</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -454,7 +526,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>55.7</p>
+                <p>53.1</p>
             </div>
         </div>
     </div>
@@ -468,7 +540,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>-0.84</p>
+                <p>-0.86</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -488,16 +560,15 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> Humana Inc. (HUM)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:40:39  </p>
+<p><strong>Company:</strong> Humana Inc. (Ticker: HUM)<br />
+<strong>Analysis Date:</strong> 2025-07-07 10:53:04  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Humana Inc. (HUM) presents a complex financial and risk profile characterized by a historically fluctuating Altman Z-Score trajectory, currently positioned in the <strong>Gray Zone</strong> with a recent Z-Score of approximately <strong>2.17</strong>. This indicates moderate financial distress risk, warranting cautious but opportunistic investment consideration.</p>
-<ul>
-<li><strong>AI Risk Analysis:</strong> While explicit risk scores are not provided, the Z-Score trend from a high of 4.82 (Safe Zone) down to a trough near 1.55 (Gray Zone) and recent stabilization around 2.17 suggests a <strong>moderate overall risk level with a cautiously improving trajectory</strong>.</li>
-<li><strong>AI Peer Analysis:</strong> HUM’s Z-Score remains below its historical highs but above distress thresholds, implying a <strong>relative position in the mid-to-lower tier of financial safety within the Healthcare Plans industry</strong>. Industry average Z-Scores are typically above 3.0, indicating HUM is currently underperforming peers on financial distress metrics.</li>
-<li><strong>AI Sentiment Analysis:</strong> Market sentiment is ambiguous due to zero volatility and technical indicator data, but a <strong>high dividend yield of 145%</strong> suggests either a data anomaly or an extraordinary yield event, which may distort sentiment interpretation.</li>
-</ul>
+<p>Humana Inc. currently exhibits a <strong>Gray Zone</strong> Altman Z-Score risk profile, with the latest two quarters showing scores of <strong>2.18</strong> and <strong>2.17</strong>, indicating moderate financial distress risk but not immediate danger. Historically, the company has oscillated between the <strong>Safe Zone</strong> (Z &gt; 3.0) with scores as high as <strong>4.82</strong> and <strong>3.36</strong>, and the Gray Zone, reflecting volatility in financial health over the past eight quarters.</p>
+<p><strong>AI Risk Analysis</strong> is implicitly moderate given the Gray Zone status, with no explicit risk scores provided but supported by stable market capitalization of <strong>$28.68 billion</strong> and a current share price of <strong>$237.60</strong>. The risk trajectory appears cautiously improving from lows near <strong>1.55</strong> to above <strong>2.1</strong> in recent quarters.</p>
+<p><strong>AI Peer Analysis</strong> data is limited, but the company’s Z-Score trend suggests it is currently below typical industry Safe Zone averages (generally &gt;3.0 for Healthcare Plans sector), indicating a relative underperformance in financial stability compared to peers.</p>
+<p><strong>AI Sentiment Analysis</strong> is constrained by market data anomalies (zero volume, zero RSI, zero moving averages), but valuation metrics such as a P/E ratio of <strong>16.77</strong> and an exceptionally high dividend yield of <strong>145.00%</strong> suggest market skepticism or data irregularities. The dividend yield figure is likely anomalous and should be treated cautiously.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
@@ -510,42 +581,56 @@
 <tr>
 <td>Latest Z-Score</td>
 <td>2.17</td>
-<td>Gray Zone - moderate distress risk</td>
+<td>Gray Zone, moderate distress risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$28.93B</td>
+<td>$28.68B</td>
 <td>Large-cap healthcare player</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$239.68</td>
-<td>Stable price level (no volatility data)</td>
+<td>$237.60</td>
+<td>Stable price level</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>16.77</td>
+<td>Reasonable valuation</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>145.00%</td>
-<td>Likely data anomaly; warrants caution</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>16.93</td>
-<td>Reasonable valuation relative to earnings</td>
-</tr>
-<tr>
-<td>Debt-to-Equity (implied)</td>
-<td>N/A</td>
-<td>Not directly provided; inferred moderate leverage</td>
+<td>Likely data anomaly, caution advised</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.322</td>
-<td>Low liquidity, potential short-term risk</td>
+<td>Low liquidity</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.578</td>
+<td>Moderate earnings retention</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.040</td>
+<td>Low operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.631</td>
+<td>Moderate asset utilization</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given the <strong>Gray Zone Z-Score</strong>, moderate risk trajectory, and reasonable valuation metrics, a <strong>Hold</strong> stance is recommended for conservative investors, with <strong>selective Buy</strong> consideration for value and growth profiles contingent on liquidity improvements and dividend yield validation.</p>
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Hold with Caution:</strong> The company’s Z-Score indicates moderate financial risk; investors should monitor liquidity and profitability trends closely.</li>
+<li><strong>Selective Entry for Value Investors:</strong> Given the P/E ratio and improving Z-Score trend, value investors may consider phased entry, pending confirmation of operational improvements.</li>
+<li><strong>Avoid Aggressive Positions:</strong> Due to liquidity concerns (Working Capital Ratio 0.322) and uncertain dividend sustainability, aggressive or high-risk profiles should avoid or limit exposure.</li>
+</ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -553,7 +638,7 @@ Given the <strong>Gray Zone Z-Score</strong>, moderate risk trajectory, and reas
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark*</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -562,68 +647,70 @@ Given the <strong>Gray Zone Z-Score</strong>, moderate risk trajectory, and reas
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.322</td>
-<td>Healthcare avg ~1.5-2.0</td>
-<td><strong>Weak liquidity; potential short-term risk</strong></td>
-<td>Declining/Stable</td>
+<td>~1.0 - 1.5</td>
+<td><strong>Weak liquidity</strong>, below industry norms</td>
+<td>Declining/Weak</td>
 </tr>
 <tr>
 <td></td>
 <td>Working Capital Ratio: 0.322</td>
-<td>Benchmark ~1.0</td>
-<td>Below industry standard</td>
-<td>Declining</td>
+<td>N/A</td>
+<td>Insufficient short-term buffer</td>
+<td>Stable/Low</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (implied moderate)</td>
-<td>Industry avg ~0.5-1.0</td>
-<td>Moderate leverage; no explicit data</td>
-<td>Stable</td>
+<td>Debt-to-Equity: Not provided</td>
+<td>~0.5 - 1.0 (Healthcare avg)</td>
+<td>Data unavailable; leverage risk unknown</td>
+<td>N/A</td>
 </tr>
 <tr>
 <td></td>
 <td>Interest Coverage (EBIT Ratio): 0.040</td>
-<td>Industry avg ~0.10-0.15</td>
-<td>Low EBIT margin; potential coverage risk</td>
-<td>Stable/Declining</td>
+<td>~0.10 - 0.15 (Healthcare avg)</td>
+<td><strong>Low EBIT ratio</strong>, indicating thin margins</td>
+<td>Stable/Low</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.631</td>
-<td>Industry avg ~0.7-1.0</td>
-<td>Slightly below average efficiency</td>
+<td>~0.7 - 1.0</td>
+<td>Slightly below average asset utilization</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>EBIT Ratio: 0.040</td>
-<td>Industry avg ~0.10-0.15</td>
-<td>Low profitability margin</td>
-<td>Stable/Declining</td>
+<td>~0.10 - 0.15</td>
+<td>Operating profitability is low</td>
+<td>Stable/Weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.578</td>
-<td>Industry avg ~0.6-0.8</td>
-<td>Moderate retained earnings; stable equity base</td>
+<td>~0.6 - 0.8</td>
+<td>Moderate retained earnings</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
-<td>Cash Position: N/A</td>
+<td>Cash Position: Not provided</td>
 <td>N/A</td>
 <td>Data unavailable</td>
 <td>N/A</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Interpretive Commentary:</strong><br />
-- <strong>Liquidity Position:</strong> The current ratio of 0.322 is significantly below the healthcare industry benchmark (~1.5-2.0), indicating potential short-term liquidity constraints. This low working capital ratio signals a need for improved cash management or asset liquidity to avoid operational disruptions.<br />
-- <strong>Leverage Management:</strong> Although explicit debt-to-equity data is missing, the EBIT ratio of 0.040 (4%) is low compared to industry averages (10-15%), suggesting thin operating margins and possible challenges in servicing debt, increasing financial risk.<br />
-- <strong>Operational Efficiency:</strong> Asset turnover at 0.631 is slightly below industry norms, indicating less efficient asset utilization. Combined with low EBIT margins, this points to operational pressures.<br />
-- <strong>Financial Stability:</strong> Retained earnings ratio at 0.578 reflects a moderate equity cushion, supporting some financial stability despite liquidity and profitability challenges.</p>
-<p><strong>Data Quality Note:</strong><br />
-No anomalies detected in financial data completeness; however, missing explicit debt-to-equity and cash position data limit leverage and liquidity risk precision. AI Data Quality Assessment scores are implicitly high given data completeness.</p>
+<p>*Industry benchmarks approximate for Healthcare Plans sector.</p>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li><strong>Liquidity Position:</strong> The current ratio of <strong>0.322</strong> is significantly below the typical industry benchmark of 1.0 or higher, signaling potential short-term liquidity stress. This aligns with the Gray Zone Z-Score classification and suggests caution in meeting near-term obligations.</li>
+<li><strong>Leverage Management:</strong> Lack of explicit debt-to-equity data limits leverage risk assessment. However, the low EBIT ratio of <strong>4%</strong> (0.040) indicates limited earnings to cover interest and operational expenses, which could exacerbate financial risk if debt levels are elevated.</li>
+<li><strong>Operational Efficiency:</strong> Asset turnover at <strong>0.631</strong> is slightly below industry norms, indicating moderate efficiency in asset utilization. EBIT ratio remains low, reflecting tight margins in a competitive healthcare plans industry.</li>
+<li><strong>Financial Stability:</strong> Retained earnings ratio of <strong>0.578</strong> suggests moderate reinvestment of profits, supporting some internal capital generation but possibly insufficient to offset liquidity constraints.</li>
+</ul>
+<p><strong>AI Data Quality Assessment:</strong> No explicit quality scores or anomalies were reported, but market data anomalies (zero volume, zero RSI) suggest caution in interpreting market sentiment and valuation metrics.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -638,38 +725,67 @@ No anomalies detected in financial data completeness; however, missing explicit 
 </thead>
 <tbody>
 <tr>
-<td>Earliest (8 Qtrs ago)</td>
+<td>8 Quarters Ago</td>
 <td>4.82</td>
 <td>Safe</td>
-<td>Strong working capital, high equity</td>
-<td>Stable growth phase</td>
+<td>Strong working capital, earnings</td>
+<td>Historically strong financial health</td>
 </tr>
 <tr>
-<td>Mid-period</td>
-<td>3.36 - 4.43</td>
+<td>7 Quarters Ago</td>
+<td>3.36</td>
 <td>Safe</td>
-<td>Moderate EBIT, asset efficiency</td>
+<td>Stable profitability</td>
 <td>Continued operational strength</td>
 </tr>
 <tr>
-<td>Decline Phase</td>
-<td>1.64 - 1.55</td>
-<td>Gray Zone</td>
-<td>Declining liquidity, EBIT pressure</td>
-<td>Possible market or operational headwinds</td>
+<td>6 Quarters Ago</td>
+<td>4.43</td>
+<td>Safe</td>
+<td>High retained earnings</td>
+<td>Peak financial stability</td>
 </tr>
 <tr>
-<td>Recent (Current)</td>
-<td>2.18 - 2.17</td>
+<td>5 Quarters Ago</td>
+<td>1.64</td>
 <td>Gray Zone</td>
-<td>Slight recovery in working capital</td>
-<td>Stabilization efforts underway</td>
+<td>Declining liquidity, EBIT</td>
+<td>Early signs of financial stress</td>
+</tr>
+<tr>
+<td>4 Quarters Ago</td>
+<td>1.56</td>
+<td>Gray Zone</td>
+<td>Continued margin pressure</td>
+<td>Operational challenges emerging</td>
+</tr>
+<tr>
+<td>3 Quarters Ago</td>
+<td>1.55</td>
+<td>Gray Zone</td>
+<td>Persistent low working capital</td>
+<td>Sustained liquidity constraints</td>
+</tr>
+<tr>
+<td>2 Quarters Ago</td>
+<td>2.18</td>
+<td>Gray Zone</td>
+<td>Slight recovery in EBIT</td>
+<td>Initial operational improvements</td>
+</tr>
+<tr>
+<td>Current Quarter</td>
+<td>2.17</td>
+<td>Gray Zone</td>
+<td>Stabilizing working capital</td>
+<td>Business stabilizing but below Safe Zone thresholds</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-Humana’s Z-Score trajectory shows a <strong>significant decline from a strong Safe Zone (4.82) to Gray Zone lows (~1.55)</strong>, reflecting deteriorating financial health likely driven by liquidity stress and compressed EBIT margins. The recent modest rebound to ~2.17 suggests early signs of stabilization but remains below the industry average Z-Score (&gt;3.0), indicating ongoing vulnerability.</p>
-<p>This pattern correlates with sector challenges in Healthcare Plans, including regulatory pressures and rising medical costs impacting profitability and working capital. The company’s business segments (Retail, Group and Specialty, Healthcare Services) may be experiencing uneven performance, affecting overall financial metrics.</p>
+<h3 id="commentary_1">Commentary</h3>
+<p>Humana’s Z-Score trajectory shows a <strong>significant decline from a Safe Zone peak of 4.82 to a Gray Zone trough near 1.55</strong>, reflecting deteriorating liquidity and profitability over the mid-term. The recent mild recovery to ~2.17 suggests stabilization but not a full return to financial safety.</p>
+<p>The drop correlates with industry-wide pressures in healthcare plans, including rising costs and regulatory challenges. The company’s business segments (Retail, Group and Specialty, Healthcare Services) may be experiencing margin compression, as indicated by the low EBIT ratio of 0.040.</p>
+<p>Benchmarking against the Healthcare Plans industry average Z-Score (~3.0+) indicates Humana is currently underperforming peers in financial health, warranting cautious investment consideration.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -685,30 +801,34 @@ Humana’s Z-Score trajectory shows a <strong>significant decline from a strong 
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Gray Zone, slight improvement</td>
-<td>Price stable at $239.68, zero volatility</td>
-<td>Divergent (no volatility)</td>
-<td>Market may be underreacting to risk</td>
+<td>Gray Zone (~2.17)</td>
+<td>Price stable at $237.60</td>
+<td>Divergent</td>
+<td>Market may be underestimating risk</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral (no explicit data)</td>
-<td>Dividend yield anomaly (145%)</td>
+<td>Neutral (P/E 16.77)</td>
+<td>Dividend yield anomaly</td>
 <td>Inconsistent</td>
-<td>Data anomaly clouds sentiment reading</td>
+<td>Data anomalies reduce confidence</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry average Z-Score</td>
-<td>Sector performance moderate</td>
+<td>Below industry avg</td>
+<td>Sector performance N/A</td>
 <td>Underperforming</td>
 <td>Competitive positioning weak</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-The lack of price volatility and technical indicator data (RSI 0.0, zero volume) suggests either data gaps or market inactivity, limiting market signal reliability. The extraordinarily high dividend yield (145%) is likely a data anomaly or special event, which distorts valuation and sentiment interpretation.</p>
-<p>Fundamental Z-Score signals indicate moderate distress risk, but the market price stability and low volatility imply a disconnect, potentially presenting an opportunity if liquidity and profitability improve. Peer underperformance on Z-Score metrics signals competitive challenges.</p>
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li><strong>Fundamental vs Market Signal:</strong> The Z-Score indicates moderate financial risk, yet the stock price remains stable near $237.60, suggesting a disconnect between fundamental risk and market pricing. This divergence could represent a latent risk or an opportunity if fundamentals improve.</li>
+<li><strong>Sentiment Analysis:</strong> The P/E ratio of 16.77 is reasonable for the sector, but the reported dividend yield of 145% is likely a data anomaly, undermining confidence in dividend sustainability and market sentiment signals.</li>
+<li><strong>Peer Comparison:</strong> Without explicit peer price data, Humana’s below-average Z-Score suggests it is at a competitive disadvantage in financial stability, which may affect relative market performance.</li>
+</ul>
+<p>Investors should be cautious of potential market mispricing and seek confirmation from updated market data and analyst reports.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -726,30 +846,37 @@ The lack of price volatility and technical indicator data (RSI 0.0, zero volume)
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>-0.5 to -1.0</td>
-<td>Enhance operational efficiency, cost control</td>
+<td>-0.3 to -0.5</td>
+<td>Cost control, operational efficiency</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
+<td>Medium</td>
 <td>High</td>
-<td>Critical</td>
-<td>-1.0 to -1.5</td>
-<td>Improve liquidity, reduce leverage, optimize capital structure</td>
+<td>-0.5 to -1.0</td>
+<td>Improve liquidity, debt restructuring</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium</td>
+<td>Low-Medium</td>
 <td>Moderate</td>
-<td>-0.3 to -0.7</td>
-<td>Diversify revenue streams, hedge regulatory exposure</td>
+<td>-0.2 to -0.4</td>
+<td>Diversify revenue streams, hedging</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Liquidity and EBIT margins improve, Z-Score rises above 3.0 (Safe Zone), reducing bankruptcy risk and enabling growth investments.<br />
-- <strong>Base Case:</strong> Z-Score stabilizes around 2.0-2.5, maintaining Gray Zone status with moderate risk but manageable operational continuity.<br />
-- <strong>Worst Case:</strong> Continued liquidity stress and margin compression push Z-Score below 1.8, entering Distress Zone, increasing bankruptcy risk and necessitating restructuring.</p>
-<p>Based on AI Risk Analysis inferred risk factors, financial risks dominate with high probability and critical severity, underscoring the importance of capital management and operational turnaround.</p>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational Risks:</strong> Margin pressure and asset utilization inefficiencies pose moderate risks to EBIT and working capital, potentially lowering Z-Score by up to 0.5 points.</li>
+<li><strong>Financial Risks:</strong> Low liquidity (Working Capital Ratio 0.322) and thin EBIT margins increase bankruptcy risk probability moderately, with potential Z-Score impact up to -1.0 if unaddressed.</li>
+<li><strong>Market Risks:</strong> Regulatory changes and competitive pressures in healthcare plans may moderately affect revenue and valuation, impacting Z-Score by up to -0.4.</li>
+</ul>
+<p><strong>Scenario Outlook:</strong></p>
+<ul>
+<li><strong>Best Case:</strong> Operational improvements and liquidity enhancement raise Z-Score above 3.0, returning to Safe Zone within 2-3 quarters.</li>
+<li><strong>Base Case:</strong> Stabilization near current Z-Score (~2.1-2.2), maintaining Gray Zone status.</li>
+<li><strong>Worst Case:</strong> Continued margin erosion and liquidity stress push Z-Score below 1.8, entering Distress Zone, triggering urgent risk mitigation.</li>
+</ul>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -768,49 +895,52 @@ The lack of price volatility and technical indicator data (RSI 0.0, zero volume)
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score ~2.17 in Gray Zone; moderate risk</td>
-<td>Wait for liquidity improvement</td>
-<td>6-12 months</td>
+<td>Z-Score stable ~2.17, liquidity risk</td>
+<td>Wait for Z-Score &gt; 2.5</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>Dividend yield anomaly; verify sustainability</td>
-<td>Monitor dividend announcements</td>
-<td>3-6 months</td>
+<td>Dividend yield anomaly, earnings low</td>
+<td>Monitor dividend data</td>
+<td>3 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>BUY (Selective)</td>
-<td>Valuation reasonable (P/E 16.93); Z-Score improving</td>
-<td>Entry on confirmed Z-Score uptrend</td>
-<td>3-6 months</td>
+<td>P/E 16.77 reasonable, Z-Score improving</td>
+<td>Phased entry on dips</td>
+<td>1-3 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>BUY</td>
-<td>Growth potential if operational efficiency improves</td>
-<td>Momentum build expected</td>
-<td>6-12 months</td>
+<td>HOLD</td>
+<td>Low EBIT ratio limits growth case</td>
+<td>Await operational improvements</td>
+<td>6 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>SELL/AVOID</td>
-<td>High risk from liquidity and EBIT pressure</td>
-<td>Avoid until Z-Score &gt;2.5</td>
-<td>Immediate</td>
+<td>AVOID</td>
+<td>High liquidity and margin risk</td>
+<td>Avoid until Z-Score &gt; 3</td>
+<td>N/A</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-- Conservative investors should hold due to moderate distress risk and liquidity concerns.<br />
-- Dividend investors must validate the anomalous yield before action.<br />
-- Value and growth investors may selectively buy on signs of operational improvement and Z-Score stabilization.<br />
-- Aggressive investors should avoid due to current financial fragility.</p>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li><strong>Conservative investors</strong> should hold and monitor liquidity improvements before increasing exposure.</li>
+<li><strong>Dividend investors</strong> should be cautious due to unreliable dividend yield data.</li>
+<li><strong>Value investors</strong> may consider selective buying, leveraging the improving Z-Score trend and reasonable valuation.</li>
+<li><strong>Growth investors</strong> should wait for clearer signs of margin expansion.</li>
+<li><strong>Aggressive investors</strong> should avoid due to current financial risk and volatility.</li>
+</ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -829,26 +959,26 @@ The lack of price volatility and technical indicator data (RSI 0.0, zero volume)
 <td>Stabilize financial health</td>
 <td>Z-Score components, EBIT ratio</td>
 <td>Focus on operational efficiency, cost control</td>
-<td>Z-Score &gt; 3.0, EBIT margin &gt; 10%</td>
+<td>Z-Score &gt; 3.0, EBIT margin &gt; 6%</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Improve liquidity &amp; leverage</td>
-<td>Current ratio, working capital</td>
-<td>Optimize capital structure, enhance cash flow</td>
-<td>Current ratio &gt; 1.0, debt reduction</td>
+<td>Improve liquidity</td>
+<td>Working Capital Ratio, Debt levels</td>
+<td>Enhance cash flow management, debt refinancing</td>
+<td>Current ratio &gt; 1.0, reduced leverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; compliance</td>
-<td>Risk indicators, Z-Score trends</td>
-<td>Strengthen governance, monitor risk trajectory</td>
-<td>Risk level reduction, compliance adherence</td>
+<td>Risk oversight</td>
+<td>Z-Score trend, risk factors</td>
+<td>Implement risk mitigation frameworks</td>
+<td>Reduced risk incidents, compliance</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-The CEO must prioritize operational turnaround to improve EBIT margins and asset utilization. The CFO should aggressively manage liquidity and debt to mitigate financial risk. The Board must ensure robust risk governance to navigate the Gray Zone risk environment. Coordination across leadership is critical to restore investor confidence and market positioning.</p>
+<h3 id="commentary_5">Commentary</h3>
+<p>Executive leadership should prioritize restoring liquidity and profitability to move Humana back into the Safe Zone. CFO-led capital allocation must focus on improving working capital and managing debt prudently. The Board should oversee risk management strategies aligned with AI Risk Analysis themes to ensure sustainable financial health.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -864,36 +994,35 @@ The CEO must prioritize operational turnaround to improve EBIT margins and asset
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Slightly improving (~2.17)</td>
-<td>Potential rise to Safe Zone</td>
-<td>Improved liquidity, margin expansion</td>
-<td>Quarterly Z-Score updates</td>
+<td>Stabilizing ~2.17</td>
+<td>Gradual improvement</td>
+<td>Operational efficiency, cost control</td>
+<td>Quarterly Z-Score, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Below industry average</td>
-<td>Gradual recovery possible</td>
-<td>Regulatory clarity, segment growth</td>
-<td>Market share, peer comparison</td>
+<td>Below industry avg</td>
+<td>Potential recovery</td>
+<td>Regulatory environment, market share</td>
+<td>Market cap, peer Z-Score trends</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Moderate (Gray Zone)</td>
-<td>Risk reduction achievable</td>
-<td>Debt management, operational efficiency</td>
-<td>Liquidity ratios, EBIT margin</td>
+<td>Moderate risk</td>
+<td>Risk reduction</td>
+<td>Debt management, liquidity improvement</td>
+<td>Working capital ratio, debt ratios</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-Humana’s Z-Score momentum suggests a cautiously optimistic outlook if operational and financial improvements materialize. Key catalysts include enhanced working capital management and EBIT margin recovery. Continuous monitoring of liquidity ratios and Z-Score quarterly trends will provide early warning signals for risk escalation or opportunity realization.</p>
+<h3 id="commentary_6">Commentary</h3>
+<p>Humana’s Z-Score momentum suggests cautious optimism for gradual financial health improvement over the next 6-12 months, contingent on operational and liquidity enhancements. Key catalysts include cost management initiatives and favorable regulatory developments. Continuous monitoring of Z-Score components and liquidity ratios will provide early warning signals for risk escalation or recovery.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Humana Inc. currently operates within a <strong>Gray Zone financial risk profile</strong>, marked by liquidity challenges and compressed profitability. While the company shows early signs of stabilization, its Z-Score remains below industry averages, signaling moderate distress risk. Market data anomalies limit sentiment clarity, but valuation metrics remain reasonable.</p>
-<p><strong>Investment stance:</strong> Hold for conservative and dividend investors, selective buy for value and growth profiles, and avoid for aggressive risk-tolerant investors until clearer financial improvements emerge.</p>
-<p>Strategic focus on liquidity enhancement, operational efficiency, and risk governance is essential to transition Humana back into the Safe Zone and restore competitive positioning.</p>
+<p>Humana Inc. currently resides in the <strong>Gray Zone</strong> of Altman Z-Score risk, reflecting moderate financial distress risk primarily driven by liquidity constraints and low operating profitability. While the company shows signs of stabilization, it remains below industry financial health benchmarks. Market data anomalies warrant caution in sentiment interpretation.</p>
+<p>Investment recommendations favor <strong>hold</strong> or <strong>selective value entry</strong> strategies with close monitoring of liquidity and profitability improvements. Executive focus on operational efficiency and financial stability is critical to restoring Safe Zone status and enhancing shareholder value.</p>
 <hr />
-<p><em>Analysis completed with explicit reference to all injected data elements, cross-validation of financial and risk metrics, and integration of sector-specific context.</em></p></div></div>
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating multi-dimensional financial, market, and risk data for actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1236,78 +1365,41 @@ Humana’s Z-Score momentum suggests a cautiously optimistic outlook if operatio
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:41 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:53 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

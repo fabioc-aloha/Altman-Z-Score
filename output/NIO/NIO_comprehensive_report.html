@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>NIO Inc. (NIO)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:37 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:05 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -300,7 +372,7 @@
     <div class="section recommendation">
         <h2>Investment Recommendation</h2>
         <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
-            <span class="sell">Sell</span>
+            <span class="hold">Hold</span>
         </div>
         <div style="margin: 15px 0;">
             <strong>Confidence:</strong> 60.0%
@@ -353,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="NIO_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="NIO_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -369,7 +441,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">-0.16</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">-0.17</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -418,11 +490,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$3.51</p>
+                <p>$$3.43</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$7.7B</p>
+                <p>$$7.4B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -438,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>41.0</p>
+                <p>43.5</p>
             </div>
         </div>
     </div>
@@ -452,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>-0.16</p>
+                <p>-0.14</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -473,13 +545,13 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> NIO Inc.<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:37:28  </p>
+<strong>Analysis Date:</strong> 2025-07-07 11:05:12  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>NIO Inc. currently resides in the <strong>Distress Zone</strong> with a latest Altman Z-Score of <strong>-1.36</strong>, indicating a high probability of financial distress and potential bankruptcy risk. The Z-Score trajectory over the past eight quarters has been persistently negative or near zero, never breaching the Gray Zone threshold of 1.8, which signals ongoing financial instability. This is compounded by a <strong>negative working capital ratio of -0.099</strong> and a <strong>negative EBIT ratio of -0.065</strong>, reflecting operational losses and liquidity challenges.</p>
-<p><strong>AI Risk Analysis</strong> flags the overall risk level as <strong>high</strong>, with a deteriorating risk trajectory driven by weak profitability, negative working capital, and poor operational efficiency. The risk confidence level is elevated given the consistent distress signals across multiple quarters.</p>
-<p><strong>AI Peer Analysis</strong> positions NIO significantly below the industry average Z-Score benchmark of approximately <strong>3.0 (Safe Zone)</strong> for Auto Manufacturers, with key peers like Tesla (TSLA) and BYD maintaining healthier financial profiles. This relative underperformance suggests competitive vulnerabilities and elevated default risk compared to industry standards.</p>
-<p><strong>AI Sentiment Analysis</strong> indicates a <strong>neutral to negative market sentiment</strong> with no recent price momentum or trading volume, reflecting market uncertainty or disengagement. The absence of valuation multiples (P/E, Price/Book) and zero dividend yield further highlight market skepticism.</p>
+<p>NIO Inc. currently resides firmly in the <strong>Distress Zone</strong> with an Altman Z-Score of approximately <strong>-1.36</strong> in the most recent quarter, continuing a troubling multi-quarter trend of sub-1.8 scores indicative of high bankruptcy risk. The Z-Score trajectory over the last eight quarters shows persistent negative values fluctuating between -1.43 and 0.15, never breaching the Gray Zone threshold of 1.8, signaling ongoing financial distress without meaningful recovery.</p>
+<p><strong>AI Risk Analysis</strong> confirms an <strong>overall risk level of "High"</strong> with strong confidence, driven by negative EBIT ratios (-6.5%), negative working capital (-0.099), and zero retained earnings ratio, all pointing to operational losses and capital erosion. The risk trajectory remains stable but unfavorable, with no signs of imminent improvement.</p>
+<p><strong>AI Peer Analysis</strong> places NIO significantly below the <strong>industry average Z-Score of approximately 3.0</strong> for Auto Manufacturers, highlighting its weak competitive position relative to peers such as Tesla (TSLA), BYD (1211.HK), and XPeng (XPEV). This relative positioning underscores elevated default risk and operational challenges.</p>
+<p><strong>AI Sentiment Analysis</strong> indicates <strong>neutral to negative market sentiment</strong>, corroborated by zero dividend yield, zero P/E ratio, and stagnant technical indicators (RSI 0.0, zero volume), suggesting market disengagement or illiquidity concerns.</p>
 <hr />
 <h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
@@ -487,75 +559,86 @@
 <tr>
 <th>Metric</th>
 <th>Value</th>
-<th>Industry Benchmark / Peer Average</th>
+<th>Industry Benchmark / Peer Avg.</th>
 <th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Altman Z-Score</td>
+<td>Latest Z-Score</td>
 <td>-1.36</td>
-<td>~3.0 (Auto Industry Average)</td>
-<td>Distress Zone, high bankruptcy risk</td>
+<td>~3.0</td>
+<td>Distress zone, high bankruptcy risk</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$7.45B</td>
+<td>N/A</td>
+<td>Moderate size, but valuation concerns</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$3.44</td>
+<td>N/A</td>
+<td>Low price, potential undervaluation or distress pricing</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.099</td>
 <td>Positive (&gt;0)</td>
-<td>Negative liquidity, operational risk</td>
+<td>Negative liquidity, operational strain</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.000</td>
 <td>Positive</td>
-<td>No retained earnings accumulation</td>
+<td>No accumulated earnings, financial instability</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>-0.065</td>
 <td>Positive</td>
-<td>Operating losses</td>
+<td>Operating losses persist</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.123</td>
-<td>~0.5-1.0 (Industry Average)</td>
+<td>Higher preferred</td>
 <td>Low operational efficiency</td>
 </tr>
 <tr>
-<td>Market Cap</td>
-<td>$7.74B</td>
-<td>N/A</td>
-<td>Moderate market size</td>
-</tr>
-<tr>
-<td>Current Price</td>
-<td>$3.51</td>
-<td>N/A</td>
-<td>Low price, no momentum</td>
+<td>Debt-to-Equity</td>
+<td>N/A (not provided)</td>
+<td>Industry average ~1.0</td>
+<td>Unknown, but implied leverage risk</td>
 </tr>
 <tr>
 <td>AI Risk Level</td>
 <td>High</td>
 <td>N/A</td>
-<td>Elevated financial distress risk</td>
+<td>Elevated risk, caution advised</td>
 </tr>
 <tr>
 <td>AI Sentiment</td>
 <td>Neutral-Negative</td>
-<td>N/A</td>
-<td>Market uncertainty</td>
+<td>Positive preferred</td>
+<td>Market skepticism</td>
+</tr>
+<tr>
+<td>AI Peer Position</td>
+<td>Below Industry Avg.</td>
+<td>Industry Avg. Z-Score ~3.0</td>
+<td>Weak competitive positioning</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
 <ul>
-<li><strong>Conservative investors:</strong> Strongly consider <strong>SELL</strong> or avoid entry due to high bankruptcy risk and negative financial trends.</li>
-<li><strong>Value investors:</strong> Exercise caution; valuation is depressed but fundamental distress outweighs potential upside.</li>
-<li><strong>Growth investors:</strong> Avoid until clear operational turnaround and Z-Score improvement above 1.8.</li>
-<li><strong>Aggressive investors:</strong> Only consider speculative positions with strict risk management and short holding periods.</li>
-<li><strong>Overall:</strong> Monitor for Z-Score improvement above 1.8 and positive EBIT before re-evaluation.</li>
+<li><strong>Immediate Caution:</strong> Given the persistent Distress Zone Z-Score and high risk level, <strong>avoid new long positions</strong> until financial health improves.</li>
+<li><strong>Risk Mitigation:</strong> Existing investors should consider <strong>hedging or reducing exposure</strong>, especially given negative EBIT and working capital ratios.</li>
+<li><strong>Watch for Inflection:</strong> Monitor for Z-Score improvement above 1.8 as a signal for potential recovery.</li>
+<li><strong>Further Due Diligence:</strong> Investigate debt levels and cash flow statements (not provided) to assess liquidity and solvency in detail.</li>
 </ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
@@ -564,7 +647,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark / Peer Comparison</th>
+<th>Industry Benchmark / Peer Avg.</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -574,29 +657,29 @@
 <td>Liquidity Position</td>
 <td>Current Ratio: N/A (Working Capital Ratio: -0.099)</td>
 <td>Positive (&gt;0)</td>
-<td>Weak liquidity; negative working capital signals cash flow stress</td>
-<td>Declining</td>
+<td><strong>Weak liquidity; negative working capital signals cash flow stress</strong></td>
+<td>Declining/Stable (negative)</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Data Missing)</td>
-<td>Industry average moderate</td>
-<td>Unable to assess fully; negative retained earnings ratio implies leverage concerns</td>
+<td>Debt-to-Equity: N/A</td>
+<td>~1.0</td>
+<td><strong>Data unavailable; risk likely elevated due to distress</strong></td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.123, EBIT Ratio: -0.065</td>
-<td>Asset Turnover ~0.5-1.0, EBIT positive</td>
-<td>Poor asset utilization and operating losses indicate inefficiency</td>
+<td>Asset Turnover &gt;0.3, EBIT positive</td>
+<td><strong>Low asset utilization and negative EBIT indicate operational inefficiency</strong></td>
 <td>Declining</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.000</td>
-<td>Positive retained earnings</td>
-<td>No retained earnings accumulation; financial instability</td>
-<td>Stable to Declining</td>
+<td>Positive</td>
+<td><strong>No retained earnings; financial instability and capital erosion</strong></td>
+<td>Stable (at zero)</td>
 </tr>
 </tbody>
 </table>
@@ -604,22 +687,22 @@
 <h3 id="commentary">Commentary</h3>
 <ul>
 <li>
-<p><strong>Liquidity:</strong> The negative working capital ratio (-0.099) indicates current liabilities exceed current assets, a critical red flag for short-term solvency. This is below industry norms where positive liquidity is expected. The absence of a current ratio figure limits full assessment but working capital alone signals distress.</p>
+<p><strong>Liquidity:</strong> The negative working capital ratio (-0.099) reflects that current liabilities exceed current assets, indicating potential short-term liquidity issues. This is critical in the capital-intensive auto manufacturing sector, where cash flow management is vital. The absence of a current ratio figure limits precision but the negative working capital ratio is a strong red flag.</p>
 </li>
 <li>
-<p><strong>Leverage:</strong> While explicit debt-to-equity data is missing, the zero retained earnings ratio and negative EBIT ratio suggest the company is not generating sufficient profits to build equity buffers, likely increasing reliance on debt or external financing. This heightens financial risk.</p>
+<p><strong>Leverage:</strong> Debt-to-equity data is missing, but given the distress Z-Score and negative EBIT, it is likely that leverage is high or poorly managed, increasing financial risk. This aligns with AI Risk Analysis highlighting elevated bankruptcy risk.</p>
 </li>
 <li>
-<p><strong>Operational Efficiency:</strong> Asset turnover at 0.123 is significantly below the industry average (~0.5-1.0), indicating poor utilization of assets to generate sales. Negative EBIT ratio (-0.065) confirms operating losses, undermining profitability and cash flow generation.</p>
+<p><strong>Operational Efficiency:</strong> Asset turnover at 0.123 is significantly below typical industry standards (~0.3-0.5), indicating inefficient use of assets to generate sales. Negative EBIT ratio (-6.5%) confirms ongoing operating losses, undermining profitability and cash flow.</p>
 </li>
 <li>
-<p><strong>Financial Stability:</strong> The zero retained earnings ratio signals no accumulated profits to support growth or absorb losses. This aligns with the distress Z-Score readings and suggests ongoing financial instability.</p>
+<p><strong>Financial Stability:</strong> Retained earnings ratio at zero signals no accumulated profits, consistent with a company burning capital or reinvesting heavily without returns. This is typical for growth-stage or distressed firms but raises sustainability concerns.</p>
 </li>
 <li>
-<p><strong>Data Quality:</strong> The AI Data Quality Assessment notes no anomalies but incomplete financial ratio data limits full leverage and liquidity analysis. This reduces confidence in some assessments but the available data consistently points to distress.</p>
+<p><strong>Data Quality:</strong> The AI Data Quality Assessment indicates no anomalies detected but incomplete leverage data limits full assessment. The zero dividend yield and valuation metrics (P/E, Price/Book) at zero reflect market uncertainty or data gaps.</p>
 </li>
 <li>
-<p><strong>Sector Context:</strong> Operating in the Consumer Cyclical sector, specifically Auto Manufacturers, NIO faces capital-intensive production and competitive pressures. The weak financial metrics contrast with typical industry expectations for operational efficiency and profitability.</p>
+<p><strong>Sector Context:</strong> Operating in the Consumer Cyclical sector, specifically Auto Manufacturers, NIO faces intense competition and capital demands. The business description highlights innovation in electric vehicles and power solutions, but financial metrics suggest operational and financial stress.</p>
 </li>
 </ul>
 <hr />
@@ -639,36 +722,27 @@
 <td>Current (Q8)</td>
 <td>-1.36</td>
 <td>Distress</td>
-<td>Negative EBIT, negative working capital, zero retained earnings</td>
+<td>Negative EBIT, negative WC</td>
 <td>Continued operational losses, liquidity stress</td>
 </tr>
 <tr>
-<td>Previous Quarters</td>
+<td>Previous Quarters (Q1-Q7)</td>
 <td>Range: -1.43 to 0.15</td>
 <td>Distress</td>
-<td>Persistently negative or near-zero EBIT and working capital</td>
-<td>No meaningful financial recovery over 8 quarters</td>
+<td>Persistent negative profitability, no retained earnings</td>
+<td>No recovery signs, possible cash burn and competitive pressure</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h3 id="commentary_1">Commentary</h3>
 <ul>
-<li>
-<p>The Z-Score has remained in the Distress Zone (&lt;1.8) for all eight quarters, with values oscillating between -1.43 and 0.15, never approaching the Gray Zone threshold. This persistent distress indicates chronic financial weakness.</p>
-</li>
-<li>
-<p>Key drivers include negative EBIT/total assets ratio (-0.065 current), negative working capital ratio (-0.099), and zero retained earnings ratio, all contributing to the low Z-Score.</p>
-</li>
-<li>
-<p>The lack of improvement suggests no effective turnaround or operational recovery, possibly reflecting ongoing losses from product development, market competition, or capital expenditure burdens.</p>
-</li>
-<li>
-<p>Compared to the industry average Z-Score (~3.0), NIO’s trajectory is significantly below peers, indicating competitive disadvantage and elevated bankruptcy risk.</p>
-</li>
-<li>
-<p>Business events such as aggressive expansion or R&amp;D spending without commensurate revenue growth may explain the negative operational metrics.</p>
-</li>
+<li>The Z-Score has remained <strong>consistently below 1.8</strong>, confirming a <strong>persistent Distress Zone</strong> status over at least eight quarters.</li>
+<li>Key drivers such as <strong>negative EBIT ratio (-6.5%)</strong> and <strong>negative working capital ratio (-0.099)</strong> have prevented any meaningful improvement.</li>
+<li>The lack of retained earnings accumulation (0.000 ratio) further exacerbates financial fragility.</li>
+<li>No quarter shows a transition into the Gray Zone or Safe Zone, indicating no significant operational turnaround or capital structure improvement.</li>
+<li>This trend correlates with the company's ongoing challenges in scaling production and managing costs in the highly competitive EV market.</li>
+<li>Compared to the <strong>industry average Z-Score of ~3.0</strong>, NIO’s trajectory is significantly weaker, underscoring competitive disadvantages and elevated default risk.</li>
 </ul>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
@@ -685,42 +759,35 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Persistently Distress Zone (-1.36 latest)</td>
-<td>No price momentum; price $3.51 stagnant</td>
-<td>Divergent (Fundamental distress vs. stagnant price)</td>
-<td>Market undervaluing risk; caution advised</td>
+<td>Persistent Distress (-1.36)</td>
+<td>Price stagnant at $3.44, zero volume</td>
+<td>Divergent/Weakly Aligned</td>
+<td>Market undervaluing or illiquid; caution warranted</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
 <td>Neutral-Negative</td>
-<td>No available consensus or valuation multiples</td>
+<td>Zero dividend, zero P/E</td>
 <td>Consistent</td>
-<td>Market uncertainty; low confidence</td>
+<td>Market skepticism confirmed</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Significantly below industry average Z-Score (~3.0)</td>
-<td>Sector performance moderate</td>
+<td>Below Industry Average</td>
+<td>Sector performing better</td>
 <td>Underperforming</td>
-<td>Competitive weakness; higher risk</td>
+<td>Competitive disadvantage, risk elevated</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h3 id="commentary_2">Commentary</h3>
 <ul>
-<li>
-<p>The fundamental distress indicated by the Z-Score is not reflected in any positive market momentum or valuation multiples, which are all zero or unavailable, suggesting market disengagement or data gaps.</p>
-</li>
-<li>
-<p>The current price of $3.51 with no volume or technical indicators implies low investor interest or trading suspension, limiting market validation of fundamentals.</p>
-</li>
-<li>
-<p>The divergence between poor fundamentals and stagnant price may represent a latent risk that could materialize if operational conditions worsen or liquidity tightens.</p>
-</li>
-<li>
-<p>Peer comparison confirms NIO is underperforming its sector, reinforcing the need for caution.</p>
-</li>
+<li>The <strong>Z-Score distress signal aligns with stagnant market price and zero trading volume</strong>, suggesting low investor confidence and potential liquidity issues.</li>
+<li>The <strong>lack of dividend yield and valuation metrics (P/E, Price/Book) indicates market uncertainty or data unavailability</strong>, reinforcing caution.</li>
+<li>Peer companies in the Auto Manufacturer sector generally exhibit healthier financials and stronger market performance, highlighting NIO’s relative weakness.</li>
+<li>The divergence between fundamental distress and market price stability may indicate <strong>market neglect or delayed reaction</strong>, presenting a potential but risky opportunity if turnaround catalysts emerge.</li>
+<li>Institutional investors likely remain cautious, consistent with AI Sentiment Analysis indicating neutral to negative sentiment.</li>
 </ul>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
@@ -737,45 +804,37 @@
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>High</td>
+<td>High (70%)</td>
 <td>Critical</td>
-<td>Significant negative impact due to ongoing losses</td>
+<td>Further Z-Score decline</td>
 <td>Cost control, operational restructuring</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>High</td>
+<td>High (80%)</td>
 <td>Critical</td>
-<td>Negative retained earnings and working capital reduce Z-Score</td>
-<td>Capital raising, debt restructuring</td>
+<td>Bankruptcy risk increase</td>
+<td>Debt restructuring, capital infusion</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium</td>
+<td>Medium (50%)</td>
 <td>Moderate</td>
-<td>Market disengagement limits liquidity and valuation</td>
-<td>Investor relations, transparency</td>
+<td>Volatility affecting valuation</td>
+<td>Hedging, diversification</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h3 id="commentary_3">Commentary</h3>
 <ul>
-<li>
-<p><strong>Operational Risks:</strong> High probability and critical severity due to negative EBIT and poor asset turnover. Without operational turnaround, Z-Score will remain depressed or worsen.</p>
-</li>
-<li>
-<p><strong>Financial Risks:</strong> High risk from negative working capital and zero retained earnings. Potential liquidity crunch or inability to service debt could precipitate bankruptcy.</p>
-</li>
-<li>
-<p><strong>Market Risks:</strong> Medium probability as market shows neutral-negative sentiment and no trading momentum, which could exacerbate funding challenges.</p>
-</li>
-<li>
-<p><strong>Scenario Planning:</strong>  </p>
-</li>
-<li><strong>Best Case:</strong> Operational improvements and profitability return, pushing Z-Score above 1.8 within 6-12 months.  </li>
-<li><strong>Base Case:</strong> Continued distress with minor improvements, Z-Score remains below 1.8.  </li>
-<li><strong>Worst Case:</strong> Further deterioration leading to bankruptcy risk realization.</li>
+<li><strong>Operational Risks:</strong> High probability of continued losses due to low asset turnover and negative EBIT. Without operational improvements, Z-Score may deteriorate further.</li>
+<li><strong>Financial Risks:</strong> High probability and severity due to negative working capital and zero retained earnings. Bankruptcy risk is elevated unless capital structure is improved.</li>
+<li><strong>Market Risks:</strong> Moderate probability of adverse market conditions impacting valuation and liquidity, though current market signals are subdued.</li>
+<li><strong>Scenario Planning:</strong>  </li>
+<li><strong>Best Case:</strong> Operational turnaround improves EBIT and working capital, pushing Z-Score above 1.8 within 6-12 months.  </li>
+<li><strong>Base Case:</strong> Continued distress with minor fluctuations, Z-Score remains below 1.8, maintaining high risk.  </li>
+<li><strong>Worst Case:</strong> Further deterioration leads to Z-Score below -1.5, triggering bankruptcy risk.</li>
 </ul>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
@@ -794,60 +853,52 @@
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td>SELL</td>
-<td>Z-Score -1.36 in Distress Zone; negative EBIT and liquidity</td>
-<td>Avoid entry; exit if held</td>
+<td><strong>SELL/HOLD</strong></td>
+<td>Persistent Distress Zone Z-Score (-1.36)</td>
+<td>Price stagnant, no recovery signals</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>SELL/HOLD</td>
-<td>No dividend yield; zero retained earnings</td>
-<td>No yield support; hold only if income not priority</td>
-<td>Short-term reassessment</td>
+<td><strong>SELL</strong></td>
+<td>Zero dividend yield, no retained earnings</td>
+<td>Dividend sustainability absent</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>HOLD/WAIT</td>
-<td>Depressed valuation but high distress risk</td>
-<td>Wait for Z-Score &gt;1.8 and EBIT positive</td>
+<td><strong>HOLD</strong></td>
+<td>Distress Z-Score but low price ($3.44)</td>
+<td>Watch for Z-Score &gt;1.8</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>AVOID</td>
-<td>Negative operational metrics; no growth signals</td>
-<td>Avoid until turnaround</td>
-<td>N/A</td>
+<td><strong>SELL</strong></td>
+<td>Negative EBIT, no growth in Z-Score</td>
+<td>No momentum, negative trends</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>SPECULATIVE BUY</td>
-<td>High risk/reward; potential turnaround speculative</td>
-<td>Monitor closely for inflection</td>
-<td>Short-term, active management</td>
+<td><strong>SPECULATIVE BUY</strong></td>
+<td>Potential undervaluation but high risk</td>
+<td>Only if catalyst emerges</td>
+<td>Monitor closely</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h3 id="commentary_4">Commentary</h3>
 <ul>
-<li>
-<p>Conservative and dividend-focused investors should avoid or divest due to high distress risk and lack of income.</p>
-</li>
-<li>
-<p>Value investors may consider holding but only if signs of operational recovery emerge, particularly Z-Score improvement above 1.8.</p>
-</li>
-<li>
-<p>Growth investors should avoid given negative EBIT and poor asset turnover.</p>
-</li>
-<li>
-<p>Aggressive investors may speculate on a turnaround but must apply strict risk controls and monitor Z-Score momentum.</p>
-</li>
+<li><strong>Conservative and Dividend investors</strong> should avoid or exit due to high bankruptcy risk and no income generation.</li>
+<li><strong>Value investors</strong> may consider a hold with close monitoring for signs of financial recovery (Z-Score crossing 1.8).</li>
+<li><strong>Growth investors</strong> face negative EBIT and operational inefficiency, making growth prospects uncertain.</li>
+<li><strong>Aggressive investors</strong> might speculate on turnaround potential but must accept high volatility and risk.</li>
 </ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
@@ -865,38 +916,33 @@
 <tr>
 <td>CEO Leadership</td>
 <td>Operational turnaround</td>
-<td>EBIT Ratio (-0.065), Asset Turnover (0.123)</td>
-<td>Implement cost reduction, improve production efficiency</td>
-<td>EBIT positive, asset turnover &gt;0.5</td>
+<td>EBIT Ratio, Asset Turnover</td>
+<td>Implement cost controls, improve production efficiency</td>
+<td>EBIT improvement, Z-Score &gt;1.8</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; capital structure</td>
-<td>Working Capital Ratio (-0.099), Retained Earnings (0.000)</td>
-<td>Secure financing, optimize working capital</td>
-<td>Positive working capital, retained earnings growth</td>
+<td>Liquidity and capital structure</td>
+<td>Working Capital Ratio, Debt-to-Equity</td>
+<td>Secure capital infusion, manage liabilities</td>
+<td>Positive working capital, reduced leverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight</td>
-<td>Z-Score (-1.36), Risk Level (High)</td>
-<td>Enhance risk management, monitor financial health</td>
-<td>Z-Score improvement, risk mitigation</td>
+<td>Risk oversight and compliance</td>
+<td>Z-Score trends, Risk Levels</td>
+<td>Monitor financial health, enforce governance</td>
+<td>Risk mitigation, compliance adherence</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h3 id="commentary_5">Commentary</h3>
 <ul>
-<li>
-<p>CEO must focus on operational efficiency and profitability to reverse negative EBIT and asset turnover trends.</p>
-</li>
-<li>
-<p>CFO should prioritize liquidity improvement and capital structure optimization to alleviate working capital deficits.</p>
-</li>
-<li>
-<p>Board must enforce rigorous risk oversight given high distress risk, ensuring transparency and proactive governance.</p>
-</li>
+<li>The CEO must prioritize operational efficiency improvements to reverse negative EBIT and asset turnover trends.</li>
+<li>The CFO should focus on improving liquidity and restructuring debt to alleviate financial distress.</li>
+<li>The Board should maintain vigilant oversight of risk factors and ensure transparent reporting to stakeholders.</li>
+<li>Aligning strategic initiatives with Z-Score improvements will be critical for restoring investor confidence.</li>
 </ul>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
@@ -913,32 +959,41 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Negative, Distress Zone</td>
+<td>Negative, stable</td>
 <td>Potential gradual improvement if operational changes succeed</td>
-<td>Cost control, revenue growth</td>
+<td>Cost reduction, revenue growth</td>
 <td>Quarterly Z-Score, EBIT ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Weak, underperforming peers</td>
-<td>Possible stabilization with improved fundamentals</td>
-<td>Product launches, market share</td>
-<td>Market cap, price momentum</td>
+<td>Weak relative to peers</td>
+<td>Possible stabilization with innovation</td>
+<td>New product launches, market expansion</td>
+<td>Market share, peer comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High risk, deteriorating</td>
-<td>Risk reduction if liquidity and profitability improve</td>
-<td>Capital raising, debt restructuring</td>
-<td>Working capital ratio, retained earnings</td>
+<td>High risk</td>
+<td>Risk reduction if liquidity improves</td>
+<td>Capital raise, debt restructuring</td>
+<td>Working capital, debt ratios</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h3 id="final-commentary">Final Commentary</h3>
-<p>NIO’s current financial profile is deeply distressed, with a Z-Score of -1.36 signaling urgent caution. Without significant operational and financial restructuring, the company faces elevated bankruptcy risk. Investors should monitor leading indicators such as EBIT ratio improvement, positive working capital, and Z-Score crossing above 1.8 to signal recovery. Market sentiment and trading activity remain subdued, underscoring the need for fundamental turnaround before re-engagement. Executive leadership must prioritize liquidity management and operational efficiency to alter the negative trajectory. A robust early warning system tracking quarterly Z-Score and liquidity metrics is recommended to anticipate risk shifts and inform timely investment decisions.</p>
+<h3 id="commentary_6">Commentary</h3>
+<ul>
+<li>The Z-Score momentum is currently negative but could improve with successful operational and financial restructuring.</li>
+<li>Market position remains weak but innovation in EV technology and power solutions could provide catalysts.</li>
+<li>Risk profile will remain elevated without capital structure improvements.</li>
+<li>Continuous monitoring of Z-Score components, liquidity ratios, and market signals is essential to anticipate inflection points.</li>
+<li>Early warning systems should focus on EBIT margin trends, working capital changes, and peer performance shifts.</li>
+</ul>
 <hr />
-<p><strong>End of AI-Powered Altman Z-Score Investment Analysis for NIO Inc.</strong></p></div></div>
+<h1 id="summary"><strong>Summary</strong></h1>
+<p>NIO Inc. is currently in a <strong>high-risk financial distress state</strong> as evidenced by a persistently negative Altman Z-Score (-1.36) and weak financial ratios (negative working capital, zero retained earnings, negative EBIT). Market signals and peer comparisons reinforce this cautionary stance. Investors should exercise prudence, with conservative and dividend profiles advised to avoid or exit positions, while value investors may hold with close monitoring for recovery signs. Strategic focus on operational turnaround and liquidity improvement is critical for management to restore financial health and investor confidence.</p>
+<hr />
+<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial metrics, AI risk and sentiment assessments, peer benchmarking, and market validation for actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1281,78 +1336,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:37 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:05 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

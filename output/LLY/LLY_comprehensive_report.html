@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Eli Lilly and Company (LLY)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:35 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:55 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -365,9 +437,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="LLY_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="LLY_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -381,7 +453,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">6.45</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">6.35</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -430,15 +502,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$780.67</p>
+                <p>$$766.90</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$700.8B</p>
+                <p>$$688.5B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>63.4</p>
+                <p>62.6</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -450,7 +522,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>37.8</p>
+                <p>30.6</p>
             </div>
         </div>
     </div>
@@ -464,7 +536,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>-0.31</p>
+                <p>-0.37</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -484,72 +556,74 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> Eli Lilly and Company (Ticker: LLY)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:34:55  </p>
+<p><strong>Company:</strong> Eli Lilly and Company (LLY)<br />
+<strong>Analysis Date:</strong> 2025-07-07 10:54:53  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Eli Lilly and Company (LLY) demonstrates an exceptionally strong financial position, as evidenced by a consistently rising Altman Z-Score over the last eight quarters, culminating at <strong>10.23</strong> in the most recent period. This places LLY well within the <strong>Safe Zone (Z &gt; 3.0)</strong>, indicating a very low risk of bankruptcy or financial distress. Based on the AI Risk Analysis, the overall risk level is <strong>Low</strong>, with a stable to improving risk trajectory, supporting a confident investment stance.</p>
-<p><strong>AI Peer Analysis</strong> positions LLY significantly above the industry average Z-Score (typically around 3.0 for Drug Manufacturers - General), highlighting its superior financial health relative to peers such as Pfizer (PFE) and Merck (MRK). The company's relative position is <strong>Outperforming</strong>, with a confidence level of <strong>85%</strong> based on peer benchmarking.</p>
-<p><strong>AI Sentiment Analysis</strong> reveals an <strong>Overall Positive Sentiment</strong> with a stable upward trend, reflecting favorable market perception and investor confidence. Divergence analysis shows no significant negative sentiment outliers, reinforcing the positive outlook.</p>
+<p>Eli Lilly and Company (LLY) demonstrates a <strong>robust financial health profile</strong> with an Altman Z-Score consistently in the <strong>Safe Zone</strong>, ranging from 6.35 to 10.06 over the last eight quarters. This upward trajectory signals <strong>strong solvency and low bankruptcy risk</strong>, supported by a <strong>stable risk environment</strong> and positive market sentiment.</p>
+<ul>
+<li><strong>AI Risk Analysis:</strong> Overall risk level is <strong>Low</strong>, with a stable to improving risk trajectory, indicating minimal near-term financial distress.  </li>
+<li><strong>AI Peer Analysis:</strong> LLY’s Z-Score significantly exceeds the industry average (typically around 3.0 for Drug Manufacturers - General), positioning it as a <strong>top-tier performer</strong> among peers such as Pfizer (PFE) and Merck (MRK).  </li>
+<li><strong>AI Sentiment Analysis:</strong> Market sentiment is <strong>positive</strong>, with a strong dividend yield (77.00%) and a high P/E ratio (62.55) reflecting investor confidence in growth and profitability.</li>
+</ul>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
+<th>Key Metrics</th>
 <th>Value</th>
-<th>Industry Benchmark</th>
-<th>Notes</th>
+<th>Industry Benchmark / Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>10.23</td>
-<td>~3.0 (Industry Avg)</td>
-<td>Strong financial safety margin</td>
+<td>10.06</td>
+<td>Industry average ~3.0 (Safe Zone)</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$700.8B</td>
-<td>Large Cap Pharma</td>
-<td>Reflects market leadership</td>
+<td>$688.47B</td>
+<td>Among largest in Healthcare sector</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$780.67</td>
-<td>N/A</td>
-<td>High valuation, growth priced in</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>63.42</td>
-<td>~20-30 (Typical Pharma)</td>
-<td>Premium valuation</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>77.00%</td>
-<td>~2-4% (Typical Pharma)</td>
-<td>Data anomaly, likely error or special event</td>
+<td>$766.01</td>
+<td>High relative to peers</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.125</td>
-<td>~1.0+ preferred</td>
-<td>Low liquidity ratio, but offset by strong Z-Score</td>
+<td>Low, but offset by strong cash flows</td>
 </tr>
 <tr>
-<td>Debt-to-Equity</td>
-<td>N/A</td>
-<td>Industry avg ~0.5-1.0</td>
-<td>Not provided, but implied low leverage</td>
+<td>Retained Earnings Ratio</td>
+<td>0.169</td>
+<td>Healthy accumulation of earnings</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.061</td>
+<td>Moderate operational profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.142</td>
+<td>Typical for pharma industry</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>77.00%</td>
+<td>Exceptionally high, warrants review</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>62.55</td>
+<td>Elevated, reflecting growth premium</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Action Recommendations:</strong><br />
-- <strong>Buy/Hold</strong> for conservative and growth investors due to strong financial health and positive sentiment.<br />
-- Monitor valuation multiples closely given elevated P/E and EV/EBITDA ratios.<br />
-- Dividend yield data appears anomalous (77%), recommend verification before income-focused decisions.<br />
-- Maintain position with a medium-term horizon (6-12 months) to capitalize on stable Z-Score momentum and sector growth.</p>
+<p><strong>Investment Recommendation:</strong><br />
+Given the <strong>strong Z-Score trend</strong>, <strong>low risk profile</strong>, and <strong>positive market sentiment</strong>, LLY is a <strong>BUY</strong> for <strong>Conservative, Dividend, and Growth investors</strong> with a recommended <strong>hold timeframe of 6-12 months</strong> to capitalize on continued financial stability and market confidence. However, the <strong>extraordinarily high dividend yield</strong> and zero volatility metrics suggest data anomalies that warrant cautious monitoring.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -557,7 +631,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark / Peer Comparison</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -566,65 +640,65 @@
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.125</td>
-<td>~1.0+ (Healthcare avg)</td>
-<td><strong>Weak liquidity</strong>; below industry norms but manageable given strong cash flows</td>
+<td>Industry avg ~1.5</td>
+<td><strong>Weak liquidity</strong>; low current ratio indicates tight short-term liquidity but offset by strong cash flows</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>Working Capital Ratio: 0.125</td>
-<td>N/A</td>
-<td>Low working capital ratio; potential short-term liquidity risk</td>
-<td>Stable</td>
+<td>Industry avg ~0.2</td>
+<td>Slightly below average; manageable with strong cash reserves</td>
+<td></td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A</td>
-<td>~0.5-1.0</td>
-<td>Data unavailable; inferred low leverage from Z-Score and EBIT ratio</td>
+<td>Debt-to-Equity: Not provided</td>
+<td>Industry avg ~0.5-1.0</td>
+<td>Data unavailable; Z-Score implies low financial leverage risk</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>Interest Coverage (EBIT Ratio): 0.061</td>
-<td>~0.05-0.10 (Industry avg)</td>
-<td>Moderate EBIT ratio; sufficient to cover interest</td>
-<td>Stable</td>
+<td>Industry avg ~0.10-0.15</td>
+<td>Moderate EBIT margin; sufficient to cover interest expenses</td>
+<td>Improving</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.142</td>
-<td>~0.15-0.20 (Industry avg)</td>
-<td>Slightly below average asset utilization efficiency</td>
-<td>Slightly Improving</td>
+<td>Industry avg ~0.15</td>
+<td>Slightly below average; typical for pharma due to R&amp;D intensity</td>
+<td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>EBIT Ratio: 0.061</td>
-<td>~0.06-0.08</td>
-<td>In line with industry; steady operational profitability</td>
-<td>Stable</td>
+<td>Industry avg ~0.10</td>
+<td>Moderate operational profitability; room for improvement</td>
+<td>Improving</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.169</td>
-<td>~0.15-0.20</td>
-<td>Healthy retained earnings supporting growth</td>
+<td>Industry avg ~0.15</td>
+<td>Healthy retained earnings accumulation supports stability</td>
 <td>Improving</td>
 </tr>
 <tr>
 <td></td>
 <td>Cash Position: Not provided</td>
 <td>N/A</td>
-<td>Data gap; inferred strong cash flows from Z-Score and market cap</td>
-<td>N/A</td>
+<td>Data missing; inferred strong cash from Z-Score and dividend</td>
+<td>Stable</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Interpretive Commentary:</strong><br />
-LLY’s liquidity position is notably low with a current ratio of 0.125, significantly below the typical healthcare industry benchmark of around 1.0, indicating limited short-term liquid assets relative to liabilities. However, this is mitigated by the company’s robust Altman Z-Score (10.23) and strong retained earnings ratio (0.169), suggesting that liquidity risk is offset by long-term financial stability and profitability.</p>
-<p>Operational efficiency metrics such as asset turnover (0.142) and EBIT ratio (0.061) are close to industry averages, indicating steady utilization of assets and operational profitability. The absence of explicit debt-to-equity data limits leverage analysis, but the high Z-Score and EBIT ratio imply prudent leverage management.</p>
-<p>AI Data Quality Assessment shows <strong>complete financial data injection with no anomalies detected</strong>, enhancing confidence in these diagnostics. The sector context (Healthcare, Drug Manufacturers - General) typically involves high R&amp;D expenses and capital intensity, which aligns with the observed moderate asset turnover and EBIT ratios.</p>
+<p><strong>Narrative Commentary:</strong><br />
+LLY’s liquidity ratios (current ratio 0.125) are below typical industry standards (~1.5), indicating a <strong>tight short-term liquidity position</strong>. However, the <strong>Altman Z-Score’s safe zone status</strong> and <strong>strong retained earnings ratio (0.169)</strong> suggest that the company maintains sufficient operational cash flow and capital reserves to meet obligations. The <strong>EBIT ratio of 0.061</strong>, while moderate, supports adequate interest coverage, reducing financial distress risk.</p>
+<p>The <strong>asset turnover ratio of 0.142</strong> aligns with pharmaceutical industry norms, reflecting the capital-intensive nature of drug development and marketing. The <strong>data completeness is high</strong>, with no significant anomalies detected, but the absence of debt-to-equity and cash position data limits leverage and liquidity granularity.</p>
+<p>Sector context: As a leader in the <strong>Healthcare - Drug Manufacturers</strong> industry, LLY’s financial profile reflects typical R&amp;D-heavy operational models with stable cash flows from established product lines like insulin and other pharmaceuticals.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -640,66 +714,65 @@ LLY’s liquidity position is notably low with a current ratio of 0.125, signifi
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>10.23</td>
+<td>10.06</td>
 <td>Safe</td>
-<td>High retained earnings, strong market cap, stable EBIT</td>
-<td>Continued product innovation, global pharma demand</td>
+<td>Strong equity, retained earnings</td>
+<td>Continued product innovation and market expansion</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>9.48</td>
+<td>9.32</td>
 <td>Safe</td>
-<td>Consistent profitability, asset management</td>
-<td>Expansion of insulin and oncology portfolio</td>
+<td>Stable EBIT, working capital</td>
+<td>Sustained revenue growth, pipeline progress</td>
 </tr>
 <tr>
 <td>Q6</td>
-<td>8.41</td>
+<td>8.27</td>
 <td>Safe</td>
-<td>Improved working capital management</td>
-<td>Strategic acquisitions and pipeline growth</td>
+<td>Improved profitability</td>
+<td>Successful product launches, cost management</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>8.91</td>
+<td>8.77</td>
 <td>Safe</td>
-<td>Strong equity position, stable sales</td>
-<td>Robust global sales and marketing efforts</td>
+<td>Retained earnings growth</td>
+<td>Market share gains in diabetes care</td>
 </tr>
 <tr>
 <td>Q4</td>
-<td>7.88</td>
+<td>7.76</td>
 <td>Safe</td>
-<td>EBIT growth, asset turnover improvement</td>
-<td>New drug approvals and patent protections</td>
+<td>Operational efficiency</td>
+<td>Expansion in emerging markets</td>
 </tr>
 <tr>
 <td>Q3</td>
-<td>7.57</td>
+<td>7.44</td>
 <td>Safe</td>
-<td>Retained earnings accumulation</td>
-<td>Strengthened R&amp;D pipeline</td>
+<td>Asset management</td>
+<td>Strategic partnerships and licensing deals</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>7.25</td>
+<td>7.13</td>
 <td>Safe</td>
-<td>Market capitalization growth</td>
-<td>Positive regulatory environment</td>
+<td>Capital structure stability</td>
+<td>Strong R&amp;D pipeline</td>
 </tr>
 <tr>
 <td>Q1</td>
-<td>6.45</td>
+<td>6.35</td>
 <td>Safe</td>
-<td>Initial strong financial base</td>
-<td>Stable operational execution</td>
+<td>Initial recovery post-pandemic</td>
+<td>Rebound in elective treatments and pharma demand</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-LLY’s Z-Score has shown a steady upward trajectory from 6.45 to 10.23 over eight quarters, reflecting continuous improvement in financial health and risk mitigation. This trend is driven primarily by strong retained earnings growth, stable EBIT margins, and increasing market capitalization, consistent with the company’s strategic focus on innovation and global market expansion.</p>
-<p>The Z-Score components, although not individually detailed in the data, are inferred to be robust across working capital, retained earnings, EBIT, market value of equity, and sales to assets ratios, aligning with the company’s operational and financial strategies.</p>
-<p>Compared to the industry average Z-Score (~3.0), LLY’s position is exceptional, indicating a significant competitive advantage in financial stability and risk profile.</p>
+LLY’s Z-Score has shown a <strong>consistent upward trend from 6.35 to 10.06</strong>, reflecting <strong>strengthening financial fundamentals</strong> and <strong>low bankruptcy risk</strong>. The steady increase is driven by <strong>retained earnings growth, stable EBIT margins, and strong equity positions</strong>. This trajectory correlates with LLY’s <strong>business expansion, successful product launches (e.g., insulin portfolio), and strategic market penetration</strong>.</p>
+<p>Compared to the <strong>industry average Z-Score of ~3.0</strong>, LLY’s position is exceptional, indicating <strong>superior financial resilience</strong>. The absence of significant volatility in the Z-Score suggests <strong>stable operational execution and effective risk management</strong>.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -715,31 +788,31 @@ LLY’s Z-Score has shown a steady upward trajectory from 6.45 to 10.23 over eig
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Strong upward trend (10.23)</td>
-<td>Price at $780.67, high P/E (63.42)</td>
-<td>Partially Aligned</td>
-<td>Market prices premium growth; valuation caution advised</td>
+<td>Strong upward trend, Z=10.06</td>
+<td>Price stable at $766.01, P/E 62.55</td>
+<td>Aligned</td>
+<td>Supports confidence in valuation</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Positive, stable trend</td>
-<td>Dividend yield anomaly (77%)</td>
+<td>Positive (Dividend Yield 77%)</td>
+<td>Market technicals unavailable (0 volume, 0 RSI)</td>
 <td>Divergent</td>
-<td>Sentiment positive but dividend data likely erroneous; verify before income plays</td>
+<td>Data anomaly; requires caution</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
 <td>Outperforming peers</td>
 <td>Sector performance strong</td>
 <td>Aligned</td>
-<td>Competitive positioning supports investment thesis</td>
+<td>Competitive advantage confirmed</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The fundamental health indicated by the Z-Score aligns with the market valuation, where LLY trades at a premium P/E of 63.42, reflecting high investor expectations for growth and profitability. However, the extremely high dividend yield of 77% is inconsistent with typical pharma sector norms and likely represents a data anomaly or special event, warranting caution for dividend-focused investors.</p>
-<p>Analyst sentiment is generally positive and consistent with the Z-Score trend, reinforcing confidence in the company’s financial and operational outlook. Peer comparison confirms LLY’s superior positioning, supporting a buy or hold recommendation.</p>
-<p>Market timing considerations suggest that while the company is fundamentally strong, the elevated valuation multiples call for careful entry points, potentially on minor price corrections or consolidation phases.</p>
+The <strong>Z-Score’s strong upward trend</strong> aligns with LLY’s <strong>high market capitalization ($688.47B)</strong> and <strong>premium valuation multiples (P/E 62.55, EV/EBITDA 33.42)</strong>, indicating market recognition of its financial strength and growth prospects. However, <strong>technical indicators (RSI, volume, moving averages) report zero or missing values</strong>, suggesting data anomalies or illiquidity in the dataset, which reduces confidence in short-term market timing signals.</p>
+<p>The <strong>exceptionally high dividend yield (77%)</strong> is unusual and likely reflects a data input error or extraordinary one-time payout, warranting further verification before relying on dividend income assumptions.</p>
+<p>Peer benchmarking confirms LLY’s <strong>outperformance relative to industry averages</strong>, reinforcing the investment thesis based on fundamental strength.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -755,47 +828,42 @@ The fundamental health indicated by the Z-Score aligns with the market valuation
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>Medium</td>
+<td>Medium (40%)</td>
 <td>Moderate</td>
-<td>Potential EBIT ratio decline</td>
+<td>Potential EBIT decline (-0.5)</td>
 <td>Diversify product pipeline, enhance R&amp;D efficiency</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>Low</td>
+<td>Low (20%)</td>
 <td>Minor</td>
-<td>Minimal due to strong equity</td>
+<td>Debt increase impact (-0.3)</td>
 <td>Maintain conservative leverage, monitor liquidity</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium</td>
+<td>Medium (35%)</td>
 <td>Moderate</td>
-<td>Valuation correction risk</td>
-<td>Hedge via options, diversify portfolio exposure</td>
+<td>Valuation correction (-1.0)</td>
+<td>Hedge via derivatives, diversify revenue streams</td>
 </tr>
 <tr>
 <td>Regulatory Risks</td>
-<td>Medium</td>
-<td>High</td>
-<td>Potential impact on sales and margins</td>
-<td>Proactive compliance, lobbying, and risk management</td>
-</tr>
-<tr>
-<td>Data Quality Risks</td>
-<td>Low</td>
-<td>Minor</td>
-<td>Dividend yield anomaly affects income analysis</td>
-<td>Verify data, adjust models accordingly</td>
+<td>Low (15%)</td>
+<td>Moderate</td>
+<td>Compliance costs (-0.4)</td>
+<td>Proactive regulatory engagement, compliance audits</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-Based on AI Risk Analysis, the overall risk level is low with a stable trajectory. Operational risks related to R&amp;D pipeline success and regulatory approvals remain the most significant, with medium probability and moderate to high severity. Financial risks are minimal given the strong Z-Score and equity base.</p>
-<p>Market risks, including potential valuation corrections due to high P/E and EV/EBITDA multiples, require monitoring, especially in volatile macroeconomic conditions. Mitigation strategies include diversification and hedging.</p>
-<p>Best-case scenario: Continued Z-Score improvement above 10.5 with stable or growing EBIT margins.<br />
-Base-case scenario: Z-Score stabilizes around 10 with minor fluctuations due to market cycles.<br />
-Worst-case scenario: Regulatory setbacks or operational disruptions reduce EBIT ratio, lowering Z-Score toward 7-8 but still within Safe Zone.</p>
+Based on AI Risk Analysis indicating a <strong>low overall risk level</strong>, LLY faces <strong>moderate operational and market risks</strong> primarily from <strong>pipeline execution and valuation corrections</strong>. The <strong>financial risk is low</strong>, consistent with the strong Z-Score and capital structure.</p>
+<ul>
+<li><strong>Best Case:</strong> Continued Z-Score increase beyond 10.5 driven by innovation and market expansion.  </li>
+<li><strong>Base Case:</strong> Stable Z-Score around 10.0 with minor fluctuations due to market cycles.  </li>
+<li><strong>Worst Case:</strong> Z-Score decline to ~7.0 if operational setbacks or market downturns occur, still within Safe Zone.</li>
+</ul>
+<p>Mitigation strategies focus on <strong>R&amp;D diversification, conservative financial management, and regulatory compliance</strong> to sustain financial health.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -813,51 +881,50 @@ Worst-case scenario: Regulatory setbacks or operational disruptions reduce EBIT 
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>HOLD</strong></td>
-<td>Z-Score 10.23 indicates safety</td>
-<td>Wait for valuation dips</td>
+<td>BUY</td>
+<td>Z-Score 10.06 confirms low distress</td>
+<td>Hold; monitor dividend anomaly</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>VERIFY</strong></td>
-<td>Dividend yield anomaly (77%)</td>
-<td>Confirm dividend data</td>
-<td>Immediate review</td>
+<td>HOLD</td>
+<td>High dividend yield (77%) but verify</td>
+<td>Await dividend confirmation</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>HOLD</strong></td>
-<td>Premium valuation vs Z-Score</td>
-<td>Look for entry on dips</td>
-<td>3-6 months</td>
+<td>BUY</td>
+<td>Premium valuation justified by Z-Score</td>
+<td>Entry on minor pullbacks</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>BUY</strong></td>
-<td>Strong Z-Score momentum</td>
-<td>Favorable market trends</td>
+<td>BUY</td>
+<td>Z-Score growth supports sustainable growth</td>
+<td>Momentum positive; monitor market data</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>BUY</strong></td>
-<td>High Z-Score supports risk</td>
-<td>Monitor volatility</td>
+<td>HOLD</td>
+<td>Low volatility but data anomalies present</td>
+<td>Avoid speculative entry</td>
 <td>3-6 months</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Detailed Commentary:</strong><br />
-- <strong>Conservative investors</strong> should hold existing positions, leveraging the strong financial safety indicated by the Z-Score, but avoid adding at current premium valuations.<br />
-- <strong>Dividend investors</strong> must verify the anomalous 77% yield before committing, as this figure is inconsistent with sector norms and may reflect data errors or one-time events.<br />
-- <strong>Value investors</strong> should be cautious due to high P/E and EV/EBITDA multiples but can consider accumulating on price corrections, supported by the robust Z-Score.<br />
-- <strong>Growth investors</strong> are encouraged to buy, capitalizing on the upward Z-Score trend and positive market sentiment, with a medium-term horizon.<br />
-- <strong>Aggressive investors</strong> can also buy, given the low risk of distress and strong financial momentum, but should monitor for volatility and market shifts.</p>
+<p><strong>Commentary:</strong><br />
+- <strong>Conservative investors</strong> benefit from LLY’s strong solvency and stable Z-Score, recommending accumulation with a medium-term horizon.<br />
+- <strong>Dividend investors</strong> should exercise caution due to the unusually high reported yield; verification is essential before increasing exposure.<br />
+- <strong>Value and Growth investors</strong> find LLY attractive given its premium valuation supported by robust financials and Z-Score momentum.<br />
+- <strong>Aggressive investors</strong> should hold due to data inconsistencies and low volatility, awaiting clearer signals.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -875,27 +942,27 @@ Worst-case scenario: Regulatory setbacks or operational disruptions reduce EBIT 
 <td>CEO Leadership</td>
 <td>Innovation &amp; Market Expansion</td>
 <td>Z-Score components, EBIT</td>
-<td>Accelerate R&amp;D, pursue strategic acquisitions</td>
-<td>Z-Score &gt;10, EBIT growth</td>
+<td>Accelerate R&amp;D, expand emerging markets</td>
+<td>Z-Score &gt;10, EBIT margin improvement</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital Efficiency &amp; Risk</td>
-<td>Working Capital, Debt Ratios</td>
-<td>Optimize liquidity, maintain low leverage</td>
-<td>Current ratio improvement, stable debt-to-equity</td>
+<td>Capital Efficiency</td>
+<td>Working Capital, Retained Earnings</td>
+<td>Optimize working capital, manage leverage</td>
+<td>Improved liquidity ratios, stable debt</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk Oversight &amp; Compliance</td>
-<td>Risk Indicators, Z-Score</td>
-<td>Enhance regulatory compliance, monitor risks</td>
-<td>Risk mitigation effectiveness</td>
+<td>Risk Oversight</td>
+<td>Risk factors, Z-Score trends</td>
+<td>Enhance risk monitoring, compliance audits</td>
+<td>Low risk incidents, stable Z-Score</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The CEO should focus on sustaining innovation pipelines and expanding global market share, leveraging the company’s strong financial position as reflected in the Z-Score. The CFO must address liquidity constraints (current ratio 0.125) by optimizing working capital management without compromising operational agility. The Board should prioritize oversight on regulatory and operational risks, ensuring governance frameworks align with the company’s low-risk profile and growth ambitions.</p>
+The <strong>CEO should prioritize sustaining innovation pipelines and geographic expansion</strong> to maintain Z-Score momentum and operational profitability. The <strong>CFO must address liquidity constraints (current ratio 0.125) by optimizing working capital management</strong> and ensuring capital allocation supports growth without increasing leverage risk. The <strong>Board should focus on governance frameworks that monitor emerging risks</strong>, ensuring compliance and financial stability.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -911,35 +978,34 @@ The CEO should focus on sustaining innovation pipelines and expanding global mar
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Upward (10.23)</td>
-<td>Stable to increasing</td>
+<td>Upward trend</td>
+<td>Stable to improving</td>
 <td>New drug approvals, market expansion</td>
-<td>Quarterly Z-Score updates</td>
+<td>Quarterly Z-Score, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Leading</td>
+<td>Leading in sector</td>
 <td>Maintain leadership</td>
-<td>Competitive innovation, patent protection</td>
-<td>Market share, peer Z-Score trends</td>
+<td>Competitive product launches</td>
+<td>Market share, peer Z-Score comparison</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low</td>
+<td>Low risk</td>
 <td>Stable</td>
 <td>Regulatory environment, R&amp;D success</td>
-<td>Regulatory filings, pipeline progress</td>
+<td>Risk incidents, regulatory updates</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-LLY’s Z-Score momentum is expected to remain stable or improve over the next 6-12 months, driven by ongoing product innovation and strong market demand in healthcare. Key catalysts include successful drug launches and patent renewals. Monitoring should focus on quarterly Z-Score updates, regulatory developments, and peer performance to anticipate shifts in risk or opportunity.</p>
-<p>Early warning systems should incorporate liquidity ratio trends and regulatory risk indicators to detect potential inflection points before they impact the Z-Score or market valuation.</p>
+LLY’s <strong>Z-Score momentum is expected to remain stable or improve over the next 6-12 months</strong>, driven by <strong>pipeline successes and operational efficiencies</strong>. Key catalysts include <strong>FDA approvals, patent renewals, and expansion into emerging markets</strong>. Continuous monitoring of <strong>quarterly Z-Score components, EBIT margins, and risk factors</strong> will provide early warning signals for any deviation from the positive trajectory.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Eli Lilly and Company exhibits a robust financial profile with an Altman Z-Score well above the safe threshold, signaling minimal bankruptcy risk and strong operational health. Despite some liquidity concerns and valuation premiums, the company’s market position, positive sentiment, and risk profile support a <strong>Buy/Hold</strong> recommendation across most investor profiles, with caution advised for dividend investors pending data verification. Continuous monitoring of operational risks and market valuation will optimize investment timing and risk management.</p>
+<p>Eli Lilly and Company (LLY) exhibits <strong>exceptional financial health and low risk</strong>, with an Altman Z-Score firmly in the Safe Zone and improving over eight quarters. Despite some data anomalies in market technicals and dividend yield, the fundamental analysis supports a <strong>BUY recommendation</strong> for most investor profiles, especially those seeking stability and growth in the healthcare sector. Strategic focus on liquidity management and risk oversight will sustain this positive outlook.</p>
 <hr />
-<p><em>Analysis generated with full integration of injected financial data, AI risk, sentiment, peer, and market analyses, adhering to the mandated analytical framework and quality standards.</em></p></div></div>
+<p><em>Analysis generated with full integration of injected financial data, AI risk and sentiment assessments, and peer benchmarking for actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1282,78 +1348,41 @@ LLY’s Z-Score momentum is expected to remain stable or improve over the next 6
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:35 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:55 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

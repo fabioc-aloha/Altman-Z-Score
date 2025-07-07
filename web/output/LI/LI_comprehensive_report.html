@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Li Auto Inc. (LI)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:35 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:30 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -353,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="LI_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="LI_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -369,7 +441,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">0.78</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">0.79</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -418,15 +490,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$25.94</p>
+                <p>$$27.01</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$26.6B</p>
+                <p>$$27.6B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>24.2</p>
+                <p>25.0</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -438,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>33.5</p>
+                <p>45.7</p>
             </div>
         </div>
     </div>
@@ -448,11 +520,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Beta</h4>
-                <p>0.69</p>
+                <p>0.68</p>
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.62</p>
+                <p>0.71</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -473,13 +545,12 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Li Auto Inc. (Ticker: LI)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:34:49  </p>
+<strong>Analysis Date:</strong> 2025-07-07 12:29:46  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Li Auto Inc. currently exhibits a <strong>critical financial distress profile</strong>, with an Altman Z-Score persistently below the distress threshold of 1.8 across the last eight quarters. The latest Z-Score stands at <strong>0.97</strong>, firmly within the <strong>Distress Zone</strong>, indicating a high risk of bankruptcy or severe financial instability. This is corroborated by the historical trend showing Z-Scores fluctuating narrowly between <strong>0.66 and 1.03</strong>, never breaching into the Gray (1.8-3.0) or Safe (&gt;3.0) zones.</p>
-<p><strong>AI Risk Analysis</strong> confirms an <strong>overall risk level of "High"</strong> with <strong>95% confidence</strong>, emphasizing liquidity constraints and operational inefficiencies as top risk factors. The risk trajectory remains stable but perilous, with no signs of imminent recovery.</p>
-<p><strong>AI Peer Analysis</strong> positions Li Auto significantly below the <strong>industry average Z-Score of approximately 3.2</strong> for Auto Manufacturers in the Consumer Cyclical sector, highlighting a weak competitive stance relative to key peers such as NIO and XPeng. This gap signals elevated bankruptcy risk and operational challenges unique to Li Auto.</p>
-<p><strong>AI Sentiment Analysis</strong> reveals a <strong>neutral to slightly negative market sentiment</strong> with a flat sentiment trend and no divergence from analyst consensus, reflecting market skepticism but limited panic. The sentiment confidence is moderate at 70%, constrained by limited trading volume and zero volatility metrics.</p>
+<p>Li Auto Inc. is currently positioned in the <strong>Distress Zone</strong> with an Altman Z-Score consistently below 1.8 across the last eight quarters, ranging narrowly between 0.67 and 1.04, with the latest quarter at <strong>0.98</strong>. This persistent low Z-Score signals a high risk of financial distress and potential bankruptcy risk if corrective actions are not taken. Based on the <strong>AI Risk Analysis</strong> (implicitly high risk given Z-Score and financial ratios), the overall risk level is <strong>critical</strong>, with no signs of improvement in trajectory.</p>
+<p><strong>AI Peer Analysis</strong> indicates that Li Auto is significantly underperforming relative to industry peers in the Auto - Manufacturers sector, where typical industry average Z-Scores are above 3.0 (Safe Zone). This relative positioning highlights competitive vulnerability and elevated financial risk compared to peers such as NIO, XPeng, and BYD.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are unavailable or neutral due to zero volatility and zero trading volume data, indicating either data gaps or market inactivity, which further complicates confidence in market perception and timing.</p>
 <table>
 <thead>
 <tr>
@@ -492,56 +563,56 @@
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>0.97</td>
-<td>3.2 (Industry Avg)</td>
-<td>Distress Zone, critical risk</td>
+<td>0.98</td>
+<td>&gt;3.0 (Safe Zone)</td>
+<td>Distress Zone persistent</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$26.55B</td>
+<td>$27.88B</td>
 <td>N/A</td>
-<td>Mid-cap valuation</td>
+<td>Large market cap but distressed fundamentals</td>
 </tr>
 <tr>
-<td>Current Price</td>
-<td>$25.95</td>
-<td>N/A</td>
-<td>Stable but low liquidity</td>
-</tr>
-<tr>
-<td>Working Capital Ratio</td>
+<td>Current Ratio (Working Capital Ratio)</td>
 <td>0.363</td>
 <td>&gt;1.0 preferred</td>
-<td>Severe liquidity weakness</td>
+<td>Liquidity concerns</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.000</td>
 <td>Positive preferred</td>
-<td>No retained earnings</td>
+<td>No retained earnings buffer</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.002</td>
-<td>~0.05 industry avg</td>
-<td>Near zero profitability</td>
+<td>Industry avg ~0.05+</td>
+<td>Very low profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.160</td>
-<td>~0.5 industry avg</td>
+<td>Industry avg ~0.5+</td>
 <td>Low operational efficiency</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>24.25</td>
-<td>~20-25 typical</td>
-<td>Valuation not overly stretched</td>
+<td>25.03</td>
+<td>Varies</td>
+<td>Valuation moderate but possibly misleading</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>0.00%</td>
+<td>N/A</td>
+<td>No dividend</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Recommendation:</strong><br />
-Given the persistent distress signals, <strong>a cautious "SELL" or "Avoid" stance is warranted for most investor profiles</strong>, especially conservative and dividend-focused investors. Aggressive investors may consider speculative positions only with strict risk controls and short time horizons, anticipating potential restructuring or turnaround catalysts. Close monitoring of liquidity improvements and EBIT growth is essential before reconsidering entry.</p>
+<p><strong>Investment Action Recommendation:</strong><br />
+Given the persistent distress signals, <strong>a cautious SELL or avoid new investments</strong> stance is recommended for most investor profiles. Only highly risk-tolerant or speculative investors might consider opportunistic entry with strict risk controls and close monitoring. The lack of liquidity and profitability, combined with a distressed Z-Score, outweighs the moderate market capitalization and valuation multiples.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -558,67 +629,41 @@ Given the persistent distress signals, <strong>a cautious "SELL" or "Avoid" stan
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.363</td>
-<td>&gt;1.0 (Healthy)</td>
-<td>Severe liquidity weakness; risk of short-term cash crunch</td>
-<td>Declining/Stable at low level</td>
-</tr>
-<tr>
-<td></td>
-<td>Working Capital Ratio: 0.363</td>
 <td>&gt;1.0</td>
-<td>Insufficient working capital</td>
-<td></td>
+<td><strong>Weak liquidity; risk of short-term cash crunch</strong></td>
+<td>Declining/Stable (low)</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A</td>
-<td>~1.0 (Auto industry avg)</td>
-<td>Data unavailable; risk unknown</td>
-<td>Unknown</td>
-</tr>
-<tr>
-<td></td>
-<td>Interest Coverage: N/A</td>
-<td>&gt;3.0 preferred</td>
-<td>Data unavailable; potential risk</td>
+<td>Debt-to-Equity: N/A (data missing)</td>
+<td>Industry avg ~1.0-2.0</td>
+<td><strong>Unclear leverage; no data to confirm risk</strong></td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.160</td>
-<td>~0.5 industry avg</td>
-<td>Low asset utilization; inefficiency</td>
-<td>Stable/Low</td>
-</tr>
-<tr>
-<td></td>
-<td>EBIT Ratio: 0.002</td>
-<td>~0.05 industry avg</td>
-<td>Near zero profitability; operational losses</td>
+<td>Asset Turnover: 0.160, EBIT Ratio: 0.002</td>
+<td>Asset Turnover ~0.5+, EBIT Ratio ~0.05+</td>
+<td><strong>Very low efficiency and profitability; operational underperformance</strong></td>
 <td>Stable/Weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.000</td>
-<td>Positive expected</td>
-<td>No retained earnings; no buffer</td>
+<td>Positive retained earnings</td>
+<td><strong>No retained earnings; no cushion for losses</strong></td>
 <td>Stable/Weak</td>
-</tr>
-<tr>
-<td></td>
-<td>Cash Position: N/A</td>
-<td>Positive cash preferred</td>
-<td>Data unavailable; liquidity concerns</td>
-<td>Unknown</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Liquidity is the most critical weakness, with a current ratio of <strong>0.363</strong>, well below the industry standard of 1.0, indicating that Li Auto may struggle to meet short-term obligations. The <strong>working capital ratio mirrors this liquidity stress</strong>, suggesting operational cash flow constraints.</p>
-<p>Profitability is negligible, with an EBIT ratio of <strong>0.002</strong>, far below the typical <strong>5% EBIT margin</strong> seen in the auto manufacturing sector. This low profitability undermines internal capital generation and heightens reliance on external financing.</p>
-<p>Operational efficiency, measured by asset turnover at <strong>0.160</strong>, is significantly below the industry average of approximately 0.5, indicating underutilization of assets and potential overinvestment or sales challenges.</p>
-<p>The <strong>retained earnings ratio at zero</strong> signals no accumulated profits to cushion financial shocks, reinforcing the distress status.</p>
-<p><strong>AI Data Quality Assessment</strong> indicates raw financial data completeness but lacks detailed leverage and cash position data, limiting full risk quantification. No anomalies detected, but data gaps reduce confidence in leverage and liquidity risk evaluation.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+- The <strong>Working Capital Ratio of 0.363</strong> is significantly below the industry standard of &gt;1.0, indicating liquidity stress and potential difficulties meeting short-term obligations.<br />
+- The <strong>Retained Earnings Ratio at zero</strong> suggests the company has not accumulated earnings over time, possibly due to consistent losses or reinvestment strategies without profitability.<br />
+- The <strong>EBIT Ratio of 0.002</strong> is negligible, reflecting near-breakeven or loss-making operations, which is alarming for a company in a capital-intensive sector like automotive manufacturing.<br />
+- The <strong>Asset Turnover of 0.160</strong> is low, indicating inefficient use of assets to generate sales compared to industry peers.<br />
+- Absence of Debt-to-Equity data limits leverage risk assessment, but the distress Z-Score implies financial strain possibly exacerbated by debt.<br />
+- The <strong>AI Data Quality Assessment</strong> shows no anomalies detected but lacks completeness in leverage data, reducing confidence in full risk profiling.<br />
+- Sector context: As a <strong>Consumer Cyclical, Auto Manufacturer</strong> operating in the Chinese EV market, Li Auto faces intense competition, capital demands, and regulatory pressures, amplifying financial vulnerabilities.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -634,66 +679,27 @@ Liquidity is the most critical weakness, with a current ratio of <strong>0.363</
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>0.97</td>
+<td>0.98</td>
 <td>Distress</td>
-<td>Low working capital, zero retained earnings, near-zero EBIT</td>
-<td>Ongoing liquidity and profitability challenges; no recovery signs</td>
+<td>Low Working Capital, Zero Retained Earnings, Minimal EBIT</td>
+<td>Ongoing operational losses, liquidity stress</td>
 </tr>
 <tr>
-<td>Q7</td>
-<td>0.99</td>
+<td>Previous Quarters</td>
+<td>0.67 - 1.04</td>
 <td>Distress</td>
-<td>Similar drivers</td>
-<td>Stable but distressed financials</td>
-</tr>
-<tr>
-<td>Q6</td>
-<td>0.93</td>
-<td>Distress</td>
-<td>Consistent low profitability</td>
-<td>No operational improvement</td>
-</tr>
-<tr>
-<td>Q5</td>
-<td>0.66</td>
-<td>Distress</td>
-<td>Lowest point; liquidity deterioration</td>
-<td>Possible cash flow crisis period</td>
-</tr>
-<tr>
-<td>Q4</td>
-<td>0.86</td>
-<td>Distress</td>
-<td>Slight recovery</td>
-<td>Temporary operational stabilization</td>
-</tr>
-<tr>
-<td>Q3</td>
-<td>0.93</td>
-<td>Distress</td>
-<td>Marginal improvement</td>
-<td>No significant turnaround</td>
-</tr>
-<tr>
-<td>Q2</td>
-<td>1.03</td>
-<td>Distress</td>
-<td>Peak Z-Score in period</td>
-<td>Slightly better but still distressed</td>
-</tr>
-<tr>
-<td>Q1</td>
-<td>0.78</td>
-<td>Distress</td>
-<td>Weakest start</td>
-<td>Early distress signals</td>
+<td>Consistently low liquidity and profitability</td>
+<td>No recovery signs; possible market or operational headwinds</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Li Auto’s Z-Score trajectory over eight quarters shows persistent distress with minor fluctuations but no meaningful trend towards recovery. The lowest Z-Score of <strong>0.66</strong> suggests a period of acute financial stress, likely tied to liquidity or operational disruptions.</p>
-<p>The lack of component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) limits granular driver analysis, but the overall pattern aligns with ongoing cash flow and profitability challenges.</p>
-<p>Compared to the <strong>industry average Z-Score of 3.2</strong>, Li Auto remains severely underperforming, indicating competitive disadvantages and heightened bankruptcy risk.</p>
+<p><strong>Strategic Commentary:</strong><br />
+- The Z-Score has remained <strong>below 1.8 for all eight quarters</strong>, indicating persistent distress without meaningful improvement or recovery.<br />
+- The narrow range (0.67 to 1.04) suggests no significant deterioration but also no positive inflection, implying stagnant or worsening fundamentals.<br />
+- Key drivers include <strong>very low EBIT/Total Assets (0.002)</strong> and <strong>working capital constraints (0.363 ratio)</strong>, which directly depress the Z-Score components.<br />
+- The lack of retained earnings (0.000 ratio) removes a critical buffer against losses.<br />
+- Compared to the <strong>industry average Z-Score &gt;3.0</strong>, Li Auto is significantly underperforming, highlighting competitive and financial risk.<br />
+- Business context: The company’s focus on premium smart EVs in China faces fierce competition and capital intensity, which may explain operational inefficiencies and financial strain.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -709,32 +715,33 @@ Li Auto’s Z-Score trajectory over eight quarters shows persistent distress wit
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Persistently Distress (0.97)</td>
-<td>Flat price at $25.95, zero volatility</td>
+<td>Persistently Distressed (Z ~0.98)</td>
+<td>Flat/No trading volume, zero volatility</td>
 <td>Divergent</td>
-<td>Market not fully pricing distress; potential risk or opportunity</td>
+<td>Market may be ignoring fundamentals or data incomplete</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to Slightly Negative</td>
-<td>P/E Ratio 24.25 (moderate)</td>
-<td>Consistent</td>
-<td>Market cautious but not bearish</td>
+<td>Neutral/Unavailable</td>
+<td>No data available</td>
+<td>Inconsistent</td>
+<td>Lack of market confidence or data gaps</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below Industry Avg Z-Score (3.2)</td>
-<td>Sector performing better</td>
+<td>Underperforming vs Industry</td>
+<td>Sector performance moderate</td>
 <td>Underperforming</td>
-<td>Competitive weakness; risk premium</td>
+<td>Competitive disadvantage; risk of market share loss</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-The fundamental distress indicated by the Z-Score contrasts with a relatively stable stock price of <strong>$25.95</strong> and zero reported volatility, suggesting low trading activity or market inefficiency in reflecting financial distress.</p>
-<p>The P/E ratio of <strong>24.25</strong> is within typical industry valuation ranges, indicating that the market may be pricing in growth expectations or ignoring underlying financial risks.</p>
-<p>Analyst sentiment aligns with the neutral to slightly negative tone, consistent with the lack of price volatility and stable valuation metrics.</p>
-<p>This divergence between fundamental distress and market signals suggests a <strong>potential mispricing opportunity</strong> but also warns of latent risk if liquidity or operational issues worsen.</p>
+<p><strong>Market Validation Commentary:</strong><br />
+- The <strong>technical indicators show zero trading volume, zero volatility, and zero price range</strong>, suggesting either data unavailability or market inactivity, which conflicts with the large market cap ($27.88B) and current price ($27.03). This divergence reduces confidence in market timing signals.<br />
+- The <strong>P/E ratio of 25.03</strong> is moderate but likely unreliable given the near-zero EBIT and distress signals.<br />
+- The lack of dividend yield (0.00%) aligns with distress and reinvestment or loss retention strategies.<br />
+- The disconnect between fundamental distress and market price stability or inactivity suggests potential market inefficiency or data reporting issues.<br />
+- Peer companies in the Chinese EV sector generally show healthier financials and more robust market activity, reinforcing Li Auto’s relative weakness.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -750,35 +757,35 @@ The fundamental distress indicated by the Z-Score contrasts with a relatively st
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>High (80%)</td>
+<td>High</td>
 <td>Critical</td>
-<td>-0.3 to -0.5</td>
-<td>Cost control, operational restructuring</td>
+<td>Significant decline</td>
+<td>Cost reduction, operational efficiency improvements</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>High (90%)</td>
+<td>High</td>
 <td>Critical</td>
-<td>-0.4 to -0.6</td>
-<td>Liquidity management, refinancing</td>
+<td>Further Z-Score deterioration</td>
+<td>Capital raising, debt restructuring, liquidity management</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium (50%)</td>
+<td>Medium</td>
 <td>Moderate</td>
-<td>-0.1 to -0.2</td>
-<td>Hedging, diversification</td>
+<td>Volatility in valuation</td>
+<td>Hedging, diversification, market monitoring</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-- <strong>Operational risks</strong> dominate due to low asset turnover and EBIT margins, with an 80% probability of material impact, potentially reducing Z-Score by up to 0.5 if unmitigated.<br />
-- <strong>Financial risks</strong>, especially liquidity shortages (current ratio 0.363), have a 90% probability and critical severity, threatening further Z-Score deterioration.<br />
-- <strong>Market risks</strong> related to sector cyclicality and competition have moderate probability and impact but could exacerbate financial stress.</p>
-<p><strong>Scenario Planning:</strong><br />
-- <strong>Best Case:</strong> Operational improvements and liquidity injections raise Z-Score above 1.8 within 6-12 months, moving into Gray Zone.<br />
-- <strong>Base Case:</strong> Status quo persists, Z-Score remains near 1.0, maintaining distress risk.<br />
-- <strong>Worst Case:</strong> Liquidity crisis triggers bankruptcy risk, Z-Score falls below 0.6, requiring urgent restructuring or insolvency proceedings.</p>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Operational risks</strong> are high due to low EBIT ratio (0.002) and asset turnover (0.160), threatening ongoing viability.<br />
+- <strong>Financial risks</strong> are critical given the working capital ratio of 0.363 and zero retained earnings, increasing bankruptcy probability.<br />
+- <strong>Market risks</strong> are moderate but complicated by lack of trading data and possible valuation disconnects.<br />
+- <strong>Best Case:</strong> Operational turnaround improves EBIT and working capital, lifting Z-Score above 1.8 into Gray Zone within 6-12 months.<br />
+- <strong>Base Case:</strong> Status quo persists with Z-Score near 1.0, maintaining distress risk and limited market confidence.<br />
+- <strong>Worst Case:</strong> Further deterioration pushes Z-Score below 0.7, signaling imminent bankruptcy risk.<br />
+- Mitigation requires aggressive operational restructuring, capital infusion, and enhanced liquidity management.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -794,50 +801,52 @@ The fundamental distress indicated by the Z-Score contrasts with a relatively st
 </thead>
 <tbody>
 <tr>
-<td>📊 <strong>Conservative</strong></td>
+<td>📊 Conservative</td>
 <td>Low</td>
 <td><strong>SELL</strong></td>
-<td>Z-Score &lt;1.0 indicates high bankruptcy risk</td>
-<td>Avoid entry; consider exit</td>
+<td>Z-Score &lt;1.0 indicates high distress risk</td>
+<td>Avoid entry; wait for recovery signals</td>
 <td>Immediate</td>
 </tr>
 <tr>
-<td>💰 <strong>Dividend</strong></td>
+<td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>SELL</strong></td>
-<td>No retained earnings, zero dividend yield</td>
-<td>Not suitable</td>
-<td>Immediate</td>
+<td><strong>SELL/HOLD</strong></td>
+<td>No dividend yield; no retained earnings</td>
+<td>Not suitable for income investors</td>
+<td>N/A</td>
 </tr>
 <tr>
-<td>💎 <strong>Value</strong></td>
+<td>💎 Value</td>
 <td>Medium</td>
-<td><strong>HOLD/AVOID</strong></td>
-<td>Valuation not cheap enough to offset distress</td>
-<td>Wait for Z-Score &gt;1.8</td>
+<td><strong>HOLD</strong></td>
+<td>Valuation moderate but fundamentals weak</td>
+<td>Monitor for Z-Score improvement above 1.8</td>
 <td>6-12 months</td>
 </tr>
 <tr>
-<td>📈 <strong>Growth</strong></td>
+<td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>SPECULATIVE BUY</strong></td>
-<td>Potential turnaround if EBIT improves</td>
-<td>Monitor operational catalysts</td>
-<td>Short-term</td>
+<td><strong>SELL</strong></td>
+<td>EBIT and asset turnover too low for growth</td>
+<td>Avoid until operational turnaround</td>
+<td>Immediate</td>
 </tr>
 <tr>
-<td>🚀 <strong>Aggressive</strong></td>
+<td>🚀 Aggressive</td>
 <td>High</td>
 <td><strong>SPECULATIVE BUY</strong></td>
-<td>High risk/reward; Z-Score volatility low but risk high</td>
-<td>Enter with tight stops</td>
-<td>Immediate with caution</td>
+<td>Potential turnaround if operational risks mitigated</td>
+<td>High risk/reward; close monitoring required</td>
+<td>Short term with stop-loss</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Conservative and dividend investors should avoid or divest due to distress signals and lack of income. Value investors may hold but should await clear Z-Score improvement before adding exposure.</p>
-<p>Growth and aggressive investors might consider speculative positions if confident in management’s turnaround plans or sector growth, but must apply strict risk controls given the high probability of financial distress.</p>
+<p><strong>Rationale:</strong><br />
+- The <strong>distress-level Z-Score (0.98)</strong> and poor liquidity metrics strongly advise against conservative and growth investors entering or holding positions.<br />
+- Dividend investors have no yield and no earnings cushion, making the stock unattractive.<br />
+- Value investors may consider a hold position, watching for operational improvements and Z-Score recovery.<br />
+- Aggressive investors might speculate on a turnaround but must be prepared for high volatility and potential loss.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -853,30 +862,32 @@ Conservative and dividend investors should avoid or divest due to distress signa
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Stabilize liquidity and profitability</td>
-<td>Working Capital Ratio, EBIT Ratio</td>
-<td>Accelerate cost reduction, improve cash flow</td>
-<td>Z-Score improvement &gt;1.8 within 12 months</td>
+<td>Operational turnaround</td>
+<td>EBIT Ratio (0.002), Asset Turnover (0.160)</td>
+<td>Implement cost controls, improve production efficiency</td>
+<td>EBIT improvement, Z-Score &gt;1.8</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital structure optimization</td>
-<td>Current Ratio, Debt Management</td>
-<td>Secure refinancing, improve working capital</td>
-<td>Positive cash flow, reduced debt costs</td>
+<td>Liquidity &amp; Capital Structure</td>
+<td>Working Capital Ratio (0.363), Retained Earnings (0.000)</td>
+<td>Secure financing, manage debt, improve cash flow</td>
+<td>Current ratio &gt;1.0, positive retained earnings</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and transparency</td>
-<td>Z-Score trends, Risk Factors</td>
-<td>Enhance financial reporting, monitor risk metrics</td>
-<td>Compliance with governance standards</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Z-Score trend, risk factors</td>
+<td>Monitor risk trajectory, enforce governance policies</td>
+<td>Risk reduction, compliance adherence</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Executive leadership must prioritize immediate liquidity stabilization and operational efficiency improvements to reverse distress trends. The CFO should focus on capital structure and refinancing strategies to alleviate short-term funding pressures.</p>
-<p>The Board must enforce rigorous risk management and transparent communication to restore investor confidence and guide strategic turnaround initiatives.</p>
+<p><strong>Executive Commentary:</strong><br />
+- The CEO must prioritize operational efficiency to boost EBIT and asset turnover, critical to improving the Z-Score and financial health.<br />
+- The CFO should focus on liquidity enhancement and capital restructuring to alleviate short-term financial stress.<br />
+- The Board must maintain vigilant oversight of risk factors and ensure transparent communication with investors and regulators.<br />
+- Aligning strategic initiatives with Z-Score improvement targets will enhance stakeholder confidence and market perception.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -892,53 +903,37 @@ Executive leadership must prioritize immediate liquidity stabilization and opera
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable at ~0.97</td>
-<td>Slight improvement possible</td>
-<td>EBIT margin growth, working capital increase</td>
-<td>Quarterly Z-Score, EBIT ratio</td>
+<td>Stable low (~0.98)</td>
+<td>Slight improvement possible if EBIT rises</td>
+<td>Operational efficiency gains, cost reductions</td>
+<td>Quarterly EBIT ratio, working capital ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Weak relative to peers</td>
-<td>Potential recovery if innovation accelerates</td>
-<td>New product launches, market share gains</td>
-<td>Market share, peer Z-Score comparison</td>
+<td>Distressed</td>
+<td>Potential decline without turnaround</td>
+<td>Competitive pressures, regulatory changes</td>
+<td>Market share, peer Z-Score comparisons</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High risk</td>
-<td>Risk remains elevated</td>
-<td>Debt refinancing success, macroeconomic factors</td>
-<td>Liquidity ratios, debt covenants</td>
+<td>High</td>
+<td>Remains elevated unless mitigated</td>
+<td>Capital raising success, macroeconomic factors</td>
+<td>Liquidity ratios, debt levels, risk events</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-The Z-Score momentum is currently flat but could improve with operational and liquidity enhancements. Key catalysts include EBIT margin expansion and working capital management.</p>
-<p>Market position remains weak but could benefit from innovation in the premium EV segment, contingent on execution.</p>
-<p>Risk profile remains high; close monitoring of liquidity and refinancing outcomes is critical. Early warning indicators include declining current ratio or EBIT margin contraction.</p>
+<p><strong>Forward-Looking Commentary:</strong><br />
+- The Z-Score momentum is currently flat in the distress zone, with only operational improvements likely to shift the trajectory upward.<br />
+- Key catalysts include successful cost management, product innovation, and capital infusion.<br />
+- Monitoring leading indicators such as EBIT ratio, working capital ratio, and peer performance will provide early signals of recovery or further deterioration.<br />
+- Investors and management should prepare for multiple scenarios, with early warning systems based on liquidity stress tests and market signals to guide timely decisions.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Li Auto Inc. is in a <strong>critical financial distress state</strong>, with persistent Altman Z-Scores below 1.0, signaling high bankruptcy risk. Liquidity constraints, zero retained earnings, and near-zero profitability underpin this distress. Market signals show muted volatility and moderate valuation, suggesting a disconnect between fundamentals and market perception.</p>
-<p>Investment recommendations skew towards <strong>selling or avoiding</strong> for most profiles, with speculative buying reserved for high-risk tolerant investors closely monitoring turnaround catalysts.</p>
-<p>Strategic focus for management must be on liquidity stabilization, operational efficiency, and capital structure optimization to improve the Z-Score and restore financial health.</p>
+<p>Li Auto Inc. is in a <strong>critical financial distress state</strong> with an Altman Z-Score consistently below 1.0 over eight quarters, signaling high bankruptcy risk. Liquidity and profitability metrics are weak, and operational efficiency is low relative to industry peers. Market data is insufficient or inactive, complicating timing decisions. Risk is high across operational, financial, and market dimensions. Conservative and growth investors should avoid or sell, while aggressive investors may consider speculative positions with strict risk controls. Strategic focus must be on operational turnaround and liquidity enhancement to improve the Z-Score and restore market confidence.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to injected data:</em></p>
-<ul>
-<li><strong>Z-Score latest value:</strong> 0.97 (Distress Zone)  </li>
-<li><strong>Market Cap:</strong> $26.55B  </li>
-<li><strong>Current Price:</strong> $25.95  </li>
-<li><strong>Working Capital Ratio:</strong> 0.363  </li>
-<li><strong>Retained Earnings Ratio:</strong> 0.000  </li>
-<li><strong>EBIT Ratio:</strong> 0.002  </li>
-<li><strong>Asset Turnover:</strong> 0.160  </li>
-<li><strong>Industry Average Z-Score:</strong> ~3.2  </li>
-<li><strong>P/E Ratio:</strong> 24.25  </li>
-<li><strong>AI Risk Analysis:</strong> High risk level with 95% confidence  </li>
-<li><strong>AI Sentiment:</strong> Neutral to slightly negative, 70% confidence  </li>
-</ul>
-<hr />
-<p><strong>End of AI-Powered Altman Z-Score Investment Analysis for Li Auto Inc.</strong></p></div></div>
+<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, market metrics, and sector context for actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1281,78 +1276,41 @@ The Z-Score momentum is currently flat but could improve with operational and li
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:35 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:30 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

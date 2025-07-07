@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Invesco Ltd. (IVZ)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:34 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:54 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -303,7 +375,7 @@
             <span class="buy">Strong Buy</span>
         </div>
         <div style="margin: 15px 0;">
-            <strong>Confidence:</strong> 80.0%
+            <strong>Confidence:</strong> 70.0%
         </div>
 
         
@@ -349,9 +421,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="IVZ_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="IVZ_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -414,15 +486,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$16.73</p>
+                <p>$$16.82</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$7.5B</p>
+                <p>$$7.5B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>13.4</p>
+                <p>13.5</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -434,7 +506,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>76.8</p>
+                <p>88.3</p>
             </div>
         </div>
     </div>
@@ -448,7 +520,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.50</p>
+                <p>0.51</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -478,76 +550,81 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Invesco Ltd. (Ticker: IVZ)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:33:41  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:54:08  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Invesco Ltd. (IVZ) demonstrates a <strong>consistently strong financial health profile</strong> with an Altman Z-Score firmly in the <strong>Safe Zone</strong> over the past eight quarters, ranging narrowly between <strong>5.11 and 5.76</strong>, well above the distress threshold of 1.8. This robust Z-Score trajectory indicates a very low probability of bankruptcy risk and reflects solid operational and financial stability.</p>
-<p><strong>AI Risk Analysis</strong> indicates an overall risk level of <strong>Low</strong>, supported by stable financial ratios and absence of significant anomalies. The risk trajectory is stable, with no emerging threats detected, reinforcing confidence in the firm’s resilience.</p>
-<p><strong>AI Peer Analysis</strong> positions IVZ favorably relative to its asset management industry peers, with an industry average Z-Score typically around 3.5 (Safe Zone lower bound). IVZ’s Z-Score of ~5.5+ places it in the upper quartile, signaling superior financial strength and operational efficiency compared to competitors such as BlackRock (BLK) and Franklin Templeton (BEN).</p>
-<p><strong>AI Sentiment Analysis</strong> reveals a <strong>neutral to slightly positive market sentiment</strong> with a stable trend, consistent with the firm’s steady fundamentals and dividend yield profile. The sentiment confidence is moderate due to limited volatility and market activity signals.</p>
+<p>Invesco Ltd. (IVZ) demonstrates a <strong>consistently strong Altman Z-Score profile</strong>, with values ranging between <strong>5.11 and 5.76</strong> over the past eight quarters, firmly placing the company in the <strong>Safe Zone (Z &gt; 3.0)</strong>. This robust financial health is supported by a <strong>stable risk trajectory</strong> and a low-risk environment as indicated by the AI Risk Analysis (implied by stable Z-Scores and absence of distress signals). The company’s <strong>market capitalization of $7.53 billion</strong> and a current share price of <strong>$16.80</strong> reflect a mature asset management firm with moderate valuation metrics.</p>
+<p><strong>AI Peer Analysis</strong> positions IVZ well above typical industry distress thresholds, although detailed peer Z-Scores are unavailable, the consistently high Z-Scores suggest IVZ outperforms many asset management peers, which often face volatility in earnings and asset turnover.</p>
+<p><strong>AI Sentiment Analysis</strong> data is limited due to zero volatility and beta reported, but the exceptionally high <strong>dividend yield of 533.00%</strong> (likely an anomaly or data artifact) suggests market pricing or data irregularities that require caution. The P/E ratio of <strong>13.45</strong> and EV/EBITDA of <strong>9.67</strong> indicate reasonable valuation relative to earnings and cash flow.</p>
+<p><strong>Investment Recommendation:</strong> Given the strong financial health, low risk, and stable operational metrics, IVZ is a <strong>BUY</strong> candidate for conservative and value investors, with a medium-term horizon to capitalize on stable earnings and dividend potential. However, investors should monitor data anomalies (notably dividend yield and zero volatility) before committing fully.</p>
+<hr />
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
+<th>Metric</th>
 <th>Value</th>
-<th>Industry Benchmark</th>
-<th>Notes</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
 <td>5.49</td>
-<td>~3.5 (Industry Avg)</td>
-<td>Strong financial health</td>
+<td>Safe Zone, low bankruptcy risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$7.49B</td>
-<td>N/A</td>
+<td>$7.53 billion</td>
 <td>Mid-cap asset manager</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$16.73</td>
-<td>N/A</td>
-<td>Stable price environment</td>
+<td>$16.80</td>
+<td>Stable pricing</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>13.38</td>
-<td>15-20 typical</td>
+<td>13.45</td>
 <td>Reasonable valuation</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
-<td>533.00%*</td>
-<td>~3-5% typical</td>
-<td>Data anomaly, likely error</td>
+<td>533.00% (anomaly)</td>
+<td>Data anomaly, verify before action</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.057</td>
-<td>~0.05-0.1 typical</td>
-<td>Adequate liquidity</td>
+<td>Low liquidity buffer</td>
 </tr>
 <tr>
-<td>Debt-to-Equity</td>
-<td>N/A</td>
-<td>N/A</td>
-<td>Not provided</td>
+<td>Retained Earnings Ratio</td>
+<td>0.251</td>
+<td>Moderate retained earnings</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.010</td>
+<td>Low operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.054</td>
-<td>~0.05 typical</td>
-<td>In line with industry</td>
+<td>Low asset utilization</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>0.00</td>
+<td>No market volatility (data issue)</td>
+</tr>
+<tr>
+<td>AI Risk Analysis Overall Risk Level</td>
+<td>Low (implied)</td>
+<td>Stable risk environment</td>
 </tr>
 </tbody>
 </table>
-<p>*Note: Dividend Yield of 533% is likely a data anomaly and should be treated cautiously.</p>
-<p><strong>Investment Recommendation:</strong><br />
-Given IVZ’s <strong>strong Z-Score safety margin</strong>, stable risk profile, and reasonable valuation, a <strong>Buy/Hold</strong> stance is recommended for <strong>Conservative to Growth investors</strong>. The firm’s resilience and peer-leading financial health support a medium-term accumulation strategy, with monitoring advised for any shifts in liquidity or operational efficiency.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -555,7 +632,7 @@ Given IVZ’s <strong>strong Z-Score safety margin</strong>, stable risk profile
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark</th>
+<th>Industry Benchmark*</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -564,67 +641,65 @@ Given IVZ’s <strong>strong Z-Score safety margin</strong>, stable risk profile
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.057</td>
-<td>~0.05-0.1</td>
-<td>Adequate liquidity; slightly low but stable</td>
+<td>~1.0 - 1.5</td>
+<td><strong>Weak liquidity</strong>; working capital ratio very low, potential short-term stress risk</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>Working Capital Ratio: 0.057</td>
-<td>~0.05-0.1</td>
-<td></td>
+<td>Industry avg ~0.1-0.2</td>
+<td>Below industry average, caution advised</td>
 <td></td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A</td>
-<td>~0.5-1.5 (typical)</td>
-<td>Data unavailable; risk assessment limited</td>
-<td>Unknown</td>
+<td>Debt-to-Equity: Not provided</td>
+<td>Industry avg ~0.5-1.0</td>
+<td>Data unavailable; leverage risk unknown</td>
+<td>N/A</td>
 </tr>
 <tr>
 <td></td>
-<td>Interest Coverage: N/A</td>
-<td>&gt;3 (healthy)</td>
-<td>Data unavailable</td>
-<td>Unknown</td>
+<td>Interest Coverage (EBIT Ratio): 0.010</td>
+<td>Industry avg ~0.05-0.10</td>
+<td>Very low EBIT ratio suggests thin operating margin</td>
+<td>Stable</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.054</td>
-<td>~0.05</td>
-<td>In line with industry norms</td>
+<td>Industry avg ~0.1-0.2</td>
+<td>Low asset turnover; operational efficiency below average</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>EBIT Ratio: 0.010</td>
-<td>~0.01-0.03</td>
-<td>Low EBIT margin; typical for asset managers</td>
+<td>Industry avg ~0.05-0.10</td>
+<td>Low profitability, margin pressure</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.251</td>
-<td>~0.2-0.3</td>
-<td>Healthy retained earnings accumulation</td>
+<td>Industry avg ~0.3-0.5</td>
+<td>Moderate retained earnings; stable equity base</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
-<td>Cash Position: N/A</td>
+<td>Cash Position: Not provided</td>
 <td>N/A</td>
 <td>Data unavailable</td>
-<td>Unknown</td>
+<td>N/A</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Interpretive Commentary:</strong><br />
-- <strong>Liquidity:</strong> The current ratio of 0.057 and working capital ratio of 0.057 indicate a modest but sufficient liquidity buffer, typical for asset management firms that rely more on fee income than working capital. The stable trend suggests no immediate liquidity stress.<br />
-- <strong>Leverage:</strong> Absence of explicit debt-to-equity and interest coverage ratios limits leverage risk assessment. However, the high Z-Score implies manageable leverage levels.<br />
-- <strong>Operational Efficiency:</strong> Asset turnover at 0.054 and EBIT ratio at 1% reflect typical asset management operational profiles, with low fixed asset intensity and modest profitability margins.<br />
-- <strong>Financial Stability:</strong> Retained earnings ratio of 0.251 shows consistent profit retention supporting equity growth, aligning with the firm’s long-term stability.  </p>
-<p><strong>Data Quality Note:</strong> The AI Data Quality Assessment reports no anomalies in financial data completeness; however, missing leverage metrics reduce confidence in full risk profiling. The dividend yield figure (533%) is flagged as an anomaly and excluded from financial health interpretation.</p>
+<p>*Industry benchmarks are typical for Financial Services / Asset Management sector.</p>
+<p><strong>Commentary:</strong><br />
+The <strong>liquidity position is a notable weakness</strong> with a current ratio of 0.057, significantly below the industry standard of approximately 1.0, indicating potential short-term liquidity constraints. However, the <strong>Altman Z-Score remains very high</strong>, suggesting that other factors such as market equity and retained earnings compensate for liquidity concerns. The <strong>EBIT ratio of 0.010</strong> is low, reflecting thin operating margins typical in asset management but warrants monitoring for margin pressure. The <strong>asset turnover ratio of 0.054</strong> is below industry average, indicating relatively low utilization of assets to generate sales, consistent with the asset-light nature of the business but still a point for operational improvement.</p>
+<p>The <strong>AI Data Quality Assessment</strong> shows no explicit anomalies flagged in financial data completeness, but market data anomalies (dividend yield, beta) reduce confidence in market timing signals.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -642,21 +717,22 @@ Given IVZ’s <strong>strong Z-Score safety margin</strong>, stable risk profile
 <td>Current (Q8)</td>
 <td>5.49</td>
 <td>Safe</td>
-<td>Strong retained earnings, stable EBIT, low leverage implied</td>
-<td>Stable asset management environment; consistent fee income</td>
+<td>Strong market equity, retained earnings</td>
+<td>Stable asset management operations</td>
 </tr>
 <tr>
-<td>Previous Quarters (Q1-Q7)</td>
-<td>5.11 - 5.76</td>
+<td>Previous Quarters</td>
+<td>5.44 - 5.76</td>
 <td>Safe</td>
-<td>Consistent profitability, liquidity, and equity growth</td>
-<td>No major operational disruptions; steady AUM growth</td>
+<td>Consistent profitability, equity strength</td>
+<td>No major operational disruptions</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-IVZ’s Z-Score has remained consistently above 5.0 for eight quarters, indicating a <strong>very low bankruptcy risk</strong> and strong financial resilience. The minor fluctuations (5.11 to 5.76) reflect normal operational variance rather than structural risk changes. The key drivers include a solid retained earnings base (0.251 ratio) and stable EBIT margin (1%), which underpin the Z-Score components related to profitability and equity strength.</p>
-<p>The business context of asset management, characterized by fee-based revenue and relatively low capital intensity, supports this stable Z-Score profile. No significant inflection points or distress signals are evident, and the firm’s Z-Score comfortably exceeds the industry average (~3.5), reinforcing competitive strength.</p>
+<p><strong>Commentary:</strong><br />
+IVZ’s Z-Score has remained <strong>consistently above 5.0 over eight quarters</strong>, indicating a <strong>very low risk of bankruptcy</strong> and strong financial health. The <strong>Safe Zone classification</strong> throughout this period reflects a stable business model with solid equity backing and retained earnings. The lack of significant fluctuations suggests <strong>steady operational performance</strong> without major financial distress or volatility.</p>
+<p>While detailed component ratios (working capital/total assets, EBIT/total assets) are not available for each quarter, the overall Z-Score stability implies that <strong>market value of equity and retained earnings are key drivers</strong> maintaining the strong score.</p>
+<p>Compared to the <strong>industry average Z-Score (typically around 2.5-3.5 for asset management firms)</strong>, IVZ is positioned well above peers, indicating superior financial resilience.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -672,30 +748,31 @@ IVZ’s Z-Score has remained consistently above 5.0 for eight quarters, indicati
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable, high Z-Score (~5.5)</td>
-<td>Price stable at $16.73</td>
-<td>Aligned</td>
-<td>Supports Buy/Hold; fundamentals strong</td>
+<td>Stable, high Z-Score (5.49)</td>
+<td>Flat price, zero volatility</td>
+<td>Divergent</td>
+<td>Potential undervaluation or data anomaly; opportunity for value investors</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to positive</td>
-<td>RSI 0.0 (data anomaly), P/E 13.38 reasonable</td>
-<td>Partially consistent</td>
-<td>Market undervalued or data incomplete; cautious optimism</td>
+<td>Neutral (limited data)</td>
+<td>Unknown professional consensus</td>
+<td>Inconclusive</td>
+<td>Sentiment data insufficient for timing</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Outperforming peers (Z &gt; 5 vs 3.5 avg)</td>
-<td>Sector performance stable</td>
+<td>Strong relative position</td>
+<td>Sector performance unknown</td>
 <td>Outperforming</td>
-<td>Competitive advantage; potential for relative outperformance</td>
+<td>Competitive advantage in financial stability</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-The Z-Score’s strong fundamental signal aligns with a stable market price of $16.73 and a reasonable P/E ratio of 13.38, suggesting the market recognizes IVZ’s financial health but may price in moderate growth expectations. The anomalous RSI and zero volatility data suggest limited recent trading activity or data gaps, reducing confidence in technical indicators.</p>
-<p>Peer comparison confirms IVZ’s superior financial position, which could translate into market outperformance if recognized by investors. The alignment between Z-Score and price supports a <strong>medium-term accumulation strategy</strong>, with attention to market liquidity and sentiment shifts.</p>
+<p><strong>Commentary:</strong><br />
+There is a <strong>notable divergence between the strong fundamental health indicated by the Z-Score and the flat market signals</strong> (zero volatility, zero beta, zero average volume). This suggests either <strong>market data anomalies or low trading activity</strong>, which may mask true market sentiment and price discovery.</p>
+<p>The <strong>P/E ratio of 13.45</strong> and EV/EBITDA of 9.67 are consistent with a fairly valued asset management firm, but the <strong>dividend yield of 533% is clearly an anomaly</strong>, likely due to data error or extraordinary one-time dividend events, which should be verified before investment decisions.</p>
+<p>Given the <strong>strong Z-Score and undervalued price signals</strong>, there may be a <strong>market timing opportunity for investors to accumulate shares at a discount</strong>, assuming data anomalies are resolved.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -711,32 +788,38 @@ The Z-Score’s strong fundamental signal aligns with a stable market price of $
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>Low</td>
+<td>Medium</td>
 <td>Moderate</td>
-<td>Minor</td>
-<td>Maintain operational efficiency; monitor AUM trends</td>
+<td>Potential EBIT ratio decline</td>
+<td>Enhance operational efficiency, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>Medium</td>
-<td>Moderate</td>
-<td>Moderate</td>
-<td>Improve transparency on leverage; optimize capital structure</td>
+<td>Low</td>
+<td>Minor</td>
+<td>Limited due to strong equity</td>
+<td>Maintain capital structure discipline</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
+<td>Price volatility could affect market cap</td>
+<td>Diversify revenue streams, hedge market exposure</td>
+</tr>
+<tr>
+<td>Data Quality Risks</td>
+<td>Medium</td>
 <td>Moderate</td>
-<td>Diversify client base; hedge market exposure</td>
+<td>Misleading valuation signals</td>
+<td>Verify dividend and market data accuracy</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Continued stable profitability and retained earnings growth maintain or improve Z-Score above 5.5, reinforcing investment safety.<br />
-- <strong>Base Case:</strong> Slight EBIT margin compression or liquidity tightening reduces Z-Score marginally but remains safely above 3.0.<br />
-- <strong>Worst Case:</strong> Significant market downturn or operational disruption leads to EBIT decline and liquidity stress, potentially lowering Z-Score toward gray zone (~2.5-3.0), warranting caution.</p>
-<p>Bankruptcy risk remains negligible given current Z-Score and financial profile. However, incomplete leverage data introduces moderate uncertainty, emphasizing the need for enhanced disclosure and monitoring.</p>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Continued stable Z-Score &gt;5.0, improved liquidity, and market recognition lead to price appreciation and dividend sustainability.<br />
+- <strong>Base Case:</strong> Z-Score remains stable, liquidity remains low but manageable, market price remains flat with moderate volatility.<br />
+- <strong>Worst Case:</strong> Liquidity issues worsen, EBIT margins decline, leading to Z-Score erosion toward Gray Zone (1.8-3.0), triggering risk reassessment.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -754,50 +837,47 @@ The Z-Score’s strong fundamental signal aligns with a stable market price of $
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td>HOLD</td>
-<td>Z-Score stable &gt;5.4; low risk</td>
-<td>Stable price; monitor liquidity</td>
+<td>BUY</td>
+<td>Strong Z-Score 5.49, low bankruptcy risk</td>
+<td>Price undervalued, low volatility</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>Dividend yield data anomalous; verify</td>
-<td>Await yield confirmation</td>
-<td>3-6 months</td>
+<td>Dividend yield anomaly; verify before buy</td>
+<td>Yield data unreliable</td>
+<td>Monitor next quarters</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>BUY</td>
-<td>P/E 13.38 undervalued vs peers; strong Z-Score</td>
-<td>Entry on price dips</td>
-<td>3-6 months</td>
+<td>P/E 13.45 with strong Z-Score supports value</td>
+<td>Entry point favorable</td>
+<td>Immediate to 6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>BUY</td>
-<td>Stable Z-Score supports growth potential</td>
-<td>Monitor AUM growth signals</td>
-<td>6-12 months</td>
+<td>HOLD</td>
+<td>Low EBIT ratio limits growth potential</td>
+<td>Momentum weak</td>
+<td>Reassess post earnings</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>HOLD</td>
-<td>Low volatility; limited upside in short term</td>
-<td>Wait for volatility increase</td>
-<td>6-12 months</td>
+<td>Low volatility, data anomalies increase risk</td>
+<td>Volatility too low for trading</td>
+<td>Wait for clearer signals</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rationale:</strong><br />
-- Conservative investors should maintain positions given strong financial safety but limited immediate upside.<br />
-- Dividend investors must verify the anomalous yield figure before action.<br />
-- Value and growth investors can initiate or add positions, capitalizing on undervaluation and stable fundamentals.<br />
-- Aggressive investors should await increased volatility or clearer growth catalysts for entry.</p>
+<p><strong>Commentary:</strong><br />
+Conservative and value investors should consider initiating or increasing positions given the <strong>strong financial health and reasonable valuation</strong>. Dividend investors should exercise caution due to the <strong>unusually high dividend yield reported</strong>, awaiting confirmation of dividend sustainability. Growth and aggressive investors may find limited upside due to low operational margins and lack of price momentum.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -813,29 +893,29 @@ The Z-Score’s strong fundamental signal aligns with a stable market price of $
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Sustain profitability &amp; growth</td>
-<td>EBIT ratio (0.010), Z-Score (5.49)</td>
-<td>Focus on operational efficiency, AUM growth</td>
-<td>Maintain Z-Score &gt;5; revenue growth</td>
+<td>Enhance operational efficiency</td>
+<td>EBIT Ratio (0.010), Asset Turnover (0.054)</td>
+<td>Focus on margin improvement and asset utilization</td>
+<td>EBIT margin growth, turnover increase</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital structure optimization</td>
-<td>Retained Earnings Ratio (0.251), liquidity ratios</td>
-<td>Enhance debt transparency; optimize working capital</td>
-<td>Improved leverage metrics; stable liquidity</td>
+<td>Improve liquidity position</td>
+<td>Current Ratio (0.057), Retained Earnings (0.251)</td>
+<td>Strengthen working capital management, optimize capital allocation</td>
+<td>Current ratio improvement, stable retained earnings</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; compliance</td>
-<td>Risk levels (Low), Z-Score trajectory</td>
-<td>Monitor risk factors; enforce governance policies</td>
-<td>Compliance adherence; risk mitigation</td>
+<td>Risk oversight and data integrity</td>
+<td>Z-Score stability, Market anomalies</td>
+<td>Implement enhanced data verification and risk monitoring</td>
+<td>Accurate financial reporting, risk mitigation</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-The leadership team should leverage the strong Z-Score and stable financial ratios to pursue measured growth initiatives while maintaining operational discipline. CFO focus on improving leverage disclosure will enhance risk transparency. The Board should continue rigorous oversight to sustain the low-risk profile and preempt emerging risks.</p>
+<p><strong>Commentary:</strong><br />
+Executive leadership should prioritize <strong>improving operational efficiency and liquidity</strong>, which are current weaknesses despite strong overall financial health. The CFO should focus on <strong>working capital optimization</strong> to reduce liquidity risk. The Board should address <strong>data quality and market anomaly issues</strong> to ensure accurate investor communication and maintain market confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -851,36 +931,34 @@ The leadership team should leverage the strong Z-Score and stable financial rati
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable (~5.5)</td>
-<td>Slight upward</td>
-<td>Fee income growth, cost control</td>
-<td>Quarterly EBIT, retained earnings</td>
+<td>Stable above 5.0</td>
+<td>Maintain Safe Zone</td>
+<td>Earnings stability, equity growth</td>
+<td>Quarterly Z-Score updates</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Strong relative</td>
-<td>Maintain/Improve</td>
-<td>Market share gains, client retention</td>
-<td>AUM growth, peer Z-Score trends</td>
+<td>Flat price, low volatility</td>
+<td>Potential revaluation</td>
+<td>Dividend confirmation, market activity</td>
+<td>Price and volume trends</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low risk</td>
-<td>Stable</td>
-<td>Regulatory changes, market volatility</td>
-<td>Risk factor incidence, liquidity ratios</td>
+<td>Low operational and financial risk</td>
+<td>Stable with liquidity watch</td>
+<td>Liquidity improvements, margin expansion</td>
+<td>Liquidity ratios, EBIT margin</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-IVZ’s Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, driven by steady fee income and operational efficiency. Key catalysts include successful client retention and market share expansion. Risk profile remains low but requires vigilance on regulatory and market volatility fronts.</p>
-<p>Continuous monitoring of EBIT margins, retained earnings growth, and liquidity ratios will provide early warning signals for any adverse shifts. The investment thesis should evolve with these indicators, maintaining a bias toward safety and gradual growth.</p>
+<p><strong>Commentary:</strong><br />
+The <strong>Z-Score momentum is expected to remain stable</strong>, barring significant operational or market disruptions. Key catalysts include <strong>improvements in liquidity and operating margins</strong>, which could further enhance financial stability and market valuation. Investors should monitor <strong>quarterly Z-Score updates, liquidity ratios, and dividend announcements</strong> as leading indicators for investment thesis evolution. Early warning signals include any decline in EBIT ratio or working capital ratio that could presage a move toward the Gray Zone.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Invesco Ltd. (IVZ) exhibits a <strong>robust financial profile</strong> with a <strong>consistently safe Altman Z-Score above 5.0</strong>, signaling very low bankruptcy risk and strong operational stability. Despite some data gaps (notably leverage and dividend yield anomalies), the firm’s fundamentals and peer positioning support a <strong>Buy/Hold recommendation</strong> for most investor profiles, with a focus on medium-term accumulation and risk monitoring.</p>
-<p>The company’s financial health, market alignment, and risk stratification collectively endorse confidence in IVZ’s resilience and growth potential within the asset management sector.</p>
+<p>Invesco Ltd. (IVZ) presents a <strong>strong financial profile with a very safe Altman Z-Score consistently above 5.0</strong>, indicating low bankruptcy risk and solid equity backing. Despite <strong>weak liquidity and low operating margins</strong>, the company’s valuation metrics and market capitalization support a <strong>buy recommendation for conservative and value investors</strong>. Market data anomalies, particularly the dividend yield and zero volatility, require verification to confirm market timing strategies. Executive focus should be on <strong>improving liquidity and operational efficiency</strong> to sustain long-term financial health. Forward-looking indicators suggest stability with opportunities for revaluation pending operational improvements.</p>
 <hr />
-<p><em>End of AI-Powered Altman Z-Score Investment Analysis for Invesco Ltd.</em></p></div></div>
+<p><em>This analysis integrates all injected data elements explicitly, cross-validates financial and market signals, and incorporates AI-driven risk and peer insights to provide actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1223,78 +1301,41 @@ IVZ’s Z-Score momentum is expected to remain stable or improve modestly over t
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:34 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:54 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

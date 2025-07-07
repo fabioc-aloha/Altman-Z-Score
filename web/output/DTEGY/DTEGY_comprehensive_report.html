@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Deutsche Telekom AG (DTEGY)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:22 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:50 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -357,9 +429,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="DTEGY_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="DTEGY_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -422,15 +494,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$36.46</p>
+                <p>$$36.21</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$178.7B</p>
+                <p>$$177.5B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>12.6</p>
+                <p>12.5</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -442,7 +514,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>53.2</p>
+                <p>56.0</p>
             </div>
         </div>
     </div>
@@ -452,11 +524,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Beta</h4>
-                <p>0.25</p>
+                <p>0.26</p>
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>1.46</p>
+                <p>1.44</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -477,70 +549,56 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Deutsche Telekom AG (Ticker: DTEGY)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:21:43  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:50:08  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Deutsche Telekom AG (DTEGY) currently resides deeply in the <strong>Distress Zone</strong> with an Altman Z-Score of <strong>0.33</strong> in the most recent quarter, significantly below the distress threshold of 1.8. This persistent low Z-Score over the last eight quarters (ranging from 0.23 to 0.49) signals a high risk of financial distress or potential bankruptcy. The AI Risk Analysis overall risk level is effectively <strong>Critical</strong>, with a trajectory showing no meaningful improvement, indicating urgent caution for investors.</p>
-<p><strong>AI Peer Analysis</strong> places DTEGY well below the industry average Z-Score (not explicitly provided but typical telecom industry averages hover above 2.5), confirming its relative weakness versus peers such as Verizon (VZ), AT&amp;T (T), and Vodafone (VOD). This poor relative positioning suggests competitive and financial challenges.</p>
-<p><strong>AI Sentiment Analysis</strong> metrics are not explicitly quantified but inferred from market data (zero trading volume, zero volatility, and anomalous dividend yield) to be highly inconsistent and unreliable, indicating market disinterest or data anomalies. This divergence undermines confidence in market perception and timing.</p>
+<p>Deutsche Telekom AG (DTEGY) currently resides in the <strong>Distress Zone</strong> with an Altman Z-Score of <strong>0.33</strong> (latest quarter), significantly below the critical threshold of 1.8, indicating a high risk of financial distress or potential bankruptcy. This low Z-Score has been persistent over the last eight quarters, fluctuating narrowly between 0.23 and 0.49, consistently signaling distress without signs of recovery.</p>
+<p><strong>AI Risk Analysis</strong> confirms an <strong>overall risk level of "High"</strong> with <strong>~90% confidence</strong>, driven by weak liquidity, negative retained earnings ratio, and low operational efficiency. The risk trajectory remains stable but unfavorable, with no upward momentum in Z-Score values.</p>
+<p><strong>AI Peer Analysis</strong> positions DTEGY well below the <strong>industry average Z-Score of approximately 3.2</strong> for Telecommunications Services, highlighting a significant competitive disadvantage. Key peers such as Vodafone Group (VOD) and AT&amp;T (T) maintain healthier Z-Scores in the safe or gray zones, underscoring DTEGY’s relative vulnerability.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a <strong>negative overall sentiment</strong> with a downward trend, consistent with market skepticism about the company’s financial health. Divergence analysis shows that market perception aligns with fundamental distress signals, reinforcing caution.</p>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
-<th>Value</th>
-<th>Notes</th>
+<th>Metric Category</th>
+<th>Key Data Point</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
 <td>0.33</td>
-<td>Distress Zone (&lt;1.8)</td>
+<td>Distress Zone, urgent caution needed</td>
+</tr>
+<tr>
+<td>AI Risk Level</td>
+<td>High (90% confidence)</td>
+<td>Elevated bankruptcy risk</td>
+</tr>
+<tr>
+<td>Industry Avg. Z-Score</td>
+<td>~3.2</td>
+<td>DTEGY significantly underperforms</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$178.7B</td>
-<td>Large-cap telecom</td>
-</tr>
-<tr>
-<td>Current Price</td>
-<td>$36.46</td>
-<td>Stable price, no volatility</td>
-</tr>
-<tr>
-<td>Working Capital Ratio</td>
-<td>0.006</td>
-<td>Extremely low liquidity</td>
-</tr>
-<tr>
-<td>Retained Earnings Ratio</td>
-<td>-0.019</td>
-<td>Negative retained earnings</td>
-</tr>
-<tr>
-<td>EBIT Ratio</td>
-<td>0.028</td>
-<td>Low operating profitability</td>
-</tr>
-<tr>
-<td>Asset Turnover</td>
-<td>0.366</td>
-<td>Moderate asset efficiency</td>
+<td>$177.46B</td>
+<td>Large cap but distressed</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
-<td>280%</td>
-<td>Data anomaly or special event</td>
+<td>280.00% (likely anomalous)</td>
+<td>Unusual, possibly unsustainable</td>
 </tr>
 <tr>
-<td>Beta</td>
-<td>0.00</td>
-<td>No market correlation</td>
+<td>Current Price</td>
+<td>$36.22</td>
+<td>Stable but low momentum</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Investment Recommendation:</strong><br />
-Given the critical financial distress signals, persistent low Z-Score, and anomalous market data, the recommendation is a <strong>Strong Sell</strong> or <strong>Avoid Entry</strong> for all but the most aggressive, speculative investors. The company requires significant operational and financial restructuring before becoming a viable investment. Close monitoring of risk factors and potential turnaround catalysts is essential.</p>
+Given the persistent distress signals, <strong>a conservative stance of SELL or AVOID is warranted</strong> until clear signs of financial stabilization emerge. High risk and negative sentiment outweigh the company’s market capitalization and sector positioning. Aggressive investors should avoid exposure; value and dividend investors must exercise extreme caution due to financial instability and anomalous dividend yield data.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -548,7 +606,7 @@ Given the critical financial distress signals, persistent low Z-Score, and anoma
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark (Telecom)</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -556,66 +614,41 @@ Given the critical financial distress signals, persistent low Z-Score, and anoma
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.006</td>
-<td>~1.2 - 1.5</td>
-<td>Severely weak liquidity; risk of cash shortfall</td>
-<td>Declining/Stable at low level</td>
-</tr>
-<tr>
-<td></td>
-<td>Working Capital Ratio: 0.006</td>
-<td>&gt;0.1</td>
-<td>Insufficient working capital</td>
-<td></td>
+<td>Current Ratio: 0.006<br>Working Capital Ratio: 0.006</td>
+<td>Industry Avg. Current Ratio: ~1.2</td>
+<td><strong>Severe liquidity weakness</strong>; near zero current ratio indicates inability to cover short-term liabilities</td>
+<td>Declining/Stable at critical low</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A</td>
-<td>~1.0 - 2.0 typical</td>
-<td>Data unavailable; inferred high leverage due to distress</td>
-<td>Unknown</td>
-</tr>
-<tr>
-<td></td>
-<td>Interest Coverage (EBIT Ratio): 0.028</td>
-<td>&gt;3.0 preferred</td>
-<td>Critically low EBIT coverage</td>
-<td>Stable low</td>
+<td>Debt-to-Equity: N/A (Data missing)<br>Interest Coverage: N/A</td>
+<td>Industry Avg. Debt-to-Equity: ~1.0</td>
+<td>Data gaps limit leverage assessment; negative retained earnings (-0.019) imply accumulated losses and potential solvency issues</td>
+<td>Unknown, likely negative</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.366</td>
-<td>~0.4 - 0.6</td>
-<td>Below average asset utilization</td>
-<td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>EBIT Ratio: 0.028</td>
-<td>~0.05 - 0.10</td>
-<td>Low profitability</td>
-<td>Stable low</td>
+<td>Asset Turnover: 0.366<br>EBIT Ratio: 0.028</td>
+<td>Industry Avg. Asset Turnover: ~0.5<br>EBIT Margin: ~0.1</td>
+<td>Below-average asset utilization and very low EBIT margin indicate operational underperformance</td>
+<td>Stable but weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: -0.019</td>
-<td>Positive preferred</td>
-<td>Negative retained earnings; erosion of equity</td>
-<td>Declining</td>
-</tr>
-<tr>
-<td></td>
-<td>Cash Position: N/A</td>
-<td>N/A</td>
-<td>Data not provided</td>
-<td>N/A</td>
+<td>Retained Earnings Ratio: -0.019<br>Cash Position: N/A</td>
+<td>Industry Avg. Retained Earnings: Positive</td>
+<td>Negative retained earnings reflect historical losses, undermining equity base and financial stability</td>
+<td>Negative trend</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Liquidity is critically impaired with a current ratio of 0.006, far below industry norms of 1.2-1.5, indicating near insolvency in short-term obligations. The working capital ratio mirrors this weakness, suggesting operational cash flow constraints. EBIT ratio at 2.8% is insufficient to cover interest and reinvestment needs, signaling profitability challenges. Negative retained earnings ratio (-1.9%) reflects accumulated losses or dividend payouts exceeding earnings, eroding shareholder equity.</p>
-<p>Asset turnover at 0.366 is slightly below telecom industry averages, indicating moderate inefficiency in asset utilization. The absence of explicit debt-to-equity data limits leverage assessment, but the distress Z-Score strongly implies high leverage and financial risk.</p>
-<p>AI Data Quality Assessment notes no anomalies in financial data completeness, but market data anomalies (dividend yield, zero volume) reduce confidence in market-based valuation signals.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+- The <strong>extremely low current ratio (0.006)</strong> and working capital ratio signal acute liquidity stress, far below the telecommunications industry standard (~1.2), suggesting imminent short-term financial strain.<br />
+- The <strong>negative retained earnings ratio (-0.019)</strong> indicates cumulative losses eroding shareholder equity, consistent with the distress Z-Score.<br />
+- Operational efficiency is subpar, with asset turnover at 0.366 (industry ~0.5) and EBIT ratio at 2.8%, reflecting weak profitability and asset utilization.<br />
+- Data completeness is limited for leverage ratios, but the negative retained earnings and distress Z-Score imply high leverage or solvency risk.<br />
+- The <strong>AI Data Quality Assessment</strong> shows no anomalies detected in financial data injection, but missing leverage data reduces confidence in full risk profiling.</p>
+<p>Sector context: As a major player in <strong>Telecommunications Services</strong>, Deutsche Telekom faces capital-intensive operations and competitive pressures. The weak liquidity and profitability metrics are concerning given the sector’s need for ongoing infrastructure investment.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -633,21 +666,24 @@ Liquidity is critically impaired with a current ratio of 0.006, far below indust
 <td>Current (Q8)</td>
 <td>0.33</td>
 <td>Distress</td>
-<td>Low working capital, negative retained earnings, low EBIT</td>
-<td>Ongoing operational challenges, possible restructuring</td>
+<td>Negative retained earnings, poor liquidity</td>
+<td>Ongoing operational challenges, no recovery signs</td>
 </tr>
 <tr>
-<td>Prior 7 Quarters</td>
+<td>Previous Quarters (Q1-Q7)</td>
 <td>0.23 - 0.49</td>
 <td>Distress</td>
-<td>Persistent low liquidity and profitability</td>
-<td>No recovery trend; sustained distress</td>
+<td>Consistently low working capital, weak EBIT</td>
+<td>Persistent financial distress, no inflection points</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-The Z-Score has remained consistently below 0.5 over eight quarters, well into the Distress Zone (&lt;1.8). This indicates chronic financial instability with no signs of recovery or inflection. The lack of working capital and negative retained earnings are primary drivers, compounded by low EBIT margins. The business operates in a capital-intensive telecom sector, where asset turnover and profitability are critical; DTEGY’s underperformance signals operational inefficiencies and financial strain.</p>
-<p>Compared to the telecom industry average Z-Score (typically &gt;2.5), DTEGY’s trajectory is alarming. No quarter shows improvement, suggesting that external factors (market competition, regulatory pressures) and internal issues (cost structure, debt burden) are weighing heavily.</p>
+- The Z-Score has remained <strong>consistently below 0.5 over eight quarters</strong>, firmly in the Distress Zone (&lt;1.8), indicating chronic financial instability.<br />
+- Key drivers such as working capital and retained earnings ratios remain negative or near zero, reflecting operational cash flow difficulties and accumulated losses.<br />
+- No upward trend or inflection points are observed, suggesting no effective turnaround or restructuring impact.<br />
+- Compared to the <strong>industry average Z-Score of ~3.2</strong>, DTEGY’s trajectory is significantly weaker, highlighting competitive disadvantage and elevated bankruptcy risk.<br />
+- The lack of component data (working capital/total assets, EBIT/total assets) limits granular driver analysis but overall trend is clear.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -663,30 +699,32 @@ The Z-Score has remained consistently below 0.5 over eight quarters, well into t
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Distress Zone (0.33)</td>
-<td>Price stable at $36.46, zero volatility</td>
-<td>Divergent</td>
-<td>Market not reflecting distress; possible data lag or illiquidity</td>
+<td>Persistently Distress (0.33)</td>
+<td>Price stable at $36.22, zero volatility</td>
+<td>Divergent (price stable, fundamentals weak)</td>
+<td>Potential market complacency or delayed reaction</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Negative implied</td>
-<td>Dividend yield 280% (anomaly), zero volume</td>
-<td>Inconsistent</td>
-<td>Market sentiment unclear; data anomalies reduce confidence</td>
+<td>Negative</td>
+<td>Dividend yield anomaly (280%)</td>
+<td>Inconsistent (yield likely data error)</td>
+<td>Market skepticism confirmed, caution advised</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry avg</td>
-<td>Sector performance stable</td>
 <td>Underperforming</td>
-<td>Competitive disadvantage; risk of market share loss</td>
+<td>Sector performance moderate</td>
+<td>Underperforming</td>
+<td>Weak competitive positioning</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-The fundamental distress indicated by the Z-Score is not mirrored by market price movement, which is stable but with zero volume and zero volatility, suggesting illiquidity or data reporting issues. The extraordinarily high dividend yield of 280% is likely a data anomaly or special event (e.g., special dividend, stock split), undermining market signal reliability.</p>
-<p>Analyst sentiment and institutional investor behavior appear muted or inconsistent, reducing confidence in market timing strategies. Peer comparison confirms DTEGY’s underperformance relative to sector averages, reinforcing fundamental concerns.</p>
+- The <strong>stock price ($36.22) and zero volatility</strong> contrast sharply with the distress Z-Score, indicating a possible market disconnect or data limitations in price movement metrics.<br />
+- The <strong>extreme dividend yield of 280%</strong> is likely an anomaly or unsustainable payout, signaling risk of dividend cuts or financial strain.<br />
+- Analyst sentiment aligns with fundamental distress, reinforcing a cautious investment stance.<br />
+- Peer comparison confirms DTEGY’s underperformance relative to sector peers, validating the Z-Score risk signals.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -705,29 +743,29 @@ The fundamental distress indicated by the Z-Score is not mirrored by market pric
 <td>High</td>
 <td>Critical</td>
 <td>Further Z-Score decline</td>
-<td>Cost restructuring, efficiency programs</td>
+<td>Cost restructuring, operational efficiency improvements</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Bankruptcy risk increase</td>
+<td>Potential bankruptcy</td>
 <td>Debt refinancing, capital injection</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Volatility spikes possible</td>
+<td>Price volatility, liquidity risk</td>
 <td>Hedging, diversification</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Successful restructuring improves EBIT ratio and working capital, lifting Z-Score above 1.8 within 12-18 months.<br />
-- <strong>Base Case:</strong> Status quo persists, Z-Score remains below 0.5, maintaining distress risk.<br />
-- <strong>Worst Case:</strong> Liquidity crisis triggers bankruptcy or forced asset sales, Z-Score falls below 0.2.</p>
-<p>Mitigation requires aggressive operational turnaround and financial restructuring. Given the critical severity and high probability of operational and financial risks, investors should prepare for high volatility and potential loss.</p>
+<p><strong>Scenario Planning:</strong><br />
+- <strong>Best Case:</strong> Operational turnaround and capital infusion improve liquidity and profitability, raising Z-Score above 1.8 within 12 months.<br />
+- <strong>Base Case:</strong> Status quo persists, Z-Score remains in distress zone, risk of default increases.<br />
+- <strong>Worst Case:</strong> Liquidity crisis triggers bankruptcy, Z-Score falls below 0.2, market capitalization erodes.</p>
+<p>Based on AI Risk Analysis with <strong>~90% confidence</strong>, the high probability and critical severity of operational and financial risks necessitate urgent mitigation.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -745,47 +783,50 @@ The fundamental distress indicated by the Z-Score is not mirrored by market pric
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>SELL</strong></td>
-<td>Z-Score 0.33 in Distress Zone; no recovery trend</td>
-<td>Avoid entry; exit if held</td>
+<td>SELL</td>
+<td>Z-Score 0.33 in Distress Zone; persistent decline</td>
+<td>Avoid entry; exit positions</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>SELL</strong></td>
-<td>Negative retained earnings; dividend yield anomaly</td>
-<td>Dividend sustainability doubtful</td>
-<td>Immediate</td>
+<td>HOLD/AVOID</td>
+<td>Dividend yield anomaly; negative retained earnings</td>
+<td>Monitor for dividend sustainability</td>
+<td>Short-term review</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>AVOID</strong></td>
-<td>Valuation unsupported by fundamentals; Z-Score critical</td>
-<td>Wait for Z-Score &gt;1.8</td>
-<td>Monitor quarterly</td>
+<td>SELL</td>
+<td>Valuation unsupported by fundamentals</td>
+<td>No clear entry point</td>
+<td>Avoid until recovery</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>AVOID</strong></td>
-<td>No growth signals; EBIT ratio low</td>
-<td>No momentum; avoid entry</td>
-<td>Monitor</td>
+<td>SELL</td>
+<td>No growth in Z-Score or EBIT margin</td>
+<td>No momentum</td>
+<td>Avoid</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>SPECULATIVE</strong></td>
-<td>High risk/reward; potential turnaround</td>
-<td>Enter only on clear catalyst</td>
-<td>Short-term, high risk</td>
+<td>AVOID</td>
+<td>High bankruptcy risk; volatile outlook</td>
+<td>High risk, no reward</td>
+<td>Avoid</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Rationale:</strong><br />
-Conservative and dividend investors should divest immediately due to critical distress signals and unreliable dividend data. Value and growth investors should avoid until clear operational improvements lift the Z-Score above 1.8. Aggressive investors may consider speculative positions only if credible restructuring or market catalysts emerge.</p>
+- The persistent distress Z-Score and negative financial ratios strongly advise against new investments or holding positions without clear recovery signals.<br />
+- Dividend investors should be cautious due to the anomalous 280% yield, likely unsustainable.<br />
+- Growth and value investors face poor operational and financial fundamentals, with no positive momentum.<br />
+- Conservative investors should divest to avoid capital erosion.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -801,29 +842,31 @@ Conservative and dividend investors should divest immediately due to critical di
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational turnaround</td>
-<td>EBIT Ratio (0.028), Asset Turnover (0.366)</td>
-<td>Implement cost reduction, improve service efficiency</td>
-<td>EBIT margin improvement, Z-Score &gt;1.8</td>
+<td>Financial turnaround</td>
+<td>Z-Score components, EBIT ratio</td>
+<td>Implement cost controls, operational restructuring</td>
+<td>Z-Score improvement &gt;1.8 within 12 months</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Financial restructuring</td>
-<td>Working Capital Ratio (0.006), Retained Earnings (-0.019)</td>
+<td>Liquidity &amp; solvency</td>
+<td>Current ratio, retained earnings</td>
 <td>Debt refinancing, capital raising</td>
-<td>Liquidity improvement, positive retained earnings</td>
+<td>Positive working capital, reduced leverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and compliance</td>
-<td>Z-Score trend, Risk factors</td>
-<td>Enhance governance, monitor risk mitigation</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Risk factors, financial ratios</td>
+<td>Enhanced monitoring, contingency planning</td>
 <td>Risk reduction, compliance adherence</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-The CEO must prioritize operational efficiency to improve profitability and asset utilization. The CFO should focus on liquidity and capital structure to stabilize finances. The Board must enforce rigorous risk management to prevent further deterioration. Coordinated leadership actions are critical to reversing the distress trajectory.</p>
+- The CEO must prioritize operational efficiency and cost management to reverse EBIT and asset turnover declines.<br />
+- The CFO should focus on liquidity restoration and capital structure optimization to mitigate bankruptcy risk.<br />
+- The Board must enforce rigorous risk management frameworks aligned with AI Risk Analysis themes to safeguard stakeholder interests.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -839,35 +882,38 @@ The CEO must prioritize operational efficiency to improve profitability and asse
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Flat, low (0.33)</td>
-<td>Stable to declining</td>
-<td>Operational turnaround, debt restructuring</td>
-<td>Quarterly Z-Score, EBIT ratio</td>
+<td>Stable low (0.33)</td>
+<td>Slight improvement possible if restructuring</td>
+<td>Debt refinancing, operational turnaround</td>
+<td>Quarterly Z-Score, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Weak, underperforming</td>
-<td>Potential stabilization if turnaround succeeds</td>
-<td>Competitive pricing, market share gains</td>
-<td>Market share, peer Z-Score</td>
+<td>Distressed</td>
+<td>Potential decline without intervention</td>
+<td>Competitive pressures, market shifts</td>
+<td>Market share, peer Z-Score trends</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Critical</td>
-<td>High risk persists</td>
-<td>Regulatory changes, macroeconomic shocks</td>
-<td>Liquidity ratios, debt covenants</td>
+<td>High</td>
+<td>Remains elevated</td>
+<td>Liquidity stress, dividend sustainability</td>
+<td>Liquidity ratios, dividend announcements</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-Without significant operational and financial restructuring, DTEGY’s Z-Score is unlikely to improve materially in the next 6-12 months. Key catalysts include successful cost-cutting, improved EBIT margins, and capital structure optimization. Investors should monitor leading indicators such as quarterly EBIT ratio changes, working capital improvements, and debt refinancing announcements to anticipate shifts in risk profile and investment viability.</p>
+- Without significant operational and financial restructuring, DTEGY’s Z-Score is unlikely to exit the distress zone in the next 6-12 months.<br />
+- Key catalysts for improvement include successful debt refinancing and operational efficiency gains.<br />
+- Continuous monitoring of liquidity ratios, EBIT margin, and dividend policy will provide early warning signals for risk escalation or recovery.<br />
+- Investors should track quarterly Z-Score updates and peer performance for timely decision-making.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Deutsche Telekom AG is currently in a <strong>critical financial distress state</strong> as evidenced by a persistently low Altman Z-Score (~0.33), poor liquidity (working capital ratio 0.006), negative retained earnings (-0.019), and low profitability (EBIT ratio 0.028). Market data anomalies and zero trading volume reduce confidence in market signals, while peer benchmarking confirms significant underperformance.</p>
-<p><strong>Investment action:</strong> Strong sell or avoid entry for most profiles, with speculative interest only if credible turnaround catalysts emerge. Executive leadership must urgently address operational inefficiencies and financial restructuring to improve the company’s solvency and market position.</p>
+<p>Deutsche Telekom AG exhibits <strong>critical financial distress</strong> as evidenced by a persistently low Altman Z-Score (0.33), poor liquidity (current ratio 0.006), negative retained earnings (-0.019), and weak operational efficiency (EBIT ratio 0.028). The company is significantly underperforming its telecommunications peers and faces high bankruptcy risk confirmed by AI Risk Analysis with 90% confidence. Market signals and sentiment align with these fundamentals, though price stability and anomalous dividend yield data suggest some market data inconsistencies.</p>
+<p><strong>Investment stance:</strong> Strong SELL recommendation for conservative, value, growth, and aggressive investors. Dividend investors should HOLD with caution pending dividend sustainability confirmation. Strategic focus must be on liquidity restoration, operational turnaround, and risk mitigation to improve the Z-Score and secure financial stability.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, market anomalies, and risk assessments to provide actionable investment intelligence.</em></p></div></div>
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial data, AI risk and sentiment analytics, and sector context for actionable investment intelligence.</em></p></div></div>
     </div>
     
 
@@ -1210,78 +1256,41 @@ Without significant operational and financial restructuring, DTEGY’s Z-Score i
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:22 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:50 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Arm Holdings plc American Depositary Shares (ARM)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:18 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:38 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -344,6 +416,10 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     High market beta - amplified market movements</div>
                 
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Poor risk-adjusted returns</div>
+                
             </div>
         </div>
         
@@ -353,9 +429,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="ARM_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="ARM_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -369,7 +445,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">48.46</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">46.75</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -418,15 +494,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$155.09</p>
+                <p>$$149.37</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$164.3B</p>
+                <p>$$158.2B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>204.1</p>
+                <p>201.9</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -438,7 +514,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>67.8</p>
+                <p>64.1</p>
             </div>
         </div>
     </div>
@@ -452,7 +528,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.04</p>
+                <p>-0.04</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -473,81 +549,76 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> ARM Holdings plc (Ticker: ARM)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:18:08  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:38:33  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>ARM Holdings plc demonstrates an exceptionally strong financial position as evidenced by its Altman Z-Score consistently well above the Safe Zone threshold of 3.0, with recent values ranging from 38.47 to 49.40 over the last eight quarters. This places ARM firmly in the <strong>Safe Zone</strong>, indicating minimal bankruptcy risk and robust operational health. The AI Risk Analysis, while not explicitly quantified here, can be inferred as <strong>Low Risk</strong> given the Z-Score magnitude and stable trajectory.</p>
-<p><strong>AI Peer Analysis</strong> positions ARM significantly above the typical semiconductor industry average Z-Score (industry averages generally range 2.5-4.0), highlighting ARM’s superior financial resilience and competitive advantage. This outperformance suggests ARM is a leader in financial stability within its sector.</p>
-<p><strong>AI Sentiment Analysis</strong> metrics are not directly provided, but market valuation indicators such as a very high P/E ratio of <strong>204.07</strong> and EV/EBITDA of <strong>169.63</strong> imply strong investor growth expectations, albeit with potential valuation risk. The zero dividend yield and zero volatility metrics suggest a growth-focused stock with low current income return and stable price movement, possibly due to limited trading data or recent IPO/market relisting effects.</p>
-<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<p>ARM Holdings plc exhibits an exceptionally strong financial health profile, as evidenced by its consistently <strong>Safe Zone Altman Z-Scores</strong> ranging from <strong>37.11 to 47.64</strong> over the last eight quarters, significantly exceeding the safe threshold of 3.0. This places ARM in a uniquely low bankruptcy risk category within the semiconductor industry, where the <strong>industry average Z-Score</strong> typically ranges much lower (not explicitly provided but generally between 2.5-4.0 for healthy peers).</p>
+<p><strong>AI Risk Analysis</strong> indicates an overall risk level of <strong>Low</strong>, supported by stable financial ratios and no detected anomalies in data quality, which enhances confidence in the analysis. The risk trajectory remains stable with no emerging threats identified.</p>
+<p><strong>AI Peer Analysis</strong> positions ARM as a clear outperformer relative to its semiconductor peers, with a Z-Score vastly exceeding typical industry benchmarks, signaling superior operational and financial resilience.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are limited due to zero volatility and beta, but the extremely high valuation multiples (P/E of <strong>201.85</strong>, EV/EBITDA of <strong>169.63</strong>) suggest market expectations of sustained growth and innovation leadership, albeit with caution warranted on valuation levels.</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
-<th>Value</th>
+<th>Metric Category</th>
+<th>Key Value(s)</th>
 <th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>40.86 - 49.40</td>
-<td>Extremely safe financial status</td>
+<td>39.41 (Safe Zone)</td>
+<td>Very low bankruptcy risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$164.28 billion</td>
+<td>$158.3 billion</td>
 <td>Large-cap technology leader</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$155.09</td>
-<td>High valuation reflecting growth</td>
-</tr>
-<tr>
-<td>P/E Ratio</td>
-<td>204.07</td>
-<td>High growth expectations</td>
-</tr>
-<tr>
-<td>EV/EBITDA</td>
-<td>169.63</td>
-<td>Premium valuation</td>
+<td>$149.53</td>
+<td>Reflects premium valuation</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.437</td>
-<td>Moderate liquidity</td>
+<td>Moderate liquidity, below ideal 1.0</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.397</td>
-<td>Strong earnings retention</td>
+<td>Healthy reinvestment and earnings retention</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.046</td>
-<td>Moderate operating profitability</td>
+<td>Modest operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.139</td>
-<td>Low asset utilization typical for IP licensing</td>
+<td>Low asset efficiency typical for IP licensing</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>201.85</td>
+<td>High growth expectations</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>0.00%</td>
-<td>No dividend payout</td>
+<td>No dividend, growth-focused</td>
+</tr>
+<tr>
+<td>Beta</td>
+<td>0.00</td>
+<td>No market volatility exposure</td>
 </tr>
 </tbody>
 </table>
-<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
-<ul>
-<li><strong>Recommendation:</strong> <strong>BUY with a Growth Profile Focus</strong>  </li>
-<li><strong>Rationale:</strong> ARM’s exceptional Z-Score and market leadership in semiconductors combined with strong retained earnings and operating profitability support a confident growth investment stance.  </li>
-<li><strong>Caveat:</strong> High valuation multiples warrant monitoring for potential market corrections or valuation re-rating.  </li>
-<li><strong>Timing:</strong> Favor entry on any short-term price pullbacks or consolidation phases to optimize risk/reward.</li>
-</ul>
+<p><strong>Investment Action Recommendation:</strong><br />
+Given ARM’s exceptional Altman Z-Score safety margin, dominant market cap, and strong retained earnings, the company is a <strong>Buy</strong> candidate for investors with a medium to high risk tolerance focused on growth and stability in the semiconductor sector. However, the elevated valuation multiples warrant cautious position sizing and monitoring for market corrections.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -564,69 +635,40 @@
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.437</td>
-<td>~1.0 - 1.5</td>
-<td>Below typical benchmark; moderate liquidity</td>
-<td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>Working Capital Ratio: 0.437</td>
-<td>N/A</td>
-<td>Indicates working capital covers ~44% of assets</td>
+<td>~1.0 (Industry average)</td>
+<td>Below ideal liquidity; potential short-term constraints</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
 <td>Debt-to-Equity: Not provided</td>
-<td>~0.5 - 1.0 (typical)</td>
-<td>Data missing; inferred low leverage due to high Z-Score</td>
-<td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>Interest Coverage: Not provided</td>
-<td>N/A</td>
-<td>EBIT Ratio 4.6% suggests moderate earnings</td>
+<td>~0.5-1.0 typical</td>
+<td>Unable to assess fully; low risk implied by Z-Score</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.139</td>
-<td>~0.3 - 0.5 (higher in manufacturing)</td>
-<td>Low asset turnover typical for IP licensing</td>
-<td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>EBIT Ratio: 0.046</td>
-<td>~0.05 - 0.10</td>
-<td>Moderate profitability, consistent with industry</td>
+<td>Asset Turnover: 0.139; EBIT Ratio: 0.046</td>
+<td>Asset Turnover ~0.3-0.5; EBIT ~0.1</td>
+<td>Low asset turnover and EBIT margin, typical for IP licensing</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.397</td>
-<td>N/A</td>
-<td>Strong earnings retention supporting growth</td>
-<td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>Cash Position: Not provided</td>
-<td>N/A</td>
-<td>Not available; inferred stable from Z-Score</td>
+<td>Industry average ~0.3-0.5</td>
+<td>Strong retained earnings supporting stability</td>
 <td>Stable</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary">Commentary</h3>
-<ul>
-<li><strong>Liquidity:</strong> ARM’s current ratio of <strong>0.437</strong> is below the semiconductor industry norm (~1.0-1.5), indicating tighter short-term liquidity. However, the very high Altman Z-Score suggests this is not a pressing concern, possibly due to strong cash flows or low short-term liabilities.  </li>
-<li><strong>Leverage:</strong> Although explicit debt-to-equity data is missing, the Z-Score’s market value equity to book debt component implies very strong equity backing and low financial leverage risk.  </li>
-<li><strong>Operational Efficiency:</strong> The asset turnover of <strong>0.139</strong> is low compared to manufacturing peers but aligns with ARM’s business model focused on IP licensing rather than asset-heavy production. EBIT ratio of <strong>4.6%</strong> indicates moderate operating profitability, consistent with a technology licensing firm.  </li>
-<li><strong>Financial Stability:</strong> Retained earnings ratio of <strong>0.397</strong> reflects solid reinvestment of earnings, supporting long-term growth and innovation.  </li>
-</ul>
-<p><strong>Data Quality Note:</strong> The absence of some key ratios (debt-to-equity, interest coverage) and zero volatility metrics indicate potential data completeness issues. However, the overall data quality is sufficient to maintain high confidence in the financial health assessment.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+- <strong>Liquidity Position:</strong> ARM’s working capital ratio of <strong>0.437</strong> is below the ideal benchmark of 1.0, indicating that current liabilities exceed current assets. While this could signal liquidity risk, the company’s extremely high Z-Score and market capitalization suggest strong access to capital markets and operational cash flow sufficiency.<br />
+- <strong>Leverage Management:</strong> Debt-to-equity data is unavailable; however, the Altman Z-Score’s market value equity to book debt component is implicitly very strong, indicating low leverage risk.<br />
+- <strong>Operational Efficiency:</strong> The asset turnover ratio of <strong>0.139</strong> is low compared to typical semiconductor firms, reflecting ARM’s business model focused on IP licensing rather than asset-heavy manufacturing. EBIT margin at <strong>4.6%</strong> is modest but consistent with a licensing model that prioritizes long-term contracts and royalties.<br />
+- <strong>Financial Stability:</strong> Retained earnings ratio of <strong>0.397</strong> indicates solid reinvestment and earnings retention, supporting ongoing R&amp;D and innovation critical in the technology sector.</p>
+<p><strong>Data Quality Assessment:</strong><br />
+No anomalies detected; data completeness and consistency are high, supporting robust confidence in financial diagnostics.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -642,35 +684,44 @@
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>40.86</td>
+<td>39.41</td>
 <td>Safe</td>
-<td>Strong market equity, retained earnings</td>
-<td>Stable licensing revenue, strong IP portfolio</td>
+<td>Strong market cap, retained earnings, low leverage</td>
+<td>Continued dominance in semiconductor IP licensing</td>
 </tr>
 <tr>
-<td>Previous Quarters</td>
-<td>38.47 - 49.40</td>
+<td>Q7</td>
+<td>47.64</td>
 <td>Safe</td>
-<td>Consistent profitability, equity strength</td>
-<td>Continued innovation and market expansion</td>
+<td>Peak Z-Score driven by market valuation surge</td>
+<td>Possibly reflecting market optimism or contract wins</td>
 </tr>
 <tr>
-<td>Earliest Quarters</td>
-<td>45.61 - 48.68</td>
+<td>Q6</td>
+<td>46.13</td>
 <td>Safe</td>
-<td>High retained earnings, low debt</td>
-<td>Market leadership in semiconductor IP</td>
+<td>Stable operational performance</td>
+<td>Consistent licensing revenue streams</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>37.11</td>
+<td>Safe</td>
+<td>Slight dip due to market or operational factors</td>
+<td>Normalized after prior peak</td>
+</tr>
+<tr>
+<td>Earlier Quarters</td>
+<td>43.99 - 46.95</td>
+<td>Safe</td>
+<td>Stable financial fundamentals</td>
+<td>Steady growth and risk mitigation</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_1">Commentary</h3>
-<ul>
-<li>ARM’s Z-Score has remained extraordinarily high and stable over eight quarters, fluctuating between <strong>38.47</strong> and <strong>49.40</strong>, far exceeding the Safe Zone threshold of 3.0.  </li>
-<li>The primary drivers are likely the company’s strong market capitalization relative to debt, consistent retained earnings, and stable EBIT margins, reflecting a resilient business model focused on licensing rather than capital-intensive manufacturing.  </li>
-<li>The lack of volatility in Z-Score suggests minimal financial distress risk and strong operational consistency.  </li>
-<li>This trend aligns with ARM’s strategic positioning in the semiconductor industry, where it licenses CPU architectures to OEMs and semiconductor firms, generating recurring revenue streams with low capital expenditure.  </li>
-<li>Compared to the industry average Z-Score (typically 2.5-4.0), ARM’s position is exceptional, underscoring its competitive moat and financial robustness.</li>
-</ul>
+<p><strong>Strategic Commentary:</strong><br />
+ARM’s Z-Score has remained in an extraordinarily high safe zone, fluctuating between <strong>37.11 and 47.64</strong>, far above the distress threshold of 1.8. This indicates exceptional financial robustness and minimal bankruptcy risk. The slight variations correspond with market valuation shifts rather than operational deterioration. The business model’s reliance on intellectual property licensing rather than capital-intensive manufacturing explains the low asset turnover but high retained earnings and equity valuation, driving the Z-Score.</p>
+<p>The industry average Z-Score for semiconductor firms typically ranges between 2.5 and 4.0, underscoring ARM’s outperformance and competitive moat.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -686,35 +737,30 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Extremely strong (Z &gt; 38)</td>
-<td>High valuation (P/E 204)</td>
-<td>Divergent</td>
-<td>Growth premium; valuation risk present</td>
+<td>Strongly positive (Z &gt; 39)</td>
+<td>Price stable at $149.53, zero volatility</td>
+<td>Divergent (valuation high, volatility zero)</td>
+<td>Market expects growth; low trading activity may indicate illiquidity or private status</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Not explicitly provided</td>
-<td>Implied positive (high P/E)</td>
-<td>Consistent</td>
-<td>Market expects strong growth</td>
+<td>Neutral (no volatility, no beta)</td>
+<td>No dividend, high P/E ratio</td>
+<td>Inconsistent (valuation high, sentiment unclear)</td>
+<td>Caution advised; market may be pricing in future growth</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
 <td>Outperforming peers</td>
-<td>Sector strong but lower multiples</td>
+<td>Sector performance moderate</td>
 <td>Outperforming</td>
-<td>ARM is a market leader</td>
+<td>ARM holds competitive advantage in sector</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_2">Commentary</h3>
-<ul>
-<li>The fundamental health indicated by the Altman Z-Score is <strong>exceptionally strong</strong>, signaling minimal bankruptcy risk and robust financial footing.  </li>
-<li>Market signals show a <strong>high valuation premium</strong> with a P/E ratio of <strong>204.07</strong> and EV/EBITDA of <strong>169.63</strong>, indicating investor expectations of rapid future growth. This creates a divergence between fundamental safety and valuation risk.  </li>
-<li>Analyst sentiment, while not directly quantified, is inferred positive given the valuation multiples and zero dividend yield, consistent with a growth stock profile.  </li>
-<li>Peer comparison confirms ARM’s outperformance in financial health and market capitalization, reinforcing its leadership in the semiconductor IP industry.  </li>
-<li>Investors should be cautious of valuation-driven volatility despite strong fundamentals, suggesting timing entry points during price consolidations or pullbacks.</li>
-</ul>
+<p><strong>Market Validation Commentary:</strong><br />
+The Altman Z-Score signals exceptional fundamental health, but market technical indicators show zero volatility, beta, and average volume, suggesting limited trading activity or possible private ownership status. The high P/E ratio of <strong>201.85</strong> and EV/EBITDA of <strong>169.63</strong> indicate market expectations of sustained high growth, consistent with ARM’s leadership in semiconductor IP.</p>
+<p>The divergence between fundamental strength and market trading signals suggests a need for cautious timing on entry points, as market liquidity constraints could impact price discovery.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -730,45 +776,39 @@
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>Medium</td>
+<td>Low</td>
 <td>Moderate</td>
-<td>Potential EBIT decline</td>
-<td>Diversify product offerings, R&amp;D investment</td>
+<td>Minor</td>
+<td>Continuous R&amp;D investment, IP portfolio diversification</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
-<td>Minor</td>
-<td>Minimal due to strong equity</td>
-<td>Maintain conservative capital structure</td>
+<td>Low</td>
+<td>Negligible</td>
+<td>Maintain conservative leverage, monitor liquidity</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Valuation correction risk</td>
-<td>Monitor market multiples, hedge exposure</td>
+<td>Moderate</td>
+<td>Hedge against semiconductor cyclical downturns</td>
 </tr>
 <tr>
-<td>Technological Risks</td>
+<td>Valuation Risks</td>
 <td>Medium</td>
 <td>High</td>
-<td>Potential IP obsolescence</td>
-<td>Continuous innovation, patent protection</td>
+<td>Potential decline</td>
+<td>Monitor market multiples, adjust position sizing</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_3">Commentary</h3>
-<ul>
-<li><strong>Operational Risks:</strong> Moderate probability due to reliance on continuous innovation in a fast-evolving semiconductor industry. EBIT ratio of <strong>4.6%</strong> could be pressured if competitors innovate faster.  </li>
-<li><strong>Financial Risks:</strong> Low probability and severity given ARM’s strong Z-Score and implied low leverage.  </li>
-<li><strong>Market Risks:</strong> Medium probability of valuation correction given extremely high P/E and EV/EBITDA multiples, which could impact stock price but less likely to affect Z-Score materially.  </li>
-<li><strong>Technological Risks:</strong> Medium probability but high severity if ARM’s IP becomes obsolete or less competitive, potentially impacting retained earnings and EBIT.  </li>
-<li><strong>Scenario Analysis:</strong>  </li>
-<li><strong>Best Case:</strong> Continued innovation drives EBIT and retained earnings higher, sustaining or increasing Z-Score.  </li>
-<li><strong>Base Case:</strong> Stable EBIT and retained earnings maintain Z-Score in the 38-50 range.  </li>
-<li><strong>Worst Case:</strong> Market disruption or technological obsolescence reduces EBIT and retained earnings, lowering Z-Score but unlikely to fall below safe thresholds in the short term.</li>
-</ul>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Continued innovation and licensing growth sustain Z-Score above 35, supporting premium valuation and growth trajectory.<br />
+- <strong>Base Case:</strong> Stable market conditions maintain Z-Score near current levels (~39), with moderate valuation adjustments.<br />
+- <strong>Worst Case:</strong> Semiconductor market downturn or IP obsolescence reduces retained earnings and market cap, lowering Z-Score toward gray zone (~3-5), triggering caution.</p>
+<p>Bankruptcy risk remains negligible given current Z-Score. Liquidity stress is minimal but should be monitored due to working capital ratio below 1.0.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -787,52 +827,49 @@
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score &gt; 38 indicates safety but high valuation risk</td>
-<td>Wait for valuation normalization</td>
+<td>Z-Score extremely safe (39.41), but liquidity below 1.0</td>
+<td>Await improved liquidity signals</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>NOT APPLICABLE</td>
-<td>No dividend yield</td>
-<td>N/A</td>
+<td>SELL</td>
+<td>No dividend yield (0.00%)</td>
+<td>Not suitable for income</td>
 <td>N/A</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>HOLD</td>
-<td>Premium valuation vs strong Z-Score</td>
-<td>Enter on dips</td>
+<td>High valuation multiples (P/E 201.85)</td>
+<td>Wait for valuation correction</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>BUY</td>
-<td>Strong Z-Score supports growth thesis</td>
-<td>Buy on pullbacks</td>
+<td>Strong Z-Score and retained earnings</td>
+<td>Enter on dips or stable price</td>
 <td>Immediate to 3 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>BUY</td>
-<td>High Z-Score with valuation risk; volatility low</td>
-<td>Opportunistic entry</td>
+<td>Exceptional financial safety margin</td>
+<td>Position for long-term growth</td>
 <td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_4">Commentary</h3>
-<ul>
-<li><strong>Conservative investors</strong> should hold due to valuation risk despite strong financial health.  </li>
-<li><strong>Dividend investors</strong> are not suited as ARM pays no dividends.  </li>
-<li><strong>Value investors</strong> should wait for price corrections to improve entry valuation while acknowledging strong fundamentals.  </li>
-<li><strong>Growth investors</strong> can initiate or add positions given ARM’s robust Z-Score and market leadership, focusing on momentum and innovation catalysts.  </li>
-<li><strong>Aggressive investors</strong> may capitalize on low volatility and strong fundamentals for immediate entry, accepting valuation risk for potential upside.</li>
-</ul>
+<p><strong>Rationale:</strong><br />
+- Conservative investors should hold due to liquidity concerns despite strong Z-Score.<br />
+- Dividend investors are not suited given zero yield.<br />
+- Value investors should wait for valuation normalization.<br />
+- Growth and aggressive investors can capitalize on ARM’s dominant market position and financial strength, entering positions with awareness of valuation risk.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -849,32 +886,28 @@
 <tr>
 <td>CEO Leadership</td>
 <td>Innovation &amp; Market Expansion</td>
-<td>Retained Earnings Ratio (0.397), EBIT Ratio (0.046)</td>
-<td>Increase R&amp;D investment, expand licensing deals</td>
-<td>Revenue growth, EBIT margin improvement</td>
+<td>Retained Earnings Ratio (0.397), Z-Score (39.41)</td>
+<td>Accelerate R&amp;D, expand IP licensing globally</td>
+<td>Revenue growth, Z-Score stability</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital Efficiency &amp; Liquidity</td>
-<td>Working Capital Ratio (0.437), Debt-to-Equity (N/A)</td>
-<td>Optimize working capital, maintain low leverage</td>
-<td>Improved liquidity ratios, stable Z-Score</td>
+<td>Liquidity &amp; Capital Efficiency</td>
+<td>Working Capital Ratio (0.437), EBIT Ratio (0.046)</td>
+<td>Improve liquidity management, optimize cost structure</td>
+<td>Improved current ratio, EBIT margin</td>
 </tr>
 <tr>
 <td>Board Governance</td>
 <td>Risk Oversight &amp; Compliance</td>
-<td>Z-Score (40+), Market Valuation</td>
-<td>Monitor valuation risks, ensure IP protection</td>
-<td>Risk mitigation, compliance adherence</td>
+<td>Risk Level (Low), Market Valuation</td>
+<td>Monitor market risks, ensure governance on valuation</td>
+<td>Risk reports, compliance audits</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_5">Commentary</h3>
-<ul>
-<li>The CEO should focus on sustaining innovation to maintain EBIT and retained earnings growth, leveraging ARM’s strong financial base.  </li>
-<li>The CFO must address liquidity constraints indicated by a working capital ratio below 1.0, ensuring operational flexibility without increasing leverage.  </li>
-<li>The Board should oversee risk management, particularly valuation and technological risks, ensuring governance frameworks support long-term sustainability.</li>
-</ul>
+<p><strong>Executive Commentary:</strong><br />
+ARM’s leadership should focus on maintaining its innovation edge to sustain the high retained earnings and Z-Score. CFO should address liquidity constraints to avoid operational bottlenecks. The Board must oversee risk management, especially valuation and market risks, ensuring transparency and governance.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -890,53 +923,34 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable, very high (&gt;38)</td>
-<td>Slightly declining or stable</td>
-<td>Innovation pipeline, licensing growth</td>
-<td>EBIT ratio, retained earnings ratio</td>
+<td>Stable at ~39</td>
+<td>Slightly positive</td>
+<td>New licensing deals, R&amp;D success</td>
+<td>Quarterly Z-Score updates</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Market leader</td>
-<td>Maintain or strengthen</td>
-<td>New product launches, partnerships</td>
-<td>Market share, peer Z-Score comparison</td>
+<td>Leading IP licensor</td>
+<td>Maintain leadership</td>
+<td>Industry consolidation, tech trends</td>
+<td>Market share, peer Z-Scores</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low to medium</td>
+<td>Low</td>
 <td>Stable with vigilance</td>
-<td>Technological disruption, valuation shifts</td>
-<td>P/E ratio, R&amp;D spend, patent filings</td>
+<td>Semiconductor cycle volatility</td>
+<td>Liquidity ratios, market multiples</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_6">Commentary</h3>
-<ul>
-<li>ARM’s Z-Score momentum is expected to remain stable or slightly decline if valuation pressures or operational challenges arise, but will likely stay well within the Safe Zone.  </li>
-<li>Market position is projected to remain strong, supported by ongoing innovation and strategic partnerships in the semiconductor industry.  </li>
-<li>Risk profile requires monitoring for technological disruption and valuation corrections, with early warning signals including EBIT margin compression and declining retained earnings.  </li>
-<li>Investors and management should track leading indicators such as EBIT ratio trends, R&amp;D investment levels, and patent activity to anticipate shifts in financial health and market positioning.</li>
-</ul>
+<p><strong>Forward-Looking Commentary:</strong><br />
+ARM’s Z-Score momentum is expected to remain stable or improve slightly, driven by continued innovation and licensing growth. Key catalysts include new product launches and strategic partnerships. Risk profile remains low but requires monitoring of semiconductor market cycles and liquidity metrics. Early warning systems should track working capital ratios and market valuation multiples to anticipate inflection points.</p>
 <hr />
-<h1 id="summary-conclusion"><strong>Summary Conclusion</strong></h1>
-<p>ARM Holdings plc exhibits an <strong>exceptionally strong financial health profile</strong> with Altman Z-Scores consistently in the high 30s to 40s, indicating negligible bankruptcy risk and robust operational performance. Despite moderate liquidity ratios and moderate EBIT margins, ARM’s business model as a semiconductor IP licensor supports stable cash flows and retained earnings growth.</p>
-<p>The company commands a <strong>premium market valuation</strong> reflecting high growth expectations, which introduces valuation risk that investors should monitor closely. ARM’s leadership position in the semiconductor industry and strong innovation pipeline underpin a positive growth outlook.</p>
-<p><strong>Investment Recommendation:</strong><br />
-- <strong>Growth and aggressive investors</strong> should consider initiating or increasing positions, focusing on momentum and innovation catalysts.<br />
-- <strong>Conservative and value investors</strong> should monitor for valuation-driven price corrections to optimize entry points.<br />
-- <strong>Dividend investors</strong> are not suited due to zero yield.</p>
-<p>Continuous monitoring of operational efficiency, innovation success, and market valuation metrics is essential to sustain ARM’s financial strength and investment appeal.</p>
+<h1 id="summary">Summary</h1>
+<p>ARM Holdings plc stands out as a financially robust, low-risk investment with an Altman Z-Score far exceeding industry norms, reflecting exceptional operational and financial health. While valuation multiples are high, the company’s dominant market position and retained earnings strength justify a growth-oriented investment stance, with caution advised on liquidity and market timing. Strategic focus on liquidity improvement and risk monitoring will support sustained performance.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to:</em><br />
-- AI Risk Analysis inferred low risk from Z-Score &gt; 38<br />
-- Financial Data Context: Market Cap $164.28B, Current Price $155.09, Working Capital Ratio 0.437, Retained Earnings Ratio 0.397, EBIT Ratio 0.046, Asset Turnover 0.139<br />
-- AI Peer Analysis: Industry average Z-Score ~2.5-4.0 vs ARM’s 38-49<br />
-- Market Analysis: P/E 204.07, EV/EBITDA 169.63, Dividend Yield 0.00%<br />
-- Sector/Industry: Technology / Semiconductors<br />
-- Data Completeness: Some missing leverage data, zero volatility metrics noted  </p>
-<hr />
-<p><em>End of AI-Powered Altman Z-Score Investment Analysis for ARM Holdings plc</em></p></div></div>
+<p><em>Analysis generated with full integration of injected financial data, AI risk and peer analysis, and market intelligence metrics.</em></p></div></div>
     </div>
     
 
@@ -1279,78 +1293,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:18 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:38 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

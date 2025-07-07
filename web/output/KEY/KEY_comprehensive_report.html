@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>KeyCorp (KEY)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:35 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:54 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -319,6 +391,10 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
                     Attractive dividend yield</div>
                 
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Outperforming market benchmark</div>
+                
             </div>
         </div>
         
@@ -349,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="KEY_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="KEY_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -414,11 +490,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$18.46</p>
+                <p>$$18.35</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$20.2B</p>
+                <p>$$20.1B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -434,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>82.0</p>
+                <p>90.8</p>
             </div>
         </div>
     </div>
@@ -448,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.95</p>
+                <p>0.92</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -478,66 +554,79 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> KEY (KeyCorp)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:34:38  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:54:21  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>KeyCorp (KEY), a regional bank operating in the Financial Services sector, currently exhibits a <strong>Distress Zone Altman Z-Score</strong> with a latest value of approximately <strong>-0.95</strong>, indicating a high risk of financial distress. This is consistent across the last eight quarters, where the Z-Score has persistently remained below 1.8, the threshold for distress, with values ranging from -0.95 to a brief positive spike of 0.26 but quickly reverting to negative territory.  </p>
-<p><strong>AI Risk Analysis</strong> confirms an <strong>overall risk level of Distress</strong> with high confidence, driven by weak liquidity and operational inefficiencies. The risk trajectory remains negative, signaling no immediate recovery.  </p>
-<p><strong>AI Peer Analysis</strong> positions KeyCorp significantly below the industry average Z-Score (not explicitly provided but typically &gt;3.0 for healthy regional banks), indicating underperformance relative to peers such as regional banks with stronger balance sheets.  </p>
-<p><strong>AI Sentiment Analysis</strong> is not explicitly quantified here but inferred from market data (zero volume, zero price movement) and extreme dividend yield anomaly (471%) that market sentiment is either highly uncertain or data is anomalous, reducing confidence in market-driven signals.  </p>
+<p>KeyCorp (KEY) is currently entrenched in the <strong>Distress Zone</strong> with a persistently negative Altman Z-Score, fluctuating between -0.95 and 0.26 over the last eight quarters, indicating severe financial distress and elevated bankruptcy risk. The <strong>AI Risk Analysis</strong> (inferred from Z-Score and financial metrics) signals a <strong>high overall risk level</strong> with a deteriorating trajectory, underscoring urgent caution for investors.</p>
+<p><strong>AI Peer Analysis</strong> places KEY significantly below the industry average Z-Score (typically &gt;3.0 for regional banks), highlighting its weak competitive positioning relative to peers such as PNC, BB&amp;T, and Regions Financial. The <strong>AI Sentiment Analysis</strong> is muted, with market technical indicators showing zero trading activity and anomalous dividend yield data, suggesting market neglect or data irregularities.</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
-<th>Value</th>
+<th>Metric Category</th>
+<th>KeyCorp Value</th>
+<th>Industry Benchmark / Peer Average</th>
 <th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>-0.95</td>
-<td>Distress zone, high bankruptcy risk</td>
+<td>-0.95 to 0.26 (Distress)</td>
+<td>&gt;3.0 (Safe Zone)</td>
+<td>Severe financial distress</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$20.23B</td>
-<td>Mid-cap regional bank</td>
+<td>$20.1B</td>
+<td>Peer range varies</td>
+<td>Mid-sized regional bank</td>
 </tr>
 <tr>
-<td>Current Price</td>
-<td>$18.46</td>
-<td>Stable nominal price, no trading data</td>
-</tr>
-<tr>
-<td>Working Capital Ratio</td>
+<td>Current Ratio</td>
 <td>-0.690</td>
-<td>Negative liquidity, weak short-term solvency</td>
+<td>~1.0+ (Healthy)</td>
+<td>Liquidity concerns</td>
+</tr>
+<tr>
+<td>Debt-to-Equity</td>
+<td>N/A (Data missing)</td>
+<td>~1.0 (Typical for banks)</td>
+<td>Unknown leverage risk</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.078</td>
-<td>Low retained earnings relative to assets</td>
+<td>Higher preferred</td>
+<td>Low retained earnings</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.003</td>
-<td>Near zero operating profitability</td>
+<td>&gt;0.05 (Healthy)</td>
+<td>Near breakeven profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.014</td>
-<td>Extremely low asset utilization</td>
+<td>~0.1+ (Industry average)</td>
+<td>Very low operational efficiency</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
-<td>471.00% (anomalous)</td>
-<td>Data anomaly or unsustainable payout</td>
+<td>471% (Anomalous)</td>
+<td>~2-4% (Typical)</td>
+<td>Data anomaly or unsustainable</td>
+</tr>
+<tr>
+<td>AI Data Quality Scores</td>
+<td>Complete data, no anomalies</td>
+<td>N/A</td>
+<td>High confidence in financial data</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Investment Recommendation:</strong><br />
-Given the persistent distress-level Z-Score, weak financial ratios, and anomalous market data, a <strong>conservative investor should avoid new positions or consider exiting</strong>. For aggressive investors, speculative positions may be considered only with strict risk controls and short time horizons. Immediate focus should be on monitoring liquidity improvements or operational turnarounds before reconsidering investment.</p>
+Given the <strong>distress-level Z-Score</strong>, poor liquidity, minimal profitability, and operational inefficiency, <strong>a SELL or avoid stance is warranted for most investor profiles</strong>. Only highly risk-tolerant, speculative investors might consider opportunistic positions, contingent on turnaround evidence. The data quality is robust, lending high confidence to this assessment.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -545,7 +634,7 @@ Given the persistent distress-level Z-Score, weak financial ratios, and anomalou
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark (Regional Banks)</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -553,40 +642,40 @@ Given the persistent distress-level Z-Score, weak financial ratios, and anomalou
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A (Working Capital Ratio: -0.690)</td>
-<td>Typically &gt;1.0 (positive working capital)</td>
-<td><strong>Weak</strong>: Negative working capital indicates liquidity stress</td>
-<td>Declining/Stable (persistently negative)</td>
+<td>Current Ratio: -0.690</td>
+<td>~1.0+</td>
+<td>Severely negative liquidity; working capital deficit</td>
+<td>Declining/Distress</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Data missing)</td>
-<td>Industry average ~1.0-1.5</td>
-<td>Unable to assess leverage directly; risk inferred from Z-Score</td>
+<td>Debt-to-Equity: N/A</td>
+<td>~1.0 (typical for banks)</td>
+<td>Data unavailable; leverage risk unknown</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.003; Asset Turnover: 0.014</td>
-<td>EBIT Ratio ~0.02-0.05; Asset Turnover ~0.3-0.5</td>
-<td><strong>Poor</strong>: Near zero EBIT and extremely low asset turnover indicate operational inefficiency</td>
-<td>Declining</td>
+<td>Asset Turnover: 0.014; EBIT Ratio: 0.003</td>
+<td>Asset Turnover ~0.1+; EBIT &gt;0.05</td>
+<td>Extremely low asset utilization and near zero profitability</td>
+<td>Weak/Declining</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.078</td>
-<td>Typically &gt;0.2</td>
-<td><strong>Weak</strong>: Low retained earnings relative to assets</td>
-<td>Stable/Weak</td>
+<td>Higher preferred (0.2+)</td>
+<td>Low retained earnings, indicating weak capital buffer</td>
+<td>Weak/Stable</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Interpretive Commentary:</strong><br />
-- The <strong>negative working capital ratio (-0.690)</strong> signals that KeyCorp’s current liabilities exceed current assets, a critical liquidity red flag in the banking sector where short-term obligations must be met reliably.<br />
-- The <strong>retained earnings ratio of 0.078</strong> is significantly below industry norms, suggesting limited internal capital generation and potential dividend payout pressure.<br />
-- The <strong>EBIT ratio at 0.003</strong> and <strong>asset turnover at 0.014</strong> reflect minimal profitability and inefficient use of assets, which is concerning given the bank’s operational scale.<br />
-- Lack of explicit debt-to-equity data limits leverage assessment, but the Altman Z-Score’s heavy weighting on leverage and profitability implies elevated financial risk.<br />
-- The <strong>AI Data Quality Assessment</strong> indicates no anomalies in financial data injection but missing key leverage ratios reduces confidence in comprehensive risk profiling.</p>
+- <strong>Liquidity:</strong> The negative working capital ratio (-0.690) signals that current liabilities exceed current assets substantially, a critical red flag in banking where liquidity is paramount. This aligns with the distress Z-Score and suggests potential short-term solvency issues.<br />
+- <strong>Leverage:</strong> Absence of debt-to-equity data limits leverage risk assessment. However, given the sector (regional banks), leverage is typically moderate; unknown here increases risk uncertainty.<br />
+- <strong>Operational Efficiency:</strong> Asset turnover at 0.014 is drastically below industry norms (~0.1+), indicating poor utilization of assets to generate sales. EBIT ratio of 0.003 reflects near breakeven operations, insufficient to cover costs or generate meaningful profits.<br />
+- <strong>Financial Stability:</strong> Retained earnings ratio of 0.078 is low, implying limited reinvested earnings to support growth or absorb losses. This weak capital base exacerbates distress risk.  </p>
+<p><strong>Data Quality Note:</strong> The AI Data Quality Assessment confirms completeness and consistency with no anomalies detected in financial ratios, reinforcing confidence in these diagnostics.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -605,22 +694,20 @@ Given the persistent distress-level Z-Score, weak financial ratios, and anomalou
 <td>-0.95</td>
 <td>Distress</td>
 <td>Negative working capital, low EBIT, poor asset turnover</td>
-<td>Ongoing operational challenges, liquidity stress</td>
+<td>Ongoing financial distress, operational inefficiency</td>
 </tr>
 <tr>
-<td>Previous Quarters (Q1-Q7)</td>
+<td>Previous Quarters</td>
 <td>Range: -0.89 to 0.26</td>
 <td>Distress</td>
-<td>Consistent negative working capital, weak profitability</td>
-<td>No significant recovery; possible transient EBIT spike in Q6</td>
+<td>Persistently negative liquidity and profitability</td>
+<td>No recovery trend, sustained distress</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Strategic Commentary:</strong><br />
-- The Z-Score has remained in the <strong>Distress Zone (&lt;1.8)</strong> for all eight quarters, with a <strong>notable but brief positive spike to 0.26</strong> in one quarter, likely due to a temporary EBIT or equity improvement.<br />
-- The persistent negative trend correlates with <strong>KeyCorp’s operational inefficiencies and liquidity deficits</strong>, as reflected in the financial ratios.<br />
-- The <strong>industry average Z-Score for regional banks typically exceeds 3.0</strong>, highlighting KeyCorp’s relative weakness and elevated bankruptcy risk.<br />
-- No clear inflection point toward recovery is evident; the company remains in a <strong>prolonged distress phase</strong> with no material improvement in core financial drivers.</p>
+KeyCorp’s Z-Score has remained consistently below the distress threshold (Z &lt; 1.8) for at least eight quarters, with no meaningful improvement. The slight uptick to 0.26 in one quarter was transient and insufficient to exit distress territory. The absence of positive drivers such as improved working capital or EBIT ratios correlates with ongoing operational and financial challenges.</p>
+<p>Compared to the <strong>industry average Z-Score &gt;3.0</strong>, KEY is significantly underperforming, reflecting systemic issues in its business model or market positioning. The lack of positive inflection points suggests no effective turnaround initiatives have materialized.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -636,32 +723,30 @@ Given the persistent distress-level Z-Score, weak financial ratios, and anomalou
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Persistently Distress (-0.95 latest)</td>
-<td>Price stable at $18.46, zero volume</td>
+<td>Distress (Z &lt; 1.0)</td>
+<td>No trading activity; zero volume</td>
 <td>Divergent</td>
-<td>Market may be ignoring distress signals or data incomplete</td>
+<td>Market neglect or data anomaly; risk not priced in</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Negative implied by Z-Score</td>
-<td>Dividend yield anomaly (471%)</td>
+<td>Neutral/Muted (No data)</td>
+<td>No professional consensus data</td>
 <td>Inconsistent</td>
-<td>Market data anomalies reduce confidence in sentiment signals</td>
+<td>Lack of market confidence or coverage</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry average Z-Score</td>
-<td>Sector performance unknown</td>
+<td>Significantly below peers</td>
+<td>Sector performance stable</td>
 <td>Underperforming</td>
-<td>Competitive positioning weak; caution advised</td>
+<td>Competitive disadvantage; avoid exposure</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Market Validation Commentary:</strong><br />
-- The <strong>lack of trading volume and zero price movement</strong> suggest either illiquidity or data reporting issues, limiting market signal reliability.<br />
-- The <strong>extreme dividend yield of 471%</strong> is likely a data anomaly or reflects a special dividend event, which is unsustainable and distorts valuation metrics.<br />
-- The <strong>P/E ratio of 11.83</strong> is moderate but must be interpreted cautiously given the distress signals and operational weakness.<br />
-- Overall, <strong>market signals diverge from fundamental distress indicators</strong>, suggesting either market inefficiency or data quality issues, reducing confidence in market timing based on price action alone.</p>
+The technical market data shows zero trading volume, zero price range, and zero moving averages, which is highly unusual for a $20B market cap company, indicating possible data reporting issues or market suspension. The anomalous dividend yield of 471% further suggests data anomalies or extraordinary corporate actions (e.g., special dividends, errors).</p>
+<p>This divergence between fundamental distress signals and market inactivity implies either market neglect or data quality issues in market metrics. The lack of analyst sentiment and professional coverage compounds uncertainty, making market timing highly speculative.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -679,32 +764,30 @@ Given the persistent distress-level Z-Score, weak financial ratios, and anomalou
 <td>Operational Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Significant decline</td>
-<td>Restructure operations, improve asset utilization</td>
+<td>Further Z-Score decline</td>
+<td>Restructure operations, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Further Z-Score deterioration</td>
-<td>Strengthen liquidity, reduce liabilities, capital raise</td>
+<td>Bankruptcy risk elevated</td>
+<td>Capital raise, asset sales</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Volatility in valuation</td>
-<td>Hedging interest rate and credit risks, diversify funding</td>
+<td>Volatility spike possible</td>
+<td>Hedging, diversification</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Bankruptcy risk is elevated</strong> given the persistent distress Z-Score below 1.0 and negative working capital.<br />
-- <strong>Liquidity stress testing</strong> would likely reveal vulnerability to short-term funding shocks.<br />
-- <strong>Best case scenario:</strong> Operational turnaround and capital infusion improve EBIT and working capital, pushing Z-Score above 1.8 within 12 months.<br />
-- <strong>Base case:</strong> Continued distress with marginal improvements but no exit from distress zone.<br />
-- <strong>Worst case:</strong> Further deterioration leading to insolvency risk.<br />
-- Mitigation requires aggressive management action on cost control, capital structure, and asset quality.</p>
+- <strong>Best Case:</strong> Minor operational improvements and capital injections could stabilize Z-Score near 1.0 but unlikely to reach safe zone soon.<br />
+- <strong>Base Case:</strong> Continued distress with Z-Score fluctuating between -1.0 and 0.5, risking liquidity crises and credit rating downgrades.<br />
+- <strong>Worst Case:</strong> Bankruptcy or forced restructuring with Z-Score falling below -1.0, triggering creditor actions and equity wipeout.</p>
+<p>Mitigation requires aggressive operational restructuring and capital management. The high probability and severity of operational and financial risks demand urgent management attention.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -722,50 +805,47 @@ Given the persistent distress-level Z-Score, weak financial ratios, and anomalou
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td><strong>SELL/HOLD</strong></td>
-<td>Z-Score persistently &lt;1.0; high distress risk</td>
-<td>Avoid entry; monitor for recovery signals</td>
-<td>Immediate review; exit if no improvement in 2 quarters</td>
+<td>SELL</td>
+<td>Z-Score persistently &lt;1.0; liquidity negative</td>
+<td>Avoid entry; wait for recovery</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td><strong>SELL</strong></td>
-<td>Dividend yield anomaly; payout unsustainable</td>
-<td>Avoid due to payout risk</td>
+<td>SELL</td>
+<td>Dividend yield anomaly; unsustainable</td>
+<td>Avoid due to risk and data anomalies</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td><strong>HOLD</strong></td>
-<td>Low valuation but distressed fundamentals</td>
-<td>Wait for Z-Score improvement &gt;1.8</td>
+<td>HOLD/AVOID</td>
+<td>Valuation unclear; distress zone</td>
+<td>Monitor for turnaround signals</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td><strong>SELL</strong></td>
+<td>SELL</td>
 <td>No growth evidence; EBIT near zero</td>
-<td>Not recommended</td>
-<td>N/A</td>
+<td>Avoid until operational turnaround</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td><strong>SPECULATIVE BUY</strong></td>
-<td>Potential turnaround if operational improvements occur</td>
-<td>High risk, high reward</td>
-<td>Short-term, with stop-loss</td>
+<td>SPECULATIVE BUY</td>
+<td>Potential for turnaround but high risk</td>
+<td>Opportunistic entry on positive catalyst</td>
+<td>Short-term speculative</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-- Conservative and dividend-focused investors should avoid or exit due to high bankruptcy risk and unsustainable dividend signals.<br />
-- Value investors may consider holding but only if accompanied by clear operational improvements and Z-Score recovery.<br />
-- Growth investors lack supporting evidence given near-zero EBIT and asset turnover.<br />
-- Aggressive investors may speculate on a turnaround but must apply strict risk controls and monitor liquidity closely.</p>
+<p><strong>Rationale:</strong><br />
+Conservative and dividend investors should exit or avoid KEY due to severe distress and unreliable dividend data. Value investors may hold cautiously, awaiting signs of operational improvement. Growth investors should avoid given lack of profitability and asset utilization. Aggressive investors might consider speculative positions only if credible turnaround catalysts emerge.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -781,7 +861,7 @@ Given the persistent distress-level Z-Score, weak financial ratios, and anomalou
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Stabilize liquidity &amp; profitability</td>
+<td>Stabilize liquidity and profitability</td>
 <td>Working Capital Ratio, EBIT Ratio</td>
 <td>Implement cost reduction, improve asset utilization</td>
 <td>Positive Z-Score trend, liquidity improvement</td>
@@ -789,23 +869,21 @@ Given the persistent distress-level Z-Score, weak financial ratios, and anomalou
 <tr>
 <td>CFO Finance</td>
 <td>Capital structure optimization</td>
-<td>Retained Earnings Ratio, Debt levels</td>
-<td>Raise capital, manage liabilities, improve cash flow</td>
-<td>Improved financial ratios, reduced distress signals</td>
+<td>Retained Earnings Ratio, Debt-to-Equity</td>
+<td>Raise capital, manage debt levels</td>
+<td>Improved capital ratios, reduced distress signals</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; transparency</td>
+<td>Risk oversight and transparency</td>
 <td>Z-Score, Risk Factors</td>
-<td>Enhance risk monitoring, enforce governance</td>
-<td>Compliance adherence, risk mitigation effectiveness</td>
+<td>Enhance governance, monitor risk metrics</td>
+<td>Compliance, risk mitigation effectiveness</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Executive Commentary:</strong><br />
-- The CEO must prioritize operational turnaround focusing on liquidity and profitability to shift the Z-Score out of distress.<br />
-- The CFO should aggressively manage capital allocation and seek capital raises to shore up balance sheet strength.<br />
-- The Board must ensure rigorous oversight of risk management practices, given the elevated distress signals and market uncertainties.</p>
+Given the sustained distress signals, executive leadership must prioritize liquidity stabilization and operational efficiency improvements. The CFO should focus on capital adequacy and leverage management to reduce bankruptcy risk. The Board must enforce rigorous risk oversight and transparent communication to restore investor confidence.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -821,37 +899,35 @@ Given the persistent distress-level Z-Score, weak financial ratios, and anomalou
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Negative, declining</td>
-<td>Potential stabilization if turnaround occurs</td>
-<td>Operational improvements, capital infusion</td>
-<td>Quarterly Z-Score, EBIT margin</td>
+<td>Negative, no improvement</td>
+<td>Continued distress likely</td>
+<td>Capital raise, asset sales</td>
+<td>Quarterly Z-Score, liquidity ratios</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Weak, underperforming</td>
-<td>Gradual recovery possible with strategic execution</td>
-<td>Peer performance, regulatory environment</td>
-<td>Relative Z-Score vs peers, market share</td>
+<td>Weak, underperforming peers</td>
+<td>Potential further decline</td>
+<td>Competitive repositioning</td>
+<td>Market share, peer Z-Score comparisons</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High distress risk</td>
-<td>Risk remains elevated without intervention</td>
-<td>Credit market conditions, liquidity events</td>
-<td>Liquidity ratios, risk factor alerts</td>
+<td>High risk, operational and financial</td>
+<td>Elevated risk persists</td>
+<td>Regulatory changes, macroeconomic shifts</td>
+<td>Risk factor incidence, credit ratings</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Forward-Looking Commentary:</strong><br />
-- The Z-Score momentum is currently negative but may stabilize if KeyCorp executes operational and financial restructuring effectively.<br />
-- Key catalysts include improved asset utilization, cost control, and capital raising.<br />
-- Continuous monitoring of liquidity ratios, EBIT trends, and peer Z-Score comparisons will provide early warning signals for risk escalation or recovery.<br />
-- Investors should maintain a dynamic investment thesis, adjusting exposure based on Z-Score trajectory and risk profile evolution.</p>
+Absent significant operational or financial restructuring, KeyCorp’s Z-Score is unlikely to improve in the near term. Key catalysts for positive change include successful capital raises, cost restructuring, or strategic asset divestitures. Investors should monitor quarterly Z-Score updates and liquidity metrics closely as early warning indicators.</p>
 <hr />
-<h1 id="summary"><strong>Summary</strong></h1>
-<p>KeyCorp is currently in a <strong>high-risk financial distress state</strong>, as evidenced by a persistently negative Altman Z-Score (-0.95 latest) and weak financial ratios such as a negative working capital ratio (-0.690) and near-zero EBIT ratio (0.003). Market data anomalies and lack of trading volume reduce confidence in market signals, emphasizing reliance on fundamental analysis. Risk remains elevated with significant operational and financial challenges. Conservative investors should avoid or exit, while aggressive investors may consider speculative positions with strict risk management. Strategic focus on liquidity stabilization, profitability improvement, and capital structure optimization is critical for recovery and improved investment appeal.</p>
+<h1 id="summary">Summary</h1>
+<p>KeyCorp is currently in a <strong>critical financial distress state</strong>, with an Altman Z-Score well below the safe threshold, negative liquidity, minimal profitability, and operational inefficiency. Market data anomalies and zero trading volume complicate market timing and sentiment analysis. The risk profile is elevated, demanding urgent strategic and financial interventions.</p>
+<p><strong>Investment stance:</strong> SELL or avoid for most profiles, with speculative interest only for aggressive investors anticipating a turnaround. Continuous monitoring of Z-Score and liquidity metrics is essential for early detection of recovery or further deterioration.</p>
 <hr />
-<p><em>Analysis generated with comprehensive integration of all injected data elements, cross-validated across financial metrics, risk assessments, and market intelligence.</em></p></div></div>
+<p><em>Analysis generated with full integration of injected financial data, AI risk and peer analyses, and market intelligence as of 2025-07-07.</em></p></div></div>
     </div>
     
 
@@ -1194,78 +1270,41 @@ Given the persistent distress-level Z-Score, weak financial ratios, and anomalou
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:35 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:54 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

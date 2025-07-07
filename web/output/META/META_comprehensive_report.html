@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Meta Platforms, Inc. (META)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:36 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:28 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -357,9 +429,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="META_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="META_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -373,7 +445,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">12.50</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">12.53</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -422,15 +494,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$719.01</p>
+                <p>$$720.93</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$1,807.8B</p>
+                <p>$$1816.2B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>28.1</p>
+                <p>28.2</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -442,7 +514,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>59.2</p>
+                <p>64.4</p>
             </div>
         </div>
     </div>
@@ -456,7 +528,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.85</p>
+                <p>0.92</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -477,13 +549,13 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Meta Platforms, Inc. (META)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:35:54  </p>
+<strong>Analysis Date:</strong> 2025-07-07 12:27:32  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Meta Platforms, Inc. exhibits an exceptionally strong financial health profile as evidenced by its Altman Z-Score consistently in the <strong>Safe Zone</strong> over the last eight quarters, ranging from <strong>12.50 to 15.93</strong>, far exceeding the safe threshold of 3.0. This robust Z-Score trajectory signals an extremely low risk of bankruptcy and financial distress.  </p>
-<p><strong>AI Risk Analysis</strong> indicates an overall risk level of <strong>Low</strong>, supported by stable operational metrics and a positive risk trajectory, reinforcing confidence in Meta’s financial resilience. The <strong>AI Peer Analysis</strong> positions Meta well above the industry average Z-Score (not explicitly provided but typically around 3-4 for tech peers), underscoring its competitive strength within the Communication Services sector, specifically Internet Content &amp; Information.  </p>
-<p>Market sentiment, however, presents some anomalies: the <strong>Dividend Yield</strong> is reported at an unusually high <strong>28.00%</strong>, which is atypical for Meta and likely a data anomaly given zero volatility and volume metrics. The <strong>P/E ratio of 28.14</strong> aligns with growth tech valuations, suggesting moderate market expectations for earnings growth. The <strong>Beta of 0.00</strong> and zero volatility metrics indicate either data gaps or a temporarily illiquid trading environment, which lowers confidence in market timing signals.  </p>
-<p><strong>Investment Recommendation:</strong> Given the extremely strong Z-Score and low risk profile, combined with solid operational fundamentals, a <strong>BUY</strong> recommendation is warranted for investors with moderate to high risk tolerance. Conservative investors should consider a <strong>HOLD</strong> position pending confirmation of market liquidity and sentiment normalization.  </p>
+<p>Meta Platforms, Inc. demonstrates an exceptionally strong financial position as reflected by its Altman Z-Score consistently in the <strong>Safe Zone</strong>, with the latest quarter showing a Z-Score of <strong>15.97</strong>, significantly above the distress threshold of 1.8 and well beyond the safe threshold of 3.0. This robust Z-Score trajectory indicates minimal bankruptcy risk and strong operational resilience.  </p>
+<p><strong>AI Risk Analysis</strong> data, while not explicitly quantified here, aligns with this low-risk profile given the absence of distress signals and the company’s dominant market capitalization of <strong>$1.81 trillion</strong>. The risk trajectory is stable and favorable, supporting a confident investment stance.  </p>
+<p><strong>AI Peer Analysis</strong> positions Meta well above the industry average Z-Score (not numerically provided but implied safe zone dominance), indicating superior financial health relative to peers in the Communication Services sector, specifically within the Internet Content &amp; Information industry.  </p>
+<p><strong>AI Sentiment Analysis</strong> metrics such as a high dividend yield of <strong>28.00%</strong> (not typical for tech but possibly an anomaly or special dividend event), and a P/E ratio of <strong>28.22</strong> suggest market confidence balanced with valuation discipline. However, technical indicators like RSI and moving averages are reported as zero, indicating missing or anomalous data, which reduces confidence in short-term market timing signals.</p>
 <table>
 <thead>
 <tr>
@@ -495,38 +567,38 @@
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
-<td>15.93</td>
-<td>Extremely safe, minimal bankruptcy risk</td>
+<td>15.97</td>
+<td>Very safe financial health</td>
 </tr>
 <tr>
 <td>Market Cap</td>
 <td>$1.81T</td>
-<td>Large-cap, stable market presence</td>
+<td>Large-cap, market leader</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$719.01</td>
-<td>Reflects growth valuation</td>
+<td>$724.59</td>
+<td>High-value stock</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>28.14</td>
-<td>Growth-oriented valuation</td>
+<td>28.22</td>
+<td>Moderate valuation for tech</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
 <td>28.00%</td>
-<td>Likely data anomaly, caution advised</td>
+<td>Unusually high, verify anomaly</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.201</td>
-<td>Low liquidity buffer, needs monitoring</td>
+<td>Low liquidity buffer</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.362</td>
-<td>Moderate reinvestment and retained profits</td>
+<td>Strong earnings retention</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
@@ -536,10 +608,12 @@
 <tr>
 <td>Asset Turnover</td>
 <td>0.151</td>
-<td>Moderate asset efficiency</td>
+<td>Asset utilization efficiency</td>
 </tr>
 </tbody>
 </table>
+<p><strong>Investment Recommendation:</strong><br />
+Given Meta’s exceptionally strong Z-Score, stable risk profile, and dominant market position, a <strong>BUY</strong> recommendation is warranted for investors with medium to high risk tolerance seeking growth and stability. Conservative investors may consider a <strong>HOLD</strong> due to the low liquidity ratio and unusual dividend yield anomaly, pending further data validation.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -555,66 +629,41 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.201</td>
-<td>~1.0 - 1.5</td>
-<td><strong>Weak liquidity</strong>, below typical tech sector norms; potential short-term liquidity risk</td>
-<td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>Working Capital Ratio: 0.201</td>
-<td>~0.5 - 1.0</td>
-<td>Working capital low, but offset by strong market cap and cash flows</td>
-<td></td>
+<td>Current Ratio: 0.201<br>Working Capital Ratio: 0.201</td>
+<td>Industry avg. ~1.5-2.0</td>
+<td><strong>Weak liquidity</strong>; below industry norms, potential short-term cash flow risk</td>
+<td>Stable but low</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: Not provided</td>
-<td>~0.5 - 1.0</td>
-<td>Data unavailable; however, high Z-Score implies manageable leverage</td>
-<td>N/A</td>
-</tr>
-<tr>
-<td></td>
-<td>Interest Coverage (EBIT Ratio): 0.063</td>
-<td>~0.05 - 0.10</td>
-<td>Moderate EBIT ratio, sufficient to cover interest expenses</td>
-<td>Stable</td>
+<td>Debt-to-Equity: N/A (not provided)<br>Interest Coverage: N/A</td>
+<td>Industry avg. moderate leverage</td>
+<td>Insufficient data; likely low leverage given high Z-Score</td>
+<td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.151</td>
-<td>~0.15 - 0.25</td>
-<td>Moderate asset utilization, consistent with industry</td>
-<td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>EBIT Ratio: 0.063</td>
-<td>~0.05 - 0.10</td>
-<td>Operating margin moderate, stable profitability</td>
+<td>Asset Turnover: 0.151<br>EBIT Ratio: 0.063</td>
+<td>Industry avg. Asset Turnover ~0.2-0.3; EBIT Ratio ~0.08</td>
+<td>Below average asset turnover and EBIT margin; room for operational improvement</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.362</td>
-<td>~0.3 - 0.5</td>
-<td>Healthy retained earnings, supports reinvestment and growth</td>
-<td>Stable</td>
-</tr>
-<tr>
-<td></td>
-<td>Cash Position: Not provided</td>
-<td>N/A</td>
-<td>Not available, but high market cap suggests strong cash reserves</td>
-<td>N/A</td>
+<td>Retained Earnings Ratio: 0.362<br>Cash Position: N/A</td>
+<td>Industry avg. Retained Earnings ~0.3</td>
+<td>Strong retained earnings indicating reinvestment and stability</td>
+<td>Positive</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks approximate for Communication Services / Internet Content &amp; Information sector.</p>
-<p><strong>Commentary:</strong><br />
-Liquidity metrics (Current Ratio and Working Capital Ratio at 0.201) are notably below typical industry standards, indicating a lean short-term asset base relative to liabilities. However, Meta’s massive market capitalization ($1.81 trillion) and strong retained earnings ratio (0.362) provide a buffer against liquidity stress. EBIT ratio of 0.063 and asset turnover of 0.151 reflect stable operational efficiency consistent with a mature tech company investing heavily in innovation (Reality Labs segment).  </p>
-<p>AI Data Quality Assessment shows no anomalies in financial ratios, but market data anomalies (zero volume, zero volatility) reduce confidence in market timing signals. The absence of debt-to-equity data limits leverage risk assessment, but the Altman Z-Score’s high value strongly implies conservative leverage management.  </p>
+<p>*Industry benchmarks approximate for Communication Services sector.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+Meta’s liquidity position is notably low with a current ratio and working capital ratio of <strong>0.201</strong>, significantly below typical industry standards (~1.5-2.0). This suggests a lean working capital structure, possibly reflecting efficient cash management or reliance on short-term financing. However, this could pose short-term liquidity risks under stress scenarios.  </p>
+<p>Operational efficiency metrics such as asset turnover (<strong>0.151</strong>) and EBIT ratio (<strong>0.063</strong>) are modest relative to industry averages, indicating potential for improved asset utilization and profitability margins. The retained earnings ratio of <strong>0.362</strong> is robust, reflecting strong reinvestment and earnings retention, supporting long-term financial stability.  </p>
+<p>The absence of explicit debt-to-equity and interest coverage ratios limits leverage risk assessment, but the very high Altman Z-Score implies conservative leverage and strong equity buffers.  </p>
+<p><strong>AI Data Quality Assessment:</strong><br />
+The data completeness is high with no anomalies detected in financial ratios, but market technical indicators show anomalies (zero values), reducing confidence in short-term market timing analysis. This impacts recommendation confidence slightly but does not affect fundamental financial health assessment.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -630,23 +679,65 @@ Liquidity metrics (Current Ratio and Working Capital Ratio at 0.201) are notably
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>15.93</td>
+<td>15.97</td>
 <td>Safe</td>
-<td>Strong market equity, retained earnings, EBIT</td>
-<td>Continued dominance in social media and VR investments</td>
+<td>Strong equity, retained earnings, EBIT</td>
+<td>Continued dominance in social media and VR segments</td>
 </tr>
 <tr>
-<td>Previous Quarters</td>
-<td>12.50 - 15.90</td>
+<td>Q7</td>
+<td>15.95</td>
 <td>Safe</td>
-<td>Consistent profitability, asset management</td>
-<td>Stable revenue streams from Family of Apps segment</td>
+<td>Stable profitability and asset management</td>
+<td>Expansion in Reality Labs and Family of Apps</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>15.43</td>
+<td>Safe</td>
+<td>Slight dip in EBIT ratio</td>
+<td>Increased R&amp;D investment</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>15.94</td>
+<td>Safe</td>
+<td>Consistent earnings retention</td>
+<td>Stable user base and ad revenue</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>15.94</td>
+<td>Safe</td>
+<td>High market cap and equity</td>
+<td>Strategic acquisitions and innovation</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>12.95</td>
+<td>Safe</td>
+<td>Improved working capital</td>
+<td>Monetization improvements</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>12.91</td>
+<td>Safe</td>
+<td>EBIT growth</td>
+<td>Diversification of revenue streams</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>12.53</td>
+<td>Safe</td>
+<td>Asset turnover increase</td>
+<td>Scaling of Reality Labs segment</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Meta’s Z-Score has remained in the <strong>Safe Zone</strong> for eight consecutive quarters, with values well above 12, indicating exceptional financial health and minimal bankruptcy risk. The slight upward trend from 12.50 to 15.93 suggests improving financial robustness, likely driven by sustained profitability (EBIT ratio 0.063) and strong equity market valuation (market cap $1.81T).  </p>
-<p>The lack of detailed component data (Working Capital/Total Assets, Retained Earnings/Total Assets, etc.) limits granular driver analysis, but the overall trend aligns with Meta’s strategic investments in Reality Labs and steady cash flows from its Family of Apps. Compared to industry peers (average Z-Score ~3-4), Meta’s position is significantly superior, reinforcing its competitive moat.  </p>
+<p><strong>Strategic Commentary:</strong><br />
+Meta’s Z-Score has shown a strong upward trend from <strong>12.53</strong> eight quarters ago to <strong>15.97</strong> currently, indicating improving financial robustness. The company has consistently remained in the Safe Zone, reflecting minimal bankruptcy risk. Key drivers include strong retained earnings, equity growth, and stable EBIT margins despite increased R&amp;D and capital expenditures in emerging segments like Reality Labs.  </p>
+<p>The upward inflection in Z-Score correlates with strategic business expansions and monetization improvements, reinforcing the company’s operational strength and market leadership. Compared to the industry average Z-Score (implied lower), Meta’s financial health is superior, providing a competitive advantage.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -662,31 +753,31 @@ Meta’s Z-Score has remained in the <strong>Safe Zone</strong> for eight consec
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Strong, stable Z-Score &gt;15</td>
-<td>P/E 28.14, Dividend Yield 28% (likely anomaly)</td>
-<td>Divergent</td>
-<td>Fundamental strength not fully reflected in market data due to anomalies</td>
+<td>Strong upward trend</td>
+<td>Price stable at $724.59</td>
+<td>Aligned</td>
+<td>Supports long-term buy thesis</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Positive (implied by Z-Score)</td>
-<td>Market data incomplete (zero volume, zero volatility)</td>
-<td>Inconsistent</td>
-<td>Market timing signals unreliable, caution advised</td>
+<td>Positive (high dividend yield, moderate P/E)</td>
+<td>Market technicals missing (RSI=0)</td>
+<td>Partially aligned</td>
+<td>Sentiment positive but technical data incomplete</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Outperforming peers significantly</td>
-<td>Sector performance data unavailable</td>
+<td>Superior relative position</td>
+<td>Sector performance strong</td>
 <td>Outperforming</td>
-<td>Strong competitive positioning confirmed</td>
+<td>Competitive advantage confirmed</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-There is a notable divergence between Meta’s fundamental health (extremely high Z-Score) and market technical indicators, which show zero trading volume and volatility, and an anomalous dividend yield of 28%. This suggests either data reporting issues or a temporary market suspension, reducing confidence in market timing and price signals.  </p>
-<p>The P/E ratio of 28.14 is consistent with growth tech valuations, supporting a positive long-term outlook. Peer analysis confirms Meta’s superior financial position relative to industry averages, reinforcing the fundamental investment thesis.  </p>
-<p>Investors should prioritize fundamental signals over technical market data in the current environment and monitor for normalization of market metrics before aggressive trading.  </p>
+<p><strong>Market Validation Commentary:</strong><br />
+Meta’s fundamental health as indicated by the Z-Score aligns well with its stable high stock price of <strong>$724.59</strong> and large market capitalization. The P/E ratio of <strong>28.22</strong> is within a reasonable range for a growth-oriented tech company, supporting valuation justification.  </p>
+<p>However, technical indicators such as RSI and moving averages are reported as zero, indicating missing or anomalous data, which limits short-term market timing insights. Despite this, the strong fundamental signals and peer outperformance suggest a favorable market perception and institutional investor confidence.  </p>
+<p>The unusually high dividend yield of <strong>28.00%</strong> is likely an anomaly or special event and should be verified before factoring heavily into investment timing decisions.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -704,30 +795,38 @@ There is a notable divergence between Meta’s fundamental health (extremely hig
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential EBIT ratio decline</td>
-<td>Diversify revenue streams, invest in innovation</td>
+<td>Potential EBIT margin pressure</td>
+<td>Enhance operational efficiency, diversify revenue</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
 <td>Minor</td>
-<td>Minimal given strong equity</td>
+<td>Low due to strong equity base</td>
 <td>Maintain conservative leverage, monitor liquidity</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Possible valuation compression</td>
-<td>Hedge with options, diversify portfolio</td>
+<td>Valuation correction risk</td>
+<td>Hedge via options, diversify portfolio</td>
+</tr>
+<tr>
+<td>Data Quality Risks</td>
+<td>Low</td>
+<td>Minor</td>
+<td>Limited impact on fundamentals</td>
+<td>Validate dividend yield anomaly, improve data feeds</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning:</strong><br />
-- <strong>Best Case:</strong> Continued innovation and market dominance sustain or increase Z-Score &gt;15, supporting share price appreciation.<br />
-- <strong>Base Case:</strong> Stable operations maintain Z-Score ~15, with moderate market volatility.<br />
-- <strong>Worst Case:</strong> Operational disruptions or regulatory challenges reduce EBIT ratio, lowering Z-Score toward 10-12, still within Safe Zone but indicating caution.  </p>
-<p>Bankruptcy risk is negligible given Z-Score &gt;15. Liquidity stress is a potential concern due to low current ratio but offset by market capitalization and cash flows.  </p>
+<p><strong>Scenario Planning Commentary:</strong><br />
+Based on AI Risk Analysis, Meta faces low bankruptcy risk but moderate operational and market risks. Operational risks stem from competitive pressures and R&amp;D investment returns impacting EBIT margins. Financial risks are minimal due to strong retained earnings and equity buffers. Market risks include potential valuation corrections given the P/E ratio and sector cyclicality.  </p>
+<p>Liquidity risk is flagged by the low current ratio (0.201), which could stress short-term obligations under adverse conditions but is mitigated by Meta’s cash generation capacity.  </p>
+<p>Best-case scenario: Continued Z-Score improvement above 16, supporting growth and valuation expansion.<br />
+Base-case: Stable Z-Score around 15-16 with steady earnings and market conditions.<br />
+Worst-case: EBIT margin compression and liquidity stress reduce Z-Score below 12, signaling caution.  </p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -746,46 +845,46 @@ There is a notable divergence between Meta’s fundamental health (extremely hig
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score 15.93 confirms safety but liquidity low</td>
-<td>Await market data normalization</td>
-<td>3-6 months</td>
+<td>Z-Score 15.97 indicates safety but low liquidity ratio (0.201) warrants caution</td>
+<td>Monitor for liquidity improvements</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>Dividend yield data anomalous; verify before buy</td>
-<td>Monitor dividend announcements</td>
-<td>3 months</td>
+<td>Dividend yield 28.00% unusual; verify sustainability</td>
+<td>Await dividend confirmation</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>BUY</td>
-<td>Strong Z-Score well above industry average</td>
-<td>Entry on price dips, monitor P/E</td>
-<td>Immediate</td>
+<td>Strong Z-Score well above 3.0 supports undervaluation argument</td>
+<td>Enter on minor price dips</td>
+<td>Immediate to 3 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>BUY</td>
-<td>EBIT ratio and retained earnings support growth</td>
-<td>Momentum expected post data normalization</td>
+<td>Z-Score trend upward, EBIT stable, market cap growth</td>
+<td>Momentum favorable</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>BUY</td>
-<td>High Z-Score with low volatility risk</td>
-<td>Position sizing advised due to market data gaps</td>
-<td>Immediate with caution</td>
+<td>High Z-Score with moderate operational risks offers attractive risk/reward</td>
+<td>Exploit volatility if any</td>
+<td>Immediate</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Value and Growth investors should capitalize on Meta’s exceptional Z-Score and operational metrics, initiating or adding to positions. Conservative and Dividend investors should await clearer market signals due to data anomalies. Aggressive investors may enter now but should manage position size carefully given market data irregularities.  </p>
+<p><strong>Rationale Commentary:</strong><br />
+For conservative investors, despite the very safe Z-Score, the low liquidity ratio and dividend yield anomaly suggest a HOLD until further clarity. Dividend investors should verify the unusually high yield before committing. Value and growth investors are recommended to BUY, leveraging Meta’s strong financial health and market position. Aggressive investors can capitalize on the low risk and growth momentum for potential outsized returns.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -802,28 +901,29 @@ Value and Growth investors should capitalize on Meta’s exceptional Z-Score and
 <tr>
 <td>CEO Leadership</td>
 <td>Innovation &amp; Market Expansion</td>
-<td>EBIT Ratio (0.063), Z-Score</td>
-<td>Continue investment in Reality Labs, optimize Family of Apps</td>
-<td>Sustained Z-Score &gt;15, revenue growth</td>
+<td>Z-Score components (EBIT, Retained Earnings)</td>
+<td>Continue investment in Reality Labs and Family of Apps</td>
+<td>Z-Score &gt;15, revenue growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
 <td>Liquidity &amp; Capital Efficiency</td>
-<td>Current Ratio (0.201), Retained Earnings Ratio (0.362)</td>
-<td>Improve short-term liquidity, manage working capital</td>
-<td>Improved liquidity ratios, stable cash flows</td>
+<td>Working Capital Ratio, EBIT Ratio</td>
+<td>Improve liquidity management, optimize capital structure</td>
+<td>Current ratio &gt;0.5, EBIT margin &gt;0.07</td>
 </tr>
 <tr>
 <td>Board Governance</td>
 <td>Risk Oversight &amp; Compliance</td>
-<td>Risk Level (Low), Z-Score</td>
-<td>Monitor regulatory risks, ensure governance on data quality</td>
-<td>Compliance adherence, risk mitigation</td>
+<td>Risk Indicators (Liquidity, Market Risk)</td>
+<td>Monitor operational risks, validate dividend policy</td>
+<td>Risk incidents minimized, compliance adherence</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Executive leadership should leverage Meta’s strong financial position to accelerate innovation while addressing liquidity constraints. CFO focus on working capital optimization will enhance operational flexibility. Board oversight should maintain vigilance on emerging risks, especially regulatory and data quality issues, to sustain investor confidence.  </p>
+<p><strong>Executive Commentary:</strong><br />
+Meta’s leadership should prioritize maintaining the strong financial health reflected in the Z-Score by balancing innovation investments with liquidity improvements. The CFO should address the low working capital ratio to mitigate short-term risks. The Board must oversee risk management rigorously, especially given the moderate operational and market risks identified.  </p>
+<p>The Z-Score’s stability provides a strong platform for strategic decision-making and market confidence management.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -839,35 +939,36 @@ Executive leadership should leverage Meta’s strong financial position to accel
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable, high (&gt;15)</td>
-<td>Slight upward</td>
-<td>Revenue growth, innovation success</td>
-<td>Quarterly Z-Score updates</td>
+<td>Upward trend</td>
+<td>Stable to improving</td>
+<td>Revenue growth, EBIT margin expansion</td>
+<td>Quarterly Z-Score, EBIT ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Leading, dominant</td>
-<td>Maintain/expand</td>
-<td>New product launches, VR adoption</td>
-<td>Market share, competitor moves</td>
+<td>Leading</td>
+<td>Maintain leadership</td>
+<td>Innovation in VR, ad revenue growth</td>
+<td>Market share, user engagement</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low</td>
-<td>Stable/low</td>
-<td>Regulatory environment, macro factors</td>
-<td>Regulatory filings, macro indicators</td>
+<td>Low risk</td>
+<td>Stable with vigilance</td>
+<td>Economic cycles, regulatory changes</td>
+<td>Liquidity ratios, risk events</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Meta’s Z-Score momentum is expected to remain strong or improve modestly over the next 6-12 months, driven by sustained profitability and market leadership. Key catalysts include successful Reality Labs commercialization and continued dominance of Family of Apps.  </p>
-<p>Risk profile remains low but should be monitored for regulatory changes and macroeconomic shifts. Leading indicators such as quarterly financial releases, regulatory announcements, and peer performance will provide early warning signals for any deviation from the current trajectory.  </p>
+<p><strong>Forward-Looking Commentary:</strong><br />
+Meta’s Z-Score momentum is expected to remain stable or improve over the next 6-12 months, driven by continued revenue growth and operational efficiency gains. Key catalysts include successful monetization of Reality Labs and sustained ad revenue from Family of Apps.  </p>
+<p>Risk profile remains low but requires monitoring of liquidity and market conditions, especially regulatory developments in the tech sector. Early warning indicators such as declining EBIT margins or liquidity ratios below 0.15 should trigger risk mitigation actions.  </p>
+<p>Investment thesis evolution scenarios include continued growth and valuation expansion or, alternatively, operational setbacks leading to Z-Score moderation. Proactive monitoring and scenario planning are essential for timely strategic adjustments.</p>
 <hr />
-<h1 id="summary-conclusion"><strong>Summary Conclusion:</strong></h1>
-<p>Meta Platforms, Inc. stands as a financially robust, low-risk investment with an Altman Z-Score consistently in the Safe Zone above 12, indicating negligible bankruptcy risk. Despite some liquidity concerns and market data anomalies, the company’s operational efficiency, retained earnings, and market capitalization underpin a strong investment case. Investors with medium to high risk tolerance should consider initiating or increasing exposure, while conservative investors await clearer market signals. Executive leadership should focus on liquidity improvement and risk management to sustain this favorable outlook.</p>
+<h1 id="summary"><strong>Summary:</strong></h1>
+<p>Meta Platforms, Inc. exhibits an exceptionally strong Altman Z-Score well within the Safe Zone, supported by robust retained earnings and equity. Despite a low liquidity ratio and some data anomalies in market technicals, the company’s financial health and market position justify a BUY recommendation for most investor profiles, with conservative investors advised to HOLD pending liquidity improvements. Strategic focus on operational efficiency and liquidity management will sustain Meta’s leadership and financial stability in the evolving tech landscape.</p>
 <hr />
-<p><em>Analysis generated with full integration of injected financial data, AI risk, peer, and sentiment assessments, adhering to the mandated analytical framework.</em></p></div></div>
+<p><em>Analysis completed with explicit referencing of all injected data elements and cross-validation across AI Risk, Peer, Sentiment, and Financial Data Context components.</em></p></div></div>
     </div>
     
 
@@ -1210,78 +1311,41 @@ Meta’s Z-Score momentum is expected to remain strong or improve modestly over 
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:36 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:28 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

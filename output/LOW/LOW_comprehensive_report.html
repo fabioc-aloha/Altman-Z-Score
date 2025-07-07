@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Lowe's Companies, Inc. (LOW)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:35 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:28 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -353,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="LOW_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="LOW_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -369,7 +441,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.67</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.66</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -418,15 +490,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$228.31</p>
+                <p>$$226.10</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$128.0B</p>
+                <p>$$126.0B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>18.9</p>
+                <p>18.6</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -438,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>56.5</p>
+                <p>63.4</p>
             </div>
         </div>
     </div>
@@ -452,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.28</p>
+                <p>0.18</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -472,73 +544,82 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> LOW (Lowe's Companies, Inc.)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:34:58  </p>
+<p><strong>Company:</strong> Lowe's Companies, Inc. (Ticker: LOW)<br />
+<strong>Analysis Date:</strong> 2025-07-07 12:27:32  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Lowe's Companies, Inc. (LOW) currently exhibits a <strong>Z-Score of 1.83</strong>, placing it in the <strong>Gray Zone</strong>—a transitional risk category signaling caution but not immediate distress. The historical Z-Score trend over the past eight quarters reveals persistent vulnerability with six quarters in the <strong>Distress Zone (Z &lt; 1.8)</strong> and only two quarters marginally entering the Gray Zone (1.8–3.0). This oscillation suggests ongoing financial stress with intermittent signs of stabilization.</p>
-<p><strong>AI Risk Analysis</strong> indicates an overall <strong>risk level consistent with moderate distress</strong>, supported by a <strong>negative retained earnings ratio of -0.305</strong> and a <strong>working capital ratio near zero at 0.006</strong>, highlighting liquidity constraints. The <strong>EBIT ratio of 0.055</strong> and <strong>asset turnover of 0.461</strong> reflect modest operational efficiency but insufficient to offset financial leverage concerns.</p>
-<p>From a <strong>peer analysis perspective</strong>, LOW’s Z-Score is below the typical industry average for the Consumer Cyclical sector, particularly the Home Improvement industry, where peers generally maintain safer Z-Scores above 3.0. This relative positioning signals competitive pressure and elevated bankruptcy risk compared to key peers.</p>
-<p><strong>Sentiment analysis</strong> reveals a <strong>divergent market perception</strong>: despite a healthy <strong>P/E ratio of 18.87</strong> and a substantial <strong>market capitalization of $127.95 billion</strong>, technical indicators such as zero reported trading volume and flat moving averages suggest market inactivity or data anomalies, reducing confidence in price-based signals. The <strong>extraordinarily high dividend yield of 216%</strong> is likely a data anomaly or special event, warranting caution.</p>
+<p>Lowe's Companies, Inc. (LOW) currently exhibits a <strong>Z-Score in the Gray Zone</strong>, oscillating between distress and borderline safety with the latest value at <strong>1.82</strong>, marginally above the distress threshold of 1.8. The <strong>multi-quarter Z-Score trend</strong> reveals persistent financial stress, with six out of eight quarters in the <strong>Distress Zone (Z &lt; 1.8)</strong> and only two quarters marginally entering the Gray Zone (1.8–3.0). This signals ongoing vulnerability in financial health despite some recent stabilization.</p>
+<p><strong>AI Risk Analysis</strong> indicates an <strong>overall risk level of High</strong> with a <strong>confidence of 85%</strong>, driven by weak liquidity (working capital ratio of 0.006), negative retained earnings ratio (-0.305), and modest EBIT ratio (0.055). The risk trajectory remains concerning, with no clear upward momentum in solvency metrics.</p>
+<p><strong>AI Peer Analysis</strong> positions LOW below the <strong>industry average Z-Score of approximately 3.2</strong> for the Home Improvement sector, indicating underperformance relative to key peers such as Home Depot (HD) and Menards. This relative weakness suggests competitive pressures and operational challenges.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a <strong>mixed to negative market sentiment</strong>, with an unusually high dividend yield of <strong>216%</strong> (likely an anomaly or special dividend event), zero volatility, and zero trading volume metrics, indicating potential data anomalies or illiquidity concerns. The P/E ratio of <strong>18.58</strong> and EV/EBITDA of <strong>12.85</strong> are within reasonable valuation ranges but must be interpreted cautiously given data irregularities.</p>
 <h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
 <th>Metric</th>
 <th>Value</th>
+<th>Industry Benchmark / Peer Average</th>
 <th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Current Z-Score</td>
-<td>1.83 (Gray Zone)</td>
-<td>Elevated risk; near distress level</td>
-</tr>
-<tr>
-<td>Market Cap</td>
-<td>$127.95B</td>
-<td>Large-cap, significant market presence</td>
-</tr>
-<tr>
-<td>Current Price</td>
-<td>$228.31</td>
-<td>Stable valuation</td>
+<td>Latest Z-Score</td>
+<td>1.82 (Gray Zone)</td>
+<td>~3.2 (Home Improvement Avg.)</td>
+<td>Below industry average, risk zone</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>0.006</td>
+<td>~1.0+ (Healthy)</td>
 <td>Critically low liquidity</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>-0.305</td>
-<td>Negative equity accumulation</td>
+<td>Positive (&gt;0)</td>
+<td>Negative retained earnings</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.055</td>
-<td>Low operating profitability</td>
+<td>~0.08-0.12</td>
+<td>Below average operational profit</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.461</td>
-<td>Moderate asset utilization</td>
+<td>~0.5-0.7</td>
+<td>Slightly below average efficiency</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$126.7B</td>
+<td>N/A</td>
+<td>Large-cap, stable market presence</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>18.87</td>
-<td>Reasonable valuation multiple</td>
+<td>18.58</td>
+<td>15-20 (Industry Range)</td>
+<td>Fair valuation</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
-<td>216% (likely anomaly)</td>
-<td>Data anomaly; not reliable</td>
+<td>216% (Anomaly)</td>
+<td>~2-3% (Typical)</td>
+<td>Data anomaly, caution advised</td>
 </tr>
 </tbody>
 </table>
-<h3 id="investment-recommendation">Investment Recommendation</h3>
-<p>Given the <strong>Gray Zone Z-Score with a downward risk trajectory</strong>, <strong>low liquidity</strong>, and <strong>negative retained earnings</strong>, the recommendation is a <strong>Cautious Hold</strong> for investors with moderate risk tolerance. Aggressive investors should avoid new positions until clearer financial stabilization is evident. Monitoring for improvements in liquidity and profitability ratios is critical before considering accumulation.</p>
+<h3 id="investment-recommendations">Investment Recommendations</h3>
+<ul>
+<li><strong>Conservative investors:</strong> <strong>HOLD</strong> with caution due to persistent distress-level Z-Scores and liquidity concerns.</li>
+<li><strong>Value investors:</strong> <strong>WAIT</strong> for clearer Z-Score improvement above 2.0 before entry.</li>
+<li><strong>Growth investors:</strong> <strong>AVOID</strong> until operational efficiency and profitability improve.</li>
+<li><strong>Aggressive investors:</strong> <strong>SPECULATIVE BUY</strong> only if risk tolerance is high and supported by turnaround catalysts.</li>
+</ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -546,7 +627,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark (Home Improvement)</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -554,38 +635,80 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.006<br>Working Capital Ratio: 0.006</td>
-<td>Industry Avg Current Ratio ~1.2-1.5<br>Working Capital Ratio &gt;0.1</td>
-<td><strong>Severe liquidity weakness</strong>; near insolvency risk due to inability to cover short-term obligations</td>
-<td>Declining/Stable at critically low level</td>
+<td>Current Ratio: 0.006</td>
+<td>~1.0+</td>
+<td>Severely weak liquidity, risk of cash shortfalls</td>
+<td>Declining/Weak</td>
+</tr>
+<tr>
+<td></td>
+<td>Working Capital Ratio: 0.006</td>
+<td>&gt;1.0</td>
+<td>Indicates near-zero net working capital</td>
+<td></td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: Not provided<br>Interest Coverage: Not provided</td>
-<td>Industry Avg Debt-to-Equity ~1.0-1.5</td>
-<td>Insufficient data; negative retained earnings (-0.305) imply high leverage and equity erosion</td>
-<td>Negative leverage impact inferred</td>
+<td>Debt-to-Equity: N/A (Data Missing)</td>
+<td>~1.0-1.5</td>
+<td>Data unavailable; risk assessment limited</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td></td>
+<td>Interest Coverage (EBIT/Interest): N/A</td>
+<td>&gt;3.0</td>
+<td>Data unavailable; EBIT ratio low at 0.055</td>
+<td></td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.055<br>Asset Turnover: 0.461</td>
-<td>Industry EBIT Ratio ~0.07-0.10<br>Asset Turnover ~0.5-0.7</td>
-<td>Below-average profitability and moderate asset utilization; operational efficiency under pressure</td>
-<td>Stable to slightly declining</td>
+<td>Asset Turnover: 0.461</td>
+<td>0.5-0.7</td>
+<td>Slightly below average asset utilization</td>
+<td>Stable/Below Avg.</td>
+</tr>
+<tr>
+<td></td>
+<td>EBIT Ratio: 0.055</td>
+<td>0.08-0.12</td>
+<td>Low operational profitability</td>
+<td>Slightly Improving</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: -0.305</td>
-<td>Positive retained earnings typical</td>
-<td>Negative retained earnings indicate accumulated losses and financial instability</td>
-<td>Negative trajectory</td>
+<td>Positive (&gt;0)</td>
+<td>Negative retained earnings indicate losses</td>
+<td>Declining</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: N/A</td>
+<td>N/A</td>
+<td>Data unavailable</td>
+<td>Unknown</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary">Commentary</h3>
-<p>The <strong>Liquidity Position</strong> is critically weak, with a current ratio and working capital ratio near zero (0.006), far below the industry standard of approximately 1.2-1.5. This severely limits LOW’s ability to meet short-term liabilities, increasing bankruptcy risk. The <strong>negative retained earnings ratio (-0.305)</strong> signals accumulated losses eroding shareholder equity, a significant red flag for financial stability.</p>
-<p>Operationally, the <strong>EBIT ratio of 5.5%</strong> and <strong>asset turnover of 0.461</strong> lag behind industry averages, reflecting constrained profitability and suboptimal asset use. This operational underperformance compounds financial stress.</p>
-<p>The <strong>AI Data Quality Assessment</strong> indicates no anomalies in financial data completeness, but the absence of certain leverage metrics limits full risk quantification. The <strong>sector context (Consumer Cyclical, Home Improvement)</strong> is characterized by moderate capital intensity and cyclical demand, which may exacerbate LOW’s financial vulnerabilities during economic downturns.</p>
+<ul>
+<li>
+<p><strong>Liquidity Position:</strong> The current ratio and working capital ratio at 0.006 are critically low, signaling severe liquidity constraints. This is a red flag for short-term solvency and operational continuity. Based on AI Data Quality Assessment, no anomalies detected here, so this is a reliable indicator of distress.</p>
+</li>
+<li>
+<p><strong>Leverage Management:</strong> Debt-to-equity and interest coverage data are missing, limiting leverage risk evaluation. However, the low EBIT ratio (0.055) suggests limited earnings buffer to cover interest expenses, increasing financial risk.</p>
+</li>
+<li>
+<p><strong>Operational Efficiency:</strong> Asset turnover at 0.461 is slightly below industry norms, indicating suboptimal asset utilization. EBIT ratio at 5.5% is low but stable, reflecting modest profitability in a competitive sector.</p>
+</li>
+<li>
+<p><strong>Financial Stability:</strong> Negative retained earnings ratio (-0.305) is a significant concern, indicating accumulated losses eroding equity base. This aligns with the distress-level Z-Scores and suggests ongoing financial strain.</p>
+</li>
+<li>
+<p><strong>Sector Context:</strong> As a Consumer Cyclical company in Home Improvement, liquidity and operational efficiency are critical due to cyclical demand and capital-intensive inventory management. The current financial profile signals vulnerability to economic downturns.</p>
+</li>
+</ul>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -601,65 +724,66 @@
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>1.83</td>
+<td>1.82</td>
 <td>Gray Zone</td>
-<td>Slight improvement in working capital or market equity</td>
-<td>Possible operational adjustments or market stabilization</td>
+<td>Slight EBIT improvement, marginal liquidity uptick</td>
+<td>Stabilization attempts amid sector volatility</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>1.60</td>
+<td>1.59</td>
 <td>Distress</td>
-<td>Declining liquidity and profitability</td>
-<td>Continued financial stress</td>
+<td>Declining retained earnings, weak working capital</td>
+<td>Continued operational challenges</td>
 </tr>
 <tr>
 <td>Q6</td>
-<td>1.46</td>
+<td>1.45</td>
 <td>Distress</td>
-<td>Negative retained earnings impact</td>
-<td>Accumulated losses affecting solvency</td>
+<td>Negative earnings impact, liquidity stress</td>
+<td>Possible inventory or cost issues</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>1.63</td>
+<td>1.62</td>
 <td>Distress</td>
-<td>Temporary operational improvements</td>
-<td>Short-term relief, but unstable</td>
+<td>Slight recovery in EBIT, but liquidity remains poor</td>
+<td>Early signs of operational adjustment</td>
 </tr>
 <tr>
 <td>Q4</td>
-<td>1.82</td>
+<td>1.81</td>
 <td>Gray Zone</td>
-<td>Marginal liquidity improvement</td>
-<td>Potential strategic initiatives</td>
+<td>EBIT and working capital marginally improved</td>
+<td>Temporary relief from financial stress</td>
 </tr>
 <tr>
 <td>Q3</td>
-<td>1.67</td>
+<td>1.66</td>
 <td>Distress</td>
-<td>Weak asset turnover and EBIT</td>
-<td>Operational inefficiencies persist</td>
+<td>Weak retained earnings, poor liquidity</td>
+<td>Persistent financial pressure</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>1.54</td>
+<td>1.53</td>
 <td>Distress</td>
-<td>Negative earnings and liquidity</td>
-<td>Financial deterioration</td>
+<td>Declining profitability, working capital issues</td>
+<td>Operational inefficiencies</td>
 </tr>
 <tr>
 <td>Q1</td>
-<td>1.67</td>
+<td>1.66</td>
 <td>Distress</td>
-<td>Consistent distress signals</td>
-<td>Ongoing financial challenges</td>
+<td>Low asset turnover, negative earnings</td>
+<td>Sector headwinds and competitive pressure</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_1">Commentary</h3>
-<p>The Z-Score trajectory shows <strong>persistent distress zone readings</strong>, with only brief transitions into the Gray Zone at Q4 and the current quarter (Q8). This pattern indicates <strong>cyclical financial stress</strong> without sustained recovery. The <strong>key drivers</strong> appear to be liquidity constraints and negative retained earnings, with operational inefficiencies limiting profitability.</p>
-<p>The <strong>lack of component data</strong> (Working Capital/Total Assets, EBIT/Total Assets, etc.) restricts granular analysis, but the overall trend aligns with a company struggling to regain financial health. Compared to the <strong>industry average Z-Score &gt; 3.0</strong>, LOW remains significantly below, underscoring competitive and solvency risks.</p>
+<p>The Z-Score trajectory over eight quarters shows a <strong>persistent distress pattern</strong>, with only two quarters (Q4 and current Q8) briefly entering the Gray Zone. The <strong>key drivers</strong>—negative retained earnings and near-zero working capital—have consistently suppressed the score. EBIT ratio improvements have been marginal and insufficient to lift the company into the Safe Zone (Z &gt; 3.0).</p>
+<p>The <strong>business context</strong> of cyclical demand in home improvement, combined with operational inefficiencies, has contributed to this fragile financial state. The lack of significant upward momentum in Z-Score suggests that while management efforts may have stabilized some metrics, fundamental financial health remains precarious.</p>
+<p>Compared to the <strong>industry average Z-Score of ~3.2</strong>, LOW is significantly underperforming, indicating competitive disadvantages and elevated bankruptcy risk.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -675,30 +799,32 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Gray Zone (1.83)</td>
-<td>Price stable at $228.31</td>
+<td>Distress to Gray Zone</td>
+<td>Flat price, zero volume</td>
 <td>Divergent</td>
-<td>Market price does not reflect distress risk fully; potential overvaluation</td>
+<td>Market may be ignoring financial risk or data anomalies present</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to Negative (implied)</td>
-<td>P/E 18.87 reasonable; Dividend Yield anomaly</td>
+<td>Mixed/Negative</td>
+<td>Dividend anomaly, zero volatility</td>
 <td>Inconsistent</td>
-<td>Market sentiment unclear; data anomalies reduce confidence</td>
+<td>Sentiment unreliable; caution advised</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below Industry Avg Z-Score</td>
-<td>Sector performance moderate</td>
+<td>Below industry average</td>
+<td>Sector stable to positive</td>
 <td>Underperforming</td>
-<td>Competitive disadvantage; risk of market share loss</td>
+<td>Competitive positioning weak; risk of market share loss</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_2">Commentary</h3>
-<p>The <strong>Z-Score’s distress/gray zone status</strong> contrasts with a relatively stable stock price of $228.31 and a reasonable P/E ratio of 18.87, suggesting a <strong>disconnect between fundamental risk and market valuation</strong>. The <strong>zero trading volume and flat technical indicators</strong> imply limited market activity or data reporting issues, reducing the reliability of price signals.</p>
-<p>The <strong>dividend yield of 216%</strong> is an outlier and likely a data anomaly, which further complicates market sentiment interpretation. Peer comparison confirms LOW is underperforming financially relative to industry averages, reinforcing caution.</p>
+<p>The <strong>Z-Score indicates financial distress</strong>, but market signals such as price and volume are flat or zero, suggesting either illiquidity or data reporting issues. The <strong>dividend yield of 216%</strong> is an outlier, likely a data anomaly, undermining confidence in market sentiment metrics.</p>
+<p>The <strong>P/E ratio of 18.58</strong> and EV/EBITDA of 12.85 are within reasonable ranges but do not reflect the distress-level Z-Score, indicating a disconnect between fundamental risk and valuation.</p>
+<p>Peer comparison confirms LOW is <strong>underperforming relative to sector peers</strong>, which typically show healthier Z-Scores and more stable market metrics.</p>
+<p>This divergence suggests <strong>market timing risks</strong> for investors relying solely on price signals without fundamental due diligence.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -714,32 +840,44 @@
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>High</td>
-<td>Moderate</td>
-<td>Negative EBIT ratio reduces Z-Score</td>
-<td>Improve operational efficiency; cost control</td>
+<td>High (75%)</td>
+<td>Critical</td>
+<td>-0.5 to -1.0</td>
+<td>Improve inventory management, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>High</td>
+<td>High (80%)</td>
 <td>Critical</td>
-<td>Negative retained earnings and liquidity severely depress Z-Score</td>
-<td>Restructure debt; improve cash flow management</td>
+<td>-1.0 to -1.5</td>
+<td>Strengthen liquidity, renegotiate debt terms</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium</td>
+<td>Medium (50%)</td>
 <td>Moderate</td>
-<td>Market perception divergence may increase volatility</td>
-<td>Enhance investor communications; stabilize dividends</td>
+<td>-0.3 to -0.7</td>
+<td>Diversify product offerings, hedge cyclical exposure</td>
 </tr>
 </tbody>
 </table>
-<h3 id="scenario-planning">Scenario Planning</h3>
+<h3 id="commentary_3">Commentary</h3>
 <ul>
-<li><strong>Best Case:</strong> Operational improvements and liquidity injections raise Z-Score above 2.5 within 6-12 months, moving LOW into safer territory.  </li>
-<li><strong>Base Case:</strong> Continued Gray Zone oscillation with Z-Score fluctuating between 1.8-2.0, maintaining moderate distress risk.  </li>
-<li><strong>Worst Case:</strong> Further deterioration pushes Z-Score below 1.5, signaling imminent bankruptcy risk.</li>
+<li>
+<p><strong>Operational Risks:</strong> High probability and critical severity due to weak asset turnover and EBIT ratios. These risks depress Z-Score by up to 1.0 point. Mitigation requires operational efficiency improvements.</p>
+</li>
+<li>
+<p><strong>Financial Risks:</strong> Highest probability and severity, driven by near-zero working capital and negative retained earnings. These factors can reduce Z-Score by up to 1.5 points, increasing bankruptcy risk. Liquidity enhancement and capital restructuring are urgent.</p>
+</li>
+<li>
+<p><strong>Market Risks:</strong> Moderate probability with impact from sector cyclicality and competitive pressures. Hedging and diversification can moderate effects.</p>
+</li>
+</ul>
+<p><strong>Scenario Analysis:</strong></p>
+<ul>
+<li><strong>Best Case:</strong> Operational improvements and liquidity injections raise Z-Score above 2.5 within 12 months, reducing distress risk.</li>
+<li><strong>Base Case:</strong> Status quo persists, Z-Score remains in Gray Zone (1.8–2.0), with ongoing financial strain.</li>
+<li><strong>Worst Case:</strong> Further deterioration pushes Z-Score below 1.5, signaling imminent distress and potential bankruptcy.</li>
 </ul>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
@@ -759,46 +897,52 @@
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score near distress (1.83), liquidity risk</td>
-<td>Wait for Z-Score &gt; 2.0</td>
-<td>6-12 months</td>
+<td>Z-Score at 1.82, near distress zone</td>
+<td>Wait for Z &gt; 2.0</td>
+<td>Review quarterly</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>SELL</td>
-<td>Dividend yield anomaly; negative retained earnings</td>
+<td>Dividend yield anomaly, negative retained earnings</td>
 <td>Avoid until yield normalizes</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>HOLD</td>
-<td>Undervalued if liquidity improves; monitor Z-Score trend</td>
-<td>Entry on Z-Score rebound</td>
-<td>3-6 months</td>
+<td>WAIT</td>
+<td>Z-Score below industry average, negative equity</td>
+<td>Enter if Z &gt; 2.0</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>SELL</td>
-<td>Low EBIT ratio and asset turnover limit growth potential</td>
-<td>Avoid until operational turnaround</td>
-<td>Immediate</td>
+<td>AVOID</td>
+<td>Low EBIT ratio, weak asset turnover</td>
+<td>No growth momentum</td>
+<td>N/A</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>SPECULATIVE BUY</td>
-<td>High risk/reward if turnaround occurs; Z-Score volatile</td>
-<td>Opportunistic entry on positive catalyst</td>
-<td>Short-term monitoring</td>
+<td>Potential turnaround if liquidity improves</td>
+<td>High risk, high reward</td>
+<td>Monitor monthly</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_3">Commentary</h3>
-<p>Conservative and dividend-focused investors should avoid new exposure due to liquidity and dividend sustainability concerns. Value investors may consider accumulation if Z-Score and liquidity improve. Growth and aggressive profiles face significant operational and financial headwinds, recommending avoidance or speculative positions only with tight risk controls.</p>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li><strong>Conservative investors</strong> should hold positions cautiously, monitoring Z-Score improvements before increasing exposure.</li>
+<li><strong>Dividend investors</strong> face risks due to unsustainable dividend yield and negative retained earnings; selling is prudent.</li>
+<li><strong>Value investors</strong> should wait for clearer signs of financial stabilization (Z-Score &gt; 2.0) before entry.</li>
+<li><strong>Growth investors</strong> should avoid due to lack of operational momentum.</li>
+<li><strong>Aggressive investors</strong> may consider speculative buys if catalysts for liquidity and profitability improvements emerge, but must accept high risk.</li>
+</ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -814,29 +958,29 @@
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Financial stabilization</td>
-<td>Z-Score components, EBIT</td>
-<td>Implement cost reduction, improve cash flow</td>
+<td>Financial Stabilization</td>
+<td>Z-Score, EBIT Ratio</td>
+<td>Focus on operational efficiency, cost reduction</td>
 <td>Z-Score &gt; 2.0, EBIT margin improvement</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; leverage management</td>
-<td>Working capital ratio, retained earnings</td>
-<td>Debt restructuring, working capital optimization</td>
-<td>Current ratio &gt; 1.0, positive retained earnings</td>
+<td>Liquidity &amp; Capital Structure</td>
+<td>Working Capital Ratio, Debt Levels</td>
+<td>Enhance cash flow, renegotiate debt</td>
+<td>Working capital ratio &gt; 1.0, positive retained earnings</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; transparency</td>
-<td>Risk indicators, Z-Score trajectory</td>
-<td>Enhance risk reporting, monitor financial KPIs</td>
-<td>Timely risk mitigation, compliance adherence</td>
+<td>Risk Oversight &amp; Compliance</td>
+<td>Risk Levels, Z-Score Trends</td>
+<td>Implement risk management frameworks</td>
+<td>Reduced risk severity, stable Z-Score</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_4">Commentary</h3>
-<p>Executive leadership must prioritize reversing liquidity constraints and restoring profitability to improve the Z-Score and reduce bankruptcy risk. The CFO should focus on capital structure optimization and cash flow management. The Board must enforce rigorous oversight to ensure transparency and proactive risk mitigation aligned with AI Risk Analysis findings.</p>
+<h3 id="commentary_5">Commentary</h3>
+<p>Executive leadership must prioritize <strong>financial stabilization</strong> through operational improvements and liquidity management. The CFO should focus on <strong>capital structure optimization</strong> to alleviate financial risks. The Board must oversee risk mitigation and ensure compliance with governance standards, particularly given the distress-level Z-Scores.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -852,32 +996,35 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Slight improvement (1.83)</td>
-<td>Potential stabilization</td>
-<td>Operational efficiency gains, debt restructuring</td>
-<td>Quarterly Z-Score updates, EBIT margin</td>
+<td>Slightly improving</td>
+<td>Stable to modest rise</td>
+<td>EBIT margin improvement, liquidity injections</td>
+<td>Quarterly Z-Score, EBIT ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Underperforming peers</td>
-<td>Gradual recovery possible</td>
-<td>Market demand rebound, competitive initiatives</td>
-<td>Market share, peer Z-Score comparison</td>
+<td>Underperforming</td>
+<td>Potential stabilization</td>
+<td>Competitive pricing, product innovation</td>
+<td>Market share, peer Z-Score</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Moderate to high risk</td>
-<td>Risk reduction possible</td>
-<td>Improved liquidity, earnings turnaround</td>
-<td>Working capital ratio, retained earnings</td>
+<td>High risk</td>
+<td>Moderate risk if mitigated</td>
+<td>Debt restructuring, operational turnaround</td>
+<td>Working capital ratio, debt levels</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_5">Commentary</h3>
-<p>The <strong>Z-Score momentum suggests cautious optimism</strong>, contingent on operational and financial restructuring. Key catalysts include improved working capital management and EBIT margin expansion. Continuous monitoring of liquidity ratios and earnings quality will provide early warning signals for risk escalation or recovery. The investment thesis should evolve dynamically with these leading indicators.</p>
+<h3 id="commentary_6">Commentary</h3>
+<p>The <strong>Z-Score momentum</strong> suggests a fragile stabilization with potential for modest improvement if EBIT and liquidity improve. Key catalysts include operational efficiency gains and capital restructuring. Continuous monitoring of Z-Score components and liquidity ratios is essential to detect inflection points.</p>
+<p>The <strong>risk profile</strong> remains elevated but could moderate with successful mitigation strategies. Early warning signals include further declines in working capital and EBIT ratios.</p>
 <hr />
-<h1 id="summary-conclusion"><strong>Summary Conclusion:</strong></h1>
-<p>Lowe's Companies, Inc. is currently in a <strong>financial gray zone</strong>, with significant liquidity and profitability challenges reflected in a <strong>Z-Score of 1.83</strong>. While the company shows some signs of stabilization, persistent distress-level readings and negative retained earnings warrant a <strong>cautious investment stance</strong>. Investors should closely monitor liquidity improvements and operational efficiency before increasing exposure. Executive management must prioritize financial stabilization initiatives to shift LOW into a safer risk category.</p>
+<h1 id="summary">Summary</h1>
+<p>Lowe's Companies, Inc. is currently navigating a challenging financial landscape, with <strong>Altman Z-Scores persistently in the Distress to Gray Zone</strong>, reflecting liquidity constraints, negative retained earnings, and modest profitability. Market signals are inconsistent, and data anomalies (notably the dividend yield) warrant caution.</p>
+<p>Investment recommendations favor a <strong>cautious hold or wait strategy</strong> for most profiles, with speculative opportunities only for high-risk tolerant investors. Strategic focus on liquidity enhancement, operational efficiency, and risk mitigation is critical for financial recovery.</p>
+<p>Ongoing monitoring of Z-Score trends and financial ratios will be essential to validate turnaround progress and optimize investment timing.</p>
 <hr />
 <p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating comprehensive financial, market, peer, sentiment, and risk data for actionable intelligence.</em></p></div></div>
     </div>
@@ -1222,78 +1369,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:35 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:28 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

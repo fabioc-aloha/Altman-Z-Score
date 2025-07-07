@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Prudential Financial, Inc. (PRU)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:40 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:07 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -330,6 +402,10 @@
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overbought conditions (RSI)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     Underperforming market benchmark</div>
                 
                 <div
@@ -345,9 +421,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="PRU_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="PRU_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -410,15 +486,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$109.08</p>
+                <p>$$108.11</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$38.6B</p>
+                <p>$$38.3B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>17.2</p>
+                <p>17.1</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -430,7 +506,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>65.6</p>
+                <p>70.7</p>
             </div>
         </div>
     </div>
@@ -444,7 +520,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>-0.08</p>
+                <p>-0.12</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -474,48 +550,45 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Prudential Financial, Inc. (Ticker: PRU)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:39:39  </p>
+<strong>Analysis Date:</strong> 2025-07-07 11:06:47  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Prudential Financial, Inc. (PRU) demonstrates a consistently <strong>Safe Zone</strong> Altman Z-Score profile over the past eight quarters, with scores ranging from <strong>3.47 to 6.67</strong>, well above the distress threshold of 1.8. This strong financial health is supported by a market capitalization of <strong>$38.6 billion</strong> and a current stock price of <strong>$109.08</strong>. The AI Risk Analysis indicates a <strong>low overall risk level</strong>, with no significant risk trajectory concerns noted, reinforcing confidence in the company’s stability.</p>
-<p>AI Peer Analysis places PRU comfortably above the <strong>industry average Z-Score</strong> (exact peer average not provided but implied lower than PRU’s minimum 3.47), indicating superior financial resilience relative to its Insurance - Life sector competitors. AI Sentiment Analysis, despite limited market technical data (notably zero volume and technical indicators), shows a <strong>positive sentiment trend</strong> supported by a strong dividend yield of <strong>503%</strong> (likely an anomaly or special dividend event, requiring caution).</p>
-<p><strong>Investment Recommendations:</strong><br />
-- <strong>Hold to Buy</strong> for conservative and dividend-focused investors due to strong Z-Score safety and dividend yield.<br />
-- <strong>Buy</strong> for value and growth investors given stable operational metrics and low risk profile.<br />
-- Monitor for market anomalies and data inconsistencies before aggressive position sizing.</p>
+<p>Prudential Financial, Inc. (PRU) currently demonstrates a <strong>robust financial health profile</strong> with an Altman Z-Score consistently in the <strong>Safe Zone (&gt;3.0)</strong> over the past eight quarters, ranging from 3.47 to a peak of 6.67. The latest Z-Score stands at <strong>6.58</strong>, indicating a very low risk of bankruptcy and strong operational stability. This is supported by a <strong>stable risk trajectory</strong> with no downward inflection points, reflecting resilience in Prudential’s core insurance and financial services operations.</p>
+<p><strong>AI Risk Analysis</strong> indicates an overall <strong>low risk level</strong> with a positive trajectory, reinforcing confidence in the company’s financial stability. The <strong>AI Peer Analysis</strong> positions PRU well above the industry average Z-Score (not explicitly provided but implied by PRU’s high Z-Score), suggesting a competitive advantage relative to peers in the Insurance - Life sector. Meanwhile, <strong>AI Sentiment Analysis</strong> metrics are limited due to market data anomalies (e.g., zero volume and price range), but the <strong>P/E ratio of 17.05</strong> and <strong>dividend yield of 503%</strong> (likely data anomaly) suggest market valuation is reasonable but requires caution in interpretation.</p>
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
-<th>Key Metrics Summary</th>
+<th>Metric</th>
 <th>Value</th>
-<th>Notes</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Z-Score</td>
+<td>Latest Altman Z-Score</td>
 <td>6.58</td>
-<td>Safe Zone, strong financial health</td>
+<td>Very safe financial position</td>
+</tr>
+<tr>
+<td>Z-Score Range (8 quarters)</td>
+<td>3.47 – 6.67</td>
+<td>Consistently safe zone</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$38.6B</td>
-<td>Large-cap stability</td>
+<td>$38.27B</td>
+<td>Large-cap, stable market presence</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$109.08</td>
-<td>Stable valuation</td>
+<td>$108.11</td>
+<td>Reflects market valuation</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>17.23</td>
-<td>Reasonable valuation</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>503%</td>
-<td>Likely anomaly, investigate further</td>
+<td>17.05</td>
+<td>Moderate valuation, reasonable earnings multiple</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
@@ -525,7 +598,7 @@
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.045</td>
-<td>Modest retained earnings</td>
+<td>Modest retained earnings relative to assets</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
@@ -537,8 +610,19 @@
 <td>0.018</td>
 <td>Low asset utilization</td>
 </tr>
+<tr>
+<td>Dividend Yield</td>
+<td>503% (data anomaly)</td>
+<td>Likely erroneous, disregard</td>
+</tr>
 </tbody>
 </table>
+<h3 id="investment-recommendations">Investment Recommendations</h3>
+<ul>
+<li><strong>Buy/Hold</strong> for conservative and dividend-focused investors, given strong Z-Score and stable risk profile.</li>
+<li><strong>Hold/Monitor</strong> for growth investors due to low operational efficiency and EBIT margins.</li>
+<li><strong>Caution</strong> advised for aggressive investors until market data anomalies resolve.</li>
+</ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -556,64 +640,79 @@
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.130</td>
 <td>~1.0 - 1.5</td>
-<td><strong>Weak liquidity</strong>, below typical insurance industry norms; potential short-term cash constraints</td>
-<td>Stable</td>
+<td><strong>Weak liquidity</strong>; below typical insurance industry standards</td>
+<td>Stable/Low</td>
 </tr>
 <tr>
 <td></td>
 <td>Working Capital Ratio: 0.130</td>
-<td>N/A</td>
-<td>Low working capital relative to assets</td>
-<td>Stable</td>
+<td>~0.2 - 0.4</td>
+<td>Below average; potential short-term liquidity constraints</td>
+<td></td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A</td>
-<td>~0.5 - 1.0 (industry)</td>
-<td>Data unavailable; leverage unknown</td>
-<td>N/A</td>
+<td>Debt-to-Equity: Not provided</td>
+<td>~0.5 - 1.5 (industry avg.)</td>
+<td>Unable to assess fully; Z-Score implies manageable leverage</td>
+<td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>Interest Coverage (EBIT Ratio): 0.001</td>
-<td>Industry average ~0.05+</td>
-<td>Extremely low EBIT margin; potential earnings pressure</td>
-<td>Declining</td>
+<td>&gt;1.5 preferred</td>
+<td>Extremely low EBIT margin; potential risk if interest costs rise</td>
+<td>Declining/Low</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.018</td>
-<td>Insurance avg ~0.1-0.2</td>
-<td>Very low asset turnover; typical for insurance but below peers</td>
+<td>~0.1 - 0.3</td>
+<td>Very low asset utilization; typical for insurance but below best peers</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>EBIT Ratio: 0.001</td>
-<td>Industry avg ~0.05</td>
-<td>EBIT margin very low, indicating thin operating profitability</td>
-<td>Declining</td>
+<td>~0.05 - 0.15</td>
+<td>Marginal EBIT; operational efficiency concerns</td>
+<td>Declining/Low</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.045</td>
-<td>Industry avg ~0.1</td>
-<td>Low retained earnings relative to assets; potential reinvestment constraints</td>
+<td>~0.1 - 0.3</td>
+<td>Low retained earnings relative to assets; limits internal funding</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
-<td>Cash Position: N/A</td>
+<td>Cash Position: Not provided</td>
 <td>N/A</td>
-<td>Data not provided</td>
+<td>Not assessable</td>
 <td>N/A</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks approximate for Insurance - Life sector.</p>
-<p><strong>Interpretive Commentary:</strong><br />
-Liquidity metrics (Current Ratio 0.130) are notably below typical industry standards, suggesting Prudential may rely on other forms of liquidity or capital management typical in insurance firms (e.g., investment portfolios, reinsurance). The extremely low EBIT ratio (0.001) and asset turnover (0.018) reflect the capital-intensive, low-margin nature of the insurance business but raise concerns about operational efficiency and profitability momentum. Retained earnings ratio at 0.045 indicates modest reinvestment capacity.</p>
-<p>AI Data Quality Assessment notes no anomalies detected in financial data completeness, but the low EBIT and liquidity ratios warrant monitoring. The sector context (Financial Services, Insurance - Life) explains some of these low ratios due to regulatory capital requirements and asset-heavy balance sheets.</p>
+<p>*Industry benchmarks are approximate for Financial Services - Insurance Life sector.</p>
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li>
+<p><strong>Liquidity Position:</strong> The current ratio of 0.130 is significantly below the typical insurance industry range (~1.0), indicating limited short-term liquidity buffers. This could be a function of the business model relying on long-term liabilities and investment income rather than liquid assets. The working capital ratio aligns with this low liquidity but is stable, suggesting no immediate liquidity crisis.</p>
+</li>
+<li>
+<p><strong>Leverage Management:</strong> Although debt-to-equity is not provided, the Altman Z-Score’s high value implies leverage is well-managed. However, the EBIT ratio of 0.001 signals very thin operating earnings, which could impair interest coverage if debt costs increase.</p>
+</li>
+<li>
+<p><strong>Operational Efficiency:</strong> Asset turnover at 0.018 is low, consistent with insurance companies that hold large asset bases. EBIT ratio near zero is a concern, indicating minimal profitability from operations, which could pressure margins if underwriting or investment income declines.</p>
+</li>
+<li>
+<p><strong>Financial Stability:</strong> Retained earnings ratio at 0.045 is low, suggesting limited reinvestment or accumulation of earnings relative to total assets. This may constrain growth or capital buffers but is offset by strong market capitalization and equity valuation.</p>
+</li>
+<li>
+<p><strong>Data Quality:</strong> The AI Data Quality Assessment reports no anomalies in financial data completeness, but market data anomalies (zero volume, zero price range) reduce confidence in market timing signals.</p>
+</li>
+</ul>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -632,41 +731,46 @@ Liquidity metrics (Current Ratio 0.130) are notably below typical industry stand
 <td>6.58</td>
 <td>Safe</td>
 <td>Strong equity, low leverage</td>
-<td>Stable insurance operations, capital strength</td>
+<td>Stable insurance operations, strong capital base</td>
 </tr>
 <tr>
-<td>Previous (Q7)</td>
+<td>Q7</td>
 <td>3.47</td>
 <td>Safe</td>
-<td>Temporary dip in working capital</td>
-<td>Possible operational or market event impact</td>
+<td>Temporary dip in equity or earnings</td>
+<td>Possible operational softness or market volatility</td>
 </tr>
 <tr>
 <td>Q6</td>
 <td>6.66</td>
 <td>Safe</td>
-<td>High retained earnings</td>
-<td>Strong earnings retention and capital management</td>
+<td>Recovery in earnings or capital</td>
+<td>Improved underwriting or investment returns</td>
 </tr>
 <tr>
 <td>Q5</td>
 <td>6.67</td>
 <td>Safe</td>
-<td>Consistent profitability</td>
-<td>Stable underwriting and investment returns</td>
+<td>Peak Z-Score, strong fundamentals</td>
+<td>Peak operational efficiency or capital inflows</td>
 </tr>
 <tr>
 <td>Q4-Q1</td>
 <td>4.15 - 4.30</td>
 <td>Safe</td>
-<td>Solid working capital</td>
+<td>Consistent capital and earnings</td>
 <td>Stable business environment</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-The Z-Score trajectory shows a generally <strong>stable to improving trend</strong>, with a notable dip to 3.47 in Q7, still within the Safe Zone but indicating a transient stress event. The rebound to 6.58 in the latest quarter suggests effective management response or favorable market conditions. The consistently high Z-Scores well above 3.0 indicate a low probability of financial distress.</p>
-<p>The lack of detailed component data (working capital/total assets, EBIT/total assets) limits granular driver analysis, but the overall trend aligns with Prudential’s strong capital base and diversified insurance operations. AI Peer Analysis confirms PRU’s Z-Score is above industry averages, reinforcing competitive strength.</p>
+<h3 id="commentary_1">Commentary</h3>
+<ul>
+<li>The Z-Score trajectory shows <strong>strong resilience</strong> with values well above 3.0, indicating a very low probability of financial distress.</li>
+<li>The dip to 3.47 in Q7 suggests a transient operational or market challenge, quickly reversed in subsequent quarters.</li>
+<li>The consistently high Z-Scores align with Prudential’s business model in the <strong>Financial Services - Insurance Life</strong> sector, which emphasizes capital strength and risk management.</li>
+<li>Lack of granular component data (Working Capital/Total Assets, Retained Earnings/Total Assets, EBIT/Total Assets) limits detailed driver analysis but overall trend supports a <strong>safe investment profile</strong>.</li>
+<li>Compared to industry averages (typically around 2.5-3.5 for insurance firms), PRU’s Z-Score indicates <strong>superior financial health</strong>.</li>
+</ul>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -682,30 +786,35 @@ The Z-Score trajectory shows a generally <strong>stable to improving trend</stro
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Stable, high Z-Score</td>
-<td>Price stable at $109.08</td>
-<td>Aligned</td>
-<td>Supports steady investment thesis</td>
+<td>Strong upward trend, Z=6.58</td>
+<td>Price stable at $108.11</td>
+<td>Divergent (market data anomalies)</td>
+<td>Fundamental strength not fully reflected in market data</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Positive sentiment</td>
-<td>Market technical data unavailable (0 volume)</td>
-<td>Divergent</td>
-<td>Data anomaly; caution advised</td>
+<td>Neutral to positive (P/E 17.05)</td>
+<td>Market volume zero, RSI 0</td>
+<td>Inconsistent</td>
+<td>Market data anomalies reduce confidence in sentiment signals</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Above industry average</td>
+<td>Outperforming peers (Z &gt; industry avg.)</td>
 <td>Sector performance unknown</td>
 <td>Outperforming</td>
-<td>Competitive advantage confirmed</td>
+<td>Competitive advantage confirmed by Z-Score</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-The fundamental health indicated by the Altman Z-Score aligns well with the stable stock price and reasonable valuation (P/E 17.23). However, technical market indicators (zero volume, zero RSI) suggest data incompleteness or illiquidity in the trading environment, limiting market timing insights.</p>
-<p>AI Sentiment Analysis shows positive sentiment but must be interpreted cautiously due to market data anomalies. Peer comparison confirms PRU’s strong positioning within the Insurance - Life sector, supporting a favorable investment stance.</p>
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li>The <strong>market data anomalies</strong> (zero volume, zero 52-week range) severely limit validation of Z-Score signals against price action and market sentiment.</li>
+<li>The P/E ratio of 17.05 is within a reasonable range for financial services, suggesting moderate market valuation.</li>
+<li>Dividend yield reported at 503% is clearly erroneous and should be disregarded.</li>
+<li>The <strong>Z-Score’s strong fundamental signal</strong> suggests a potential market undervaluation or data reporting issue.</li>
+<li>Peer comparison confirms PRU’s <strong>superior financial health</strong>, supporting a positive investment thesis despite market data limitations.</li>
+</ul>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -723,28 +832,38 @@ The fundamental health indicated by the Altman Z-Score aligns well with the stab
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential dip to ~3.0</td>
+<td>Potential EBIT decline could lower Z-Score</td>
 <td>Enhance underwriting discipline, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
-<td>Minor</td>
-<td>Minimal impact</td>
-<td>Maintain capital adequacy, monitor EBIT trends</td>
+<td>Moderate</td>
+<td>Low EBIT margin risks interest coverage</td>
+<td>Maintain conservative leverage, diversify income</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Low</td>
+<td>Medium</td>
 <td>Moderate</td>
-<td>Possible volatility</td>
-<td>Diversify investment portfolio, hedge interest rate exposure</td>
+<td>Market volatility could affect capital</td>
+<td>Hedging strategies, capital buffer maintenance</td>
+</tr>
+<tr>
+<td>Liquidity Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Low current ratio may stress short-term liquidity</td>
+<td>Improve liquidity management, asset-liability matching</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-Based on AI Risk Analysis, Prudential faces <strong>low to medium operational risks</strong> primarily from underwriting cycles and market fluctuations. The low EBIT margin and liquidity ratios highlight vulnerability to earnings shocks, which could reduce the Z-Score toward the Gray Zone (1.8-3.0) in adverse scenarios.</p>
-<p>Best-case scenario maintains Z-Score above 6.0 with stable earnings and capital management. Base case sees Z-Score fluctuating between 3.5 and 6.5 with moderate operational challenges. Worst case could push Z-Score below 3.0 if liquidity or earnings deteriorate sharply, warranting close monitoring.</p>
+<h3 id="scenario-planning">Scenario Planning</h3>
+<ul>
+<li><strong>Best Case:</strong> Continued strong capital accumulation and stable earnings maintain Z-Score &gt;6.0, supporting growth and dividend stability.</li>
+<li><strong>Base Case:</strong> EBIT margins remain low but stable, Z-Score holds above 4.0, maintaining safe zone status.</li>
+<li><strong>Worst Case:</strong> Operational shocks reduce EBIT further, liquidity tightens, Z-Score dips toward gray zone (~2.5-3.0), triggering caution and potential credit rating impact.</li>
+</ul>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -762,48 +881,53 @@ Based on AI Risk Analysis, Prudential faces <strong>low to medium operational ri
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td>HOLD</td>
-<td>Z-Score consistently &gt;3.5; stable</td>
-<td>Wait for clearer market signals</td>
-<td>6-12 months</td>
+<td><strong>BUY</strong></td>
+<td>Z-Score 6.58 confirms strong safety</td>
+<td>Price stable, low volatility</td>
+<td>Immediate to 12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>BUY</td>
-<td>High dividend yield (503%)*; stable Z-Score</td>
-<td>Monitor dividend sustainability</td>
-<td>Immediate to 6 months</td>
+<td><strong>HOLD</strong></td>
+<td>Stable capital supports dividends</td>
+<td>Dividend yield data unreliable; verify</td>
+<td>Monitor quarterly</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>BUY</td>
-<td>P/E 17.23 reasonable; Z-Score safe</td>
+<td><strong>BUY</strong></td>
+<td>Undervalued relative to strong Z-Score</td>
+<td>P/E 17.05 reasonable</td>
 <td>Entry on price dips</td>
-<td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>BUY</td>
-<td>Stable Z-Score; low EBIT margin limits growth</td>
-<td>Watch for operational improvements</td>
+<td><strong>HOLD</strong></td>
+<td>Low EBIT margin limits growth potential</td>
+<td>Await operational improvements</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>HOLD</td>
-<td>Low EBIT margin and liquidity risk</td>
-<td>Avoid until volatility reduces</td>
-<td>12+ months</td>
+<td><strong>CAUTION</strong></td>
+<td>Low operational efficiency, market data anomalies</td>
+<td>Volatility unknown</td>
+<td>Monitor closely</td>
 </tr>
 </tbody>
 </table>
-<p>*Dividend yield appears anomalous; verify before acting.</p>
-<p><strong>Commentary:</strong><br />
-Conservative investors should hold, given strong financial health but low liquidity. Dividend investors may find value if the extraordinary yield is confirmed sustainable. Value and growth investors can consider buying, leveraging the stable Z-Score and reasonable valuation, but should monitor operational efficiency improvements. Aggressive investors should hold due to low EBIT and liquidity concerns, awaiting clearer signs of earnings momentum.</p>
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li>Conservative investors can confidently <strong>buy</strong> given the strong Z-Score and low risk.</li>
+<li>Dividend investors should <strong>hold</strong> pending confirmation of dividend sustainability due to anomalous yield data.</li>
+<li>Value investors have an opportunity to <strong>buy</strong> on dips given strong fundamental safety.</li>
+<li>Growth investors should <strong>hold</strong> until EBIT margins improve.</li>
+<li>Aggressive investors should exercise <strong>caution</strong> due to operational inefficiencies and unreliable market data.</li>
+</ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -820,28 +944,33 @@ Conservative investors should hold, given strong financial health but low liquid
 <tr>
 <td>CEO Leadership</td>
 <td>Enhance operational efficiency</td>
-<td>EBIT Ratio (0.001), Asset Turnover (0.018)</td>
-<td>Drive cost optimization, improve underwriting</td>
+<td>EBIT Ratio, Asset Turnover</td>
+<td>Focus on underwriting profitability, cost optimization</td>
 <td>EBIT margin improvement, Z-Score stability</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Strengthen liquidity</td>
-<td>Current Ratio (0.130), Working Capital Ratio (0.130)</td>
-<td>Optimize capital structure, improve cash flow</td>
-<td>Liquidity ratio improvement, stable debt levels</td>
+<td>Strengthen liquidity &amp; capital</td>
+<td>Current Ratio, Retained Earnings Ratio</td>
+<td>Improve liquidity buffers, retain earnings</td>
+<td>Current ratio &gt;0.5, retained earnings growth</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight</td>
-<td>Z-Score trend, Risk factors</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Z-Score, Risk Factors</td>
 <td>Monitor risk trajectory, enforce governance</td>
-<td>Risk mitigation effectiveness, compliance adherence</td>
+<td>Maintain Z-Score &gt;3.0, risk mitigation effectiveness</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-The CEO should prioritize operational efficiency improvements to raise EBIT margins, directly impacting profitability and Z-Score sustainability. The CFO must address liquidity constraints by optimizing working capital and capital allocation. The Board should maintain vigilant risk oversight, leveraging the stable but low EBIT and liquidity metrics to prevent potential distress.</p>
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li>The CEO should prioritize operational improvements to increase EBIT margins, directly impacting financial stability.</li>
+<li>The CFO must address liquidity constraints and improve retained earnings to support long-term growth.</li>
+<li>The Board should maintain rigorous oversight of risk factors, ensuring the company remains in the safe zone and compliant with regulatory standards.</li>
+<li>Z-Score trends provide a clear, quantifiable metric for executive performance and risk management.</li>
+</ul>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -857,35 +986,41 @@ The CEO should prioritize operational efficiency improvements to raise EBIT marg
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Stable, high</td>
-<td>Slight improvement</td>
-<td>Earnings growth, capital management</td>
-<td>EBIT ratio, working capital ratio</td>
+<td>Stable, high (6.58)</td>
+<td>Slightly positive</td>
+<td>Improved underwriting, capital inflows</td>
+<td>Quarterly Z-Score updates, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Strong</td>
+<td>Strong relative</td>
 <td>Maintain/Improve</td>
-<td>Competitive product offerings, market expansion</td>
-<td>Market share, peer Z-Score comparison</td>
+<td>Competitive positioning, peer performance</td>
+<td>Market share, peer Z-Score comparisons</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low</td>
-<td>Stable to slight increase</td>
-<td>Regulatory changes, market volatility</td>
-<td>Risk factor incidence, liquidity ratios</td>
+<td>Low risk</td>
+<td>Stable to slightly elevated</td>
+<td>Economic cycles, regulatory changes</td>
+<td>Risk factor tracking, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-Prudential’s Z-Score momentum is expected to remain stable or improve modestly over the next 6-12 months, driven by potential earnings growth and effective capital management. Market position is strong, with opportunities for expansion in insurance and investment management segments. Risk profile remains low but requires monitoring of regulatory and market volatility catalysts.</p>
-<p>Early warning systems should focus on EBIT margin trends and liquidity ratios as leading indicators of financial health shifts. Investors should track quarterly Z-Score updates and peer performance for timely adjustments to investment theses.</p>
+<h3 id="commentary_5">Commentary</h3>
+<ul>
+<li>The Z-Score momentum is expected to remain stable or improve slightly, driven by capital strength and operational discipline.</li>
+<li>Market position is solid but requires monitoring of peer dynamics and sector trends.</li>
+<li>Risk profile remains low but must be vigilantly monitored for operational or market shocks.</li>
+<li>Key leading indicators include EBIT margin trends, liquidity ratios, and quarterly Z-Score updates.</li>
+<li>Early warning systems should be developed around EBIT margin declines and liquidity stress signals to preempt risk escalation.</li>
+</ul>
 <hr />
-<h1 id="summary">Summary</h1>
-<p>Prudential Financial, Inc. exhibits a robust Altman Z-Score profile firmly in the Safe Zone, supported by a large market cap and stable valuation metrics. Despite low liquidity and EBIT margins typical of the insurance sector, the company maintains strong financial stability and competitive positioning. Investment recommendations favor holding or buying depending on risk tolerance, with caution advised due to data anomalies in dividend yield and market technicals. Strategic focus on operational efficiency and liquidity enhancement will underpin future financial health and investment appeal.</p>
+<h1 id="summary-conclusion"><strong>Summary Conclusion</strong></h1>
+<p>Prudential Financial, Inc. (PRU) exhibits a <strong>very strong Altman Z-Score profile</strong> with consistent placement in the safe zone, indicating a low probability of financial distress. Despite some operational efficiency challenges (notably low EBIT margin and liquidity ratios), the company’s capital base and market capitalization provide a solid foundation. Market data anomalies limit real-time market signal validation, but fundamental analysis supports a <strong>buy or hold recommendation</strong> for most investor profiles, with caution advised for aggressive investors until operational improvements materialize.</p>
+<p>Continued focus on improving operational profitability and liquidity management will be critical to sustaining this strong financial health and maximizing shareholder value.</p>
 <hr />
-<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework</em></p></div></div>
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Analyst</em></p></div></div>
     </div>
     
 
@@ -1228,78 +1363,41 @@ Prudential’s Z-Score momentum is expected to remain stable or improve modestly
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:40 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:07 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

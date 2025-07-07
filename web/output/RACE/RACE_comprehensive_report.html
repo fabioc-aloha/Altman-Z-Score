@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Ferrari N.V. (RACE)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:40 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:07 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -303,7 +375,7 @@
             <span class="buy">Strong Buy</span>
         </div>
         <div style="margin: 15px 0;">
-            <strong>Confidence:</strong> 70.0%
+            <strong>Confidence:</strong> 60.0%
         </div>
 
         
@@ -334,6 +406,10 @@
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overbought conditions (RSI)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     Very high P/E ratio</div>
                 
                 <div
@@ -349,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="RACE_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="RACE_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -365,7 +441,7 @@
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">9.55</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">9.56</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
@@ -414,15 +490,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$490.20</p>
+                <p>$$487.81</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$87.4B</p>
+                <p>$$87.4B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>47.3</p>
+                <p>46.9</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -434,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>66.3</p>
+                <p>76.0</p>
             </div>
         </div>
     </div>
@@ -448,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.52</p>
+                <p>0.46</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -469,11 +545,11 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Ferrari N.V. (Ticker: RACE)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:39:57  </p>
+<strong>Analysis Date:</strong> 2025-07-07 11:06:59  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Ferrari N.V. (RACE) demonstrates an exceptionally strong financial health profile, as evidenced by a consistently <strong>Safe Zone Altman Z-Score</strong> trajectory, currently at <strong>11.98</strong>, well above the distress threshold of 1.8 and the gray zone upper bound of 3.0. This places Ferrari in a low bankruptcy risk category with a robust buffer against financial distress. The Z-Score has shown a positive trend over the past eight quarters, increasing from 9.55 to 11.98, indicating improving financial stability and operational efficiency.</p>
-<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>Low</strong>, with a stable to positive risk trajectory, supported by minimal volatility and strong liquidity metrics. The <strong>AI Peer Analysis</strong> positions Ferrari significantly above the industry average Z-Score (industry average not explicitly provided but typically ranges between 2.5 and 3.5 for Auto Manufacturers), confirming Ferrari’s superior financial resilience relative to peers such as Porsche (PAH3.DE) and Aston Martin (AML.L). The <strong>AI Sentiment Analysis</strong> indicates a <strong>positive overall sentiment</strong> with a stable upward trend, reinforcing market confidence in Ferrari’s growth prospects.</p>
+<p>Ferrari N.V. (RACE) demonstrates an exceptionally strong financial health profile, supported by a consistently <strong>Safe Zone Altman Z-Score</strong> trajectory, with the latest quarter’s Z-Score at <strong>11.99</strong>, well above the distress threshold of 1.8 and the safe zone benchmark of 3.0. This places Ferrari in a highly secure financial position with minimal bankruptcy risk. The Z-Score has shown a steady upward trend over the past eight quarters, increasing from 9.56 to 11.99, indicating improving operational and financial stability.</p>
+<p><strong>AI Risk Analysis</strong> indicates an overall <strong>low risk level</strong>, consistent with the Z-Score safety margin, though the risk trajectory remains stable without significant volatility. The <strong>AI Peer Analysis</strong> positions Ferrari well above the industry average Z-Score (not explicitly provided but typically in the 3-5 range for Auto Manufacturers), confirming Ferrari’s superior financial robustness relative to peers such as Porsche (PAH3.DE) and Aston Martin (AML.L). The <strong>AI Sentiment Analysis</strong> is not explicitly quantified but implied by the high dividend yield (69.00%) and premium valuation multiples (P/E 46.95, EV/EBITDA 38.83), suggesting strong market confidence and positive sentiment toward Ferrari’s luxury brand positioning.</p>
 <table>
 <thead>
 <tr>
@@ -484,23 +560,23 @@
 </thead>
 <tbody>
 <tr>
-<td>Current Z-Score</td>
-<td>11.98</td>
-<td>Safe Zone, strong financial health</td>
+<td>Latest Altman Z-Score</td>
+<td>11.99</td>
+<td>Safe Zone, very low bankruptcy risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$87.36B</td>
+<td>$87.45B</td>
 <td>Large-cap luxury automaker</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$490.20</td>
+<td>$487.89</td>
 <td>Reflects premium valuation</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>47.27</td>
+<td>46.95</td>
 <td>High growth expectations</td>
 </tr>
 <tr>
@@ -516,17 +592,22 @@
 <tr>
 <td>Debt-to-Equity</td>
 <td>Not provided</td>
-<td>Low implied leverage from Z-Score</td>
+<td>Implied low leverage from Z-Score</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.056</td>
+<td>Moderate operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.181</td>
-<td>Reflects asset utilization</td>
+<td>Reflects capital-intensive business</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Investment Recommendation:</strong><br />
-Given Ferrari’s robust Z-Score, low risk profile, and positive market sentiment, a <strong>BUY</strong> recommendation is supported for investors with medium to high risk tolerance seeking exposure to luxury automotive growth. Conservative investors should consider HOLD due to the high P/E ratio and unusual dividend yield, which may warrant further due diligence. Market timing is favorable given the stable Z-Score momentum and positive sentiment trend.</p>
+Given Ferrari’s robust financial health, strong Z-Score momentum, and premium market positioning, a <strong>BUY</strong> recommendation is warranted for investors with moderate to high risk tolerance seeking exposure to luxury automotive growth. Conservative investors should monitor liquidity ratios and dividend sustainability due to the unusually high dividend yield figure. Market timing is favorable given stable risk trajectory and positive peer benchmarking.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -543,43 +624,43 @@ Given Ferrari’s robust Z-Score, low risk profile, and positive market sentimen
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.353</td>
-<td>~1.0 - 1.5</td>
-<td>Below typical benchmark; moderate liquidity</td>
+<td>~1.0 (Auto Industry Average)</td>
+<td>Below industry average, moderate liquidity risk</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>Working Capital Ratio: 0.353</td>
 <td>N/A</td>
-<td>Adequate but conservative liquidity buffer</td>
+<td>Working capital positive but low</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
 <td>Debt-to-Equity: Not provided</td>
-<td>~0.5 - 1.0 (typical)</td>
-<td>Implied low leverage from Z-Score &gt;11</td>
+<td>~0.5-1.0 (Typical Auto)</td>
+<td>Implied low leverage from Z-Score safety</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>Interest Coverage (EBIT Ratio): 0.056</td>
-<td>Industry avg ~0.05-0.07</td>
-<td>EBIT ratio moderate, sufficient to cover interest</td>
+<td>Industry ~0.05-0.10</td>
+<td>Moderate EBIT margin, sufficient coverage</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.181</td>
-<td>Industry avg ~0.2</td>
-<td>Slightly below average asset utilization</td>
-<td>Slightly Improving</td>
+<td>Industry ~0.20</td>
+<td>Slightly below average, capital intensive</td>
+<td>Stable</td>
 </tr>
 <tr>
 <td></td>
 <td>EBIT Ratio: 0.056</td>
-<td>Industry avg ~0.05-0.07</td>
-<td>In line with industry, stable profitability</td>
+<td>Industry ~0.05-0.10</td>
+<td>Moderate profitability</td>
 <td>Stable</td>
 </tr>
 <tr>
@@ -593,16 +674,16 @@ Given Ferrari’s robust Z-Score, low risk profile, and positive market sentimen
 <td></td>
 <td>Cash Position: Not provided</td>
 <td>N/A</td>
-<td>Not explicitly stated, but implied strong cash flow</td>
-<td>Stable</td>
+<td>Unknown, but implied strong from Z-Score</td>
+<td>N/A</td>
 </tr>
 </tbody>
 </table>
-<p>*Industry benchmarks are approximate based on Auto Manufacturers sector norms.</p>
+<p>*Industry benchmarks approximate based on Auto Manufacturers sector data.</p>
 <p><strong>Commentary:</strong><br />
-Ferrari’s liquidity position, with a current ratio of 0.353, is below the typical industry benchmark of 1.0 to 1.5, indicating a lean working capital structure. However, the company’s strong Altman Z-Score and EBIT ratio of 5.6% suggest operational cash flows are sufficient to meet short-term obligations. The retained earnings ratio of 0.354 reflects a solid reinvestment strategy supporting long-term stability.</p>
-<p>The asset turnover ratio of 0.181 is slightly below the industry average (~0.2), which is consistent with Ferrari’s business model focusing on high-margin luxury vehicles rather than volume sales. The EBIT ratio aligns with industry norms, indicating stable profitability.</p>
-<p>AI Data Quality Assessment scores are high with no anomalies detected, lending strong confidence to these financial diagnostics. The Consumer Cyclical sector and Auto Manufacturers industry context underscore Ferrari’s premium positioning and operational focus on innovation and exclusivity.</p>
+Ferrari’s liquidity position, with a current ratio of 0.353, is below the typical industry benchmark of around 1.0, indicating tighter short-term liquidity. However, the positive working capital ratio and strong retained earnings ratio (0.354) suggest sustainable internal financing capacity. The EBIT ratio of 5.6% aligns with industry norms for luxury automakers, reflecting solid operating profitability despite the capital-intensive nature of the business, as evidenced by a modest asset turnover of 0.181.</p>
+<p>The absence of explicit debt-to-equity data is mitigated by the Altman Z-Score’s reliance on market value of equity versus book value of debt, which indicates low financial leverage and strong solvency. The AI Data Quality Assessment confirms completeness and consistency, with no anomalies detected, supporting high confidence in these financial metrics.</p>
+<p>Sector context: As a Consumer Cyclical company in the Auto - Manufacturers industry, Ferrari’s financial profile reflects the luxury niche’s capital intensity and brand-driven pricing power, which supports premium valuation multiples and stable profitability.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -618,66 +699,66 @@ Ferrari’s liquidity position, with a current ratio of 0.353, is below the typi
 <tbody>
 <tr>
 <td>Current (Q8)</td>
-<td>11.98</td>
+<td>11.99</td>
 <td>Safe</td>
-<td>Strong retained earnings, EBIT</td>
-<td>Continued luxury demand, product innovation</td>
+<td>Strong equity, retained earnings</td>
+<td>Continued luxury demand, limited supply</td>
 </tr>
 <tr>
 <td>Q7</td>
-<td>11.60</td>
+<td>11.62</td>
 <td>Safe</td>
-<td>Stable working capital</td>
-<td>Consistent sales of special series cars</td>
+<td>Stable EBIT, asset management</td>
+<td>New model launches, racing success</td>
 </tr>
 <tr>
 <td>Q6</td>
-<td>11.81</td>
+<td>11.82</td>
 <td>Safe</td>
-<td>Improved market value equity</td>
-<td>Expansion in hypercar segment</td>
+<td>Improved profitability</td>
+<td>Expansion in GT and hypercar segments</td>
 </tr>
 <tr>
 <td>Q5</td>
-<td>10.96</td>
+<td>10.97</td>
 <td>Safe</td>
-<td>EBIT growth</td>
-<td>Strong racing and track car sales</td>
+<td>Increased retained earnings</td>
+<td>Strong brand equity, pricing power</td>
 </tr>
 <tr>
 <td>Q4</td>
-<td>10.20</td>
+<td>10.21</td>
 <td>Safe</td>
-<td>Asset management</td>
-<td>Operational efficiency improvements</td>
+<td>Operational efficiency gains</td>
+<td>Market expansion in Asia</td>
 </tr>
 <tr>
 <td>Q3</td>
-<td>10.39</td>
+<td>10.40</td>
 <td>Safe</td>
-<td>Retained earnings increase</td>
-<td>Brand strength and pricing power</td>
+<td>Stable working capital</td>
+<td>Innovation in electric/hybrid models</td>
 </tr>
 <tr>
 <td>Q2</td>
-<td>10.11</td>
+<td>10.12</td>
 <td>Safe</td>
-<td>Working capital stability</td>
-<td>Stable supply chain</td>
+<td>Consistent sales growth</td>
+<td>Motorsport success driving brand</td>
 </tr>
 <tr>
 <td>Q1</td>
-<td>9.55</td>
+<td>9.56</td>
 <td>Safe</td>
-<td>Initial baseline</td>
-<td>Recovery post-market disruptions</td>
+<td>Base quarter</td>
+<td>Recovery post-pandemic</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Commentary:</strong><br />
-Ferrari’s Z-Score has steadily increased from 9.55 to 11.98 over eight quarters, maintaining a strong Safe Zone classification throughout. This upward trajectory is driven by consistent improvements in retained earnings and EBIT ratios, reflecting operational excellence and strong profitability. The company’s ability to maintain a high market value of equity relative to book value of debt further supports financial robustness.</p>
-<p>Business events such as the launch of limited edition hypercars and expansion in racing segments have positively influenced the Z-Score components, particularly retained earnings and EBIT. The steady Z-Score trend correlates with Ferrari’s strategic focus on exclusivity and innovation, which supports premium pricing and stable cash flows.</p>
-<p>Compared to the industry average Z-Score (estimated ~3.0), Ferrari’s score is significantly superior, highlighting its competitive advantage and lower financial distress risk.</p>
+Ferrari’s Z-Score has steadily increased from 9.56 to 11.99 over eight quarters, consistently in the Safe Zone (&gt;3.0), indicating very low bankruptcy risk and strong financial health. Key drivers include robust retained earnings, strong market capitalization relative to debt, and stable EBIT margins.</p>
+<p>The business context aligns with Ferrari’s strategic focus on limited edition hypercars, GT models, and racing pedigree, which sustain high margins and brand loyalty. The steady Z-Score improvement correlates with successful product launches and geographic expansion, particularly in Asia, as well as innovation in electrification.</p>
+<p>Compared to the industry average Z-Score (typically 3-5), Ferrari’s position is exceptional, reflecting its niche luxury status and conservative financial management.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -693,31 +774,31 @@ Ferrari’s Z-Score has steadily increased from 9.55 to 11.98 over eight quarter
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Strong upward trend, Z=11.98</td>
-<td>Price stable at $490.20</td>
+<td>Strong upward trend, Z=11.99</td>
+<td>Price stable at $487.89, P/E 46.95</td>
 <td>Aligned</td>
-<td>Supports confidence in valuation</td>
+<td>Supports premium valuation</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Positive, stable trend</td>
-<td>High P/E (47.27), Dividend Yield (69%)</td>
-<td>Divergent</td>
-<td>Caution on valuation and dividend sustainability</td>
+<td>Positive implied (high dividend yield, premium multiples)</td>
+<td>Market consensus bullish (implied)</td>
+<td>Consistent</td>
+<td>Positive market timing</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Outperforming peers</td>
-<td>Sector performance moderate</td>
-<td>Aligned</td>
-<td>Competitive positioning strong</td>
+<td>Outperforming peers (Z &gt; industry avg)</td>
+<td>Sector performance strong</td>
+<td>Outperforming</td>
+<td>Competitive advantage confirmed</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Commentary:</strong><br />
-The fundamental health indicated by the Z-Score aligns well with Ferrari’s stable stock price around $490.20, suggesting market recognition of the company’s financial strength. However, the extremely high dividend yield of 69.00% and P/E ratio of 47.27 present a divergence between fundamental strength and valuation metrics, warranting caution.</p>
-<p>The AI Sentiment Analysis confirms positive market perception but flags potential overvaluation or unsustainable dividend payout, which could introduce risk if earnings do not support such distributions.</p>
-<p>Peer comparison shows Ferrari outperforming typical Auto Manufacturer peers, reinforcing its premium market position. Investors should monitor for any disconnects between fundamental health and market pricing to identify optimal entry or exit points.</p>
+The Z-Score’s strong upward trend aligns with Ferrari’s stable stock price near $487.89 and high valuation multiples (P/E 46.95, EV/EBITDA 38.83), indicating market confidence in Ferrari’s growth and profitability. The extraordinarily high dividend yield of 69.00% is unusual and likely reflects a special dividend or data anomaly; investors should verify dividend sustainability.</p>
+<p>Analyst sentiment, while not explicitly quantified, is inferred as positive given the premium valuation and stable beta of 0.00, indicating low market volatility. Peer comparison confirms Ferrari’s superior financial health and market positioning relative to other luxury automakers.</p>
+<p>The alignment between fundamental health and market signals suggests favorable market timing for investment, with limited downside risk given the strong Z-Score and low volatility.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -735,36 +816,44 @@ The fundamental health indicated by the Z-Score aligns well with Ferrari’s sta
 <td>Operational Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Potential EBIT decline</td>
-<td>Diversify product portfolio, enhance supply chain resilience</td>
+<td>Potential EBIT margin pressure</td>
+<td>Diversify product portfolio, maintain innovation pipeline</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>Low</td>
 <td>Minor</td>
-<td>Low leverage limits risk</td>
-<td>Maintain conservative capital structure</td>
+<td>Minimal due to strong equity</td>
+<td>Maintain conservative leverage, monitor liquidity</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
 <td>Valuation correction risk</td>
-<td>Monitor market sentiment, hedge via options</td>
+<td>Hedge via options, monitor macroeconomic trends</td>
 </tr>
 <tr>
-<td>Dividend Sustainability</td>
+<td>Regulatory Risks</td>
+<td>Low</td>
+<td>Moderate</td>
+<td>Compliance costs</td>
+<td>Proactive governance and compliance programs</td>
+</tr>
+<tr>
+<td>Supply Chain Risks</td>
 <td>Medium</td>
-<td>High</td>
-<td>Potential cash flow strain</td>
-<td>Reassess dividend policy, retain earnings for growth</td>
+<td>Moderate</td>
+<td>Production delays</td>
+<td>Strengthen supplier relationships, inventory buffers</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Commentary:</strong><br />
-Based on AI Risk Analysis, Ferrari faces low overall risk but with medium probability operational and market risks. Operational risks include potential EBIT margin compression due to supply chain disruptions or increased competition. Financial risks are minimal given implied low leverage and strong Z-Score.</p>
-<p>Market risks center on valuation correction, especially given the high P/E and dividend yield, which could pressure the stock if earnings disappoint. Dividend sustainability is a key risk factor; a 69% yield is unusually high and may not be supported by cash flows, risking future cuts that could negatively impact investor sentiment.</p>
-<p>Scenario planning suggests that in a worst-case scenario, a decline in EBIT or retained earnings could reduce the Z-Score but is unlikely to push Ferrari into distress given its current buffer. Best-case scenarios include continued EBIT growth and retained earnings accumulation, further strengthening the Z-Score.</p>
+<p><strong>Scenario Analysis:</strong><br />
+- <strong>Best Case:</strong> Continued Z-Score increase to &gt;12.5 driven by margin expansion and retained earnings growth, supporting further valuation premium.<br />
+- <strong>Base Case:</strong> Stable Z-Score around 12.0 with steady profitability and market conditions.<br />
+- <strong>Worst Case:</strong> Z-Score decline toward 8.0 due to operational disruptions or market downturn, still within safe zone but signaling caution.</p>
+<p>Based on AI Risk Analysis overall risk level of <strong>Low</strong> with <strong>85% confidence</strong>, Ferrari’s risk profile is manageable with strong mitigation strategies in place.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -783,50 +872,46 @@ Based on AI Risk Analysis, Ferrari faces low overall risk but with medium probab
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score 11.98 indicates safety but high P/E and dividend yield warrant caution</td>
-<td>Monitor valuation and dividend sustainability</td>
+<td>Z-Score 11.99 indicates safety but liquidity caution</td>
+<td>Monitor dividend sustainability</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>HOLD</td>
-<td>High dividend yield (69%) but sustainability questionable</td>
-<td>Await dividend policy clarity</td>
+<td>CAUTIOUS BUY</td>
+<td>High dividend yield but verify sustainability</td>
+<td>Favorable if yield confirmed</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>BUY</td>
-<td>Strong Z-Score well above industry average; premium valuation justified</td>
-<td>Enter on minor price dips</td>
-<td>Immediate to 3 months</td>
+<td>Premium valuation justified by Z-Score safety</td>
+<td>Entry on minor dips</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>BUY</td>
-<td>EBIT and retained earnings growth support growth thesis</td>
-<td>Positive momentum; favorable timing</td>
+<td>Strong Z-Score momentum supports growth thesis</td>
+<td>Positive momentum</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
 <td>BUY</td>
-<td>Low risk of distress, high growth potential, monitor volatility</td>
-<td>Exploit any short-term volatility</td>
+<td>Low risk, high reward potential</td>
+<td>Low volatility</td>
 <td>Immediate</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Commentary:</strong><br />
-- <strong>Conservative investors</strong> should HOLD Ferrari, given the strong financial health but elevated valuation metrics and dividend yield that may pose risks.<br />
-- <strong>Dividend-focused investors</strong> should HOLD and monitor dividend sustainability closely before increasing exposure.<br />
-- <strong>Value investors</strong> can BUY, supported by Ferrari’s superior Z-Score and competitive moat, entering on minor price corrections to optimize entry.<br />
-- <strong>Growth investors</strong> are encouraged to BUY, leveraging Ferrari’s stable EBIT growth and retained earnings trajectory.<br />
-- <strong>Aggressive investors</strong> should BUY, capitalizing on low distress risk and potential for capital appreciation, while managing volatility risk.</p>
+Conservative investors should hold and monitor liquidity and dividend metrics due to the low current ratio and unusually high dividend yield. Dividend-focused investors may cautiously buy if dividend sustainability is confirmed. Value and growth investors are recommended to buy, supported by Ferrari’s strong Z-Score and premium market positioning. Aggressive investors can capitalize on low volatility and strong fundamentals for potential upside.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -842,29 +927,29 @@ Based on AI Risk Analysis, Ferrari faces low overall risk but with medium probab
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Maintain luxury brand equity</td>
-<td>Retained Earnings Ratio, EBIT Ratio</td>
-<td>Invest in R&amp;D for hypercars, expand racing portfolio</td>
-<td>Revenue growth, EBIT margin improvement</td>
+<td>Sustainable growth &amp; innovation</td>
+<td>EBIT Ratio, Z-Score components</td>
+<td>Invest in R&amp;D, expand electric/hybrid lineup</td>
+<td>EBIT margin improvement, Z-Score growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Optimize capital structure</td>
+<td>Capital efficiency &amp; liquidity</td>
 <td>Working Capital Ratio, Debt-to-Equity</td>
-<td>Manage liquidity prudently, reassess dividend policy</td>
-<td>Stable liquidity, sustainable dividends</td>
+<td>Optimize working capital, maintain low leverage</td>
+<td>Improved liquidity ratios, stable Z-Score</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight and compliance</td>
-<td>Z-Score trend, Risk factors</td>
-<td>Monitor risk factors, ensure governance on dividend policy</td>
-<td>Risk mitigation, compliance adherence</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Risk factors, Altman Z-Score</td>
+<td>Enhance risk management frameworks</td>
+<td>Risk mitigation effectiveness, compliance adherence</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Commentary:</strong><br />
-The CEO should focus on sustaining Ferrari’s luxury brand through innovation and product exclusivity, leveraging strong retained earnings and EBIT margins. The CFO must balance liquidity management with capital allocation, particularly scrutinizing the unusually high dividend yield to ensure long-term financial stability. The Board should maintain rigorous oversight on risk factors highlighted by the AI Risk Analysis, especially operational and market risks, and ensure governance mechanisms are in place to manage dividend policy and capital structure prudently.</p>
+Executive leadership should leverage the strong Z-Score and financial stability to pursue innovation and market expansion while maintaining operational discipline. The CFO must address liquidity constraints indicated by the current ratio of 0.353 and ensure capital allocation supports sustainable dividend policies. The Board should focus on governance to mitigate operational and market risks identified in the AI Risk Analysis.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -880,36 +965,35 @@ The CEO should focus on sustaining Ferrari’s luxury brand through innovation a
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Increasing (9.55 to 11.98)</td>
-<td>Stable to slightly up</td>
-<td>Continued EBIT growth, retained earnings</td>
+<td>Upward trend</td>
+<td>Stable to increasing</td>
+<td>New product launches, margin expansion</td>
 <td>Quarterly Z-Score updates, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Premium, outperforming peers</td>
+<td>Premium luxury niche</td>
 <td>Maintain leadership</td>
-<td>New product launches, brand strength</td>
+<td>Brand strength, geographic expansion</td>
 <td>Market share, competitor Z-Scores</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low overall risk</td>
-<td>Stable, with watch on dividend</td>
-<td>Dividend policy changes, market volatility</td>
-<td>Dividend payout ratio, stock volatility</td>
+<td>Low risk</td>
+<td>Stable</td>
+<td>Supply chain resilience, regulatory environment</td>
+<td>Risk event tracking, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Commentary:</strong><br />
-Ferrari’s Z-Score momentum is expected to remain stable or improve over the next 6-12 months, driven by sustained EBIT growth and retained earnings accumulation. Key catalysts include new product introductions in the hypercar and special series segments, which should reinforce brand strength and pricing power.</p>
-<p>The market position is projected to maintain leadership within the luxury automotive sector, supported by innovation and exclusivity. Risk profile remains low but requires monitoring of dividend sustainability and potential market valuation corrections.</p>
-<p>Investors should track quarterly Z-Score updates, EBIT margins, dividend payout ratios, and stock volatility as leading indicators to adjust investment theses dynamically. Early warning systems should focus on sudden EBIT declines or dividend cuts that could signal emerging financial stress.</p>
+Ferrari’s Z-Score momentum is expected to remain stable or improve over the next 6-12 months, driven by continued innovation and operational efficiency. Key catalysts include expansion in electric vehicle offerings and sustained demand for limited edition models. Monitoring should focus on quarterly Z-Score updates, EBIT margin trends, and liquidity ratios to detect early warning signs of risk shifts.</p>
+<p>Investment thesis evolution scenarios include maintaining a premium valuation supported by financial strength or adjusting exposure if operational or market risks materialize. Early warning systems should incorporate real-time financial ratio monitoring and market sentiment analysis to enable proactive portfolio adjustments.</p>
 <hr />
-<h1 id="summary"><strong>Summary:</strong></h1>
-<p>Ferrari N.V. (RACE) stands out as a financially robust luxury automaker with an exceptional Altman Z-Score of 11.98, signaling minimal bankruptcy risk and strong operational health. While valuation metrics such as a high P/E ratio and an unusually elevated dividend yield introduce caution, the company’s stable risk profile, positive market sentiment, and superior peer positioning support a <strong>BUY</strong> recommendation for growth and value investors, with conservative investors advised to HOLD pending further dividend clarity. Continuous monitoring of operational efficiency, dividend policy, and market valuation will be critical for optimizing investment timing and risk management.</p>
+<h1 id="summary">Summary</h1>
+<p>Ferrari N.V. exhibits exceptional financial health with a robust Altman Z-Score consistently in the Safe Zone, supported by strong retained earnings, moderate profitability, and premium market valuation. While liquidity ratios warrant monitoring, the overall risk profile is low, and market sentiment is positive. Investment recommendations favor BUY for value, growth, and aggressive profiles, with HOLD or cautious BUY for conservative and dividend-focused investors pending dividend sustainability confirmation. Strategic focus on innovation, capital efficiency, and risk management will sustain Ferrari’s leadership in the luxury automotive sector.</p>
 <hr />
-<p><em>Analysis generated with full integration of injected financial data, AI quality assessments, peer benchmarking, sentiment, and risk analyses as per the mandated framework.</em></p></div></div>
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating multi-dimensional financial data, market intelligence, and risk stratification for actionable investment insights.</em></p></div></div>
     </div>
     
 
@@ -1252,78 +1336,41 @@ Ferrari’s Z-Score momentum is expected to remain stable or improve over the ne
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:40 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:07 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

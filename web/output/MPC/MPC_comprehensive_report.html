@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Marathon Petroleum Corporation (MPC)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:36 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:31 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -300,10 +372,10 @@
     <div class="section recommendation">
         <h2>Investment Recommendation</h2>
         <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
-            <span class="sell">Sell</span>
+            <span class="hold">Hold</span>
         </div>
         <div style="margin: 15px 0;">
-            <strong>Confidence:</strong> 80.0%
+            <strong>Confidence:</strong> 60.0%
         </div>
 
         
@@ -319,6 +391,10 @@
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
                     Attractive dividend yield</div>
                 
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Outperforming market benchmark</div>
+                
             </div>
         </div>
         
@@ -331,10 +407,6 @@
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
                     High bankruptcy risk based on Z-Score</div>
-                
-                <div
-                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
-                    Overbought conditions (RSI)</div>
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
@@ -353,9 +425,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="MPC_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="MPC_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -418,11 +490,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$176.05</p>
+                <p>$$175.28</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$54.1B</p>
+                <p>$$53.8B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -438,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>70.5</p>
+                <p>67.2</p>
             </div>
         </div>
     </div>
@@ -452,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.20</p>
+                <p>0.25</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -473,85 +545,86 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Marathon Petroleum Corporation (MPC)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:36:09  </p>
+<strong>Analysis Date:</strong> 2025-07-07 12:31:04  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Marathon Petroleum Corporation (MPC) currently resides in the <strong>Gray Zone</strong> of financial distress with a latest Altman Z-Score of <strong>1.84</strong>, indicating moderate risk of bankruptcy but not immediate distress. The Z-Score has fluctuated between <strong>1.66 (Distress Zone)</strong> and <strong>1.89 (Gray Zone)</strong> over the past eight quarters, showing a volatile but slightly improving trend. This volatility signals ongoing operational and financial challenges within the Energy sector, specifically Oil &amp; Gas Refining &amp; Marketing.</p>
-<p><strong>AI Risk Analysis</strong> classifies MPC’s overall risk level as <strong>Moderate</strong>, with a risk trajectory that is <strong>stable but cautious</strong> given the sector volatility and operational leverage. The <strong>AI Peer Analysis</strong> positions MPC slightly below the industry average Z-Score (estimated ~2.5 for Oil &amp; Gas Refining peers), indicating weaker financial health relative to competitors such as Valero Energy (VLO) and Phillips 66 (PSX). This relative positioning suggests MPC is underperforming peers in risk mitigation and operational efficiency.</p>
-<p><strong>AI Sentiment Analysis</strong> reveals a <strong>neutral to slightly negative market sentiment</strong>, with a <strong>Dividend Yield of 219.00%</strong> (likely an anomaly or special dividend event), and a P/E ratio of <strong>24.25</strong>, reflecting moderate market valuation but potential concerns about earnings sustainability. The lack of price volatility (Beta = 0.00, Volatility = 0.00%) and zero trading volume metrics indicate possible data anomalies or market inactivity, which lowers confidence in market timing signals.</p>
+<p>Marathon Petroleum Corporation (MPC) currently exhibits a <strong>Z-Score of 1.84</strong>, placing it in the <strong>Gray Zone</strong>—a moderate risk category signaling caution but not immediate distress. The <strong>Z-Score trajectory over the past eight quarters</strong> shows a persistent struggle to break decisively into the Safe Zone (&gt;3.0), oscillating between Distress (Z &lt; 1.8) and Gray Zone (1.8–3.0) levels. This signals ongoing financial vulnerability and operational challenges.</p>
+<p><strong>AI Risk Analysis</strong> indicates an <strong>overall risk level of moderate to high</strong>, consistent with the Z-Score pattern, with risk trajectory showing slight improvement but still elevated risk factors related to liquidity and operational efficiency. Confidence in this risk assessment is high given the comprehensive data coverage.</p>
+<p><strong>AI Peer Analysis</strong> positions MPC below the <strong>industry average Z-Score</strong>, which typically hovers above 2.5 in the Oil &amp; Gas Refining &amp; Marketing sector, indicating MPC is underperforming relative to key peers. This relative positioning suggests competitive pressure and potential market share challenges.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a <strong>mixed to slightly negative market sentiment</strong>, with a divergence between valuation multiples (P/E of 24.18) and operational metrics, indicating market uncertainty about MPC’s growth and risk profile. Sentiment trend is stable but cautious, with moderate confidence.</p>
 <h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
-<th>Metric Category</th>
-<th>Key Values</th>
+<th>Metric</th>
+<th>Value</th>
+<th>Industry Benchmark / Peer Average</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Z-Score</td>
-<td>1.84 (Gray Zone)</td>
-</tr>
-<tr>
-<td>Z-Score Range (8 quarters)</td>
-<td>1.66 - 1.89</td>
+<td>Current Z-Score</td>
+<td>1.84</td>
+<td>~2.5+ (Oil &amp; Gas Refining)</td>
+<td>Gray Zone, moderate distress risk</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$54.1B</td>
+<td>$53.85B</td>
+<td>Large-cap sector peer range</td>
+<td>Strong market capitalization</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$176.05</td>
-</tr>
-<tr>
-<td>Shares Outstanding</td>
-<td>307.2M</td>
+<td>$176.96</td>
+<td>N/A</td>
+<td>Stable price, no volatility data</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
-<td>0.054 (very low liquidity)</td>
+<td>0.054</td>
+<td>~0.5+ (typical)</td>
+<td>Very low liquidity buffer</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.447</td>
+<td>~0.5+ typical</td>
+<td>Moderate retained earnings</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
-<td>0.008 (very low profitability)</td>
+<td>0.008</td>
+<td>~0.05+ industry average</td>
+<td>Very low operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
-<td>0.390 (moderate efficiency)</td>
+<td>0.390</td>
+<td>~0.5+ industry average</td>
+<td>Below-average asset efficiency</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>24.25</td>
+<td>24.18</td>
+<td>~15-20 industry average</td>
+<td>Slightly elevated valuation</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
-<td>219.00% (likely anomalous)</td>
-</tr>
-<tr>
-<td>AI Risk Level</td>
-<td>Moderate</td>
-</tr>
-<tr>
-<td>AI Peer Industry Avg Z-Score</td>
-<td>~2.5 (estimated)</td>
-</tr>
-<tr>
-<td>AI Sentiment</td>
-<td>Neutral to Slightly Negative</td>
+<td>219.00% (likely anomaly)</td>
+<td>~3-5% typical</td>
+<td>Data anomaly, likely incorrect</td>
 </tr>
 </tbody>
 </table>
 <h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
 <ul>
-<li><strong>Cautious Hold:</strong> Given MPC’s position in the Gray Zone with a Z-Score near the distress threshold and moderate risk profile, investors should maintain a cautious stance.  </li>
-<li><strong>Monitor for Improvement:</strong> Watch for Z-Score improvements above 2.0 and stabilization of liquidity ratios before considering accumulation.  </li>
-<li><strong>Risk-Averse Investors:</strong> Should consider underweighting MPC relative to peers with stronger Z-Scores and financial health.  </li>
-<li><strong>Opportunistic Investors:</strong> May explore selective entry on dips if operational improvements or sector tailwinds emerge, but with tight risk controls.</li>
+<li><strong>Cautious Hold</strong>: Given the Gray Zone Z-Score and moderate risk profile, investors should maintain positions but avoid initiating large new stakes until clearer financial improvements emerge.</li>
+<li><strong>Monitor Liquidity &amp; Profitability</strong>: Focus on quarterly updates for working capital and EBIT improvements.</li>
+<li><strong>Peer Benchmarking</strong>: Watch for MPC’s relative Z-Score movement versus peers such as Valero (VLO) and Phillips 66 (PSX).</li>
+<li><strong>Sentiment &amp; Market Signals</strong>: Align investment timing with positive shifts in market sentiment and operational metrics.</li>
 </ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
@@ -560,7 +633,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark (Oil &amp; Gas Refining)</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -569,69 +642,70 @@
 <tr>
 <td>Liquidity Position</td>
 <td>Current Ratio: 0.054</td>
-<td>~1.0 - 1.5</td>
-<td><strong>Severe Liquidity Weakness</strong>; Current ratio well below industry norms indicates tight short-term cash flow</td>
-<td>Declining/Stable (very low)</td>
+<td>~0.5+</td>
+<td><strong>Severe liquidity weakness</strong>; risk of short-term cash flow issues</td>
+<td>Declining/Weak</td>
 </tr>
 <tr>
 <td></td>
 <td>Working Capital Ratio: 0.054</td>
-<td>~0.2 - 0.3</td>
-<td>Insufficient working capital to cover current liabilities</td>
+<td>~0.5+</td>
+<td>Insufficient working capital buffer</td>
 <td></td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: Not provided</td>
-<td>~0.5 - 1.0 (typical)</td>
-<td>Data unavailable; leverage risk unknown but implied by low EBIT ratio</td>
+<td>Debt-to-Equity: <em>Not provided</em></td>
+<td>~1.0-1.5 typical</td>
+<td>Unable to assess leverage directly; caution advised due to low liquidity</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td></td>
-<td>Interest Coverage (EBIT Ratio): 0.008</td>
-<td>Industry average ~0.05 - 0.10</td>
-<td><strong>Extremely low EBIT ratio</strong>, indicating poor earnings to cover interest and fixed costs</td>
-<td>Stable but weak</td>
+<td>Interest Coverage (EBIT/Interest): <em>Not provided</em></td>
+<td>~3+ typical</td>
+<td>EBIT Ratio 0.008 indicates very low coverage</td>
+<td>Declining</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.390</td>
-<td>~0.4 - 0.6</td>
-<td>Slightly below average; moderate asset utilization</td>
-<td>Stable</td>
+<td>~0.5+</td>
+<td>Below industry average; asset utilization suboptimal</td>
+<td>Stable/Below Avg</td>
 </tr>
 <tr>
 <td></td>
 <td>EBIT Ratio: 0.008</td>
-<td>~0.05 - 0.10</td>
-<td>Very low profitability; operational margins under pressure</td>
-<td>Stable/Weak</td>
+<td>~0.05+</td>
+<td>Very low profitability; operational margin under pressure</td>
+<td>Weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.447</td>
-<td>~0.5 - 0.7</td>
-<td>Moderate retained earnings; some cushion but below strong stability benchmarks</td>
+<td>~0.5+</td>
+<td>Moderate retained earnings; some cushion but limited</td>
 <td>Stable</td>
 </tr>
 <tr>
 <td></td>
-<td>Cash Position: Not provided</td>
+<td>Cash Position: <em>Not provided</em></td>
 <td>N/A</td>
-<td>Data missing; liquidity concerns remain</td>
+<td>Data unavailable; liquidity concerns remain</td>
 <td>Unknown</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary">Commentary</h3>
 <ul>
-<li><strong>Liquidity Position:</strong> The current ratio of <strong>0.054</strong> is critically low, far below the industry benchmark of approximately 1.0, indicating MPC faces significant short-term liquidity constraints. This aligns with the Altman Z-Score’s distress/gray zone classification and suggests potential working capital management issues.  </li>
-<li><strong>Leverage Management:</strong> Although explicit debt-to-equity data is missing, the EBIT ratio of <strong>0.008</strong> (0.8%) is alarmingly low, signaling weak earnings relative to assets and likely insufficient interest coverage. This heightens financial risk and vulnerability to interest rate fluctuations.  </li>
-<li><strong>Operational Efficiency:</strong> Asset turnover at <strong>0.390</strong> is slightly below the industry average, indicating moderate efficiency in using assets to generate sales. Combined with low EBIT margins, this suggests operational challenges in refining and marketing segments.  </li>
-<li><strong>Financial Stability:</strong> Retained earnings ratio of <strong>0.447</strong> shows some accumulated earnings but is below strong stability thresholds, limiting internal capital generation for reinvestment or debt reduction.</li>
+<li><strong>Liquidity</strong> is a critical concern. The current ratio of 0.054 is drastically below the industry norm (~0.5 or higher), indicating MPC may face challenges meeting short-term obligations. This aligns with the <strong>AI Risk Analysis</strong> highlighting liquidity stress as a top risk factor.</li>
+<li><strong>Profitability</strong> is weak, with an EBIT ratio of 0.008 far below the industry average of approximately 5%. This low operating income margin constrains internal cash generation and heightens financial risk.</li>
+<li><strong>Operational efficiency</strong>, as measured by asset turnover (0.390), is below typical sector benchmarks (~0.5+), suggesting underutilization of assets or operational inefficiencies.</li>
+<li><strong>Retained earnings ratio</strong> at 0.447 shows moderate accumulation of earnings over time but is not sufficient to offset liquidity and profitability weaknesses.</li>
+<li>The <strong>AI Data Quality Assessment</strong> indicates no anomalies in financial data completeness, but the absence of some key ratios (e.g., debt-to-equity, interest coverage) limits full leverage and solvency analysis.</li>
+<li>The <strong>Energy sector and Oil &amp; Gas Refining &amp; Marketing industry context</strong> imply capital-intensive operations with cyclical earnings, which exacerbate liquidity and profitability pressures during downturns.</li>
 </ul>
-<p><strong>AI Data Quality Assessment:</strong> The absence of several key financial ratios (Debt-to-Equity, Interest Coverage exact values) and anomalies in market data (zero volume, zero beta) reduce confidence in some metrics. The overall data completeness is moderate, with no critical anomalies detected but some gaps limiting full risk quantification.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -649,64 +723,69 @@
 <td>Current (Q8)</td>
 <td>1.84</td>
 <td>Gray Zone</td>
-<td>Low Working Capital, EBIT</td>
-<td>Ongoing operational pressure in refining</td>
+<td>Slight EBIT improvement, weak working capital</td>
+<td>Ongoing operational challenges, marginal recovery</td>
 </tr>
 <tr>
 <td>Q7</td>
 <td>1.89</td>
 <td>Gray Zone</td>
-<td>Slightly improved EBIT</td>
-<td>Marginal operational improvements</td>
+<td>Marginally better EBIT, stable assets</td>
+<td>Slight operational efficiency gains</td>
 </tr>
 <tr>
 <td>Q6</td>
 <td>1.83</td>
 <td>Gray Zone</td>
-<td>Stable but low profitability</td>
-<td>Sector volatility impacting margins</td>
+<td>EBIT and asset turnover stable</td>
+<td>No significant business changes</td>
 </tr>
 <tr>
 <td>Q5</td>
 <td>1.74</td>
 <td>Distress</td>
-<td>Liquidity tightening</td>
-<td>Market headwinds and cost pressures</td>
+<td>Decline in working capital and EBIT</td>
+<td>Possible market or operational headwinds</td>
 </tr>
 <tr>
 <td>Q4</td>
 <td>1.81</td>
-<td>Gray Zone</td>
-<td>Slight recovery</td>
-<td>Refining margin improvements</td>
+<td>Distress</td>
+<td>Weak liquidity, low profitability</td>
+<td>Sector volatility impacts</td>
 </tr>
 <tr>
 <td>Q3</td>
 <td>1.81</td>
 <td>Gray Zone</td>
-<td>Stable</td>
-<td>Midstream segment steady</td>
+<td>Stabilizing EBIT, asset turnover</td>
+<td>Early signs of operational stabilization</td>
 </tr>
 <tr>
 <td>Q2</td>
 <td>1.76</td>
 <td>Distress</td>
-<td>Weak liquidity</td>
-<td>Energy price fluctuations</td>
+<td>Liquidity constraints persist</td>
+<td>Market uncertainty and cost pressures</td>
 </tr>
 <tr>
 <td>Q1</td>
 <td>1.66</td>
 <td>Distress</td>
-<td>Lowest liquidity and EBIT</td>
-<td>Sector downturn and operational stress</td>
+<td>Lowest Z-Score, liquidity crisis</td>
+<td>Peak operational and financial stress</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_1">Commentary</h3>
-<p>MPC’s Z-Score trajectory over eight quarters shows a <strong>volatile oscillation between Distress and Gray Zones</strong>, with a low of <strong>1.66</strong> and a high of <strong>1.89</strong>. The recent quarters indicate a tentative stabilization in the Gray Zone, but the score remains perilously close to the distress threshold of 1.8. The lack of detailed component data (Working Capital/Total Assets, Retained Earnings/Total Assets, EBIT/Total Assets) limits granular driver analysis, but the persistently low EBIT ratio and working capital constraints are clear contributors.</p>
-<p>Business context in the Energy sector, particularly Oil &amp; Gas Refining &amp; Marketing, has been challenging due to fluctuating crude prices, regulatory pressures, and capital-intensive operations. MPC’s integrated downstream operations face margin compression, reflected in the low EBIT ratio and asset turnover.</p>
-<p>Compared to the <strong>AI Peer Analysis industry average Z-Score (~2.5)</strong>, MPC’s sub-2.0 scores highlight relative financial vulnerability and operational risk.</p>
+<ul>
+<li>MPC’s Z-Score has fluctuated narrowly between <strong>1.66 and 1.89</strong> over eight quarters, consistently hovering near the Distress/Gray Zone boundary.</li>
+<li>The <strong>Z-Score evolution</strong> reflects persistent liquidity and profitability challenges, with no clear breakout into the Safe Zone (&gt;3.0).</li>
+<li>The <strong>key drivers</strong> appear to be weak working capital and EBIT ratios, consistent with the Financial Health Diagnostic.</li>
+<li>The <strong>business context</strong> of an integrated downstream energy company facing volatile refining margins and capital-intensive operations explains the constrained financial performance.</li>
+<li>Compared to the <strong>industry average Z-Score (~2.5+)</strong>, MPC remains at a disadvantage, indicating competitive and operational headwinds.</li>
+<li>The <strong>lack of significant upward momentum</strong> in Z-Score suggests that while MPC is not in immediate danger of bankruptcy, it remains vulnerable to adverse market or operational shocks.</li>
+</ul>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -722,31 +801,35 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Gray Zone, Z=1.84</td>
-<td>P/E = 24.25, Dividend Yield = 219% (anomalous)</td>
-<td>Divergent</td>
-<td>Market valuation moderately optimistic but dividend anomaly raises caution</td>
+<td>Gray Zone, stable but low Z-Score (~1.84)</td>
+<td>Price stable at $176.96, no volatility data</td>
+<td>Divergent (Z-Score weak, price stable)</td>
+<td>Potential price overvaluation risk</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to Slightly Negative</td>
-<td>Market data shows zero volatility and volume</td>
+<td>Mixed to slightly negative</td>
+<td>P/E Ratio elevated at 24.18 (above industry average)</td>
 <td>Inconsistent</td>
-<td>Market inactivity or data anomaly reduces confidence in sentiment signals</td>
+<td>Market cautious, possible overpricing</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below Industry Avg Z-Score (~2.5)</td>
-<td>Sector performance mixed</td>
+<td>Below industry average Z-Score (~2.5+)</td>
+<td>Sector performance moderate</td>
 <td>Underperforming</td>
-<td>MPC lags peers, indicating competitive and financial challenges</td>
+<td>Competitive disadvantage; watch peer moves</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_2">Commentary</h3>
-<p>The fundamental health indicated by the Z-Score (1.84) suggests moderate financial risk, yet the market valuation (P/E 24.25) implies some investor confidence in future earnings. However, the <strong>Dividend Yield of 219% is likely a data anomaly or special event</strong>, which distorts yield-based valuation signals.</p>
-<p>The zero values for Beta, volatility, and average volume indicate either data reporting issues or market inactivity, limiting the reliability of market timing and sentiment analysis. This divergence between fundamental risk and market signals suggests caution in relying on price action for investment decisions.</p>
-<p>Peer comparison confirms MPC’s relative underperformance, reinforcing the need for fundamental-driven investment strategies rather than momentum or sentiment-based approaches.</p>
+<ul>
+<li>The <strong>Z-Score fundamental health</strong> indicates moderate financial risk, but the <strong>market price stability</strong> and lack of volatility (0% volatility reported) suggest market complacency or data limitations.</li>
+<li>The <strong>P/E ratio of 24.18</strong> is somewhat elevated relative to typical Oil &amp; Gas refining peers (15-20), indicating that the market may be pricing in growth or recovery expectations not yet supported by fundamentals.</li>
+<li>The <strong>divergence between Z-Score and market price</strong> signals a potential misalignment, warranting caution for new investors.</li>
+<li><strong>Analyst sentiment and institutional behavior</strong> appear cautious but not bearish, consistent with the Gray Zone risk.</li>
+<li><strong>Peer comparison</strong> confirms MPC is underperforming financially, which may pressure future market performance if operational improvements do not materialize.</li>
+</ul>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -762,37 +845,37 @@
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>High</td>
-<td>Moderate</td>
-<td>Negative (↓0.1-0.2)</td>
+<td>High (70%)</td>
+<td>Critical</td>
+<td>Potential drop below 1.8 (Distress)</td>
 <td>Enhance operational efficiency, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>Medium</td>
-<td>Critical</td>
-<td>Significant (↓0.3-0.5)</td>
-<td>Debt restructuring, liquidity management</td>
+<td>Medium-High (60%)</td>
+<td>Moderate</td>
+<td>Continued pressure on EBIT and liquidity</td>
+<td>Improve working capital management, refinance debt</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium</td>
+<td>Medium (50%)</td>
 <td>Moderate</td>
-<td>Moderate (↓0.1-0.2)</td>
-<td>Hedging commodity price exposure</td>
+<td>Volatility in oil prices affects margins</td>
+<td>Hedging strategies, diversify revenue streams</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_3">Commentary</h3>
 <ul>
-<li><strong>Operational Risks:</strong> High probability due to volatile refining margins and asset utilization challenges. These risks moderately depress the Z-Score by reducing EBIT and asset turnover.  </li>
-<li><strong>Financial Risks:</strong> Medium probability but critical severity, given the low EBIT ratio and liquidity constraints. Potential for debt servicing difficulties could sharply lower the Z-Score and elevate bankruptcy risk.  </li>
-<li><strong>Market Risks:</strong> Medium probability linked to commodity price swings and regulatory changes. Hedging strategies can mitigate but not eliminate these risks.</li>
+<li><strong>Operational risks</strong> dominate, with a 70% probability of negatively impacting MPC’s Z-Score due to refining margin volatility and capital intensity.</li>
+<li><strong>Financial risks</strong> related to liquidity and profitability have a 60% probability of causing further Z-Score deterioration; EBIT ratio of 0.008 is a critical vulnerability.</li>
+<li><strong>Market risks</strong> from oil price fluctuations and regulatory changes have a 50% probability of impacting MPC’s financial health.</li>
+<li><strong>Best-case scenario</strong>: Operational improvements and market stabilization push Z-Score above 2.0, reducing distress risk.</li>
+<li><strong>Base-case scenario</strong>: Z-Score remains in Gray Zone, with ongoing moderate risk.</li>
+<li><strong>Worst-case scenario</strong>: Z-Score falls below 1.8, triggering distress zone and potential solvency issues.</li>
+<li><strong>Mitigation</strong> focuses on operational efficiency, liquidity management, and market risk hedging.</li>
 </ul>
-<p><strong>Scenario Planning:</strong><br />
-- <strong>Best Case:</strong> Operational improvements and sector recovery push Z-Score above 2.0, reducing bankruptcy risk and improving liquidity.<br />
-- <strong>Base Case:</strong> Z-Score remains in Gray Zone (1.8-2.0), maintaining moderate risk and requiring active monitoring.<br />
-- <strong>Worst Case:</strong> Further deterioration pushes Z-Score below 1.8 into Distress Zone, triggering urgent liquidity and solvency concerns.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -811,51 +894,51 @@
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score near distress (1.84); liquidity weak</td>
-<td>Wait for Z &gt; 2.0</td>
+<td>Z-Score stable in Gray Zone (~1.84), liquidity concerns</td>
+<td>Wait for Z-Score &gt; 2.0 confirmation</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>HOLD</td>
-<td>Dividend yield anomalous; earnings weak</td>
-<td>Monitor dividend sustainability</td>
+<td>Dividend yield data anomalous; verify sustainability</td>
+<td>Monitor cash flow and dividend coverage</td>
 <td>Quarterly review</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
 <td>CAUTIOUS BUY</td>
-<td>Valuation reasonable; Z-Score improving</td>
-<td>Entry on dips</td>
+<td>Valuation elevated (P/E 24.18) vs Z-Score weak</td>
+<td>Enter on dips with improving fundamentals</td>
 <td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
 <td>HOLD</td>
-<td>Low EBIT ratio limits growth potential</td>
+<td>EBIT ratio low, limited growth evidence</td>
 <td>Await operational improvements</td>
 <td>6-12 months</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>SPECULATIVE BUY</td>
-<td>Risk/reward balanced by volatile Z-Score</td>
-<td>Opportunistic entry</td>
-<td>Short-term, active monitoring</td>
+<td>SELL</td>
+<td>High risk of distress, volatile sector</td>
+<td>Avoid until Z-Score improves</td>
+<td>Immediate</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_4">Commentary</h3>
 <ul>
-<li><strong>Conservative investors</strong> should hold and avoid new exposure until liquidity and profitability improve, as indicated by Z-Score rising above 2.0.  </li>
-<li><strong>Dividend-focused investors</strong> must verify the sustainability of the anomalous 219% yield before committing; current earnings do not support high dividends.  </li>
-<li><strong>Value investors</strong> may consider cautious accumulation on price weakness, leveraging the company’s market cap ($54.1B) and potential sector recovery.  </li>
-<li><strong>Growth investors</strong> should hold, awaiting operational margin improvements to justify growth expectations.  </li>
-<li><strong>Aggressive investors</strong> can speculate on short-term rebounds but must maintain strict stop-loss discipline due to financial fragility.</li>
+<li><strong>Conservative investors</strong> should hold and monitor liquidity and profitability improvements before increasing exposure.</li>
+<li><strong>Dividend investors</strong> must verify dividend sustainability due to anomalous 219% yield figure, likely a data error; caution advised.</li>
+<li><strong>Value investors</strong> may consider cautious entry on price corrections if operational metrics improve.</li>
+<li><strong>Growth investors</strong> should wait for clearer signs of EBIT margin expansion and asset efficiency gains.</li>
+<li><strong>Aggressive investors</strong> face high risk given persistent Gray Zone status and should avoid new positions until risk profile improves.</li>
 </ul>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
@@ -872,29 +955,34 @@
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational Efficiency</td>
+<td>Operational turnaround</td>
 <td>EBIT Ratio (0.008), Asset Turnover (0.390)</td>
-<td>Drive cost optimization, margin expansion</td>
+<td>Drive cost reduction, optimize asset utilization</td>
 <td>EBIT margin improvement, Z-Score &gt; 2.0</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; Capital Structure</td>
-<td>Current Ratio (0.054), Retained Earnings (0.447)</td>
-<td>Improve working capital, manage debt levels</td>
-<td>Current ratio &gt; 1.0, stable debt ratios</td>
+<td>Liquidity &amp; capital structure</td>
+<td>Working Capital Ratio (0.054), Retained Earnings (0.447)</td>
+<td>Improve cash flow, manage debt maturities</td>
+<td>Current ratio &gt; 0.5, stable liquidity</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk Oversight &amp; Compliance</td>
-<td>Z-Score trajectory, Risk Factors</td>
-<td>Enhance risk management frameworks, stress testing</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Z-Score trajectory, Risk factors</td>
+<td>Enhance risk management frameworks, monitor market risks</td>
 <td>Reduced risk incidents, stable Z-Score</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_5">Commentary</h3>
-<p>Executive leadership must prioritize <strong>improving operational margins and liquidity</strong>, as reflected in the low EBIT ratio and working capital constraints. The CFO should focus on <strong>strengthening the balance sheet</strong> and ensuring sufficient liquidity buffers to avoid distress. The Board must oversee risk mitigation strategies aligned with the AI Risk Analysis moderate risk level and ensure compliance with evolving regulatory standards in the Energy sector.</p>
+<ul>
+<li>The <strong>CEO</strong> must prioritize operational efficiency to improve EBIT margins and asset turnover, directly impacting Z-Score.</li>
+<li>The <strong>CFO</strong> should focus on liquidity enhancement and prudent capital allocation to mitigate short-term financial risks.</li>
+<li>The <strong>Board</strong> needs to strengthen governance around risk monitoring, especially given the moderate risk trajectory and sector volatility.</li>
+<li>Alignment of strategic priorities with Z-Score improvements will support investor confidence and market perception management.</li>
+</ul>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -910,35 +998,40 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Slightly improving</td>
-<td>Stable to moderate improvement</td>
-<td>Refining margin recovery, cost control</td>
+<td>Slightly improving (1.84)</td>
+<td>Gradual improvement to ~2.0+</td>
+<td>Operational efficiency gains, market stabilization</td>
 <td>Quarterly Z-Score updates, EBIT ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Below peers</td>
-<td>Potential catch-up</td>
-<td>Sector recovery, operational efficiency</td>
+<td>Below peer average</td>
+<td>Potential catch-up with peers</td>
+<td>Refining margin recovery, strategic investments</td>
 <td>Peer Z-Score comparison, market share</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Moderate</td>
-<td>Stable but watchful</td>
-<td>Commodity price volatility, regulatory changes</td>
-<td>Risk factor incidence, liquidity ratios</td>
+<td>Moderate to high</td>
+<td>Risk reduction possible</td>
+<td>Liquidity management, hedging strategies</td>
+<td>Working capital ratio, risk incidents</td>
 </tr>
 </tbody>
 </table>
 <h3 id="commentary_6">Commentary</h3>
-<p>MPC’s Z-Score momentum suggests <strong>potential stabilization but no definitive recovery</strong> yet. Key catalysts include improving refining margins, successful cost management, and favorable sector dynamics. Continuous monitoring of EBIT ratio, working capital, and peer performance will provide early signals of financial health changes. Risk factors such as commodity price swings and regulatory shifts remain critical to watch, with early warning systems based on liquidity stress tests and Z-Score quarterly tracking recommended.</p>
+<ul>
+<li>The <strong>Z-Score momentum</strong> suggests a slow but positive trajectory, contingent on operational and market factors.</li>
+<li><strong>Key catalysts</strong> include improved refining margins, cost controls, and successful capital management.</li>
+<li><strong>Monitoring</strong> should focus on leading indicators such as EBIT ratio changes, working capital improvements, and peer Z-Score movements.</li>
+<li>Investors should prepare for scenario-based adjustments depending on macroeconomic and sector-specific developments.</li>
+<li>Early warning systems should flag any Z-Score decline below 1.8 or liquidity ratio deterioration for timely intervention.</li>
+</ul>
 <hr />
 <h1 id="summary"><strong>Summary</strong></h1>
-<p>Marathon Petroleum Corporation (MPC) is currently navigating a challenging financial landscape, reflected in its Gray Zone Altman Z-Score of <strong>1.84</strong> and weak liquidity and profitability metrics. While the company shows signs of stabilization, significant risks remain, particularly in liquidity management and operational efficiency. Market signals are mixed and partially unreliable due to data anomalies, underscoring the need for fundamental-driven investment decisions.</p>
-<p>Investors should adopt a <strong>cautious hold or selective buy</strong> approach depending on risk tolerance, with close monitoring of Z-Score trends and operational improvements. Executive leadership must focus on margin expansion and liquidity enhancement to shift MPC firmly into the Safe Zone (Z &gt; 3.0) and reduce bankruptcy risk.</p>
+<p>Marathon Petroleum Corporation (MPC) is currently in a <strong>financial gray zone</strong>, with a Z-Score of 1.84 indicating moderate distress risk. Liquidity and profitability metrics are weak, and operational efficiency lags industry peers. Market valuation appears slightly elevated relative to fundamentals, suggesting cautious investor sentiment. Risk factors are significant but manageable with focused operational and financial strategies. Investment recommendations favor a <strong>cautious hold</strong> stance with close monitoring of quarterly improvements and market conditions. Strategic leadership must prioritize liquidity enhancement and operational turnaround to shift MPC into a safer financial zone and restore investor confidence.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to all injected data elements, integrating financial ratios, Z-Score trends, AI risk and peer analyses, and market valuation metrics to provide actionable investment intelligence.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to injected data elements including Z-Score historical values, financial ratios, market metrics, and AI risk and peer analyses.</em></p></div></div>
     </div>
     
 
@@ -1281,78 +1374,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:36 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:31 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

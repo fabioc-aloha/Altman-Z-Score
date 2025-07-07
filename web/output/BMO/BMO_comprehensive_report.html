@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Bank of Montreal (BMO)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:19 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 12:29 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -357,9 +429,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="BMO_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="BMO_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -422,15 +494,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$113.21</p>
+                <p>$$112.29</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$81.7B</p>
+                <p>$$81.1B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>14.3</p>
+                <p>14.2</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -442,7 +514,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>70.8</p>
+                <p>74.0</p>
             </div>
         </div>
     </div>
@@ -456,7 +528,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>1.49</p>
+                <p>1.42</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -485,66 +557,63 @@
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> Bank of Montreal (BMO)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:19:18  </p>
+<p><strong>Company:</strong> BMO (Bank of Montreal)<br />
+<strong>Analysis Date:</strong> 2025-07-07 12:28:47  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Bank of Montreal (BMO) currently resides in a <strong>Distress Zone</strong> with a persistently negative Altman Z-Score, averaging approximately <strong>-0.62</strong> over the last eight quarters (latest: <strong>-0.67</strong>). This signals a high risk of financial distress or bankruptcy, demanding urgent attention. The AI Risk Analysis, implicitly reflected by this Z-Score trajectory, indicates a <strong>high overall risk level</strong> with a deteriorating risk trajectory, underscoring the urgency for risk mitigation.</p>
-<p>Despite this, the company maintains a substantial <strong>Market Cap of $81.75 billion</strong> and a <strong>current stock price of $113.21</strong>, suggesting market valuation may not fully reflect the distress signals. AI Peer Analysis data is limited, but given the industry (Banks - Diversified), the <strong>industry average Z-Score typically exceeds 3.0 (Safe Zone)</strong>, highlighting BMO’s significant underperformance relative to peers.</p>
-<p>AI Sentiment Analysis metrics are not explicitly provided, but the extreme dividend yield of <strong>429.00%</strong> is anomalous and likely unsustainable, indicating market or data anomalies that reduce confidence in sentiment-based optimism.</p>
+<p>Bank of Montreal (BMO) is currently exhibiting a <strong>critical financial distress profile</strong>, as evidenced by a persistently negative Altman Z-Score over the last eight quarters, ranging from -0.85 to -0.44, all firmly within the <strong>Distress Zone (Z &lt; 1.8)</strong>. This sustained distress signal is alarming given the company’s size, with a substantial market capitalization of <strong>$81.53 billion</strong> and a current share price of <strong>$112.83</strong>.</p>
+<p><strong>AI Risk Analysis</strong> flags an overall <strong>high risk level</strong> with a negative trajectory, underscoring urgent concerns about solvency and operational viability. The <strong>AI Peer Analysis</strong> reveals BMO’s Z-Score is significantly below the industry average for diversified banks, indicating a weak competitive position relative to peers. Meanwhile, <strong>AI Sentiment Analysis</strong> is effectively neutral or non-informative due to zero volatility and zero RSI, suggesting market participants may be inactive or data is incomplete, which lowers confidence in market sentiment signals.</p>
 <table>
 <thead>
 <tr>
 <th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Z-Score</td>
-<td>-0.67</td>
-<td>Distress Zone (&lt;1.8)</td>
-</tr>
-<tr>
 <td>Market Cap</td>
-<td>$81.75B</td>
-<td>Large-cap financial institution</td>
+<td>$81.53B</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$113.21</td>
-<td>Stable price despite distress signals</td>
+<td>$112.83</td>
+</tr>
+<tr>
+<td>Shares Outstanding</td>
+<td>722,070,976</td>
+</tr>
+<tr>
+<td>Latest Z-Score</td>
+<td>-0.67 (Distress)</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>14.23</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>429.00% (likely anomalous)</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.590</td>
-<td>Negative liquidity indicator</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.033</td>
-<td>Very low retained earnings</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.002</td>
-<td>Minimal operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.013</td>
-<td>Extremely low operational efficiency</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>429.00%</td>
-<td>Likely data anomaly or unsustainable payout</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Investment Action Recommendation:</strong><br />
-Given the persistent distress signals, negative liquidity, and operational inefficiencies, a <strong>conservative investor should consider SELL or AVOID</strong> positions until clear financial stabilization occurs. Aggressive investors may monitor for turnaround catalysts but must be prepared for high volatility and risk.</p>
+<p><strong>Investment Recommendation:</strong> Given the persistent distress signals, weak operational metrics, and anomalous market data (e.g., dividend yield of 429%), a <strong>Cautious to Avoid</strong> stance is warranted for most investor profiles. Only highly risk-tolerant or distressed asset specialists should consider opportunistic positions, contingent on further fundamental recovery evidence.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -562,38 +631,35 @@ Given the persistent distress signals, negative liquidity, and operational ineff
 <td>Liquidity Position</td>
 <td>Current Ratio: N/A (Working Capital Ratio: -0.590)</td>
 <td>Typically &gt;1.0 (positive working capital)</td>
-<td><strong>Severe liquidity weakness; negative working capital indicates potential short-term solvency issues</strong></td>
-<td>Declining/Stable at low level</td>
+<td><strong>Severe liquidity weakness</strong>; negative working capital ratio signals potential short-term solvency issues</td>
+<td>Declining/Severe</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
 <td>Debt-to-Equity: N/A (Data not provided)</td>
 <td>Industry average ~1.0-2.0 (moderate leverage)</td>
-<td>Unable to assess leverage directly; negative working capital suggests high short-term obligations</td>
+<td>Unable to assess fully; negative Z-Score implies leverage stress</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>EBIT Ratio: 0.002; Asset Turnover: 0.013</td>
-<td>EBIT Ratio ~0.02-0.05; Asset Turnover ~0.1-0.3</td>
-<td><strong>Extremely low profitability and asset utilization; operational inefficiency is critical</strong></td>
-<td>Stable but at very low level</td>
+<td>Industry EBIT Ratio ~0.02-0.05; Asset Turnover ~0.1-0.3</td>
+<td><strong>Extremely low operational efficiency</strong>; EBIT barely covers assets; asset utilization is minimal</td>
+<td>Stable but weak</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: 0.033</td>
-<td>Typically &gt;0.2 for stable banks</td>
-<td><strong>Very low retained earnings, indicating limited internal capital generation</strong></td>
-<td>Stable but weak</td>
+<td>Industry average ~0.1-0.3</td>
+<td><strong>Very low retained earnings relative to assets</strong>, indicating limited internal capital generation</td>
+<td>Stable but fragile</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Interpretive Commentary:</strong><br />
-- The <strong>negative Working Capital Ratio (-0.590)</strong> is a red flag for liquidity stress, unusual for a diversified bank which typically maintains positive working capital to meet obligations.<br />
-- The <strong>EBIT Ratio of 0.002</strong> and <strong>Asset Turnover of 0.013</strong> are drastically below industry norms, indicating poor operational performance and inefficient asset use.<br />
-- The <strong>Retained Earnings Ratio of 0.033</strong> is minimal, suggesting the bank has limited buffer from accumulated profits, increasing vulnerability to shocks.<br />
-- AI Data Quality Assessment is not explicitly provided, but the presence of anomalies (e.g., dividend yield) suggests caution in data interpretation.<br />
-- Sector context: As a <strong>Financial Services</strong> firm in <strong>Banks - Diversified</strong>, BMO’s financial health is critical for systemic stability; these metrics are concerning relative to industry standards.</p>
+<p><strong>Commentary:</strong><br />
+The <strong>negative working capital ratio (-0.590)</strong> is a critical red flag, indicating liabilities exceed current assets, which is unusual and highly concerning for a bank of BMO’s scale. The <strong>EBIT ratio of 0.002</strong> and <strong>asset turnover of 0.013</strong> are drastically below industry norms, reflecting poor profitability and inefficient asset use. The <strong>retained earnings ratio of 0.033</strong> is also significantly below typical banking sector benchmarks, suggesting limited reinvestment capacity.</p>
+<p>The <strong>AI Data Quality Assessment</strong> indicates raw data completeness but lacks detailed financial ratio granularity (e.g., debt-to-equity missing), which slightly reduces confidence in leverage assessment. No anomalies were flagged in data completeness, but the <strong>dividend yield of 429%</strong> is a clear anomaly, likely a data error or extraordinary event, warranting caution in dividend sustainability assumptions.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -612,23 +678,20 @@ Given the persistent distress signals, negative liquidity, and operational ineff
 <td>-0.67</td>
 <td>Distress</td>
 <td>Negative working capital, low EBIT, poor asset turnover</td>
-<td>Continued operational challenges, possible capital strain</td>
+<td>Ongoing operational inefficiencies, possible liquidity stress</td>
 </tr>
 <tr>
 <td>Previous Quarters (Q1-Q7)</td>
-<td>Range: -0.44 to -0.85</td>
+<td>-0.44 to -0.85</td>
 <td>Distress</td>
-<td>Persistently negative liquidity and profitability</td>
-<td>No material improvement; sustained distress</td>
+<td>Consistently negative working capital and low profitability</td>
+<td>Persistent financial distress, no recovery signs</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Strategic Commentary:</strong><br />
-- The Z-Score has remained <strong>consistently negative over 8 quarters</strong>, with no sign of recovery or movement toward the Gray or Safe zones.<br />
-- Key drivers include <strong>negative working capital and near-zero EBIT</strong>, which severely depress the Z-Score.<br />
-- The lack of improvement suggests ongoing operational or structural issues, possibly linked to macroeconomic or sector-specific challenges in the banking industry.<br />
-- Compared to the <strong>industry average Z-Score &gt;3.0</strong>, BMO’s position is significantly weaker, indicating competitive disadvantage and elevated bankruptcy risk.<br />
-- No inflection points or positive trend drivers are evident, underscoring the need for strategic turnaround initiatives.</p>
+<p><strong>Commentary:</strong><br />
+BMO’s Z-Score has remained <strong>consistently negative and in distress territory</strong> for at least eight quarters, with no upward trend or improvement. The lack of component data (working capital/total assets, retained earnings/total assets, EBIT/total assets) limits granular attribution, but the overall pattern indicates chronic financial weakness.</p>
+<p>Compared to the <strong>industry average Z-Score for diversified banks (typically &gt;3.0 safe zone)</strong>, BMO’s position is significantly below peers, signaling a competitive disadvantage and elevated bankruptcy risk. The absence of positive inflection points suggests no effective turnaround or operational improvement has occurred.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -645,31 +708,29 @@ Given the persistent distress signals, negative liquidity, and operational ineff
 <tr>
 <td>Fundamental Health</td>
 <td>Persistently Distress (-0.67 latest)</td>
-<td>Stable price at $113.21</td>
-<td>Divergent</td>
-<td>Market may be underestimating risk or data lag present</td>
+<td>Price stable at $112.83; zero volatility and RSI</td>
+<td>Divergent (fundamental distress vs. stable price)</td>
+<td>Potential market complacency or data anomaly; caution advised</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Not explicitly provided</td>
-<td>Dividend yield anomaly (429%)</td>
+<td>Neutral/Unavailable</td>
+<td>No clear consensus data</td>
 <td>Inconsistent</td>
-<td>Market sentiment likely distorted; caution advised</td>
+<td>Sentiment data unreliable; avoid sentiment-driven trades</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Significantly below industry average (&gt;3.0)</td>
-<td>Sector performance stable</td>
+<td>Below industry average</td>
+<td>Sector performance unknown</td>
 <td>Underperforming</td>
-<td>Competitive weakness; potential market share loss</td>
+<td>Weak competitive positioning; avoid relative underperformers</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Market Validation Commentary:</strong><br />
-- The <strong>stock price stability</strong> despite distress-level Z-Scores suggests a disconnect between fundamental risk and market valuation, possibly due to delayed market reaction or external support mechanisms.<br />
-- The <strong>extreme dividend yield</strong> is likely a data anomaly or indicates unsustainable payout, which could mislead sentiment analysis and investor expectations.<br />
-- Peer comparison confirms BMO is an outlier in distress, reinforcing the need for caution.<br />
-- Investors should be wary of potential price corrections if fundamentals deteriorate further or market sentiment shifts.</p>
+<p><strong>Commentary:</strong><br />
+The <strong>market data shows zero volatility and RSI of 0.0</strong>, which is highly unusual for a large financial institution, suggesting either data feed issues or market inactivity. The stable price at <strong>$112.83</strong> contrasts sharply with the distress-level Z-Score, indicating a <strong>disconnect between market pricing and fundamental risk</strong>.</p>
+<p>The <strong>P/E ratio of 14.23</strong> is moderate but may not reflect true risk given the financial distress signals. The anomalous <strong>dividend yield of 429%</strong> further undermines market data reliability. This divergence advises against relying solely on market signals for timing and supports a fundamental-value-driven cautionary stance.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -688,29 +749,32 @@ Given the persistent distress signals, negative liquidity, and operational ineff
 <td>High</td>
 <td>Critical</td>
 <td>Further Z-Score decline</td>
-<td>Operational restructuring, cost control</td>
+<td>Restructure operations, improve asset utilization</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Potential bankruptcy risk</td>
-<td>Capital raising, liquidity management</td>
+<td>Negative working capital worsens</td>
+<td>Capital infusion, debt restructuring</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Volatility in valuation</td>
+<td>Price volatility could increase</td>
 <td>Hedging, diversification</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Scenario Planning Commentary:</strong><br />
-- <strong>Best Case:</strong> Operational improvements and capital injections stabilize working capital, improving Z-Score toward Gray Zone (~1.8).<br />
-- <strong>Base Case:</strong> Continued distress with minor fluctuations, Z-Score remains negative, risk of further market value erosion.<br />
-- <strong>Worst Case:</strong> Liquidity crisis triggers bankruptcy or forced restructuring, Z-Score falls below -1.0, severe market impact.  </p>
-<p>Based on the <strong>AI Risk Analysis overall risk level of high with &gt;80% confidence</strong>, immediate risk mitigation is critical. Liquidity stress testing should be prioritized, and contingency plans developed.</p>
+<p><strong>Scenario Planning:</strong></p>
+<ul>
+<li><strong>Best Case:</strong> Operational turnaround improves EBIT and working capital, Z-Score rises above 1.8 (Gray Zone) within 12 months.</li>
+<li><strong>Base Case:</strong> Continued distress with minor improvements, Z-Score remains below 0, risk of liquidity crisis persists.</li>
+<li><strong>Worst Case:</strong> Further deterioration leads to Z-Score below -1.0, triggering bankruptcy risk and severe market value erosion.</li>
+</ul>
+<p><strong>Commentary:</strong><br />
+Based on the <strong>AI Risk Analysis overall risk level of High with 85% confidence</strong>, BMO faces critical operational and financial risks. The <strong>negative working capital ratio (-0.590)</strong> and near-zero EBIT ratio (0.002) exacerbate insolvency risk. Mitigation requires aggressive capital management and operational restructuring.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -728,51 +792,47 @@ Given the persistent distress signals, negative liquidity, and operational ineff
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td>SELL</td>
+<td><strong>SELL</strong></td>
 <td>Persistent distress Z-Score (-0.67)</td>
-<td>Price stable but risk high</td>
+<td>Avoid entry; wait for recovery signals</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>HOLD</td>
-<td>Dividend yield anomaly; unsustainable</td>
-<td>Monitor for correction</td>
-<td>Short-term review (3-6 months)</td>
+<td><strong>SELL</strong></td>
+<td>Dividend yield anomaly (429%) unreliable</td>
+<td>Avoid; dividend sustainability doubtful</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>AVOID</td>
-<td>Negative retained earnings, poor asset turnover</td>
-<td>No clear entry point</td>
-<td>Until stabilization</td>
+<td><strong>HOLD</strong></td>
+<td>Valuation unclear; Z-Score negative</td>
+<td>Monitor for Z-Score &gt;1.8 before entry</td>
+<td>6-12 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>MONITOR</td>
-<td>No growth signals in Z-Score or EBIT</td>
-<td>Watch for operational turnaround</td>
-<td>6-12 months</td>
+<td><strong>SELL</strong></td>
+<td>No growth evidence; EBIT ratio near zero</td>
+<td>Avoid momentum plays</td>
+<td>Immediate</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>SPECULATIVE BUY</td>
-<td>High risk/reward; potential undervaluation</td>
-<td>High volatility expected</td>
-<td>Opportunistic, short-term</td>
+<td><strong>SPECULATIVE BUY</strong></td>
+<td>High risk/reward; potential turnaround</td>
+<td>Entry only on positive Z-Score inflection</td>
+<td>Opportunistic</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Commentary:</strong><br />
-- Conservative investors should exit or avoid new positions due to high bankruptcy risk.<br />
-- Dividend investors must be cautious given the anomalous yield and weak earnings base.<br />
-- Value investors lack clear undervaluation signals due to poor fundamentals.<br />
-- Growth investors should monitor for operational improvements before committing.<br />
-- Aggressive investors may speculate on turnaround but must manage risk tightly.</p>
+The <strong>persistent negative Z-Score</strong> and poor financial metrics strongly advise against new investments for conservative, dividend, and growth investors. Value investors may consider a <strong>watch-and-wait</strong> approach, monitoring for fundamental improvements. Aggressive investors with high risk tolerance might speculate on a turnaround but must be prepared for volatility and potential loss.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -788,32 +848,29 @@ Given the persistent distress signals, negative liquidity, and operational ineff
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Stabilize liquidity &amp; operations</td>
+<td>Financial turnaround</td>
 <td>Working Capital Ratio, EBIT Ratio</td>
-<td>Implement cost controls, improve asset utilization</td>
+<td>Implement cost reduction, asset optimization</td>
 <td>Positive Z-Score trend, liquidity improvement</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital structure optimization</td>
+<td>Capital structure management</td>
 <td>Retained Earnings Ratio, Debt levels</td>
-<td>Raise capital, manage debt maturities</td>
-<td>Improved solvency ratios, reduced distress signals</td>
+<td>Secure capital infusion, manage liabilities</td>
+<td>Improved leverage ratios, positive cash flow</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight &amp; transparency</td>
-<td>Z-Score, Risk Factors</td>
-<td>Enhance risk reporting, approve turnaround plans</td>
-<td>Compliance, risk reduction, stakeholder confidence</td>
+<td>Risk oversight and compliance</td>
+<td>Z-Score, Risk Indicators</td>
+<td>Enhance risk management, monitor distress signals</td>
+<td>Compliance adherence, risk reduction</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Executive Commentary:</strong><br />
-- The CEO must prioritize operational efficiency and liquidity stabilization to reverse the distress trend.<br />
-- The CFO should focus on capital adequacy and debt management to shore up financial stability.<br />
-- The Board must ensure rigorous oversight of risk and strategic initiatives to restore market confidence.<br />
-- Aligning these actions with AI Risk Analysis themes will be critical for successful turnaround.</p>
+<p><strong>Commentary:</strong><br />
+Executive leadership must urgently address liquidity and operational inefficiencies highlighted by the <strong>negative working capital ratio (-0.590)</strong> and near-zero EBIT ratio (0.002). The board should prioritize risk mitigation and governance oversight to prevent further deterioration. CFO-led capital restructuring and cost management are critical for stabilizing financial health.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -830,36 +887,34 @@ Given the persistent distress signals, negative liquidity, and operational ineff
 <tr>
 <td>Z-Score Momentum</td>
 <td>Negative, stable</td>
-<td>Potential gradual improvement if operational changes succeed</td>
-<td>Cost reduction, capital infusion</td>
-<td>Quarterly Z-Score updates, liquidity ratios</td>
+<td>Potential further decline or stagnation</td>
+<td>Capital infusion, operational restructuring</td>
+<td>Quarterly Z-Score updates, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Distressed relative to peers</td>
-<td>Possible recovery with strategic execution</td>
-<td>Regulatory support, market stabilization</td>
-<td>Peer Z-Score comparison, stock price trends</td>
+<td>Weak relative to peers</td>
+<td>Possible gradual recovery if turnaround succeeds</td>
+<td>Regulatory changes, market conditions</td>
+<td>Peer Z-Score comparison, market share</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
 <td>High risk</td>
-<td>Risk reduction if mitigation effective</td>
-<td>Economic conditions, credit environment</td>
-<td>Risk factor tracking, stress test results</td>
+<td>Risk remains elevated without intervention</td>
+<td>Credit rating changes, liquidity events</td>
+<td>Debt ratios, working capital trends</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Forward-Looking Commentary:</strong><br />
-- The Z-Score momentum is currently negative but may improve over 6-12 months with effective operational and financial restructuring.<br />
-- Key catalysts include successful cost management, capital raising, and improved asset utilization.<br />
-- Continuous monitoring of liquidity ratios and Z-Score components is essential to detect early warning signs.<br />
-- Investors and management should prepare for scenario-based responses to evolving risk profiles.</p>
+<p><strong>Commentary:</strong><br />
+The <strong>Z-Score momentum forecast</strong> remains negative with no clear inflection point. Key catalysts for improvement include successful capital raising and operational efficiency gains. Continuous monitoring of <strong>working capital ratio</strong>, <strong>EBIT margin</strong>, and <strong>peer Z-Score trends</strong> is essential to detect early signs of recovery or further distress.</p>
 <hr />
-<h1 id="summary-conclusion"><strong>Summary Conclusion:</strong></h1>
-<p>Bank of Montreal (BMO) is currently in a <strong>critical financial distress state</strong> as evidenced by a persistently negative Altman Z-Score (-0.67 latest), poor liquidity (-0.590 working capital ratio), minimal profitability (EBIT ratio 0.002), and operational inefficiency (asset turnover 0.013). Market valuation appears disconnected from fundamentals, and dividend yield anomalies reduce confidence in market sentiment. Immediate strategic and financial interventions are necessary to mitigate bankruptcy risk. Conservative investors should avoid or sell, while aggressive investors may consider speculative positions with tight risk controls. Continuous monitoring and scenario planning are essential for navigating this high-risk environment.</p>
+<h1 id="summary">Summary</h1>
+<p>BMO’s financial profile, as measured by the Altman Z-Score and supporting financial ratios, indicates <strong>severe distress and operational inefficiency</strong>. Market data anomalies and lack of volatility reduce confidence in market-based signals, emphasizing reliance on fundamental analysis. Risk is high, and investment recommendations skew heavily toward <strong>selling or avoiding new positions</strong> except for speculative, high-risk investors.</p>
+<p>Urgent strategic action is required by management to restore liquidity, improve profitability, and stabilize capital structure. Investors should closely monitor Z-Score trends and fundamental financial metrics before considering re-entry.</p>
 <hr />
-<p><em>Analysis generated with explicit reference to all injected data elements and cross-validated across financial, risk, market, and peer analysis dimensions.</em></p></div></div>
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, integrating multi-source financial data and risk intelligence.</em></p></div></div>
     </div>
     
 
@@ -1202,78 +1257,41 @@ Given the persistent distress signals, negative liquidity, and operational ineff
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:19 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 12:29 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

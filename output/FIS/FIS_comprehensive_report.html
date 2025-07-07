@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Fidelity National Information Services, Inc. (FIS)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:22 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 10:51 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -349,9 +421,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="FIS_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="FIS_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -414,15 +486,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$81.77</p>
+                <p>$$81.36</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$43.0B</p>
+                <p>$$42.7B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>52.1</p>
+                <p>51.8</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -434,7 +506,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>54.0</p>
+                <p>59.3</p>
             </div>
         </div>
     </div>
@@ -448,7 +520,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.34</p>
+                <p>0.35</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -469,87 +541,70 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Fidelity National Information Services, Inc. (FIS)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:22:25  </p>
+<strong>Analysis Date:</strong> 2025-07-07 10:51:30  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Fidelity National Information Services, Inc. (FIS) currently exhibits a <strong>critical financial distress profile</strong>, with an Altman Z-Score persistently below 1.8 across the last eight quarters, ranging narrowly from 0.10 to 0.76, and most recently at 0.20. This places FIS deeply within the <strong>Distress Zone</strong>, signaling a high probability of bankruptcy or severe financial distress without significant operational or financial restructuring.</p>
-<p><strong>AI Risk Analysis</strong> confirms an <strong>overall risk level of Distress</strong> with high severity, underscoring urgent caution. The risk trajectory is stable but alarmingly low, with no signs of recovery. Key risk themes include liquidity shortfalls, negative retained earnings, and weak operational efficiency.</p>
-<p><strong>AI Peer Analysis</strong> indicates FIS is significantly underperforming relative to industry peers in the Technology sector, Consumer Electronics industry, where the average Z-Score typically exceeds 3.0 (Safe Zone). This relative positioning highlights competitive vulnerability and elevated default risk compared to key peers.</p>
-<p><strong>AI Sentiment Analysis</strong> reveals a <strong>negative overall sentiment</strong> with a downward trend, reflecting market skepticism and weak investor confidence. Divergence analysis shows sentiment is aligned with fundamental distress signals, reinforcing the cautious stance.</p>
-<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<p>FIS currently resides deeply in the <strong>Distress Zone</strong> with an Altman Z-Score of <strong>0.20</strong> (latest quarter), significantly below the critical threshold of 1.8, indicating a high risk of financial distress or bankruptcy. This distress status has persisted consistently over the last eight quarters, with Z-Scores ranging narrowly between <strong>0.10 and 0.75</strong>, showing no meaningful recovery trend. Based on the <strong>AI Risk Analysis overall risk level of Distress with high confidence</strong>, the company faces severe operational and financial challenges.</p>
+<p><strong>AI Peer Analysis</strong> positions FIS well below the industry average Z-Score (not explicitly provided but implied safe zone &gt;3.0 for peers), indicating it is underperforming its Consumer Electronics and Technology sector peers such as key competitors in merchant and banking solutions. This relative weakness suggests competitive pressures and operational inefficiencies.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are not explicitly detailed but implied by market data: extremely low technical indicators (RSI 0.0, zero volume) and anomalous valuation metrics (Dividend Yield 197%) suggest market disinterest or data anomalies, reducing confidence in market sentiment signals.</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
+<th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Industry Benchmark / Peer Average</th>
-<th>Assessment</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Latest Z-Score</td>
 <td>0.20</td>
-<td>&gt;3.0 (Safe Zone)</td>
-<td>Distress Zone</td>
+<td>Deep Distress Zone</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$42.96B</td>
-<td>N/A</td>
-<td>Large Cap, but risk-laden</td>
+<td>$42.73B</td>
+<td>Large-cap but distressed</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$81.77</td>
-<td>N/A</td>
-<td>Price stable but unsupported by fundamentals</td>
+<td>$81.27</td>
+<td>Stable nominal price</td>
 </tr>
 <tr>
 <td>Working Capital Ratio</td>
 <td>-0.077</td>
-<td>Positive (&gt;1.0)</td>
 <td>Negative liquidity</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>-0.682</td>
-<td>Positive (&gt;0)</td>
-<td>Negative equity build-up</td>
+<td>Significant accumulated losses</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>0.011</td>
-<td>Industry avg ~0.10+</td>
-<td>Very low profitability</td>
+<td>Very low operating profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.077</td>
-<td>Industry avg ~0.5+</td>
-<td>Poor operational efficiency</td>
+<td>Low operational efficiency</td>
 </tr>
 <tr>
 <td>P/E Ratio</td>
-<td>52.08</td>
-<td>Industry avg ~20-30</td>
-<td>Overvalued or speculative</td>
+<td>51.82</td>
+<td>High valuation despite distress</td>
 </tr>
 <tr>
 <td>Dividend Yield</td>
-<td>197.00% (likely anomaly)</td>
-<td>Industry avg ~1-3%</td>
-<td>Data anomaly, unreliable</td>
+<td>197.00%</td>
+<td>Likely data anomaly or unsustainable</td>
 </tr>
 </tbody>
 </table>
-<h3 id="investment-action-recommendation">Investment Action Recommendation</h3>
-<ul>
-<li><strong>Immediate Caution:</strong> Given the persistent distress Z-Score and negative financial ratios, investors should <strong>avoid initiating new positions</strong> in FIS at this time.</li>
-<li><strong>Hold for Existing Investors:</strong> Current shareholders should consider <strong>risk mitigation strategies</strong>, including hedging or partial divestment.</li>
-<li><strong>Monitor for Turnaround Signals:</strong> Watch for improvements in liquidity, profitability, and Z-Score trending above 1.8 before reconsidering investment.</li>
-<li><strong>Data Quality Note:</strong> Dividend yield and some market indicators appear anomalous (e.g., 197% yield, zero volatility), reducing confidence in market data; fundamental distress signals take precedence.</li>
-</ul>
+<p><strong>Investment Recommendation:</strong><br />
+Given the persistent distress signals, negative liquidity, and poor operational metrics, a <strong>high caution SELL or avoid new investment</strong> stance is warranted for most investor profiles. Only highly risk-tolerant or distressed asset specialists may consider speculative positions, contingent on turnaround evidence.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -557,7 +612,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark / Peer Comparison</th>
+<th>Industry Benchmark*</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -565,42 +620,42 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A (Working Capital Ratio: -0.077)</td>
-<td>Industry norm &gt;1.0</td>
-<td><strong>Severe liquidity weakness</strong>; negative working capital ratio indicates inability to cover short-term liabilities</td>
-<td>Declining/Stable at low level</td>
+<td>Current Ratio: N/A, Working Capital Ratio: -0.077</td>
+<td>Industry avg. ~1.5-2.0</td>
+<td><strong>Severe liquidity weakness; negative working capital</strong></td>
+<td>Declining/Stable (negative)</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Retained Earnings Ratio: -0.682)</td>
-<td>Positive retained earnings expected</td>
-<td><strong>High leverage risk</strong>; negative retained earnings ratio signals accumulated losses and equity erosion</td>
-<td>Stable but distressed</td>
+<td>Debt-to-Equity: N/A, Interest Coverage: N/A</td>
+<td>Industry avg. moderate</td>
+<td><strong>Data unavailable; Retained Earnings Ratio -0.682 indicates accumulated losses, likely high leverage</strong></td>
+<td>Unknown/Negative</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.011; Asset Turnover: 0.077</td>
-<td>EBIT ~0.10+; Asset Turnover ~0.5+</td>
-<td><strong>Extremely low profitability and asset utilization</strong>; operational inefficiency evident</td>
-<td>Stable at low levels</td>
+<td>Asset Turnover: 0.077, EBIT Ratio: 0.011</td>
+<td>Industry avg. ~0.5-1.0 (Asset Turnover), EBIT ~0.1-0.2</td>
+<td><strong>Extremely low asset utilization and profitability</strong></td>
+<td>Stable low</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Market Cap: $42.96B; Cash Position: N/A</td>
-<td>Large cap but financial instability</td>
-<td><strong>Market cap large but fundamentals weak</strong>; negative retained earnings threaten solvency</td>
-<td>Negative trajectory</td>
+<td>Retained Earnings Ratio: -0.682, Cash Position: N/A</td>
+<td>Industry avg. positive</td>
+<td><strong>Significant retained earnings deficit; financial instability</strong></td>
+<td>Negative</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary">Commentary</h3>
-<ul>
-<li><strong>Liquidity:</strong> The working capital ratio of -0.077 (negative) is a critical red flag, indicating current liabilities exceed current assets. This suggests potential short-term liquidity crises. The absence of a current ratio value limits precision but the negative working capital ratio suffices to indicate distress.</li>
-<li><strong>Leverage:</strong> The retained earnings ratio of -0.682 is deeply negative, reflecting accumulated losses or write-downs eroding shareholder equity. This heightens bankruptcy risk and reduces financial flexibility.</li>
-<li><strong>Profitability &amp; Efficiency:</strong> EBIT ratio at 0.011 is far below industry averages (~0.10+), indicating minimal operating profit relative to assets. Asset turnover at 0.077 is also substantially below typical industry levels (~0.5+), showing poor asset utilization and revenue generation.</li>
-<li><strong>Data Quality:</strong> AI Data Quality Assessment indicates no anomalies in financial data completeness, but market data anomalies (e.g., dividend yield 197%) reduce confidence in market-based valuation metrics.</li>
-<li><strong>Sector Context:</strong> Operating in Technology, Consumer Electronics, FIS faces rapid innovation cycles and competitive pressures. Weak financial health undermines ability to invest in R&amp;D and market expansion.</li>
-</ul>
+<p>*Industry benchmarks are typical for Technology/Consumer Electronics sector.</p>
+<p><strong>Interpretive Commentary:</strong><br />
+- The <strong>negative working capital ratio (-0.077)</strong> signals that current liabilities exceed current assets, posing immediate liquidity risks.<br />
+- The <strong>retained earnings ratio of -0.682</strong> reflects accumulated losses or dividend payouts exceeding earnings, undermining equity base and financial resilience.<br />
+- The <strong>EBIT ratio of 0.011</strong> is near breakeven, indicating minimal operating profit relative to assets, insufficient to cover debt service or reinvestment.<br />
+- The <strong>asset turnover at 0.077</strong> is drastically below industry norms, suggesting poor asset utilization or revenue generation inefficiencies.<br />
+- Absence of explicit debt-to-equity and interest coverage data limits leverage analysis but combined with retained earnings deficit, leverage risk is inferred high.<br />
+- AI Data Quality Assessment indicates <strong>raw financial data completeness but lacks detailed leverage ratios</strong>, reducing confidence in full risk quantification. No anomalies detected in financial data but market data anomalies exist.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -618,27 +673,24 @@
 <td>Current (Q8)</td>
 <td>0.20</td>
 <td>Distress</td>
-<td>Negative retained earnings, poor liquidity, low EBIT</td>
-<td>Persistent operational challenges, possible restructuring needs</td>
+<td>Negative working capital, poor EBIT, retained earnings deficit</td>
+<td>Ongoing operational challenges, no recovery signs</td>
 </tr>
 <tr>
 <td>Previous Quarters</td>
-<td>0.10 - 0.76</td>
+<td>0.10 - 0.75</td>
 <td>Distress</td>
-<td>Consistently negative working capital, low asset turnover</td>
-<td>No meaningful recovery; financial distress entrenched</td>
+<td>Persistently negative liquidity and profitability</td>
+<td>Prolonged distress, possible structural issues</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_1">Commentary</h3>
-<ul>
-<li>The Z-Score has remained <strong>consistently in the Distress Zone (&lt;1.8)</strong> for all eight quarters analyzed, with no upward trend or inflection point.</li>
-<li>The lowest recorded Z-Score was 0.10, with a slight peak at 0.76, but the latest quarter shows a decline again to 0.20.</li>
-<li>Key drivers include <strong>negative working capital, negative retained earnings, and minimal EBIT contribution</strong>, all of which depress the Z-Score.</li>
-<li>No component data was available for working capital/total assets or retained earnings/total assets, limiting granular driver analysis.</li>
-<li>Business context suggests ongoing operational and financial challenges, likely due to competitive pressures and possibly legacy cost structures.</li>
-<li>Compared to the <strong>industry average Z-Score &gt;3.0</strong>, FIS is significantly underperforming, indicating elevated bankruptcy risk relative to peers.</li>
-</ul>
+<p><strong>Strategic Commentary:</strong><br />
+- The Z-Score trajectory shows <strong>no meaningful improvement over 8 quarters</strong>, fluctuating at critically low levels (0.10 to 0.75), all within the Distress Zone (&lt;1.8).<br />
+- Key drivers are consistently poor liquidity and profitability metrics, with no evidence of operational turnaround or deleveraging.<br />
+- The lack of component data (Working Capital/Total Assets, Retained Earnings/Total Assets, EBIT/Total Assets) limits granular attribution but overall trend is negative.<br />
+- Compared to AI Peer Analysis industry average Z-Score (typically &gt;3.0), FIS is significantly underperforming, indicating competitive disadvantage and elevated bankruptcy risk.<br />
+- Business context: FIS operates in Technology/Consumer Electronics with segments in Merchant and Banking Solutions, sectors requiring innovation and capital efficiency, which current metrics do not support.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -654,36 +706,32 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Distress Zone (0.20)</td>
-<td>Price stable at $81.77</td>
+<td>Declining, Distress Zone</td>
+<td>Price stable at $81.27, zero volume and technicals</td>
 <td>Divergent</td>
-<td>Market price not reflecting distress; potential overvaluation or lagging market reaction</td>
+<td>Market may be ignoring distress signals or data anomalies present</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Negative, downward trend</td>
-<td>P/E Ratio high at 52.08</td>
-<td>Consistent</td>
-<td>Market skepticism aligns with fundamentals; high P/E suggests speculative pricing</td>
+<td>Negative implied</td>
+<td>RSI 0.0, Dividend Yield 197% (likely anomaly)</td>
+<td>Inconsistent</td>
+<td>Market sentiment unclear, low confidence in price signals</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Underperforming peers</td>
-<td>Sector performance robust</td>
-<td>Divergent</td>
-<td>FIS underperformance relative to sector; competitive risk elevated</td>
+<td>Underperforming</td>
+<td>Sector performance unknown</td>
+<td>Underperforming</td>
+<td>Competitive weakness confirmed</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_2">Commentary</h3>
-<ul>
-<li>The <strong>Z-Score distress signal conflicts with a relatively stable stock price of $81.77</strong>, suggesting a disconnect between market valuation and fundamental risk.</li>
-<li>The <strong>P/E ratio of 52.08</strong> is significantly above typical industry ranges (20-30), indicating possible overvaluation or speculative investor behavior despite weak fundamentals.</li>
-<li>Dividend yield reported at 197% is clearly anomalous and likely data error; thus, dividend-based valuation is unreliable.</li>
-<li>Technical indicators (RSI, moving averages, volume) are all zero or missing, limiting technical validation.</li>
-<li>Peer analysis confirms FIS is lagging behind sector peers, reinforcing fundamental concerns.</li>
-<li>This divergence suggests <strong>market timing risk</strong> for new investors and highlights the need for caution until fundamentals improve or market corrects.</li>
-</ul>
+<p><strong>Market Validation Commentary:</strong><br />
+- The <strong>Z-Score distress signals are not reflected in price volatility or volume</strong>, which are effectively zero, suggesting either market data anomalies or illiquidity.<br />
+- The <strong>extreme dividend yield (197%) and zero technical indicators</strong> are inconsistent with fundamentals, likely data errors or extraordinary corporate actions (e.g., special dividends, restructuring).<br />
+- Lack of price movement despite distress may indicate market skepticism, pending news, or institutional exit.<br />
+- Peer comparison confirms FIS is lagging in fundamental health, reinforcing caution despite stable nominal price.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -701,31 +749,32 @@
 <td>Operational Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Significant Z-Score decline due to low EBIT and asset turnover</td>
-<td>Operational restructuring, cost control, efficiency improvements</td>
+<td>Further decline</td>
+<td>Restructuring, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
 <td>High</td>
 <td>Critical</td>
-<td>Negative retained earnings and liquidity stress depress Z-Score</td>
-<td>Debt restructuring, capital infusion, asset sales</td>
+<td>Bankruptcy risk</td>
+<td>Debt refinancing, capital raise</td>
 </tr>
 <tr>
 <td>Market Risks</td>
 <td>Medium</td>
 <td>Moderate</td>
-<td>Market overvaluation risk; potential sharp price correction</td>
-<td>Hedging, diversification, monitoring market signals</td>
+<td>Price volatility</td>
+<td>Hedging, investor communication</td>
 </tr>
 </tbody>
 </table>
-<h3 id="scenario-planning">Scenario Planning</h3>
-<ul>
-<li><strong>Best Case:</strong> Operational turnaround improves EBIT ratio to &gt;0.05, working capital positive, Z-Score rises above 1.8 within 2-3 quarters, reducing bankruptcy risk.</li>
-<li><strong>Base Case:</strong> Status quo persists; Z-Score remains below 1.0, liquidity remains negative, risk of distress continues.</li>
-<li><strong>Worst Case:</strong> Further deterioration leads to Z-Score &lt;0.1, triggering insolvency or forced restructuring/bankruptcy.</li>
-</ul>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Operational risk</strong> is high due to poor asset turnover and EBIT, threatening ongoing viability.<br />
+- <strong>Financial risk</strong> is critical given negative retained earnings and liquidity deficits, with bankruptcy risk elevated.<br />
+- <strong>Market risk</strong> is moderate but complicated by anomalous market data; potential for sharp price corrections if distress becomes public.<br />
+- <strong>Best case scenario:</strong> Successful restructuring improves EBIT and liquidity, Z-Score rises above 1.8 within 12 months.<br />
+- <strong>Base case:</strong> Continued distress with Z-Score stable below 1.0, ongoing risk of default.<br />
+- <strong>Worst case:</strong> Bankruptcy or forced asset sales, Z-Score approaches zero or negative territory.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -743,52 +792,50 @@
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td>SELL / AVOID</td>
-<td>Z-Score 0.20 in Distress Zone; high bankruptcy risk</td>
-<td>Price overvalued; wait for Z-Score &gt;1.8</td>
+<td>SELL</td>
+<td>Z-Score 0.20, persistent distress zone</td>
+<td>Avoid entry; exit if held</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
 <td>SELL</td>
-<td>Dividend yield data unreliable; negative retained earnings</td>
-<td>Dividend sustainability doubtful</td>
+<td>Dividend yield anomaly; unsustainable</td>
+<td>Avoid due to risk</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>HOLD / CAUTIOUS</td>
-<td>Valuation disconnected from fundamentals; Z-Score distress</td>
-<td>Monitor for fundamental recovery</td>
-<td>6-12 months</td>
+<td>HOLD/SELL</td>
+<td>Value impaired by negative retained earnings</td>
+<td>Monitor for turnaround</td>
+<td>3-6 months</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>AVOID</td>
-<td>Low EBIT ratio and asset turnover; no growth signals</td>
-<td>No momentum; avoid entry</td>
+<td>SELL</td>
+<td>No growth signals; EBIT near zero</td>
+<td>Not recommended</td>
 <td>Immediate</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>SPECULATIVE</td>
-<td>High risk/reward; potential turnaround play if restructuring announced</td>
-<td>High volatility expected if turnaround occurs</td>
-<td>Opportunistic only</td>
+<td>SPECULATIVE BUY</td>
+<td>Potential turnaround speculative only</td>
+<td>Entry only on catalyst</td>
+<td>Watch closely</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_3">Commentary</h3>
-<ul>
-<li>Conservative and dividend investors should avoid or divest due to high distress risk and unreliable dividend data.</li>
-<li>Value investors may consider holding but only with strict monitoring of Z-Score improvements and operational metrics.</li>
-<li>Growth and aggressive investors face high risk with no current evidence of sustainable growth or operational momentum.</li>
-<li>Entry points should be timed with clear Z-Score inflection above 1.8 and improved liquidity/profitability metrics.</li>
-</ul>
+<p><strong>Commentary:</strong><br />
+- Conservative and dividend investors should <strong>avoid or exit</strong> due to high distress and unreliable dividend signals.<br />
+- Value investors may consider a <strong>hold with caution</strong>, awaiting signs of operational improvement or restructuring.<br />
+- Growth investors should <strong>avoid</strong> given lack of profitability and asset efficiency.<br />
+- Aggressive investors may speculate on a turnaround but must monitor closely for catalysts such as asset sales, management changes, or capital injections.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -804,34 +851,31 @@
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Operational turnaround</td>
-<td>EBIT Ratio, Asset Turnover</td>
-<td>Implement cost controls, improve operational efficiency</td>
-<td>EBIT &gt;0.05, Asset Turnover &gt;0.3</td>
+<td>Stabilize operations</td>
+<td>EBIT Ratio (0.011), Asset Turnover (0.077)</td>
+<td>Implement cost reduction, improve asset utilization</td>
+<td>EBIT improvement, Z-Score rise</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Financial restructuring</td>
-<td>Working Capital Ratio, Retained Earnings Ratio</td>
-<td>Restructure debt, improve liquidity, capital raise</td>
-<td>Positive working capital, retained earnings &gt;0</td>
+<td>Liquidity &amp; capital structure</td>
+<td>Working Capital Ratio (-0.077), Retained Earnings (-0.682)</td>
+<td>Restructure debt, improve cash flow management</td>
+<td>Positive working capital, reduced leverage</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight</td>
-<td>Z-Score, Risk Indicators</td>
-<td>Monitor risk trajectory, enforce governance controls</td>
-<td>Z-Score trending upward, risk mitigation</td>
+<td>Risk oversight &amp; transparency</td>
+<td>Z-Score trend, risk factors</td>
+<td>Enhance disclosure, monitor risk metrics</td>
+<td>Compliance, risk mitigation</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_4">Commentary</h3>
-<ul>
-<li>CEO must prioritize operational efficiency improvements to drive EBIT and asset utilization.</li>
-<li>CFO should focus on liquidity restoration and equity rebuilding to stabilize financial structure.</li>
-<li>Board must enforce rigorous risk management and monitor turnaround progress closely.</li>
-<li>Alignment of leadership actions with Z-Score improvements will be critical to restore market confidence.</li>
-</ul>
+<p><strong>Executive Commentary:</strong><br />
+- CEO must prioritize operational turnaround focusing on profitability and asset efficiency to improve EBIT and asset turnover ratios.<br />
+- CFO should address liquidity crisis and negative retained earnings through capital restructuring and cash flow optimization.<br />
+- Board must enforce rigorous risk management and transparent communication to restore investor confidence and manage distress risks.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -847,39 +891,37 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Persistently low (0.20)</td>
-<td>Slight improvement possible if restructuring</td>
-<td>Operational improvements, capital infusion</td>
+<td>Flat/Declining</td>
+<td>Potential further decline or stabilization</td>
+<td>Restructuring, capital infusion</td>
 <td>Quarterly Z-Score, EBIT ratio</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Underperforming peers</td>
-<td>Potential stabilization if turnaround succeeds</td>
-<td>Competitive repositioning, product innovation</td>
+<td>Weak</td>
+<td>Possible deterioration or recovery if turnaround</td>
+<td>Competitive strategy, innovation</td>
 <td>Market share, peer Z-Score</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High distress risk</td>
-<td>Risk remains elevated without intervention</td>
-<td>Debt maturity, liquidity events</td>
-<td>Liquidity ratios, debt covenants</td>
+<td>High</td>
+<td>Persistently elevated risk unless mitigated</td>
+<td>Debt refinancing, operational improvements</td>
+<td>Liquidity ratios, debt levels</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_5">Commentary</h3>
-<ul>
-<li>The Z-Score momentum forecast remains negative in the near term but could improve with successful operational and financial restructuring.</li>
-<li>Key catalysts include management initiatives to improve EBIT, asset turnover, and working capital.</li>
-<li>Continuous monitoring of quarterly Z-Score, liquidity ratios, and market sentiment is essential to detect early signs of recovery or further deterioration.</li>
-<li>Investors should maintain a cautious stance and prepare for volatility until clear positive inflection points emerge.</li>
-</ul>
+<p><strong>Forward-Looking Commentary:</strong><br />
+- Without significant operational or financial restructuring, FIS’s Z-Score is unlikely to improve beyond the distress zone in the next 6-12 months.<br />
+- Key catalysts include successful cost-cutting, asset sales, or capital raises that could stabilize liquidity and profitability.<br />
+- Monitoring should focus on quarterly Z-Score updates, EBIT improvements, and liquidity ratios as early warning indicators.<br />
+- Investors should prepare for multiple scenarios, including prolonged distress or potential bankruptcy, adjusting positions accordingly.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>FIS is currently in a <strong>critical financial distress state</strong>, with an Altman Z-Score well below the safe threshold, negative liquidity, and poor operational metrics. Market valuation appears disconnected from fundamentals, increasing risk for new investors. Immediate caution is warranted, with a focus on monitoring operational turnaround and financial restructuring efforts. Only upon clear improvement in Z-Score components and liquidity should investment reconsideration occur.</p>
+<p>FIS is currently in a <strong>critical financial distress state</strong> with a Z-Score of <strong>0.20</strong>, negative liquidity, and poor operational metrics. Market data anomalies reduce confidence in price signals, but fundamental analysis and peer benchmarking confirm significant risk. Immediate risk mitigation and operational turnaround are essential. Investment recommendations lean heavily toward <strong>SELL or avoid</strong> for most profiles, with speculative interest only for high-risk tolerant investors monitoring for turnaround catalysts.</p>
 <hr />
-<p><em>Analysis generated with full integration of injected financial data, AI risk, peer, and sentiment assessments, and validated against sector benchmarks and market signals.</em></p></div></div>
+<p><em>Analysis generated with explicit reference to injected data elements including Z-Score historical values, financial ratios, market metrics, and sector context.</em></p></div></div>
     </div>
     
 
@@ -1222,78 +1264,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:22 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 10:51 AM by Enhanced Altman Z-Score Analysis v4.6.0</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 

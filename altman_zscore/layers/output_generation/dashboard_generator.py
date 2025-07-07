@@ -95,8 +95,48 @@ class DashboardGenerator:
             
             chart_path = ticker_dir / f"{latest.ticker}_zscore_dashboard.html"
             
+            # Check if this is a bankruptcy analysis
+            is_bankruptcy_analysis = False
+            bankruptcy_date = None
+            
+            if latest.metadata and 'bankruptcy_analysis' in latest.metadata:
+                is_bankruptcy_analysis = True
+                bankruptcy_date = latest.metadata.get('bankruptcy_date')
+                logger.info(f"Generating bankruptcy analysis dashboard for {latest.ticker} with bankruptcy date: {bankruptcy_date}")
+            
             # Create dashboard layout
-            fig, layout_config = self.layout_manager.create_dashboard_layout()
+            fig, layout_config = self.layout_manager.create_dashboard_layout(is_bankruptcy_analysis=is_bankruptcy_analysis)
+            
+            # Add company name and ticker as title
+            company_name = latest.metadata.get('company_name', latest.ticker) if hasattr(latest, 'metadata') and latest.metadata else latest.ticker
+            
+            # Add special title for bankruptcy analysis
+            if is_bankruptcy_analysis:
+                title = f"<b>{company_name} ({latest.ticker})</b> - Pre-Bankruptcy Z-Score Analysis"
+                subtitle = f"<i>Bankruptcy Date: {bankruptcy_date}</i>"
+                
+                fig.update_layout(
+                    title={
+                        'text': f"{title}<br><sup>{subtitle}</sup>",
+                        'y': 0.98,
+                        'x': 0.5,
+                        'xanchor': 'center',
+                        'yanchor': 'top',
+                        'font': {'family': 'Arial', 'size': 24, 'color': '#d32f2f'}
+                    }
+                )
+            else:
+                title = f"<b>{company_name} ({latest.ticker})</b> - Z-Score Analysis"
+                fig.update_layout(
+                    title={
+                        'text': title,
+                        'y': 0.98,
+                        'x': 0.5,
+                        'xanchor': 'center',
+                        'yanchor': 'top',
+                        'font': {'family': 'Arial', 'size': 24}
+                    }
+                )
             
             # Add core components that are always present
             self._add_core_components(fig, layout_config, latest)

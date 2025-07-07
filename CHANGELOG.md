@@ -1,5 +1,97 @@
 # Changelog
 
+## [4.7.1] - Enhanced Dashboard Visualization & Encoding Fixes (July 7, 2025)
+
+### 📊 **DASHBOARD VISUALIZATION ENHANCEMENTS**
+- **✅ ENHANCED:** Upgraded trend chart with candlestick visualization for OHLC data
+- **✅ NEW:** Weekly and daily OHLC data endpoints with robust fallback chain
+- **✅ IMPROVED:** FMP API integration with dedicated candlestick data fetching
+- **✅ ENHANCED:** Dual-axis chart configuration (Z-Score + Stock Price)
+- **✅ IMPROVED:** Professional color-coded candlesticks (green/red for up/down)
+- **✅ OPTIMIZED:** Dashboard height optimization (1050px) to prevent label overlap
+- **✅ IMPROVED:** Enhanced vertical spacing and layout proportions
+- **✅ FIXED:** Static iframe height configuration for consistent display
+
+### 🔧 **DATA PROCESSING IMPROVEMENTS**
+- **✅ ENHANCED:** Multi-tier OHLC data fetching: Weekly → Daily → Close-only fallback
+- **✅ IMPROVED:** Error handling and logging for price data retrieval
+- **✅ OPTIMIZED:** Cache optimization for OHLC data performance
+- **✅ ENHANCED:** Rate limiting for external API calls
+- **✅ IMPROVED:** Data validation and processing for candlestick charts
+
+### 🐛 **ENCODING & FILE HANDLING FIXES**
+- **✅ FIXED:** UTF-8 encoding support for portfolio file reading
+- **✅ CLEANED:** Removed Unicode subscript characters (₆, ₁) causing encoding errors
+- **✅ FIXED:** Special character handling in portfolio files
+- **✅ IMPROVED:** Robust file encoding detection and handling
+- **✅ ENHANCED:** Error reporting for file encoding issues
+
+### 🎨 **USER EXPERIENCE IMPROVEMENTS**
+- **✅ OPTIMIZED:** Dashboard layout for better visual hierarchy
+- **✅ IMPROVED:** Chart responsiveness and professional appearance
+- **✅ ENHANCED:** Visual appeal with candlestick charts instead of basic line charts
+- **✅ OPTIMIZED:** Space utilization and content density
+- **✅ IMPROVED:** Label placement and readability
+
+### 📈 **TECHNICAL ENHANCEMENTS**
+- **✅ IMPROVED:** Plotly candlestick chart implementation with proper hover formatting
+- **✅ ENHANCED:** Secondary y-axis configuration for price data
+- **✅ OPTIMIZED:** Chart rendering performance and memory usage
+- **✅ IMPROVED:** Data structure handling for timeline visualization
+- **✅ ENHANCED:** Error handling for missing or incomplete market data
+
+## [4.8.0] - Bankruptcy Analysis Framework (July 6, 2025)
+
+### 📉 **BANKRUPTCY ANALYSIS FRAMEWORK**
+- **✅ NEW:** Comprehensive framework for analyzing financial health leading up to bankruptcy
+- **✅ NEW:** Support for calculating Z-Scores for multiple quarters before bankruptcy
+- **✅ NEW:** Historical market data correlation with pre-bankruptcy Z-Score trends
+- **✅ NEW:** Dedicated bankruptcy analysis methods in main pipeline
+- **✅ NEW:** Enhanced visualization of financial deterioration patterns
+
+### 🔍 **PRE-BANKRUPTCY DATA PROCESSING**
+- **✅ NEW:** End date filtering for financial data based on bankruptcy dates
+- **✅ NEW:** Historical market data retrieval for bankruptcy date correlation
+- **✅ NEW:** Quarter filtering to analyze specific periods before bankruptcy
+- **✅ IMPROVED:** Data merger with enhanced historical data support
+- **✅ IMPROVED:** Yahoo data fetcher with historical market data capabilities
+
+### 📊 **VISUALIZATION & REPORTING ENHANCEMENTS**
+- **✅ NEW:** Pre-bankruptcy Z-Score progression tables in reports
+- **✅ NEW:** Bankruptcy date markers on Z-Score trend charts
+- **✅ NEW:** Warning signs analysis in bankruptcy reports
+- **✅ NEW:** Enhanced dashboard with bankruptcy-specific styling
+- **✅ NEW:** Visual comparison of Z-Score trends leading to bankruptcy
+
+### 🛢️ **BANKRUPTCY DATABASE v2.0 - MAJOR EXPANSION**
+- **✅ NEW:** Comprehensive database of bankruptcy filings across sectors
+- **✅ EXPANDED:** 150+ companies across 8 major industry sectors (from 23 companies)
+- **✅ NEW:** Technology sector bankruptcies (FTX, social media, AI/ML companies)
+- **✅ NEW:** Airlines & transportation bankruptcies (major carriers, mobility startups)
+- **✅ NEW:** Healthcare & pharmaceuticals bankruptcies (biotech, opioid litigation)
+- **✅ NEW:** Real estate & construction bankruptcies (REITs, proptech)
+- **✅ NEW:** Financial services bankruptcies (fintech, lending, trading platforms)
+- **✅ NEW:** Media & entertainment bankruptcies (streaming, gaming, content)
+- **✅ IMPROVED:** Enhanced retail sector coverage with recent failures
+- **✅ IMPROVED:** Expanded energy sector with renewable energy and utilities
+- **✅ NEW:** Recent bankruptcies through 2025 including post-pandemic adjustments
+- **✅ NEW:** Cryptocurrency and blockchain company failures
+- **✅ NEW:** EV startup and automotive industry restructurings
+- **✅ NEW:** Industry-specific analysis guidelines and considerations
+- **✅ NEW:** Enhanced verification procedures and data quality standards
+- **✅ NEW:** Comprehensive expansion documentation and usage guidelines
+- **✅ IMPROVED:** Enhanced docstrings with detailed usage examples
+- **✅ IMPROVED:** Comprehensive module-level documentation
+- **✅ NEW:** Dedicated technical documentation (BANKRUPTCY_DATES_MODULE.md)
+
+### 📚 **DOCUMENTATION**
+- **✅ NEW:** Comprehensive bankruptcy analysis documentation (BANKRUPTCY_ANALYSIS.md)
+- **✅ NEW:** Detailed bankruptcy dates module documentation (BANKRUPTCY_DATES_MODULE.md)
+- **✅ UPDATED:** Enhanced function docstrings with usage examples
+- **✅ UPDATED:** Main README with bankruptcy analysis commands
+- **✅ UPDATED:** Implementation details across multiple components
+- **✅ UPDATED:** AI development guidelines with bankruptcy analysis rule
+
 ## [4.7.0] - Dashboard Generator Modernization (July 3, 2025)
 
 ### 🔄 **DASHBOARD GENERATION SYSTEM OVERHAUL**

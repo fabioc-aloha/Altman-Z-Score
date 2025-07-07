@@ -33,7 +33,46 @@
 
         .risk-medium {
             background-color: #fff3e0;
-            border-left: 4px solid #ff9800;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
         }
 
         .risk-low {
@@ -272,6 +311,39 @@
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
     </style>
 </head>
 
@@ -281,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Ocugen, Inc. (OCGN)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 03, 2025 at 06:38 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 07, 2025 at 11:06 AM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -361,9 +433,9 @@
     
     <div class="section">
         <h2>Interactive Dashboard</h2>
-        <div id="dashboard-container" style="margin: 10px 0; min-height: 800px; overflow: hidden;">
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
             <iframe id="dashboard-iframe" src="OCGN_zscore_dashboard.html" width="100%" frameborder="0"
-                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 920px;">
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
                 <p>Your browser does not support iframes.
                     <a href="OCGN_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
                 </p>
@@ -426,11 +498,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$0.96</p>
+                <p>$$0.94</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$0.28</p>
+                <p>$$0.3B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -446,7 +518,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>25.1</p>
+                <p>28.0</p>
             </div>
         </div>
     </div>
@@ -460,7 +532,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>-0.45</p>
+                <p>-0.50</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -481,39 +553,38 @@
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
 <p><strong>Company:</strong> Ocugen, Inc. (Ticker: OCGN)<br />
-<strong>Analysis Date:</strong> 2025-07-03 18:38:21  </p>
+<strong>Analysis Date:</strong> 2025-07-07 11:05:42  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Ocugen, Inc. (OCGN) remains deeply entrenched in the <strong>Distress Zone</strong> with a persistently negative Altman Z-Score trajectory, signaling severe financial distress and elevated bankruptcy risk. The latest Z-Score stands at <strong>-2.67</strong>, improving from a nadir of <strong>-26.90</strong> eight quarters ago but still far below the critical threshold of 1.8. This trajectory indicates some operational stabilization but no fundamental recovery.</p>
-<p><strong>AI Risk Analysis</strong> flags an <strong>overall risk level of "High"</strong> with <strong>95% confidence</strong>, driven by negative retained earnings (-5.516 ratio), negative EBIT (-0.225 ratio), and extremely low asset turnover (0.023), all symptomatic of a clinical-stage biotech company with no commercial revenues yet. The risk trajectory is cautiously improving but remains critical.</p>
-<p><strong>AI Peer Analysis</strong> positions OCGN well below the <strong>industry average Z-Score of approximately 2.5</strong> for Biotechnology firms, highlighting significant underperformance relative to peers such as CRSP, EDIT, and BEAM. This gap underscores the company's fragile financial footing compared to industry norms.</p>
-<p><strong>AI Sentiment Analysis</strong> reveals <strong>neutral to negative market sentiment</strong>, with zero dividend yield, zero price momentum (0.96 current price with no volume or price movement data), and technical indicators showing no trading activity. This reflects market skepticism and low investor confidence.</p>
-<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<p>Ocugen, Inc. (OCGN) currently resides deeply within the <strong>Distress Zone</strong> of the Altman Z-Score framework, with a latest Z-Score of <strong>-2.67</strong>, indicating a high risk of financial distress and potential bankruptcy. The Z-Score trajectory over the past eight quarters shows persistent negative values, ranging from -26.90 to -2.67, with no indication of recovery or stabilization. This sustained distress signals severe operational and financial challenges.</p>
+<p><strong>AI Risk Analysis</strong> confirms an <strong>overall risk level of Distress</strong> with <strong>high confidence</strong>, driven by negative retained earnings ratio (-5.516), negative EBIT ratio (-0.225), and poor liquidity (working capital ratio 0.420). The risk trajectory remains negative, with no positive inflection points detected.</p>
+<p><strong>AI Peer Analysis</strong> places OCGN significantly below the <strong>industry average Z-Score</strong>, which typically lies above 1.8 for biotechnology firms, indicating that OCGN is underperforming its peers substantially. Key peers in the biotechnology sector maintain healthier financial profiles, underscoring OCGN’s relative vulnerability.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a <strong>neutral to negative market sentiment</strong>, with no dividend yield, zero price momentum (RSI 0.0), and no trading volume, reflecting market skepticism and low investor confidence.</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
+<th>Key Metrics Summary</th>
 <th>Value</th>
-<th>Industry Benchmark / Peer Average</th>
+<th>Industry Benchmark</th>
 <th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Latest Altman Z-Score</td>
+<td>Latest Z-Score</td>
 <td>-2.67</td>
-<td>~2.5 (Biotech Industry Avg)</td>
-<td>Severe distress, below safety zone</td>
+<td>&gt;3.0 (Safe Zone)</td>
+<td>Distress Zone, urgent caution</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$279.5 million</td>
-<td>N/A</td>
-<td>Small-cap, limited market presence</td>
+<td>$273.8M</td>
+<td>Varies widely</td>
+<td>Small-cap biotech, limited market confidence</td>
 </tr>
 <tr>
 <td>Current Price</td>
-<td>$0.96</td>
+<td>$0.94</td>
 <td>N/A</td>
 <td>Low price, illiquid</td>
 </tr>
@@ -521,53 +592,29 @@
 <td>Working Capital Ratio</td>
 <td>0.420</td>
 <td>&gt;1.0 preferred</td>
-<td>Liquidity concerns</td>
+<td>Liquidity weakness</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>-5.516</td>
-<td>Positive in healthy firms</td>
+<td>Positive expected</td>
 <td>Accumulated losses</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
 <td>-0.225</td>
-<td>Positive in profitable firms</td>
+<td>Positive expected</td>
 <td>Operating losses</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
 <td>0.023</td>
-<td>~0.5+ in biotech peers</td>
-<td>Minimal revenue generation</td>
-</tr>
-<tr>
-<td>Dividend Yield</td>
-<td>0.00%</td>
-<td>Varies</td>
-<td>No income distribution</td>
-</tr>
-<tr>
-<td>AI Risk Level</td>
-<td>High (95% confidence)</td>
-<td>N/A</td>
-<td>Elevated bankruptcy risk</td>
-</tr>
-<tr>
-<td>AI Sentiment</td>
-<td>Neutral-Negative</td>
-<td>N/A</td>
-<td>Market skepticism</td>
+<td>~0.5+ typical</td>
+<td>Very low operational efficiency</td>
 </tr>
 </tbody>
 </table>
-<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
-<ul>
-<li><strong>Immediate Action:</strong> Given the persistent distress signals and lack of operational revenue, <strong>avoid new equity investments</strong> at this stage.  </li>
-<li><strong>Speculative Traders:</strong> May consider <strong>high-risk, short-term positions only if catalyst events (e.g., clinical trial results) emerge</strong>, but with strict risk controls.  </li>
-<li><strong>Long-Term Investors:</strong> Should <strong>wait for clear signs of financial stabilization and Z-Score improvement above 1.8</strong> before considering entry.  </li>
-<li><strong>Risk Management:</strong> Monitor liquidity ratios and operational milestones closely; prepare for potential dilution or restructuring events.</li>
-</ul>
+<p><strong>Investment Recommendation:</strong> Given the persistent distress signals, negative financial ratios, and poor market sentiment, a <strong>SELL or AVOID</strong> stance is recommended for most investor profiles, especially conservative and dividend-focused investors. Only highly risk-tolerant, speculative investors with a deep understanding of biotech turnaround potential might consider a very limited exposure, contingent on significant operational improvements.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -583,83 +630,66 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.42</td>
-<td>&gt;1.0 (Biotech avg)</td>
-<td>Weak liquidity; working capital insufficient</td>
-<td>Stable to Weak</td>
+<td>Current Ratio: 0.420</td>
+<td>&gt;1.0</td>
+<td>Weak liquidity, risk of short-term cash constraints</td>
+<td>Stable/Weak</td>
 </tr>
 <tr>
 <td></td>
-<td>Working Capital Ratio: 0.42</td>
+<td>Working Capital Ratio: 0.420</td>
 <td>&gt;1.0</td>
-<td>Indicates potential short-term cash stress</td>
+<td>Insufficient working capital</td>
 <td></td>
 </tr>
 <tr>
 <td>Leverage Management</td>
 <td>Debt-to-Equity: N/A (Data Missing)</td>
-<td>Moderate in biotech peers</td>
-<td>Data unavailable; likely high risk given losses</td>
+<td>Industry average ~1.0-2.0</td>
+<td>Unable to assess leverage; likely high risk given other metrics</td>
 <td>Unknown</td>
 </tr>
 <tr>
 <td></td>
 <td>Interest Coverage: N/A</td>
-<td>Positive in healthy firms</td>
-<td>No EBIT to cover interest; negative EBIT ratio</td>
+<td>Positive</td>
+<td>No data; EBIT negative (-0.225) implies no coverage</td>
 <td>Declining</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
 <td>Asset Turnover: 0.023</td>
-<td>~0.5+ in biotech peers</td>
-<td>Extremely low revenue generation efficiency</td>
-<td>Stable to Weak</td>
+<td>~0.5+</td>
+<td>Extremely low asset utilization</td>
+<td>Stable/Weak</td>
 </tr>
 <tr>
 <td></td>
 <td>EBIT Ratio: -0.225</td>
-<td>Positive in profitable firms</td>
-<td>Operating losses; no profitability</td>
-<td>Improving Slightly</td>
+<td>Positive</td>
+<td>Negative operating profitability</td>
+<td>Declining</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
 <td>Retained Earnings Ratio: -5.516</td>
-<td>Positive in stable firms</td>
-<td>Large accumulated losses; negative equity</td>
-<td>Improving Slightly</td>
+<td>Positive</td>
+<td>Large accumulated losses, negative equity likely</td>
+<td>Declining</td>
 </tr>
 <tr>
 <td></td>
 <td>Cash Position: N/A</td>
-<td>N/A</td>
-<td>Data not provided</td>
+<td>Adequate cash preferred</td>
+<td>No cash data; liquidity ratios suggest weak cash</td>
 <td>Unknown</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary">Commentary</h3>
-<ul>
-<li>
-<p><strong>Liquidity Position:</strong> The current ratio of <strong>0.42</strong> and working capital ratio of <strong>0.42</strong> are well below the industry standard of above 1.0, indicating that Ocugen may struggle to meet short-term obligations. This is consistent with the clinical-stage biotech profile, which typically incurs high R&amp;D expenses without revenue inflows. The liquidity trend appears stable but weak, with no signs of imminent improvement.</p>
-</li>
-<li>
-<p><strong>Leverage Management:</strong> Debt-to-equity and interest coverage data are unavailable, but the negative EBIT ratio (-0.225) suggests operating losses that impair the ability to service debt. This raises concerns about financial leverage and solvency risk.</p>
-</li>
-<li>
-<p><strong>Operational Efficiency:</strong> Asset turnover at <strong>0.023</strong> is drastically below the biotech industry average (~0.5+), reflecting minimal sales or commercialization. EBIT ratio remains negative, though slightly improving from prior quarters, indicating ongoing operating losses but potential stabilization.</p>
-</li>
-<li>
-<p><strong>Financial Stability:</strong> The retained earnings ratio of <strong>-5.516</strong> signals significant accumulated deficits, consistent with a company in early-stage development with no profits. This undermines equity stability and increases bankruptcy risk.</p>
-</li>
-<li>
-<p><strong>Data Quality &amp; Anomalies:</strong> The AI Data Quality Assessment indicates <strong>complete raw financial data injection with no anomalies detected</strong>, but key leverage metrics are missing, limiting full assessment. The absence of market trading data (zero volume, zero price movement) also constrains market validation.</p>
-</li>
-<li>
-<p><strong>Sector Context:</strong> As a <strong>Healthcare/Biotechnology</strong> firm focused on gene therapies for blindness, Ocugen operates in a capital-intensive, high-risk sector with long development timelines and binary clinical outcomes. This explains many financial weaknesses but also frames the risk-reward profile.</p>
-</li>
-</ul>
+<p><strong>Interpretive Commentary:</strong><br />
+Ocugen’s liquidity position is critically weak, with a current ratio and working capital ratio at 0.420, well below the industry standard of above 1.0, indicating potential difficulties meeting short-term obligations. The negative retained earnings ratio (-5.516) reflects accumulated losses far exceeding total assets, a severe red flag for financial stability. The EBIT ratio of -0.225 confirms ongoing operating losses, consistent with a clinical-stage biotech company still in R&amp;D phases without revenue generation.</p>
+<p>Operational efficiency is extremely poor, with an asset turnover of 0.023, indicating minimal revenue generation relative to asset base. This aligns with the company’s profile as a clinical-stage biopharmaceutical firm focused on gene therapies, where commercialization is pending.</p>
+<p>The absence of debt-to-equity and interest coverage data limits leverage analysis, but given the negative EBIT and retained earnings, financial risk is presumed high. The AI Data Quality Assessment indicates no anomalies but notes incomplete leverage data, reducing confidence in full risk quantification.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -674,78 +704,53 @@
 </thead>
 <tbody>
 <tr>
-<td>Current (Q8)</td>
+<td>Current</td>
 <td>-2.67</td>
 <td>Distress</td>
-<td>Negative retained earnings, negative EBIT, no sales</td>
-<td>Clinical-stage, no revenue, ongoing R&amp;D losses</td>
+<td>Negative retained earnings, negative EBIT, poor liquidity</td>
+<td>Ongoing R&amp;D expenses, no revenue, clinical-stage biotech</td>
 </tr>
 <tr>
-<td>Q7</td>
+<td>Previous 1</td>
 <td>-5.27</td>
 <td>Distress</td>
-<td>Similar drivers</td>
+<td>Same as above</td>
 <td>Continued operational losses</td>
 </tr>
 <tr>
-<td>Q6</td>
+<td>Previous 2</td>
 <td>-10.94</td>
 <td>Distress</td>
-<td>Deepening losses</td>
-<td>Possibly increased R&amp;D spending</td>
+<td>Severe losses, negative equity</td>
+<td>Early-stage development, high cash burn</td>
 </tr>
 <tr>
-<td>Q5</td>
+<td>Previous 3</td>
 <td>-17.11</td>
 <td>Distress</td>
-<td>Severe negative equity</td>
-<td>Preclinical development phase</td>
+<td>Worsening financials</td>
+<td>Preclinical investment phase</td>
 </tr>
 <tr>
-<td>Q4</td>
+<td>Previous 4</td>
 <td>-26.90</td>
 <td>Distress</td>
 <td>Extreme distress</td>
-<td>Early-stage, no commercial activity</td>
+<td>Likely pre-revenue, heavy R&amp;D outflows</td>
 </tr>
 <tr>
-<td>Q3</td>
-<td>-13.97</td>
+<td>Previous 5-7</td>
+<td>-13.97 to -16.39</td>
 <td>Distress</td>
-<td>Negative EBIT &amp; equity</td>
-<td>Clinical trials ongoing</td>
-</tr>
-<tr>
-<td>Q2</td>
-<td>-10.80</td>
-<td>Distress</td>
-<td>Operating losses</td>
-<td>Pipeline development</td>
-</tr>
-<tr>
-<td>Q1</td>
-<td>-16.39</td>
-<td>Distress</td>
-<td>Negative financials</td>
-<td>Preclinical stage</td>
+<td>Consistent negative drivers</td>
+<td>Clinical trials and pipeline development</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_1">Commentary</h3>
-<ul>
-<li>
-<p>The Z-Score has shown a <strong>consistent distress classification over 8 quarters</strong>, with values ranging from <strong>-26.90</strong> (worst) to <strong>-2.67</strong> (current). The gradual improvement suggests some operational stabilization but no fundamental turnaround.</p>
-</li>
-<li>
-<p>Key drivers remain <strong>negative retained earnings and EBIT ratios</strong>, with no sales or market value equity data available to improve the score.</p>
-</li>
-<li>
-<p>The <strong>business context</strong> of a clinical-stage biotech firm explains the lack of revenue and persistent losses, but the financial distress signals remain critical.</p>
-</li>
-<li>
-<p>Compared to the <strong>industry average Z-Score of ~2.5</strong>, Ocugen is significantly underperforming, indicating a high risk of insolvency without major operational or financing changes.</p>
-</li>
-</ul>
+<p><strong>Strategic Commentary:</strong><br />
+The Z-Score trajectory shows a gradual improvement from extreme distress (-26.90) to a less negative but still distressing -2.67, suggesting some operational stabilization but no fundamental recovery. The persistent negative values reflect ongoing losses and lack of asset base growth.</p>
+<p>The lack of working capital, retained earnings, EBIT, and sales data for earlier quarters limits granular component analysis, but the trend implies heavy R&amp;D investment without commercial revenue. The company’s focus on gene therapies for blindness diseases aligns with this profile.</p>
+<p>Benchmarking against the biotechnology industry average Z-Score (typically &gt;1.8) highlights Ocugen’s significant underperformance, underscoring the high-risk nature of this investment.</p>
 <hr />
 <h2 id="4-market-intelligence-validation-analysis">4. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -761,45 +766,30 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Persistent distress (-2.67)</td>
-<td>No price movement, zero volume</td>
-<td>Divergent (fundamental distress but no market activity)</td>
-<td>Market skepticism; illiquidity risk</td>
+<td>Persistently Distress (-2.67 latest)</td>
+<td>Price stagnant at $0.94, zero volume</td>
+<td>Aligned</td>
+<td>Market reflects fundamental weakness</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral-Negative</td>
-<td>No professional consensus data</td>
+<td>Negative/Neutral</td>
+<td>RSI 0.0, no trading activity</td>
 <td>Consistent</td>
-<td>Market cautious; no positive catalysts</td>
+<td>Low investor confidence, illiquidity</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry avg</td>
-<td>Sector performance moderate</td>
+<td>Significantly Below Industry Average</td>
+<td>Sector showing moderate growth</td>
 <td>Underperforming</td>
-<td>Competitive disadvantage; high risk</td>
+<td>Competitive disadvantage, high risk</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_2">Commentary</h3>
-<ul>
-<li>
-<p>The <strong>Z-Score distress signals are not reflected in market price movement</strong>, which is flat at $0.96 with zero volume and no technical indicator data. This suggests illiquidity and lack of investor interest.</p>
-</li>
-<li>
-<p><strong>No P/E, Price/Book, or other valuation multiples are available</strong>, indicating no earnings and no meaningful market valuation metrics.</p>
-</li>
-<li>
-<p>The <strong>AI Sentiment Analysis confirms neutral to negative sentiment</strong>, consistent with the lack of dividends and no price momentum.</p>
-</li>
-<li>
-<p>The <strong>divergence between fundamental distress and market inactivity</strong> implies that the market is either ignoring the stock or awaiting significant news catalysts.</p>
-</li>
-<li>
-<p>This disconnect suggests <strong>high risk for investors due to potential volatility upon any news release or financing event</strong>.</p>
-</li>
-</ul>
+<p><strong>Market Validation Commentary:</strong><br />
+The Altman Z-Score distress signals align closely with market data showing a stagnant stock price of $0.94, zero trading volume, and no price momentum (RSI 0.0). The absence of valuation multiples (P/E, Price/Book, EV/EBITDA all zero) indicates no earnings or meaningful market valuation metrics, consistent with a clinical-stage biotech.</p>
+<p>Investor sentiment is neutral to negative, with no dividend yield and no volatility, reflecting a lack of market interest and liquidity. This alignment between fundamental distress and market signals reinforces the low confidence environment surrounding OCGN.</p>
 <hr />
 <h2 id="5-risk-stratification-scenario-framework">5. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -815,55 +805,32 @@
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>High (85%)</td>
+<td>High</td>
 <td>Critical</td>
 <td>Further Z-Score decline</td>
-<td>Accelerate clinical milestones; cost control</td>
+<td>Accelerate clinical milestones, cost control</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>High (90%)</td>
+<td>High</td>
 <td>Critical</td>
-<td>Negative retained earnings worsen</td>
-<td>Secure financing; manage cash burn</td>
+<td>Negative retained earnings persist</td>
+<td>Secure additional financing, manage burn rate</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium (60%)</td>
+<td>Medium</td>
 <td>Moderate</td>
-<td>Price volatility; illiquidity</td>
-<td>Improve investor relations; transparency</td>
-</tr>
-<tr>
-<td>Regulatory Risks</td>
-<td>Medium (50%)</td>
-<td>High</td>
-<td>Trial delays impact EBIT</td>
-<td>Proactive regulatory engagement</td>
+<td>Continued illiquidity and price stagnation</td>
+<td>Improve investor relations, transparency</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_3">Commentary</h3>
-<ul>
-<li>
-<p><strong>Operational risks</strong> dominate due to the clinical-stage nature, with high probability (85%) and critical severity, directly impacting EBIT and retained earnings, thus depressing Z-Score.</p>
-</li>
-<li>
-<p><strong>Financial risks</strong> are acute, with a 90% probability of worsening due to negative cash flow and no revenue, threatening solvency and increasing bankruptcy risk.</p>
-</li>
-<li>
-<p><strong>Market risks</strong> include illiquidity and potential price shocks, with moderate probability and severity, complicating investor exit strategies.</p>
-</li>
-<li>
-<p><strong>Regulatory risks</strong> from clinical trial outcomes and FDA approvals carry medium probability but high impact on company viability.</p>
-</li>
-<li>
-<p><strong>Scenario Planning:</strong>  </p>
-</li>
-<li><strong>Best Case:</strong> Successful clinical trial results improve EBIT and retained earnings, pushing Z-Score above 1.8 within 12-18 months.  </li>
-<li><strong>Base Case:</strong> Continued losses with slight operational improvements keep Z-Score in distress zone (-2 to -5).  </li>
-<li><strong>Worst Case:</strong> Trial failures or financing difficulties push Z-Score below -5, increasing bankruptcy risk.</li>
-</ul>
+<p><strong>Scenario Planning Commentary:</strong><br />
+- <strong>Best Case:</strong> Successful clinical trial results and regulatory approvals could improve EBIT and retained earnings, pushing Z-Score toward the Gray Zone (1.8-3.0) within 12-18 months.<br />
+- <strong>Base Case:</strong> Continued R&amp;D losses maintain distress zone status, with Z-Score hovering between -3 and -1.<br />
+- <strong>Worst Case:</strong> Failure in clinical programs or inability to raise capital leads to bankruptcy risk, with Z-Score declining below -5.</p>
+<p>Mitigation requires aggressive operational improvements and capital raises. The lack of current liquidity and negative operating margins heighten bankruptcy risk without strategic intervention.</p>
 <hr />
 <h2 id="6-investment-profile-recommendations">6. Investment Profile Recommendations</h2>
 <table>
@@ -881,63 +848,47 @@
 <tr>
 <td>📊 Conservative</td>
 <td>Low</td>
-<td>SELL / AVOID</td>
-<td>Z-Score -2.67 in distress zone; no liquidity</td>
-<td>Avoid entry; high risk</td>
-<td>Immediate</td>
+<td><strong>SELL</strong></td>
+<td>Z-Score -2.67, Distress Zone, no recovery signs</td>
+<td>Price stagnant, no momentum</td>
+<td>Immediate exit recommended</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>NOT APPLICABLE</td>
-<td>No dividend yield; negative retained earnings</td>
-<td>Not suitable</td>
-<td>N/A</td>
+<td><strong>SELL</strong></td>
+<td>No dividend yield, negative retained earnings</td>
+<td>No yield, no price growth</td>
+<td>Avoid entry</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>HOLD / CAUTIOUS</td>
-<td>Negative retained earnings; potential turnaround if clinical success</td>
-<td>Wait for Z-Score &gt;1.8</td>
-<td>12-18 months</td>
+<td><strong>HOLD/AVOID</strong></td>
+<td>Negative retained earnings, no valuation multiples</td>
+<td>No clear entry point</td>
+<td>Monitor for turnaround signals</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>SPECULATIVE BUY</td>
-<td>Early-stage biotech; high risk/reward; Z-Score improving but negative</td>
-<td>Enter on positive catalysts</td>
-<td>Monitor quarterly</td>
+<td><strong>SPECULATIVE BUY</strong> (Very limited)</td>
+<td>Potential for biotech breakthrough, but high risk</td>
+<td>Entry only on positive clinical news</td>
+<td>Short-term monitoring</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>HIGH RISK BUY</td>
-<td>High bankruptcy risk; potential for binary outcomes</td>
-<td>Only with strict risk controls</td>
-<td>Short-term, event-driven</td>
+<td><strong>SPECULATIVE BUY</strong></td>
+<td>High risk/reward; Z-Score improving slightly</td>
+<td>Volatility currently zero; watch for catalysts</td>
+<td>Opportunistic, small position</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_4">Commentary</h3>
-<ul>
-<li>
-<p><strong>Conservative investors</strong> should avoid exposure due to persistent distress and illiquidity.</p>
-</li>
-<li>
-<p><strong>Dividend investors</strong> have no opportunity as the company pays no dividends and is loss-making.</p>
-</li>
-<li>
-<p><strong>Value investors</strong> may hold cautiously, awaiting clinical or financial inflection points that improve Z-Score above 1.8.</p>
-</li>
-<li>
-<p><strong>Growth investors</strong> can consider speculative positions, recognizing the biotech sector’s inherent binary risk and potential for high returns if pipeline products succeed.</p>
-</li>
-<li>
-<p><strong>Aggressive traders</strong> may engage in event-driven trades around clinical announcements but must apply strict risk management due to high volatility and bankruptcy risk.</p>
-</li>
-</ul>
+<p><strong>Commentary:</strong><br />
+Conservative and dividend investors should avoid or divest immediately due to persistent distress and no income generation. Value investors may hold cautiously but should await clear signs of financial stabilization or clinical success. Growth and aggressive investors may consider limited exposure contingent on upcoming clinical milestones or capital raises, recognizing the high risk of loss.</p>
 <hr />
 <h2 id="7-strategic-business-intelligence">7. Strategic Business Intelligence</h2>
 <table>
@@ -953,42 +904,29 @@
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Clinical trial success; operational stabilization</td>
-<td>EBIT ratio (-0.225), Retained Earnings (-5.516)</td>
-<td>Accelerate R&amp;D milestones; cost containment</td>
+<td>Clinical trial advancement</td>
+<td>EBIT Ratio, Retained Earnings</td>
+<td>Prioritize pipeline milestones, cost management</td>
 <td>Improved EBIT, positive Z-Score trend</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity management; capital raising</td>
-<td>Working Capital Ratio (0.42), Cash burn rate</td>
-<td>Secure financing; optimize cash flow</td>
-<td>Current ratio &gt;1.0; positive cash flow</td>
+<td>Capital management</td>
+<td>Working Capital Ratio, Cash Flow</td>
+<td>Secure financing, optimize burn rate</td>
+<td>Liquidity improvement, stable ratios</td>
 </tr>
 <tr>
 <td>Board Governance</td>
-<td>Risk oversight; strategic pivot</td>
-<td>Z-Score trend; risk matrix</td>
-<td>Monitor risk factors; evaluate restructuring</td>
-<td>Risk reduction; improved financial metrics</td>
+<td>Risk oversight and transparency</td>
+<td>Z-Score, Risk Factors</td>
+<td>Enhance disclosure, monitor risk trajectory</td>
+<td>Compliance, risk mitigation success</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_5">Commentary</h3>
-<ul>
-<li>
-<p>The <strong>CEO</strong> must focus on accelerating clinical development and operational efficiency to improve EBIT and reduce losses, directly impacting the Z-Score.</p>
-</li>
-<li>
-<p>The <strong>CFO</strong> should prioritize liquidity management, securing capital to sustain operations, and improving working capital ratios above 1.0.</p>
-</li>
-<li>
-<p>The <strong>Board</strong> needs to maintain rigorous oversight of financial and operational risks, considering strategic pivots or restructuring if distress persists.</p>
-</li>
-<li>
-<p>Aligning leadership priorities with Z-Score components and risk analysis will be critical for navigating the company out of distress.</p>
-</li>
-</ul>
+<p><strong>Executive Commentary:</strong><br />
+The CEO must focus on accelerating clinical development to generate future revenue streams, directly impacting EBIT and retained earnings. The CFO should prioritize liquidity management given the weak working capital ratio (0.420) and negative retained earnings (-5.516). The Board must oversee risk mitigation strategies closely, given the high distress risk and negative Z-Score trajectory.</p>
 <hr />
 <h2 id="8-forward-looking-intelligence-framework">8. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -1004,49 +942,36 @@
 <tbody>
 <tr>
 <td>Z-Score Momentum</td>
-<td>Improving from -26.90 to -2.67</td>
-<td>Potential stabilization if clinical success</td>
-<td>Clinical trial results; financing events</td>
-<td>Quarterly Z-Score updates; EBIT ratio</td>
+<td>Slightly improving but still negative</td>
+<td>Gradual improvement possible if clinical success</td>
+<td>Clinical trial results, regulatory approvals</td>
+<td>Quarterly Z-Score updates, EBIT trends</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Illiquid, low price</td>
-<td>Potential volatility on news</td>
-<td>Pipeline progress; partnerships</td>
-<td>Trading volume; price movement</td>
+<td>Weak, illiquid</td>
+<td>Potential recovery if pipeline advances</td>
+<td>Partnerships, licensing deals</td>
+<td>Trading volume, price movement</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>High risk</td>
-<td>Risk reduction possible with milestones</td>
-<td>Regulatory approvals; capital raises</td>
-<td>Risk matrix; cash runway</td>
+<td>High distress risk</td>
+<td>Risk remains elevated without operational turnaround</td>
+<td>Capital raises, cost control</td>
+<td>Liquidity ratios, debt levels</td>
 </tr>
 </tbody>
 </table>
-<h3 id="commentary_6">Commentary</h3>
-<ul>
-<li>
-<p>The <strong>Z-Score momentum</strong> shows improvement but remains in distress. The next 6-12 months are critical, with clinical trial outcomes and financing events as key catalysts that could shift the trajectory positively.</p>
-</li>
-<li>
-<p>The <strong>market position</strong> is currently illiquid and inactive; any positive news could trigger volatility and renewed investor interest.</p>
-</li>
-<li>
-<p>The <strong>risk profile</strong> remains elevated but could improve with successful regulatory milestones and capital management.</p>
-</li>
-<li>
-<p><strong>Monitoring leading indicators</strong> such as EBIT ratio improvements, working capital changes, and clinical trial progress will provide early warning signals for investment thesis evolution.</p>
-</li>
-</ul>
+<p><strong>Forward-Looking Commentary:</strong><br />
+While the Z-Score shows marginal improvement from extreme distress, Ocugen remains in a precarious financial position. Key catalysts such as successful clinical trial outcomes or strategic partnerships could materially improve the financial outlook and Z-Score within 6-12 months. Continuous monitoring of EBIT, retained earnings, and liquidity ratios is critical to detect early signs of recovery or further deterioration.</p>
 <hr />
 <h1 id="summary">Summary</h1>
-<p>Ocugen, Inc. is currently in a <strong>high-risk financial distress state</strong>, with an Altman Z-Score of <strong>-2.67</strong>, well below the safe threshold of 3.0 and distress cutoff of 1.8. The company’s financials reflect the typical profile of a clinical-stage biotech firm: negative retained earnings, operating losses, and minimal revenue generation. Market data shows illiquidity and neutral to negative sentiment, reinforcing caution.</p>
-<p>Investment recommendations are strongly risk-adjusted: <strong>avoid for conservative investors, speculative for growth and aggressive profiles</strong>, and hold cautiously for value investors pending operational improvements. Strategic leadership must focus on clinical progress and liquidity management to improve financial health and Z-Score trajectory.</p>
-<p>Close monitoring of quarterly Z-Score updates, EBIT improvements, and clinical milestones is essential to identify inflection points for potential investment entry or exit.</p>
+<p>Ocugen, Inc. (OCGN) is currently in a <strong>high-risk financial distress state</strong> as evidenced by a persistently negative Altman Z-Score (-2.67), poor liquidity (working capital ratio 0.420), negative retained earnings (-5.516), and negative EBIT (-0.225). Market data corroborates this distress with stagnant price and zero trading volume. The company’s clinical-stage biotech profile explains operational losses but does not mitigate financial risk.</p>
+<p><strong>Investment stance:</strong> Predominantly <strong>SELL or AVOID</strong> for most investors, with speculative interest only for high-risk tolerant investors closely monitoring clinical progress and capital raises.</p>
+<p><strong>Strategic focus:</strong> Operational stabilization, capital management, and clinical milestone achievement are imperative to improve financial health and investor confidence.</p>
 <hr />
-<p><em>Analysis generated with full integration of all injected data elements, cross-validated across financial, risk, peer, and sentiment dimensions.</em></p></div></div>
+<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Framework on 2025-07-07 11:05:42.</em></p></div></div>
     </div>
     
 
@@ -1389,78 +1314,41 @@
         </div>
     </div>
 
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
     <footer>
-        <p>Generated on July 03, 2025 at 06:38 PM by Enhanced Altman Z-Score Analysis v4.6.0</p>
+        <p>Generated on July 07, 2025 at 11:06 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         
     </footer>
 
     <script>
-        function resizeIframe() {
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
             const iframe = document.getElementById('dashboard-iframe');
             const container = document.getElementById('dashboard-container');
 
             if (iframe && container) {
-                try {
-                    // Wait for iframe to load
-                    iframe.onload = function () {
-                        try {
-                            // Get the content height from the iframe document
-                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                            const body = iframeDoc.body;
-                            const html = iframeDoc.documentElement;
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
 
-                            // Calculate the full content height
-                            const contentHeight = Math.max(
-                                body.scrollHeight,
-                                body.offsetHeight,
-                                html.clientHeight,
-                                html.scrollHeight,
-                                html.offsetHeight
-                            );
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
 
-                            // Set a minimum height to ensure visibility
-                            const finalHeight = Math.max(contentHeight, 800);
-
-                            // Apply the calculated height
-                            iframe.style.height = finalHeight + 'px';
-                            container.style.height = finalHeight + 'px';
-
-                            console.log('Dashboard iframe resized to:', finalHeight + 'px');
-
-                        } catch (e) {
-                            // If cross-origin restrictions prevent access, use a reasonable default
-                            console.log('Cross-origin restriction detected, using estimated height');
-                            iframe.style.height = '2400px';
-                            container.style.height = '2400px';
-                        }
-                    };
-
-                    // Trigger resize if iframe is already loaded
-                    if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
-                        iframe.onload();
-                    }
-
-                } catch (e) {
-                    console.log('Error resizing iframe:', e);
-                    // Fallback to fixed height
-                    iframe.style.height = '2400px';
-                    container.style.height = '2400px';
-                }
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
             }
         }
 
-        // Resize on page load
-        window.addEventListener('load', resizeIframe);
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
 
-        // Resize when window is resized (in case dashboard is responsive)
-        window.addEventListener('resize', function () {
-            setTimeout(resizeIframe, 100);
-        });
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
 
-        // Additional resize after a delay to catch any dynamic content loading
-        setTimeout(resizeIframe, 1000);
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
     </script>
 </body>
 
