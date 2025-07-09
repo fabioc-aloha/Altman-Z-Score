@@ -507,23 +507,21 @@
                 return matchesSearch && matchesModel && matchesRisk && matchesRecommendation;
             });
 
-            updateTable(filtered);
+            // Apply current sort to filtered data
+            const sortedFiltered = applySortToData(filtered);
+            updateTable(sortedFiltered);
         }
 
         // Handle sort clicks
         let currentSort = { column: '', ascending: true };
 
-        function sortData(column) {
-            if (currentSort.column === column) {
-                currentSort.ascending = !currentSort.ascending;
-            } else {
-                currentSort = { column, ascending: true };
-            }
+        function applySortToData(data) {
+            if (!currentSort.column) return data;
 
-            const sortedData = [...stockData].sort((a, b) => {
+            return [...data].sort((a, b) => {
                 let valueA, valueB;
 
-                switch (column) {
+                switch (currentSort.column) {
                     case 'symbol':
                         valueA = a.Symbol;
                         valueB = b.Symbol;
@@ -567,8 +565,17 @@
                     valueA.toString().localeCompare(valueB.toString()) :
                     valueB.toString().localeCompare(valueA.toString());
             });
+        }
 
-            updateTable(sortedData);
+        function sortData(column) {
+            if (currentSort.column === column) {
+                currentSort.ascending = !currentSort.ascending;
+            } else {
+                currentSort = { column, ascending: true };
+            }
+
+            // Re-apply filters with new sort
+            filterData();
         }
 
         // Initialize

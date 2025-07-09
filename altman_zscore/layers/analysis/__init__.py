@@ -43,6 +43,13 @@ from .enhanced_indicators import (
     format_enhanced_indicators_for_llm
 )
 
+# Import forecast engine for Z-Score forecasting
+from .forecast_engine import (
+    ZScoreForecastEngine,
+    ZScoreForecast,
+    ForecastPeriod
+)
+
 __all__ = [
     # Main analyzer
     'RiskReturnAnalyzer',
@@ -67,5 +74,10 @@ __all__ = [
     'EarningsQualityMetrics',
     'CapitalAllocationMetrics',
     'CompetitivePositioningMetrics',
-    'format_enhanced_indicators_for_llm'
+    'format_enhanced_indicators_for_llm',
+    
+    # Forecast engine
+    'ZScoreForecastEngine',
+    'ZScoreForecast',
+    'ForecastPeriod'
 ]

@@ -622,3 +622,144 @@ class FMPDataFetcher:
             import traceback
             logger.error(f"Traceback: {traceback.format_exc()}")
             return []
+    
+    def get_analyst_estimates(self, symbol: str, limit: int = None) -> List[Dict[str, Any]]:
+        """
+        Get analyst estimates data from FMP API with caching.
+        
+        This provides future financial estimates from professional analysts including:
+        - Revenue estimates (low, high, average)
+        - EBITDA estimates (low, high, average) 
+        - EBIT estimates (low, high, average)
+        - Net income estimates (low, high, average)
+        - EPS estimates (low, high, average)
+        - SG&A expense estimates (low, high, average)
+        
+        Args:
+            symbol: Stock ticker symbol
+            limit: Maximum number of future periods to fetch
+            
+        Returns:
+            List of analyst estimate data sorted by date (future periods)
+        """
+        cache_key = f"fmp_analyst_estimates:{symbol}:{limit}"
+        
+        # Try cache first
+        cached_result = self.cache.get(cache_key)
+        if cached_result is not None:
+            logger.debug(f"Using cached analyst estimates for {symbol}")
+            return cached_result
+        
+        # Fetch from API
+        endpoint = f"analyst-estimates/{symbol}"
+        params = {}
+        if limit:
+            params['limit'] = limit
+        
+        result = self._make_request(endpoint, params)
+        
+        # Cache result
+        self.cache.set(cache_key, result, ttl=CACHE_TTL_SECONDS)
+        logger.info(f"Fetched analyst estimates for {symbol}: {len(result) if isinstance(result, list) else 'N/A'} periods")
+        
+        return result
+    
+    def get_analyst_estimates_annual(self, symbol: str, limit: int = 5) -> List[Dict[str, Any]]:
+        """
+        Get annual analyst estimates data from FMP API with caching.
+        
+        Args:
+            symbol: Stock ticker symbol
+            limit: Maximum number of annual periods to fetch
+            
+        Returns:
+            List of annual analyst estimate data
+        """
+        cache_key = f"fmp_analyst_estimates_annual:{symbol}:{limit}"
+        
+        # Try cache first
+        cached_result = self.cache.get(cache_key)
+        if cached_result is not None:
+            logger.debug(f"Using cached annual analyst estimates for {symbol}")
+            return cached_result
+        
+        # Fetch from API
+        endpoint = f"analyst-estimates/{symbol}"
+        params = {'period': 'annual'}
+        if limit:
+            params['limit'] = limit
+        
+        result = self._make_request(endpoint, params)
+        
+        # Cache result
+        self.cache.set(cache_key, result, ttl=CACHE_TTL_SECONDS)
+        logger.info(f"Fetched annual analyst estimates for {symbol}: {len(result) if isinstance(result, list) else 'N/A'} periods")
+        
+        return result
+    
+    def get_analyst_estimates_quarterly(self, symbol: str, limit: int = 8) -> List[Dict[str, Any]]:
+        """
+        Get quarterly analyst estimates data from FMP API with caching.
+        
+        Args:
+            symbol: Stock ticker symbol
+            limit: Maximum number of quarterly periods to fetch
+            
+        Returns:
+            List of quarterly analyst estimate data
+        """
+        cache_key = f"fmp_analyst_estimates_quarterly:{symbol}:{limit}"
+        
+        # Try cache first
+        cached_result = self.cache.get(cache_key)
+        if cached_result is not None:
+            logger.debug(f"Using cached quarterly analyst estimates for {symbol}")
+            return cached_result
+        
+        # Fetch from API
+        endpoint = f"analyst-estimates/{symbol}"
+        params = {'period': 'quarter'}
+        if limit:
+            params['limit'] = limit
+        
+        result = self._make_request(endpoint, params)
+        
+        # Cache result
+        self.cache.set(cache_key, result, ttl=CACHE_TTL_SECONDS)
+        logger.info(f"Fetched quarterly analyst estimates for {symbol}: {len(result) if isinstance(result, list) else 'N/A'} periods")
+        
+        return result
+    
+    def get_earnings_surprises(self, symbol: str, limit: int = 8) -> List[Dict[str, Any]]:
+        """
+        Get earnings surprises data from FMP API with caching.
+        Provides historical and estimated earnings data.
+        
+        Args:
+            symbol: Stock ticker symbol
+            limit: Maximum number of periods to fetch
+            
+        Returns:
+            List of earnings surprise data
+        """
+        cache_key = f"fmp_earnings_surprises:{symbol}:{limit}"
+        
+        # Try cache first
+        cached_result = self.cache.get(cache_key)
+        if cached_result is not None:
+            logger.debug(f"Using cached earnings surprises for {symbol}")
+            return cached_result
+        
+        # Fetch from API
+        endpoint = f"earnings-surprises/{symbol}"
+        params = {}
+        if limit:
+            params['limit'] = limit
+        
+        result = self._make_request(endpoint, params)
+        
+        # Cache result
+        self.cache.set(cache_key, result, ttl=CACHE_TTL_SECONDS)
+        logger.info(f"Fetched earnings surprises for {symbol}: {len(result) if isinstance(result, list) else 'N/A'} periods")
+        
+        return result

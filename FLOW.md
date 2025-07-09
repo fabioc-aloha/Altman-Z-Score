@@ -1,84 +1,35 @@
 # Investment Recommendation System Flow - Technical Analysis
 
-*Version: 4.7.1 (2025-07-07) - Enhanced Dashboard Visualization & Encoding Fixes*
-*Previous: 4.7.0 (2025-07-03) - Dashboard Generator Modernization & Enhanced Features*
-*Previous: 4.6.2 HOTFIX (2025-07-02) - Enhanced Documentation & Environment Updates*
-*Previous: 4.6.1 HOTFIX (2025-07-02) - Windows Terminal Compatibility & Retail Validation Framework*
-*Previous: 4.6.0 DIAMOND+ (2025-07-02) - Enhanced Glossary & Improved Report Visuals*
+## 📋 Table of Contents
+
+1. [Data Sources](#data-sources)
+2. [Bifurcated Data Flow Architecture](#-bankruptcy-detection--data-source-routing)
+3. [Smart Caching System](#smart-caching-system)
+4. [Modern Pipeline Architecture](#modern-pipeline-architecture)
+5. [Modern Dashboard Architecture](#modern-dashboard-architecture-v480)
+6. [Executive Summary](#-executive-summary)
+7. [Architecture Features](#-architecture-features-v480-diamond)
+8. [Architecture Overview](#️-architecture-overview-modern-layered-system)
+9. [Investment Recommendation Engine](#-investment-recommendation-engine)
+10. [Portfolio Generation & Management](#-portfolio-generation--management-system)
+11. [Web Dashboard System](#-web-dashboard-system)
+12. [PowerShell Automation Scripts](#️-powershell-automation-scripts)
+13. [Azure Cloud Integration](#️-azure-cloud-integration)
+14. [Three Types of Investment Guidance](#-three-types-of-investment-guidance)
+15. [Key Recommendation Factors](#-key-recommendation-factors)
+16. [Account-Optimized Experience](#-account-optimized-experience)
+17. [Output Formats & Professional Reports](#-output-formats--professional-reports)
+18. [Modern Recommendation Generation Process Flow](#-modern-recommendation-generation-process-flow)
+19. [Professional Use Cases](#-professional-use-cases)
+20. [Key Technical Advantages](#-key-technical-advantages-v480-diamond)
+21. [Confidence & Quality Metrics](#-confidence--quality-metrics)
+22. [Strategic Innovation](#-strategic-innovation)
 
 ---
 
-## 📊 Current Data Source Architecture (v4.7.1)
-
-### 📊 **NEW v4.7.1: Enhanced Dashboard Visualization & Encoding Fixes**
-
-**KEY NEW FEATURES:**
-- **🕯️ Candlestick Chart Implementation**: Professional OHLC candlestick charts for trend visualization
-- **📈 Multi-tier Data Fetching**: Weekly OHLC → Daily OHLC → Close-only intelligent fallback chain
-- **🔧 Enhanced FMP Integration**: Dedicated endpoints for weekly/daily OHLC data with robust error handling
-- **📐 Layout Optimization**: Dashboard height optimized to 1050px with improved spacing to prevent label overlap
-- **🌐 UTF-8 Encoding Fixes**: Comprehensive Unicode support for portfolio files with special character cleaning
-- **🎨 Professional Styling**: Color-coded candlesticks (green/red) with dual-axis configuration
-
-**VISUALIZATION ENHANCEMENTS:**
-- **Candlestick Charts**: Professional OHLC visualization with color-coded price movements
-- **Dual-axis Display**: Z-Score (blue, primary) and Stock Price (green, secondary) on same chart
-- **Intelligent Fallback**: Graceful degradation from candlestick to line charts when OHLC unavailable
-- **Enhanced Spacing**: Optimized vertical spacing (0.15) and row heights for better readability
-- **Static Sizing**: Consistent 1050px iframe height for reliable cross-platform display
-
-**DATA PROCESSING IMPROVEMENTS:**
-- **Multi-tier OHLC Fetching**: Prioritized data quality with intelligent fallback mechanisms
-- **Enhanced Caching**: Optimized cache management for OHLC data with appropriate TTL values
-- **Rate Limiting**: Respectful API usage with 0.5-second delays between requests
-- **Error Handling**: Comprehensive logging and graceful degradation for data failures
-- **Performance Optimization**: 40% faster chart rendering with optimized data structures
-
-### 📊 **PREVIOUS v4.7.0: Dashboard Generator Modernization & Enhanced Features**
-
-**KEY NEW FEATURES:**
-- **🔄 Dashboard System Overhaul**: Hybrid Python/PowerShell architecture with better separation of concerns
-- **🌐 Unicode Support**: Full international character support with UTF-8 encoding throughout
-- **💡 Executive Summary Integration**: AI-generated summaries displayed in dashboard for instant insights
-- **🎯 Enhanced UX**: Improved layout with ticker symbols below logos and better sorting capabilities
-- **🧹 Legacy Cleanup**: Removed deprecated dashboard generators and streamlined codebase
-- **📊 Modern Template System**: Jinja2-based templating for better maintainability and features
-
-### 🛠️ **HOTFIX v4.6.2: Enhanced Documentation & Environment Updates**
-
-**KEY HOTFIX IMPROVEMENTS:**
-- **📚 AI Learning Documentation**: Updated copilot instructions with new learnings from environment & architecture 
-- **✅ SEC EDGAR Integration Guide**: Added explicit documentation for SEC EDGAR fallback mechanisms
-- **🔧 Improved Error Messages**: Enhanced cache management and system compatibility messaging
-- **📂 Documentation Versioning**: Implemented versioning for key intellectual contributions
-- **🛠️ PowerShell Standardization**: Enhanced PowerShell scripts with consistent formatting and error handling
-
-### 🛠️ **HOTFIX v4.6.1: Windows Terminal Compatibility & Retail Validation Framework**
-
-**KEY HOTFIX IMPROVEMENTS:**
-- **✅ Windows Terminal Compatibility**: Replaced Unicode characters with ASCII alternatives for Windows compatibility
-- **📂 Centralized Retail Validation**: Unified retail validation framework in dedicated directory structure
-- **🔄 SEC EDGAR Integration**: Added SEC EDGAR fallback for delisted companies in retail validation
-- **📚 Consolidated Documentation**: Moved all retail validation documentation to centralized location
-- **🧹 Python Cache Management**: Added PowerShell function to clear Python cache files
-- **📊 Enhanced Diagnostic Outputs**: Improved error reporting and environment details in scripts
-
-### 💎 **DIAMOND+ v4.6.0: Enhanced Glossary & Improved Report Visuals**
-
-**CURRENT IMPLEMENTATION FEATURES:**
-- **📚 Comprehensive Model Glossary**: Detailed definitions of all Z-Score models with formulas and thresholds
-- **🎯 Model Selection Clarity**: Clear explanation of automated model selection with industry-specific logic
-- **📊 Color-Coordinated Charts**: Enhanced trend analysis charts with axis colors matching their respective lines
-- **⏰ Real-Time Report Timestamp**: Reports display current timestamp at generation time for better audit trails
-- **🌐 Model-Specific Dashboards**: Dedicated dashboards for each Z-Score model type
-- **🧭 Enhanced Navigation**: New navigation hub pages for easy access to all analysis types
-- **🏆 Novel Retail Z-Score Model**: Revolutionary X₆ component integrating inventory turnover
-- **📚 Academic Documentation**: Complete peer-review ready documentation (`NOVEL_RETAIL_MODEL.md`)
-- **🔬 Empirical Validation**: 75-company retail backtest portfolio with automated validation framework
-
 ### Data Sources
 
-**CURRENT ARCHITECTURE (2025-07-06 v4.7.1):**
+**CURRENT ARCHITECTURE (2025-07-09 v4.8.0):**
 
 **🔀 BIFURCATED DATA FLOW ARCHITECTURE:**
 
@@ -201,11 +152,18 @@ altman_zscore/
 │   │   ├── data_merger.py              # Intelligent data source routing
 │   │   ├── fmp_fetcher.py              # FMP API integration (active companies)
 │   │   └── yahoo_fetcher.py            # Yahoo Finance integration
+│   ├── forecasting/                    # 🆕 Z-Score forecasting engine
+│   │   ├── zscore_forecaster.py        # Main forecasting logic
+│   │   ├── consensus_fetcher.py        # Analyst consensus data
+│   │   ├── forecast_models.py          # Forecast data models
+│   │   └── forecast_scenarios.py       # Scenario generation
 │   ├── analysis/                       # Risk-return analysis engine
 │   ├── zscore_calculation/             # Z-Score computation
 │   ├── market_analysis/                # Technical analysis
 │   ├── ai_analysis/                    # AI insights generation
 │   └── output_generation/              # Reports & charts
+│       └── charts/
+│           └── trend_analysis.py       # 🆕 Enhanced with forecast integration
 ├── pipeline/
 │   ├── progress_tracker.py             # Modern progress tracking
 │   └── config_manager.py               # Configuration management
@@ -227,9 +185,9 @@ retail_validation/
 └── results/                            # Validation results
 ```
 
-### Modern Dashboard Architecture (v4.7.0)
+### Modern Dashboard Architecture (v4.8.0)
 
-**NEW HYBRID DASHBOARD SYSTEM**: `generate_web.ps1` + `scripts/generate_dashboard.py`
+**HYBRID DASHBOARD SYSTEM**: `generate_web.ps1` + `scripts/generate_dashboard.py`
 
 **PowerShell Layer (`generate_web.ps1`):**
 - **📁 File Operations**: Asset copying, directory management, and file organization
@@ -286,13 +244,13 @@ The Altman Z-Score Investment Analysis Platform provides sophisticated investmen
 
 The system generates **three types of investment guidance**: quantitative ratings (Buy/Hold/Sell), AI-powered narratives, and investor profile-specific recommendations.
 
-## 💎 **DIAMOND+ v4.6.0: Enhanced Reporting & Academic Excellence**
+## 💎 **DIAMOND+ v4.8.0: Enhanced Architecture & Academic Excellence**
 
 ### 🏆 **Major Academic Achievement: Novel Retail Z-Score Model**
 - **📚 Academic Paper**: Complete peer-review ready documentation with mathematical proofs
 - **🔬 X₆ Component**: Revolutionary inventory turnover integration for retail companies
 - **📊 Empirical Validation**: 75-company backtest portfolio with statistical analysis
-- **� Industry Innovation**: First retail-specific Z-Score enhancement in academic literature
+- **🎯 Industry Innovation**: First retail-specific Z-Score enhancement in academic literature
 - **🚀 Production Framework**: Automated validation scripts and comprehensive reporting
 
 ### 🔬 **Enhanced Model Selection & Literature Compliance**
@@ -307,7 +265,7 @@ The system generates **three types of investment guidance**: quantitative rating
 - **📈 Statistical Validation**: Performance comparison vs traditional Z-Score methodology
 - **🔧 One-Click Validation**: Easy retail model testing with detailed reporting
 
-## 🆕 Architecture Features (v4.6.0 DIAMOND+)
+## 🆕 Architecture Features (v4.8.0 DIAMOND+)
 
 ### Modern Pipeline Design
 - **✅ Clean Architecture**: Streamlined codebase with improved maintainability
@@ -342,6 +300,11 @@ The system generates **three types of investment guidance**: quantitative rating
 # Logging configuration examples
 python main.py AAPL --log-level DEBUG --log-file-level DEBUG --log-dir "analysis_logs"
 python main.py AAPL --log-structured  # JSON formatted logs for integration
+
+# 🆕 Z-Score Forecasting examples
+python main.py AAPL --forecast-years 2    # 2-year Z-Score forecasts with scenarios
+python main.py MSFT --forecast-years 1    # 1-year forecast for faster analysis
+python main.py TSLA --forecast-years 3    # 3-year forecast for long-term planning
 ```
 
 ---
@@ -351,7 +314,7 @@ python main.py AAPL --log-structured  # JSON formatted logs for integration
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                      USER INPUT & CONFIGURATION                         │
-│                   python main.py AAPL --quarters 8                      │
+│              python main.py AAPL --quarters 8 --forecast-years 2        │
 │                   AltmanZScorePipeline.analyze_ticker()                  │
 └─────────────────────────┬───────────────────────────────────────────────┘
                           │
@@ -441,6 +404,23 @@ python main.py AAPL --log-structured  # JSON formatted logs for integration
                           │
                           ▼
 ┌─────────────────────────────────────────────────────────────────────────┐
+│                  LAYER 4.5: Z-SCORE FORECASTING ENGINE                  │
+│                   (Analyst Consensus + Scenario Modeling)               │
+│                                                                         │
+│   ┌─────────────────┐ ┌─────────────────┐ ┌─────────────────────────┐   │
+│   │   Consensus     │ │   Financial     │ │    Forecast             │   │
+│   │   Data Fetch    │ │   Component     │ │   Scenarios             │   │
+│   │ (FMP Analyst    │ │   Projection    │ │ (Optimistic, Base,      │   │
+│   │  Estimates)     │ │                 │ │  Pessimistic)           │   │
+│   └─────────────────┘ └─────────────────┘ └─────────────────────────┘   │
+│                                                                         │
+│     ✅ Analyst Consensus Integration  ✅ Component-Level Projection      │
+│     ✅ Multi-Year Forecasting (1-3y) ✅ Quality-Weighted Scenarios      │
+│     ✅ Fiscal Year Alignment         ✅ Visual Forecast Integration      │
+└─────────────────────────┬───────────────────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────────────────────┐
 │                    LAYER 5: OUTPUT GENERATION                           │
 │                   (Reports + Charts + Dashboards)                       │
 │                                                                         │
@@ -457,6 +437,7 @@ python main.py AAPL --log-structured  # JSON formatted logs for integration
 │   ✅ Interactive Charts      ✅ Professional HTML Reports               │
 │   ✅ Risk Zone Visualization ✅ AI-Enhanced Commentary                  │
 │   ✅ Portfolio Dashboards    ✅ Comprehensive Data Export               │
+│   ✅ Forecast Trend Lines    ✅ Scenario-Based Projections              │
 └─────────────────────────┬───────────────────────────────────────────────┘
                           │
                           ▼
@@ -671,9 +652,9 @@ web/
 | **`setup_azure_hosting.ps1`** | Azure deployment setup | Cloud hosting configuration |
 | **`deploy_to_azure_storage.ps1`** | Azure deployment execution | Automated cloud deployment |
 | **`monitor_azure_costs.ps1`** | Azure cost monitoring | Cost tracking and optimization |
-| **�️ `retail_validation/scripts/run_retail_validation.ps1`** | **Centralized retail model validation** | **Enhanced framework with SEC EDGAR fallback** |
-| **� `Clear-PythonCache`** | **Python cache management** | **Function to clear __pycache__ and .pyc files** |
-| **📊 `generate_model_portfolios.py`** | **Model-specific dashboards** | **Z-Score model-specific portfolio generation** |
+| **`retail_validation/scripts/run_retail_validation.ps1`** | **Centralized retail model validation** | **Enhanced framework with SEC EDGAR fallback** |
+| **`Clear-PythonCache`** | **Python cache management** | **Function to clear __pycache__ and .pyc files** |
+| **`generate_model_portfolios.py`** | **Model-specific dashboards** | **Z-Score model-specific portfolio generation** |
 
 ### **PowerShell Script Features**:
 - **📊 Progress Tracking**: Real-time progress indicators and status updates
@@ -918,7 +899,7 @@ flowchart TD
     K --> L[🚨 Risk Zone Classification]
     
     L --> M[🏢 Market Analysis Layer]
-    M --> N[� Technical Analysis (RSI, MACD)]
+    M --> N[📊 Technical Analysis (RSI, MACD)]
     M --> O[💰 Valuation Metrics (P/E, P/B)]
     M --> P[⚡ Performance Analysis (Beta, Sharpe)]
     
@@ -926,16 +907,16 @@ flowchart TD
     O --> Q
     P --> Q
     Q --> R[🧠 Risk-Return Scoring]
-    Q --> S[� Investment Commentary Generation]
+    Q --> S[📝 Investment Commentary Generation]
     Q --> T[🎯 Investment Recommendations]
     
     R --> U[� Output Generation Layer]
     S --> U
     T --> U
-    U --> V[� Dashboard Generation]
+    U --> V[🌐 Dashboard Generation]
     U --> W[📄 Professional Reports]
     U --> X[📈 Interactive Charts]
-    U --> Y[� Data Export (CSV/JSON)]
+    U --> Y[📊 Data Export (CSV/JSON)]
     
     V --> Z[🎯 Professional Output]
     W --> Z
@@ -990,7 +971,7 @@ flowchart TD
 
 ---
 
-## 🚀 Key Technical Advantages (v4.6.0 DIAMOND+)
+## 🚀 Key Technical Advantages (v4.8.0 DIAMOND+)
 
 ### **1. Enhanced Reporting & Documentation**
 - **📚 Comprehensive Glossary**: Detailed definitions of all Z-Score models with formulas and thresholds
@@ -998,12 +979,6 @@ flowchart TD
 - **📊 Improved Visualizations**: Enhanced charts with color-coordinated axes matching their respective lines
 - **⏰ Real-Time Reporting**: Reports include generation timestamp for better audit trails
 - **🌐 Enhanced Navigation**: Improved web interface with model-specific dashboards and navigation hubs
-
-### **2. Academic Excellence & Innovation**
-- **💎 Novel Retail Model**: First retail-specific Z-Score enhancement with inventory integration
-- **📚 Academic Paper**: Peer-review ready documentation with mathematical proofs and citations
-- **🔬 Empirical Validation**: 75-company backtest portfolio with statistical performance analysis
-- **🎯 Industry Innovation**: Revolutionary X₆ component for retail sector financial analysis
 
 ### **2. Modern Architecture Excellence**
 - **Single Pipeline**: `AltmanZScorePipeline` provides unified entry point for all analysis
@@ -1081,22 +1056,23 @@ The Altman Z-Score Investment Analysis Platform represents a **strategic advance
 
 ---
 
-## 💎 **DIAMOND+ v4.6.0: A New Standard in Financial Analysis**
+## 💎 **DIAMOND+ v4.8.0: A New Standard in Financial Analysis**
 
 This release enhances the platform with **comprehensive documentation** and **improved visualizations** while building on our **significant academic contribution** to the field of financial risk assessment. The novel retail Z-Score model with inventory integration, enhanced model glossary, and improved reporting establish a new standard in industry-specific financial analysis methodology.
 
 ---
 
-*This documentation provides the complete technical understanding of how investment recommendations are generated, calculated, and delivered through the Altman Z-Score Investment Analysis Platform v4.7.1, including the comprehensive model glossary, enhanced visualizations, improved navigation, the groundbreaking novel retail Z-Score model, and the bifurcated data flow architecture.*
+*This documentation provides the complete technical understanding of how investment recommendations are generated, calculated, and delivered through the Altman Z-Score Investment Analysis Platform v4.8.0, including the comprehensive model glossary, enhanced visualizations, improved navigation, the groundbreaking novel retail Z-Score model, the bifurcated data flow architecture, and the new Z-Score forecasting engine.*
 
 ---
 
-### 📊 **NEW v4.7.1: Bifurcated Data Flow Architecture Documentation**
+### 📊 **v4.8.0: Current Architecture Documentation**
 
-**KEY ARCHITECTURAL UPDATES:**
+**KEY ARCHITECTURAL FEATURES:**
 - **🔀 Bifurcated Data Flow**: Complete documentation of the dual-path architecture
 - **📂 SEC EDGAR Integration**: Detailed explanation of exclusive SEC EDGAR usage for bankrupt companies
 - **🎯 Intelligent Routing**: Comprehensive documentation of automatic bankruptcy detection system
 - **🗓️ Bankruptcy Database**: Full integration details for automated company status detection
 - **🔄 Production-Ready Flow**: End-to-end documentation of tested and verified implementation
 - **📈 Historical Analysis**: Pre-bankruptcy quarter analysis capabilities documented
+- **🆕 Z-Score Forecasting**: Advanced forecasting engine with analyst consensus integration

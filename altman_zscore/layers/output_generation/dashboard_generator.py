@@ -27,8 +27,6 @@ from .charts import (
     PerformanceMetrics, RiskReturnAnalysis,
     TrendChart, DashboardLayoutManager
 )
-from .charts.trend_analysis import AICommentaryAnnotation
-
 logger = get_logger(__name__)
 
 
@@ -67,12 +65,10 @@ class DashboardGenerator:
         
         # Trend analysis
         self.trend_chart = TrendChart()
-        
-        # AI commentary
-        self.ai_commentary = AICommentaryAnnotation()
     
     def generate_zscore_dashboard(self, zscore_results, market_analysis=None, 
-                                comprehensive_ai_analysis=None, start_date: Optional[str] = None) -> str:
+                                comprehensive_ai_analysis=None, start_date: Optional[str] = None, 
+                                forecast_results=None) -> str:
         """
         Generate comprehensive Z-Score dashboard chart using multiple periods for trend,
         enhanced with market analysis insights and AI commentary.
@@ -145,7 +141,7 @@ class DashboardGenerator:
             self._add_conditional_components(fig, layout_config, latest, market_analysis, comprehensive_ai_analysis)
             
             # Add trend chart (always present, but position varies by layout)
-            self._add_trend_component(fig, layout_config, results, market_analysis, start_date)
+            self._add_trend_component(fig, layout_config, results, market_analysis, start_date, forecast_results)
             
             # Configure final layout
             self.layout_manager.configure_final_layout(fig, layout_config, latest.ticker)
@@ -208,13 +204,20 @@ class DashboardGenerator:
                 component.add_to_figure(fig, pos[0], pos[1], market_analysis=market_analysis)
 
     def _add_trend_component(self, fig: go.Figure, layout_config: dict, results: List[Any],
-                           market_analysis: Any, start_date: Optional[str]) -> None:
+                           market_analysis: Any, start_date: Optional[str], forecast_results=None) -> None:
         """Add trend chart component."""
         pos = self.layout_manager.get_component_position(layout_config, 'trend_chart')
         if pos:
+            # Convert forecast results to the format expected by trend chart
+            forecasts = None
+            if forecast_results and hasattr(forecast_results, 'forecast_scenarios'):
+                # Pass the forecast_scenarios directly - they are already ForecastScenario objects
+                forecasts = forecast_results.forecast_scenarios
+            
             self.trend_chart.add_to_figure(
                 fig, pos[0], pos[1],
                 results=results,
                 market_analysis=market_analysis,
-                start_date=start_date
+                start_date=start_date,
+                forecasts=forecasts
             )

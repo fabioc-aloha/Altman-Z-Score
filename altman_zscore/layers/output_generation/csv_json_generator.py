@@ -39,7 +39,7 @@ class CSVJSONGenerator:
         self.output_base_path = Path(output_base_path)
         self.output_base_path.mkdir(exist_ok=True)
     
-    def generate_csv_report(self, zscore_results, market_analysis=None, ai_analysis=None):
+    def generate_csv_report(self, zscore_results, market_analysis=None, ai_analysis=None, forecast_results=None):
         """
         Generate CSV report from one or more Z-Score calculation results.
         
@@ -47,6 +47,7 @@ class CSVJSONGenerator:
             zscore_results: Z-Score calculation result or list of results
             market_analysis: Optional market analysis results
             ai_analysis: Optional AI comprehensive analysis results
+            forecast_results: Optional Z-Score forecast results
             
         Returns:
             str: Path to generated CSV file
@@ -64,7 +65,7 @@ class CSVJSONGenerator:
             # Prepare CSV data for all results (enhanced with market analysis and AI analysis)
             csv_data = []
             for res in results:
-                csv_data.extend(self._prepare_csv_data(res, market_analysis, ai_analysis))
+                csv_data.extend(self._prepare_csv_data(res, market_analysis, ai_analysis, forecast_results))
             
             # Write CSV file
             with open(csv_path, 'w', newline='', encoding='utf-8') as csvfile:
@@ -89,7 +90,7 @@ class CSVJSONGenerator:
             logger.error(error_msg)
             raise OutputGenerationError(error_msg) from e
     
-    def generate_json_report(self, zscore_results, market_analysis=None, ai_analysis=None) -> str:
+    def generate_json_report(self, zscore_results, market_analysis=None, ai_analysis=None, forecast_results=None) -> str:
         """
         Generate JSON report from Z-Score calculation result.
         
@@ -97,6 +98,7 @@ class CSVJSONGenerator:
             zscore_results: Z-Score calculation result or list of results
             market_analysis: Optional market analysis results
             ai_analysis: Optional AI comprehensive analysis results
+            forecast_results: Optional Z-Score forecast results
             
         Returns:
             str: Path to generated JSON file
@@ -111,7 +113,7 @@ class CSVJSONGenerator:
             json_path = ticker_dir / f"{ticker}_zscore_data.json"
             
             # Prepare JSON data for all results
-            json_data = [self._prepare_json_data(res, market_analysis, ai_analysis) for res in results]
+            json_data = [self._prepare_json_data(res, market_analysis, ai_analysis, forecast_results) for res in results]
             
             # Write JSON file
             with open(json_path, 'w', encoding='utf-8') as jsonfile:
@@ -125,7 +127,7 @@ class CSVJSONGenerator:
             logger.error(error_msg)
             raise OutputGenerationError(error_msg) from e
     
-    def _prepare_csv_data(self, zscore_result: ZScoreCalculationResult, market_analysis=None, ai_analysis=None) -> List[Dict[str, Any]]:
+    def _prepare_csv_data(self, zscore_result: ZScoreCalculationResult, market_analysis=None, ai_analysis=None, forecast_results=None) -> List[Dict[str, Any]]:
         """Prepare data for CSV export."""
         csv_row = {
             'ticker': zscore_result.ticker,
@@ -166,9 +168,32 @@ class CSVJSONGenerator:
                     'ai_risk_level': getattr(ai_analysis.risk_analysis, 'risk_level', None)
                 })
         
+        # Add forecast data if available
+        if forecast_results and hasattr(forecast_results, 'forecast_scenarios'):
+            base_scenario = forecast_results.get_base_scenario()
+            forecast_summary = forecast_results.get_forecast_summary()
+            
+            csv_row.update({
+                'forecast_available': True,
+                'forecast_scenarios_count': len(forecast_results.forecast_scenarios),
+                'forecast_base_z_score': base_scenario.z_score if base_scenario else None,
+                'forecast_base_risk_category': base_scenario.risk_category if base_scenario else None,
+                'forecast_base_confidence': base_scenario.confidence_level if base_scenario else None,
+                'forecast_z_score_min': forecast_summary.get('z_score_range', {}).get('min'),
+                'forecast_z_score_max': forecast_summary.get('z_score_range', {}).get('max'),
+                'forecast_z_score_avg': forecast_summary.get('avg_z_score'),
+                'forecast_avg_confidence': forecast_summary.get('avg_confidence'),
+                'analyst_coverage_quality': getattr(forecast_results, 'analyst_coverage_quality', None),
+                'forecast_timestamp': getattr(forecast_results, 'forecast_timestamp', None)
+            })
+        else:
+            csv_row.update({
+                'forecast_available': False
+            })
+        
         return [csv_row]
     
-    def _prepare_json_data(self, zscore_result: ZScoreCalculationResult, market_analysis=None, ai_analysis=None) -> Dict[str, Any]:
+    def _prepare_json_data(self, zscore_result: ZScoreCalculationResult, market_analysis=None, ai_analysis=None, forecast_results=None) -> Dict[str, Any]:
         """Prepare data for JSON export."""
         json_data = {
             'ticker': zscore_result.ticker,
@@ -215,5 +240,28 @@ class CSVJSONGenerator:
                     'risk_level': getattr(ai_analysis.risk_analysis, 'risk_level', None),
                     'key_factors': getattr(ai_analysis.risk_analysis, 'key_risk_factors', [])
                 }
+        
+        # Add forecast data if available
+        if forecast_results and hasattr(forecast_results, 'forecast_scenarios'):
+            json_data['forecast_analysis'] = {
+                'base_z_score': getattr(forecast_results, 'base_z_score', None),
+                'forecast_scenarios': [
+                    {
+                        'scenario_name': scenario.scenario_name,
+                        'z_score': scenario.z_score,
+                        'risk_category': scenario.risk_category,
+                        'confidence_level': scenario.confidence_level,
+                        'forecast_period': scenario.forecast_period,
+                        'component_values': scenario.component_values,
+                        'assumptions': scenario.assumptions
+                    }
+                    for scenario in forecast_results.forecast_scenarios
+                ],
+                'forecast_summary': forecast_results.get_forecast_summary(),
+                'analyst_coverage_quality': getattr(forecast_results, 'analyst_coverage_quality', None),
+                'forecast_timestamp': getattr(forecast_results, 'forecast_timestamp', None),
+                'forecast_metadata': getattr(forecast_results, 'forecast_metadata', {}),
+                'warnings': getattr(forecast_results, 'warnings', [])
+            }
         
         return json_data

@@ -57,8 +57,8 @@ class DashboardLayoutManager:
                 [{"type": "bar"}, {"type": "bar"}, {"type": "bar"}],
                 [{"type": "xy", "secondary_y": True, "colspan": 3}, None, None]
             ],
-            row_heights=[0.25, 0.25, 0.50],
-            vertical_spacing=0.15
+            row_heights=[0.30, 0.30, 0.40],
+            vertical_spacing=0.12
         )
         
         # Configure layout based on analysis type

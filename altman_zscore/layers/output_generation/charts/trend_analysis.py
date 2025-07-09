@@ -204,11 +204,13 @@ class TrendChart(ChartBase):
     def __init__(self):
         super().__init__()
         self.price_fetcher = PriceDataFetcher()
+        # Cache for fiscal year end dates to avoid repeated API calls
+        self._fiscal_year_cache = {}
     
     def add_to_figure(self, fig: go.Figure, row: int, col: int, 
                      results: List[Any], market_analysis: Any = None, 
-                     start_date: Optional[str] = None, **kwargs) -> None:
-        """Add trend chart to figure."""
+                     start_date: Optional[str] = None, forecasts: Optional[List[Any]] = None, **kwargs) -> None:
+        """Add trend chart to figure with optional forecast data shown as dashed lines."""
         try:
             # Build Z-Score time series
             dates, scores = self._build_zscore_timeseries(results, start_date)
@@ -233,7 +235,7 @@ class TrendChart(ChartBase):
                 bankruptcy_date = latest.metadata['bankruptcy_date']
                 self.logger.info(f"Adding bankruptcy date marker to trend chart: {bankruptcy_date}")
             
-            # Add Z-Score line on primary y-axis
+            # Add historical Z-Score line on primary y-axis
             fig.add_trace(
                 go.Scatter(
                     x=dates,
@@ -241,12 +243,79 @@ class TrendChart(ChartBase):
                     mode='lines+markers',
                     line=dict(color='blue', width=3),
                     marker=dict(size=8),
-                    name='Z-Score',
+                    name='Historical Z-Score',
                     hovertemplate='Z-Score: %{y:.2f}<br>Date: %{x|%Y-%m-%d}<extra></extra>'
                 ),
                 row=row, col=col,
                 secondary_y=False  # Primary y-axis for Z-Score
             )
+            
+            # Add forecast Z-Score line if forecasts are provided
+            if forecasts and len(forecasts) > 0:
+                self.logger.info(f"Adding forecast visualization with {len(forecasts)} forecast scenarios")
+                forecast_dates, forecast_scores = self._build_forecast_timeseries(forecasts, latest.ticker)
+                
+                if forecast_dates and forecast_scores:
+                    self.logger.info(f"Forecast data: {len(forecast_dates)} dates, scores: {forecast_scores}")
+                    
+                    # Connect last historical point to first forecast point for continuity
+                    if dates and scores:
+                        # Ensure dates are sorted and get the last point
+                        last_historical_date = max(dates)
+                        last_historical_score = scores[dates.index(last_historical_date)]
+                        
+                        self.logger.info(f"Connecting forecast from last historical point: {last_historical_date}, Z-Score: {last_historical_score}")
+                        
+                        # Create connecting line from last historical to first forecast point
+                        # But only use the last historical point for the line connection, not as a marker
+                        if forecast_dates and forecast_scores:
+                            # Add a connecting line segment without markers
+                            fig.add_trace(
+                                go.Scatter(
+                                    x=[last_historical_date, forecast_dates[0]],
+                                    y=[last_historical_score, forecast_scores[0]],
+                                    mode='lines',
+                                    line=dict(color='blue', width=3, dash='dash'),
+                                    name='Forecast Connection',
+                                    showlegend=False,  # Don't show in legend
+                                    hoverinfo='skip'   # Skip hover for connection line
+                                ),
+                                row=row, col=col,
+                                secondary_y=False
+                            )
+                        
+                        # Use only the forecast points for the main forecast trace (no duplication)
+                        connected_dates = forecast_dates
+                        connected_scores = forecast_scores
+                        
+                        self.logger.info(f"Forecast series: {len(connected_dates)} points from {connected_dates[0]} to {connected_dates[-1]}")
+                    else:
+                        connected_dates = forecast_dates
+                        connected_scores = forecast_scores
+                        self.logger.info("No historical data available, showing forecast only")
+                    
+                    fig.add_trace(
+                        go.Scatter(
+                            x=connected_dates,
+                            y=connected_scores,
+                            mode='lines+markers',
+                            line=dict(color='blue', width=3, dash='dash'),  # Dashed line for forecast
+                            marker=dict(size=8, symbol='diamond'),  # Different marker for forecast
+                            name='Forecast Z-Score',
+                            hovertemplate='Forecast Z-Score: %{y:.2f}<br>Date: %{x|%Y-%m-%d}<extra></extra>'
+                        ),
+                        row=row, col=col,
+                        secondary_y=False  # Primary y-axis for Z-Score
+                    )
+                    
+                    # Add confidence intervals for forecasts if available
+                    self._add_forecast_confidence_bands(fig, row, col, forecasts, forecast_dates)
+                    
+                    self.logger.info("Forecast visualization added successfully")
+                else:
+                    self.logger.warning("No forecast dates/scores available for visualization")
+            else:
+                self.logger.info("No forecast data provided for trend chart")
             
             # Determine model-specific thresholds
             if latest.model_used == 'original':
@@ -265,14 +334,29 @@ class TrendChart(ChartBase):
             # Add Z-Score zone background colors
             if dates:
                 date_range = [min(dates), max(dates)]
-                z_score_max = max(scores) if scores else 5.0
-                z_score_upper_limit = max(z_score_max * 1.1, 5.0)
                 
-                # Add distress zone (red background)
+                # Calculate y-axis range for zones
+                if scores:
+                    z_score_min = min(scores)
+                    z_score_max = max(scores)
+                    z_range = z_score_max - z_score_min
+                    padding = max(z_range * 0.1, 0.5)
+                    
+                    # Start at 0 if all scores are positive, otherwise allow negative values
+                    if z_score_min >= 0:
+                        y_min = 0.0  # Start at 0 for positive Z-Scores
+                    else:
+                        y_min = z_score_min - padding  # Allow negative range when needed
+                    y_max = max(z_score_max + padding, 5.0)
+                else:
+                    y_min = 0.0  # Default to starting at 0
+                    y_max = 5.0
+                
+                # Add distress zone (red background) - from bottom to danger threshold
                 fig.add_trace(
                     go.Scatter(
                         x=date_range + date_range[::-1],
-                        y=[0, 0, danger_threshold, danger_threshold],
+                        y=[y_min, y_min, danger_threshold, danger_threshold],
                         fill='toself',
                         fillcolor='rgba(255, 0, 0, 0.1)',
                         line=dict(color='rgba(255, 0, 0, 0)'),
@@ -304,7 +388,7 @@ class TrendChart(ChartBase):
                 fig.add_trace(
                     go.Scatter(
                         x=date_range + date_range[::-1],
-                        y=[safe_threshold, safe_threshold, z_score_upper_limit, z_score_upper_limit],
+                        y=[safe_threshold, safe_threshold, y_max, y_max],
                         fill='toself',
                         fillcolor='rgba(0, 255, 0, 0.1)',
                         line=dict(color='rgba(0, 255, 0, 0)'),
@@ -347,14 +431,32 @@ class TrendChart(ChartBase):
             )
             
             # Configure primary y-axis for Z-Score with proper scale
-            z_score_max = max(scores) if scores else 5.0
-            z_score_upper_limit = max(z_score_max * 1.1, 5.0)  # At least 5.0 for context
+            if scores:
+                z_score_min = min(scores)
+                z_score_max = max(scores)
+                
+                # Add padding to min/max for better visualization
+                z_range = z_score_max - z_score_min
+                padding = max(z_range * 0.1, 0.5)  # At least 0.5 padding for context
+                
+                # Start at 0 if all scores are positive, otherwise allow negative values
+                if z_score_min >= 0:
+                    y_min = 0.0  # Start at 0 for positive Z-Scores
+                else:
+                    y_min = z_score_min - padding  # Allow negative range when needed
+                y_max = max(z_score_max + padding, 5.0)  # At least 5.0 for context with thresholds
+                
+                self.logger.info(f"Z-Score y-axis range: {y_min:.2f} to {y_max:.2f} (data range: {z_score_min:.2f} to {z_score_max:.2f})")
+            else:
+                # Default range when no data
+                y_min = 0.0  # Start at 0 by default
+                y_max = 5.0
             
             fig.update_yaxes(
                 title_text="Z-Score", 
                 title_font_color="blue",
                 tickfont_color="blue",
-                range=[0, z_score_upper_limit],  # Always start at 0 for consistent scaling
+                range=[y_min, y_max],
                 zeroline=True,  # Show zero line for visual reference
                 zerolinecolor='rgba(0,0,0,0.3)',
                 zerolinewidth=1,
@@ -420,14 +522,30 @@ class TrendChart(ChartBase):
                         self.logger.warning(f"Failed to add bankruptcy marker: {e}")
             else:
                 # No price data - configure only primary y-axis for Z-Score with proper scale
-                z_score_max = max(scores) if scores else 5.0
-                z_score_upper_limit = max(z_score_max * 1.1, 5.0)  # At least 5.0 for context
+                if scores:
+                    z_score_min = min(scores)
+                    z_score_max = max(scores)
+                    
+                    # Add padding to min/max for better visualization
+                    z_range = z_score_max - z_score_min
+                    padding = max(z_range * 0.1, 0.5)  # At least 0.5 padding for context
+                    
+                    # Start at 0 if all scores are positive, otherwise allow negative values
+                    if z_score_min >= 0:
+                        y_min = 0.0  # Start at 0 for positive Z-Scores
+                    else:
+                        y_min = z_score_min - padding  # Allow negative range when needed
+                    y_max = max(z_score_max + padding, 5.0)  # At least 5.0 for context with thresholds
+                else:
+                    # Default range when no data
+                    y_min = 0.0  # Start at 0 by default
+                    y_max = 5.0
                 
                 fig.update_yaxes(
                     title_text="Z-Score", 
                     title_font_color="blue",
                     tickfont_color="blue",
-                    range=[0, z_score_upper_limit],  # Always start at 0 for consistent scaling
+                    range=[y_min, y_max],
                     zeroline=True,  # Show zero line for visual reference
                     zerolinecolor='rgba(0,0,0,0.3)',
                     zerolinewidth=1,
@@ -449,8 +567,15 @@ class TrendChart(ChartBase):
             else:
                 self.logger.info("No price data available for trend chart")
             
-            # Set x-axis title
-            fig.update_xaxes(title_text="Date", row=row, col=col)
+            # Set x-axis title and configure range slider
+            fig.update_xaxes(
+                title_text="Date", 
+                row=row, col=col,
+                rangeslider=dict(
+                    visible=True,
+                    thickness=0.08  # Reduce height from default 0.15 to 0.08 (about half)
+                )
+            )
             
         except Exception as e:
             self.logger.error(f"Error adding trend chart to figure: {str(e)}")
@@ -490,8 +615,7 @@ class TrendChart(ChartBase):
     
     def _build_zscore_timeseries(self, results: List[Any], start_date: Optional[str]) -> Tuple[List[datetime], List[float]]:
         """Build time series data from Z-Score results."""
-        dates = []
-        scores = []
+        date_score_pairs = []
         
         for r in results:
             try:
@@ -510,8 +634,7 @@ class TrendChart(ChartBase):
                         # Assume it's already a datetime
                         date = timestamp
                     
-                    dates.append(date)
-                    scores.append(r.z_score)
+                    date_score_pairs.append((date, r.z_score))
                 else:
                     self.logger.warning(f"No valid timestamp found for result: {r.ticker}")
             except Exception as e:
@@ -519,18 +642,144 @@ class TrendChart(ChartBase):
                 # Skip this result
                 continue
         
+        # Sort by date to ensure proper chronological order
+        date_score_pairs.sort(key=lambda x: x[0])
+        
         # Filter by start_date if provided
-        if start_date and dates:
+        if start_date and date_score_pairs:
             try:
                 sd = datetime.strptime(start_date, "%Y-%m-%d").date()
-                filtered = [(d, s) for d, s in zip(dates, scores) if d.date() >= sd]
-                if filtered:
-                    dates, scores = zip(*filtered)
-                    dates, scores = list(dates), list(scores)
+                date_score_pairs = [(d, s) for d, s in date_score_pairs if d.date() >= sd]
             except Exception as e:
                 self.logger.warning(f"Failed to filter by start_date {start_date}: {e}")
         
+        # Extract dates and scores
+        if date_score_pairs:
+            dates, scores = zip(*date_score_pairs)
+            return list(dates), list(scores)
+        else:
+            return [], []
+    
+    def _build_forecast_timeseries(self, forecasts: List[Any], ticker: str = None) -> Tuple[List[datetime], List[float]]:
+        """Build time series data from forecast results."""
+        dates = []
+        scores = []
+        
+        try:
+            self.logger.info(f"Building forecast timeseries from {len(forecasts)} forecast items")
+            
+            # Sort forecasts by period/date
+            forecast_list = []
+            for i, forecast in enumerate(forecasts):
+                self.logger.info(f"Processing forecast {i}: type={type(forecast)}")
+                
+                # Handle ForecastScenario objects directly
+                if hasattr(forecast, 'scenario_name') and hasattr(forecast, 'z_score'):
+                    scenario_name = forecast.scenario_name.lower()
+                    self.logger.info(f"Forecast scenario {i}: name='{scenario_name}', z_score={forecast.z_score}")
+                    
+                    # Only use base case scenarios for the main trend line
+                    if scenario_name in ['base case', 'base', 'base case scenario', 'consensus']:
+                        # Parse forecast period to create date
+                        period = getattr(forecast, 'forecast_period', 'Unknown')
+                        self.logger.info(f"Forecast period: {period}")
+                        
+                        if period.startswith('FY'):
+                            # Handle fiscal year format like "FY2025", "FY2026"
+                            year = int(period[2:])  # Remove "FY" prefix
+                            
+                            # Get company-specific fiscal year end date
+                            fiscal_year_end = self._get_fiscal_year_end_date(ticker, year)
+                            forecast_date = fiscal_year_end
+                        elif 'Annual' in period:
+                            # Extract year from period string like "2026 Annual"
+                            year = int(period.split()[0])
+                            # Use end of year as forecast date
+                            forecast_date = datetime(year, 12, 31)
+                        elif 'Q' in period:
+                            # Handle quarterly periods like "2025 Q4"
+                            parts = period.split()
+                            if len(parts) >= 2:
+                                year = int(parts[0])
+                                quarter = parts[1]
+                                if quarter == 'Q1':
+                                    forecast_date = datetime(year, 3, 31)
+                                elif quarter == 'Q2':
+                                    forecast_date = datetime(year, 6, 30)
+                                elif quarter == 'Q3':
+                                    forecast_date = datetime(year, 9, 30)
+                                elif quarter == 'Q4':
+                                    forecast_date = datetime(year, 12, 31)
+                                else:
+                                    forecast_date = datetime(year, 12, 31)  # Default to end of year
+                            else:
+                                forecast_date = datetime.now().replace(year=datetime.now().year + 1, month=12, day=31)
+                        else:
+                            # Fallback to current year + 1
+                            forecast_date = datetime.now().replace(year=datetime.now().year + 1, month=12, day=31)
+                        
+                        self.logger.info(f"Forecast date: {forecast_date}, Z-Score: {forecast.z_score}")
+                        forecast_list.append((forecast_date, forecast.z_score))
+                else:
+                    self.logger.warning(f"Forecast {i} does not have expected ForecastScenario structure")
+            
+            # Sort by date
+            forecast_list.sort(key=lambda x: x[0])
+            
+            # Extract dates and scores
+            for date, score in forecast_list:
+                dates.append(date)
+                scores.append(score)
+                
+            self.logger.info(f"Final forecast timeseries: {len(dates)} points")
+                
+        except Exception as e:
+            self.logger.error(f"Error building forecast timeseries: {e}")
+            import traceback
+            self.logger.error(f"Traceback: {traceback.format_exc()}")
+        
         return dates, scores
+    
+    def _add_forecast_confidence_bands(self, fig: go.Figure, row: int, col: int, 
+                                     forecasts: List[Any], forecast_dates: List[datetime]) -> None:
+        """Add confidence bands around forecast line."""
+        try:
+            if not forecasts or not forecast_dates:
+                return
+            
+            # Build confidence bands from forecast scenarios
+            upper_bounds = []
+            lower_bounds = []
+            
+            for forecast in forecasts:
+                if hasattr(forecast, 'scenarios') and forecast.scenarios:
+                    scenario_scores = [s.z_score for s in forecast.scenarios]
+                    if scenario_scores:
+                        upper_bounds.append(max(scenario_scores))
+                        lower_bounds.append(min(scenario_scores))
+            
+            if len(upper_bounds) == len(forecast_dates) and len(lower_bounds) == len(forecast_dates):
+                # Create confidence band using fill_between equivalent
+                combined_x = forecast_dates + forecast_dates[::-1]
+                combined_y = upper_bounds + lower_bounds[::-1]
+                
+                fig.add_trace(
+                    go.Scatter(
+                        x=combined_x,
+                        y=combined_y,
+                        fill='toself',
+                        fillcolor='rgba(0, 0, 255, 0.1)',  # Light blue fill
+                        line=dict(color='rgba(0, 0, 255, 0)'),  # No line
+                        name='Forecast Confidence Band',
+                        showlegend=True,
+                        hoverinfo='skip'
+                    ),
+                    row=row, col=col,
+                    secondary_y=False
+                )
+                
+        except Exception as e:
+            self.logger.error(f"Error adding forecast confidence bands: {e}")
     
     def _add_volume_overlay(self, fig: go.Figure, ohlc_data: List[Dict[str, Any]], row: int, col: int) -> None:
         """
@@ -582,74 +831,128 @@ class TrendChart(ChartBase):
                 
         except Exception as e:
             self.logger.warning(f"Failed to add volume overlay: {e}")
-
-
-class AICommentaryAnnotation:
-    """Utility class for adding AI commentary annotations to charts."""
     
-    def __init__(self):
-        self.logger = get_logger(self.__class__.__name__)
-    
-    def add_to_figure(self, fig: go.Figure, ai_analysis: Any) -> None:
-        """Add AI commentary summary as a text annotation on the chart."""
+    def _get_fiscal_year_end_date(self, ticker: str, fiscal_year: int) -> datetime:
+        """
+        Get the specific fiscal year end date for a company by dynamically fetching 
+        from FMP API financial statements.
+        
+        Args:
+            ticker: Company ticker symbol
+            fiscal_year: Fiscal year (e.g., 2025)
+            
+        Returns:
+            datetime: The fiscal year end date for the company
+        """
         try:
-            if not ai_analysis or not hasattr(ai_analysis, 'llm_final_commentary') or not ai_analysis.llm_final_commentary:
-                return
+            # Check cache first
+            if ticker in self._fiscal_year_cache:
+                month, day = self._fiscal_year_cache[ticker]
+                calendar_year = fiscal_year
+                fiscal_date = datetime(calendar_year, month, day)
+                self.logger.debug(f"Using cached fiscal year end for {ticker}: {fiscal_date.strftime('%Y-%m-%d')} (FY{fiscal_year})")
+                return fiscal_date
             
-            summary_text = self._extract_commentary_summary(ai_analysis.llm_final_commentary)
-            confidence_text = self._get_confidence_text(ai_analysis)
+            # Try to get fiscal year end from recent financial statements
+            fiscal_year_end = self._fetch_fiscal_year_end_from_api(ticker)
             
-            # Add as title annotation
-            fig.add_annotation(
-                text=f"<b>AI Analysis Summary:</b> {summary_text}{confidence_text}",
-                xref="paper", yref="paper",
-                x=0.5, y=1.02,
-                showarrow=False,
-                font=dict(size=11, color='darkblue'),
-                align="center",
-                bgcolor="rgba(240,248,255,0.8)",
-                bordercolor="lightblue",
-                borderwidth=1,
-                width=900
-            )
+            if fiscal_year_end:
+                month, day = fiscal_year_end
+                
+                # Cache the result
+                self._fiscal_year_cache[ticker] = (month, day)
+                
+                # Calculate the correct calendar year for the fiscal year end
+                # For fiscal years ending Jan-June, they typically end in the fiscal year
+                # For fiscal years ending July-December, they typically end in the fiscal year
+                calendar_year = fiscal_year
+                
+                fiscal_date = datetime(calendar_year, month, day)
+                
+                self.logger.info(f"Using API-derived fiscal year end for {ticker}: {fiscal_date.strftime('%Y-%m-%d')} (FY{fiscal_year})")
+                return fiscal_date
+            else:
+                # Fallback to December 31 for unknown companies
+                default_date = datetime(fiscal_year, 12, 31)
+                self.logger.info(f"Using default fiscal year end for {ticker}: {default_date.strftime('%Y-%m-%d')} (FY{fiscal_year}) - API lookup failed")
+                return default_date
+                
+        except Exception as e:
+            self.logger.warning(f"Error calculating fiscal year end for {ticker} FY{fiscal_year}: {e}")
+            # Fallback to December 31 of the fiscal year
+            return datetime(fiscal_year, 12, 31)
+    
+    def _fetch_fiscal_year_end_from_api(self, ticker: str) -> Optional[Tuple[int, int]]:
+        """
+        Fetch fiscal year end date from FMP API by examining recent financial statements.
+        
+        Args:
+            ticker: Company ticker symbol
             
-            self.logger.debug("AI commentary annotation added to chart")
+        Returns:
+            Tuple of (month, day) if found, None otherwise
+        """
+        try:
+            from ....layers.data_fetch.fmp_fetcher import FMPDataFetcher
+            fmp_fetcher = FMPDataFetcher()
+            
+            # Get recent income statements to determine fiscal year end pattern
+            self.logger.debug(f"Fetching fiscal year end pattern for {ticker} from API")
+            
+            # Try to get annual financial statements for the last 2 years
+            income_data = fmp_fetcher.get_income_statement(ticker, period='annual', limit=3)
+            
+            if income_data and len(income_data) >= 2:
+                # Look at the dates of the most recent annual reports
+                fiscal_year_ends = []
+                
+                for statement in income_data[:2]:  # Look at last 2 years
+                    if 'date' in statement:
+                        try:
+                            date_str = statement['date']
+                            date_obj = datetime.strptime(date_str, '%Y-%m-%d')
+                            fiscal_year_ends.append((date_obj.month, date_obj.day))
+                            self.logger.debug(f"Found fiscal year end: {date_obj.month}/{date_obj.day} from {date_str}")
+                        except ValueError as e:
+                            self.logger.debug(f"Could not parse date {statement.get('date')}: {e}")
+                            continue
+                
+                # Check if we have consistent fiscal year end dates
+                if len(fiscal_year_ends) >= 2:
+                    # Check if the fiscal year ends are consistent (same month/day)
+                    if fiscal_year_ends[0] == fiscal_year_ends[1]:
+                        month, day = fiscal_year_ends[0]
+                        self.logger.info(f"Determined fiscal year end for {ticker}: {month}/{day} (consistent pattern)")
+                        return (month, day)
+                    else:
+                        # Use the most recent one if they differ
+                        month, day = fiscal_year_ends[0]
+                        self.logger.info(f"Using most recent fiscal year end for {ticker}: {month}/{day} (inconsistent pattern)")
+                        return (month, day)
+                elif len(fiscal_year_ends) == 1:
+                    # Only one data point, but better than nothing
+                    month, day = fiscal_year_ends[0]
+                    self.logger.info(f"Using single fiscal year end data point for {ticker}: {month}/{day}")
+                    return (month, day)
+            
+            # If income statement doesn't work, try balance sheet
+            balance_data = fmp_fetcher.get_balance_sheet(ticker, period='annual', limit=2)
+            
+            if balance_data and len(balance_data) >= 1:
+                statement = balance_data[0]
+                if 'date' in statement:
+                    try:
+                        date_str = statement['date']
+                        date_obj = datetime.strptime(date_str, '%Y-%m-%d')
+                        month, day = date_obj.month, date_obj.day
+                        self.logger.info(f"Determined fiscal year end for {ticker} from balance sheet: {month}/{day}")
+                        return (month, day)
+                    except ValueError as e:
+                        self.logger.debug(f"Could not parse balance sheet date {statement.get('date')}: {e}")
+            
+            self.logger.warning(f"Could not determine fiscal year end for {ticker} from API data")
+            return None
             
         except Exception as e:
-            self.logger.warning(f"Failed to add AI commentary annotation: {str(e)}")
-    
-    def _extract_commentary_summary(self, commentary: str) -> str:
-        """Extract a summary from AI commentary."""
-        lines = [line.strip() for line in commentary.split('\n') if line.strip()]
-        summary_text = ""
-        
-        # Look for executive summary section
-        for i, line in enumerate(lines):
-            if 'executive' in line.lower() and 'summary' in line.lower():
-                # Take next few lines after executive summary header
-                summary_lines = []
-                for j in range(i+1, min(i+4, len(lines))):
-                    if not lines[j].startswith('#') and len(lines[j]) > 20:
-                        summary_lines.append(lines[j])
-                if summary_lines:
-                    summary_text = ' '.join(summary_lines)[:300] + "..."
-                break
-        
-        # Fallback to first substantial paragraph if no executive summary found
-        if not summary_text:
-            for line in lines:
-                if not line.startswith('#') and len(line) > 50:
-                    summary_text = line[:300] + "..."
-                    break
-        
-        # Final fallback to first 300 characters
-        if not summary_text:
-            summary_text = commentary[:300] + "..."
-        
-        return summary_text
-    
-    def _get_confidence_text(self, ai_analysis: Any) -> str:
-        """Get confidence text for annotation."""
-        if hasattr(ai_analysis, 'overall_ai_confidence') and ai_analysis.overall_ai_confidence:
-            return f" (AI Confidence: {ai_analysis.overall_ai_confidence:.1%})"
-        return ""
+            self.logger.warning(f"Error fetching fiscal year end from API for {ticker}: {e}")
+            return None

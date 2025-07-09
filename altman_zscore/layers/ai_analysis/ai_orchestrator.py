@@ -224,17 +224,29 @@ This analysis is generated directly from raw financial data without intermediate
         if zscore_results:
             data_sections.append("\n### MULTI-QUARTER Z-SCORE ANALYSIS")
             data_sections.append(f"Z-Score Historical Data ({len(zscore_results)} quarters):")
+            data_sections.append("NOTE: Results ordered with MOST RECENT quarter first (index 0), historical quarters follow in reverse chronological order")
             
             for i, result in enumerate(zscore_results):
+                # Determine if this is the latest/current quarter
+                # NOTE: zscore_results[0] is the most recent/current quarter based on data flow
+                is_latest = i == 0
+                quarter_status = " (CURRENT/LATEST)" if is_latest else ""
+                
                 period_label = f"Q{getattr(result, 'quarter', 'Unknown')} {getattr(result, 'year', 'Unknown')}"
                 if hasattr(result, 'period'):
                     period_label = result.period
                 
-                data_sections.append(f"\n{period_label}:")
+                data_sections.append(f"\n{period_label}{quarter_status}:")
                 z_score = getattr(result, 'z_score', None)
-                z_score_display = f"{z_score:.2f}" if z_score is not None else "N/A"
+                # Use 3 decimal places for precision and consistency
+                z_score_display = f"{z_score:.3f}" if z_score is not None else "N/A"
                 data_sections.append(f"  - Z-Score: {z_score_display}")
                 data_sections.append(f"  - Risk Category: {getattr(result, 'risk_category', 'Unknown')}")
+                
+                # Store the current Z-Score for validation
+                if is_latest and z_score is not None:
+                    # Add validation marker for post-processing
+                    data_sections.append(f"  - [VALIDATION: Current Z-Score = {z_score:.3f}]")
                 
                 # Component values breakdown
                 if hasattr(result, 'component_values') and result.component_values:
@@ -369,6 +381,13 @@ This analysis is generated directly from raw financial data without intermediate
         data_sections.append(f"Z-Score quarters available: {len(zscore_results) if zscore_results else 0}")
         data_sections.append(f"Market analysis available: {'Yes' if market_analysis else 'No'}")
         data_sections.append(f"Financial data available: {'Yes' if financial_data else 'No'}")
+        
+        # Add critical instructions for Z-Score usage
+        data_sections.append("\n### CRITICAL ANALYSIS INSTRUCTIONS")
+        data_sections.append("🚨 MANDATORY: Use the LATEST/CURRENT quarter Z-Score marked above as your primary reference")
+        data_sections.append("🚨 PRECISION: Reference Z-Score values with exactly 3 decimal places as provided")
+        data_sections.append("🚨 CONSISTENCY: All Z-Score references must match injected values exactly - no rounding or modification")
+        data_sections.append("🚨 VALIDATION: Post-analysis validation will check LLM references against injected data")
         
         return "\n".join(data_sections)
 

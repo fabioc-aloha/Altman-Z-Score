@@ -125,7 +125,9 @@ CLI_EPILOG = ("Examples:\n"
               "  python main.py --log-structured            # Enable JSON structured logging\n"
               "  python main.py --log-dir ./my-logs         # Custom log directory\n"
               "  python main.py --progress always           # Always show progress bars\n"
-              "  python main.py --progress never            # Never show progress bars")
+              "  python main.py --progress never            # Never show progress bars\n"
+              "  python main.py AAPL --forecast-off         # Disable Z-Score forecasting\n"
+              "  python main.py TSLA --forecast-years 3     # 3-year forecast (default: 1 year)")
 
 # CLI description - single source of truth
 CLI_DESCRIPTION = "AI-Powered Altman Z-Score Analysis - Comprehensive financial analysis with LLM insights"
@@ -250,14 +252,7 @@ def parse_args():
              "Enhanced FMP accounts support extended historical data (up to 20+ quarters). "
              "Provides quarter-over-quarter Z-Score trends and seasonality analysis."
     )
-    parser.add_argument(
-        "--enhanced-analysis",
-        action="store_true",
-        default=fmp_enhanced,
-        help=f"Enable enhanced analysis features for upgraded FMP accounts (default: {'enabled' if fmp_enhanced else 'disabled'} based on .env). "
-             "Includes: detailed quarterly trends, peer comparison data, "
-             "industry benchmarking, and comprehensive ratio decomposition."
-    )
+
     parser.add_argument(
         "--batch-size",
         type=int,
@@ -326,6 +321,20 @@ def parse_args():
         action="store_true",
         help="Display cache statistics (size, entries, hit rates) and exit. "
              "Shows details for both FMP financial data and Yahoo Finance market data caches."
+    )
+    parser.add_argument(
+        "--forecast-off",
+        action="store_true",
+        help="Disable Z-Score forecasting. By default, forecasting is enabled and generates "
+             "forward-looking Z-Score projections using analyst consensus estimates."
+    )
+    parser.add_argument(
+        "--forecast-years",
+        type=int,
+        default=1,
+        choices=[1, 2, 3],
+        help="Number of years to forecast Z-Scores (1-3 years). "
+             "Default: 1 year. Requires analyst consensus data availability."
     )
     # Add more feature toggles here as needed
     return parser.parse_args()
@@ -619,15 +628,10 @@ def main():
         logger.debug("Debug logging test - this should only appear if debug level is enabled")
         logger.info("Info logging test - logging configuration successful")
 
-        # Show environment-based defaults if enhanced mode is detected
-        fmp_enhanced = get_env_default('FMP_ENHANCED_MODE', False, bool)
-        if fmp_enhanced:
-            logger.info("Enhanced FMP account detected - using enhanced defaults:")
-            logger.info(f"  - Default quarters: {args.quarters}")
-            logger.info(f"  - Enhanced analysis: {'enabled' if args.enhanced_analysis else 'disabled'}")
-            logger.info(f"  - Batch size: {args.batch_size}")
-        else:
-            logger.info("Free FMP account mode - using conservative defaults")
+        # Show environment-based defaults
+        logger.info("Using defaults based on configuration:")
+        logger.info(f"  - Default quarters: {args.quarters}")
+        logger.info(f"  - Batch size: {args.batch_size}")
 
         # Determine ticker list from various sources
         ticker_list = []
@@ -669,8 +673,9 @@ def main():
                         # Removed: include_ai_insights (now using comprehensive AI commentary directly)
                         forced_model=args.model,  # Pass model override if specified
                         quarters=getattr(args, 'quarters', 4),  # Pass quarters argument
-                        enhanced_analysis=getattr(args, 'enhanced_analysis', False),  # Pass enhanced analysis flag
-                        batch_size=getattr(args, 'batch_size', 10)  # Pass batch size
+                        batch_size=getattr(args, 'batch_size', 10),  # Pass batch size
+                        enable_forecasting=not getattr(args, 'forecast_off', False),  # Forecast enabled by default unless --forecast-off
+                        forecast_years=getattr(args, 'forecast_years', 1)  # Pass forecast years
                     )
                 )
                 # Log generated files

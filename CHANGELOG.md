@@ -1,5 +1,50 @@
 # Changelog
 
+## [4.9.0] - Z-Score Forecasting & Dynamic Fiscal Year Detection (January 2025)
+
+### 🔮 **Z-SCORE FORECASTING FRAMEWORK**
+- **✅ NEW:** Comprehensive Z-Score forecasting system with analyst consensus integration
+- **✅ NEW:** Dynamic fiscal year end detection using FMP API financial statements
+- **✅ NEW:** ConsensusFetcher for analyst estimate data with quality scoring
+- **✅ NEW:** ZScoreForecaster with scenario modeling (optimistic, base, pessimistic)
+- **✅ NEW:** Intelligent forecast year mapping to company-specific fiscal year calendars
+- **✅ NEW:** Robust component projection with backward-compatible field mapping
+- **✅ NEW:** ForecastResult dataclass with comprehensive metadata and quality indicators
+
+### 📈 **FORECAST VISUALIZATION ENHANCEMENTS**
+- **✅ NEW:** Trend chart forecast plotting at correct fiscal year end dates
+- **✅ NEW:** Forecast line styling with dashed lines and future markers
+- **✅ NEW:** Dynamic connection from last historical point to forecast scenarios
+- **✅ NEW:** Caching for fiscal year end lookups to improve performance
+- **✅ NEW:** Forecast timeline validation and proper temporal spacing
+
+### 🏢 **DYNAMIC FISCAL YEAR LOGIC**
+- **✅ REPLACED:** Hardcoded fiscal year mappings with dynamic API-based detection
+- **✅ NEW:** _fetch_fiscal_year_end_from_api() method examining recent financial statements
+- **✅ NEW:** Consistent fiscal year end pattern detection across income statement and balance sheet
+- **✅ NEW:** Scalable solution working for any ticker, not just hardcoded companies
+- **✅ NEW:** _determine_target_fiscal_year() ensuring "year 1" = current fiscal year logic
+
+### 🔧 **FORECASTING TECHNICAL ARCHITECTURE**
+- **✅ NEW:** Async/await patterns for API calls with comprehensive error handling
+- **✅ NEW:** Graceful degradation for low-quality consensus data
+- **✅ NEW:** Scenario-specific growth adjustments (±10% for optimistic/pessimistic)
+- **✅ NEW:** Component projection ratios: working capital ~50%, retained earnings ~30%, etc.
+- **✅ NEW:** Retail-specific component support (inventory turnover integration)
+
+### 🎯 **CLI & PIPELINE IMPROVEMENTS**
+- **✅ UPDATED:** Forecasting enabled by default in main CLI
+- **✅ NEW:** --forecast-years parameter with default value of 1
+- **✅ REMOVED:** Obsolete CLI flags and improved help documentation
+- **✅ IMPROVED:** Error handling and logging for forecast year mapping
+- **✅ VALIDATED:** All CLI flags and parameters functional
+
+### 🧪 **TESTING & VALIDATION**
+- **✅ TESTED:** AAPL and SONO forecast visualization at correct fiscal year ends
+- **✅ VALIDATED:** Dynamic fiscal year detection working across different companies
+- **✅ VERIFIED:** Forecast plotting accuracy and timeline visualization
+- **✅ CONFIRMED:** Backward compatibility with existing analysis workflows
+
 ## [4.7.1] - Enhanced Dashboard Visualization & Encoding Fixes (July 7, 2025)
 
 ### 📊 **DASHBOARD VISUALIZATION ENHANCEMENTS**

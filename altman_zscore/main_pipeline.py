@@ -31,6 +31,7 @@ from .layers.output_generation.chart_generator import ChartGenerator
 from .layers.output_generation.report_generator import ReportGenerator
 from .layers.output_generation.file_manager import FileManager
 from .layers.ai_analysis.ai_orchestrator import AIAnalysisOrchestrator
+from .layers.forecasting.zscore_forecaster import ZScoreForecaster
 
 logger = get_logger(__name__)
 
@@ -235,6 +236,7 @@ class AltmanZScorePipeline:
         self.chart_generator = ChartGenerator(output_base_path)
         self.report_generator = ReportGenerator(output_base_path)
         self.file_manager = FileManager(output_base_path)
+        self.zscore_forecaster = ZScoreForecaster()
     
     async def analyze_ticker(
         self, 
@@ -245,11 +247,12 @@ class AltmanZScorePipeline:
         include_market_analysis: bool = True,
         forced_model: str = None,
         quarters: int = 4,
-        enhanced_analysis: bool = False,
         batch_size: int = 10,
         bankruptcy_analysis: bool = False,
         pre_bankruptcy_quarters: int = 3,
-        specific_date: str = None
+        specific_date: str = None,
+        enable_forecasting: bool = False,
+        forecast_years: int = 2
     ) -> Dict[str, str]:
         """
         Complete analysis for a single ticker.
@@ -261,12 +264,13 @@ class AltmanZScorePipeline:
             include_comprehensive_ai_analysis: Whether to include AI final commentary generation
             include_market_analysis: Whether to include market analysis
             forced_model: Optional model to force (overrides automatic selection)
-            quarters: Number of quarters for historical analysis (enhanced accounts: 8-20)
-            enhanced_analysis: Enable enhanced features for upgraded FMP accounts
-            batch_size: Batch size for concurrent processing (enhanced accounts: 20-50)
+            quarters: Number of quarters for historical analysis
+            batch_size: Batch size for concurrent processing
             bankruptcy_analysis: Enable bankruptcy-specific analysis for known bankrupt companies
             pre_bankruptcy_quarters: Number of quarters before bankruptcy to analyze
             specific_date: Specific date to analyze (format: YYYY-MM-DD)
+            enable_forecasting: Whether to generate Z-Score forecasts based on analyst consensus
+            forecast_years: Number of years to forecast (1-3)
             
         Returns:
             Dict[str, str]: Paths to generated output files
@@ -363,6 +367,10 @@ class AltmanZScorePipeline:
             if include_comprehensive_ai_analysis:
                 total_steps += 1  # Direct LLM commentary generation
             
+            # Z-Score forecasting: 1 step (if enabled and not bankruptcy analysis)
+            if enable_forecasting and not bankruptcy_analysis:
+                total_steps += 1  # Forecast generation
+            
             # Output generation: base 2 steps
             total_steps += 2  # CSV/JSON generation
             
@@ -376,21 +384,13 @@ class AltmanZScorePipeline:
             progress = PipelineProgressBar(ticker, total_steps)
             current_step = 0
             
-            # Enhanced analysis mode handling
-            if enhanced_analysis:
-                logger.info(f"Enhanced analysis mode enabled: {quarters} quarters, batch size {batch_size}")
-                # Set enhanced mode environment variables for downstream components
-                import os
-                os.environ['FMP_ENHANCED_MODE'] = '1'
-                os.environ['ANALYSIS_QUARTERS'] = str(quarters)
-                os.environ['BATCH_SIZE'] = str(batch_size)
+            # Enhanced analysis mode handling - simplified to always use requested quarters
+            logger.info(f"Analysis configuration: {quarters} quarters, batch size {batch_size}")
             
-            # Validate quarters parameter for enhanced vs regular accounts
-            if quarters > 4 and not enhanced_analysis:
-                logger.warning(f"Quarters={quarters} requested but enhanced_analysis=False. Using 4 quarters for free account compatibility.")
-                quarters = 4
-            elif enhanced_analysis and quarters < 8:
-                logger.info(f"Enhanced analysis enabled but quarters={quarters}. Consider using 8+ quarters for better trend analysis.")
+            # Set environment variables for downstream components
+            import os
+            os.environ['ANALYSIS_QUARTERS'] = str(quarters)
+            os.environ['BATCH_SIZE'] = str(batch_size)
             
             # STEP GROUP 1: Data Fetching and Processing (3 steps)
             current_step += 1
@@ -448,7 +448,7 @@ class AltmanZScorePipeline:
                 progress.update_substep(f"Point-in-time analysis: {specific_date}")
             
             logger.info(f"Step {current_step}: Merging financial data for {ticker}")
-            progress.start_substeps(quarters if enhanced_analysis else 4)
+            progress.start_substeps(quarters)
             
             # Pass parameters to data merger
             try:
@@ -456,7 +456,7 @@ class AltmanZScorePipeline:
                     ticker, 
                     start_date=None,
                     end_date=end_date,
-                    quarters=quarters if enhanced_analysis or bankruptcy_analysis else 4
+                    quarters=quarters
                 )
                 if not isinstance(merged, list):
                     merged = [merged]
@@ -544,6 +544,7 @@ class AltmanZScorePipeline:
             progress.update_substep("Risk category classification")
             
             # Use the most recent result for dashboard/report
+            # NOTE: zscore_results[0] is the latest/current quarter based on data ordering
             latest_result = zscore_results[0]
             
             # Add bankruptcy analysis metadata if applicable
@@ -642,18 +643,63 @@ class AltmanZScorePipeline:
                     logger.warning(f"AI analysis failed for {ticker}: {str(e)}. Continuing with standard analysis.")
                     comprehensive_ai_analysis = None
             
+            # STEP GROUP 4.5: Z-Score Forecasting (1 step if enabled)
+            forecast_results = None
+            if enable_forecasting and not bankruptcy_analysis:  # Skip forecasting for bankrupt companies
+                current_step += 1
+                progress.update("Generating Z-Score Forecasts", current_step)
+                logger.info(f"Step {current_step}: Generating Z-Score forecasts for {ticker} ({forecast_years} years)")
+                progress.start_substeps(3)
+                
+                try:
+                    progress.update_substep("Fetching analyst consensus data")
+                    
+                    # Debug: Check the ZScoreCalculationResult being passed
+                    current_zscore_result = zscore_results[0]
+                    logger.info(f"DEBUG: Passing ZScoreCalculationResult with Z-Score: {current_zscore_result.z_score}")
+                    logger.info(f"DEBUG: ZScoreCalculationResult component values: {current_zscore_result.component_values}")
+                    
+                    forecast_results = await self.zscore_forecaster.generate_forecasts(
+                        ticker, current_zscore_result, forecast_years
+                    )
+                    
+                    if forecast_results:
+                        progress.update_substep("Calculating forecast scenarios")
+                        logger.info(f"Successfully generated {len(forecast_results.forecast_scenarios)} forecast scenarios for {ticker}")
+                        
+                        # Debug: Check if scenarios have valid Z-Scores
+                        if forecast_results.forecast_scenarios:
+                            first_scenario = forecast_results.forecast_scenarios[0]
+                            logger.info(f"DEBUG: First scenario Z-Score: {first_scenario.z_score}")
+                        
+                        # Add forecast metadata for reporting
+                        forecast_summary = forecast_results.get_forecast_summary()
+                        logger.info(f"DEBUG: Forecast summary keys: {list(forecast_summary.keys())}")
+                        logger.info(f"DEBUG: Z-Score range data: {forecast_summary.get('z_score_range', 'MISSING')}")
+                        logger.info(f"Forecast range: {forecast_summary.get('z_score_range', {}).get('min', 'N/A'):.2f} - {forecast_summary.get('z_score_range', {}).get('max', 'N/A'):.2f}")
+                        
+                        progress.update_substep("Validating forecast quality")
+                    else:
+                        logger.warning(f"Unable to generate forecasts for {ticker} - insufficient analyst coverage")
+                        
+                except Exception as e:
+                    logger.warning(f"Forecasting failed for {ticker}: {str(e)}. Continuing with historical analysis only.")
+                    forecast_results = None
+            elif enable_forecasting and bankruptcy_analysis:
+                logger.info(f"Skipping forecasting for bankrupt company {ticker}")
+            
             # STEP GROUP 5: Output Generation
             current_step += 1
             progress.update("Generating CSV Data", current_step)
             logger.info(f"Step {current_step}: Generating CSV data for {ticker}")
             progress.update_substep("Formatting financial metrics")
-            csv_path = self.csv_json_generator.generate_csv_report(zscore_results, market_analysis, comprehensive_ai_analysis)
+            csv_path = self.csv_json_generator.generate_csv_report(zscore_results, market_analysis, comprehensive_ai_analysis, forecast_results)
             
             current_step += 1
             progress.update("Generating JSON Data", current_step)
             logger.info(f"Step {current_step}: Generating JSON data for {ticker}")
             progress.update_substep("Structuring analysis results")
-            json_path = self.csv_json_generator.generate_json_report(zscore_results, market_analysis, comprehensive_ai_analysis)
+            json_path = self.csv_json_generator.generate_json_report(zscore_results, market_analysis, comprehensive_ai_analysis, forecast_results)
             output_files = {'csv': csv_path, 'json': json_path}
             
             # STEP GROUP 6: Charts (3 steps if enabled)
@@ -680,7 +726,7 @@ class AltmanZScorePipeline:
                 
                 try:
                     chart_path = self.chart_generator.generate_zscore_dashboard(
-                        zscore_results, market_analysis, comprehensive_ai_analysis
+                        zscore_results, market_analysis, comprehensive_ai_analysis, None, forecast_results
                     )
                     output_files['chart'] = chart_path
                 except Exception as e:
