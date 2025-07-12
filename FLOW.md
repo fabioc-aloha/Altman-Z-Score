@@ -882,53 +882,53 @@ Key Opportunities: [Strong fundamental health, market leadership]
 
 ```mermaid
 flowchart TD
-    A[📊 Input: Ticker Symbol] --> B[🚀 AltmanZScorePipeline.analyze_ticker()]
+    A["📊 Input: Ticker Symbol"] --> B["🚀 Main Pipeline"]
     
-    B --> C[📥 Data Fetching Layer]
-    C --> D[🔍 FMP Financial Data]
-    C --> E[📈 Yahoo Market Data]
+    B --> C["📥 Data Fetching Layer"]
+    C --> D["🔍 FMP Financial Data"]
+    C --> E["📈 Yahoo Market Data"]
     
-    D --> F[🔗 Data Integration Layer]
+    D --> F["🔗 Data Integration Layer"]
     E --> F
-    F --> G[✅ Quality Validation]
-    G --> H[📊 Data Completeness Scoring]
+    F --> G["✅ Quality Validation"]
+    G --> H["📊 Data Completeness Scoring"]
     
-    H --> I[🧮 Z-Score Calculation Layer]
-    I --> J[🎯 Automatic Model Selection]
-    J --> K[📉 Multi-Quarter Z-Score Trends]
-    K --> L[🚨 Risk Zone Classification]
+    H --> I["🧮 Z-Score Calculation Layer"]
+    I --> J["🎯 Automatic Model Selection"]
+    J --> K["📉 Multi-Quarter Z-Score Trends"]
+    K --> L["🚨 Risk Zone Classification"]
     
-    L --> M[🏢 Market Analysis Layer]
-    M --> N[📊 Technical Analysis (RSI, MACD)]
-    M --> O[💰 Valuation Metrics (P/E, P/B)]
-    M --> P[⚡ Performance Analysis (Beta, Sharpe)]
+    L --> M["🏢 Market Analysis Layer"]
+    M --> N["📊 Technical Analysis"]
+    M --> O["💰 Valuation Metrics"]
+    M --> P["⚡ Performance Analysis"]
     
-    N --> Q[🤖 AI Analysis Layer]
+    N --> Q["🤖 AI Analysis Layer"]
     O --> Q
     P --> Q
-    Q --> R[🧠 Risk-Return Scoring]
-    Q --> S[📝 Investment Commentary Generation]
-    Q --> T[🎯 Investment Recommendations]
+    Q --> R["🧠 Risk-Return Scoring"]
+    Q --> S["📝 Investment Commentary"]
+    Q --> T["🎯 Investment Recommendations"]
     
-    R --> U[� Output Generation Layer]
+    R --> U["📊 Output Generation Layer"]
     S --> U
     T --> U
-    U --> V[🌐 Dashboard Generation]
-    U --> W[📄 Professional Reports]
-    U --> X[📈 Interactive Charts]
-    U --> Y[📊 Data Export (CSV/JSON)]
+    U --> V["🌐 Dashboard Generation"]
+    U --> W["📄 Professional Reports"]
+    U --> X["📈 Interactive Charts"]
+    U --> Y["📊 Data Export"]
     
-    V --> Z[🎯 Professional Output]
+    V --> Z["🎯 Professional Output"]
     W --> Z
     X --> Z
     Y --> Z
     
-    style A fill:#e1f5fe
-    style B fill:#f3e5f5
-    style I fill:#fff3e0  
-    style Q fill:#fff3e0
-    style U fill:#e8f5e8
-    style Z fill:#fce4ec
+    style A fill:#e1f5fe,color:#000000
+    style B fill:#f3e5f5,color:#000000
+    style I fill:#fff3e0,color:#000000
+    style Q fill:#fff3e0,color:#000000
+    style U fill:#e8f5e8,color:#000000
+    style Z fill:#fce4ec,color:#000000
 ```
 
 ### **Modern Process Breakdown**:

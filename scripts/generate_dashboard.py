@@ -21,6 +21,7 @@ class StockData:
     name: str
     z_score: float
     sector: str
+    industry: str
     recommendation: str
     risk_category: str = "Unknown"
     data_quality: float = 0.0
@@ -73,6 +74,15 @@ class StockData:
         # Fallback: try to extract from AI analysis section if Company Name line not found
         elif match := re.search(r'\*\*Company:\*\*\s*([^(]+)', content):
             name = match.group(1).strip()
+            
+        # Extract sector and industry information
+        sector = "Unknown"
+        if match := re.search(r'Sector:\s*([^\r\n]+)', content):
+            sector = match.group(1).strip()
+            
+        industry = "Unknown"
+        if match := re.search(r'Industry:\s*([^\r\n]+)', content):
+            industry = match.group(1).strip()
             
         # Get risk category
         risk_category = "Unknown"
@@ -158,7 +168,8 @@ class StockData:
             symbol=symbol,
             name=name,
             z_score=z_score,
-            sector="Unknown",  # We'll determine sector from a different source
+            sector=sector,
+            industry=industry,
             recommendation=recommendation,
             risk_category=risk_category,
             data_quality=data_quality,
@@ -216,6 +227,7 @@ def get_sample_data() -> List[StockData]:
             name="Apple Inc.",
             z_score=3.85,
             sector="Technology",
+            industry="Consumer Electronics",
             recommendation="Strong Buy",
         ),
         StockData(
@@ -223,6 +235,7 @@ def get_sample_data() -> List[StockData]:
             name="Microsoft Corporation",
             z_score=4.2,
             sector="Technology",
+            industry="Software",
             recommendation="Strong Buy",
         )
     ]
@@ -243,6 +256,8 @@ def generate_dashboard(stocks: List[StockData], template_dir: Path, output_file:
             'Recommendation': s.recommendation,
             'Confidence': f"{s.confidence:.1f}%",
             'Model': s.model_used,
+            'Sector': s.sector,  # Add sector to the dashboard data
+            'Industry': s.industry,  # Add industry to the dashboard data
             'Price': s.current_price if s.current_price is not None else 'N/A',
             'MarketCap': s.market_cap if s.market_cap is not None else 'N/A',
             'AnalysisDate': s.analysis_date if s.analysis_date is not None else 'N/A',
@@ -286,7 +301,8 @@ def main():
             logging.info(f"Processed {len(stock_data)} stocks")
         
         # Generate dashboard
-        template_dir = Path('scripts')
+        script_dir = Path(__file__).parent
+        template_dir = script_dir
         output_file = args.output_dir / 'dashboard.html'
         
         generate_dashboard(stock_data, template_dir, output_file)

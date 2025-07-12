@@ -246,7 +246,7 @@ try {
         Write-Host "OUTPUT: $dashboardPath" -ForegroundColor Cyan
         Write-Host "FEATURES:" -ForegroundColor Cyan
         Write-Host "* Self-contained HTML with embedded CSS and JavaScript" -ForegroundColor $script:Colors.Status
-        Write-Host "* Advanced filtering by model, risk category, and recommendation" -ForegroundColor $script:Colors.Status
+        Write-Host "* Advanced filtering by sector, industry, model, risk category, and recommendation" -ForegroundColor $script:Colors.Status
         Write-Host "* Real-time search across symbols and company names" -ForegroundColor $script:Colors.Status
         Write-Host "* Sortable columns with visual indicators" -ForegroundColor $script:Colors.Status
         Write-Host "* Responsive design for mobile and desktop" -ForegroundColor $script:Colors.Status

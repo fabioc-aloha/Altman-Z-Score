@@ -791,6 +791,9 @@ class ZScoreCalculator:
             
             # Add enhanced model selection metadata if available
             if model_selection_result:
+                self.logger.info(f"Model selection result available for {corrected_data.ticker}")
+                self.logger.info(f"Industry sector: {model_selection_result.industry_classification.sector}")
+                self.logger.info(f"Industry classification: {model_selection_result.industry_classification.industry}")
                 result_metadata.update({
                     "model_selection_rationale": model_selection_result.selection_rationale,
                     "company_type": model_selection_result.company_type.value,
@@ -798,7 +801,25 @@ class ZScoreCalculator:
                     "industry_classification": model_selection_result.industry_classification.industry,
                     "selection_method": "enhanced_multi_layer"
                 })
-            
+            else:
+                self.logger.info(f"No model selection result available for {corrected_data.ticker}, using fallback industry extraction")
+                # Fallback: Try to extract industry information directly from raw FMP data
+                try:
+                    if hasattr(corrected_data, 'raw_fmp_data') and corrected_data.raw_fmp_data:
+                        profile_data = corrected_data.raw_fmp_data.get('profile', [])
+                        if profile_data and isinstance(profile_data, list) and len(profile_data) > 0:
+                            profile = profile_data[0]
+                            sector = profile.get('sector')
+                            industry = profile.get('industry')
+                            if sector or industry:
+                                self.logger.info(f"Extracted fallback industry info for {corrected_data.ticker}: sector={sector}, industry={industry}")
+                                result_metadata.update({
+                                    "industry_sector": sector,
+                                    "industry_classification": industry,
+                                    "selection_method": "fallback_profile_extraction"
+                                })
+                except Exception as e:
+                    self.logger.warning(f"Failed to extract fallback industry information for {corrected_data.ticker}: {e}")
             result = ZScoreCalculationResult(
                 ticker=corrected_data.ticker,
                 z_score=z_score,

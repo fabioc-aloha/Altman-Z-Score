@@ -660,7 +660,7 @@ class AltmanZScorePipeline:
                     logger.info(f"DEBUG: ZScoreCalculationResult component values: {current_zscore_result.component_values}")
                     
                     forecast_results = await self.zscore_forecaster.generate_forecasts(
-                        ticker, current_zscore_result, forecast_years
+                        ticker, current_zscore_result, forecast_years, zscore_results
                     )
                     
                     if forecast_results:

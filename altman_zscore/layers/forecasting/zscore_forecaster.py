@@ -41,7 +41,8 @@ class ZScoreForecaster:
         self,
         ticker: str,
         current_zscore_result: ZScoreCalculationResult,
-        forecast_years: int = 2
+        forecast_years: int = 2,
+        historical_zscore_results: Optional[List[ZScoreCalculationResult]] = None
     ) -> Optional[ForecastResult]:
         """
         Generate comprehensive Z-Score forecasts for a ticker.
@@ -50,6 +51,7 @@ class ZScoreForecaster:
             ticker: Stock ticker symbol
             current_zscore_result: Current Z-Score calculation result
             forecast_years: Number of years to forecast (1-3)
+            historical_zscore_results: Optional list of historical Z-Score results for statistical validation
             
         Returns:
             ForecastResult: Complete forecast analysis or None if unavailable
@@ -76,7 +78,7 @@ class ZScoreForecaster:
             
             for year in range(1, forecast_years + 1):
                 yearly_scenarios = await self._generate_yearly_scenarios(
-                    ticker, current_zscore_result, consensus_data, year
+                    ticker, current_zscore_result, consensus_data, year, historical_zscore_results
                 )
                 forecast_scenarios.extend(yearly_scenarios)
             
@@ -119,7 +121,8 @@ class ZScoreForecaster:
         ticker: str,
         current_result: ZScoreCalculationResult,
         consensus_data: ConsensusData,
-        forecast_year: int
+        forecast_year: int,
+        historical_results: Optional[List[ZScoreCalculationResult]] = None
     ) -> List[ForecastScenario]:
         """Generate forecast scenarios for a specific year."""
         scenarios = []
@@ -146,7 +149,7 @@ class ZScoreForecaster:
             for scenario_key, scenario_config in self.forecast_scenarios.items():
                 scenario = await self._generate_single_scenario(
                     ticker, current_result, year_estimates, 
-                    scenario_config, forecast_year, target_fiscal_year
+                    scenario_config, forecast_year, target_fiscal_year, historical_results
                 )
                 
                 if scenario:
@@ -165,13 +168,14 @@ class ZScoreForecaster:
         estimates: List[ConsensusEstimate],
         scenario_config: Dict[str, Any],
         forecast_year: int,
-        target_fiscal_year: int
+        target_fiscal_year: int,
+        historical_results: Optional[List[ZScoreCalculationResult]] = None
     ) -> Optional[ForecastScenario]:
         """Generate a single forecast scenario."""
         try:
             # Project financial metrics based on consensus and scenario
             projected_metrics = self._project_financial_metrics(
-                current_result, estimates, scenario_config
+                current_result, estimates, scenario_config, historical_results
             )
             
             if not projected_metrics:
@@ -213,7 +217,8 @@ class ZScoreForecaster:
         self,
         current_result: ZScoreCalculationResult,
         estimates: List[ConsensusEstimate],
-        scenario_config: Dict[str, Any]
+        scenario_config: Dict[str, Any],
+        historical_results: Optional[List[ZScoreCalculationResult]] = None
     ) -> Dict[str, float]:
         """Project financial metrics based on consensus estimates and scenario."""
         projected_metrics = {}
@@ -315,10 +320,48 @@ class ZScoreForecaster:
             self.logger.debug(f"Current component values: working_capital={working_capital_ratio:.3f}, retained_earnings={retained_earnings_ratio:.3f}, ebit={ebit_ratio:.3f}, market_equity={market_equity_ratio:.3f}, asset_turnover={asset_turnover:.3f}")
             self.logger.debug(f"Projected metrics for {scenario_config['name']} scenario (revenue growth: {revenue_growth:.3f}, ebit growth: {ebit_growth:.3f}): {projected_metrics}")
             
-            # Validate projected metrics are reasonable
+            # Use statistical validation based on historical data instead of hardcoded thresholds
+            if historical_results and len(historical_results) >= 2:
+                statistical_thresholds = self._calculate_statistical_thresholds(historical_results, current_result)
+                validation_method = "statistical"
+            else:
+                # Fallback to more lenient thresholds when no historical data
+                statistical_thresholds = {
+                    "retained_earnings_to_total_assets": {"min": -5.0, "max": 15.0},
+                    "working_capital_to_total_assets": {"min": -2.0, "max": 15.0},
+                    "ebit_to_total_assets": {"min": -2.0, "max": 15.0},
+                    "market_value_equity_to_total_liabilities": {"min": -1.0, "max": 50.0},
+                    "sales_to_total_assets": {"min": -0.5, "max": 15.0}
+                }
+                validation_method = "fallback"
+            
+            self.logger.debug(f"Using {validation_method} validation method for {scenario_config['name']} scenario")
+            
+            # Validate projected metrics using statistical thresholds
             for key, value in projected_metrics.items():
-                if value < 0 or value > 10:  # Z-Score components should be reasonable ratios
-                    self.logger.warning(f"Unrealistic projected metric {key}: {value:.3f} for {scenario_config['name']} scenario")
+                if key in statistical_thresholds:
+                    threshold_info = statistical_thresholds[key]
+                    min_threshold = threshold_info["min"]
+                    max_threshold = threshold_info["max"]
+                    
+                    if value < min_threshold or value > max_threshold:
+                        if validation_method == "statistical":
+                            mean = threshold_info.get("mean", 0)
+                            std = threshold_info.get("std", 1)
+                            sample_size = threshold_info.get("sample_size", 0)
+                            std_deviations = abs(value - mean) / std if std > 0 else 0
+                            
+                            self.logger.warning(
+                                f"Projected metric {key}: {value:.3f} exceeds 2σ threshold "
+                                f"[{min_threshold:.3f}, {max_threshold:.3f}] by {std_deviations:.1f}σ "
+                                f"(historical mean: {mean:.3f}, std: {std:.3f}, n={sample_size}) "
+                                f"for {scenario_config['name']} scenario"
+                            )
+                        else:
+                            self.logger.warning(
+                                f"Projected metric {key}: {value:.3f} outside fallback range "
+                                f"[{min_threshold:.3f}, {max_threshold:.3f}] for {scenario_config['name']} scenario"
+                            )
             
             return projected_metrics
             
@@ -621,3 +664,88 @@ class ZScoreForecaster:
             self.logger.error(f"Error determining target fiscal year for {ticker}: {e}")
             # Fallback to simple calendar year logic
             return datetime.now().year + forecast_year
+        
+    def _calculate_statistical_thresholds(
+        self, 
+        historical_results: List[ZScoreCalculationResult],
+        current_result: ZScoreCalculationResult
+    ) -> Dict[str, Dict[str, float]]:
+        """
+        Calculate statistical validation thresholds based on historical Z-Score component data.
+        
+        Args:
+            historical_results: List of historical Z-Score calculation results
+            current_result: Current Z-Score calculation result
+            
+        Returns:
+            Dict containing statistical thresholds for each component
+        """
+        try:
+            if not historical_results or len(historical_results) < 2:
+                self.logger.warning("Insufficient historical data for statistical validation - using fallback thresholds")
+                # Fallback to more lenient hardcoded thresholds when no history available
+                return {
+                    "retained_earnings_to_total_assets": {"min": -5.0, "max": 15.0},
+                    "working_capital_to_total_assets": {"min": -2.0, "max": 15.0},
+                    "ebit_to_total_assets": {"min": -2.0, "max": 15.0},
+                    "market_value_equity_to_total_liabilities": {"min": -1.0, "max": 50.0},
+                    "asset_turnover": {"min": -0.5, "max": 15.0}
+                }
+            
+            # Extract component values from historical data
+            component_history = {}
+            for result in historical_results:
+                for component, value in result.component_values.items():
+                    if component not in ["z_score", "_metadata", "_calculation_metadata"]:
+                        if component not in component_history:
+                            component_history[component] = []
+                        if isinstance(value, (int, float)) and not np.isnan(value):
+                            component_history[component].append(value)
+            
+            # Calculate statistical thresholds (mean ± 2 standard deviations)
+            thresholds = {}
+            for component, values in component_history.items():
+                if len(values) >= 2:
+                    mean = np.mean(values)
+                    std = np.std(values)
+                    
+                    # Use 2 standard deviations as the threshold
+                    lower_bound = mean - 2 * std
+                    upper_bound = mean + 2 * std
+                    
+                    # Apply reasonable bounds to prevent extreme thresholds
+                    lower_bound = max(lower_bound, -10.0)  # Don't go below -10
+                    upper_bound = min(upper_bound, 100.0)  # Don't go above 100
+                    
+                    thresholds[component] = {
+                        "min": lower_bound,
+                        "max": upper_bound,
+                        "mean": mean,
+                        "std": std,
+                        "sample_size": len(values)
+                    }
+                    
+                    self.logger.debug(f"Statistical threshold for {component}: [{lower_bound:.3f}, {upper_bound:.3f}] (mean: {mean:.3f}, std: {std:.3f}, n: {len(values)})")
+                else:
+                    # Fallback for components with insufficient data
+                    thresholds[component] = {
+                        "min": -5.0,
+                        "max": 15.0,
+                        "mean": 0.0,
+                        "std": 1.0,
+                        "sample_size": len(values)
+                    }
+                    self.logger.debug(f"Insufficient data for {component}, using fallback thresholds")
+            
+            return thresholds
+            
+        except Exception as e:
+            self.logger.error(f"Error calculating statistical thresholds: {e}")
+            # Return fallback thresholds
+            return {
+                "retained_earnings_to_total_assets": {"min": -5.0, "max": 15.0},
+                "working_capital_to_total_assets": {"min": -2.0, "max": 15.0},
+                "ebit_to_total_assets": {"min": -2.0, "max": 15.0},
+                "market_value_equity_to_total_liabilities": {"min": -1.0, "max": 50.0},
+                "asset_turnover": {"min": -0.5, "max": 15.0}
+            }

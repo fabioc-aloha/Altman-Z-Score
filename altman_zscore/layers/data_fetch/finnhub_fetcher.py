@@ -307,6 +307,12 @@ class FinnhubDataFetcher:
                 return str(logo_path)
             else:
                 logger.debug(f"Cached logo file for {symbol} is expired, re-downloading")
+                # Delete the expired cached logo file
+                try:
+                    logo_path.unlink()
+                    logger.debug(f"Deleted expired cached logo file for {symbol}")
+                except Exception as e:
+                    logger.warning(f"Failed to delete expired cached logo file for {symbol}: {e}")
         
         # Get logo URL
         logo_url = self.get_company_logo_url(symbol)

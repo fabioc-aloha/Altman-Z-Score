@@ -303,6 +303,13 @@ class ReportGenerator:
         company_name = self._get_company_name(zscore_result)
         content.append(f"Company Name: {company_name}")
         
+        # Add industry and sector information if available
+        sector, industry = self._get_company_industry_info(zscore_result)
+        if sector:
+            content.append(f"Sector: {sector}")
+        if industry:
+            content.append(f"Industry: {industry}")
+        
         content.append(f"Analysis Date: {datetime.now().strftime('%B %d, %Y at %I:%M %p')}")
         content.append("")
         
@@ -734,3 +741,40 @@ class ReportGenerator:
                 return value
         except Exception:
             return value
+    
+    def _get_company_industry_info(self, zscore_result: ZScoreCalculationResult) -> tuple[str, str]:
+        """Extract sector and industry information from Z-Score result metadata."""
+        try:
+            sector = None
+            industry = None
+            
+            # Try to get industry information from metadata
+            if hasattr(zscore_result, 'metadata') and zscore_result.metadata:
+                # Debug: Log all available metadata keys
+                logger.info(f"Available metadata keys for {zscore_result.ticker}: {list(zscore_result.metadata.keys())}")
+                
+                # Get sector information
+                sector = zscore_result.metadata.get('industry_sector')
+                if sector:
+                    logger.info(f"Found industry_sector for {zscore_result.ticker}: {sector}")
+                
+                # Get industry information
+                industry = zscore_result.metadata.get('industry_classification')
+                if industry:
+                    logger.info(f"Found industry_classification for {zscore_result.ticker}: {industry}")
+                
+                if not sector and not industry:
+                    logger.warning(f"No industry information found in metadata for {zscore_result.ticker}")
+            else:
+                logger.warning(f"No metadata available for {zscore_result.ticker}")
+            
+            return sector, industry
+            
+        except Exception as e:
+            logger.warning(f"Could not extract industry information for {zscore_result.ticker}: {e}")
+            return None, None
+
+    def _get_company_industry(self, zscore_result: ZScoreCalculationResult) -> str:
+        """Extract industry information from Z-Score result metadata. (Legacy method - returns first available)"""
+        sector, industry = self._get_company_industry_info(zscore_result)
+        return industry or sector

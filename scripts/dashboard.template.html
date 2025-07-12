@@ -319,7 +319,19 @@
             <div class="filter-grid">
                 <div class="filter-group">
                     <label for="search">Search</label>
-                    <input type="text" id="search" placeholder="Search by symbol or company name...">
+                    <input type="text" id="search" placeholder="Ticker or Company Name">
+                </div>
+                <div class="filter-group">
+                    <label for="sector">Sector</label>
+                    <select id="sector">
+                        <option value="">All Sectors</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="industry">Industry</label>
+                    <select id="industry">
+                        <option value="">All Industries</option>
+                    </select>
                 </div>
                 <div class="filter-group">
                     <label for="model">Model</label>
@@ -346,7 +358,7 @@
             <table class="stock-table">
                 <thead>
                     <tr>
-                        <th data-sort="symbol">Logo/Symbol</th>
+                        <th data-sort="symbol">Ticker</th>
                         <th data-sort="name">Company</th>
                         <th data-sort="zscore">Z-Score</th>
                         <th data-sort="risk">Risk</th>
@@ -447,9 +459,35 @@
             // Don't populate if no data is available yet
             if (!stockData || stockData.length === 0) return;
 
+            const sectors = [...new Set(stockData.map(s => s.Sector).filter(Boolean))].sort();
+            const industries = [...new Set(stockData.map(s => s.Industry).filter(Boolean))].sort();
             const models = [...new Set(stockData.map(s => s.Model).filter(Boolean))].sort();
             const risks = [...new Set(stockData.map(s => s.Risk).filter(Boolean))].sort();
             const recommendations = [...new Set(stockData.map(s => s.Recommendation))].sort();
+
+            // Populate sector filter
+            const sectorSelect = document.getElementById('sector');
+            while (sectorSelect.options.length > 1) {
+                sectorSelect.remove(1);
+            }
+            sectors.forEach(sector => {
+                const option = document.createElement('option');
+                option.value = sector;
+                option.textContent = sector;
+                sectorSelect.appendChild(option);
+            });
+
+            // Populate industry filter
+            const industrySelect = document.getElementById('industry');
+            while (industrySelect.options.length > 1) {
+                industrySelect.remove(1);
+            }
+            industries.forEach(industry => {
+                const option = document.createElement('option');
+                option.value = industry;
+                option.textContent = industry;
+                industrySelect.appendChild(option);
+            });
 
             const modelSelect = document.getElementById('model');
             // Clear existing options except the first one
@@ -491,6 +529,8 @@
         // Filter data based on current filter values
         function filterData() {
             const searchTerm = document.getElementById('search').value.toLowerCase();
+            const sector = document.getElementById('sector').value;
+            const industry = document.getElementById('industry').value;
             const model = document.getElementById('model').value;
             const risk = document.getElementById('risk').value;
             const recommendation = document.getElementById('recommendation').value;
@@ -500,11 +540,13 @@
                     stock.Symbol.toLowerCase().includes(searchTerm) ||
                     stock.Name.toLowerCase().includes(searchTerm);
 
+                const matchesSector = sector === '' || stock.Sector === sector;
+                const matchesIndustry = industry === '' || stock.Industry === industry;
                 const matchesModel = model === '' || stock.Model === model;
                 const matchesRisk = risk === '' || stock.Risk === risk;
                 const matchesRecommendation = recommendation === '' || stock.Recommendation === recommendation;
 
-                return matchesSearch && matchesModel && matchesRisk && matchesRecommendation;
+                return matchesSearch && matchesSector && matchesIndustry && matchesModel && matchesRisk && matchesRecommendation;
             });
 
             // Apply current sort to filtered data
@@ -597,18 +639,22 @@
 
             // Add event listeners
             const searchInput = document.getElementById('search');
+            const sectorSelect = document.getElementById('sector');
+            const industrySelect = document.getElementById('industry');
             const modelSelect = document.getElementById('model');
             const riskSelect = document.getElementById('risk');
             const recommendationSelect = document.getElementById('recommendation');
             const tbody = document.getElementById('stockTableBody');
 
-            if (!searchInput || !modelSelect || !riskSelect || !recommendationSelect || !tbody) {
+            if (!searchInput || !sectorSelect || !industrySelect || !modelSelect || !riskSelect || !recommendationSelect || !tbody) {
                 console.error('Required elements not found');
                 return;
             }
 
             // Attach event listeners
             searchInput.addEventListener('input', filterData);
+            sectorSelect.addEventListener('change', filterData);
+            industrySelect.addEventListener('change', filterData);
             modelSelect.addEventListener('change', filterData);
             riskSelect.addEventListener('change', filterData);
             recommendationSelect.addEventListener('change', filterData);
