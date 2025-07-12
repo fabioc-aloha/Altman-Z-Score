@@ -1,96 +1,66 @@
 # ===============================================================================
-# PRIORITY FAILED TICKERS RETRY PORTFOLIO
-# Created: July 7, 2025
-# Purpose: High-priority failed tickers from comprehensive portfolio analysis
+# HIGH PRIORITY FAILED TICKERS - RETRY PORTFOLIO
+# Most likely to succeed with proper ticker format corrections
+# ===============================================================================
+#
+# This portfolio contains failed tickers that are most likely to succeed
+# with simple ticker format corrections or exchange suffixes.
+# These are large, established companies that should have data available.
+#
+# Priority Level: HIGH (most likely to succeed)
+# Total Tickers: 20
+# Last Updated: July 12, 2025
 # ===============================================================================
 
-# HIGH-PRIORITY US BLUE CHIP STOCKS THAT FAILED
-# These are major companies that should have complete data but failed processing
-# Likely due to timeout or temporary API issues
+# ===== WARREN BUFFETT'S BERKSHIRE HATHAWAY =====
+# Try alternative ticker formats
+BRK-A
+BRK-B
 
-# TECHNOLOGY GIANTS:
-META
-TSLA
-TSM
+# ===== MAJOR INTERNATIONAL BANKS =====
+# Add proper exchange suffixes
+BNP.PA
+UBS.SW
 
-# FINANCIAL SERVICES:
-BLK
-MA
-V
-BK
-C
+# ===== MAJOR MINING COMPANIES =====
+# Canadian and Australian exchanges
+ABX.TO
+CBA.AX
 
-# HEALTHCARE & PHARMA:
-TMO
-UNH
-BNTX
-BMY
+# ===== EUROPEAN BLUE CHIPS =====
+# Major European companies with proper exchange suffixes
+BAE.L
+LLOY.L
+ING.AS
+ENEL.MI
+IBE.MC
 
-# CONSUMER & RETAIL:
-TGT
-LOW
-MCD
-TJX
-
-# INDUSTRIAL & AEROSPACE:
-LMT
-CAT
-MMM
-LIN
-
-# COMMUNICATION & TELECOM:
-TMUS
-
-# TRAVEL & LOGISTICS:
-UBER
-UPS
-BKNG
-
-# ENERGY:
-LNG
-
-# SOFTWARE & CLOUD:
-MNDY
-
-# Additional timeout cases worth retrying:
-BILI
-BMA
-BMO
-BNS
-BSX
-BVN
-BX
-BYD
-C6L.SI
-CB
-CBRE
-CEG
-CEVA
-CHKP
-CHPT
-LCID
-LHX
-LI
-LRCX
-LRLCY
-LTM
-LVMUY
-MARA
-MET
-MFG
+# ===== MAJOR INDUSTRIAL COMPANIES =====
+# These should have data available
+ECL
+FCX
 MLM
-MPC
-MPLX
-MPWR
-TEO
-TEVA
-TME
-TROW
-TRV
-UBS
-UGP
-UL
-UMC
-UNM
-URI
-USWS
+
+# ===== CANADIAN UTILITIES =====
+# Try with Toronto exchange suffix
+FTS.TO
+EMA.TO
+
+# ===== ALTERNATIVE ENERGY/MINING =====
+# Gold mining alternatives
+GOLD
+VEDL
+
+# ===== CONSUMER GOODS =====
+# Major consumer companies
+NESN.SW
+
+# ===============================================================================
+# RETRY INSTRUCTIONS:
+# 
+# 1. Run these first as they have the highest probability of success
+# 2. International stocks now include proper exchange suffixes
+# 3. Alternative ticker formats provided for US stocks
+# 4. Focus on large-cap, established companies with good data availability
+# 5. If these succeed, proceed with the full failed_tickers_retry.txt portfolio
+# ===============================================================================

@@ -1,290 +1,89 @@
 # ===============================================================================
 # FAILED TICKERS RETRY PORTFOLIO
-# Created: July 7, 2025
-# Purpose: Retry analysis for tickers that failed in comprehensive portfolio run
+# Tickers that failed processing during comprehensive analysis runs
 # ===============================================================================
-
-# PORTFOLIO OVERVIEW
-# ===============================================================================
-# This portfolio contains tickers that failed during the comprehensive portfolio
-# analysis run. These failures were due to various issues including:
-# - Timeout errors (10+ minute processing)
-# - Invalid ticker symbols
-# - Data availability issues
-# - API connectivity problems
 # 
-# Total Failed Tickers: 105 (from 355 total processed)
-# Success Rate of Original Run: 70.4%
+# This portfolio contains tickers that encountered processing errors during 
+# previous analysis runs. Common failure reasons include:
+# - Invalid ticker symbols or delisted companies
+# - Market data unavailable
+# - API connection issues
+# - Different ticker formats for international stocks
+# - Companies with insufficient financial data
+#
+# Total Failed Tickers: 47
+# Last Updated: July 12, 2025
 # ===============================================================================
 
-# RETRY STRATEGY
-# ===============================================================================
-# 1. Process with shorter timeout (5 minutes instead of 10)
-# 2. Use single-threaded processing for stability
-# 3. Skip problematic international tickers
-# 4. Focus on US-listed securities first
-# ===============================================================================
-
-# ===============================================================================
-# CATEGORY 1: TIMEOUT ERRORS (10+ minutes processing time)
-# These tickers exceeded the 10-minute timeout threshold
-# Recommendation: Retry with reduced quarters (4 instead of 8)
-# ===============================================================================
-
-# Major timeout cases (600+ seconds):
-BILI
-BK
-BKNG
-BLK
-BMA
-BMO
-BMY
-BNPQY
-BNS
-BNTX
-BSX
-BVN
-BX
-BYD
-C
-C6L.SI
-CAT
-CB
-CBRE
-CEG
-CEVA
-CHKP
-CHPT
-LCID
-LHX
-LI
-LIN
-LMT
-LNG
-LOW
-LRCX
-LRLCY
-LTM
-LVMUY
-MA
-MARA
-MET
-MCD
-META
-MFG
-MLM
-MMM
-MNDY
-MPC
-MPLX
-MPWR
-TEO
-TEVA
-TGT
-TJX
-TM
-TME
-TMO
-TMUS
-TROW
-TRV
-TSLA
-TSM
-UBER
-UBS
-UGP
-UL
-UMC
-UNH
-UNM
-UPS
-URI
-USWS
-V
-
-# ===============================================================================
-# CATEGORY 2: QUICK FAILURES (< 30 seconds)
-# These tickers failed quickly, likely due to invalid symbols or data issues
-# Recommendation: Verify ticker symbols and try with --force flag
-# ===============================================================================
-
-# Invalid or delisted tickers:
+# ===== TICKER SYMBOL ISSUES - INTERNATIONAL STOCKS =====
+# These may need correct exchange suffixes or alternative ticker formats
 ABX
-APRN
 BAE
-BMWYY
 BNP
-BRK.B
 BRK.A
-CBD
+BRK.B
 CBA
-DDAIF
+BMWYY
+ING
+LLOY
+UNI
+
+# ===== DELISTED OR INACTIVE COMPANIES =====
+# These companies may have been delisted, acquired, or ceased trading
+APRN
+EXPR
+GNUS
+PROG
+TELL
+WKHS
+
+# ===== PENNY STOCKS AND MICRO CAPS =====
+# These may have limited data availability or liquidity issues
 DWAC
-EMA
+FSR
+NKLA
+USWS
+VLCN
+
+# ===== INTERNATIONAL STOCKS NEEDING VERIFICATION =====
+# These may need alternative ticker formats or exchange specifications
+DDAIF
+EDF
 ENEL
 ERICB
-EXPR
-FISV
-FSR
-GNUS
-HEAR
+FTS
 IBE
-KWEB
-LBPH
-LENB
-LLOY
-LSEG
 NESN
-NKLA
 NTT
-PCTI
-PROG
 RWE
-SQ
-TELL
-UNI
+VOLVY
+
+# ===== CRYPTOCURRENCY AND ALTERNATIVE INVESTMENTS =====
+# These may have data availability issues
+KWEB
+MSTR
+
+# ===== ADDITIONAL FAILURES FROM RECENT RUNS =====
+# Based on error logs and missing output directories
+ECL
+EMA
+FCX
+GOLD
+HEAR
+LBPH
+MLM
+NOG
+NVAX
+OCGN
 VEDL
-VOLVY
 
 # ===============================================================================
-# CATEGORY 3: PRIORITY RETRY LIST (US BLUE CHIPS)
-# High-value tickers that should work but failed - retry first
+# RETRY STRATEGY RECOMMENDATIONS:
+# 
+# 1. International Stocks: Try with proper exchange suffixes (.L, .PA, .TO, etc.)
+# 2. Delisted Companies: Verify current trading status and alternative tickers
+# 3. ADRs: Check if trading under different symbols or have been delisted
+# 4. Penny Stocks: Verify current trading status and market cap requirements
+# 5. Alternative Formats: Try variations like BRK-A instead of BRK.A
+# 6. Manual Verification: Check current trading status on financial websites
 # ===============================================================================
-
-# Financial Services:
-BK
-BLK
-MA
-V
-C
-JPM
-
-# Technology:
-META
-TSLA
-TSM
-
-# Healthcare:
-TMO
-UNH
-
-# Consumer:
-TGT
-LOW
-MCD
-
-# Industrial:
-LMT
-CAT
-MMM
-
-# ===============================================================================
-# CATEGORY 4: INTERNATIONAL TICKERS (LOWER PRIORITY)
-# These may have data availability issues due to exchange differences
-# ===============================================================================
-
-# Hong Kong:
-C6L.SI
-
-# European:
-BNPQY
-NESN
-VOLVY
-RWE
-
-# Asian:
-BYD
-BILI
-
-# ===============================================================================
-# RETRY COMMANDS
-# ===============================================================================
-
-# Quick retry with reduced parameters:
-# python main.py --portfolio-file .\portfolios\failed_tickers_retry.txt --quarters 4 --timeout 5
-
-# Single ticker testing:
-# python main.py META --quarters 4
-# python main.py TSLA --quarters 4
-# python main.py BLK --quarters 4
-
-# Priority list only:
-# python main.py --portfolio-file .\portfolios\failed_tickers_priority.txt --quarters 4 --single-threaded
-
-# ===============================================================================
-# NOTES FOR DEBUGGING
-# ===============================================================================
-# 1. Many timeout errors suggest API rate limiting or network issues
-# 2. Quick failures (< 30s) are likely invalid tickers or data unavailability
-# 3. Some tickers may need --force flag to bypass validation
-# 4. Consider running during off-peak hours for better API performance
-# 5. International tickers may need special handling for exchange codes
-# ===============================================================================
-
-# STARTING WITH HIGH-PRIORITY US TICKERS ONLY:
-
-# Core Technology:
-META
-TSLA
-
-# Financial Services:
-BLK
-MA
-V
-
-# Healthcare & Pharma:
-TMO
-UNH
-
-# Consumer & Retail:
-TGT
-LOW
-MCD
-
-# Industrial:
-LMT
-CAT
-MMM
-
-# Additional Technology:
-TSM
-
-# Banking:
-BK
-C
-
-# Energy & Materials:
-LNG
-
-# Communication:
-TMUS
-
-# Travel & Transport:
-UBER
-UPS
-
-# Software & Cloud:
-BKNG
-MNDY
-
-# Biotech & Pharma:
-BNTX
-BMY
-
-# Aerospace & Defense:
-LIN
-RTX
-
-# Retail & Consumer:
-TJX
-LOW
-
-# Entertainment & Media:
-DIS
-
-# Additional high-value tickers to retry:
-AAPL
-MSFT
-GOOGL
-AMZN
-NVDA

@@ -218,6 +218,10 @@ def is_bankrupt_company(ticker: str) -> bool:
     """
     Check if company is bankrupt using Yahoo Finance data.
     
+    Note: Only returns True for actual bankruptcy, not delisting.
+    Many international stocks appear "delisted" when searched without 
+    proper exchange suffixes (e.g., IBE vs IBE.MC).
+    
     Args:
         ticker: Stock ticker symbol
         
@@ -225,7 +229,7 @@ def is_bankrupt_company(ticker: str) -> bool:
         True if bankruptcy indicators found, False otherwise
     """
     health_status = get_company_health_status(ticker)
-    return health_status['is_bankrupt'] or health_status['is_delisted']
+    return health_status['is_bankrupt']
 
 
 def clear_health_cache() -> int:

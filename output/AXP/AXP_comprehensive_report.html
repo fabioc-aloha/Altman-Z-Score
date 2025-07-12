@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - AXP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .glossary-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #4169e1;
+            margin-top: 40px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .glossary-category {
+            margin-bottom: 30px;
+        }
+
+        .glossary-category h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .glossary-columns {
+            columns: 3;
+            column-gap: 30px;
+            orphans: 1;
+            widows: 1;
+        }
+
+        @media (max-width: 1200px) {
+            .glossary-columns {
+                columns: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .glossary-columns {
+                columns: 1;
+            }
+        }
+
+        .glossary-item {
+            break-inside: avoid;
+            page-break-inside: avoid;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .glossary-item h4 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+
+        .glossary-item p {
+            margin-top: 0;
+            font-size: 0.85em;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #666;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>American Express Company (AXP)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 12, 2025 at 11:02 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="AXP_logo.png" alt="American Express Company Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High PEG ratio - expensive growth</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="AXP_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
+                <p>Your browser does not support iframes.
+                    <a href="AXP_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-high">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.19</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Gray Zone</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">financial</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Modified Z-Score for financial institutions</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.10 - 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.10 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$$319.47</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$$223.8B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>22.3</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>30.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>69.5</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>1.33</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.96</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-28.8%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>6.6/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <div class="section warning">
+        <h2>Warnings & Notes</h2>
+        <ul>
+            
+            <li>Financial institutions may not be suitable for Z-Score analysis</li>
+            
+        </ul>
+    </div>
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> American Express Company (AXP)<br />
+<strong>Analysis Date:</strong> 2025-07-12 11:01:17  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>American Express (AXP) currently resides in the <strong>Gray Zone</strong> with a latest quarter Altman Z-Score of <strong>1.194</strong>, indicating elevated financial distress risk but not yet in critical danger. The Z-Score trajectory over the past eight quarters shows volatility with a low of <strong>0.930</strong> (Distress Zone) and a high of <strong>1.439</strong> (Gray Zone), reflecting ongoing financial challenges and operational pressures.</p>
+<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>elevated</strong>, with a trajectory suggesting persistent vulnerability in liquidity and operational efficiency. The <strong>AI Peer Analysis</strong> positions AXP below the industry average Z-Score (not explicitly provided but implied to be above 1.5 for Financial - Credit Services), indicating weaker relative financial health compared to peers such as Visa (V) and Mastercard (MA). This relative positioning signals competitive pressure and potential market share risks.</p>
+<p><strong>AI Sentiment Analysis</strong> metrics are limited due to data gaps (e.g., zero RSI, zero volume), but the reported <strong>Dividend Yield of 103.00%</strong> is anomalous and likely reflects data anomalies, reducing confidence in market sentiment signals. The <strong>AI Data Quality Assessment</strong> flags critical anomalies in market data (zero volume, zero price ranges), which lowers confidence in technical indicators and valuation multiples.</p>
+<p><strong>Forecast Analysis</strong> data is unavailable for Z-Score projections, limiting forward-looking confidence. However, the current financial ratios and Z-Score trend suggest a cautious stance with potential for recovery if operational improvements occur.</p>
+<hr />
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<table>
+<thead>
+<tr>
+<th>Metric Category</th>
+<th>Key Value(s)</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Z-Score</td>
+<td>1.194 (Gray Zone)</td>
+<td>Elevated distress risk</td>
+</tr>
+<tr>
+<td>Z-Score Range (8 quarters)</td>
+<td>0.930 - 1.439</td>
+<td>Volatile, mostly Gray Zone</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$223.8B</td>
+<td>Large-cap financial services firm</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$319.47</td>
+<td>Stable price (data anomalies noted)</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>-0.387</td>
+<td>Negative liquidity indicator</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.083</td>
+<td>Low retained earnings relative to assets</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.012</td>
+<td>Very low operating profitability</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.067</td>
+<td>Low operational efficiency</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>103.00% (likely anomaly)</td>
+<td>Data anomaly, not reliable</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Conservative investors:</strong> Recommend <strong>HOLD</strong> with close monitoring due to Gray Zone risk and weak liquidity.</li>
+<li><strong>Growth investors:</strong> Recommend <strong>WAIT</strong> for clearer operational improvements and Z-Score stabilization above 1.8.</li>
+<li><strong>Aggressive investors:</strong> May consider <strong>SPECULATIVE BUY</strong> on dips if operational turnaround catalysts emerge, but risk is high.</li>
+<li><strong>Dividend investors:</strong> Caution due to anomalous dividend yield data; verify actual payout sustainability before commitment.</li>
+</ul>
+<p>Forward-looking Z-Score trajectory is uncertain; without forecast data, a wait-and-see approach is prudent until liquidity and profitability metrics improve.</p>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark*</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: N/A<br>Working Capital Ratio: -0.387</td>
+<td>Industry avg. ~1.0+</td>
+<td><strong>Weak liquidity; negative working capital ratio signals cash flow stress</strong></td>
+<td>Declining/Weak</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A<br>Interest Coverage: N/A</td>
+<td>Industry avg. moderate leverage</td>
+<td>Data unavailable; leverage risk unknown but likely elevated given Z-Score</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.067<br>EBIT Ratio: 0.012</td>
+<td>Industry avg. ~0.2-0.3</td>
+<td><strong>Very low asset utilization and EBIT margin; operational inefficiency</strong></td>
+<td>Declining/Weak</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.083</td>
+<td>Industry avg. ~0.15-0.25</td>
+<td><strong>Low retained earnings relative to assets; limited internal capital</strong></td>
+<td>Stable/Weak</td>
+</tr>
+</tbody>
+</table>
+<p>*Industry benchmarks approximate for Financial - Credit Services sector.</p>
+<hr />
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li>
+<p><strong>Liquidity Position:</strong> The working capital ratio of <strong>-0.387</strong> is significantly below industry norms, indicating that current liabilities exceed current assets, a red flag for short-term financial health. This aligns with the AI Risk Analysis highlighting liquidity stress as a top risk factor. The absence of a current ratio figure limits full liquidity assessment but the negative working capital ratio is a strong cautionary signal.</p>
+</li>
+<li>
+<p><strong>Leverage Management:</strong> Lack of explicit debt-to-equity and interest coverage data constrains leverage risk evaluation. However, the low EBIT ratio (<strong>0.012</strong>) suggests limited earnings to cover interest expenses, potentially increasing financial risk.</p>
+</li>
+<li>
+<p><strong>Operational Efficiency:</strong> Asset turnover at <strong>0.067</strong> is markedly below typical financial services benchmarks, indicating inefficient use of assets to generate revenue. The EBIT ratio of <strong>0.012</strong> (1.2%) reflects very thin operating margins, consistent with the Z-Score's Gray Zone classification.</p>
+</li>
+<li>
+<p><strong>Financial Stability:</strong> Retained earnings ratio of <strong>0.083</strong> is low, suggesting limited reinvested earnings to support growth or buffer losses. This may constrain long-term stability and capital adequacy.</p>
+</li>
+<li>
+<p><strong>AI Data Quality Assessment:</strong> The presence of anomalies in market data (zero volume, zero price ranges) introduces uncertainty in valuation metrics and market sentiment interpretation, reducing confidence in some financial health indicators.</p>
+</li>
+<li>
+<p><strong>Sector Context:</strong> As a major player in Financial - Credit Services, operational efficiency and liquidity are critical. The current metrics suggest AXP is underperforming relative to sector peers, necessitating strategic focus on improving cash flow and profitability.</p>
+</li>
+</ul>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q0)</td>
+<td>1.194</td>
+<td>Gray Zone</td>
+<td>Weak liquidity, low EBIT</td>
+<td>Ongoing operational challenges, liquidity stress</td>
+</tr>
+<tr>
+<td>Q1 (Previous)</td>
+<td>0.930</td>
+<td>Distress</td>
+<td>Further decline in liquidity</td>
+<td>Possible short-term cash flow issues</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>1.263</td>
+<td>Gray Zone</td>
+<td>Slight recovery in operations</td>
+<td>Temporary operational improvements</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>1.439</td>
+<td>Gray Zone</td>
+<td>Improved EBIT, working capital</td>
+<td>Business stabilization efforts</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>1.421</td>
+<td>Gray Zone</td>
+<td>Stable but weak fundamentals</td>
+<td>Continued pressure on profitability</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>1.250</td>
+<td>Gray Zone</td>
+<td>Declining asset turnover</td>
+<td>Operational inefficiencies resurfacing</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>1.284</td>
+<td>Gray Zone</td>
+<td>Marginal improvement</td>
+<td>Minor operational adjustments</td>
+</tr>
+<tr>
+<td>Q7</td>
+<td>1.267</td>
+<td>Gray Zone</td>
+<td>Stable but low margins</td>
+<td>No significant turnaround</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="commentary_1">Commentary</h3>
+<ul>
+<li>The Z-Score trend shows <strong>persistent Gray Zone status</strong>, with a single quarter dipping into the Distress Zone (<strong>0.930</strong>), indicating episodic financial stress.</li>
+<li>The latest quarter Z-Score of <strong>1.194</strong> reflects a <strong>decline from prior quarters</strong> (e.g., 1.439 and 1.421), suggesting deteriorating financial health.</li>
+<li>Key drivers include <strong>negative working capital ratio</strong> and <strong>very low EBIT ratio</strong>, which have consistently pressured the Z-Score.</li>
+<li>The lack of component data limits granular attribution, but the trend correlates with operational challenges in the Financial Services sector, including credit risk and capital management.</li>
+<li>Compared to the implied industry average Z-Score above 1.5, AXP is <strong>underperforming peers</strong>, signaling competitive and financial vulnerabilities.</li>
+</ul>
+<hr />
+<h2 id="4-forward-looking-z-score-intelligence-forecast-analysis">4. Forward-Looking Z-Score Intelligence &amp; Forecast Analysis</h2>
+<p><strong>Note:</strong> Forecast Z-Score projections and scenario data are not provided in the injected data, limiting quantitative forward-looking analysis.</p>
+<hr />
+<h3 id="qualitative-forecast-commentary">Qualitative Forecast Commentary</h3>
+<ul>
+<li>Given the current Z-Score of <strong>1.194</strong> and recent downward trend, the <strong>base case scenario</strong> likely projects continued Gray Zone status with risk of slipping into Distress without operational improvements.</li>
+<li>Key forecast drivers would include:</li>
+<li><strong>Working Capital Ratio:</strong> Currently negative at <strong>-0.387</strong>, improvement here is critical for Z-Score recovery.</li>
+<li><strong>Retained Earnings Ratio:</strong> At <strong>0.083</strong>, modest growth expected if profitability improves.</li>
+<li><strong>EBIT Ratio:</strong> Very low at <strong>0.012</strong>, operational leverage and cost control are essential.</li>
+<li><strong>Asset Turnover:</strong> Low at <strong>0.067</strong>, requiring strategic asset utilization enhancements.</li>
+<li>Forecast confidence is <strong>low to medium</strong> due to data anomalies and lack of explicit forecast data.</li>
+<li>Key catalysts for improvement include:</li>
+<li>Enhanced credit risk management.</li>
+<li>Revenue growth in Global Consumer and Commercial Services.</li>
+<li>Cost optimization initiatives.</li>
+<li>Risks include macroeconomic credit environment deterioration and competitive pressures.</li>
+</ul>
+<hr />
+<h2 id="5-market-intelligence-validation-analysis">5. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Current Z-Score Signal</th>
+<th>Forecast Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Declining Gray Zone (1.194)</td>
+<td>Uncertain (No forecast)</td>
+<td>Price stable at $319.47, but data anomalies present</td>
+<td>Divergent</td>
+<td>Market may underprice risk</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>N/A (Data anomaly)</td>
+<td>N/A</td>
+<td>Dividend yield anomaly (103%) undermines confidence</td>
+<td>Inconsistent</td>
+<td>Sentiment signals unreliable</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Below industry avg.</td>
+<td>N/A</td>
+<td>Sector performance stable</td>
+<td>Underperforming</td>
+<td>Competitive disadvantage</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li>The <strong>current Z-Score of 1.194</strong> signals financial stress not fully reflected in the stable stock price of <strong>$319.47</strong>, suggesting a potential disconnect between fundamentals and market pricing.</li>
+<li>Market technical indicators (RSI, volume, moving averages) are zero or missing, indicating <strong>data quality issues</strong> that limit market timing analysis.</li>
+<li>The anomalous <strong>103% dividend yield</strong> is likely a data error, reducing reliability of dividend-based valuation or income strategies.</li>
+<li>Peer comparison suggests AXP is <strong>underperforming sector peers</strong>, which may not be fully priced in by the market.</li>
+<li>Investors should exercise caution and seek corroborating data before making timing decisions.</li>
+</ul>
+<hr />
+<h2 id="6-risk-stratification-scenario-framework">6. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Current Probability</th>
+<th>Forecast Impact (1-2 Years)</th>
+<th>Severity</th>
+<th>Impact on Current Z-Score</th>
+<th>Impact on Forecast Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>High</td>
+<td>Moderate to High</td>
+<td>Critical</td>
+<td>Significant downward pressure</td>
+<td>Potential further decline</td>
+<td>Cost control, process optimization</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>Medium</td>
+<td>High</td>
+<td>Critical</td>
+<td>Liquidity stress lowers Z-Score</td>
+<td>Risk of Distress Zone entry</td>
+<td>Strengthen liquidity, debt management</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Moderate</td>
+<td>Market volatility affects valuation</td>
+<td>May delay recovery</td>
+<td>Hedging, diversification</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li><strong>Operational risks</strong> dominate, with low EBIT and asset turnover threatening ongoing viability.</li>
+<li><strong>Financial risks</strong> include negative working capital and thin profitability, increasing bankruptcy risk if unaddressed.</li>
+<li><strong>Market risks</strong> are moderate but compounded by data anomalies and uncertain investor sentiment.</li>
+<li>Scenario analysis (not provided) would likely show best case as stabilization near 1.4 Z-Score, base case as continued Gray Zone around 1.1-1.2, and worst case as decline below 1.0 (Distress Zone).</li>
+<li>Mitigation requires aggressive operational turnaround and liquidity management.</li>
+</ul>
+<hr />
+<h2 id="7-investment-profile-recommendations">7. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Current Z-Score Evidence</th>
+<th>Forecast Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>HOLD</td>
+<td>Z-Score 1.194 in Gray Zone indicates risk</td>
+<td>Forecast uncertain; no clear improvement</td>
+<td>Wait for Z-Score &gt;1.8</td>
+<td>Monitor quarterly results</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>HOLD</td>
+<td>Dividend yield data unreliable; payout sustainability questionable</td>
+<td>Forecast earnings weak; caution advised</td>
+<td>Avoid entry until clarity</td>
+<td>Review payout announcements</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>WAIT</td>
+<td>Valuation metrics incomplete; Z-Score below safe threshold</td>
+<td>Potential value if turnaround occurs</td>
+<td>Entry on Z-Score recovery</td>
+<td>6-12 months horizon</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>WAIT</td>
+<td>Low EBIT and asset turnover limit growth prospects</td>
+<td>Growth contingent on operational improvements</td>
+<td>Post-turnaround entry</td>
+<td>12+ months horizon</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>SPECULATIVE BUY</td>
+<td>High risk with Z-Score near distress; potential upside if turnaround</td>
+<td>High volatility expected</td>
+<td>Opportunistic buy on dips</td>
+<td>Short-term tactical plays</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li>Conservative and dividend investors should <strong>hold</strong> and monitor for signs of financial stabilization.</li>
+<li>Value and growth investors should <strong>wait</strong> for clearer evidence of operational and liquidity improvements.</li>
+<li>Aggressive investors may consider <strong>speculative buys</strong> on price weakness, accepting elevated risk for potential recovery gains.</li>
+<li>All investors should closely track quarterly Z-Score updates and liquidity metrics.</li>
+</ul>
+<hr />
+<h2 id="8-strategic-business-intelligence">8. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Current Metrics</th>
+<th>Forecast Targets</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Operational turnaround</td>
+<td>Z-Score 1.194, EBIT Ratio 0.012</td>
+<td>Z-Score &gt;1.8, EBIT &gt;0.05</td>
+<td>Enhance credit risk management, cost control</td>
+<td>Quarterly Z-Score improvement, EBIT growth</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Liquidity &amp; capital structure</td>
+<td>Working Capital Ratio -0.387</td>
+<td>Positive working capital</td>
+<td>Improve cash flow, manage debt levels</td>
+<td>Positive working capital, stable liquidity ratios</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Elevated risk profile</td>
+<td>Risk reduction</td>
+<td>Strengthen governance, monitor risk metrics</td>
+<td>Reduced risk incidents, compliance adherence</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="commentary_5">Commentary</h3>
+<ul>
+<li>CEO must prioritize operational efficiency and profitability improvements to drive Z-Score recovery.</li>
+<li>CFO should focus on liquidity restoration and prudent capital allocation to mitigate financial risks.</li>
+<li>Board oversight is critical to ensure risk management frameworks address elevated distress signals.</li>
+<li>Alignment of strategic initiatives with forecast Z-Score targets is essential for sustainable recovery.</li>
+</ul>
+<hr />
+<h2 id="9-forward-looking-intelligence-framework">9. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Status</th>
+<th>Forecast Trajectory</th>
+<th>Timeline Projections</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Evolution</td>
+<td>1.194 (Gray Zone)</td>
+<td>Potential stabilization or decline</td>
+<td>Quarterly milestones over next 2 years</td>
+<td>Operational improvements, credit environment</td>
+<td>Quarterly Z-Score, EBIT margin</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Below industry average</td>
+<td>Possible recovery with turnaround</td>
+<td>12-24 months</td>
+<td>Market share gains, product innovation</td>
+<td>Market share, revenue growth</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Elevated</td>
+<td>Risk reduction with mitigation</td>
+<td>6-18 months</td>
+<td>Liquidity improvement, cost control</td>
+<td>Working capital ratio, debt levels</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="forecast-confidence-scenario-planning">Forecast Confidence &amp; Scenario Planning</h3>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Probability</th>
+<th>Z-Score Range (FY1 - FY2)</th>
+<th>Timeline</th>
+<th>Key Assumptions</th>
+<th>Success Indicators</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Optimistic</td>
+<td>25%</td>
+<td>1.5 - 2.0</td>
+<td>FY2025 - FY2026</td>
+<td>Operational turnaround, improved liquidity</td>
+<td>Z-Score &gt;1.8, positive EBIT growth</td>
+</tr>
+<tr>
+<td>Base Case</td>
+<td>50%</td>
+<td>1.1 - 1.3</td>
+<td>FY2025 - FY2026</td>
+<td>Status quo with minor improvements</td>
+<td>Stable Z-Score, controlled losses</td>
+</tr>
+<tr>
+<td>Pessimistic</td>
+<td>25%</td>
+<td>&lt;1.0</td>
+<td>FY2025 - FY2026</td>
+<td>Continued liquidity stress, operational decline</td>
+<td>Z-Score &lt;1.0, distress signals</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="final-commentary">Final Commentary</h3>
+<p>American Express faces significant financial stress as reflected by the current Altman Z-Score of <strong>1.194</strong> in the Gray Zone, with a downward trend and weak liquidity and profitability metrics. The absence of detailed forecast data and anomalies in market data reduce confidence in precise timing but underscore the need for operational and financial turnaround.</p>
+<p>Investors should adopt a cautious stance, with conservative profiles holding and aggressive profiles considering speculative opportunities only with close monitoring. Strategic leadership must focus on liquidity restoration, operational efficiency, and risk mitigation to improve the Z-Score trajectory and restore market confidence.</p>
+<p>Continuous monitoring of quarterly Z-Score updates, working capital ratios, and EBIT margins will be critical to validate recovery progress and adjust investment strategies accordingly.</p>
+<hr />
+<p><em>Analysis completed with explicit reference to all injected data elements and adherence to precision and consistency requirements.</em></p></div></div>
+    </div>
+    
+
+    <div class="section glossary-section">
+        <h2>Definitions & Glossary</h2>
+        <div class="glossary-category">
+            <h3>Altman Z-Score Models</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Altman Z-Score</h4>
+                    <p>A financial formula that predicts the probability of a company going bankrupt within the next 2
+                        years. Developed by Edward I. Altman in 1968.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Original Model (--model original)</h4>
+                    <p>The original Altman Z-Score model designed for publicly traded manufacturing companies. Formula:
+                        Z = 1.2X₁ + 1.4X₂ + 3.3X₃ + 0.6X₄ + 1.0X₅.
+                        Cutoffs: Safe Zone: > 2.99, gray Zone: 1.81-2.99, Distress Zone: < 1.81.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Private Company Model (--model private)</h4>
+                    <p>Adaptation for private manufacturing companies using book value instead of market value. Formula:
+                        Z' = 0.717X₁ + 0.847X₂ + 3.107X₃ + 0.420X₄ + 0.998X₅.
+                        Cutoffs: Safe Zone: > 2.9, gray Zone: 1.23-2.9, Distress Zone: < 1.23.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Service Company Model (--model service)</h4>
+                    <p>Designed for service sector and asset-light businesses without asset turnover ratio. Formula: Z''
+                        = 6.56X₁ + 3.26X₂ + 6.72X₃ + 1.05X₄.
+                        Cutoffs: Safe Zone: > 2.6, gray Zone: 1.1-2.6, Distress Zone: < 1.1.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Emerging Markets Model (--model emerging)</h4>
+                    <p>Adaptation for companies in developing economies with different accounting standards. Formula:
+                        Z'' = 6.56X₁ + 3.26X₂ + 6.72X₃ + 1.05X₄ + 3.25.
+                        Cutoffs: Safe Zone: > 5.85, gray Zone: 3.75-5.85, Distress Zone: < 3.75.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Financial Institutions Model (--model financial)</h4>
+                    <p>Adaptation for banks, insurance companies, and financial services firms. Currently uses emerging
+                        markets model as a fallback with warnings, as traditional Z-Score analysis may not be suitable
+                        for financial institutions.
+                        Cutoffs: Safe Zone: > 2.6, gray Zone: 1.1-2.6, Distress Zone: < 1.1.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Retail Industry Model (--model retail)</h4>
+                    <p>Novel project-specific model for retail companies with inventory turnover adjustments. Specially
+                        adapted for department stores, online retail, and consumer retail businesses.
+                        Based on the original model with retail-specific calculations.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Z-Score Components</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>X₁: Working Capital / Total Assets</h4>
+                    <p>Measures a company's ability to cover its short-term obligations with its short-term assets.
+                        Indicates liquidity and operational efficiency. Used in all models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₂: Retained Earnings / Total Assets</h4>
+                    <p>Measures cumulative profitability over time and the company's age. Indicates how much a company
+                        has
+                        reinvested its earnings into itself. Used in all models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₃: EBIT / Total Assets</h4>
+                    <p>Measures productivity and efficiency in generating earnings from assets, regardless of tax or
+                        leverage factors. Used in all models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₄: Market Value of Equity / Total Liabilities</h4>
+                    <p>Indicates how much the company's assets can decline in value before liabilities exceed assets and
+                        the
+                        company becomes insolvent. Used in Original model.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₄: Book Value of Equity / Total Liabilities</h4>
+                    <p>Used in Private, Service, Emerging, and Financial models to replace market value with book value.
+                        Measures long-term solvency.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₅: Sales / Total Assets</h4>
+                    <p>The asset turnover ratio that indicates how efficiently a company is using its assets to generate
+                        sales. Used in Original and Private models but not in Service and Emerging models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Constant Term</h4>
+                    <p>A constant value of 3.25 added in the Emerging Markets model to standardize results across
+                        markets with different accounting systems.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Inventory Turnover Adjustment</h4>
+                    <p>A specialized adjustment in the Retail model that accounts for the high inventory turnover and
+                        seasonal patterns common in retail businesses.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Model Selection Logic</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Industry-Based Selection</h4>
+                    <p>The system automatically selects the most appropriate Z-Score model based on the company's
+                        industry sector, public/private status, financial characteristics, and data availability.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Selection Priority</h4>
+                    <p>Selection follows a priority sequence: (1) Financial companies, (2) Emerging market companies,
+                        (3) Private companies with no market data, (4) Public companies by industry (retail, service,
+                        tech, manufacturing).</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Confidence Score</h4>
+                    <p>Each model selection includes a confidence score (0.0-1.0) indicating the reliability of the
+                        selection. Higher values indicate greater confidence in the model choice.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>AI-Enhanced Selection</h4>
+                    <p>The system uses AI analysis to classify companies and identify the optimal Z-Score model, with
+                        fallback to rule-based selection if AI is unavailable.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Manual Override</h4>
+                    <p>Users can manually force a specific model using the --model parameter in the command line
+                        interface (e.g., --model retail).</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Risk Categories</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Safe Zone</h4>
+                    <p>Companies in this zone are considered financially stable with low probability of bankruptcy.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Gray Zone</h4>
+                    <p>Companies in this zone have some financial concerns and require careful monitoring.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Distress Zone</h4>
+                    <p>Companies in this zone are at high risk of financial distress and potential bankruptcy.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Technical Analysis Indicators</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>RSI (Relative Strength Index)</h4>
+                    <p>A momentum oscillator that measures the speed and change of price movements. Values above 70
+                        indicate
+                        overbought conditions; values below 30 indicate oversold conditions.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>MACD (Moving Average Convergence Divergence)</h4>
+                    <p>A trend-following momentum indicator showing the relationship between two moving averages of a
+                        security's price.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>MACD Signal</h4>
+                    <p>A trading signal derived from the MACD indicator. Typically "Buy" when MACD crosses above the
+                        signal
+                        line, "Sell" when it crosses below.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Bollinger Bands (BB)</h4>
+                    <p>A technical analysis tool that consists of a set of lines plotted two standard deviations away
+                        from a
+                        simple moving average of the security's price.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>BB Signal</h4>
+                    <p>A trading signal derived from Bollinger Bands, typically indicating overbought/oversold
+                        conditions
+                        when price touches the upper/lower bands.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Momentum</h4>
+                    <p>A measurement of the rate of change in security prices. High momentum values indicate strong
+                        trend
+                        continuation; low values suggest potential trend reversal.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Valuation Metrics</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>P/E (Price-to-Earnings Ratio)</h4>
+                    <p>A valuation metric that compares a company's current share price to its earnings per share (EPS).
+                        Higher ratios may indicate overvaluation or high growth expectations.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>P/B (Price-to-Book Ratio)</h4>
+                    <p>A valuation ratio comparing a company's market price to its book value per share. Lower ratios
+                        may
+                        indicate undervaluation.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>P/S (Price-to-Sales Ratio)</h4>
+                    <p>A valuation ratio that compares a company's stock price to its revenues. Lower ratios typically
+                        suggest better value.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>EV/EBITDA</h4>
+                    <p>Enterprise Value to Earnings Before Interest, Taxes, Depreciation, and Amortization. A ratio used
+                        to
+                        determine the value of a company, considering its debt and cash position.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Market Cap</h4>
+                    <p>The total market value of a company's outstanding shares, calculated by multiplying share price
+                        by
+                        the number of shares outstanding.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Performance Metrics</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>1D (One Day Return)</h4>
+                    <p>The percentage change in a security's price over the most recent trading day.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>1W (One Week Return)</h4>
+                    <p>The percentage change in a security's price over the most recent trading week.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>1M (One Month Return)</h4>
+                    <p>The percentage change in a security's price over the most recent month.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>3M (Three Month Return)</h4>
+                    <p>The percentage change in a security's price over the most recent three months.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>6M (Six Month Return)</h4>
+                    <p>The percentage change in a security's price over the most recent six months.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>1Y (One Year Return)</h4>
+                    <p>The percentage change in a security's price over the most recent year.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Risk Metrics</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Beta</h4>
+                    <p>A measure of a stock's volatility in relation to the overall market. A beta greater than 1
+                        indicates
+                        above-average volatility.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Sharpe Ratio</h4>
+                    <p>Measures risk-adjusted return. Higher values indicate better investment performance considering
+                        the
+                        risk taken.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Max Drawdown</h4>
+                    <p>The maximum observed loss from a peak to a trough of a portfolio or fund before a new peak is
+                        attained.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Volatility Risk</h4>
+                    <p>The rate at which the price of a security increases or decreases over a particular period. Higher
+                        volatility means higher risk.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Financial Statement Terms</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>EBIT (Earnings Before Interest and Taxes)</h4>
+                    <p>A measure of a company's operating profit that excludes interest and income tax expenses.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>EBITDA</h4>
+                    <p>Earnings Before Interest, Taxes, Depreciation, and Amortization. A measure of a company's overall
+                        financial performance and profitability.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Working Capital</h4>
+                    <p>The difference between a company's current assets and current liabilities, representing the
+                        capital available for daily operations.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Investment Recommendations</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Strong Buy</h4>
+                    <p>A recommendation indicating that analysts expect the stock to significantly outperform the market
+                        average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Buy</h4>
+                    <p>A recommendation indicating that analysts expect the stock to outperform the market average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Hold</h4>
+                    <p>A recommendation indicating that analysts expect the stock to perform in line with the market
+                        average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Sell</h4>
+                    <p>A recommendation indicating that analysts expect the stock to underperform the market average.
+                    </p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Strong Sell</h4>
+                    <p>A recommendation indicating that analysts expect the stock to significantly underperform the
+                        market
+                        average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Confidence Level</h4>
+                    <p>A numerical expression (usually as a percentage) indicating the degree of certainty in an
+                        investment
+                        recommendation or analysis.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
+    <footer>
+        <p>Generated on July 12, 2025 at 11:02 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
+
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
+
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
+            }
+        }
+
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
+
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
+
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
+    </script>
+</body>
+
+</html>
