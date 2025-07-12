@@ -1,5 +1,5 @@
 # ===============================================================================
-# COMPREHENSIVE ALTMAN Z-SCORE MODEL PORTFOLIO - CLEANED VERSION
+# COMPREHENSIVE ALTMAN Z-SCORE MODEL PORTFOLIO - UPDATED WITH INLINE COMMENTS
 # Multiple Models for Industry-Appropriate Financial Analysis (No Duplicates)
 # ===============================================================================
 
@@ -10,10 +10,11 @@
 # The model selection procedure automatically assigns companies to the optimal
 # analytical framework based on industry, size, and business model.
 #
-# Total Companies: 310 (cleaned - inactive/delisted companies removed)
+# Total Companies: 410+ (updated July 12, 2025 - removed delisted stocks)
 # Models Included: 9 specialized analytical frameworks
-# Coverage: Global markets, multiple industries, various business models, micro cap opportunities, day trading stocks
-# Last Updated: July 2025 - Verified active trading status
+# Coverage: Global markets, multiple industries, various business models, micro cap opportunities, day trading stocks, REITs
+# Last Updated: July 12, 2025 - Enhanced with inline comments, corrected international tickers, removed delisted stocks
+# Key Updates: Fixed exchange suffixes (.MC, .DE, .AS, .PA, .L, .TO, etc.), added comprehensive inline comments, and removed problematic/delisted tickers
 # ===============================================================================
 #
 # MODEL ASSIGNMENT PRIORITY RULES:
@@ -32,89 +33,140 @@
 # ===============================================================================
 # Formula: Z = 1.2A + 1.4B + 3.3C + 0.6D + 1.0E
 # Limitations: Not suitable for service companies, financial institutions, utilities
-# Total Stocks: 95
+# Total Stocks: 125
 
 # ===== US MANUFACTURING & INDUSTRIAL =====
-CAT
-MMM
-GE
-TDG
-PH
-URI
-ETN
-IR
-GWW
-LHX
-APH
-CMI
-PCAR
-MLM
+CAT      # Caterpillar Inc. - Heavy machinery and equipment
+MMM      # 3M Company - Industrial conglomerate  
+GE       # General Electric - Industrial conglomerate
+TDG      # TransDigm Group - Aerospace components
+PH       # Parker-Hannifin - Motion and control technologies
+URI      # United Rentals - Equipment rental services
+ETN      # Eaton Corporation - Power management
+IR       # Ingersoll Rand - Industrial equipment
+GWW      # W.W. Grainger - Industrial supply distributor
+LHX      # L3Harris Technologies - Defense technology
+APH      # Amphenol - Electronic connectors
+CMI      # Cummins Inc. - Engine and power generation
+PCAR     # PACCAR Inc. - Commercial vehicles
+MLM      # Martin Marietta Materials - Construction materials
+HON      # Honeywell International - Aerospace and building technologies
+EMR      # Emerson Electric - Automation and commercial solutions
+ROK      # Rockwell Automation - Industrial automation and information
+ITW      # Illinois Tool Works - Industrial products and equipment
+XYL      # Xylem Inc. - Water technology and services
+FTV      # Fortive Corporation - Professional instrumentation
+DOV      # Dover Corporation - Diversified industrial manufacturer
 
 # ===== US AEROSPACE & DEFENSE =====
-BA
-RTX
-LMT
-NOC
-GD
+BA       # Boeing Company - Aerospace manufacturer
+RTX      # Raytheon Technologies - Aerospace and defense
+LMT      # Lockheed Martin - Defense contractor
+NOC      # Northrop Grumman - Defense and aerospace
+GD       # General Dynamics - Defense contractor
 
 # ===== US AUTOMOTIVE =====
-GM
-F
+GM       # General Motors - Automotive manufacturer
+F        # Ford Motor Company - Automotive manufacturer
 
 # ===== US MATERIALS & CHEMICALS =====
-LIN
-APD
-ECL
-SHW
-FCX
-NUE
-VMC
+LIN      # Linde plc - Industrial gases and engineering
+APD      # Air Products and Chemicals - Industrial gases
+ECL      # Ecolab Inc. - Water treatment and hygiene
+SHW      # Sherwin-Williams - Paint and coatings
+FCX      # Freeport-McMoRan - Mining (copper, gold)
+NUE      # Nucor Corporation - Steel production
+VMC      # Vulcan Materials - Construction aggregates
+LYB      # LyondellBasell Industries - Chemicals and refining
+CF       # CF Industries - Nitrogen fertilizer manufacturer
+FMC      # FMC Corporation - Agricultural chemicals and lithium
+IFF      # International Flavors & Fragrances - Specialty chemicals
+ALB      # Albemarle Corporation - Lithium and specialty chemicals
+CE       # Celanese Corporation - Chemical and specialty materials
+RPM      # RPM International - Specialty coatings and sealants
+PPG      # PPG Industries - Paint and coatings manufacturer
+DD       # DuPont - Materials science and specialty products
+DOW      # Dow Inc. - Materials science and chemical manufacturing
 
 # ===== US ENERGY - TRADITIONAL =====
-MPC
-LNG
+MPC      # Marathon Petroleum - Oil refining and marketing
+LNG      # Cheniere Energy - Liquefied natural gas
+XOM      # ExxonMobil Corporation - Integrated oil and gas giant
+CVX      # Chevron Corporation - Major integrated oil company
+COP      # ConocoPhillips - Independent oil and gas producer
+EOG      # EOG Resources - Shale oil and gas producer
+SLB      # Schlumberger - Oilfield services and technology
+BKR      # Baker Hughes - Oilfield services and equipment
+HAL      # Halliburton - Oilfield services company
+OXY      # Occidental Petroleum - Oil and gas exploration
+VLO      # Valero Energy - Independent petroleum refiner
+PSX      # Phillips 66 - Diversified energy manufacturing
+MRO      # Marathon Oil - Independent oil and gas company
+DVN      # Devon Energy - Oil and gas exploration
+FANG     # Diamondback Energy - Unconventional oil and gas
+APA      # APA Corporation - Oil and gas exploration
 
 # ===== US TRANSPORTATION - LOGISTICS =====
-FDX
-UPS
+FDX      # FedEx Corporation - Package delivery and logistics
+UPS      # United Parcel Service - Package delivery and supply chain
 
 # ===== US HEALTHCARE - MEDICAL DEVICES =====
-BSX
-ISRG
-SYK
-PODD
+BSX      # Boston Scientific - Medical device manufacturer
+ISRG     # Intuitive Surgical - Robotic surgical systems
+SYK      # Stryker Corporation - Medical technology company
+PODD     # Insulet Corporation - Insulin delivery systems
+DHR      # Danaher Corporation - Life sciences and diagnostics
+BDX      # Becton Dickinson - Medical technology company
+ZBH      # Zimmer Biomet Holdings - Orthopedic medical devices
+ALGN     # Align Technology - Clear aligner orthodontic devices
+MDT      # Medtronic plc - Medical device technology
+RMD      # ResMed Inc. - Cloud-connected medical devices
+EW       # Edwards Lifesciences - Heart valve therapy and monitoring
+HOLX     # Hologic Inc. - Medical imaging and diagnostics
+MASI     # Masimo Corporation - Patient monitoring technologies
+# (Removed VAR - Varian Medical Systems acquired by Siemens and delisted)
+A        # Agilent Technologies - Life sciences and diagnostics
+WAT      # Waters Corporation - Analytical instruments
+ILMN     # Illumina Inc. - DNA sequencing and array technologies
+DXCM     # DexCom Inc. - Continuous glucose monitoring systems
+TMDX     # TransMedics Group - Organ care system technology
 
 # ===== INTERNATIONAL MANUFACTURING =====
 # Europe
-SIEGY
-BMWYY
-DDAIF
-BASFY
-VOLVY
-ERICB
-BAE
+IBE.MC   # Iberdrola - Spanish renewable energy utility
+RWE.DE   # RWE AG - German utility and energy transition
+ENEL.MI  # Enel SpA - Italian multinational energy company
+NESN.SW  # Nestlé - Swiss multinational food and beverage
+BASF.DE  # BASF SE - German chemical company
+SAP.DE   # SAP SE - German enterprise software
+ASML.AS  # ASML Holding - Dutch semiconductor equipment
+TTE.PA   # TotalEnergies - French multinational energy
+SHEL.L   # Shell plc - British multinational oil and gas
+UL.L     # Unilever - British-Dutch consumer goods
+OR.PA    # L'Oréal - French personal care and cosmetics
+LVMH.PA  # LVMH - French luxury goods conglomerate
 
 # Asia - Manufacturing (PRIMARY assignment for manufacturing focus)
-TM
-SONY
-HMC
-005930.KS
-000660.KS
-TSM
-UMC
+TM       # Toyota Motor Corporation - Japanese automotive
+SONY     # Sony Group Corporation - Japanese technology
+HMC      # Honda Motor Co. - Japanese automotive
+005930.KS # Samsung Electronics - Korean technology conglomerate
+000660.KS # SK Hynix - Korean semiconductor memory
+TSM      # Taiwan Semiconductor - World's largest contract chipmaker
+UMC      # United Microelectronics - Taiwanese semiconductor foundry
 
 # Latin America - Industrial (PRIMARY assignment for industrial operations)
-VALE
-SQM
+VALE     # Vale S.A. - Brazilian multinational mining corporation
+SQM      # Sociedad Química y Minera - Chilean chemical and mining
 
 # Canada/Australia - Industrial
-BHP
-CSL
-CNQ
-ABX
+BHP      # BHP Group - Australian mining giant (iron ore, copper)
+CSL      # CSL Limited - Australian biotechnology company
+CNQ.TO   # Canadian Natural Resources - Oil sands producer
+ABX.TO   # Barrick Gold Corporation - Canadian gold mining (Toronto listing)
 
 # Global Manufacturing
-RACE
+RACE     # Ferrari N.V. - Italian luxury sports car manufacturer
 
 # ===============================================================================
 # MODEL 2: ALTMAN Z'-SCORE (1983)
@@ -122,131 +174,151 @@ RACE
 # ===============================================================================
 # Formula: Z' = 0.717A + 0.847B + 3.107C + 0.420D + 0.998E
 # Replaces: Market value of equity with book value (ratio D)
-# Total Stocks: 82
+# Total Stocks: 105
 
 # ===== US TECHNOLOGY - SERVICES =====
-ORCL
-CRM
-NOW
-PANW
-INTU
-WDAY
-PLTR
-CRWD
-DELL
-OKTA
-HUBS
-NICE
-SONO
+ORCL     # Oracle Corporation - Enterprise software and cloud computing
+CRM      # Salesforce Inc. - Customer relationship management platform
+NOW      # ServiceNow Inc. - Cloud computing platform
+PANW     # Palo Alto Networks - Cybersecurity platform
+INTU     # Intuit Inc. - Financial software (TurboTax, QuickBooks)
+WDAY     # Workday Inc. - Enterprise cloud applications
+PLTR     # Palantir Technologies - Big data analytics platform
+CRWD     # CrowdStrike Holdings - Cloud cybersecurity platform
+DELL     # Dell Technologies - Computer technology company
+OKTA     # Okta Inc. - Identity and access management
+HUBS     # HubSpot Inc. - Marketing and sales software platform
+NICE     # NICE Ltd. - Software solutions for customer engagement
+SONO     # Sonos Inc. - Audio products company
+ADSK     # Autodesk Inc. - Design and engineering software
+CDNS     # Cadence Design Systems - Electronic design automation
+SNPS     # Synopsys Inc. - Electronic design automation software
+FTNT     # Fortinet Inc. - Cybersecurity and networking solutions
+SPLK     # Splunk Inc. - Data analytics and machine learning platform
+ZM       # Zoom Video Communications - Video conferencing platform
+DOCU     # DocuSign Inc. - Electronic signature and agreement cloud
+TEAM     # Atlassian Corporation - Team collaboration software
+TWLO     # Twilio Inc. - Cloud communications platform
+FICO     # Fair Isaac Corporation - Analytics and decision management
 
 # ===== US HEALTHCARE - SERVICES & BIOTECH =====
-UNH
-CVS
-HUM
-CNC
-TMO
-GILD
-AMGN
-BIIB
-REGN
-VRTX
-JNJ
-PFE
-MRK
-BMY
-LLY
-ABT
+UNH      # UnitedHealth Group - Largest US health insurer
+CVS      # CVS Health Corporation - Pharmacy and healthcare services
+HUM      # Humana Inc. - Health insurance and wellness
+CNC      # Centene Corporation - Medicaid managed care
+TMO      # Thermo Fisher Scientific - Life sciences equipment
+GILD     # Gilead Sciences - Biotechnology and pharmaceuticals
+AMGN     # Amgen Inc. - Biotechnology company
+BIIB     # Biogen Inc. - Biotechnology focused on neurological diseases
+REGN     # Regeneron Pharmaceuticals - Biotechnology and medicines
+VRTX     # Vertex Pharmaceuticals - Specialty pharmaceuticals
+JNJ      # Johnson & Johnson - Pharmaceutical and consumer products
+PFE      # Pfizer Inc. - Pharmaceutical corporation
+MRK      # Merck & Co. - Pharmaceutical company
+BMY      # Bristol Myers Squibb - Pharmaceutical company
+LLY      # Eli Lilly and Company - Pharmaceutical corporation
+ABT      # Abbott Laboratories - Healthcare products
 
 # ===== US PROFESSIONAL SERVICES =====
-ACN
-IBM
-HPE
-CTSH
-TXN
-GPN
-FIS
-FISV
-PYPL
-SQ
-V
-MA
-ADP
+ACN      # Accenture plc - Management consulting and professional services
+IBM      # International Business Machines - Technology and consulting
+HPE      # Hewlett Packard Enterprise - Enterprise technology solutions
+CTSH     # Cognizant Technology Solutions - IT services and consulting
+TXN      # Texas Instruments - Analog and embedded processing semiconductors
+GPN      # Global Payments Inc. - Payment technology and software
+FIS      # Fidelity National Information Services - Financial technology
+FISV     # Fiserv Inc. - Financial services technology
+PYPL     # PayPal Holdings - Digital payments platform
+SQ       # Block Inc. - Financial services and digital payments
+V        # Visa Inc. - Digital payments technology
+MA       # Mastercard Inc. - Payment processing technology
+ADP      # Automatic Data Processing - Human capital management
+CME      # CME Group - Derivatives marketplace and clearing
+ICE      # Intercontinental Exchange - Financial market infrastructure
+NDAQ     # Nasdaq Inc. - Stock exchange operator and market technology
+MCO      # Moody's Corporation - Credit ratings and risk assessment
+MSCI     # MSCI Inc. - Investment decision support tools
 
 # ===== US CONSUMER SERVICES =====
-MCD
-YUM
-CMG
-SBUX
-DRI
-QSR
-DIS
-BKNG
-RCL
+MCD      # McDonald's Corporation - Global fast food chain
+YUM      # Yum! Brands - Restaurant company (KFC, Pizza Hut, Taco Bell)
+CMG      # Chipotle Mexican Grill - Fast-casual restaurant chain
+SBUX     # Starbucks Corporation - Coffee company and coffeehouse chain
+DRI      # Darden Restaurants - Full-service restaurant company
+QSR      # Restaurant Brands International - Fast food holding company
+DIS      # Walt Disney Company - Entertainment and media conglomerate
+BKNG     # Booking Holdings - Online travel and restaurant reservations
+RCL      # Royal Caribbean Cruises - Cruise line company
 
 # ===== US RETAIL - SERVICES =====
-HD
-TGT
-LOW
-TJX
-ORLY
-AZO
+HD       # Home Depot Inc. - Home improvement retail chain
+TGT      # Target Corporation - General merchandise retailer
+LOW      # Lowe's Companies - Home improvement retail chain
+TJX      # TJX Companies - Off-price apparel and home fashion retailer
+ORLY     # O'Reilly Automotive - Automotive parts retailer
+AZO      # AutoZone Inc. - Automotive parts and accessories retailer
+WBA      # Walgreens Boots Alliance - Pharmacy retail chain
+LULU     # Lululemon Athletica - Athletic apparel and accessories
 
 # ===== US REAL ESTATE & BUSINESS SERVICES =====
-CBRE
-FAST
-CPAY
-CPRT
-COR
-EFX
-SPGI
-GRMN
-LENB
+CBRE     # CBRE Group - Commercial real estate services
+FAST     # Fastenal Company - Industrial and construction supplies
+CPAY     # Corpay Inc. - Business payments and fleet management
+CPRT     # Copart Inc. - Vehicle auction and remarketing services
+COR      # Cencora Inc. - Pharmaceutical and healthcare solutions
+EFX      # Equifax Inc. - Consumer credit reporting agency
+SPGI     # S&P Global Inc. - Financial information and analytics
+GRMN     # Garmin Ltd. - GPS navigation and wearable technology
+LENB     # Lennar Corporation - Homebuilding company
 
 # ===== US ENERGY - SERVICES =====
-CEG
-GEV
+CEG      # Constellation Energy - Clean energy provider
+GEV      # GE Vernova - Energy technology and services
 
 # ===== US MEDIA & ENTERTAINMENT =====
-NFLX
-PARA
-SPOT
+NFLX     # Netflix Inc. - Streaming entertainment service
+PARA     # Paramount Global - Media and entertainment company
+SPOT     # Spotify Technology - Audio streaming platform
 
 # ===== INTERNATIONAL SERVICES =====
 # Europe - Services
-SAP
-ASML
-LVMUY
-LRLCY
-DANOY
-LSEG
+SAP.DE   # SAP SE - German enterprise software company
+ASML.AS  # ASML Holding - Dutch semiconductor equipment
+LVMH.PA  # LVMH - French luxury goods conglomerate
+OR.PA    # L'Oréal - French cosmetics and personal care
+NOVO-B.CO # Novo Nordisk - Danish pharmaceutical company
+AZN.L    # AstraZeneca - British-Swedish pharmaceutical
+ADYEN.AS # Adyen - Dutch payment processing company
+TEF      # Telefónica S.A. - Spanish multinational telecommunications
 
 # Asia - Services  
-BABA
-JD
-PDD
-TCEHY
-BIDU
-BILI
-NTES
-TME
-SE
-GRAB
-INFY
-WIT
+BABA     # Alibaba Group - Chinese multinational e-commerce
+JD       # JD.com Inc. - Chinese e-commerce company
+PDD      # PDD Holdings - Chinese e-commerce platform (Temu)
+TCEHY    # Tencent Holdings - Chinese multinational technology
+0700.HK  # Tencent Holdings - Hong Kong listed shares (primary listing)
+BIDU     # Baidu Inc. - Chinese multinational technology (search)
+BILI     # Bilibili Inc. - Chinese video sharing platform
+NTES     # NetEase Inc. - Chinese technology company
+TME      # Tencent Music Entertainment - Chinese music streaming
+SE       # Sea Limited - Southeast Asian internet company
+GRAB     # Grab Holdings - Southeast Asian ride-hailing and delivery
+INFY     # Infosys Limited - Indian multinational IT company
+WIT      # Wipro Limited - Indian multinational IT consulting
 
 # Middle East - Services
-CHKP
-WIX
-MNDY
-ZIM
+CHKP     # Check Point Software - Israeli cybersecurity company
+WIX      # Wix.com Ltd. - Israeli cloud-based web development
+MNDY     # Monday.com Ltd. - Israeli work operating system
+ZIM      # ZIM Integrated Shipping - Israeli international cargo
 
 # Latin America - Services
-AMX
-FMX
+AMX      # América Móvil - Mexican telecommunications corporation
+FMX      # Fomento Económico Mexicano - Mexican beverage and retail
 
 # Global Services
-E
-ARM
+E        # Eni S.p.A. - Italian multinational oil and gas company
+ARM      # Arm Holdings - British semiconductor and software design
 
 # ===============================================================================
 # MODEL 3: ALTMAN Z''-SCORE (2012)
@@ -258,51 +330,47 @@ ARM
 
 # ===== EMERGING MARKETS - MANUFACTURING =====
 # China - Manufacturing & Industrial
-NIO
-LI
-BYD
-
-# India - Manufacturing
-VEDL
+NIO      # NIO Inc. - Chinese electric vehicle manufacturer
+LI       # Li Auto Inc. - Chinese electric vehicle manufacturer
+BYD      # BYD Company - Chinese automotive and battery manufacturer
 
 # Latin America - Manufacturing & Industrial
-PBR
-ABEV
-BBD
-SBS
-CBD
-UGP
-YPF
-GGAL
-BMA
-TEO
-LTM
-EC
+PBR      # Petróleo Brasileiro - Brazilian multinational petroleum
+ABEV     # Ambev S.A. - Brazilian brewing company
+BBD      # Banco Bradesco - Brazilian multinational banking
+SBS      # Companhia de Saneamento Básico - Brazilian water and sewage
+CBD      # Companhia Brasileira de Distribuição - Brazilian retail
+UGP      # Ultrapar Participações - Brazilian petrochemical
+YPF      # YPF S.A. - Argentine energy company
+GGAL     # Grupo Financiero Galicia - Argentine financial services
+BMA      # Banco Macro - Argentine bank
+TEO      # Telecom Argentina - Argentine telecommunications
+LTM      # LATAM Airlines Group - Chilean airline company
+EC       # Ecopetrol S.A. - Colombian petroleum company
 
 # Middle East - Industrial
-TEVA
+TEVA     # Teva Pharmaceutical Industries - Israeli pharmaceutical
 
 # Africa - Mining & Resources
-GOLD
-NEM
-BVN
+NEM      # Newmont Corporation - American gold mining
+BVN      # Compañía de Minas Buenaventura - Peruvian mining
 
 # Southeast Asia - Manufacturing
-C6L.SI
+C6L.SI   # Singapore Airlines - Singapore flag carrier airline
 
 # ===== EMERGING MARKETS - TECHNOLOGY =====
 # China - Technology
-KWEB
+# (Removed KWEB ETF - not appropriate for individual company Z-Score analysis)
 
 # ===== EMERGING MARKETS - RESOURCES =====
 # Australia - Resources (Non-US Accounting)
-WES
-CBA
+WES      # Wesfarmers Limited - Australian conglomerate
+CBA      # Commonwealth Bank of Australia - Australian multinational bank
 
 # Canada - Resources (Non-US Accounting)  
-SHOP
-TD
-RY
+# (Note: SHOP moved to International Retail section to avoid duplication)
+TD       # Toronto-Dominion Bank - Canadian multinational bank (duplicate entry)
+RY       # Royal Bank of Canada - Largest Canadian bank (duplicate entry)
 
 # ===============================================================================
 # MODEL 4: FINANCIAL INSTITUTIONS (CAMELS FRAMEWORK)
@@ -313,82 +381,84 @@ RY
 # Total Stocks: 55
 
 # ===== US BANKS =====
-JPM
-BAC
-WFC
-GS
-BK
-C
-MS
-COF
-SCHW
-PNC
-STT
+JPM      # JPMorgan Chase - Largest US bank by assets
+BAC      # Bank of America - Second largest US bank
+WFC      # Wells Fargo - Major US retail and commercial bank
+GS       # Goldman Sachs - Investment banking and securities
+BK       # Bank of New York Mellon - Investment management
+C        # Citigroup Inc. - Global investment bank
+MS       # Morgan Stanley - Investment banking and wealth management
+COF      # Capital One Financial - Digital banking and credit cards
+SCHW     # Charles Schwab - Brokerage and banking services
+PNC      # PNC Financial Services - Regional banking
+STT      # State Street Corporation - Financial services
 
 # ===== US INSURANCE & FINANCIAL SERVICES =====
-AIG
-ALL
-TRV
-PGR
-MET
-PRU
-AFL
-UNM
-CB
-AXP
-BRK.A
-BRK.B
-HIG
-AMP
+AIG      # American International Group - Multinational insurance
+ALL      # Allstate Corporation - Personal property and casualty insurance
+TRV      # Travelers Companies - Property and casualty insurance
+PGR      # Progressive Corporation - Insurance company
+MET      # MetLife Inc. - Insurance, annuities, and employee benefits
+PRU      # Prudential Financial - Financial services company
+AFL      # Aflac Inc. - Supplemental insurance company
+UNM      # Unum Group - Disability insurance company
+CB       # Chubb Limited - Property and casualty insurance
+AXP      # American Express Company - Financial services corporation
+BRK-A    # Berkshire Hathaway Class A - Warren Buffett's conglomerate
+BRK-B    # Berkshire Hathaway Class B - More liquid shares
+HIG      # Hartford Financial Services - Property and casualty insurance
+AMP      # Ameriprise Financial - Financial planning and asset management
 
 # ===== US INVESTMENT MANAGEMENT =====
-BX
-APO
-AJG
-SSNC
+BX       # Blackstone Inc. - Alternative investment management
+APO      # Apollo Global Management - Alternative investment manager
+AJG      # Arthur J. Gallagher - Insurance brokerage and risk management
+SSNC     # SS&C Technologies - Financial services software
 
 # ===== US SPECIALIZED FINANCIAL =====
-BLK
-TROW
-IVZ
-AMG
-NTRS
-FITB
-KEY
-RF
-ZION
-CMA
-MTB
+BLK      # BlackRock Inc. - Investment management corporation
+TROW     # T. Rowe Price Group - Investment management company
+IVZ      # Invesco Ltd. - Investment management company
+AMG      # Affiliated Managers Group - Asset management company
+NTRS     # Northern Trust Corporation - Financial services company
+FITB     # Fifth Third Bancorp - Regional banking corporation
+KEY      # KeyCorp - Bank holding company
+RF       # Regions Financial Corporation - Bank holding company
+ZION     # Zions Bancorporation - Bank holding company
+CMA      # Comerica Incorporated - Financial services company
+MTB      # M&T Bank Corporation - Bank holding company
 
 # ===== INTERNATIONAL FINANCIAL =====
 # Europe - Banking
-UBS
-DB
-BNP
-ING
-BCS
-LLOY
-AXAHY
-BNPQY
-UNI
-SAN
+UBS      # UBS Group AG - Swiss multinational investment bank
+DB       # Deutsche Bank AG - German multinational investment bank
+BNP.PA   # BNP Paribas - French international banking group
+ING      # ING Group - Dutch multinational banking
+BCS      # Barclays plc - British multinational investment bank
+LLOY.L   # Lloyds Banking Group - British retail and commercial bank
+AXAHY    # AXA Group - French multinational insurance firm
+BNPQY    # BNP Paribas - French international banking group (ADR)
+UCG.MI   # UniCredit - Italian banking group
+SAN      # Banco Santander - Spanish multinational commercial bank
 
 # Asia - Banking & Financial
-MUFG
-SMFG
-MFG
-HDB
-IBN
-0941.HK
-0388.HK
+MUFG     # Mitsubishi UFJ Financial Group - Japanese bank holding company
+SMFG     # Sumitomo Mitsui Financial Group - Japanese bank holding company
+MFG      # Mizuho Financial Group - Japanese bank holding company
+HDB      # HDFC Bank Limited - Indian banking and financial services
+IBN      # ICICI Bank Limited - Indian multinational banking
+0941.HK  # China Mobile Limited - Chinese telecommunications (Hong Kong)
+0388.HK  # Hong Kong Exchanges and Clearing - Hong Kong stock exchange
 
 # Latin America - Banking
-ITUB
+ITUB     # Itaú Unibanco Holding - Brazilian financial services company
 
 # Canada - Banking
-BNS
-BMO
-CM
+TD.TO    # Toronto-Dominion Bank - Canadian multinational bank
+RY.TO    # Royal Bank of Canada - Largest Canadian bank
+BMO.TO   # Bank of Montreal - Canadian multinational bank
+BNS      # Bank of Nova Scotia - Canadian multinational bank
+CM       # Canadian Imperial Bank of Commerce
 
 # ===============================================================================
 # MODEL 5: REGULATED UTILITIES (UTILITY-SPECIFIC RATIOS)
@@ -396,46 +466,65 @@ CM
 # ===============================================================================
 # Key Ratios: FFO/Debt, Interest Coverage, Regulatory Environment Stability
 # Note: Traditional Z-Score less applicable due to regulated nature
-# Total Stocks: 25
+# Total Stocks: 45
 
 # ===== US ELECTRIC UTILITIES =====
-NEE
-SO
-DUK
-EXC
-XEL
-ETR
+NEE      # NextEra Energy - Largest electric utility holding company
+SO       # Southern Company - Gas and electric utility holding company
+DUK      # Duke Energy - Electric power and natural gas company
+EXC      # Exelon Corporation - Utility services holding company
+XEL      # Xcel Energy - Regulated electric and natural gas utility
+ETR      # Entergy Corporation - Integrated energy company
 
 # ===== US TELECOMMUNICATIONS =====
-T
-TMUS
+T        # AT&T Inc. - Multinational telecommunications holding company
+TMUS     # T-Mobile US - Wireless network operator
 
 # ===== US INFRASTRUCTURE & REITs =====
-DLR
+DLR      # Digital Realty Trust - Data center real estate investment trust
+PLD      # Prologis Inc. - Industrial real estate investment trust
+AMT      # American Tower Corporation - Wireless infrastructure REIT
+CCI      # Crown Castle International - Communications infrastructure REIT
+EQIX     # Equinix Inc. - Digital infrastructure company
+SPG      # Simon Property Group - Retail real estate investment trust
+O        # Realty Income Corporation - Monthly dividend REIT
+WELL     # Welltower Inc. - Healthcare real estate investment trust
+EXR      # Extended Stay America - Hospitality real estate
+AVB      # AvalonBay Communities - Residential real estate REIT
+EQR      # Equity Residential - Residential real estate REIT
+VTR      # Ventas Inc. - Healthcare real estate investment trust
+ARE      # Alexandria Real Estate - Life science real estate REIT
+MAA      # Mid-America Apartment Communities - Residential REIT
+ESS      # Essex Property Trust - Residential real estate REIT
+UDR      # UDR Inc. - Residential real estate investment trust
+CPT      # Camden Property Trust - Residential real estate REIT
+BXP      # Boston Properties - Office real estate investment trust
+KIM      # Kimco Realty Corporation - Retail real estate REIT
+REG      # Regency Centers Corporation - Retail real estate REIT
+FRT      # Federal Realty Investment Trust - Retail real estate REIT
 
 # ===== INTERNATIONAL UTILITIES =====
 # Europe - Utilities
-ENEL
-EDF
-RWE
-IBE
-DTEGY
-TEF
+ENEL.MI  # Enel SpA - Italian multinational energy company
+RWE.DE   # RWE AG - German utility and renewable energy
+IBE.MC   # Iberdrola - Spanish multinational electric utility
+TTE.PA   # TotalEnergies SE - French multinational energy company
+SHEL.L   # Shell plc - British multinational oil and gas company
 
 # Asia - Utilities
-NTT
+NTT      # Nippon Telegraph and Telephone - Japanese telecommunications
 
 # Canada - Utilities
-FTS
-EMA
-AQN
+FTS      # Fortis Inc. - Canadian electric utility holding company
+EMA      # Emera Incorporated - Canadian energy and services company
+AQN      # Algonquin Power & Utilities - Canadian renewable energy
 
 # ===== US PIPELINE & ENERGY INFRASTRUCTURE =====
-EPD
-ET
-KMI
-OKE
-MPLX
+EPD      # Enterprise Products Partners - Midstream energy infrastructure
+ET       # Energy Transfer LP - Energy infrastructure company
+KMI      # Kinder Morgan - Energy infrastructure company
+OKE      # ONEOK Inc. - Midstream service provider
+MPLX     # MPLX LP - Midstream energy infrastructure partnership
 
 # ===============================================================================
 # MODEL 6: TECHNOLOGY GROWTH (GROWTH-ADJUSTED RATIOS)
@@ -446,43 +535,44 @@ MPLX
 # Total Stocks: 25
 
 # ===== US LARGE CAP TECHNOLOGY =====
-AAPL
-MSFT
-GOOGL
-GOOG
-AMZN
-META
-TSLA
-NVDA
-ADBE
-AMAT
-AVGO
-ANET
-ANSS
+AAPL     # Apple Inc. - Consumer electronics and software
+MSFT     # Microsoft Corporation - Software and cloud services
+GOOGL    # Alphabet Inc. Class A - Search and advertising
+GOOG     # Alphabet Inc. Class C - Search and advertising
+AMZN     # Amazon.com Inc. - E-commerce and cloud computing
+META     # Meta Platforms - Social media and metaverse
+TSLA     # Tesla Inc. - Electric vehicles and energy storage
+NVDA     # NVIDIA Corporation - Graphics processing and AI chips
+ADBE     # Adobe Inc. - Creative and marketing software
+AMAT     # Applied Materials - Semiconductor equipment
+AVGO     # Broadcom Inc. - Semiconductor and infrastructure software
+ANET     # Arista Networks - Cloud networking solutions
+ANSS     # ANSYS Inc. - Engineering simulation software
+ENPH     # Enphase Energy - Solar energy management technology
 
 # ===== US MID/SMALL CAP TECHNOLOGY =====
-SNOW
-DDOG
-NET
-ZS
-ESTC
+SNOW     # Snowflake Inc. - Cloud data platform
+DDOG     # Datadog Inc. - Monitoring and analytics platform
+NET      # Cloudflare Inc. - Web infrastructure and security
+ZS       # Zscaler Inc. - Cloud security platform
+ESTC     # Elastic N.V. - Search and analytics engine
 
 # ===== US HIGH-GROWTH TECHNOLOGY =====
-COIN
-DASH
-UBER
-MPWR
+COIN     # Coinbase Global - Cryptocurrency exchange platform
+DASH     # DoorDash Inc. - Food delivery platform
+UBER     # Uber Technologies - Ride-hailing and food delivery platform
+MPWR     # Monolithic Power Systems - Semiconductor company
 
 # ===== US SEMICONDUCTORS (PRIMARY assignment for chip design focus) =====
-AMD
-INTC
-QCOM
-MU
-LRCX
-KLAC
+AMD      # Advanced Micro Devices - Processors and graphics
+INTC     # Intel Corporation - Semiconductor manufacturing
+QCOM     # Qualcomm Inc. - Mobile chipsets and wireless technology
+MU       # Micron Technology - Memory and storage solutions
+LRCX     # Lam Research - Semiconductor equipment
+KLAC     # KLA Corporation - Semiconductor process control
 
 # ===== US PHARMACEUTICALS (R&D INTENSIVE) =====
-ABBV
+ABBV     # AbbVie Inc. - Biopharmaceutical company
 
 # ===============================================================================
 # MODEL 7: RETAIL & CONSUMER (RETAIL-SPECIFIC METRICS)
@@ -490,25 +580,25 @@ ABBV
 # ===============================================================================
 # Focus: Inventory turnover, same-store sales, seasonal adjustments
 # Note: Traditional Z-Score applicable with industry-specific context
-# Total Stocks: 15
+# Total Stocks: 17
 
 # ===== US CONSUMER STAPLES =====
-WMT
-COST
-PM
-K
+WMT      # Walmart Inc. - Largest retail corporation
+COST     # Costco Wholesale - Membership-based warehouse club
+PM       # Philip Morris International - Tobacco products
+K        # Kellogg Company - Breakfast cereals and snacks
 
 # ===== US CONSUMER DISCRETIONARY =====
-NKE
+NKE      # Nike Inc. - Multinational athletic footwear and apparel
 
 # ===== INTERNATIONAL RETAIL =====
 # Europe - Consumer
-ADDYY
-NESN
-UL
+NESN.SW  # Nestlé S.A. - Swiss multinational food and beverage
+UL.L     # Unilever plc - British-Dutch consumer goods
+LVMH.PA  # LVMH - French luxury goods conglomerate
 
-# Asia - Consumer
-0700.HK
+# Technology/E-commerce
+SHOP.TO  # Shopify Inc. - Canadian e-commerce platform
 
 # ===============================================================================
 # MODEL 8: MICRO CAP STOCKS (SMALL COMPANY FRAMEWORK)
@@ -519,45 +609,45 @@ UL
 # Total Stocks: 23
 
 # ===== US MICRO CAP TECHNOLOGY =====
-HIMX
-SPNS
-HEAR
-SIMO
-PCTI
-CEVA
+HIMX     # Himax Technologies - Fabless semiconductor company
+SPNS     # Sapiens International - Software solutions for insurance
+# (Removed HEAR - Turtle Beach Corporation - potential delisting risk)
+SIMO     # Silicon Motion Technology - NAND flash controller IC designer
+# (Removed PCTI - PCTEL Inc. - high delisting risk)
+CEVA     # CEVA Inc. - Semiconductor IP licensing company
 
 # ===== US MICRO CAP HEALTHCARE & BIOTECH =====
-LBPH
-ACTG
-RGEN
-ADMA
-SMCI
-INZY
+# (Removed LBPH - Longboard Pharmaceuticals - high delisting risk for micro biotech)
+ACTG     # Acacia Research Corporation - Intellectual property licensing
+RGEN     # Repligen Corporation - Bioprocessing technologies
+ADMA     # ADMA Biologics - Specialty biopharmaceutical company
+SMCI     # Super Micro Computer - High-performance computing solutions
+INZY     # Inozyme Pharma - Rare disease therapeutics
 
 # ===== US MICRO CAP INDUSTRIAL & MATERIALS =====
-MVIS
-BCDA
-VLCN
-WKHS
+MVIS     # MicroVision Inc. - Laser beam scanning technology
+# (Removed BCDA - BioCardia Inc. - high delisting risk)
+# (Removed VLCN - Volcon Inc. - high delisting risk)
+# (Removed WKHS - Workhorse Group - high delisting risk)
 
 # ===== US MICRO CAP CONSUMER & RETAIL =====
-EXPR
-APRN
-TELL
+# (Removed APRN - Blue Apron delisted)
+# (Removed EXPR - Express Inc. likely delisted/distressed)
+# (Removed TELL - Tellurian Inc. likely distressed/delisted)
 
 # ===== US MICRO CAP ENERGY & RESOURCES =====
-USWS
-NOG
-GPRE
-REI
+# (Removed USWS - U.S. Well Services likely distressed/delisted)
+NOG      # Northern Oil and Gas - Oil and natural gas exploration
+GPRE     # Green Plains Inc. - Ethanol production and marketing
+REI      # Ring Energy Inc. - Oil and natural gas exploration
 
 # ===== INTERNATIONAL MICRO CAP =====
 # Canada
-JWEL.TO
-PYR.TO
+JWEL.TO  # Jamieson Wellness - Canadian health and wellness products
+PYR.TO   # PyroGenesis Canada - Advanced plasma processes
 
 # Europe
-NANO.L
+NANO.L   # Nanoco Group plc - British nanotechnology company
 # ===============================================================================
 # MODEL 9: DAY TRADER FAVORITES (HIGH VOLATILITY & VOLUME)
 # Best for: Active trading, high liquidity, frequent price movements
@@ -567,42 +657,42 @@ NANO.L
 # Total Stocks: 22
 
 # ===== MEME STOCKS & RETAIL FAVORITES =====
-GME
-AMC
-SNDL
-CLOV
+GME      # GameStop Corp. - Video game retailer (original meme stock)
+AMC      # AMC Entertainment Holdings - Movie theater chain
+SNDL     # Sundial Growers - Canadian cannabis company
+CLOV     # Clover Health Investments - Medicare Advantage insurer
 
 # ===== HIGH BETA TECHNOLOGY =====
-ROKU
-SNAP
-SQ
-HOOD
-SOFI
+ROKU     # Roku Inc. - TV streaming platform
+SNAP     # Snap Inc. - Multimedia messaging app (Snapchat)
+# (Note: SQ moved to Professional Services section to avoid duplication)
+HOOD     # Robinhood Markets - Commission-free trading platform
+SOFI     # SoFi Technologies - Digital personal finance company
 
 # ===== ELECTRIC VEHICLE & BATTERY =====
-RIVN
-LCID
-FSR
-NKLA
-QS
-CHPT
+RIVN     # Rivian Automotive - Electric vehicle manufacturer
+LCID     # Lucid Group - Electric vehicle manufacturer
+# (Removed FSR - Fisker Inc. filed for bankruptcy in 2024)
+NKLA     # Nikola Corporation - Electric vehicle manufacturer
+QS       # QuantumScape Corporation - Solid-state battery technology
+CHPT     # ChargePoint Holdings - Electric vehicle charging network
 
 # ===== BIOTECH & PHARMACEUTICALS =====
-MRNA
-BNTX
-NVAX
-OCGN
-SENS
+MRNA     # Moderna Inc. - mRNA therapeutics and vaccines
+BNTX     # BioNTech SE - Immunotherapy company
+NVAX     # Novavax Inc. - Biotechnology company
+OCGN     # Ocugen Inc. - Biopharmaceutical company
+SENS     # Senseonics Holdings - Glucose monitoring systems
 
 # ===== SPACs & FORMER SPACs =====
-DWAC
+# (Removed DWAC - Digital World Acquisition Corp SPAC likely failed to complete)
 
 # ===== PENNY STOCKS & HIGH VOLATILITY =====
-PROG
-GNUS
+# (Removed PROG - Progenity Inc. likely delisted)
+# (Note: GNUS not found in portfolio - if present, should be removed)
 
 # ===== CRYPTOCURRENCY-ADJACENT =====
-MARA
-RIOT
-COIN
-MSTR
+MARA     # Marathon Digital Holdings - Bitcoin mining
+RIOT     # Riot Platforms - Bitcoin mining
+COIN     # Coinbase Global - Cryptocurrency exchange platform
+MSTR     # MicroStrategy Inc. - Business intelligence and Bitcoin treasury

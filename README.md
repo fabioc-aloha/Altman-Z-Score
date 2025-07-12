@@ -2,13 +2,20 @@
 
 # AI-Powered Altman Z-Score Analysis
 
-**Version: 4.8.0 (2025-07-09) 🚀 Z-Score Forecasting Engine**
+**Version: 4.10.0 DIAMOND (2025-07-12) 💎 Portfolio Efficiency & Skip-Existing Mastery**
 
 Transform your investment decisions with **AI-powered financial health analysis** and **breakthrough academic research**. Get instant, actionable insights on company bankruptcy risk, investment opportunities, and strategic recommendations.
 
-## 🚀 **What's New in v4.8.0**
+## 💎 **What's New in v4.10.0 DIAMOND**
 
-### 🔮 **Z-Score Forecasting Engine**
+### 🚀 **Portfolio Efficiency Revolution**
+- **Skip-Existing Mastery:** Intelligent analysis detection across Python CLI and PowerShell tools
+- **Workflow Optimization:** Seamless incremental updates for large portfolios (427+ companies)
+- **Cross-Tool Consistency:** Feature parity between Python `--skip-existing` and PowerShell `-SkipExisting`
+- **Smart Detection:** Validates CSV, JSON, and report files with size verification
+- **Progress Intelligence:** Clear reporting of original/skipped/remaining ticker counts
+
+### 🔮 **Advanced Forecasting Integration**
 - **Multi-Year Projections:** 1-3 year Z-Score forecasts using analyst consensus data
 - **Scenario Analysis:** Optimistic, Base Case, and Pessimistic scenarios with confidence scoring
 - **Visual Integration:** Dashed forecast lines extending historical trends in charts
@@ -31,21 +38,6 @@ python main.py AAPL
 # 🆕 Z-Score Forecasting
 python main.py AAPL --forecast-years 2              # 2-year projections
 python main.py MSFT --forecast-years 1              # 1-year forecast (default)
-python main.py TSLA --forecast-off                  # Disable forecasting
-
-# Multi-stock analysis
-python main.py AAPL MSFT GOOGL TSLA                 # Multiple stocks
-python main.py --portfolio-file portfolios/tech_portfolio.txt   # Portfolio from file
-python main.py --sector technology                  # Pre-defined sector
-
-# Analysis options
-python main.py AAPL --quarters 12                   # Extended historical analysis
-python main.py NVDA --model retail                  # Force specific Z-Score model
-python main.py META --log-level DEBUG               # Verbose logging
-
-# Cache management
-python main.py --clear-cache                        # Clear API cache
-python main.py --cache-stats                        # View cache statistics
 ```
 
 ## 💡 **What You Get**
@@ -97,7 +89,7 @@ LOG_DIR="logs"
 .\generate_web.ps1
 
 # Portfolio analysis
-.\run_parallel_portfolio.ps1 -PortfolioFile "portfolios/tech_portfolio.txt"
+.\analyze_portfolio_parallel_v2.ps1 -PortfolioFile "portfolios/comprehensive_portfolio.txt" -SkipExisting
 
 # Retail model validation
 .\run_retail_validation.ps1
@@ -179,6 +171,7 @@ python main.py TICKER [TICKER2 ...]
 --model {original,private,financial,retail,service,emerging}
 --portfolio-file FILE       # Analyze portfolio from file
 --sector {technology,healthcare,financial,industrial,energy}
+--skip-existing             # Skip tickers with existing analysis outputs
 --log-level {DEBUG,INFO,WARNING,ERROR,CRITICAL}
 --clear-cache              # Clear API cache
 --cache-stats              # View cache statistics
@@ -187,6 +180,5 @@ python main.py TICKER [TICKER2 ...]
 python main.py AAPL --forecast-years 2
 python main.py --sector technology
 python main.py --portfolio-file portfolios/my_stocks.txt
+python main.py --portfolio-file portfolios/comprehensive_portfolio.txt --skip-existing  # Incremental updates
 ```
-
-For complete CLI help: `python main.py --help`

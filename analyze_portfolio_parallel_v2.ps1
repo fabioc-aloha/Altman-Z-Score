@@ -52,6 +52,9 @@
 .PARAMETER ShowProgress
     Show detailed progress information.
 
+.PARAMETER SkipExisting
+    Skip tickers that already have analysis outputs in the output directory.
+
 .PARAMETER Help
     Display comprehensive help information and usage examples.
 
@@ -66,6 +69,10 @@
 .EXAMPLE
     .\analyze_portfolio_parallel_v2.ps1 -Sector technology -BatchSize 10 -Quarters 12
     Analyzes technology sector with larger batches and extended history.
+
+.EXAMPLE
+    .\analyze_portfolio_parallel_v2.ps1 -PortfolioFile "portfolios\comprehensive_portfolio.txt" -SkipExisting
+    Processes only new tickers from portfolio that don't have existing analysis outputs.
 #>
 
 #Requires -Version 5.1
@@ -87,6 +94,7 @@ param(
     [int]$Timeout = 10,
     [switch]$ContinueOnError,
     [switch]$ShowProgress,
+    [switch]$SkipExisting,
     [switch]$Help
 )
 
@@ -119,6 +127,7 @@ $Colors = @{
     Info     = "White"
     Emphasis = "Magenta"
     Progress = "Blue"
+    Gray     = "DarkGray"
 }
 
 # Global counters for thread-safe operations
@@ -192,6 +201,44 @@ function Test-PythonAvailable {
     return $false
 }
 
+function Test-ExistingAnalysis {
+    [CmdletBinding()]
+    [OutputType([bool])]
+    param(
+        [Parameter(Mandatory)]
+        [string]$Ticker,
+        [Parameter(Mandatory)]
+        [string]$OutputDir
+    )
+    
+    $tickerDir = Join-Path $OutputDir $Ticker.ToUpper()
+    
+    if (-not (Test-Path $tickerDir)) {
+        return $false
+    }
+    
+    # Check for key output files that indicate completed analysis
+    $expectedFiles = @(
+        "$($Ticker.ToUpper())_zscore_report.csv",     # CSV output
+        "$($Ticker.ToUpper())_zscore_data.json",      # JSON output
+        "$($Ticker.ToUpper())_summary.txt"            # Summary report
+    )
+    
+    $existingFiles = @()
+    foreach ($expectedFile in $expectedFiles) {
+        $filePath = Join-Path $tickerDir $expectedFile
+        if ((Test-Path $filePath) -and (Get-Item $filePath).Length -gt 0) {
+            $existingFiles += $expectedFile
+        }
+    }
+    
+    # Consider analysis complete if we have at least CSV and JSON outputs
+    $hasCsv = $existingFiles | Where-Object { $_ -like "*_zscore_report.csv" }
+    $hasJson = $existingFiles | Where-Object { $_ -like "*_zscore_data.json" }
+    
+    return ($hasCsv -and $hasJson)
+}
+
 function Get-TickersFromFile {
     [CmdletBinding()]
     [OutputType([string[]])]
@@ -209,14 +256,33 @@ function Get-TickersFromFile {
     try {
         $content = Get-Content $FilePath -ErrorAction Stop
         
-        foreach ($line in $content) {
-            $line = $line.Trim()
-            # Skip empty lines and comments
-            if ($line -and -not $line.StartsWith('#')) {
-                # Extract ticker symbols (alphanumeric + dots for international)
-                if ($line -match '^[A-Z0-9]+(\.[A-Z]+)?$|^[0-9]{6}\.[A-Z]{2}$') {
-                    [void]$tickerList.Add($line)
-                }
+        foreach ($lineNum in 1..$content.Count) {
+            $line = $content[$lineNum - 1].Trim()
+            
+            # Skip empty lines and full-line comments
+            if (-not $line -or $line.StartsWith('#')) {
+                continue
+            }
+            
+            # Split on first '#' to handle inline comments
+            $parts = $line -split '#', 2
+            $ticker = $parts[0].Trim()
+            
+            # Skip if no ticker after comment removal
+            if (-not $ticker) {
+                continue
+            }
+            
+            # Enhanced ticker validation for international and complex formats
+            # Supports: AAPL, IBE.MC, 000660.KS, BRK-B, NOVO-B.CO, etc.
+            if ($ticker -match '^[A-Z0-9.-]{1,12}$') {
+                # Convert to uppercase for consistency
+                $ticker = $ticker.ToUpper()
+                [void]$tickerList.Add($ticker)
+            }
+            else {
+                $comment = if ($parts.Count -gt 1) { $parts[1].Trim() } else { "" }
+                Write-Warning "Invalid ticker '$ticker' on line $lineNum`: $($content[$lineNum - 1])"
             }
         }
     }
@@ -545,11 +611,11 @@ function Start-ParallelAnalysis {
                         if (-not $completed) {
                             $process.Kill()
                             [void]$results.Add(@{
-                                Ticker   = $ticker
-                                Success  = $false
-                                Duration = $duration
-                                Error    = "Timeout after $($Params.Timeout) minutes"
-                            })
+                                    Ticker   = $ticker
+                                    Success  = $false
+                                    Duration = $duration
+                                    Error    = "Timeout after $($Params.Timeout) minutes"
+                                })
                             continue
                         }
                         
@@ -559,19 +625,19 @@ function Start-ParallelAnalysis {
                         $exitCode = $process.ExitCode
                         
                         [void]$results.Add(@{
-                            Ticker   = $ticker
-                            Success  = ($exitCode -eq 0)
-                            Duration = $duration
-                            Error    = if ($exitCode -ne 0) { $errorOutput } else { "" }
-                        })
+                                Ticker   = $ticker
+                                Success  = ($exitCode -eq 0)
+                                Duration = $duration
+                                Error    = if ($exitCode -ne 0) { $errorOutput } else { "" }
+                            })
                     }
                     catch {
                         [void]$results.Add(@{
-                            Ticker   = $ticker
-                            Success  = $false
-                            Duration = 0
-                            Error    = $_.Exception.Message
-                        })
+                                Ticker   = $ticker
+                                Success  = $false
+                                Duration = 0
+                                Error    = $_.Exception.Message
+                            })
                     }
                 }
                 
@@ -767,6 +833,35 @@ $uniqueTickers = $allTickers | Sort-Object -Unique
 if ($uniqueTickers.Count -ne $allTickers.Count) {
     Write-ColorText "⚠️ Removed $($allTickers.Count - $uniqueTickers.Count) duplicate tickers" "Warning"
     $allTickers = $uniqueTickers
+}
+
+# Apply skip-existing filter if requested
+$originalCount = $allTickers.Count
+if ($SkipExisting) {
+    Write-ColorText "🔍 Checking for existing analysis outputs..." "Info"
+    $filteredTickers = @()
+    
+    foreach ($ticker in $allTickers) {
+        if (Test-ExistingAnalysis -Ticker $ticker -OutputDir $OutputDir) {
+            Write-ColorText "   ⏭️  Skipping $ticker (analysis exists)" "Gray"
+        }
+        else {
+            $filteredTickers += $ticker
+        }
+    }
+    
+    $allTickers = $filteredTickers
+    $skippedCount = $originalCount - $allTickers.Count
+    
+    Write-ColorText "📊 Skip-existing filter results:" "Info"
+    Write-ColorText "   • Original tickers: $originalCount" "Gray"
+    Write-ColorText "   • Skipped (existing): $skippedCount" "Gray"
+    Write-ColorText "   • Remaining to process: $($allTickers.Count)" "Gray"
+    
+    if ($allTickers.Count -eq 0) {
+        Write-ColorText "✅ All tickers already have complete analysis. Nothing to process." "Success"
+        return
+    }
 }
 
 $script:TotalTickers = $allTickers.Count

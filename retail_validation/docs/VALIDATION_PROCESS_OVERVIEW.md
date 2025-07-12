@@ -14,7 +14,7 @@ This document outlines the comprehensive validation methodology for the novel re
 5. **Seasonal Pattern Handling**: Assess model stability across seasonal inventory fluctuations.
 6. **Academic Documentation**: Generate publication-quality validation results for peer review.
 
-## � Related Documentation
+## 📚 Related Documentation
 
 This document is part of a comprehensive documentation suite for the retail model validation:
 
@@ -23,7 +23,7 @@ This document is part of a comprehensive documentation suite for the retail mode
 - **PORTFOLIO_COMPOSITION.md**: Test portfolio structure and categories
 - **MODEL_COMPARISON_METHODOLOGY.md**: Methodology for comparing models
 
-## �📊 Testing Categories
+## 📊 Testing Categories
 
 The validation process tests the model across five distinct categories of retail companies:
 

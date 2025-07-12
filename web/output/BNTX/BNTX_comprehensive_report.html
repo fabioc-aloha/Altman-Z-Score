@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - BNTX</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .glossary-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #4169e1;
+            margin-top: 40px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .glossary-category {
+            margin-bottom: 30px;
+        }
+
+        .glossary-category h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .glossary-columns {
+            columns: 3;
+            column-gap: 30px;
+            orphans: 1;
+            widows: 1;
+        }
+
+        @media (max-width: 1200px) {
+            .glossary-columns {
+                columns: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .glossary-columns {
+                columns: 1;
+            }
+        }
+
+        .glossary-item {
+            break-inside: avoid;
+            page-break-inside: avoid;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .glossary-item h4 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+
+        .glossary-item p {
+            margin-top: 0;
+            font-size: 0.85em;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #666;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>BioNTech SE (BNTX)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 12, 2025 at 11:04 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="BNTX_logo.png" alt="BioNTech SE Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Strong Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 70.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Undervalued relative to sector peers</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Significant analyst upside potential</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Large historical drawdowns</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="BNTX_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
+                <p>Your browser does not support iframes.
+                    <a href="BNTX_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-low">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">15.88</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">service</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Service and non-manufacturing Z''-Score (no constant) - Adjusted thresholds</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    0.50 - 2.60
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 0.50 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$$112.89</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$$27.1B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>N/A</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>90.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>69.2</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.94</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.71</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-31.7%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>3.8/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> BioNTech SE (Ticker: BNTX)<br />
+<strong>Analysis Date:</strong> 2025-07-12 11:03:20  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>BioNTech SE (BNTX) currently exhibits a <strong>very strong financial health profile</strong> as evidenced by its latest Altman Z-Score of <strong>15.879</strong> (Current Quarter), placing it well within the <strong>Safe Zone</strong> (Z &gt; 3.0). This score significantly exceeds the typical safe threshold, indicating an extremely low risk of financial distress. The Z-Score trajectory over the past eight quarters has remained consistently high, fluctuating narrowly between 13.525 and 16.785, underscoring stable and robust financial fundamentals.</p>
+<p><strong>AI Risk Analysis</strong> classifies the overall risk level as <strong>Low</strong>, with a stable risk trajectory and no critical risk factors identified that could materially impair near-term financial stability. This low-risk profile is supported by the company's strong market capitalization of <strong>$27.14 billion</strong> and a current stock price of <strong>$112.89</strong>.</p>
+<p><strong>AI Peer Analysis</strong> positions BNTX well above the biotechnology industry average Z-Score (industry average typically ranges between 2.5 and 4.0), indicating superior financial resilience relative to peers such as Moderna (MRNA) and Gilead Sciences (GILD). This competitive advantage suggests BNTX is well-positioned to capitalize on growth opportunities in immunotherapy and oncology.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a neutral to slightly positive market sentiment, with no significant divergence from fundamental indicators. The sentiment trend is stable, reflecting market confidence consistent with the company’s strong financial metrics.</p>
+<p><strong>Forecast Analysis</strong> projects continued strength in BNTX’s Z-Score over the next two fiscal years, with base case scenarios maintaining Z-Scores above 15.0, and optimistic scenarios pushing above 17.0. Analyst consensus quality is moderate due to limited coverage but remains confident in the company’s growth trajectory and financial stability.</p>
+<hr />
+<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current Z-Score (Latest Quarter)</td>
+<td>15.879</td>
+<td>Well within Safe Zone</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$27,138,191,360</td>
+<td>Large-cap biotech</td>
+</tr>
+<tr>
+<td>Current Price</td>
+<td>$112.89</td>
+<td>Reflects market valuation</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>0.665</td>
+<td>Below 1.0, indicates liquidity caution</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.882</td>
+<td>Strong earnings retention</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>-0.025</td>
+<td>Slightly negative EBIT margin</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.009</td>
+<td>Low asset utilization</td>
+</tr>
+<tr>
+<td>AI Risk Level</td>
+<td>Low</td>
+<td>Stable risk trajectory</td>
+</tr>
+<tr>
+<td>AI Peer Industry Avg Z-Score</td>
+<td>~3.0 (typical biotech)</td>
+<td>BNTX significantly outperforms peers</td>
+</tr>
+<tr>
+<td>Forecast Z-Score FY1 (Base)</td>
+<td>~15+ (projected)</td>
+<td>Continued financial strength</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
+<ul>
+<li><strong>Buy/Hold</strong> recommendation for investors with <strong>Medium to High risk tolerance</strong>, given the strong Z-Score, low risk profile, and stable forecast.</li>
+<li><strong>Entry timing</strong> is favorable now, with Z-Score momentum indicating sustained financial health.</li>
+<li><strong>Monitor liquidity ratios</strong> closely due to working capital ratio below 1.0, which may warrant caution in short-term operational cash flow management.</li>
+<li><strong>Growth investors</strong> should consider BNTX for its robust balance sheet and pipeline potential in immunotherapies.</li>
+<li><strong>Conservative investors</strong> may hold but watch for EBIT margin improvements to confirm operational profitability.</li>
+</ul>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: 0.665</td>
+<td>Biotech avg ~1.2</td>
+<td>Below industry average; potential liquidity risk</td>
+<td>Declining/Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Working Capital Ratio: 0.665</td>
+<td>Benchmark ~1.0</td>
+<td>Indicates working capital constraints</td>
+<td></td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A</td>
+<td>Biotech avg varies</td>
+<td>Data unavailable; no leverage concerns flagged</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td></td>
+<td>Interest Coverage (EBIT): -0.025</td>
+<td>Positive expected</td>
+<td>Negative EBIT ratio signals operational losses</td>
+<td>Slightly Declining</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.009</td>
+<td>Industry avg ~0.2-0.3</td>
+<td>Very low asset utilization; typical for biotech</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>EBIT Ratio: -0.025</td>
+<td>Industry avg positive</td>
+<td>Negative EBIT margin; operational losses present</td>
+<td>Slight Decline</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.882</td>
+<td>Benchmark ~0.7-0.8</td>
+<td>Strong retained earnings; solid equity base</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: N/A</td>
+<td>N/A</td>
+<td>Data not provided</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="commentary">Commentary</h3>
+<ul>
+<li>
+<p><strong>Liquidity Position:</strong> The current ratio of <strong>0.665</strong> is below the biotech industry average (~1.2), indicating potential short-term liquidity constraints. This is a cautionary signal, especially given the working capital ratio matches at 0.665. However, biotech firms often operate with tight liquidity due to R&amp;D investment cycles. The AI Data Quality Assessment shows no anomalies in financial data, lending confidence to these figures.</p>
+</li>
+<li>
+<p><strong>Leverage Management:</strong> Debt-to-equity data is unavailable, but the negative EBIT ratio (-0.025) suggests operational losses, which could pressure interest coverage if debt levels are significant. The absence of leverage data limits full risk assessment here.</p>
+</li>
+<li>
+<p><strong>Operational Efficiency:</strong> Asset turnover at 0.009 is very low, reflecting the capital-intensive and long development cycles typical in biotechnology. The negative EBIT ratio further highlights operational challenges, possibly due to ongoing clinical trial expenses or product development costs.</p>
+</li>
+<li>
+<p><strong>Financial Stability:</strong> Retained earnings ratio of 0.882 is robust, indicating strong reinvestment of earnings and a solid equity cushion. This supports long-term solvency and aligns with the company’s high Altman Z-Score.</p>
+</li>
+<li>
+<p><strong>Sector Context:</strong> As a biotechnology company in the healthcare sector, BNTX’s financial profile reflects typical industry characteristics: high R&amp;D costs, low asset turnover, and variable profitability. The strong retained earnings and market capitalization mitigate some operational risks.</p>
+</li>
+</ul>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q0)</td>
+<td>15.879</td>
+<td>Safe</td>
+<td>Strong equity base, retained earnings</td>
+<td>Stable pipeline progress, strong market cap</td>
+</tr>
+<tr>
+<td>Q1 Previous</td>
+<td>14.084</td>
+<td>Safe</td>
+<td>Consistent financial strength</td>
+<td>Continued R&amp;D investment, stable market conditions</td>
+</tr>
+<tr>
+<td>Q2 Previous</td>
+<td>13.526</td>
+<td>Safe</td>
+<td>Slight dip due to operational costs</td>
+<td>Clinical trial phases ongoing</td>
+</tr>
+<tr>
+<td>Q3 Previous</td>
+<td>13.525</td>
+<td>Safe</td>
+<td>Stable but low EBIT</td>
+<td>Product development expenses</td>
+</tr>
+<tr>
+<td>Q4 Previous</td>
+<td>16.770</td>
+<td>Safe</td>
+<td>Peak Z-Score, strong equity</td>
+<td>Possible milestone achievements</td>
+</tr>
+<tr>
+<td>Q5 Previous</td>
+<td>15.633</td>
+<td>Safe</td>
+<td>Stable financials</td>
+<td>Market confidence steady</td>
+</tr>
+<tr>
+<td>Q6 Previous</td>
+<td>16.774</td>
+<td>Safe</td>
+<td>High retained earnings</td>
+<td>Positive investor sentiment</td>
+</tr>
+<tr>
+<td>Q7 Previous</td>
+<td>16.785</td>
+<td>Safe</td>
+<td>Consistent financial health</td>
+<td>Operational stability</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="commentary_1">Commentary</h3>
+<ul>
+<li>The Z-Score has remained consistently in the <strong>Safe Zone</strong>, ranging narrowly between <strong>13.525</strong> and <strong>16.785</strong> over eight quarters, indicating <strong>exceptional financial stability</strong>.</li>
+<li>The slight fluctuations correlate with typical biotech operational cycles, including R&amp;D spending and clinical trial phases.</li>
+<li>The current quarter’s Z-Score of <strong>15.879</strong> reflects a slight rebound from the recent low of 13.525, suggesting improved operational or market conditions.</li>
+<li>The absence of component data limits granular driver analysis, but the strong retained earnings ratio (0.882) and market cap support the high Z-Score.</li>
+<li>Compared to the biotech industry average Z-Score (~3.0), BNTX’s position is significantly superior, indicating a competitive advantage in financial health.</li>
+</ul>
+<hr />
+<h2 id="4-forward-looking-z-score-intelligence-forecast-analysis">4. Forward-Looking Z-Score Intelligence &amp; Forecast Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Period</th>
+<th>Optimistic Scenario</th>
+<th>Base Case Scenario</th>
+<th>Pessimistic Scenario</th>
+<th>Analyst Consensus Quality</th>
+<th>Key Assumptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FY 2026</td>
+<td>17.200</td>
+<td>15.500</td>
+<td>13.800</td>
+<td>65%</td>
+<td>Continued pipeline success, moderate growth</td>
+</tr>
+<tr>
+<td>FY 2027</td>
+<td>18.000</td>
+<td>16.200</td>
+<td>14.500</td>
+<td>60%</td>
+<td>Market expansion, operational efficiencies</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="component-projection-analysis">Component Projection Analysis</h3>
+<table>
+<thead>
+<tr>
+<th>Z-Score Component</th>
+<th>Current Value</th>
+<th>Year 1 Projection</th>
+<th>Year 2 Projection</th>
+<th>Forecast Confidence</th>
+<th>Key Variables</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Working Capital Ratio</td>
+<td>0.665</td>
+<td>0.70 - 0.75</td>
+<td>0.75 - 0.80</td>
+<td>Medium</td>
+<td>Revenue growth, cash flow management</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.882</td>
+<td>0.88 - 0.90</td>
+<td>0.90 - 0.92</td>
+<td>High</td>
+<td>Profitability, dividend policy</td>
+</tr>
+<tr>
+<td>EBIT/Total Assets</td>
+<td>-0.025</td>
+<td>-0.010 - 0.005</td>
+<td>0.005 - 0.015</td>
+<td>Medium</td>
+<td>Operational leverage, cost control</td>
+</tr>
+<tr>
+<td>Market Cap/Total Liabilities</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>Low</td>
+<td>Market sentiment, debt management</td>
+</tr>
+<tr>
+<td>Sales/Total Assets</td>
+<td>0.009</td>
+<td>0.010 - 0.015</td>
+<td>0.015 - 0.020</td>
+<td>Medium</td>
+<td>Asset utilization, growth strategy</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="commentary_2">Commentary</h3>
+<ul>
+<li>Forecasts indicate <strong>continued strong Z-Score performance</strong>, with base case projections maintaining scores above 15.0 through FY 2027.</li>
+<li>The <strong>working capital ratio</strong> is expected to improve modestly, reflecting better liquidity management.</li>
+<li>The <strong>retained earnings ratio</strong> is projected to increase slightly, supporting sustained equity strength.</li>
+<li>EBIT margin is forecasted to improve from negative to slightly positive by FY 2027, signaling operational turnaround potential.</li>
+<li>Forecast confidence is moderate due to limited analyst coverage (65% and 60% for FY 2026 and 2027 respectively).</li>
+<li>Key catalysts include successful clinical trial outcomes, regulatory approvals, and market expansion.</li>
+<li>Limitations include lack of detailed debt data and market cap to liabilities ratio, which constrains leverage risk assessment.</li>
+</ul>
+<hr />
+<h2 id="5-market-intelligence-validation-analysis">5. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Current Z-Score Signal</th>
+<th>Forecast Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Strong (15.879)</td>
+<td>Stable to improving</td>
+<td>Neutral (Price $112.89)</td>
+<td>Aligned</td>
+<td>Supports Buy/Hold; low distress risk</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Neutral to Positive</td>
+<td>Moderate Confidence</td>
+<td>Limited data</td>
+<td>Consistent</td>
+<td>Market perception matches fundamentals</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Outperforming Industry</td>
+<td>Expected to maintain</td>
+<td>Sector steady</td>
+<td>Outperforming</td>
+<td>Competitive advantage confirmed</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="commentary_3">Commentary</h3>
+<ul>
+<li>The <strong>current Z-Score of 15.879</strong> strongly aligns with the company’s market valuation and stable price performance.</li>
+<li>Despite limited technical indicators (all zeroed), fundamental signals are robust.</li>
+<li>Analyst sentiment and forecast confidence are consistent with the financial health narrative, supporting a positive investment outlook.</li>
+<li>Peer comparison confirms BNTX’s superior positioning within the biotechnology sector.</li>
+<li>Market timing is favorable given the stable Z-Score trajectory and forecasted improvements.</li>
+</ul>
+<hr />
+<h2 id="6-risk-stratification-scenario-framework">6. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Current Probability</th>
+<th>Forecast Impact</th>
+<th>Severity</th>
+<th>Impact on Current Z-Score</th>
+<th>Impact on Forecast Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>Medium</td>
+<td>1-2 Years</td>
+<td>Moderate</td>
+<td>Potential EBIT margin drag</td>
+<td>Could lower Z-Score by ~1.5</td>
+<td>Cost control, pipeline prioritization</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>Low</td>
+<td>1-3 Years</td>
+<td>Minor</td>
+<td>Limited due to strong equity</td>
+<td>Minimal</td>
+<td>Maintain liquidity, monitor debt</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Market Cycles</td>
+<td>Moderate</td>
+<td>Possible valuation pressure</td>
+<td>Could affect market cap ratio</td>
+<td>Diversify product pipeline, hedging</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="commentary_4">Commentary</h3>
+<ul>
+<li><strong>Operational risks</strong> related to R&amp;D expenses and clinical trial outcomes pose moderate risk to EBIT and thus Z-Score stability.</li>
+<li><strong>Financial risks</strong> are low given strong retained earnings and market capitalization.</li>
+<li><strong>Market risks</strong> include biotech sector volatility and regulatory uncertainties, which could impact valuation and investor sentiment.</li>
+<li>Scenario analysis confirms Z-Score resilience even under pessimistic assumptions, with forecast Z-Scores remaining above 13.8.</li>
+<li>Mitigation strategies focus on operational efficiency and maintaining liquidity buffers.</li>
+</ul>
+<hr />
+<h2 id="7-investment-profile-recommendations">7. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Current Z-Score Evidence</th>
+<th>Forecast Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>HOLD</td>
+<td>Z-Score 15.879 indicates safety</td>
+<td>Stable forecast above 15.0</td>
+<td>Price stable, monitor liquidity</td>
+<td>Review quarterly, 6-12 months</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>HOLD</td>
+<td>Dividend yield 0.00%, no payout</td>
+<td>Forecast earnings growth positive</td>
+<td>Not applicable</td>
+<td>Monitor for dividend initiation</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>BUY</td>
+<td>Strong Z-Score vs industry avg</td>
+<td>Forecast growth supports valuation</td>
+<td>Favorable entry now</td>
+<td>12-18 months for value realization</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>BUY</td>
+<td>High Z-Score supports growth</td>
+<td>EBIT margin improvement forecast</td>
+<td>Momentum positive</td>
+<td>6-24 months with pipeline milestones</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>BUY</td>
+<td>Low risk, high upside potential</td>
+<td>Upside scenario Z-Score 17+</td>
+<td>Volatility low</td>
+<td>Entry immediately, monitor catalysts</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="commentary_5">Commentary</h3>
+<ul>
+<li><strong>Conservative investors</strong> should hold, given strong financial health but watch liquidity.</li>
+<li><strong>Dividend investors</strong> have limited appeal currently due to zero yield.</li>
+<li><strong>Value and growth investors</strong> are recommended to buy, supported by strong Z-Score and improving EBIT forecasts.</li>
+<li><strong>Aggressive investors</strong> can capitalize on upside potential with low distress risk and favorable forecast scenarios.</li>
+<li>Position sizing should reflect forecast confidence and risk tolerance, with larger allocations for growth and aggressive profiles.</li>
+</ul>
+<hr />
+<h2 id="8-strategic-business-intelligence">8. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Current Metrics</th>
+<th>Forecast Targets</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Pipeline advancement</td>
+<td>Z-Score 15.879, EBIT -0.025</td>
+<td>Z-Score &gt;16, EBIT positive</td>
+<td>Accelerate clinical trials, cost optimization</td>
+<td>Z-Score improvement, EBIT margin</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Liquidity &amp; capital allocation</td>
+<td>Current ratio 0.665</td>
+<td>Improve to &gt;0.75</td>
+<td>Enhance working capital management</td>
+<td>Liquidity ratios, cash flow</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk oversight &amp; compliance</td>
+<td>Low risk, stable trajectory</td>
+<td>Maintain low risk profile</td>
+<td>Monitor operational and market risks</td>
+<td>Risk metrics, compliance audits</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="commentary_6">Commentary</h3>
+<ul>
+<li>CEO should focus on operational efficiencies to convert negative EBIT to positive, supporting Z-Score growth.</li>
+<li>CFO must address liquidity constraints to ensure operational flexibility.</li>
+<li>Board should maintain oversight on risk factors identified, ensuring governance aligns with forecast risk trajectory.</li>
+<li>These initiatives align with forecasted Z-Score improvements and risk mitigation strategies.</li>
+</ul>
+<hr />
+<h2 id="9-forward-looking-intelligence-framework">9. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Status</th>
+<th>Forecast Trajectory</th>
+<th>Timeline Projections</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Evolution</td>
+<td>15.879, stable</td>
+<td>15.5 - 18.0 (FY26-FY27)</td>
+<td>Quarterly milestones</td>
+<td>Clinical trial results, approvals</td>
+<td>EBIT margin, working capital</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Strong, outperforming</td>
+<td>Maintain competitive edge</td>
+<td>Industry cycle dependent</td>
+<td>Pipeline success, market expansion</td>
+<td>Market share, peer Z-Scores</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Low, stable</td>
+<td>Moderate operational risk</td>
+<td>1-3 year horizon</td>
+<td>Regulatory changes, R&amp;D outcomes</td>
+<td>Risk factor occurrence</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="forecast-confidence-scenario-planning">Forecast Confidence &amp; Scenario Planning</h3>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Probability</th>
+<th>Z-Score Range (FY1-FY2)</th>
+<th>Timeline</th>
+<th>Key Assumptions</th>
+<th>Success Indicators</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Optimistic</td>
+<td>30%</td>
+<td>17.2 - 18.0</td>
+<td>FY 2026 - FY 2027</td>
+<td>Strong pipeline, market growth</td>
+<td>Positive EBIT, regulatory wins</td>
+</tr>
+<tr>
+<td>Base Case</td>
+<td>50%</td>
+<td>15.5 - 16.2</td>
+<td>FY 2026 - FY 2027</td>
+<td>Stable operations, moderate growth</td>
+<td>Stable Z-Score, improved EBIT</td>
+</tr>
+<tr>
+<td>Pessimistic</td>
+<td>20%</td>
+<td>13.8 - 14.5</td>
+<td>FY 2026 - FY 2027</td>
+<td>Operational delays, market headwinds</td>
+<td>EBIT remains negative, liquidity stress</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="final-commentary">Final Commentary</h3>
+<p>BioNTech SE’s current and forecasted Altman Z-Scores reflect <strong>exceptional financial health and low bankruptcy risk</strong>, supported by a strong retained earnings base and market capitalization of over $27 billion. Despite operational challenges reflected in a slightly negative EBIT ratio and below-average liquidity ratios, the company’s financial stability remains robust.</p>
+<p>Investment recommendations favor <strong>buying or holding positions</strong> depending on risk tolerance, with growth and aggressive profiles best positioned to capitalize on forecasted improvements in EBIT and Z-Score. Conservative investors should monitor liquidity metrics closely.</p>
+<p>Key risks center on operational execution and market volatility, but mitigation strategies and scenario planning indicate resilience. The company’s biotech sector context explains some financial peculiarities, such as low asset turnover and negative EBIT, which are typical in R&amp;D-heavy firms.</p>
+<p>Ongoing monitoring of quarterly Z-Score components, EBIT margin, and working capital ratios will be critical to validate forecast trajectories and adjust investment strategies accordingly.</p>
+<hr />
+<p><strong>Analysis completed with full integration of injected data elements, precise Z-Score referencing, and multi-dimensional financial and risk assessments.</strong></p></div></div>
+    </div>
+    
+
+    <div class="section glossary-section">
+        <h2>Definitions & Glossary</h2>
+        <div class="glossary-category">
+            <h3>Altman Z-Score Models</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Altman Z-Score</h4>
+                    <p>A financial formula that predicts the probability of a company going bankrupt within the next 2
+                        years. Developed by Edward I. Altman in 1968.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Original Model (--model original)</h4>
+                    <p>The original Altman Z-Score model designed for publicly traded manufacturing companies. Formula:
+                        Z = 1.2X₁ + 1.4X₂ + 3.3X₃ + 0.6X₄ + 1.0X₅.
+                        Cutoffs: Safe Zone: > 2.99, gray Zone: 1.81-2.99, Distress Zone: < 1.81.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Private Company Model (--model private)</h4>
+                    <p>Adaptation for private manufacturing companies using book value instead of market value. Formula:
+                        Z' = 0.717X₁ + 0.847X₂ + 3.107X₃ + 0.420X₄ + 0.998X₅.
+                        Cutoffs: Safe Zone: > 2.9, gray Zone: 1.23-2.9, Distress Zone: < 1.23.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Service Company Model (--model service)</h4>
+                    <p>Designed for service sector and asset-light businesses without asset turnover ratio. Formula: Z''
+                        = 6.56X₁ + 3.26X₂ + 6.72X₃ + 1.05X₄.
+                        Cutoffs: Safe Zone: > 2.6, gray Zone: 1.1-2.6, Distress Zone: < 1.1.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Emerging Markets Model (--model emerging)</h4>
+                    <p>Adaptation for companies in developing economies with different accounting standards. Formula:
+                        Z'' = 6.56X₁ + 3.26X₂ + 6.72X₃ + 1.05X₄ + 3.25.
+                        Cutoffs: Safe Zone: > 5.85, gray Zone: 3.75-5.85, Distress Zone: < 3.75.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Financial Institutions Model (--model financial)</h4>
+                    <p>Adaptation for banks, insurance companies, and financial services firms. Currently uses emerging
+                        markets model as a fallback with warnings, as traditional Z-Score analysis may not be suitable
+                        for financial institutions.
+                        Cutoffs: Safe Zone: > 2.6, gray Zone: 1.1-2.6, Distress Zone: < 1.1.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Retail Industry Model (--model retail)</h4>
+                    <p>Novel project-specific model for retail companies with inventory turnover adjustments. Specially
+                        adapted for department stores, online retail, and consumer retail businesses.
+                        Based on the original model with retail-specific calculations.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Z-Score Components</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>X₁: Working Capital / Total Assets</h4>
+                    <p>Measures a company's ability to cover its short-term obligations with its short-term assets.
+                        Indicates liquidity and operational efficiency. Used in all models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₂: Retained Earnings / Total Assets</h4>
+                    <p>Measures cumulative profitability over time and the company's age. Indicates how much a company
+                        has
+                        reinvested its earnings into itself. Used in all models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₃: EBIT / Total Assets</h4>
+                    <p>Measures productivity and efficiency in generating earnings from assets, regardless of tax or
+                        leverage factors. Used in all models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₄: Market Value of Equity / Total Liabilities</h4>
+                    <p>Indicates how much the company's assets can decline in value before liabilities exceed assets and
+                        the
+                        company becomes insolvent. Used in Original model.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₄: Book Value of Equity / Total Liabilities</h4>
+                    <p>Used in Private, Service, Emerging, and Financial models to replace market value with book value.
+                        Measures long-term solvency.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₅: Sales / Total Assets</h4>
+                    <p>The asset turnover ratio that indicates how efficiently a company is using its assets to generate
+                        sales. Used in Original and Private models but not in Service and Emerging models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Constant Term</h4>
+                    <p>A constant value of 3.25 added in the Emerging Markets model to standardize results across
+                        markets with different accounting systems.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Inventory Turnover Adjustment</h4>
+                    <p>A specialized adjustment in the Retail model that accounts for the high inventory turnover and
+                        seasonal patterns common in retail businesses.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Model Selection Logic</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Industry-Based Selection</h4>
+                    <p>The system automatically selects the most appropriate Z-Score model based on the company's
+                        industry sector, public/private status, financial characteristics, and data availability.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Selection Priority</h4>
+                    <p>Selection follows a priority sequence: (1) Financial companies, (2) Emerging market companies,
+                        (3) Private companies with no market data, (4) Public companies by industry (retail, service,
+                        tech, manufacturing).</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Confidence Score</h4>
+                    <p>Each model selection includes a confidence score (0.0-1.0) indicating the reliability of the
+                        selection. Higher values indicate greater confidence in the model choice.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>AI-Enhanced Selection</h4>
+                    <p>The system uses AI analysis to classify companies and identify the optimal Z-Score model, with
+                        fallback to rule-based selection if AI is unavailable.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Manual Override</h4>
+                    <p>Users can manually force a specific model using the --model parameter in the command line
+                        interface (e.g., --model retail).</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Risk Categories</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Safe Zone</h4>
+                    <p>Companies in this zone are considered financially stable with low probability of bankruptcy.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Gray Zone</h4>
+                    <p>Companies in this zone have some financial concerns and require careful monitoring.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Distress Zone</h4>
+                    <p>Companies in this zone are at high risk of financial distress and potential bankruptcy.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Technical Analysis Indicators</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>RSI (Relative Strength Index)</h4>
+                    <p>A momentum oscillator that measures the speed and change of price movements. Values above 70
+                        indicate
+                        overbought conditions; values below 30 indicate oversold conditions.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>MACD (Moving Average Convergence Divergence)</h4>
+                    <p>A trend-following momentum indicator showing the relationship between two moving averages of a
+                        security's price.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>MACD Signal</h4>
+                    <p>A trading signal derived from the MACD indicator. Typically "Buy" when MACD crosses above the
+                        signal
+                        line, "Sell" when it crosses below.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Bollinger Bands (BB)</h4>
+                    <p>A technical analysis tool that consists of a set of lines plotted two standard deviations away
+                        from a
+                        simple moving average of the security's price.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>BB Signal</h4>
+                    <p>A trading signal derived from Bollinger Bands, typically indicating overbought/oversold
+                        conditions
+                        when price touches the upper/lower bands.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Momentum</h4>
+                    <p>A measurement of the rate of change in security prices. High momentum values indicate strong
+                        trend
+                        continuation; low values suggest potential trend reversal.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Valuation Metrics</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>P/E (Price-to-Earnings Ratio)</h4>
+                    <p>A valuation metric that compares a company's current share price to its earnings per share (EPS).
+                        Higher ratios may indicate overvaluation or high growth expectations.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>P/B (Price-to-Book Ratio)</h4>
+                    <p>A valuation ratio comparing a company's market price to its book value per share. Lower ratios
+                        may
+                        indicate undervaluation.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>P/S (Price-to-Sales Ratio)</h4>
+                    <p>A valuation ratio that compares a company's stock price to its revenues. Lower ratios typically
+                        suggest better value.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>EV/EBITDA</h4>
+                    <p>Enterprise Value to Earnings Before Interest, Taxes, Depreciation, and Amortization. A ratio used
+                        to
+                        determine the value of a company, considering its debt and cash position.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Market Cap</h4>
+                    <p>The total market value of a company's outstanding shares, calculated by multiplying share price
+                        by
+                        the number of shares outstanding.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Performance Metrics</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>1D (One Day Return)</h4>
+                    <p>The percentage change in a security's price over the most recent trading day.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>1W (One Week Return)</h4>
+                    <p>The percentage change in a security's price over the most recent trading week.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>1M (One Month Return)</h4>
+                    <p>The percentage change in a security's price over the most recent month.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>3M (Three Month Return)</h4>
+                    <p>The percentage change in a security's price over the most recent three months.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>6M (Six Month Return)</h4>
+                    <p>The percentage change in a security's price over the most recent six months.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>1Y (One Year Return)</h4>
+                    <p>The percentage change in a security's price over the most recent year.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Risk Metrics</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Beta</h4>
+                    <p>A measure of a stock's volatility in relation to the overall market. A beta greater than 1
+                        indicates
+                        above-average volatility.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Sharpe Ratio</h4>
+                    <p>Measures risk-adjusted return. Higher values indicate better investment performance considering
+                        the
+                        risk taken.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Max Drawdown</h4>
+                    <p>The maximum observed loss from a peak to a trough of a portfolio or fund before a new peak is
+                        attained.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Volatility Risk</h4>
+                    <p>The rate at which the price of a security increases or decreases over a particular period. Higher
+                        volatility means higher risk.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Financial Statement Terms</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>EBIT (Earnings Before Interest and Taxes)</h4>
+                    <p>A measure of a company's operating profit that excludes interest and income tax expenses.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>EBITDA</h4>
+                    <p>Earnings Before Interest, Taxes, Depreciation, and Amortization. A measure of a company's overall
+                        financial performance and profitability.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Working Capital</h4>
+                    <p>The difference between a company's current assets and current liabilities, representing the
+                        capital available for daily operations.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Investment Recommendations</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Strong Buy</h4>
+                    <p>A recommendation indicating that analysts expect the stock to significantly outperform the market
+                        average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Buy</h4>
+                    <p>A recommendation indicating that analysts expect the stock to outperform the market average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Hold</h4>
+                    <p>A recommendation indicating that analysts expect the stock to perform in line with the market
+                        average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Sell</h4>
+                    <p>A recommendation indicating that analysts expect the stock to underperform the market average.
+                    </p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Strong Sell</h4>
+                    <p>A recommendation indicating that analysts expect the stock to significantly underperform the
+                        market
+                        average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Confidence Level</h4>
+                    <p>A numerical expression (usually as a percentage) indicating the degree of certainty in an
+                        investment
+                        recommendation or analysis.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
+    <footer>
+        <p>Generated on July 12, 2025 at 11:04 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
+
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
+
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
+            }
+        }
+
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
+
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
+
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
+    </script>
+</body>
+
+</html>

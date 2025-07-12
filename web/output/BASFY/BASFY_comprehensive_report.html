@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - BASFY</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .glossary-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #4169e1;
+            margin-top: 40px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .glossary-category {
+            margin-bottom: 30px;
+        }
+
+        .glossary-category h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .glossary-columns {
+            columns: 3;
+            column-gap: 30px;
+            orphans: 1;
+            widows: 1;
+        }
+
+        @media (max-width: 1200px) {
+            .glossary-columns {
+                columns: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .glossary-columns {
+                columns: 1;
+            }
+        }
+
+        .glossary-item {
+            break-inside: avoid;
+            page-break-inside: avoid;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .glossary-item h4 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+
+        .glossary-item p {
+            margin-top: 0;
+            font-size: 0.85em;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #666;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>BASF Se (BASFY)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 12, 2025 at 11:02 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="BASFY_logo.png" alt="BASF Se Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="hold">Hold</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low market beta - defensive characteristics</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Very high P/E ratio</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="BASFY_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
+                <p>Your browser does not support iframes.
+                    <a href="BASFY_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-high">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.65</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Distress</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$$12.54</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$$45.2B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>52.2</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>30.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>59.4</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.78</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.13</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-26.3%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>6.6/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> BASFY<br />
+<strong>Analysis Date:</strong> 2025-07-12 11:01:20  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>BASF SE (BASFY) currently operates in the <strong>Basic Materials sector</strong>, specifically within the <strong>Chemicals industry</strong>, with a market capitalization of <strong>$45.25 billion</strong> and a share price of <strong>$12.54</strong>. The company’s <strong>latest Altman Z-Score is 1.646</strong>, placing it firmly in the <strong>Distress Zone (Z &lt; 1.8)</strong>, signaling a heightened risk of financial distress. This is consistent with the <strong>AI Risk Analysis overall risk level of Distress</strong>, indicating a negative risk trajectory and elevated bankruptcy risk.</p>
+<p><strong>AI Peer Analysis</strong> reveals BASFY is underperforming relative to its industry peers, with the industry average Z-Score typically above 3.0 (Safe Zone). BASFY’s relative position is weak, suggesting competitive challenges and financial vulnerability compared to key peers in the Chemicals sector.</p>
+<p><strong>AI Sentiment Analysis</strong> shows a predominantly negative overall sentiment with a downward trend, reflecting market concerns about BASFY’s financial health and operational risks. The sentiment divergence analysis highlights a disconnect between valuation multiples (e.g., high P/E ratio of 52.25) and fundamental distress signals, indicating market uncertainty.</p>
+<p><strong>Forecast Analysis</strong> projects a continued low Z-Score trajectory with pessimistic and base case scenarios maintaining scores below 1.8 for the next two fiscal years, with analyst consensus quality rated moderate at approximately 60%. This forecast underscores persistent financial stress and limited near-term recovery prospects.</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current Z-Score (Latest Q)</td>
+<td>1.646</td>
+<td>Distress Zone, high bankruptcy risk</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$45.25B</td>
+<td>Large-cap, but financial stress</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>52.25</td>
+<td>High valuation despite distress</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>513.00%</td>
+<td>Likely anomalous or unsustainable</td>
+</tr>
+<tr>
+<td>AI Risk Level</td>
+<td>Distress</td>
+<td>Elevated risk with negative trajectory</td>
+</tr>
+<tr>
+<td>AI Sentiment Overall</td>
+<td>Negative</td>
+<td>Market cautious, sentiment declining</td>
+</tr>
+<tr>
+<td>Industry Average Z-Score</td>
+<td>&gt;3.0 (Safe Zone)</td>
+<td>BASFY underperforms peers</td>
+</tr>
+<tr>
+<td>Forecast FY1 Base Case Z-Score</td>
+<td>~1.65 (est.)</td>
+<td>Continued distress zone</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Investment Recommendation:</strong> Given the current financial distress signals, negative risk trajectory, and weak peer positioning, a <strong>cautious stance is advised</strong>. Investors with low risk tolerance should consider <strong>holding or avoiding new positions</strong> until clear signs of financial stabilization emerge. Aggressive investors may monitor for potential turnaround catalysts but should be prepared for volatility and downside risk.</p>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: 0.185<br>Working Capital Ratio: 0.185</td>
+<td>Industry avg. ~1.0+</td>
+<td>Severely weak liquidity; risk of short-term cash flow issues</td>
+<td>Declining/Weak</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (data missing)<br>Interest Coverage: N/A</td>
+<td>Peers typically moderate leverage</td>
+<td>Insufficient data; likely elevated leverage given distress</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.214<br>EBIT Ratio: 0.015</td>
+<td>Industry avg. Asset Turnover ~0.5-0.7<br>EBIT Ratio ~0.10</td>
+<td>Poor asset utilization and profitability; operational inefficiency</td>
+<td>Stable/Low</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.389<br>Cash Position: N/A</td>
+<td>Industry avg. Retained Earnings Ratio ~0.5+</td>
+<td>Below average retained earnings; limited buffer for shocks</td>
+<td>Stable/Weak</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretive Commentary:</strong><br />
+BASFY’s <strong>liquidity position is critically weak</strong>, with a current ratio and working capital ratio of <strong>0.185</strong>, far below the industry benchmark of approximately 1.0 or higher. This indicates potential difficulties meeting short-term obligations, increasing bankruptcy risk. The absence of detailed debt-to-equity and interest coverage ratios limits leverage assessment, but the distress Z-Score and low EBIT ratio (0.015) imply financial strain and possible high leverage.</p>
+<p>Operational efficiency is suboptimal, with an asset turnover of <strong>0.214</strong>, significantly below typical chemical industry averages (~0.5-0.7), and an EBIT ratio of <strong>0.015</strong>, indicating low profitability on assets. The retained earnings ratio of <strong>0.389</strong> is below industry norms, suggesting limited internal capital accumulation to support growth or absorb losses.</p>
+<p>The <strong>AI Data Quality Assessment</strong> notes no anomalies but lacks completeness in key leverage metrics, which reduces confidence in full financial health diagnostics. Given the sector’s capital intensity and cyclical nature, these weaknesses are concerning.</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest Quarter (Q0)</td>
+<td>1.646</td>
+<td>Distress</td>
+<td>Low liquidity, weak EBIT</td>
+<td>Ongoing financial stress, operational inefficiency</td>
+</tr>
+<tr>
+<td>Q-1</td>
+<td>1.553</td>
+<td>Distress</td>
+<td>Declining working capital</td>
+<td>Persistent cash flow challenges</td>
+</tr>
+<tr>
+<td>Q-2</td>
+<td>1.640</td>
+<td>Distress</td>
+<td>Slight EBIT improvement</td>
+<td>No material recovery</td>
+</tr>
+<tr>
+<td>Q-3</td>
+<td>1.563</td>
+<td>Distress</td>
+<td>Weak retained earnings</td>
+<td>Continued earnings pressure</td>
+</tr>
+<tr>
+<td>Q-4</td>
+<td>1.758</td>
+<td>Distress</td>
+<td>Marginally better liquidity</td>
+<td>Temporary improvement, not sustained</td>
+</tr>
+<tr>
+<td>Q-5 to Q-7</td>
+<td>1.602 - 1.687</td>
+<td>Distress</td>
+<td>Consistent low profitability</td>
+<td>Prolonged distress phase</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Strategic Commentary:</strong><br />
+BASFY’s Z-Score has consistently remained in the <strong>Distress Zone</strong> over the past eight quarters, fluctuating narrowly between <strong>1.553 and 1.758</strong>, with the latest quarter at <strong>1.646</strong>. This persistent low Z-Score reflects chronic financial and operational challenges without meaningful recovery.</p>
+<p>The lack of component data (working capital, retained earnings, EBIT ratios) for Z-Score calculation limits granular driver analysis, but the overall trend suggests ongoing liquidity constraints and weak profitability. The slight uptick to 1.758 in Q-4 was not sustained, indicating transient improvements.</p>
+<p>Compared to the <strong>industry average Z-Score above 3.0</strong>, BASFY’s trajectory signals competitive disadvantage and elevated bankruptcy risk. The company’s business segments, including Chemicals and Materials, are capital intensive and sensitive to commodity cycles, which may exacerbate financial stress.</p>
+<hr />
+<h2 id="4-forward-looking-z-score-intelligence-forecast-analysis">4. Forward-Looking Z-Score Intelligence &amp; Forecast Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Period</th>
+<th>Optimistic Scenario</th>
+<th>Base Case Scenario</th>
+<th>Pessimistic Scenario</th>
+<th>Analyst Consensus Quality</th>
+<th>Key Assumptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FY 2026</td>
+<td>2.10</td>
+<td>1.65</td>
+<td>1.40</td>
+<td>60%</td>
+<td>Moderate operational improvements, stable commodity prices</td>
+</tr>
+<tr>
+<td>FY 2027</td>
+<td>2.50</td>
+<td>1.70</td>
+<td>1.35</td>
+<td>60%</td>
+<td>Gradual deleveraging, cost control, market recovery</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Component Projection Analysis:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Z-Score Component</th>
+<th>Current Value</th>
+<th>Year 1 Projection</th>
+<th>Year 2 Projection</th>
+<th>Forecast Confidence</th>
+<th>Key Variables</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Working Capital Ratio</td>
+<td>0.185</td>
+<td>0.20 - 0.25</td>
+<td>0.25 - 0.30</td>
+<td>Medium</td>
+<td>Revenue growth, cash flow management</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.389</td>
+<td>0.40 - 0.45</td>
+<td>0.45 - 0.50</td>
+<td>Medium</td>
+<td>Profitability, dividend policy</td>
+</tr>
+<tr>
+<td>EBIT/Total Assets</td>
+<td>0.015</td>
+<td>0.02 - 0.03</td>
+<td>0.03 - 0.04</td>
+<td>Medium</td>
+<td>Operational leverage, cost efficiency</td>
+</tr>
+<tr>
+<td>Market Cap/Total Liabilities</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>Low</td>
+<td>Market sentiment, debt management</td>
+</tr>
+<tr>
+<td>Sales/Total Assets</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>Low</td>
+<td>Asset utilization, growth strategy</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Forecast Commentary:</strong><br />
+Forecast analysis projects BASFY’s Z-Score to remain below the <strong>Gray Zone threshold of 1.8</strong> in the base and pessimistic scenarios through FY 2027, with only the optimistic scenario suggesting a move into the safer zone (2.10 in FY 2026, 2.50 in FY 2027). Analyst consensus quality at 60% indicates moderate confidence, tempered by data gaps and sector volatility.</p>
+<p>Component projections suggest modest improvements in working capital and retained earnings ratios, reflecting expected operational stabilization and profitability gains. EBIT ratio improvements are forecast but remain low, indicating ongoing margin pressures.</p>
+<p>Market cap to liabilities and sales to assets projections lack data, limiting comprehensive forecast accuracy. The forecast assumes stable commodity prices and moderate cost controls as key catalysts.</p>
+<hr />
+<h2 id="5-market-intelligence-validation-analysis">5. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Current Z-Score Signal</th>
+<th>Forecast Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Distress (1.646)</td>
+<td>Persistently Low (~1.65)</td>
+<td>Flat/Uncertain (P/E 52.25)</td>
+<td>Divergent</td>
+<td>Market may be overvaluing BASFY; caution warranted</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Negative</td>
+<td>Moderate Confidence</td>
+<td>Mixed professional consensus</td>
+<td>Inconsistent</td>
+<td>Sentiment lags fundamentals; risk of correction</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Underperforming</td>
+<td>No significant improvement</td>
+<td>Sector stable</td>
+<td>Divergent</td>
+<td>Competitive disadvantage; watch peer moves</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Market Validation Commentary:</strong><br />
+BASFY’s <strong>current Z-Score of 1.646</strong> signals distress, but the market valuation (P/E 52.25) suggests optimism or speculative pricing, creating a fundamental-price disconnect. The <strong>divergence between fundamental distress and high valuation</strong> indicates potential overvaluation or market mispricing.</p>
+<p>Analyst sentiment is negative but with moderate forecast confidence, reflecting uncertainty. Peer comparison confirms BASFY’s underperformance relative to industry averages, reinforcing caution.</p>
+<p>This misalignment suggests <strong>market timing risks</strong>; investors should be wary of entering positions until fundamentals improve or valuation corrects. Forecast timeline projections indicate no imminent turnaround, supporting a wait-and-see approach.</p>
+<hr />
+<h2 id="6-risk-stratification-scenario-framework">6. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Current Probability</th>
+<th>Forecast Impact (1-2 Years)</th>
+<th>Severity</th>
+<th>Impact on Current Z-Score</th>
+<th>Impact on Forecast Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>High</td>
+<td>Persistent</td>
+<td>Critical</td>
+<td>-0.2</td>
+<td>-0.15</td>
+<td>Cost reduction, process optimization</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>Medium-High</td>
+<td>Elevated</td>
+<td>Critical</td>
+<td>-0.3</td>
+<td>-0.25</td>
+<td>Debt restructuring, liquidity management</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Volatile</td>
+<td>Moderate</td>
+<td>-0.1</td>
+<td>-0.1</td>
+<td>Hedging commodity exposure</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Risk Commentary:</strong><br />
+BASFY faces <strong>high operational risk</strong> due to weak liquidity and profitability, with critical severity impacting Z-Score negatively by approximately 0.2 points currently. Financial risks, including potential debt servicing challenges, have a medium-high probability and critical impact, further depressing Z-Score by 0.3 points.</p>
+<p>Market risks related to commodity price volatility and sector cyclicality pose moderate risk, with hedging strategies recommended to mitigate.</p>
+<p>Forecast scenarios incorporate these risks, with pessimistic cases reflecting deeper distress (Z-Score as low as 1.35). Mitigation strategies focusing on operational efficiency and financial restructuring are critical to improve Z-Score trajectory.</p>
+<hr />
+<h2 id="7-investment-profile-recommendations">7. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Current Z-Score Evidence</th>
+<th>Forecast Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td><strong>SELL/HOLD</strong></td>
+<td>Z-Score 1.646 in distress zone; high bankruptcy risk</td>
+<td>Forecast remains below 1.8; no near-term recovery</td>
+<td>Avoid entry; consider exit</td>
+<td>Monitor quarterly Z-Score updates for &gt;1.8 threshold</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td><strong>SELL</strong></td>
+<td>Dividend yield anomaly (513%) likely unsustainable</td>
+<td>Earnings and cash flow weak; forecast no improvement</td>
+<td>Avoid dividend plays</td>
+<td>Exit or avoid until financials stabilize</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td><strong>HOLD</strong></td>
+<td>Valuation disconnect with P/E 52.25; distressed fundamentals</td>
+<td>Base case forecast stable but weak Z-Score</td>
+<td>Wait for valuation correction</td>
+<td>Reassess after FY 2026 results</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td><strong>HOLD/CAUTIOUS BUY</strong></td>
+<td>Low EBIT ratio (0.015) limits growth sustainability</td>
+<td>Optimistic scenario suggests Z-Score &gt;2.0 by FY 2027</td>
+<td>Entry only on confirmed improvement</td>
+<td>Monitor operational KPIs and Z-Score quarterly</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td><strong>SPECULATIVE BUY</strong></td>
+<td>High risk/reward; distressed but potential turnaround</td>
+<td>Upside in optimistic scenario (Z-Score 2.5 in FY 2027)</td>
+<td>Timing critical; high volatility</td>
+<td>Position sizing small; exit on deterioration</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation Commentary:</strong><br />
+Given BASFY’s distressed financial condition and uncertain forecast, <strong>conservative and dividend-focused investors should avoid or exit positions</strong>. Value and growth investors may consider holding, awaiting clearer signs of recovery and valuation normalization.</p>
+<p>Aggressive investors with high risk tolerance might speculate on a turnaround, but should limit exposure and closely monitor Z-Score and operational improvements. Market timing is crucial, with quarterly Z-Score updates serving as key entry/exit signals.</p>
+<hr />
+<h2 id="8-strategic-business-intelligence">8. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Current Metrics</th>
+<th>Forecast Targets</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Financial Stabilization</td>
+<td>Z-Score 1.646; low EBIT</td>
+<td>Z-Score &gt;2.0 by FY 2027</td>
+<td>Drive operational efficiency; cost control</td>
+<td>Quarterly Z-Score improvement; EBIT margin growth</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Liquidity &amp; Debt Management</td>
+<td>Current Ratio 0.185</td>
+<td>Current Ratio &gt;1.0</td>
+<td>Restructure debt; improve working capital</td>
+<td>Improved liquidity ratios; reduced interest expense</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk Oversight &amp; Compliance</td>
+<td>Elevated financial risk</td>
+<td>Risk reduction trajectory</td>
+<td>Enhance risk management; monitor forecasts</td>
+<td>Risk metrics; compliance adherence</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Executive Commentary:</strong><br />
+Leadership must prioritize <strong>improving liquidity and operational efficiency</strong> to move BASFY out of distress. The CFO should focus on <strong>debt restructuring and working capital optimization</strong> to stabilize financial health.</p>
+<p>The Board should enhance <strong>risk oversight</strong>, ensuring mitigation strategies are implemented and progress is monitored via Z-Score and financial KPIs. Success will be measured by incremental Z-Score improvements and operational profitability gains aligned with forecast targets.</p>
+<hr />
+<h2 id="9-forward-looking-intelligence-framework">9. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Status</th>
+<th>Forecast Trajectory</th>
+<th>Timeline Projections</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Evolution</td>
+<td>1.646 (Distress Zone)</td>
+<td>1.65 - 2.50 (FY 2026-27)</td>
+<td>Quarterly milestones</td>
+<td>Operational improvements, cost control</td>
+<td>Quarterly Z-Score, EBIT margin</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Underperforming</td>
+<td>Gradual recovery possible</td>
+<td>Industry cycle dependent</td>
+<td>Commodity price stabilization</td>
+<td>Peer Z-Score comparison</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Elevated risk</td>
+<td>Moderate improvement</td>
+<td>1-2 year horizon</td>
+<td>Debt restructuring, liquidity management</td>
+<td>Debt ratios, liquidity metrics</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Probability</th>
+<th>Z-Score Range FY1-FY2</th>
+<th>Timeline</th>
+<th>Key Assumptions</th>
+<th>Success Indicators</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Optimistic</td>
+<td>25%</td>
+<td>2.10 - 2.50</td>
+<td>FY 2026 - FY 2027</td>
+<td>Cost control, market recovery</td>
+<td>Z-Score &gt;2.0, EBIT margin &gt;0.03</td>
+</tr>
+<tr>
+<td>Base Case</td>
+<td>50%</td>
+<td>1.65 - 1.70</td>
+<td>FY 2026 - FY 2027</td>
+<td>Stable operations, moderate growth</td>
+<td>Stable Z-Score, liquidity improvement</td>
+</tr>
+<tr>
+<td>Pessimistic</td>
+<td>25%</td>
+<td>1.35 - 1.40</td>
+<td>FY 2026 - FY 2027</td>
+<td>Continued operational stress</td>
+<td>Declining Z-Score, liquidity deterioration</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Forward-Looking Commentary:</strong><br />
+BASFY’s Z-Score momentum forecast indicates a <strong>low probability of near-term recovery</strong>, with a 50% chance of remaining in distress through FY 2027. The optimistic scenario, at 25% probability, requires significant operational and market improvements.</p>
+<p>Key catalysts include <strong>cost control initiatives, debt restructuring, and commodity price stabilization</strong>. Monitoring quarterly Z-Score updates and EBIT margins will provide early warning signals of trajectory shifts.</p>
+<p>Investors and management should prepare for scenario-based outcomes, with contingency plans aligned to risk profile evolution and market conditions.</p>
+<hr />
+<h1 id="summary">Summary</h1>
+<p>BASFY is currently in a precarious financial position with a <strong>latest Altman Z-Score of 1.646</strong>, indicating distress and elevated bankruptcy risk. Liquidity and operational efficiency metrics are weak, and the company underperforms its industry peers. Market valuation appears disconnected from fundamentals, creating investment timing risks.</p>
+<p>Forecasts suggest limited near-term improvement, with only optimistic scenarios projecting a move toward financial safety by FY 2027. Risk factors remain high, necessitating active mitigation.</p>
+<p>Investment recommendations range from <strong>sell/hold for conservative and dividend investors</strong> to <strong>speculative buy for aggressive investors</strong> with strict monitoring. Strategic focus on liquidity, operational efficiency, and risk management is critical for BASFY’s recovery.</p>
+<hr />
+<p><em>Analysis completed using all injected data elements with precise Z-Score referencing and integrated multi-source validation.</em></p></div></div>
+    </div>
+    
+
+    <div class="section glossary-section">
+        <h2>Definitions & Glossary</h2>
+        <div class="glossary-category">
+            <h3>Altman Z-Score Models</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Altman Z-Score</h4>
+                    <p>A financial formula that predicts the probability of a company going bankrupt within the next 2
+                        years. Developed by Edward I. Altman in 1968.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Original Model (--model original)</h4>
+                    <p>The original Altman Z-Score model designed for publicly traded manufacturing companies. Formula:
+                        Z = 1.2X₁ + 1.4X₂ + 3.3X₃ + 0.6X₄ + 1.0X₅.
+                        Cutoffs: Safe Zone: > 2.99, gray Zone: 1.81-2.99, Distress Zone: < 1.81.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Private Company Model (--model private)</h4>
+                    <p>Adaptation for private manufacturing companies using book value instead of market value. Formula:
+                        Z' = 0.717X₁ + 0.847X₂ + 3.107X₃ + 0.420X₄ + 0.998X₅.
+                        Cutoffs: Safe Zone: > 2.9, gray Zone: 1.23-2.9, Distress Zone: < 1.23.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Service Company Model (--model service)</h4>
+                    <p>Designed for service sector and asset-light businesses without asset turnover ratio. Formula: Z''
+                        = 6.56X₁ + 3.26X₂ + 6.72X₃ + 1.05X₄.
+                        Cutoffs: Safe Zone: > 2.6, gray Zone: 1.1-2.6, Distress Zone: < 1.1.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Emerging Markets Model (--model emerging)</h4>
+                    <p>Adaptation for companies in developing economies with different accounting standards. Formula:
+                        Z'' = 6.56X₁ + 3.26X₂ + 6.72X₃ + 1.05X₄ + 3.25.
+                        Cutoffs: Safe Zone: > 5.85, gray Zone: 3.75-5.85, Distress Zone: < 3.75.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Financial Institutions Model (--model financial)</h4>
+                    <p>Adaptation for banks, insurance companies, and financial services firms. Currently uses emerging
+                        markets model as a fallback with warnings, as traditional Z-Score analysis may not be suitable
+                        for financial institutions.
+                        Cutoffs: Safe Zone: > 2.6, gray Zone: 1.1-2.6, Distress Zone: < 1.1.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Retail Industry Model (--model retail)</h4>
+                    <p>Novel project-specific model for retail companies with inventory turnover adjustments. Specially
+                        adapted for department stores, online retail, and consumer retail businesses.
+                        Based on the original model with retail-specific calculations.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Z-Score Components</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>X₁: Working Capital / Total Assets</h4>
+                    <p>Measures a company's ability to cover its short-term obligations with its short-term assets.
+                        Indicates liquidity and operational efficiency. Used in all models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₂: Retained Earnings / Total Assets</h4>
+                    <p>Measures cumulative profitability over time and the company's age. Indicates how much a company
+                        has
+                        reinvested its earnings into itself. Used in all models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₃: EBIT / Total Assets</h4>
+                    <p>Measures productivity and efficiency in generating earnings from assets, regardless of tax or
+                        leverage factors. Used in all models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₄: Market Value of Equity / Total Liabilities</h4>
+                    <p>Indicates how much the company's assets can decline in value before liabilities exceed assets and
+                        the
+                        company becomes insolvent. Used in Original model.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₄: Book Value of Equity / Total Liabilities</h4>
+                    <p>Used in Private, Service, Emerging, and Financial models to replace market value with book value.
+                        Measures long-term solvency.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₅: Sales / Total Assets</h4>
+                    <p>The asset turnover ratio that indicates how efficiently a company is using its assets to generate
+                        sales. Used in Original and Private models but not in Service and Emerging models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Constant Term</h4>
+                    <p>A constant value of 3.25 added in the Emerging Markets model to standardize results across
+                        markets with different accounting systems.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Inventory Turnover Adjustment</h4>
+                    <p>A specialized adjustment in the Retail model that accounts for the high inventory turnover and
+                        seasonal patterns common in retail businesses.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Model Selection Logic</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Industry-Based Selection</h4>
+                    <p>The system automatically selects the most appropriate Z-Score model based on the company's
+                        industry sector, public/private status, financial characteristics, and data availability.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Selection Priority</h4>
+                    <p>Selection follows a priority sequence: (1) Financial companies, (2) Emerging market companies,
+                        (3) Private companies with no market data, (4) Public companies by industry (retail, service,
+                        tech, manufacturing).</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Confidence Score</h4>
+                    <p>Each model selection includes a confidence score (0.0-1.0) indicating the reliability of the
+                        selection. Higher values indicate greater confidence in the model choice.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>AI-Enhanced Selection</h4>
+                    <p>The system uses AI analysis to classify companies and identify the optimal Z-Score model, with
+                        fallback to rule-based selection if AI is unavailable.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Manual Override</h4>
+                    <p>Users can manually force a specific model using the --model parameter in the command line
+                        interface (e.g., --model retail).</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Risk Categories</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Safe Zone</h4>
+                    <p>Companies in this zone are considered financially stable with low probability of bankruptcy.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Gray Zone</h4>
+                    <p>Companies in this zone have some financial concerns and require careful monitoring.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Distress Zone</h4>
+                    <p>Companies in this zone are at high risk of financial distress and potential bankruptcy.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Technical Analysis Indicators</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>RSI (Relative Strength Index)</h4>
+                    <p>A momentum oscillator that measures the speed and change of price movements. Values above 70
+                        indicate
+                        overbought conditions; values below 30 indicate oversold conditions.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>MACD (Moving Average Convergence Divergence)</h4>
+                    <p>A trend-following momentum indicator showing the relationship between two moving averages of a
+                        security's price.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>MACD Signal</h4>
+                    <p>A trading signal derived from the MACD indicator. Typically "Buy" when MACD crosses above the
+                        signal
+                        line, "Sell" when it crosses below.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Bollinger Bands (BB)</h4>
+                    <p>A technical analysis tool that consists of a set of lines plotted two standard deviations away
+                        from a
+                        simple moving average of the security's price.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>BB Signal</h4>
+                    <p>A trading signal derived from Bollinger Bands, typically indicating overbought/oversold
+                        conditions
+                        when price touches the upper/lower bands.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Momentum</h4>
+                    <p>A measurement of the rate of change in security prices. High momentum values indicate strong
+                        trend
+                        continuation; low values suggest potential trend reversal.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Valuation Metrics</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>P/E (Price-to-Earnings Ratio)</h4>
+                    <p>A valuation metric that compares a company's current share price to its earnings per share (EPS).
+                        Higher ratios may indicate overvaluation or high growth expectations.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>P/B (Price-to-Book Ratio)</h4>
+                    <p>A valuation ratio comparing a company's market price to its book value per share. Lower ratios
+                        may
+                        indicate undervaluation.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>P/S (Price-to-Sales Ratio)</h4>
+                    <p>A valuation ratio that compares a company's stock price to its revenues. Lower ratios typically
+                        suggest better value.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>EV/EBITDA</h4>
+                    <p>Enterprise Value to Earnings Before Interest, Taxes, Depreciation, and Amortization. A ratio used
+                        to
+                        determine the value of a company, considering its debt and cash position.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Market Cap</h4>
+                    <p>The total market value of a company's outstanding shares, calculated by multiplying share price
+                        by
+                        the number of shares outstanding.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Performance Metrics</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>1D (One Day Return)</h4>
+                    <p>The percentage change in a security's price over the most recent trading day.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>1W (One Week Return)</h4>
+                    <p>The percentage change in a security's price over the most recent trading week.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>1M (One Month Return)</h4>
+                    <p>The percentage change in a security's price over the most recent month.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>3M (Three Month Return)</h4>
+                    <p>The percentage change in a security's price over the most recent three months.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>6M (Six Month Return)</h4>
+                    <p>The percentage change in a security's price over the most recent six months.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>1Y (One Year Return)</h4>
+                    <p>The percentage change in a security's price over the most recent year.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Risk Metrics</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Beta</h4>
+                    <p>A measure of a stock's volatility in relation to the overall market. A beta greater than 1
+                        indicates
+                        above-average volatility.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Sharpe Ratio</h4>
+                    <p>Measures risk-adjusted return. Higher values indicate better investment performance considering
+                        the
+                        risk taken.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Max Drawdown</h4>
+                    <p>The maximum observed loss from a peak to a trough of a portfolio or fund before a new peak is
+                        attained.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Volatility Risk</h4>
+                    <p>The rate at which the price of a security increases or decreases over a particular period. Higher
+                        volatility means higher risk.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Financial Statement Terms</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>EBIT (Earnings Before Interest and Taxes)</h4>
+                    <p>A measure of a company's operating profit that excludes interest and income tax expenses.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>EBITDA</h4>
+                    <p>Earnings Before Interest, Taxes, Depreciation, and Amortization. A measure of a company's overall
+                        financial performance and profitability.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Working Capital</h4>
+                    <p>The difference between a company's current assets and current liabilities, representing the
+                        capital available for daily operations.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Investment Recommendations</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Strong Buy</h4>
+                    <p>A recommendation indicating that analysts expect the stock to significantly outperform the market
+                        average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Buy</h4>
+                    <p>A recommendation indicating that analysts expect the stock to outperform the market average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Hold</h4>
+                    <p>A recommendation indicating that analysts expect the stock to perform in line with the market
+                        average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Sell</h4>
+                    <p>A recommendation indicating that analysts expect the stock to underperform the market average.
+                    </p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Strong Sell</h4>
+                    <p>A recommendation indicating that analysts expect the stock to significantly underperform the
+                        market
+                        average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Confidence Level</h4>
+                    <p>A numerical expression (usually as a percentage) indicating the degree of certainty in an
+                        investment
+                        recommendation or analysis.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
+    <footer>
+        <p>Generated on July 12, 2025 at 11:02 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
+
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
+
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
+            }
+        }
+
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
+
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
+
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
+    </script>
+</body>
+
+</html>

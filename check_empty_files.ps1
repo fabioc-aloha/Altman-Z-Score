@@ -15,14 +15,14 @@ function Find-EmptyFiles {
     
     Write-Host "Searching for empty files in: $SearchPath" -ForegroundColor Cyan
     Write-Host "Include hidden files: $IncludeHidden" -ForegroundColor Gray
-    Write-Host "=" * 50 -ForegroundColor Gray
+    Write-Host ("=" * 50) -ForegroundColor Gray
     
     $emptyFiles = @()
     $totalFiles = 0
     $totalSize = 0
     
-    # Get all files recursively
-    $files = Get-ChildItem -Path $SearchPath -File -Recurse -Force:$IncludeHidden
+    # Get all files recursively, excluding .venv directory
+    $files = Get-ChildItem -Path $SearchPath -File -Recurse -Force:$IncludeHidden | Where-Object { $_.FullName -notlike "*\.venv\*" }
     
     foreach ($file in $files) {
         $totalFiles++
@@ -43,7 +43,7 @@ function Find-EmptyFiles {
         }
     }
     
-    Write-Host "=" * 50 -ForegroundColor Gray
+    Write-Host ("=" * 50) -ForegroundColor Gray
     Write-Host "SUMMARY:" -ForegroundColor Cyan
     Write-Host "Total files scanned: $totalFiles" -ForegroundColor Green
     Write-Host "Empty files found: $($emptyFiles.Count)" -ForegroundColor $(if ($emptyFiles.Count -gt 0) { "Red" } else { "Green" })

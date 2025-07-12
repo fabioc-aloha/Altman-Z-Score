@@ -37,7 +37,7 @@ SEC_EDGAR_CACHE_TTL_DAYS=7         # Default: 7 days (SEC EDGAR data changes les
 5. **Enhanced performance** - direct API integration for most companies, SEC EDGAR only as needed
 
 **Architecture Impact:**
-- **� SEC EDGAR maintained as fallback** - critical for delisted/bankrupt companies analysis
+- **🔧 SEC EDGAR maintained as fallback** - critical for delisted/bankrupt companies analysis
 - **⚡ Simplified primary data pipeline** - FMP + Yahoo Finance for most companies
 - **🏦 Comprehensive coverage** - handles active, distressed, and delisted companies
 - **🔧 Targeted maintenance** - SEC EDGAR components focused on bankrupt company analysis

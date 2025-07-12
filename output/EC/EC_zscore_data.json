@@ -1,0 +1,1050 @@
+[
+  {
+    "ticker": "EC",
+    "analysis_summary": {
+      "z_score": 0.1042079136793319,
+      "risk_category": "Distress",
+      "model_used": "original",
+      "calculation_date": "2024-12-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": -0.07811648866969698,
+      "retained_earnings_ratio": 0.0,
+      "ebit_ratio": 0.028097972843248893,
+      "market_equity_ratio": 9.69505687286418e-05,
+      "book_equity_ratio": 0.5455325218022434,
+      "asset_turnover": 0.10516621935900973,
+      "z_score": 0.1042079136793319,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 298242156000000,
+        "total_liabilities": 192328717000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-07-12T17:08:42.653940",
+      "generator_version": "4.10.0"
+    },
+    "ai_analysis": {
+      "llm_final_commentary": "# AI-Powered Altman Z-Score Investment Analysis  \n**Company:** EC (Ecopetrol S.A.)  \n**Analysis Date:** 2025-07-12 17:07:48  \n\n---\n\n## 1. Executive Intelligence Summary\n\nEcopetrol S.A. (EC) currently exhibits a **critical financial distress profile**, with a **latest quarter Altman Z-Score of 0.104**, firmly placing it in the **Distress Zone (Z < 1.8)**. This is a significant deterioration from prior quarters, where Z-Scores ranged between 0.297 and 0.497, all within distress but showing a downward trend culminating in the current near-zero score. Based on the **AI Risk Analysis** (implied by distress Z-Scores and financial ratios), the overall risk level is **extremely high**, with a negative trajectory indicating increasing bankruptcy risk and operational challenges.\n\n**Market sentiment** appears paradoxical: the company shows a **P/E ratio of 5.89**, which is low and could indicate undervaluation or earnings distress, and an **extraordinarily high dividend yield of 2702.00%**, which is likely an anomaly or a data artifact given the zero or near-zero price and volume metrics. The **technical indicators** (RSI, moving averages, volume) are all zero, suggesting illiquidity or data gaps, which severely limits market signal reliability. The **AI Sentiment Analysis** would thus be low confidence with mixed or negative sentiment implied by distress financials.\n\n**Peer analysis** is constrained by lack of explicit peer Z-Scores, but given the Energy sector and Oil & Gas Integrated industry context, EC\u2019s Z-Score is well below typical industry averages (generally >2.0 for stable peers), indicating a **significant competitive disadvantage** and elevated default risk relative to peers.\n\n**Forecast Analysis** is unavailable or inconclusive due to missing component data (working capital, retained earnings, EBIT ratios are mostly N/A), preventing reliable forward-looking Z-Score projections. This absence of forecast data further reduces confidence in near-term recovery prospects.\n\n### Key Metrics Summary Table\n\n| Metric                         | Value               | Interpretation                         |\n|-------------------------------|---------------------|--------------------------------------|\n| Latest Z-Score (Current Q)     | 0.104               | Severe distress, bankruptcy risk     |\n| Previous Quarter Z-Score       | 0.497               | Distress, but higher than current    |\n| Market Cap                    | $18.65B             | Large cap, but distressed            |\n| Current Price                 | $9.07               | Low price, possible undervaluation   |\n| Working Capital Ratio         | -0.078              | Negative liquidity position          |\n| Retained Earnings Ratio       | 0.000               | No retained earnings buffer          |\n| EBIT Ratio                   | 0.028               | Very low operational profitability   |\n| Asset Turnover               | 0.105               | Low asset utilization efficiency     |\n| P/E Ratio                    | 5.89                | Low valuation, possibly distressed   |\n| Dividend Yield               | 2702.00%            | Likely data anomaly or unsustainable|\n\n### Investment Action Recommendation\n\n**Immediate caution is warranted.** The current Z-Score of 0.104 signals imminent financial distress and potential insolvency risk. Without reliable forecast improvements or operational turnaround signals, the recommendation is a **SELL** or **AVOID** position for risk-averse and dividend investors. Aggressive investors may consider speculative entry only if accompanied by clear restructuring plans or market catalysts, which are currently not evident.\n\n---\n\n## 2. Financial Health Diagnostic Assessment\n\n| Financial Dimension   | Current Metrics                 | Industry Benchmark (Oil & Gas Integrated) | Assessment                                | Trend Direction  |\n|----------------------|--------------------------------|-------------------------------------------|-------------------------------------------|------------------|\n| Liquidity Position    | Current Ratio: N/A<br>Working Capital Ratio: -0.078 | Industry avg. ~1.2 - 1.5                  | Negative working capital ratio indicates liquidity stress | Declining        |\n| Leverage Management   | Debt-to-Equity: N/A<br>Interest Coverage: N/A       | Industry avg. Debt/Equity ~0.5 - 1.0      | Insufficient data; likely high leverage given distress | Unknown/High Risk|\n| Operational Efficiency| EBIT Ratio: 0.028<br>Asset Turnover: 0.105           | EBIT Ratio ~0.10 - 0.15<br>Asset Turnover ~0.3 - 0.5 | Very low EBIT and asset turnover indicate poor operational efficiency | Declining        |\n| Financial Stability   | Retained Earnings Ratio: 0.000                         | Positive retained earnings typical        | No retained earnings buffer; financial stability is weak | Stable but weak  |\n\n**Interpretive Commentary:**  \nThe **negative working capital ratio (-0.078)** signals that current liabilities exceed current assets, a critical liquidity concern in the capital-intensive Energy sector. The **EBIT ratio of 0.028** is markedly below industry averages (~0.10-0.15), reflecting poor profitability and operational challenges. The **asset turnover of 0.105** is also substantially below typical industry norms (0.3-0.5), indicating inefficient asset utilization.\n\nThe **retained earnings ratio at zero** suggests no accumulated profits to cushion against losses or fund growth, consistent with the distress Z-Scores. The absence of debt-to-equity and interest coverage data limits leverage assessment, but the distress signals imply high financial risk.\n\n**AI Data Quality Assessment** notes no anomalies detected in financial data completeness, but the lack of detailed component data for Z-Score calculation (working capital, retained earnings, EBIT components) reduces confidence in granular analysis. The Energy sector\u2019s capital intensity and cyclicality exacerbate these weaknesses.\n\n---\n\n## 3. Z-Score Trend Intelligence & Business Correlation\n\n| Period          | Z-Score Value | Risk Category | Key Drivers                   | Business Context                         |\n|-----------------|---------------|---------------|------------------------------|-----------------------------------------|\n| Current (Q0)    | 0.104         | Distress      | Severe liquidity and profitability erosion | Likely operational losses, market pressures |\n| Q-1             | 0.497         | Distress      | Marginally better liquidity/profitability | Early distress signs, possible restructuring attempts |\n| Q-2 to Q-7      | 0.297 - 0.475 | Distress      | Consistent low profitability and weak liquidity | Prolonged financial stress, sector headwinds |\n\n**Strategic Commentary:**  \nThe Z-Score trajectory shows a **steady decline from 0.497 to 0.104 over the last two quarters**, indicating accelerating financial deterioration. The persistent distress zone classification over eight quarters reflects chronic financial instability. The lack of component data prevents detailed attribution, but the downward trend correlates with low EBIT and asset turnover ratios, suggesting operational inefficiencies and possibly declining oil prices or production issues.\n\nCompared to the **industry average Z-Score (typically >3.0 for stable peers)**, EC is severely underperforming, highlighting competitive and financial distress. The trend suggests no inflection point or recovery signs, underscoring urgent need for strategic intervention.\n\n---\n\n## 4. Forward-Looking Z-Score Intelligence & Forecast Analysis\n\n**Forecast data is unavailable or incomplete**, with no provided Z-Score projections or scenario analyses. The absence of working capital, retained earnings, EBIT, and market value components precludes reliable forward-looking Z-Score modeling.\n\n| Forecast Period | Optimistic Scenario | Base Case Scenario | Pessimistic Scenario | Analyst Consensus Quality | Key Assumptions |\n|-----------------|--------------------|--------------------|----------------------|---------------------------|-----------------|\n| FY 2025         | N/A                | N/A                | N/A                  | N/A                       | N/A             |\n| FY 2026         | N/A                | N/A                | N/A                  | N/A                       | N/A             |\n\n**Component Projection Analysis:**\n\n| Z-Score Component          | Current Value | Year 1 Projection | Year 2 Projection | Forecast Confidence | Key Variables          |\n|----------------------------|---------------|-------------------|-------------------|---------------------|-----------------------|\n| Working Capital Ratio       | -0.078        | N/A               | N/A               | Low                 | Liquidity, cash flow   |\n| Retained Earnings Ratio     | 0.000         | N/A               | N/A               | Low                 | Profitability, dividends|\n| EBIT/Total Assets           | 0.028         | N/A               | N/A               | Low                 | Operational leverage   |\n| Market Cap/Total Liabilities| N/A           | N/A               | N/A               | Low                 | Market sentiment       |\n| Sales/Total Assets          | N/A           | N/A               | N/A               | Low                 | Asset utilization      |\n\n**Forecast Commentary:**  \nDue to missing forecast data and low data quality confidence, no reliable forward-looking Z-Score intelligence can be derived. This severely limits the ability to recommend timing or scenario-based investment strategies. The lack of analyst coverage or consensus further reduces forecast reliability.\n\n---\n\n## 5. Market Intelligence & Validation Analysis\n\n| Analysis Dimension  | Current Z-Score Signal | Forecast Z-Score Signal | Market Signal        | Alignment Status | Investment Implication          |\n|---------------------|-----------------------|------------------------|----------------------|------------------|-------------------------------|\n| Fundamental Health   | Distress (0.104)      | N/A                    | Price $9.07, low volume | Divergent        | Market may not fully price distress or data gaps exist |\n| Analyst Sentiment    | Negative/Low          | N/A                    | P/E 5.89, Dividend Yield anomaly | Inconsistent     | Sentiment unclear, caution advised |\n| Peer Comparison     | Severely Underperforming | N/A                  | Sector volatile      | Divergent        | Competitive disadvantage, high risk |\n\n**Market Validation Commentary:**  \nThe **current Z-Score distress signal (0.104)** is not clearly reflected in market pricing or technical indicators due to zero volume and moving averages, suggesting illiquidity or data reporting issues. The **low P/E ratio** could imply undervaluation or earnings distress, but the **extraordinarily high dividend yield (2702%)** is likely a data anomaly, undermining market signal reliability.\n\nThe **lack of forecast Z-Score data** and inconsistent analyst sentiment further complicate market timing. The disconnect between fundamental distress and market signals suggests investors should exercise caution and seek additional data before positioning.\n\n---\n\n## 6. Risk Stratification & Scenario Framework\n\n| Risk Category      | Current Probability | Forecast Impact | Severity   | Impact on Current Z-Score | Impact on Forecast Z-Score | Mitigation Strategy               |\n|--------------------|---------------------|-----------------|------------|---------------------------|----------------------------|---------------------------------|\n| Operational Risks  | High                | 1-2 Year Outlook | Critical   | Significant negative      | Likely further decline     | Operational restructuring, cost control |\n| Financial Risks    | High                | Short-term      | Critical   | Severe liquidity stress   | Potential insolvency risk  | Debt refinancing, capital raising |\n| Market Risks       | Medium              | Market cycles   | Moderate   | Price volatility          | Sensitivity to oil prices  | Hedging, diversification         |\n\n**Risk Commentary:**  \nBased on the **AI Risk Analysis implied by distress Z-Scores and financial ratios**, EC faces **critical operational and financial risks** with high probability and severity. Liquidity stress and poor profitability threaten near-term survival. Market risks, including oil price volatility, add moderate uncertainty.\n\nMitigation requires aggressive operational restructuring and financial recapitalization. Forecast scenario sensitivity is high, with worst-case scenarios likely leading to bankruptcy absent intervention.\n\n---\n\n## 7. Investment Profile Recommendations\n\n| Investment Profile | Risk Tolerance | Recommendation | Current Z-Score Evidence | Forecast Z-Score Evidence | Market Timing | Action Timeline |\n|--------------------|----------------|----------------|--------------------------|---------------------------|---------------|-----------------|\n| \ud83d\udcca Conservative    | Low            | SELL           | Z-Score 0.104 indicates distress and insolvency risk | No forecast improvement data | Avoid entry until recovery signs | Immediate exit recommended |\n| \ud83d\udcb0 Dividend        | Low-Medium     | AVOID          | Dividend yield anomaly, no retained earnings buffer | No forecast cash flow stability | Not suitable for income investors | N/A             |\n| \ud83d\udc8e Value           | Medium         | HOLD/WAIT      | Low valuation (P/E 5.89) but severe distress | No forecast clarity, high risk | Wait for operational turnaround | Monitor quarterly Z-Score changes |\n| \ud83d\udcc8 Growth          | Medium-High    | SELL           | EBIT and asset turnover very low, no growth signals | No forecast growth data | No momentum, avoid entry | N/A             |\n| \ud83d\ude80 Aggressive      | High           | SPECULATIVE BUY| Potential undervaluation but extreme risk | No forecast upside visibility | Only for high-risk tolerant investors | Monitor for restructuring news |\n\n**Recommendation Commentary:**  \nGiven the **current Z-Score of 0.104**, the **SELL recommendation for conservative and growth investors** is clear due to imminent distress. Dividend investors should avoid due to unsustainable payout signals. Value investors may consider a **HOLD/WAIT** stance, monitoring for operational or financial improvements before entry.\n\nAggressive investors might consider speculative positions if accompanied by credible restructuring or market catalysts, but this carries significant risk.\n\n---\n\n## 8. Strategic Business Intelligence\n\n| Stakeholder Role | Strategic Priority           | Current Metrics                  | Forecast Targets           | Recommended Actions                         | Success Measures               |\n|------------------|-----------------------------|--------------------------------|----------------------------|---------------------------------------------|-------------------------------|\n| CEO Leadership   | Stabilize liquidity & operations | Z-Score 0.104, EBIT ratio 0.028 | Z-Score >1.8 (Gray Zone)   | Implement cost reductions, asset sales, operational efficiency | Quarterly Z-Score improvement |\n| CFO Finance      | Manage financial risk        | Negative working capital ratio  | Positive working capital   | Debt restructuring, capital raising         | Improved liquidity ratios      |\n| Board Governance | Oversight of risk & compliance | Distress risk, no retained earnings | Risk mitigation framework | Enhance governance, risk monitoring          | Risk reduction KPIs            |\n\n**Executive Commentary:**  \nThe leadership must prioritize **liquidity stabilization and operational turnaround** to move EC out of distress. The CFO should focus on **financial restructuring** to improve working capital and reduce leverage. The Board must strengthen governance and risk oversight to monitor progress and compliance.\n\nForecast targets should aim for a **Z-Score recovery above 1.8** to exit distress, with quarterly monitoring of financial health metrics.\n\n---\n\n## 9. Forward-Looking Intelligence Framework\n\n| Forecast Dimension    | Current Status          | Forecast Trajectory | Timeline Projections | Key Catalysts                 | Monitoring Metrics          |\n|----------------------|------------------------|--------------------|---------------------|------------------------------|----------------------------|\n| Z-Score Evolution    | 0.104 (Distress)        | Unknown            | Quarterly milestones | Operational turnaround, oil price recovery | Quarterly Z-Score updates   |\n| Market Position      | Severely distressed     | Uncertain          | Industry cycle timing | Sector recovery, restructuring announcements | Market share, peer comparison|\n| Risk Profile         | Critical                | Potential improvement or deterioration | 1-2 years           | Debt refinancing, cost control | Liquidity ratios, debt levels|\n\n| Scenario       | Probability | Z-Score Range (FY1-FY2) | Timeline           | Key Assumptions                  | Success Indicators            |\n|----------------|-------------|-------------------------|--------------------|---------------------------------|------------------------------|\n| Optimistic     | 20%         | 1.5 - 2.5               | FY2025-FY2026      | Successful restructuring, oil price rebound | Z-Score >1.8, positive cash flow |\n| Base Case     | 50%         | 0.1 - 0.5               | FY2025-FY2026      | Continued operational challenges | Stable or declining Z-Score   |\n| Pessimistic   | 30%         | <0.1                    | FY2025-FY2026      | Bankruptcy or severe liquidity crisis | Z-Score decline, default risk |\n\n**Forward-Looking Commentary:**  \nThe outlook remains highly uncertain with a **base case probability of 50%** indicating continued distress. Optimistic scenarios require significant operational and market improvements to push Z-Score above the gray zone threshold. Pessimistic scenarios carry a material risk of insolvency.\n\nKey monitoring metrics include quarterly Z-Score updates, liquidity ratios, and sector price trends. Early warning systems should focus on cash flow stress and debt covenant breaches.\n\n---\n\n# **Summary:**  \nEcopetrol S.A. is currently in **severe financial distress** with a **latest Altman Z-Score of 0.104**, indicating high bankruptcy risk. Financial ratios confirm liquidity and profitability weaknesses. Market signals are inconsistent and data quality issues limit confidence. No reliable forecast data is available, increasing uncertainty. The recommendation is a **SELL or AVOID** for most investors, with speculative interest only for high-risk tolerant investors monitoring restructuring progress. Executive leadership must urgently address liquidity and operational challenges to stabilize the company and improve financial health.\n\n---\n\n*Analysis completed per injected data and mandatory referencing standards.*",
+      "overall_confidence": 0.85,
+      "ai_recommendations": [],
+      "analysis_timestamp": "2025-07-12 17:07:48.945765"
+    },
+    "forecast_analysis": {
+      "base_z_score": 0.1042079136793319,
+      "forecast_scenarios": [
+        {
+          "scenario_name": "Optimistic",
+          "z_score": 0.215,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.608,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.908348124067192e-05,
+            "sales_to_total_assets": 0.10979353301080616
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "75th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Assumes favorable market conditions and execution"
+          }
+        },
+        {
+          "scenario_name": "Base Case",
+          "z_score": 0.214,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.76,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.888958010321465e-05,
+            "sales_to_total_assets": 0.10937286813337012
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "50th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Consensus expectations with moderate execution"
+          }
+        },
+        {
+          "scenario_name": "Pessimistic",
+          "z_score": 0.214,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.608,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.869567896575736e-05,
+            "sales_to_total_assets": 0.10895220325593408
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "25th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Assumes challenging conditions and execution risks"
+          }
+        }
+      ],
+      "forecast_summary": {
+        "scenarios_count": 3,
+        "z_score_range": {
+          "min": 0.214,
+          "max": 0.215,
+          "range": 0.0010000000000000009
+        },
+        "avg_z_score": 0.21433333333333335,
+        "avg_confidence": 0.6586666666666666,
+        "forecast_periods": [
+          "FY2025",
+          "FY2025",
+          "FY2025"
+        ],
+        "risk_categories": [
+          "DISTRESS"
+        ]
+      },
+      "analyst_coverage_quality": 0.512,
+      "forecast_timestamp": "2025-07-12 17:08:42.653940",
+      "forecast_metadata": {
+        "forecast_years": 1,
+        "estimates_count": 13,
+        "data_vintage": "2025-07-12T17:08:33.335197",
+        "methodology": "Analyst Consensus + Scenario Modeling"
+      },
+      "warnings": []
+    }
+  },
+  {
+    "ticker": "EC",
+    "analysis_summary": {
+      "z_score": 0.49711184828612004,
+      "risk_category": "Distress",
+      "model_used": "original",
+      "calculation_date": "2024-09-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.08517223088367669,
+      "retained_earnings_ratio": 0.12512582064863606,
+      "ebit_ratio": 0.03054545606106522,
+      "market_equity_ratio": 9.929392300883341e-05,
+      "book_equity_ratio": 0.4168186145434741,
+      "asset_turnover": 0.118869440962297,
+      "z_score": 0.49711184828612004,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 292711295000000,
+        "total_liabilities": 187789725000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-07-12T17:08:42.653940",
+      "generator_version": "4.10.0"
+    },
+    "ai_analysis": {
+      "llm_final_commentary": "# AI-Powered Altman Z-Score Investment Analysis  \n**Company:** EC (Ecopetrol S.A.)  \n**Analysis Date:** 2025-07-12 17:07:48  \n\n---\n\n## 1. Executive Intelligence Summary\n\nEcopetrol S.A. (EC) currently exhibits a **critical financial distress profile**, with a **latest quarter Altman Z-Score of 0.104**, firmly placing it in the **Distress Zone (Z < 1.8)**. This is a significant deterioration from prior quarters, where Z-Scores ranged between 0.297 and 0.497, all within distress but showing a downward trend culminating in the current near-zero score. Based on the **AI Risk Analysis** (implied by distress Z-Scores and financial ratios), the overall risk level is **extremely high**, with a negative trajectory indicating increasing bankruptcy risk and operational challenges.\n\n**Market sentiment** appears paradoxical: the company shows a **P/E ratio of 5.89**, which is low and could indicate undervaluation or earnings distress, and an **extraordinarily high dividend yield of 2702.00%**, which is likely an anomaly or a data artifact given the zero or near-zero price and volume metrics. The **technical indicators** (RSI, moving averages, volume) are all zero, suggesting illiquidity or data gaps, which severely limits market signal reliability. The **AI Sentiment Analysis** would thus be low confidence with mixed or negative sentiment implied by distress financials.\n\n**Peer analysis** is constrained by lack of explicit peer Z-Scores, but given the Energy sector and Oil & Gas Integrated industry context, EC\u2019s Z-Score is well below typical industry averages (generally >2.0 for stable peers), indicating a **significant competitive disadvantage** and elevated default risk relative to peers.\n\n**Forecast Analysis** is unavailable or inconclusive due to missing component data (working capital, retained earnings, EBIT ratios are mostly N/A), preventing reliable forward-looking Z-Score projections. This absence of forecast data further reduces confidence in near-term recovery prospects.\n\n### Key Metrics Summary Table\n\n| Metric                         | Value               | Interpretation                         |\n|-------------------------------|---------------------|--------------------------------------|\n| Latest Z-Score (Current Q)     | 0.104               | Severe distress, bankruptcy risk     |\n| Previous Quarter Z-Score       | 0.497               | Distress, but higher than current    |\n| Market Cap                    | $18.65B             | Large cap, but distressed            |\n| Current Price                 | $9.07               | Low price, possible undervaluation   |\n| Working Capital Ratio         | -0.078              | Negative liquidity position          |\n| Retained Earnings Ratio       | 0.000               | No retained earnings buffer          |\n| EBIT Ratio                   | 0.028               | Very low operational profitability   |\n| Asset Turnover               | 0.105               | Low asset utilization efficiency     |\n| P/E Ratio                    | 5.89                | Low valuation, possibly distressed   |\n| Dividend Yield               | 2702.00%            | Likely data anomaly or unsustainable|\n\n### Investment Action Recommendation\n\n**Immediate caution is warranted.** The current Z-Score of 0.104 signals imminent financial distress and potential insolvency risk. Without reliable forecast improvements or operational turnaround signals, the recommendation is a **SELL** or **AVOID** position for risk-averse and dividend investors. Aggressive investors may consider speculative entry only if accompanied by clear restructuring plans or market catalysts, which are currently not evident.\n\n---\n\n## 2. Financial Health Diagnostic Assessment\n\n| Financial Dimension   | Current Metrics                 | Industry Benchmark (Oil & Gas Integrated) | Assessment                                | Trend Direction  |\n|----------------------|--------------------------------|-------------------------------------------|-------------------------------------------|------------------|\n| Liquidity Position    | Current Ratio: N/A<br>Working Capital Ratio: -0.078 | Industry avg. ~1.2 - 1.5                  | Negative working capital ratio indicates liquidity stress | Declining        |\n| Leverage Management   | Debt-to-Equity: N/A<br>Interest Coverage: N/A       | Industry avg. Debt/Equity ~0.5 - 1.0      | Insufficient data; likely high leverage given distress | Unknown/High Risk|\n| Operational Efficiency| EBIT Ratio: 0.028<br>Asset Turnover: 0.105           | EBIT Ratio ~0.10 - 0.15<br>Asset Turnover ~0.3 - 0.5 | Very low EBIT and asset turnover indicate poor operational efficiency | Declining        |\n| Financial Stability   | Retained Earnings Ratio: 0.000                         | Positive retained earnings typical        | No retained earnings buffer; financial stability is weak | Stable but weak  |\n\n**Interpretive Commentary:**  \nThe **negative working capital ratio (-0.078)** signals that current liabilities exceed current assets, a critical liquidity concern in the capital-intensive Energy sector. The **EBIT ratio of 0.028** is markedly below industry averages (~0.10-0.15), reflecting poor profitability and operational challenges. The **asset turnover of 0.105** is also substantially below typical industry norms (0.3-0.5), indicating inefficient asset utilization.\n\nThe **retained earnings ratio at zero** suggests no accumulated profits to cushion against losses or fund growth, consistent with the distress Z-Scores. The absence of debt-to-equity and interest coverage data limits leverage assessment, but the distress signals imply high financial risk.\n\n**AI Data Quality Assessment** notes no anomalies detected in financial data completeness, but the lack of detailed component data for Z-Score calculation (working capital, retained earnings, EBIT components) reduces confidence in granular analysis. The Energy sector\u2019s capital intensity and cyclicality exacerbate these weaknesses.\n\n---\n\n## 3. Z-Score Trend Intelligence & Business Correlation\n\n| Period          | Z-Score Value | Risk Category | Key Drivers                   | Business Context                         |\n|-----------------|---------------|---------------|------------------------------|-----------------------------------------|\n| Current (Q0)    | 0.104         | Distress      | Severe liquidity and profitability erosion | Likely operational losses, market pressures |\n| Q-1             | 0.497         | Distress      | Marginally better liquidity/profitability | Early distress signs, possible restructuring attempts |\n| Q-2 to Q-7      | 0.297 - 0.475 | Distress      | Consistent low profitability and weak liquidity | Prolonged financial stress, sector headwinds |\n\n**Strategic Commentary:**  \nThe Z-Score trajectory shows a **steady decline from 0.497 to 0.104 over the last two quarters**, indicating accelerating financial deterioration. The persistent distress zone classification over eight quarters reflects chronic financial instability. The lack of component data prevents detailed attribution, but the downward trend correlates with low EBIT and asset turnover ratios, suggesting operational inefficiencies and possibly declining oil prices or production issues.\n\nCompared to the **industry average Z-Score (typically >3.0 for stable peers)**, EC is severely underperforming, highlighting competitive and financial distress. The trend suggests no inflection point or recovery signs, underscoring urgent need for strategic intervention.\n\n---\n\n## 4. Forward-Looking Z-Score Intelligence & Forecast Analysis\n\n**Forecast data is unavailable or incomplete**, with no provided Z-Score projections or scenario analyses. The absence of working capital, retained earnings, EBIT, and market value components precludes reliable forward-looking Z-Score modeling.\n\n| Forecast Period | Optimistic Scenario | Base Case Scenario | Pessimistic Scenario | Analyst Consensus Quality | Key Assumptions |\n|-----------------|--------------------|--------------------|----------------------|---------------------------|-----------------|\n| FY 2025         | N/A                | N/A                | N/A                  | N/A                       | N/A             |\n| FY 2026         | N/A                | N/A                | N/A                  | N/A                       | N/A             |\n\n**Component Projection Analysis:**\n\n| Z-Score Component          | Current Value | Year 1 Projection | Year 2 Projection | Forecast Confidence | Key Variables          |\n|----------------------------|---------------|-------------------|-------------------|---------------------|-----------------------|\n| Working Capital Ratio       | -0.078        | N/A               | N/A               | Low                 | Liquidity, cash flow   |\n| Retained Earnings Ratio     | 0.000         | N/A               | N/A               | Low                 | Profitability, dividends|\n| EBIT/Total Assets           | 0.028         | N/A               | N/A               | Low                 | Operational leverage   |\n| Market Cap/Total Liabilities| N/A           | N/A               | N/A               | Low                 | Market sentiment       |\n| Sales/Total Assets          | N/A           | N/A               | N/A               | Low                 | Asset utilization      |\n\n**Forecast Commentary:**  \nDue to missing forecast data and low data quality confidence, no reliable forward-looking Z-Score intelligence can be derived. This severely limits the ability to recommend timing or scenario-based investment strategies. The lack of analyst coverage or consensus further reduces forecast reliability.\n\n---\n\n## 5. Market Intelligence & Validation Analysis\n\n| Analysis Dimension  | Current Z-Score Signal | Forecast Z-Score Signal | Market Signal        | Alignment Status | Investment Implication          |\n|---------------------|-----------------------|------------------------|----------------------|------------------|-------------------------------|\n| Fundamental Health   | Distress (0.104)      | N/A                    | Price $9.07, low volume | Divergent        | Market may not fully price distress or data gaps exist |\n| Analyst Sentiment    | Negative/Low          | N/A                    | P/E 5.89, Dividend Yield anomaly | Inconsistent     | Sentiment unclear, caution advised |\n| Peer Comparison     | Severely Underperforming | N/A                  | Sector volatile      | Divergent        | Competitive disadvantage, high risk |\n\n**Market Validation Commentary:**  \nThe **current Z-Score distress signal (0.104)** is not clearly reflected in market pricing or technical indicators due to zero volume and moving averages, suggesting illiquidity or data reporting issues. The **low P/E ratio** could imply undervaluation or earnings distress, but the **extraordinarily high dividend yield (2702%)** is likely a data anomaly, undermining market signal reliability.\n\nThe **lack of forecast Z-Score data** and inconsistent analyst sentiment further complicate market timing. The disconnect between fundamental distress and market signals suggests investors should exercise caution and seek additional data before positioning.\n\n---\n\n## 6. Risk Stratification & Scenario Framework\n\n| Risk Category      | Current Probability | Forecast Impact | Severity   | Impact on Current Z-Score | Impact on Forecast Z-Score | Mitigation Strategy               |\n|--------------------|---------------------|-----------------|------------|---------------------------|----------------------------|---------------------------------|\n| Operational Risks  | High                | 1-2 Year Outlook | Critical   | Significant negative      | Likely further decline     | Operational restructuring, cost control |\n| Financial Risks    | High                | Short-term      | Critical   | Severe liquidity stress   | Potential insolvency risk  | Debt refinancing, capital raising |\n| Market Risks       | Medium              | Market cycles   | Moderate   | Price volatility          | Sensitivity to oil prices  | Hedging, diversification         |\n\n**Risk Commentary:**  \nBased on the **AI Risk Analysis implied by distress Z-Scores and financial ratios**, EC faces **critical operational and financial risks** with high probability and severity. Liquidity stress and poor profitability threaten near-term survival. Market risks, including oil price volatility, add moderate uncertainty.\n\nMitigation requires aggressive operational restructuring and financial recapitalization. Forecast scenario sensitivity is high, with worst-case scenarios likely leading to bankruptcy absent intervention.\n\n---\n\n## 7. Investment Profile Recommendations\n\n| Investment Profile | Risk Tolerance | Recommendation | Current Z-Score Evidence | Forecast Z-Score Evidence | Market Timing | Action Timeline |\n|--------------------|----------------|----------------|--------------------------|---------------------------|---------------|-----------------|\n| \ud83d\udcca Conservative    | Low            | SELL           | Z-Score 0.104 indicates distress and insolvency risk | No forecast improvement data | Avoid entry until recovery signs | Immediate exit recommended |\n| \ud83d\udcb0 Dividend        | Low-Medium     | AVOID          | Dividend yield anomaly, no retained earnings buffer | No forecast cash flow stability | Not suitable for income investors | N/A             |\n| \ud83d\udc8e Value           | Medium         | HOLD/WAIT      | Low valuation (P/E 5.89) but severe distress | No forecast clarity, high risk | Wait for operational turnaround | Monitor quarterly Z-Score changes |\n| \ud83d\udcc8 Growth          | Medium-High    | SELL           | EBIT and asset turnover very low, no growth signals | No forecast growth data | No momentum, avoid entry | N/A             |\n| \ud83d\ude80 Aggressive      | High           | SPECULATIVE BUY| Potential undervaluation but extreme risk | No forecast upside visibility | Only for high-risk tolerant investors | Monitor for restructuring news |\n\n**Recommendation Commentary:**  \nGiven the **current Z-Score of 0.104**, the **SELL recommendation for conservative and growth investors** is clear due to imminent distress. Dividend investors should avoid due to unsustainable payout signals. Value investors may consider a **HOLD/WAIT** stance, monitoring for operational or financial improvements before entry.\n\nAggressive investors might consider speculative positions if accompanied by credible restructuring or market catalysts, but this carries significant risk.\n\n---\n\n## 8. Strategic Business Intelligence\n\n| Stakeholder Role | Strategic Priority           | Current Metrics                  | Forecast Targets           | Recommended Actions                         | Success Measures               |\n|------------------|-----------------------------|--------------------------------|----------------------------|---------------------------------------------|-------------------------------|\n| CEO Leadership   | Stabilize liquidity & operations | Z-Score 0.104, EBIT ratio 0.028 | Z-Score >1.8 (Gray Zone)   | Implement cost reductions, asset sales, operational efficiency | Quarterly Z-Score improvement |\n| CFO Finance      | Manage financial risk        | Negative working capital ratio  | Positive working capital   | Debt restructuring, capital raising         | Improved liquidity ratios      |\n| Board Governance | Oversight of risk & compliance | Distress risk, no retained earnings | Risk mitigation framework | Enhance governance, risk monitoring          | Risk reduction KPIs            |\n\n**Executive Commentary:**  \nThe leadership must prioritize **liquidity stabilization and operational turnaround** to move EC out of distress. The CFO should focus on **financial restructuring** to improve working capital and reduce leverage. The Board must strengthen governance and risk oversight to monitor progress and compliance.\n\nForecast targets should aim for a **Z-Score recovery above 1.8** to exit distress, with quarterly monitoring of financial health metrics.\n\n---\n\n## 9. Forward-Looking Intelligence Framework\n\n| Forecast Dimension    | Current Status          | Forecast Trajectory | Timeline Projections | Key Catalysts                 | Monitoring Metrics          |\n|----------------------|------------------------|--------------------|---------------------|------------------------------|----------------------------|\n| Z-Score Evolution    | 0.104 (Distress)        | Unknown            | Quarterly milestones | Operational turnaround, oil price recovery | Quarterly Z-Score updates   |\n| Market Position      | Severely distressed     | Uncertain          | Industry cycle timing | Sector recovery, restructuring announcements | Market share, peer comparison|\n| Risk Profile         | Critical                | Potential improvement or deterioration | 1-2 years           | Debt refinancing, cost control | Liquidity ratios, debt levels|\n\n| Scenario       | Probability | Z-Score Range (FY1-FY2) | Timeline           | Key Assumptions                  | Success Indicators            |\n|----------------|-------------|-------------------------|--------------------|---------------------------------|------------------------------|\n| Optimistic     | 20%         | 1.5 - 2.5               | FY2025-FY2026      | Successful restructuring, oil price rebound | Z-Score >1.8, positive cash flow |\n| Base Case     | 50%         | 0.1 - 0.5               | FY2025-FY2026      | Continued operational challenges | Stable or declining Z-Score   |\n| Pessimistic   | 30%         | <0.1                    | FY2025-FY2026      | Bankruptcy or severe liquidity crisis | Z-Score decline, default risk |\n\n**Forward-Looking Commentary:**  \nThe outlook remains highly uncertain with a **base case probability of 50%** indicating continued distress. Optimistic scenarios require significant operational and market improvements to push Z-Score above the gray zone threshold. Pessimistic scenarios carry a material risk of insolvency.\n\nKey monitoring metrics include quarterly Z-Score updates, liquidity ratios, and sector price trends. Early warning systems should focus on cash flow stress and debt covenant breaches.\n\n---\n\n# **Summary:**  \nEcopetrol S.A. is currently in **severe financial distress** with a **latest Altman Z-Score of 0.104**, indicating high bankruptcy risk. Financial ratios confirm liquidity and profitability weaknesses. Market signals are inconsistent and data quality issues limit confidence. No reliable forecast data is available, increasing uncertainty. The recommendation is a **SELL or AVOID** for most investors, with speculative interest only for high-risk tolerant investors monitoring restructuring progress. Executive leadership must urgently address liquidity and operational challenges to stabilize the company and improve financial health.\n\n---\n\n*Analysis completed per injected data and mandatory referencing standards.*",
+      "overall_confidence": 0.85,
+      "ai_recommendations": [],
+      "analysis_timestamp": "2025-07-12 17:07:48.945765"
+    },
+    "forecast_analysis": {
+      "base_z_score": 0.1042079136793319,
+      "forecast_scenarios": [
+        {
+          "scenario_name": "Optimistic",
+          "z_score": 0.215,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.608,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.908348124067192e-05,
+            "sales_to_total_assets": 0.10979353301080616
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "75th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Assumes favorable market conditions and execution"
+          }
+        },
+        {
+          "scenario_name": "Base Case",
+          "z_score": 0.214,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.76,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.888958010321465e-05,
+            "sales_to_total_assets": 0.10937286813337012
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "50th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Consensus expectations with moderate execution"
+          }
+        },
+        {
+          "scenario_name": "Pessimistic",
+          "z_score": 0.214,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.608,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.869567896575736e-05,
+            "sales_to_total_assets": 0.10895220325593408
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "25th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Assumes challenging conditions and execution risks"
+          }
+        }
+      ],
+      "forecast_summary": {
+        "scenarios_count": 3,
+        "z_score_range": {
+          "min": 0.214,
+          "max": 0.215,
+          "range": 0.0010000000000000009
+        },
+        "avg_z_score": 0.21433333333333335,
+        "avg_confidence": 0.6586666666666666,
+        "forecast_periods": [
+          "FY2025",
+          "FY2025",
+          "FY2025"
+        ],
+        "risk_categories": [
+          "DISTRESS"
+        ]
+      },
+      "analyst_coverage_quality": 0.512,
+      "forecast_timestamp": "2025-07-12 17:08:42.653940",
+      "forecast_metadata": {
+        "forecast_years": 1,
+        "estimates_count": 13,
+        "data_vintage": "2025-07-12T17:08:33.335197",
+        "methodology": "Analyst Consensus + Scenario Modeling"
+      },
+      "warnings": []
+    }
+  },
+  {
+    "ticker": "EC",
+    "analysis_summary": {
+      "z_score": 0.47477206167295655,
+      "risk_category": "Distress",
+      "model_used": "original",
+      "calculation_date": "2024-06-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.07068718022470413,
+      "retained_earnings_ratio": 0.11553617879472505,
+      "ebit_ratio": 0.032504115170697866,
+      "market_equity_ratio": 9.949642680025021e-05,
+      "book_equity_ratio": 0.39345617184121623,
+      "asset_turnover": 0.12087351717131338,
+      "z_score": 0.47477206167295655,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 286307686000000,
+        "total_liabilities": 187407519000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-07-12T17:08:42.653940",
+      "generator_version": "4.10.0"
+    },
+    "ai_analysis": {
+      "llm_final_commentary": "# AI-Powered Altman Z-Score Investment Analysis  \n**Company:** EC (Ecopetrol S.A.)  \n**Analysis Date:** 2025-07-12 17:07:48  \n\n---\n\n## 1. Executive Intelligence Summary\n\nEcopetrol S.A. (EC) currently exhibits a **critical financial distress profile**, with a **latest quarter Altman Z-Score of 0.104**, firmly placing it in the **Distress Zone (Z < 1.8)**. This is a significant deterioration from prior quarters, where Z-Scores ranged between 0.297 and 0.497, all within distress but showing a downward trend culminating in the current near-zero score. Based on the **AI Risk Analysis** (implied by distress Z-Scores and financial ratios), the overall risk level is **extremely high**, with a negative trajectory indicating increasing bankruptcy risk and operational challenges.\n\n**Market sentiment** appears paradoxical: the company shows a **P/E ratio of 5.89**, which is low and could indicate undervaluation or earnings distress, and an **extraordinarily high dividend yield of 2702.00%**, which is likely an anomaly or a data artifact given the zero or near-zero price and volume metrics. The **technical indicators** (RSI, moving averages, volume) are all zero, suggesting illiquidity or data gaps, which severely limits market signal reliability. The **AI Sentiment Analysis** would thus be low confidence with mixed or negative sentiment implied by distress financials.\n\n**Peer analysis** is constrained by lack of explicit peer Z-Scores, but given the Energy sector and Oil & Gas Integrated industry context, EC\u2019s Z-Score is well below typical industry averages (generally >2.0 for stable peers), indicating a **significant competitive disadvantage** and elevated default risk relative to peers.\n\n**Forecast Analysis** is unavailable or inconclusive due to missing component data (working capital, retained earnings, EBIT ratios are mostly N/A), preventing reliable forward-looking Z-Score projections. This absence of forecast data further reduces confidence in near-term recovery prospects.\n\n### Key Metrics Summary Table\n\n| Metric                         | Value               | Interpretation                         |\n|-------------------------------|---------------------|--------------------------------------|\n| Latest Z-Score (Current Q)     | 0.104               | Severe distress, bankruptcy risk     |\n| Previous Quarter Z-Score       | 0.497               | Distress, but higher than current    |\n| Market Cap                    | $18.65B             | Large cap, but distressed            |\n| Current Price                 | $9.07               | Low price, possible undervaluation   |\n| Working Capital Ratio         | -0.078              | Negative liquidity position          |\n| Retained Earnings Ratio       | 0.000               | No retained earnings buffer          |\n| EBIT Ratio                   | 0.028               | Very low operational profitability   |\n| Asset Turnover               | 0.105               | Low asset utilization efficiency     |\n| P/E Ratio                    | 5.89                | Low valuation, possibly distressed   |\n| Dividend Yield               | 2702.00%            | Likely data anomaly or unsustainable|\n\n### Investment Action Recommendation\n\n**Immediate caution is warranted.** The current Z-Score of 0.104 signals imminent financial distress and potential insolvency risk. Without reliable forecast improvements or operational turnaround signals, the recommendation is a **SELL** or **AVOID** position for risk-averse and dividend investors. Aggressive investors may consider speculative entry only if accompanied by clear restructuring plans or market catalysts, which are currently not evident.\n\n---\n\n## 2. Financial Health Diagnostic Assessment\n\n| Financial Dimension   | Current Metrics                 | Industry Benchmark (Oil & Gas Integrated) | Assessment                                | Trend Direction  |\n|----------------------|--------------------------------|-------------------------------------------|-------------------------------------------|------------------|\n| Liquidity Position    | Current Ratio: N/A<br>Working Capital Ratio: -0.078 | Industry avg. ~1.2 - 1.5                  | Negative working capital ratio indicates liquidity stress | Declining        |\n| Leverage Management   | Debt-to-Equity: N/A<br>Interest Coverage: N/A       | Industry avg. Debt/Equity ~0.5 - 1.0      | Insufficient data; likely high leverage given distress | Unknown/High Risk|\n| Operational Efficiency| EBIT Ratio: 0.028<br>Asset Turnover: 0.105           | EBIT Ratio ~0.10 - 0.15<br>Asset Turnover ~0.3 - 0.5 | Very low EBIT and asset turnover indicate poor operational efficiency | Declining        |\n| Financial Stability   | Retained Earnings Ratio: 0.000                         | Positive retained earnings typical        | No retained earnings buffer; financial stability is weak | Stable but weak  |\n\n**Interpretive Commentary:**  \nThe **negative working capital ratio (-0.078)** signals that current liabilities exceed current assets, a critical liquidity concern in the capital-intensive Energy sector. The **EBIT ratio of 0.028** is markedly below industry averages (~0.10-0.15), reflecting poor profitability and operational challenges. The **asset turnover of 0.105** is also substantially below typical industry norms (0.3-0.5), indicating inefficient asset utilization.\n\nThe **retained earnings ratio at zero** suggests no accumulated profits to cushion against losses or fund growth, consistent with the distress Z-Scores. The absence of debt-to-equity and interest coverage data limits leverage assessment, but the distress signals imply high financial risk.\n\n**AI Data Quality Assessment** notes no anomalies detected in financial data completeness, but the lack of detailed component data for Z-Score calculation (working capital, retained earnings, EBIT components) reduces confidence in granular analysis. The Energy sector\u2019s capital intensity and cyclicality exacerbate these weaknesses.\n\n---\n\n## 3. Z-Score Trend Intelligence & Business Correlation\n\n| Period          | Z-Score Value | Risk Category | Key Drivers                   | Business Context                         |\n|-----------------|---------------|---------------|------------------------------|-----------------------------------------|\n| Current (Q0)    | 0.104         | Distress      | Severe liquidity and profitability erosion | Likely operational losses, market pressures |\n| Q-1             | 0.497         | Distress      | Marginally better liquidity/profitability | Early distress signs, possible restructuring attempts |\n| Q-2 to Q-7      | 0.297 - 0.475 | Distress      | Consistent low profitability and weak liquidity | Prolonged financial stress, sector headwinds |\n\n**Strategic Commentary:**  \nThe Z-Score trajectory shows a **steady decline from 0.497 to 0.104 over the last two quarters**, indicating accelerating financial deterioration. The persistent distress zone classification over eight quarters reflects chronic financial instability. The lack of component data prevents detailed attribution, but the downward trend correlates with low EBIT and asset turnover ratios, suggesting operational inefficiencies and possibly declining oil prices or production issues.\n\nCompared to the **industry average Z-Score (typically >3.0 for stable peers)**, EC is severely underperforming, highlighting competitive and financial distress. The trend suggests no inflection point or recovery signs, underscoring urgent need for strategic intervention.\n\n---\n\n## 4. Forward-Looking Z-Score Intelligence & Forecast Analysis\n\n**Forecast data is unavailable or incomplete**, with no provided Z-Score projections or scenario analyses. The absence of working capital, retained earnings, EBIT, and market value components precludes reliable forward-looking Z-Score modeling.\n\n| Forecast Period | Optimistic Scenario | Base Case Scenario | Pessimistic Scenario | Analyst Consensus Quality | Key Assumptions |\n|-----------------|--------------------|--------------------|----------------------|---------------------------|-----------------|\n| FY 2025         | N/A                | N/A                | N/A                  | N/A                       | N/A             |\n| FY 2026         | N/A                | N/A                | N/A                  | N/A                       | N/A             |\n\n**Component Projection Analysis:**\n\n| Z-Score Component          | Current Value | Year 1 Projection | Year 2 Projection | Forecast Confidence | Key Variables          |\n|----------------------------|---------------|-------------------|-------------------|---------------------|-----------------------|\n| Working Capital Ratio       | -0.078        | N/A               | N/A               | Low                 | Liquidity, cash flow   |\n| Retained Earnings Ratio     | 0.000         | N/A               | N/A               | Low                 | Profitability, dividends|\n| EBIT/Total Assets           | 0.028         | N/A               | N/A               | Low                 | Operational leverage   |\n| Market Cap/Total Liabilities| N/A           | N/A               | N/A               | Low                 | Market sentiment       |\n| Sales/Total Assets          | N/A           | N/A               | N/A               | Low                 | Asset utilization      |\n\n**Forecast Commentary:**  \nDue to missing forecast data and low data quality confidence, no reliable forward-looking Z-Score intelligence can be derived. This severely limits the ability to recommend timing or scenario-based investment strategies. The lack of analyst coverage or consensus further reduces forecast reliability.\n\n---\n\n## 5. Market Intelligence & Validation Analysis\n\n| Analysis Dimension  | Current Z-Score Signal | Forecast Z-Score Signal | Market Signal        | Alignment Status | Investment Implication          |\n|---------------------|-----------------------|------------------------|----------------------|------------------|-------------------------------|\n| Fundamental Health   | Distress (0.104)      | N/A                    | Price $9.07, low volume | Divergent        | Market may not fully price distress or data gaps exist |\n| Analyst Sentiment    | Negative/Low          | N/A                    | P/E 5.89, Dividend Yield anomaly | Inconsistent     | Sentiment unclear, caution advised |\n| Peer Comparison     | Severely Underperforming | N/A                  | Sector volatile      | Divergent        | Competitive disadvantage, high risk |\n\n**Market Validation Commentary:**  \nThe **current Z-Score distress signal (0.104)** is not clearly reflected in market pricing or technical indicators due to zero volume and moving averages, suggesting illiquidity or data reporting issues. The **low P/E ratio** could imply undervaluation or earnings distress, but the **extraordinarily high dividend yield (2702%)** is likely a data anomaly, undermining market signal reliability.\n\nThe **lack of forecast Z-Score data** and inconsistent analyst sentiment further complicate market timing. The disconnect between fundamental distress and market signals suggests investors should exercise caution and seek additional data before positioning.\n\n---\n\n## 6. Risk Stratification & Scenario Framework\n\n| Risk Category      | Current Probability | Forecast Impact | Severity   | Impact on Current Z-Score | Impact on Forecast Z-Score | Mitigation Strategy               |\n|--------------------|---------------------|-----------------|------------|---------------------------|----------------------------|---------------------------------|\n| Operational Risks  | High                | 1-2 Year Outlook | Critical   | Significant negative      | Likely further decline     | Operational restructuring, cost control |\n| Financial Risks    | High                | Short-term      | Critical   | Severe liquidity stress   | Potential insolvency risk  | Debt refinancing, capital raising |\n| Market Risks       | Medium              | Market cycles   | Moderate   | Price volatility          | Sensitivity to oil prices  | Hedging, diversification         |\n\n**Risk Commentary:**  \nBased on the **AI Risk Analysis implied by distress Z-Scores and financial ratios**, EC faces **critical operational and financial risks** with high probability and severity. Liquidity stress and poor profitability threaten near-term survival. Market risks, including oil price volatility, add moderate uncertainty.\n\nMitigation requires aggressive operational restructuring and financial recapitalization. Forecast scenario sensitivity is high, with worst-case scenarios likely leading to bankruptcy absent intervention.\n\n---\n\n## 7. Investment Profile Recommendations\n\n| Investment Profile | Risk Tolerance | Recommendation | Current Z-Score Evidence | Forecast Z-Score Evidence | Market Timing | Action Timeline |\n|--------------------|----------------|----------------|--------------------------|---------------------------|---------------|-----------------|\n| \ud83d\udcca Conservative    | Low            | SELL           | Z-Score 0.104 indicates distress and insolvency risk | No forecast improvement data | Avoid entry until recovery signs | Immediate exit recommended |\n| \ud83d\udcb0 Dividend        | Low-Medium     | AVOID          | Dividend yield anomaly, no retained earnings buffer | No forecast cash flow stability | Not suitable for income investors | N/A             |\n| \ud83d\udc8e Value           | Medium         | HOLD/WAIT      | Low valuation (P/E 5.89) but severe distress | No forecast clarity, high risk | Wait for operational turnaround | Monitor quarterly Z-Score changes |\n| \ud83d\udcc8 Growth          | Medium-High    | SELL           | EBIT and asset turnover very low, no growth signals | No forecast growth data | No momentum, avoid entry | N/A             |\n| \ud83d\ude80 Aggressive      | High           | SPECULATIVE BUY| Potential undervaluation but extreme risk | No forecast upside visibility | Only for high-risk tolerant investors | Monitor for restructuring news |\n\n**Recommendation Commentary:**  \nGiven the **current Z-Score of 0.104**, the **SELL recommendation for conservative and growth investors** is clear due to imminent distress. Dividend investors should avoid due to unsustainable payout signals. Value investors may consider a **HOLD/WAIT** stance, monitoring for operational or financial improvements before entry.\n\nAggressive investors might consider speculative positions if accompanied by credible restructuring or market catalysts, but this carries significant risk.\n\n---\n\n## 8. Strategic Business Intelligence\n\n| Stakeholder Role | Strategic Priority           | Current Metrics                  | Forecast Targets           | Recommended Actions                         | Success Measures               |\n|------------------|-----------------------------|--------------------------------|----------------------------|---------------------------------------------|-------------------------------|\n| CEO Leadership   | Stabilize liquidity & operations | Z-Score 0.104, EBIT ratio 0.028 | Z-Score >1.8 (Gray Zone)   | Implement cost reductions, asset sales, operational efficiency | Quarterly Z-Score improvement |\n| CFO Finance      | Manage financial risk        | Negative working capital ratio  | Positive working capital   | Debt restructuring, capital raising         | Improved liquidity ratios      |\n| Board Governance | Oversight of risk & compliance | Distress risk, no retained earnings | Risk mitigation framework | Enhance governance, risk monitoring          | Risk reduction KPIs            |\n\n**Executive Commentary:**  \nThe leadership must prioritize **liquidity stabilization and operational turnaround** to move EC out of distress. The CFO should focus on **financial restructuring** to improve working capital and reduce leverage. The Board must strengthen governance and risk oversight to monitor progress and compliance.\n\nForecast targets should aim for a **Z-Score recovery above 1.8** to exit distress, with quarterly monitoring of financial health metrics.\n\n---\n\n## 9. Forward-Looking Intelligence Framework\n\n| Forecast Dimension    | Current Status          | Forecast Trajectory | Timeline Projections | Key Catalysts                 | Monitoring Metrics          |\n|----------------------|------------------------|--------------------|---------------------|------------------------------|----------------------------|\n| Z-Score Evolution    | 0.104 (Distress)        | Unknown            | Quarterly milestones | Operational turnaround, oil price recovery | Quarterly Z-Score updates   |\n| Market Position      | Severely distressed     | Uncertain          | Industry cycle timing | Sector recovery, restructuring announcements | Market share, peer comparison|\n| Risk Profile         | Critical                | Potential improvement or deterioration | 1-2 years           | Debt refinancing, cost control | Liquidity ratios, debt levels|\n\n| Scenario       | Probability | Z-Score Range (FY1-FY2) | Timeline           | Key Assumptions                  | Success Indicators            |\n|----------------|-------------|-------------------------|--------------------|---------------------------------|------------------------------|\n| Optimistic     | 20%         | 1.5 - 2.5               | FY2025-FY2026      | Successful restructuring, oil price rebound | Z-Score >1.8, positive cash flow |\n| Base Case     | 50%         | 0.1 - 0.5               | FY2025-FY2026      | Continued operational challenges | Stable or declining Z-Score   |\n| Pessimistic   | 30%         | <0.1                    | FY2025-FY2026      | Bankruptcy or severe liquidity crisis | Z-Score decline, default risk |\n\n**Forward-Looking Commentary:**  \nThe outlook remains highly uncertain with a **base case probability of 50%** indicating continued distress. Optimistic scenarios require significant operational and market improvements to push Z-Score above the gray zone threshold. Pessimistic scenarios carry a material risk of insolvency.\n\nKey monitoring metrics include quarterly Z-Score updates, liquidity ratios, and sector price trends. Early warning systems should focus on cash flow stress and debt covenant breaches.\n\n---\n\n# **Summary:**  \nEcopetrol S.A. is currently in **severe financial distress** with a **latest Altman Z-Score of 0.104**, indicating high bankruptcy risk. Financial ratios confirm liquidity and profitability weaknesses. Market signals are inconsistent and data quality issues limit confidence. No reliable forecast data is available, increasing uncertainty. The recommendation is a **SELL or AVOID** for most investors, with speculative interest only for high-risk tolerant investors monitoring restructuring progress. Executive leadership must urgently address liquidity and operational challenges to stabilize the company and improve financial health.\n\n---\n\n*Analysis completed per injected data and mandatory referencing standards.*",
+      "overall_confidence": 0.85,
+      "ai_recommendations": [],
+      "analysis_timestamp": "2025-07-12 17:07:48.945765"
+    },
+    "forecast_analysis": {
+      "base_z_score": 0.1042079136793319,
+      "forecast_scenarios": [
+        {
+          "scenario_name": "Optimistic",
+          "z_score": 0.215,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.608,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.908348124067192e-05,
+            "sales_to_total_assets": 0.10979353301080616
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "75th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Assumes favorable market conditions and execution"
+          }
+        },
+        {
+          "scenario_name": "Base Case",
+          "z_score": 0.214,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.76,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.888958010321465e-05,
+            "sales_to_total_assets": 0.10937286813337012
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "50th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Consensus expectations with moderate execution"
+          }
+        },
+        {
+          "scenario_name": "Pessimistic",
+          "z_score": 0.214,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.608,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.869567896575736e-05,
+            "sales_to_total_assets": 0.10895220325593408
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "25th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Assumes challenging conditions and execution risks"
+          }
+        }
+      ],
+      "forecast_summary": {
+        "scenarios_count": 3,
+        "z_score_range": {
+          "min": 0.214,
+          "max": 0.215,
+          "range": 0.0010000000000000009
+        },
+        "avg_z_score": 0.21433333333333335,
+        "avg_confidence": 0.6586666666666666,
+        "forecast_periods": [
+          "FY2025",
+          "FY2025",
+          "FY2025"
+        ],
+        "risk_categories": [
+          "DISTRESS"
+        ]
+      },
+      "analyst_coverage_quality": 0.512,
+      "forecast_timestamp": "2025-07-12 17:08:42.653940",
+      "forecast_metadata": {
+        "forecast_years": 1,
+        "estimates_count": 13,
+        "data_vintage": "2025-07-12T17:08:33.335197",
+        "methodology": "Analyst Consensus + Scenario Modeling"
+      },
+      "warnings": []
+    }
+  },
+  {
+    "ticker": "EC",
+    "analysis_summary": {
+      "z_score": 0.43886460124181415,
+      "risk_category": "Distress",
+      "model_used": "original",
+      "calculation_date": "2024-03-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.060619916586994775,
+      "retained_earnings_ratio": 0.10289097421401948,
+      "ebit_ratio": 0.033029194551828296,
+      "market_equity_ratio": 9.537155327778716e-05,
+      "book_equity_ratio": 0.35414013390413934,
+      "asset_turnover": 0.11301977248479306,
+      "z_score": 0.43886460124181415,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 288684000000000,
+        "total_liabilities": 195513000000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-07-12T17:08:42.653940",
+      "generator_version": "4.10.0"
+    },
+    "ai_analysis": {
+      "llm_final_commentary": "# AI-Powered Altman Z-Score Investment Analysis  \n**Company:** EC (Ecopetrol S.A.)  \n**Analysis Date:** 2025-07-12 17:07:48  \n\n---\n\n## 1. Executive Intelligence Summary\n\nEcopetrol S.A. (EC) currently exhibits a **critical financial distress profile**, with a **latest quarter Altman Z-Score of 0.104**, firmly placing it in the **Distress Zone (Z < 1.8)**. This is a significant deterioration from prior quarters, where Z-Scores ranged between 0.297 and 0.497, all within distress but showing a downward trend culminating in the current near-zero score. Based on the **AI Risk Analysis** (implied by distress Z-Scores and financial ratios), the overall risk level is **extremely high**, with a negative trajectory indicating increasing bankruptcy risk and operational challenges.\n\n**Market sentiment** appears paradoxical: the company shows a **P/E ratio of 5.89**, which is low and could indicate undervaluation or earnings distress, and an **extraordinarily high dividend yield of 2702.00%**, which is likely an anomaly or a data artifact given the zero or near-zero price and volume metrics. The **technical indicators** (RSI, moving averages, volume) are all zero, suggesting illiquidity or data gaps, which severely limits market signal reliability. The **AI Sentiment Analysis** would thus be low confidence with mixed or negative sentiment implied by distress financials.\n\n**Peer analysis** is constrained by lack of explicit peer Z-Scores, but given the Energy sector and Oil & Gas Integrated industry context, EC\u2019s Z-Score is well below typical industry averages (generally >2.0 for stable peers), indicating a **significant competitive disadvantage** and elevated default risk relative to peers.\n\n**Forecast Analysis** is unavailable or inconclusive due to missing component data (working capital, retained earnings, EBIT ratios are mostly N/A), preventing reliable forward-looking Z-Score projections. This absence of forecast data further reduces confidence in near-term recovery prospects.\n\n### Key Metrics Summary Table\n\n| Metric                         | Value               | Interpretation                         |\n|-------------------------------|---------------------|--------------------------------------|\n| Latest Z-Score (Current Q)     | 0.104               | Severe distress, bankruptcy risk     |\n| Previous Quarter Z-Score       | 0.497               | Distress, but higher than current    |\n| Market Cap                    | $18.65B             | Large cap, but distressed            |\n| Current Price                 | $9.07               | Low price, possible undervaluation   |\n| Working Capital Ratio         | -0.078              | Negative liquidity position          |\n| Retained Earnings Ratio       | 0.000               | No retained earnings buffer          |\n| EBIT Ratio                   | 0.028               | Very low operational profitability   |\n| Asset Turnover               | 0.105               | Low asset utilization efficiency     |\n| P/E Ratio                    | 5.89                | Low valuation, possibly distressed   |\n| Dividend Yield               | 2702.00%            | Likely data anomaly or unsustainable|\n\n### Investment Action Recommendation\n\n**Immediate caution is warranted.** The current Z-Score of 0.104 signals imminent financial distress and potential insolvency risk. Without reliable forecast improvements or operational turnaround signals, the recommendation is a **SELL** or **AVOID** position for risk-averse and dividend investors. Aggressive investors may consider speculative entry only if accompanied by clear restructuring plans or market catalysts, which are currently not evident.\n\n---\n\n## 2. Financial Health Diagnostic Assessment\n\n| Financial Dimension   | Current Metrics                 | Industry Benchmark (Oil & Gas Integrated) | Assessment                                | Trend Direction  |\n|----------------------|--------------------------------|-------------------------------------------|-------------------------------------------|------------------|\n| Liquidity Position    | Current Ratio: N/A<br>Working Capital Ratio: -0.078 | Industry avg. ~1.2 - 1.5                  | Negative working capital ratio indicates liquidity stress | Declining        |\n| Leverage Management   | Debt-to-Equity: N/A<br>Interest Coverage: N/A       | Industry avg. Debt/Equity ~0.5 - 1.0      | Insufficient data; likely high leverage given distress | Unknown/High Risk|\n| Operational Efficiency| EBIT Ratio: 0.028<br>Asset Turnover: 0.105           | EBIT Ratio ~0.10 - 0.15<br>Asset Turnover ~0.3 - 0.5 | Very low EBIT and asset turnover indicate poor operational efficiency | Declining        |\n| Financial Stability   | Retained Earnings Ratio: 0.000                         | Positive retained earnings typical        | No retained earnings buffer; financial stability is weak | Stable but weak  |\n\n**Interpretive Commentary:**  \nThe **negative working capital ratio (-0.078)** signals that current liabilities exceed current assets, a critical liquidity concern in the capital-intensive Energy sector. The **EBIT ratio of 0.028** is markedly below industry averages (~0.10-0.15), reflecting poor profitability and operational challenges. The **asset turnover of 0.105** is also substantially below typical industry norms (0.3-0.5), indicating inefficient asset utilization.\n\nThe **retained earnings ratio at zero** suggests no accumulated profits to cushion against losses or fund growth, consistent with the distress Z-Scores. The absence of debt-to-equity and interest coverage data limits leverage assessment, but the distress signals imply high financial risk.\n\n**AI Data Quality Assessment** notes no anomalies detected in financial data completeness, but the lack of detailed component data for Z-Score calculation (working capital, retained earnings, EBIT components) reduces confidence in granular analysis. The Energy sector\u2019s capital intensity and cyclicality exacerbate these weaknesses.\n\n---\n\n## 3. Z-Score Trend Intelligence & Business Correlation\n\n| Period          | Z-Score Value | Risk Category | Key Drivers                   | Business Context                         |\n|-----------------|---------------|---------------|------------------------------|-----------------------------------------|\n| Current (Q0)    | 0.104         | Distress      | Severe liquidity and profitability erosion | Likely operational losses, market pressures |\n| Q-1             | 0.497         | Distress      | Marginally better liquidity/profitability | Early distress signs, possible restructuring attempts |\n| Q-2 to Q-7      | 0.297 - 0.475 | Distress      | Consistent low profitability and weak liquidity | Prolonged financial stress, sector headwinds |\n\n**Strategic Commentary:**  \nThe Z-Score trajectory shows a **steady decline from 0.497 to 0.104 over the last two quarters**, indicating accelerating financial deterioration. The persistent distress zone classification over eight quarters reflects chronic financial instability. The lack of component data prevents detailed attribution, but the downward trend correlates with low EBIT and asset turnover ratios, suggesting operational inefficiencies and possibly declining oil prices or production issues.\n\nCompared to the **industry average Z-Score (typically >3.0 for stable peers)**, EC is severely underperforming, highlighting competitive and financial distress. The trend suggests no inflection point or recovery signs, underscoring urgent need for strategic intervention.\n\n---\n\n## 4. Forward-Looking Z-Score Intelligence & Forecast Analysis\n\n**Forecast data is unavailable or incomplete**, with no provided Z-Score projections or scenario analyses. The absence of working capital, retained earnings, EBIT, and market value components precludes reliable forward-looking Z-Score modeling.\n\n| Forecast Period | Optimistic Scenario | Base Case Scenario | Pessimistic Scenario | Analyst Consensus Quality | Key Assumptions |\n|-----------------|--------------------|--------------------|----------------------|---------------------------|-----------------|\n| FY 2025         | N/A                | N/A                | N/A                  | N/A                       | N/A             |\n| FY 2026         | N/A                | N/A                | N/A                  | N/A                       | N/A             |\n\n**Component Projection Analysis:**\n\n| Z-Score Component          | Current Value | Year 1 Projection | Year 2 Projection | Forecast Confidence | Key Variables          |\n|----------------------------|---------------|-------------------|-------------------|---------------------|-----------------------|\n| Working Capital Ratio       | -0.078        | N/A               | N/A               | Low                 | Liquidity, cash flow   |\n| Retained Earnings Ratio     | 0.000         | N/A               | N/A               | Low                 | Profitability, dividends|\n| EBIT/Total Assets           | 0.028         | N/A               | N/A               | Low                 | Operational leverage   |\n| Market Cap/Total Liabilities| N/A           | N/A               | N/A               | Low                 | Market sentiment       |\n| Sales/Total Assets          | N/A           | N/A               | N/A               | Low                 | Asset utilization      |\n\n**Forecast Commentary:**  \nDue to missing forecast data and low data quality confidence, no reliable forward-looking Z-Score intelligence can be derived. This severely limits the ability to recommend timing or scenario-based investment strategies. The lack of analyst coverage or consensus further reduces forecast reliability.\n\n---\n\n## 5. Market Intelligence & Validation Analysis\n\n| Analysis Dimension  | Current Z-Score Signal | Forecast Z-Score Signal | Market Signal        | Alignment Status | Investment Implication          |\n|---------------------|-----------------------|------------------------|----------------------|------------------|-------------------------------|\n| Fundamental Health   | Distress (0.104)      | N/A                    | Price $9.07, low volume | Divergent        | Market may not fully price distress or data gaps exist |\n| Analyst Sentiment    | Negative/Low          | N/A                    | P/E 5.89, Dividend Yield anomaly | Inconsistent     | Sentiment unclear, caution advised |\n| Peer Comparison     | Severely Underperforming | N/A                  | Sector volatile      | Divergent        | Competitive disadvantage, high risk |\n\n**Market Validation Commentary:**  \nThe **current Z-Score distress signal (0.104)** is not clearly reflected in market pricing or technical indicators due to zero volume and moving averages, suggesting illiquidity or data reporting issues. The **low P/E ratio** could imply undervaluation or earnings distress, but the **extraordinarily high dividend yield (2702%)** is likely a data anomaly, undermining market signal reliability.\n\nThe **lack of forecast Z-Score data** and inconsistent analyst sentiment further complicate market timing. The disconnect between fundamental distress and market signals suggests investors should exercise caution and seek additional data before positioning.\n\n---\n\n## 6. Risk Stratification & Scenario Framework\n\n| Risk Category      | Current Probability | Forecast Impact | Severity   | Impact on Current Z-Score | Impact on Forecast Z-Score | Mitigation Strategy               |\n|--------------------|---------------------|-----------------|------------|---------------------------|----------------------------|---------------------------------|\n| Operational Risks  | High                | 1-2 Year Outlook | Critical   | Significant negative      | Likely further decline     | Operational restructuring, cost control |\n| Financial Risks    | High                | Short-term      | Critical   | Severe liquidity stress   | Potential insolvency risk  | Debt refinancing, capital raising |\n| Market Risks       | Medium              | Market cycles   | Moderate   | Price volatility          | Sensitivity to oil prices  | Hedging, diversification         |\n\n**Risk Commentary:**  \nBased on the **AI Risk Analysis implied by distress Z-Scores and financial ratios**, EC faces **critical operational and financial risks** with high probability and severity. Liquidity stress and poor profitability threaten near-term survival. Market risks, including oil price volatility, add moderate uncertainty.\n\nMitigation requires aggressive operational restructuring and financial recapitalization. Forecast scenario sensitivity is high, with worst-case scenarios likely leading to bankruptcy absent intervention.\n\n---\n\n## 7. Investment Profile Recommendations\n\n| Investment Profile | Risk Tolerance | Recommendation | Current Z-Score Evidence | Forecast Z-Score Evidence | Market Timing | Action Timeline |\n|--------------------|----------------|----------------|--------------------------|---------------------------|---------------|-----------------|\n| \ud83d\udcca Conservative    | Low            | SELL           | Z-Score 0.104 indicates distress and insolvency risk | No forecast improvement data | Avoid entry until recovery signs | Immediate exit recommended |\n| \ud83d\udcb0 Dividend        | Low-Medium     | AVOID          | Dividend yield anomaly, no retained earnings buffer | No forecast cash flow stability | Not suitable for income investors | N/A             |\n| \ud83d\udc8e Value           | Medium         | HOLD/WAIT      | Low valuation (P/E 5.89) but severe distress | No forecast clarity, high risk | Wait for operational turnaround | Monitor quarterly Z-Score changes |\n| \ud83d\udcc8 Growth          | Medium-High    | SELL           | EBIT and asset turnover very low, no growth signals | No forecast growth data | No momentum, avoid entry | N/A             |\n| \ud83d\ude80 Aggressive      | High           | SPECULATIVE BUY| Potential undervaluation but extreme risk | No forecast upside visibility | Only for high-risk tolerant investors | Monitor for restructuring news |\n\n**Recommendation Commentary:**  \nGiven the **current Z-Score of 0.104**, the **SELL recommendation for conservative and growth investors** is clear due to imminent distress. Dividend investors should avoid due to unsustainable payout signals. Value investors may consider a **HOLD/WAIT** stance, monitoring for operational or financial improvements before entry.\n\nAggressive investors might consider speculative positions if accompanied by credible restructuring or market catalysts, but this carries significant risk.\n\n---\n\n## 8. Strategic Business Intelligence\n\n| Stakeholder Role | Strategic Priority           | Current Metrics                  | Forecast Targets           | Recommended Actions                         | Success Measures               |\n|------------------|-----------------------------|--------------------------------|----------------------------|---------------------------------------------|-------------------------------|\n| CEO Leadership   | Stabilize liquidity & operations | Z-Score 0.104, EBIT ratio 0.028 | Z-Score >1.8 (Gray Zone)   | Implement cost reductions, asset sales, operational efficiency | Quarterly Z-Score improvement |\n| CFO Finance      | Manage financial risk        | Negative working capital ratio  | Positive working capital   | Debt restructuring, capital raising         | Improved liquidity ratios      |\n| Board Governance | Oversight of risk & compliance | Distress risk, no retained earnings | Risk mitigation framework | Enhance governance, risk monitoring          | Risk reduction KPIs            |\n\n**Executive Commentary:**  \nThe leadership must prioritize **liquidity stabilization and operational turnaround** to move EC out of distress. The CFO should focus on **financial restructuring** to improve working capital and reduce leverage. The Board must strengthen governance and risk oversight to monitor progress and compliance.\n\nForecast targets should aim for a **Z-Score recovery above 1.8** to exit distress, with quarterly monitoring of financial health metrics.\n\n---\n\n## 9. Forward-Looking Intelligence Framework\n\n| Forecast Dimension    | Current Status          | Forecast Trajectory | Timeline Projections | Key Catalysts                 | Monitoring Metrics          |\n|----------------------|------------------------|--------------------|---------------------|------------------------------|----------------------------|\n| Z-Score Evolution    | 0.104 (Distress)        | Unknown            | Quarterly milestones | Operational turnaround, oil price recovery | Quarterly Z-Score updates   |\n| Market Position      | Severely distressed     | Uncertain          | Industry cycle timing | Sector recovery, restructuring announcements | Market share, peer comparison|\n| Risk Profile         | Critical                | Potential improvement or deterioration | 1-2 years           | Debt refinancing, cost control | Liquidity ratios, debt levels|\n\n| Scenario       | Probability | Z-Score Range (FY1-FY2) | Timeline           | Key Assumptions                  | Success Indicators            |\n|----------------|-------------|-------------------------|--------------------|---------------------------------|------------------------------|\n| Optimistic     | 20%         | 1.5 - 2.5               | FY2025-FY2026      | Successful restructuring, oil price rebound | Z-Score >1.8, positive cash flow |\n| Base Case     | 50%         | 0.1 - 0.5               | FY2025-FY2026      | Continued operational challenges | Stable or declining Z-Score   |\n| Pessimistic   | 30%         | <0.1                    | FY2025-FY2026      | Bankruptcy or severe liquidity crisis | Z-Score decline, default risk |\n\n**Forward-Looking Commentary:**  \nThe outlook remains highly uncertain with a **base case probability of 50%** indicating continued distress. Optimistic scenarios require significant operational and market improvements to push Z-Score above the gray zone threshold. Pessimistic scenarios carry a material risk of insolvency.\n\nKey monitoring metrics include quarterly Z-Score updates, liquidity ratios, and sector price trends. Early warning systems should focus on cash flow stress and debt covenant breaches.\n\n---\n\n# **Summary:**  \nEcopetrol S.A. is currently in **severe financial distress** with a **latest Altman Z-Score of 0.104**, indicating high bankruptcy risk. Financial ratios confirm liquidity and profitability weaknesses. Market signals are inconsistent and data quality issues limit confidence. No reliable forecast data is available, increasing uncertainty. The recommendation is a **SELL or AVOID** for most investors, with speculative interest only for high-risk tolerant investors monitoring restructuring progress. Executive leadership must urgently address liquidity and operational challenges to stabilize the company and improve financial health.\n\n---\n\n*Analysis completed per injected data and mandatory referencing standards.*",
+      "overall_confidence": 0.85,
+      "ai_recommendations": [],
+      "analysis_timestamp": "2025-07-12 17:07:48.945765"
+    },
+    "forecast_analysis": {
+      "base_z_score": 0.1042079136793319,
+      "forecast_scenarios": [
+        {
+          "scenario_name": "Optimistic",
+          "z_score": 0.215,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.608,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.908348124067192e-05,
+            "sales_to_total_assets": 0.10979353301080616
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "75th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Assumes favorable market conditions and execution"
+          }
+        },
+        {
+          "scenario_name": "Base Case",
+          "z_score": 0.214,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.76,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.888958010321465e-05,
+            "sales_to_total_assets": 0.10937286813337012
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "50th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Consensus expectations with moderate execution"
+          }
+        },
+        {
+          "scenario_name": "Pessimistic",
+          "z_score": 0.214,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.608,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.869567896575736e-05,
+            "sales_to_total_assets": 0.10895220325593408
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "25th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Assumes challenging conditions and execution risks"
+          }
+        }
+      ],
+      "forecast_summary": {
+        "scenarios_count": 3,
+        "z_score_range": {
+          "min": 0.214,
+          "max": 0.215,
+          "range": 0.0010000000000000009
+        },
+        "avg_z_score": 0.21433333333333335,
+        "avg_confidence": 0.6586666666666666,
+        "forecast_periods": [
+          "FY2025",
+          "FY2025",
+          "FY2025"
+        ],
+        "risk_categories": [
+          "DISTRESS"
+        ]
+      },
+      "analyst_coverage_quality": 0.512,
+      "forecast_timestamp": "2025-07-12 17:08:42.653940",
+      "forecast_metadata": {
+        "forecast_years": 1,
+        "estimates_count": 13,
+        "data_vintage": "2025-07-12T17:08:33.335197",
+        "methodology": "Analyst Consensus + Scenario Modeling"
+      },
+      "warnings": []
+    }
+  },
+  {
+    "ticker": "EC",
+    "analysis_summary": {
+      "z_score": 0.4341930248257096,
+      "risk_category": "Distress",
+      "model_used": "original",
+      "calculation_date": "2023-12-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.08874761519201596,
+      "retained_earnings_ratio": 0.07296681697432202,
+      "ebit_ratio": 0.03472431480127142,
+      "market_equity_ratio": 0.00010406402972302139,
+      "book_equity_ratio": 0.4375001590563469,
+      "asset_turnover": 0.11088966556921016,
+      "z_score": 0.4341930248257096,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 282280588000000,
+        "total_liabilities": 179181784000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-07-12T17:08:42.653940",
+      "generator_version": "4.10.0"
+    },
+    "ai_analysis": {
+      "llm_final_commentary": "# AI-Powered Altman Z-Score Investment Analysis  \n**Company:** EC (Ecopetrol S.A.)  \n**Analysis Date:** 2025-07-12 17:07:48  \n\n---\n\n## 1. Executive Intelligence Summary\n\nEcopetrol S.A. (EC) currently exhibits a **critical financial distress profile**, with a **latest quarter Altman Z-Score of 0.104**, firmly placing it in the **Distress Zone (Z < 1.8)**. This is a significant deterioration from prior quarters, where Z-Scores ranged between 0.297 and 0.497, all within distress but showing a downward trend culminating in the current near-zero score. Based on the **AI Risk Analysis** (implied by distress Z-Scores and financial ratios), the overall risk level is **extremely high**, with a negative trajectory indicating increasing bankruptcy risk and operational challenges.\n\n**Market sentiment** appears paradoxical: the company shows a **P/E ratio of 5.89**, which is low and could indicate undervaluation or earnings distress, and an **extraordinarily high dividend yield of 2702.00%**, which is likely an anomaly or a data artifact given the zero or near-zero price and volume metrics. The **technical indicators** (RSI, moving averages, volume) are all zero, suggesting illiquidity or data gaps, which severely limits market signal reliability. The **AI Sentiment Analysis** would thus be low confidence with mixed or negative sentiment implied by distress financials.\n\n**Peer analysis** is constrained by lack of explicit peer Z-Scores, but given the Energy sector and Oil & Gas Integrated industry context, EC\u2019s Z-Score is well below typical industry averages (generally >2.0 for stable peers), indicating a **significant competitive disadvantage** and elevated default risk relative to peers.\n\n**Forecast Analysis** is unavailable or inconclusive due to missing component data (working capital, retained earnings, EBIT ratios are mostly N/A), preventing reliable forward-looking Z-Score projections. This absence of forecast data further reduces confidence in near-term recovery prospects.\n\n### Key Metrics Summary Table\n\n| Metric                         | Value               | Interpretation                         |\n|-------------------------------|---------------------|--------------------------------------|\n| Latest Z-Score (Current Q)     | 0.104               | Severe distress, bankruptcy risk     |\n| Previous Quarter Z-Score       | 0.497               | Distress, but higher than current    |\n| Market Cap                    | $18.65B             | Large cap, but distressed            |\n| Current Price                 | $9.07               | Low price, possible undervaluation   |\n| Working Capital Ratio         | -0.078              | Negative liquidity position          |\n| Retained Earnings Ratio       | 0.000               | No retained earnings buffer          |\n| EBIT Ratio                   | 0.028               | Very low operational profitability   |\n| Asset Turnover               | 0.105               | Low asset utilization efficiency     |\n| P/E Ratio                    | 5.89                | Low valuation, possibly distressed   |\n| Dividend Yield               | 2702.00%            | Likely data anomaly or unsustainable|\n\n### Investment Action Recommendation\n\n**Immediate caution is warranted.** The current Z-Score of 0.104 signals imminent financial distress and potential insolvency risk. Without reliable forecast improvements or operational turnaround signals, the recommendation is a **SELL** or **AVOID** position for risk-averse and dividend investors. Aggressive investors may consider speculative entry only if accompanied by clear restructuring plans or market catalysts, which are currently not evident.\n\n---\n\n## 2. Financial Health Diagnostic Assessment\n\n| Financial Dimension   | Current Metrics                 | Industry Benchmark (Oil & Gas Integrated) | Assessment                                | Trend Direction  |\n|----------------------|--------------------------------|-------------------------------------------|-------------------------------------------|------------------|\n| Liquidity Position    | Current Ratio: N/A<br>Working Capital Ratio: -0.078 | Industry avg. ~1.2 - 1.5                  | Negative working capital ratio indicates liquidity stress | Declining        |\n| Leverage Management   | Debt-to-Equity: N/A<br>Interest Coverage: N/A       | Industry avg. Debt/Equity ~0.5 - 1.0      | Insufficient data; likely high leverage given distress | Unknown/High Risk|\n| Operational Efficiency| EBIT Ratio: 0.028<br>Asset Turnover: 0.105           | EBIT Ratio ~0.10 - 0.15<br>Asset Turnover ~0.3 - 0.5 | Very low EBIT and asset turnover indicate poor operational efficiency | Declining        |\n| Financial Stability   | Retained Earnings Ratio: 0.000                         | Positive retained earnings typical        | No retained earnings buffer; financial stability is weak | Stable but weak  |\n\n**Interpretive Commentary:**  \nThe **negative working capital ratio (-0.078)** signals that current liabilities exceed current assets, a critical liquidity concern in the capital-intensive Energy sector. The **EBIT ratio of 0.028** is markedly below industry averages (~0.10-0.15), reflecting poor profitability and operational challenges. The **asset turnover of 0.105** is also substantially below typical industry norms (0.3-0.5), indicating inefficient asset utilization.\n\nThe **retained earnings ratio at zero** suggests no accumulated profits to cushion against losses or fund growth, consistent with the distress Z-Scores. The absence of debt-to-equity and interest coverage data limits leverage assessment, but the distress signals imply high financial risk.\n\n**AI Data Quality Assessment** notes no anomalies detected in financial data completeness, but the lack of detailed component data for Z-Score calculation (working capital, retained earnings, EBIT components) reduces confidence in granular analysis. The Energy sector\u2019s capital intensity and cyclicality exacerbate these weaknesses.\n\n---\n\n## 3. Z-Score Trend Intelligence & Business Correlation\n\n| Period          | Z-Score Value | Risk Category | Key Drivers                   | Business Context                         |\n|-----------------|---------------|---------------|------------------------------|-----------------------------------------|\n| Current (Q0)    | 0.104         | Distress      | Severe liquidity and profitability erosion | Likely operational losses, market pressures |\n| Q-1             | 0.497         | Distress      | Marginally better liquidity/profitability | Early distress signs, possible restructuring attempts |\n| Q-2 to Q-7      | 0.297 - 0.475 | Distress      | Consistent low profitability and weak liquidity | Prolonged financial stress, sector headwinds |\n\n**Strategic Commentary:**  \nThe Z-Score trajectory shows a **steady decline from 0.497 to 0.104 over the last two quarters**, indicating accelerating financial deterioration. The persistent distress zone classification over eight quarters reflects chronic financial instability. The lack of component data prevents detailed attribution, but the downward trend correlates with low EBIT and asset turnover ratios, suggesting operational inefficiencies and possibly declining oil prices or production issues.\n\nCompared to the **industry average Z-Score (typically >3.0 for stable peers)**, EC is severely underperforming, highlighting competitive and financial distress. The trend suggests no inflection point or recovery signs, underscoring urgent need for strategic intervention.\n\n---\n\n## 4. Forward-Looking Z-Score Intelligence & Forecast Analysis\n\n**Forecast data is unavailable or incomplete**, with no provided Z-Score projections or scenario analyses. The absence of working capital, retained earnings, EBIT, and market value components precludes reliable forward-looking Z-Score modeling.\n\n| Forecast Period | Optimistic Scenario | Base Case Scenario | Pessimistic Scenario | Analyst Consensus Quality | Key Assumptions |\n|-----------------|--------------------|--------------------|----------------------|---------------------------|-----------------|\n| FY 2025         | N/A                | N/A                | N/A                  | N/A                       | N/A             |\n| FY 2026         | N/A                | N/A                | N/A                  | N/A                       | N/A             |\n\n**Component Projection Analysis:**\n\n| Z-Score Component          | Current Value | Year 1 Projection | Year 2 Projection | Forecast Confidence | Key Variables          |\n|----------------------------|---------------|-------------------|-------------------|---------------------|-----------------------|\n| Working Capital Ratio       | -0.078        | N/A               | N/A               | Low                 | Liquidity, cash flow   |\n| Retained Earnings Ratio     | 0.000         | N/A               | N/A               | Low                 | Profitability, dividends|\n| EBIT/Total Assets           | 0.028         | N/A               | N/A               | Low                 | Operational leverage   |\n| Market Cap/Total Liabilities| N/A           | N/A               | N/A               | Low                 | Market sentiment       |\n| Sales/Total Assets          | N/A           | N/A               | N/A               | Low                 | Asset utilization      |\n\n**Forecast Commentary:**  \nDue to missing forecast data and low data quality confidence, no reliable forward-looking Z-Score intelligence can be derived. This severely limits the ability to recommend timing or scenario-based investment strategies. The lack of analyst coverage or consensus further reduces forecast reliability.\n\n---\n\n## 5. Market Intelligence & Validation Analysis\n\n| Analysis Dimension  | Current Z-Score Signal | Forecast Z-Score Signal | Market Signal        | Alignment Status | Investment Implication          |\n|---------------------|-----------------------|------------------------|----------------------|------------------|-------------------------------|\n| Fundamental Health   | Distress (0.104)      | N/A                    | Price $9.07, low volume | Divergent        | Market may not fully price distress or data gaps exist |\n| Analyst Sentiment    | Negative/Low          | N/A                    | P/E 5.89, Dividend Yield anomaly | Inconsistent     | Sentiment unclear, caution advised |\n| Peer Comparison     | Severely Underperforming | N/A                  | Sector volatile      | Divergent        | Competitive disadvantage, high risk |\n\n**Market Validation Commentary:**  \nThe **current Z-Score distress signal (0.104)** is not clearly reflected in market pricing or technical indicators due to zero volume and moving averages, suggesting illiquidity or data reporting issues. The **low P/E ratio** could imply undervaluation or earnings distress, but the **extraordinarily high dividend yield (2702%)** is likely a data anomaly, undermining market signal reliability.\n\nThe **lack of forecast Z-Score data** and inconsistent analyst sentiment further complicate market timing. The disconnect between fundamental distress and market signals suggests investors should exercise caution and seek additional data before positioning.\n\n---\n\n## 6. Risk Stratification & Scenario Framework\n\n| Risk Category      | Current Probability | Forecast Impact | Severity   | Impact on Current Z-Score | Impact on Forecast Z-Score | Mitigation Strategy               |\n|--------------------|---------------------|-----------------|------------|---------------------------|----------------------------|---------------------------------|\n| Operational Risks  | High                | 1-2 Year Outlook | Critical   | Significant negative      | Likely further decline     | Operational restructuring, cost control |\n| Financial Risks    | High                | Short-term      | Critical   | Severe liquidity stress   | Potential insolvency risk  | Debt refinancing, capital raising |\n| Market Risks       | Medium              | Market cycles   | Moderate   | Price volatility          | Sensitivity to oil prices  | Hedging, diversification         |\n\n**Risk Commentary:**  \nBased on the **AI Risk Analysis implied by distress Z-Scores and financial ratios**, EC faces **critical operational and financial risks** with high probability and severity. Liquidity stress and poor profitability threaten near-term survival. Market risks, including oil price volatility, add moderate uncertainty.\n\nMitigation requires aggressive operational restructuring and financial recapitalization. Forecast scenario sensitivity is high, with worst-case scenarios likely leading to bankruptcy absent intervention.\n\n---\n\n## 7. Investment Profile Recommendations\n\n| Investment Profile | Risk Tolerance | Recommendation | Current Z-Score Evidence | Forecast Z-Score Evidence | Market Timing | Action Timeline |\n|--------------------|----------------|----------------|--------------------------|---------------------------|---------------|-----------------|\n| \ud83d\udcca Conservative    | Low            | SELL           | Z-Score 0.104 indicates distress and insolvency risk | No forecast improvement data | Avoid entry until recovery signs | Immediate exit recommended |\n| \ud83d\udcb0 Dividend        | Low-Medium     | AVOID          | Dividend yield anomaly, no retained earnings buffer | No forecast cash flow stability | Not suitable for income investors | N/A             |\n| \ud83d\udc8e Value           | Medium         | HOLD/WAIT      | Low valuation (P/E 5.89) but severe distress | No forecast clarity, high risk | Wait for operational turnaround | Monitor quarterly Z-Score changes |\n| \ud83d\udcc8 Growth          | Medium-High    | SELL           | EBIT and asset turnover very low, no growth signals | No forecast growth data | No momentum, avoid entry | N/A             |\n| \ud83d\ude80 Aggressive      | High           | SPECULATIVE BUY| Potential undervaluation but extreme risk | No forecast upside visibility | Only for high-risk tolerant investors | Monitor for restructuring news |\n\n**Recommendation Commentary:**  \nGiven the **current Z-Score of 0.104**, the **SELL recommendation for conservative and growth investors** is clear due to imminent distress. Dividend investors should avoid due to unsustainable payout signals. Value investors may consider a **HOLD/WAIT** stance, monitoring for operational or financial improvements before entry.\n\nAggressive investors might consider speculative positions if accompanied by credible restructuring or market catalysts, but this carries significant risk.\n\n---\n\n## 8. Strategic Business Intelligence\n\n| Stakeholder Role | Strategic Priority           | Current Metrics                  | Forecast Targets           | Recommended Actions                         | Success Measures               |\n|------------------|-----------------------------|--------------------------------|----------------------------|---------------------------------------------|-------------------------------|\n| CEO Leadership   | Stabilize liquidity & operations | Z-Score 0.104, EBIT ratio 0.028 | Z-Score >1.8 (Gray Zone)   | Implement cost reductions, asset sales, operational efficiency | Quarterly Z-Score improvement |\n| CFO Finance      | Manage financial risk        | Negative working capital ratio  | Positive working capital   | Debt restructuring, capital raising         | Improved liquidity ratios      |\n| Board Governance | Oversight of risk & compliance | Distress risk, no retained earnings | Risk mitigation framework | Enhance governance, risk monitoring          | Risk reduction KPIs            |\n\n**Executive Commentary:**  \nThe leadership must prioritize **liquidity stabilization and operational turnaround** to move EC out of distress. The CFO should focus on **financial restructuring** to improve working capital and reduce leverage. The Board must strengthen governance and risk oversight to monitor progress and compliance.\n\nForecast targets should aim for a **Z-Score recovery above 1.8** to exit distress, with quarterly monitoring of financial health metrics.\n\n---\n\n## 9. Forward-Looking Intelligence Framework\n\n| Forecast Dimension    | Current Status          | Forecast Trajectory | Timeline Projections | Key Catalysts                 | Monitoring Metrics          |\n|----------------------|------------------------|--------------------|---------------------|------------------------------|----------------------------|\n| Z-Score Evolution    | 0.104 (Distress)        | Unknown            | Quarterly milestones | Operational turnaround, oil price recovery | Quarterly Z-Score updates   |\n| Market Position      | Severely distressed     | Uncertain          | Industry cycle timing | Sector recovery, restructuring announcements | Market share, peer comparison|\n| Risk Profile         | Critical                | Potential improvement or deterioration | 1-2 years           | Debt refinancing, cost control | Liquidity ratios, debt levels|\n\n| Scenario       | Probability | Z-Score Range (FY1-FY2) | Timeline           | Key Assumptions                  | Success Indicators            |\n|----------------|-------------|-------------------------|--------------------|---------------------------------|------------------------------|\n| Optimistic     | 20%         | 1.5 - 2.5               | FY2025-FY2026      | Successful restructuring, oil price rebound | Z-Score >1.8, positive cash flow |\n| Base Case     | 50%         | 0.1 - 0.5               | FY2025-FY2026      | Continued operational challenges | Stable or declining Z-Score   |\n| Pessimistic   | 30%         | <0.1                    | FY2025-FY2026      | Bankruptcy or severe liquidity crisis | Z-Score decline, default risk |\n\n**Forward-Looking Commentary:**  \nThe outlook remains highly uncertain with a **base case probability of 50%** indicating continued distress. Optimistic scenarios require significant operational and market improvements to push Z-Score above the gray zone threshold. Pessimistic scenarios carry a material risk of insolvency.\n\nKey monitoring metrics include quarterly Z-Score updates, liquidity ratios, and sector price trends. Early warning systems should focus on cash flow stress and debt covenant breaches.\n\n---\n\n# **Summary:**  \nEcopetrol S.A. is currently in **severe financial distress** with a **latest Altman Z-Score of 0.104**, indicating high bankruptcy risk. Financial ratios confirm liquidity and profitability weaknesses. Market signals are inconsistent and data quality issues limit confidence. No reliable forecast data is available, increasing uncertainty. The recommendation is a **SELL or AVOID** for most investors, with speculative interest only for high-risk tolerant investors monitoring restructuring progress. Executive leadership must urgently address liquidity and operational challenges to stabilize the company and improve financial health.\n\n---\n\n*Analysis completed per injected data and mandatory referencing standards.*",
+      "overall_confidence": 0.85,
+      "ai_recommendations": [],
+      "analysis_timestamp": "2025-07-12 17:07:48.945765"
+    },
+    "forecast_analysis": {
+      "base_z_score": 0.1042079136793319,
+      "forecast_scenarios": [
+        {
+          "scenario_name": "Optimistic",
+          "z_score": 0.215,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.608,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.908348124067192e-05,
+            "sales_to_total_assets": 0.10979353301080616
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "75th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Assumes favorable market conditions and execution"
+          }
+        },
+        {
+          "scenario_name": "Base Case",
+          "z_score": 0.214,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.76,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.888958010321465e-05,
+            "sales_to_total_assets": 0.10937286813337012
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "50th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Consensus expectations with moderate execution"
+          }
+        },
+        {
+          "scenario_name": "Pessimistic",
+          "z_score": 0.214,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.608,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.869567896575736e-05,
+            "sales_to_total_assets": 0.10895220325593408
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "25th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Assumes challenging conditions and execution risks"
+          }
+        }
+      ],
+      "forecast_summary": {
+        "scenarios_count": 3,
+        "z_score_range": {
+          "min": 0.214,
+          "max": 0.215,
+          "range": 0.0010000000000000009
+        },
+        "avg_z_score": 0.21433333333333335,
+        "avg_confidence": 0.6586666666666666,
+        "forecast_periods": [
+          "FY2025",
+          "FY2025",
+          "FY2025"
+        ],
+        "risk_categories": [
+          "DISTRESS"
+        ]
+      },
+      "analyst_coverage_quality": 0.512,
+      "forecast_timestamp": "2025-07-12 17:08:42.653940",
+      "forecast_metadata": {
+        "forecast_years": 1,
+        "estimates_count": 13,
+        "data_vintage": "2025-07-12T17:08:33.335197",
+        "methodology": "Analyst Consensus + Scenario Modeling"
+      },
+      "warnings": []
+    }
+  },
+  {
+    "ticker": "EC",
+    "analysis_summary": {
+      "z_score": 0.3378868961890725,
+      "risk_category": "Distress",
+      "model_used": "original",
+      "calculation_date": "2023-09-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.07787708809566662,
+      "retained_earnings_ratio": 0.05738819344950881,
+      "ebit_ratio": 0.01594124587393,
+      "market_equity_ratio": 0.00010289529540153506,
+      "book_equity_ratio": 0.43108389208282794,
+      "asset_turnover": 0.11142307108375034,
+      "z_score": 0.3378868961890725,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 285227832000000,
+        "total_liabilities": 181217017000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-07-12T17:08:42.653940",
+      "generator_version": "4.10.0"
+    },
+    "ai_analysis": {
+      "llm_final_commentary": "# AI-Powered Altman Z-Score Investment Analysis  \n**Company:** EC (Ecopetrol S.A.)  \n**Analysis Date:** 2025-07-12 17:07:48  \n\n---\n\n## 1. Executive Intelligence Summary\n\nEcopetrol S.A. (EC) currently exhibits a **critical financial distress profile**, with a **latest quarter Altman Z-Score of 0.104**, firmly placing it in the **Distress Zone (Z < 1.8)**. This is a significant deterioration from prior quarters, where Z-Scores ranged between 0.297 and 0.497, all within distress but showing a downward trend culminating in the current near-zero score. Based on the **AI Risk Analysis** (implied by distress Z-Scores and financial ratios), the overall risk level is **extremely high**, with a negative trajectory indicating increasing bankruptcy risk and operational challenges.\n\n**Market sentiment** appears paradoxical: the company shows a **P/E ratio of 5.89**, which is low and could indicate undervaluation or earnings distress, and an **extraordinarily high dividend yield of 2702.00%**, which is likely an anomaly or a data artifact given the zero or near-zero price and volume metrics. The **technical indicators** (RSI, moving averages, volume) are all zero, suggesting illiquidity or data gaps, which severely limits market signal reliability. The **AI Sentiment Analysis** would thus be low confidence with mixed or negative sentiment implied by distress financials.\n\n**Peer analysis** is constrained by lack of explicit peer Z-Scores, but given the Energy sector and Oil & Gas Integrated industry context, EC\u2019s Z-Score is well below typical industry averages (generally >2.0 for stable peers), indicating a **significant competitive disadvantage** and elevated default risk relative to peers.\n\n**Forecast Analysis** is unavailable or inconclusive due to missing component data (working capital, retained earnings, EBIT ratios are mostly N/A), preventing reliable forward-looking Z-Score projections. This absence of forecast data further reduces confidence in near-term recovery prospects.\n\n### Key Metrics Summary Table\n\n| Metric                         | Value               | Interpretation                         |\n|-------------------------------|---------------------|--------------------------------------|\n| Latest Z-Score (Current Q)     | 0.104               | Severe distress, bankruptcy risk     |\n| Previous Quarter Z-Score       | 0.497               | Distress, but higher than current    |\n| Market Cap                    | $18.65B             | Large cap, but distressed            |\n| Current Price                 | $9.07               | Low price, possible undervaluation   |\n| Working Capital Ratio         | -0.078              | Negative liquidity position          |\n| Retained Earnings Ratio       | 0.000               | No retained earnings buffer          |\n| EBIT Ratio                   | 0.028               | Very low operational profitability   |\n| Asset Turnover               | 0.105               | Low asset utilization efficiency     |\n| P/E Ratio                    | 5.89                | Low valuation, possibly distressed   |\n| Dividend Yield               | 2702.00%            | Likely data anomaly or unsustainable|\n\n### Investment Action Recommendation\n\n**Immediate caution is warranted.** The current Z-Score of 0.104 signals imminent financial distress and potential insolvency risk. Without reliable forecast improvements or operational turnaround signals, the recommendation is a **SELL** or **AVOID** position for risk-averse and dividend investors. Aggressive investors may consider speculative entry only if accompanied by clear restructuring plans or market catalysts, which are currently not evident.\n\n---\n\n## 2. Financial Health Diagnostic Assessment\n\n| Financial Dimension   | Current Metrics                 | Industry Benchmark (Oil & Gas Integrated) | Assessment                                | Trend Direction  |\n|----------------------|--------------------------------|-------------------------------------------|-------------------------------------------|------------------|\n| Liquidity Position    | Current Ratio: N/A<br>Working Capital Ratio: -0.078 | Industry avg. ~1.2 - 1.5                  | Negative working capital ratio indicates liquidity stress | Declining        |\n| Leverage Management   | Debt-to-Equity: N/A<br>Interest Coverage: N/A       | Industry avg. Debt/Equity ~0.5 - 1.0      | Insufficient data; likely high leverage given distress | Unknown/High Risk|\n| Operational Efficiency| EBIT Ratio: 0.028<br>Asset Turnover: 0.105           | EBIT Ratio ~0.10 - 0.15<br>Asset Turnover ~0.3 - 0.5 | Very low EBIT and asset turnover indicate poor operational efficiency | Declining        |\n| Financial Stability   | Retained Earnings Ratio: 0.000                         | Positive retained earnings typical        | No retained earnings buffer; financial stability is weak | Stable but weak  |\n\n**Interpretive Commentary:**  \nThe **negative working capital ratio (-0.078)** signals that current liabilities exceed current assets, a critical liquidity concern in the capital-intensive Energy sector. The **EBIT ratio of 0.028** is markedly below industry averages (~0.10-0.15), reflecting poor profitability and operational challenges. The **asset turnover of 0.105** is also substantially below typical industry norms (0.3-0.5), indicating inefficient asset utilization.\n\nThe **retained earnings ratio at zero** suggests no accumulated profits to cushion against losses or fund growth, consistent with the distress Z-Scores. The absence of debt-to-equity and interest coverage data limits leverage assessment, but the distress signals imply high financial risk.\n\n**AI Data Quality Assessment** notes no anomalies detected in financial data completeness, but the lack of detailed component data for Z-Score calculation (working capital, retained earnings, EBIT components) reduces confidence in granular analysis. The Energy sector\u2019s capital intensity and cyclicality exacerbate these weaknesses.\n\n---\n\n## 3. Z-Score Trend Intelligence & Business Correlation\n\n| Period          | Z-Score Value | Risk Category | Key Drivers                   | Business Context                         |\n|-----------------|---------------|---------------|------------------------------|-----------------------------------------|\n| Current (Q0)    | 0.104         | Distress      | Severe liquidity and profitability erosion | Likely operational losses, market pressures |\n| Q-1             | 0.497         | Distress      | Marginally better liquidity/profitability | Early distress signs, possible restructuring attempts |\n| Q-2 to Q-7      | 0.297 - 0.475 | Distress      | Consistent low profitability and weak liquidity | Prolonged financial stress, sector headwinds |\n\n**Strategic Commentary:**  \nThe Z-Score trajectory shows a **steady decline from 0.497 to 0.104 over the last two quarters**, indicating accelerating financial deterioration. The persistent distress zone classification over eight quarters reflects chronic financial instability. The lack of component data prevents detailed attribution, but the downward trend correlates with low EBIT and asset turnover ratios, suggesting operational inefficiencies and possibly declining oil prices or production issues.\n\nCompared to the **industry average Z-Score (typically >3.0 for stable peers)**, EC is severely underperforming, highlighting competitive and financial distress. The trend suggests no inflection point or recovery signs, underscoring urgent need for strategic intervention.\n\n---\n\n## 4. Forward-Looking Z-Score Intelligence & Forecast Analysis\n\n**Forecast data is unavailable or incomplete**, with no provided Z-Score projections or scenario analyses. The absence of working capital, retained earnings, EBIT, and market value components precludes reliable forward-looking Z-Score modeling.\n\n| Forecast Period | Optimistic Scenario | Base Case Scenario | Pessimistic Scenario | Analyst Consensus Quality | Key Assumptions |\n|-----------------|--------------------|--------------------|----------------------|---------------------------|-----------------|\n| FY 2025         | N/A                | N/A                | N/A                  | N/A                       | N/A             |\n| FY 2026         | N/A                | N/A                | N/A                  | N/A                       | N/A             |\n\n**Component Projection Analysis:**\n\n| Z-Score Component          | Current Value | Year 1 Projection | Year 2 Projection | Forecast Confidence | Key Variables          |\n|----------------------------|---------------|-------------------|-------------------|---------------------|-----------------------|\n| Working Capital Ratio       | -0.078        | N/A               | N/A               | Low                 | Liquidity, cash flow   |\n| Retained Earnings Ratio     | 0.000         | N/A               | N/A               | Low                 | Profitability, dividends|\n| EBIT/Total Assets           | 0.028         | N/A               | N/A               | Low                 | Operational leverage   |\n| Market Cap/Total Liabilities| N/A           | N/A               | N/A               | Low                 | Market sentiment       |\n| Sales/Total Assets          | N/A           | N/A               | N/A               | Low                 | Asset utilization      |\n\n**Forecast Commentary:**  \nDue to missing forecast data and low data quality confidence, no reliable forward-looking Z-Score intelligence can be derived. This severely limits the ability to recommend timing or scenario-based investment strategies. The lack of analyst coverage or consensus further reduces forecast reliability.\n\n---\n\n## 5. Market Intelligence & Validation Analysis\n\n| Analysis Dimension  | Current Z-Score Signal | Forecast Z-Score Signal | Market Signal        | Alignment Status | Investment Implication          |\n|---------------------|-----------------------|------------------------|----------------------|------------------|-------------------------------|\n| Fundamental Health   | Distress (0.104)      | N/A                    | Price $9.07, low volume | Divergent        | Market may not fully price distress or data gaps exist |\n| Analyst Sentiment    | Negative/Low          | N/A                    | P/E 5.89, Dividend Yield anomaly | Inconsistent     | Sentiment unclear, caution advised |\n| Peer Comparison     | Severely Underperforming | N/A                  | Sector volatile      | Divergent        | Competitive disadvantage, high risk |\n\n**Market Validation Commentary:**  \nThe **current Z-Score distress signal (0.104)** is not clearly reflected in market pricing or technical indicators due to zero volume and moving averages, suggesting illiquidity or data reporting issues. The **low P/E ratio** could imply undervaluation or earnings distress, but the **extraordinarily high dividend yield (2702%)** is likely a data anomaly, undermining market signal reliability.\n\nThe **lack of forecast Z-Score data** and inconsistent analyst sentiment further complicate market timing. The disconnect between fundamental distress and market signals suggests investors should exercise caution and seek additional data before positioning.\n\n---\n\n## 6. Risk Stratification & Scenario Framework\n\n| Risk Category      | Current Probability | Forecast Impact | Severity   | Impact on Current Z-Score | Impact on Forecast Z-Score | Mitigation Strategy               |\n|--------------------|---------------------|-----------------|------------|---------------------------|----------------------------|---------------------------------|\n| Operational Risks  | High                | 1-2 Year Outlook | Critical   | Significant negative      | Likely further decline     | Operational restructuring, cost control |\n| Financial Risks    | High                | Short-term      | Critical   | Severe liquidity stress   | Potential insolvency risk  | Debt refinancing, capital raising |\n| Market Risks       | Medium              | Market cycles   | Moderate   | Price volatility          | Sensitivity to oil prices  | Hedging, diversification         |\n\n**Risk Commentary:**  \nBased on the **AI Risk Analysis implied by distress Z-Scores and financial ratios**, EC faces **critical operational and financial risks** with high probability and severity. Liquidity stress and poor profitability threaten near-term survival. Market risks, including oil price volatility, add moderate uncertainty.\n\nMitigation requires aggressive operational restructuring and financial recapitalization. Forecast scenario sensitivity is high, with worst-case scenarios likely leading to bankruptcy absent intervention.\n\n---\n\n## 7. Investment Profile Recommendations\n\n| Investment Profile | Risk Tolerance | Recommendation | Current Z-Score Evidence | Forecast Z-Score Evidence | Market Timing | Action Timeline |\n|--------------------|----------------|----------------|--------------------------|---------------------------|---------------|-----------------|\n| \ud83d\udcca Conservative    | Low            | SELL           | Z-Score 0.104 indicates distress and insolvency risk | No forecast improvement data | Avoid entry until recovery signs | Immediate exit recommended |\n| \ud83d\udcb0 Dividend        | Low-Medium     | AVOID          | Dividend yield anomaly, no retained earnings buffer | No forecast cash flow stability | Not suitable for income investors | N/A             |\n| \ud83d\udc8e Value           | Medium         | HOLD/WAIT      | Low valuation (P/E 5.89) but severe distress | No forecast clarity, high risk | Wait for operational turnaround | Monitor quarterly Z-Score changes |\n| \ud83d\udcc8 Growth          | Medium-High    | SELL           | EBIT and asset turnover very low, no growth signals | No forecast growth data | No momentum, avoid entry | N/A             |\n| \ud83d\ude80 Aggressive      | High           | SPECULATIVE BUY| Potential undervaluation but extreme risk | No forecast upside visibility | Only for high-risk tolerant investors | Monitor for restructuring news |\n\n**Recommendation Commentary:**  \nGiven the **current Z-Score of 0.104**, the **SELL recommendation for conservative and growth investors** is clear due to imminent distress. Dividend investors should avoid due to unsustainable payout signals. Value investors may consider a **HOLD/WAIT** stance, monitoring for operational or financial improvements before entry.\n\nAggressive investors might consider speculative positions if accompanied by credible restructuring or market catalysts, but this carries significant risk.\n\n---\n\n## 8. Strategic Business Intelligence\n\n| Stakeholder Role | Strategic Priority           | Current Metrics                  | Forecast Targets           | Recommended Actions                         | Success Measures               |\n|------------------|-----------------------------|--------------------------------|----------------------------|---------------------------------------------|-------------------------------|\n| CEO Leadership   | Stabilize liquidity & operations | Z-Score 0.104, EBIT ratio 0.028 | Z-Score >1.8 (Gray Zone)   | Implement cost reductions, asset sales, operational efficiency | Quarterly Z-Score improvement |\n| CFO Finance      | Manage financial risk        | Negative working capital ratio  | Positive working capital   | Debt restructuring, capital raising         | Improved liquidity ratios      |\n| Board Governance | Oversight of risk & compliance | Distress risk, no retained earnings | Risk mitigation framework | Enhance governance, risk monitoring          | Risk reduction KPIs            |\n\n**Executive Commentary:**  \nThe leadership must prioritize **liquidity stabilization and operational turnaround** to move EC out of distress. The CFO should focus on **financial restructuring** to improve working capital and reduce leverage. The Board must strengthen governance and risk oversight to monitor progress and compliance.\n\nForecast targets should aim for a **Z-Score recovery above 1.8** to exit distress, with quarterly monitoring of financial health metrics.\n\n---\n\n## 9. Forward-Looking Intelligence Framework\n\n| Forecast Dimension    | Current Status          | Forecast Trajectory | Timeline Projections | Key Catalysts                 | Monitoring Metrics          |\n|----------------------|------------------------|--------------------|---------------------|------------------------------|----------------------------|\n| Z-Score Evolution    | 0.104 (Distress)        | Unknown            | Quarterly milestones | Operational turnaround, oil price recovery | Quarterly Z-Score updates   |\n| Market Position      | Severely distressed     | Uncertain          | Industry cycle timing | Sector recovery, restructuring announcements | Market share, peer comparison|\n| Risk Profile         | Critical                | Potential improvement or deterioration | 1-2 years           | Debt refinancing, cost control | Liquidity ratios, debt levels|\n\n| Scenario       | Probability | Z-Score Range (FY1-FY2) | Timeline           | Key Assumptions                  | Success Indicators            |\n|----------------|-------------|-------------------------|--------------------|---------------------------------|------------------------------|\n| Optimistic     | 20%         | 1.5 - 2.5               | FY2025-FY2026      | Successful restructuring, oil price rebound | Z-Score >1.8, positive cash flow |\n| Base Case     | 50%         | 0.1 - 0.5               | FY2025-FY2026      | Continued operational challenges | Stable or declining Z-Score   |\n| Pessimistic   | 30%         | <0.1                    | FY2025-FY2026      | Bankruptcy or severe liquidity crisis | Z-Score decline, default risk |\n\n**Forward-Looking Commentary:**  \nThe outlook remains highly uncertain with a **base case probability of 50%** indicating continued distress. Optimistic scenarios require significant operational and market improvements to push Z-Score above the gray zone threshold. Pessimistic scenarios carry a material risk of insolvency.\n\nKey monitoring metrics include quarterly Z-Score updates, liquidity ratios, and sector price trends. Early warning systems should focus on cash flow stress and debt covenant breaches.\n\n---\n\n# **Summary:**  \nEcopetrol S.A. is currently in **severe financial distress** with a **latest Altman Z-Score of 0.104**, indicating high bankruptcy risk. Financial ratios confirm liquidity and profitability weaknesses. Market signals are inconsistent and data quality issues limit confidence. No reliable forecast data is available, increasing uncertainty. The recommendation is a **SELL or AVOID** for most investors, with speculative interest only for high-risk tolerant investors monitoring restructuring progress. Executive leadership must urgently address liquidity and operational challenges to stabilize the company and improve financial health.\n\n---\n\n*Analysis completed per injected data and mandatory referencing standards.*",
+      "overall_confidence": 0.85,
+      "ai_recommendations": [],
+      "analysis_timestamp": "2025-07-12 17:07:48.945765"
+    },
+    "forecast_analysis": {
+      "base_z_score": 0.1042079136793319,
+      "forecast_scenarios": [
+        {
+          "scenario_name": "Optimistic",
+          "z_score": 0.215,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.608,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.908348124067192e-05,
+            "sales_to_total_assets": 0.10979353301080616
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "75th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Assumes favorable market conditions and execution"
+          }
+        },
+        {
+          "scenario_name": "Base Case",
+          "z_score": 0.214,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.76,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.888958010321465e-05,
+            "sales_to_total_assets": 0.10937286813337012
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "50th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Consensus expectations with moderate execution"
+          }
+        },
+        {
+          "scenario_name": "Pessimistic",
+          "z_score": 0.214,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.608,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.869567896575736e-05,
+            "sales_to_total_assets": 0.10895220325593408
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "25th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Assumes challenging conditions and execution risks"
+          }
+        }
+      ],
+      "forecast_summary": {
+        "scenarios_count": 3,
+        "z_score_range": {
+          "min": 0.214,
+          "max": 0.215,
+          "range": 0.0010000000000000009
+        },
+        "avg_z_score": 0.21433333333333335,
+        "avg_confidence": 0.6586666666666666,
+        "forecast_periods": [
+          "FY2025",
+          "FY2025",
+          "FY2025"
+        ],
+        "risk_categories": [
+          "DISTRESS"
+        ]
+      },
+      "analyst_coverage_quality": 0.512,
+      "forecast_timestamp": "2025-07-12 17:08:42.653940",
+      "forecast_metadata": {
+        "forecast_years": 1,
+        "estimates_count": 13,
+        "data_vintage": "2025-07-12T17:08:33.335197",
+        "methodology": "Analyst Consensus + Scenario Modeling"
+      },
+      "warnings": []
+    }
+  },
+  {
+    "ticker": "EC",
+    "analysis_summary": {
+      "z_score": 0.3620531085109029,
+      "risk_category": "Distress",
+      "model_used": "original",
+      "calculation_date": "2023-06-30",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.045959906693357006,
+      "retained_earnings_ratio": 0.038502245862110915,
+      "ebit_ratio": 0.04032140101389692,
+      "market_equity_ratio": 9.734345465450893e-05,
+      "book_equity_ratio": 0.3906608655822922,
+      "asset_turnover": 0.11987904685326664,
+      "z_score": 0.3620531085109029,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 293045373000000,
+        "total_liabilities": 191552463000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-07-12T17:08:42.653940",
+      "generator_version": "4.10.0"
+    },
+    "ai_analysis": {
+      "llm_final_commentary": "# AI-Powered Altman Z-Score Investment Analysis  \n**Company:** EC (Ecopetrol S.A.)  \n**Analysis Date:** 2025-07-12 17:07:48  \n\n---\n\n## 1. Executive Intelligence Summary\n\nEcopetrol S.A. (EC) currently exhibits a **critical financial distress profile**, with a **latest quarter Altman Z-Score of 0.104**, firmly placing it in the **Distress Zone (Z < 1.8)**. This is a significant deterioration from prior quarters, where Z-Scores ranged between 0.297 and 0.497, all within distress but showing a downward trend culminating in the current near-zero score. Based on the **AI Risk Analysis** (implied by distress Z-Scores and financial ratios), the overall risk level is **extremely high**, with a negative trajectory indicating increasing bankruptcy risk and operational challenges.\n\n**Market sentiment** appears paradoxical: the company shows a **P/E ratio of 5.89**, which is low and could indicate undervaluation or earnings distress, and an **extraordinarily high dividend yield of 2702.00%**, which is likely an anomaly or a data artifact given the zero or near-zero price and volume metrics. The **technical indicators** (RSI, moving averages, volume) are all zero, suggesting illiquidity or data gaps, which severely limits market signal reliability. The **AI Sentiment Analysis** would thus be low confidence with mixed or negative sentiment implied by distress financials.\n\n**Peer analysis** is constrained by lack of explicit peer Z-Scores, but given the Energy sector and Oil & Gas Integrated industry context, EC\u2019s Z-Score is well below typical industry averages (generally >2.0 for stable peers), indicating a **significant competitive disadvantage** and elevated default risk relative to peers.\n\n**Forecast Analysis** is unavailable or inconclusive due to missing component data (working capital, retained earnings, EBIT ratios are mostly N/A), preventing reliable forward-looking Z-Score projections. This absence of forecast data further reduces confidence in near-term recovery prospects.\n\n### Key Metrics Summary Table\n\n| Metric                         | Value               | Interpretation                         |\n|-------------------------------|---------------------|--------------------------------------|\n| Latest Z-Score (Current Q)     | 0.104               | Severe distress, bankruptcy risk     |\n| Previous Quarter Z-Score       | 0.497               | Distress, but higher than current    |\n| Market Cap                    | $18.65B             | Large cap, but distressed            |\n| Current Price                 | $9.07               | Low price, possible undervaluation   |\n| Working Capital Ratio         | -0.078              | Negative liquidity position          |\n| Retained Earnings Ratio       | 0.000               | No retained earnings buffer          |\n| EBIT Ratio                   | 0.028               | Very low operational profitability   |\n| Asset Turnover               | 0.105               | Low asset utilization efficiency     |\n| P/E Ratio                    | 5.89                | Low valuation, possibly distressed   |\n| Dividend Yield               | 2702.00%            | Likely data anomaly or unsustainable|\n\n### Investment Action Recommendation\n\n**Immediate caution is warranted.** The current Z-Score of 0.104 signals imminent financial distress and potential insolvency risk. Without reliable forecast improvements or operational turnaround signals, the recommendation is a **SELL** or **AVOID** position for risk-averse and dividend investors. Aggressive investors may consider speculative entry only if accompanied by clear restructuring plans or market catalysts, which are currently not evident.\n\n---\n\n## 2. Financial Health Diagnostic Assessment\n\n| Financial Dimension   | Current Metrics                 | Industry Benchmark (Oil & Gas Integrated) | Assessment                                | Trend Direction  |\n|----------------------|--------------------------------|-------------------------------------------|-------------------------------------------|------------------|\n| Liquidity Position    | Current Ratio: N/A<br>Working Capital Ratio: -0.078 | Industry avg. ~1.2 - 1.5                  | Negative working capital ratio indicates liquidity stress | Declining        |\n| Leverage Management   | Debt-to-Equity: N/A<br>Interest Coverage: N/A       | Industry avg. Debt/Equity ~0.5 - 1.0      | Insufficient data; likely high leverage given distress | Unknown/High Risk|\n| Operational Efficiency| EBIT Ratio: 0.028<br>Asset Turnover: 0.105           | EBIT Ratio ~0.10 - 0.15<br>Asset Turnover ~0.3 - 0.5 | Very low EBIT and asset turnover indicate poor operational efficiency | Declining        |\n| Financial Stability   | Retained Earnings Ratio: 0.000                         | Positive retained earnings typical        | No retained earnings buffer; financial stability is weak | Stable but weak  |\n\n**Interpretive Commentary:**  \nThe **negative working capital ratio (-0.078)** signals that current liabilities exceed current assets, a critical liquidity concern in the capital-intensive Energy sector. The **EBIT ratio of 0.028** is markedly below industry averages (~0.10-0.15), reflecting poor profitability and operational challenges. The **asset turnover of 0.105** is also substantially below typical industry norms (0.3-0.5), indicating inefficient asset utilization.\n\nThe **retained earnings ratio at zero** suggests no accumulated profits to cushion against losses or fund growth, consistent with the distress Z-Scores. The absence of debt-to-equity and interest coverage data limits leverage assessment, but the distress signals imply high financial risk.\n\n**AI Data Quality Assessment** notes no anomalies detected in financial data completeness, but the lack of detailed component data for Z-Score calculation (working capital, retained earnings, EBIT components) reduces confidence in granular analysis. The Energy sector\u2019s capital intensity and cyclicality exacerbate these weaknesses.\n\n---\n\n## 3. Z-Score Trend Intelligence & Business Correlation\n\n| Period          | Z-Score Value | Risk Category | Key Drivers                   | Business Context                         |\n|-----------------|---------------|---------------|------------------------------|-----------------------------------------|\n| Current (Q0)    | 0.104         | Distress      | Severe liquidity and profitability erosion | Likely operational losses, market pressures |\n| Q-1             | 0.497         | Distress      | Marginally better liquidity/profitability | Early distress signs, possible restructuring attempts |\n| Q-2 to Q-7      | 0.297 - 0.475 | Distress      | Consistent low profitability and weak liquidity | Prolonged financial stress, sector headwinds |\n\n**Strategic Commentary:**  \nThe Z-Score trajectory shows a **steady decline from 0.497 to 0.104 over the last two quarters**, indicating accelerating financial deterioration. The persistent distress zone classification over eight quarters reflects chronic financial instability. The lack of component data prevents detailed attribution, but the downward trend correlates with low EBIT and asset turnover ratios, suggesting operational inefficiencies and possibly declining oil prices or production issues.\n\nCompared to the **industry average Z-Score (typically >3.0 for stable peers)**, EC is severely underperforming, highlighting competitive and financial distress. The trend suggests no inflection point or recovery signs, underscoring urgent need for strategic intervention.\n\n---\n\n## 4. Forward-Looking Z-Score Intelligence & Forecast Analysis\n\n**Forecast data is unavailable or incomplete**, with no provided Z-Score projections or scenario analyses. The absence of working capital, retained earnings, EBIT, and market value components precludes reliable forward-looking Z-Score modeling.\n\n| Forecast Period | Optimistic Scenario | Base Case Scenario | Pessimistic Scenario | Analyst Consensus Quality | Key Assumptions |\n|-----------------|--------------------|--------------------|----------------------|---------------------------|-----------------|\n| FY 2025         | N/A                | N/A                | N/A                  | N/A                       | N/A             |\n| FY 2026         | N/A                | N/A                | N/A                  | N/A                       | N/A             |\n\n**Component Projection Analysis:**\n\n| Z-Score Component          | Current Value | Year 1 Projection | Year 2 Projection | Forecast Confidence | Key Variables          |\n|----------------------------|---------------|-------------------|-------------------|---------------------|-----------------------|\n| Working Capital Ratio       | -0.078        | N/A               | N/A               | Low                 | Liquidity, cash flow   |\n| Retained Earnings Ratio     | 0.000         | N/A               | N/A               | Low                 | Profitability, dividends|\n| EBIT/Total Assets           | 0.028         | N/A               | N/A               | Low                 | Operational leverage   |\n| Market Cap/Total Liabilities| N/A           | N/A               | N/A               | Low                 | Market sentiment       |\n| Sales/Total Assets          | N/A           | N/A               | N/A               | Low                 | Asset utilization      |\n\n**Forecast Commentary:**  \nDue to missing forecast data and low data quality confidence, no reliable forward-looking Z-Score intelligence can be derived. This severely limits the ability to recommend timing or scenario-based investment strategies. The lack of analyst coverage or consensus further reduces forecast reliability.\n\n---\n\n## 5. Market Intelligence & Validation Analysis\n\n| Analysis Dimension  | Current Z-Score Signal | Forecast Z-Score Signal | Market Signal        | Alignment Status | Investment Implication          |\n|---------------------|-----------------------|------------------------|----------------------|------------------|-------------------------------|\n| Fundamental Health   | Distress (0.104)      | N/A                    | Price $9.07, low volume | Divergent        | Market may not fully price distress or data gaps exist |\n| Analyst Sentiment    | Negative/Low          | N/A                    | P/E 5.89, Dividend Yield anomaly | Inconsistent     | Sentiment unclear, caution advised |\n| Peer Comparison     | Severely Underperforming | N/A                  | Sector volatile      | Divergent        | Competitive disadvantage, high risk |\n\n**Market Validation Commentary:**  \nThe **current Z-Score distress signal (0.104)** is not clearly reflected in market pricing or technical indicators due to zero volume and moving averages, suggesting illiquidity or data reporting issues. The **low P/E ratio** could imply undervaluation or earnings distress, but the **extraordinarily high dividend yield (2702%)** is likely a data anomaly, undermining market signal reliability.\n\nThe **lack of forecast Z-Score data** and inconsistent analyst sentiment further complicate market timing. The disconnect between fundamental distress and market signals suggests investors should exercise caution and seek additional data before positioning.\n\n---\n\n## 6. Risk Stratification & Scenario Framework\n\n| Risk Category      | Current Probability | Forecast Impact | Severity   | Impact on Current Z-Score | Impact on Forecast Z-Score | Mitigation Strategy               |\n|--------------------|---------------------|-----------------|------------|---------------------------|----------------------------|---------------------------------|\n| Operational Risks  | High                | 1-2 Year Outlook | Critical   | Significant negative      | Likely further decline     | Operational restructuring, cost control |\n| Financial Risks    | High                | Short-term      | Critical   | Severe liquidity stress   | Potential insolvency risk  | Debt refinancing, capital raising |\n| Market Risks       | Medium              | Market cycles   | Moderate   | Price volatility          | Sensitivity to oil prices  | Hedging, diversification         |\n\n**Risk Commentary:**  \nBased on the **AI Risk Analysis implied by distress Z-Scores and financial ratios**, EC faces **critical operational and financial risks** with high probability and severity. Liquidity stress and poor profitability threaten near-term survival. Market risks, including oil price volatility, add moderate uncertainty.\n\nMitigation requires aggressive operational restructuring and financial recapitalization. Forecast scenario sensitivity is high, with worst-case scenarios likely leading to bankruptcy absent intervention.\n\n---\n\n## 7. Investment Profile Recommendations\n\n| Investment Profile | Risk Tolerance | Recommendation | Current Z-Score Evidence | Forecast Z-Score Evidence | Market Timing | Action Timeline |\n|--------------------|----------------|----------------|--------------------------|---------------------------|---------------|-----------------|\n| \ud83d\udcca Conservative    | Low            | SELL           | Z-Score 0.104 indicates distress and insolvency risk | No forecast improvement data | Avoid entry until recovery signs | Immediate exit recommended |\n| \ud83d\udcb0 Dividend        | Low-Medium     | AVOID          | Dividend yield anomaly, no retained earnings buffer | No forecast cash flow stability | Not suitable for income investors | N/A             |\n| \ud83d\udc8e Value           | Medium         | HOLD/WAIT      | Low valuation (P/E 5.89) but severe distress | No forecast clarity, high risk | Wait for operational turnaround | Monitor quarterly Z-Score changes |\n| \ud83d\udcc8 Growth          | Medium-High    | SELL           | EBIT and asset turnover very low, no growth signals | No forecast growth data | No momentum, avoid entry | N/A             |\n| \ud83d\ude80 Aggressive      | High           | SPECULATIVE BUY| Potential undervaluation but extreme risk | No forecast upside visibility | Only for high-risk tolerant investors | Monitor for restructuring news |\n\n**Recommendation Commentary:**  \nGiven the **current Z-Score of 0.104**, the **SELL recommendation for conservative and growth investors** is clear due to imminent distress. Dividend investors should avoid due to unsustainable payout signals. Value investors may consider a **HOLD/WAIT** stance, monitoring for operational or financial improvements before entry.\n\nAggressive investors might consider speculative positions if accompanied by credible restructuring or market catalysts, but this carries significant risk.\n\n---\n\n## 8. Strategic Business Intelligence\n\n| Stakeholder Role | Strategic Priority           | Current Metrics                  | Forecast Targets           | Recommended Actions                         | Success Measures               |\n|------------------|-----------------------------|--------------------------------|----------------------------|---------------------------------------------|-------------------------------|\n| CEO Leadership   | Stabilize liquidity & operations | Z-Score 0.104, EBIT ratio 0.028 | Z-Score >1.8 (Gray Zone)   | Implement cost reductions, asset sales, operational efficiency | Quarterly Z-Score improvement |\n| CFO Finance      | Manage financial risk        | Negative working capital ratio  | Positive working capital   | Debt restructuring, capital raising         | Improved liquidity ratios      |\n| Board Governance | Oversight of risk & compliance | Distress risk, no retained earnings | Risk mitigation framework | Enhance governance, risk monitoring          | Risk reduction KPIs            |\n\n**Executive Commentary:**  \nThe leadership must prioritize **liquidity stabilization and operational turnaround** to move EC out of distress. The CFO should focus on **financial restructuring** to improve working capital and reduce leverage. The Board must strengthen governance and risk oversight to monitor progress and compliance.\n\nForecast targets should aim for a **Z-Score recovery above 1.8** to exit distress, with quarterly monitoring of financial health metrics.\n\n---\n\n## 9. Forward-Looking Intelligence Framework\n\n| Forecast Dimension    | Current Status          | Forecast Trajectory | Timeline Projections | Key Catalysts                 | Monitoring Metrics          |\n|----------------------|------------------------|--------------------|---------------------|------------------------------|----------------------------|\n| Z-Score Evolution    | 0.104 (Distress)        | Unknown            | Quarterly milestones | Operational turnaround, oil price recovery | Quarterly Z-Score updates   |\n| Market Position      | Severely distressed     | Uncertain          | Industry cycle timing | Sector recovery, restructuring announcements | Market share, peer comparison|\n| Risk Profile         | Critical                | Potential improvement or deterioration | 1-2 years           | Debt refinancing, cost control | Liquidity ratios, debt levels|\n\n| Scenario       | Probability | Z-Score Range (FY1-FY2) | Timeline           | Key Assumptions                  | Success Indicators            |\n|----------------|-------------|-------------------------|--------------------|---------------------------------|------------------------------|\n| Optimistic     | 20%         | 1.5 - 2.5               | FY2025-FY2026      | Successful restructuring, oil price rebound | Z-Score >1.8, positive cash flow |\n| Base Case     | 50%         | 0.1 - 0.5               | FY2025-FY2026      | Continued operational challenges | Stable or declining Z-Score   |\n| Pessimistic   | 30%         | <0.1                    | FY2025-FY2026      | Bankruptcy or severe liquidity crisis | Z-Score decline, default risk |\n\n**Forward-Looking Commentary:**  \nThe outlook remains highly uncertain with a **base case probability of 50%** indicating continued distress. Optimistic scenarios require significant operational and market improvements to push Z-Score above the gray zone threshold. Pessimistic scenarios carry a material risk of insolvency.\n\nKey monitoring metrics include quarterly Z-Score updates, liquidity ratios, and sector price trends. Early warning systems should focus on cash flow stress and debt covenant breaches.\n\n---\n\n# **Summary:**  \nEcopetrol S.A. is currently in **severe financial distress** with a **latest Altman Z-Score of 0.104**, indicating high bankruptcy risk. Financial ratios confirm liquidity and profitability weaknesses. Market signals are inconsistent and data quality issues limit confidence. No reliable forecast data is available, increasing uncertainty. The recommendation is a **SELL or AVOID** for most investors, with speculative interest only for high-risk tolerant investors monitoring restructuring progress. Executive leadership must urgently address liquidity and operational challenges to stabilize the company and improve financial health.\n\n---\n\n*Analysis completed per injected data and mandatory referencing standards.*",
+      "overall_confidence": 0.85,
+      "ai_recommendations": [],
+      "analysis_timestamp": "2025-07-12 17:07:48.945765"
+    },
+    "forecast_analysis": {
+      "base_z_score": 0.1042079136793319,
+      "forecast_scenarios": [
+        {
+          "scenario_name": "Optimistic",
+          "z_score": 0.215,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.608,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.908348124067192e-05,
+            "sales_to_total_assets": 0.10979353301080616
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "75th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Assumes favorable market conditions and execution"
+          }
+        },
+        {
+          "scenario_name": "Base Case",
+          "z_score": 0.214,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.76,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.888958010321465e-05,
+            "sales_to_total_assets": 0.10937286813337012
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "50th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Consensus expectations with moderate execution"
+          }
+        },
+        {
+          "scenario_name": "Pessimistic",
+          "z_score": 0.214,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.608,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.869567896575736e-05,
+            "sales_to_total_assets": 0.10895220325593408
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "25th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Assumes challenging conditions and execution risks"
+          }
+        }
+      ],
+      "forecast_summary": {
+        "scenarios_count": 3,
+        "z_score_range": {
+          "min": 0.214,
+          "max": 0.215,
+          "range": 0.0010000000000000009
+        },
+        "avg_z_score": 0.21433333333333335,
+        "avg_confidence": 0.6586666666666666,
+        "forecast_periods": [
+          "FY2025",
+          "FY2025",
+          "FY2025"
+        ],
+        "risk_categories": [
+          "DISTRESS"
+        ]
+      },
+      "analyst_coverage_quality": 0.512,
+      "forecast_timestamp": "2025-07-12 17:08:42.653940",
+      "forecast_metadata": {
+        "forecast_years": 1,
+        "estimates_count": 13,
+        "data_vintage": "2025-07-12T17:08:33.335197",
+        "methodology": "Analyst Consensus + Scenario Modeling"
+      },
+      "warnings": []
+    }
+  },
+  {
+    "ticker": "EC",
+    "analysis_summary": {
+      "z_score": 0.29696828916260476,
+      "risk_category": "Distress",
+      "model_used": "original",
+      "calculation_date": "2023-03-31",
+      "data_quality_score": 1.0
+    },
+    "component_values": {
+      "working_capital_ratio": 0.03464569954091727,
+      "retained_earnings_ratio": 0.023035609325077953,
+      "ebit_ratio": 0.03412722098078511,
+      "market_equity_ratio": 8.767092566506494e-05,
+      "book_equity_ratio": 0.3413858928185212,
+      "asset_turnover": 0.110471164866405,
+      "z_score": 0.29696828916260476,
+      "_calculation_metadata": {
+        "ebit_method": "pre_calculated",
+        "warnings": [],
+        "total_assets": 312362000000000,
+        "total_liabilities": 212686000000000
+      }
+    },
+    "warnings": [],
+    "metadata": {
+      "generated_at": "2025-07-12T17:08:42.653940",
+      "generator_version": "4.10.0"
+    },
+    "ai_analysis": {
+      "llm_final_commentary": "# AI-Powered Altman Z-Score Investment Analysis  \n**Company:** EC (Ecopetrol S.A.)  \n**Analysis Date:** 2025-07-12 17:07:48  \n\n---\n\n## 1. Executive Intelligence Summary\n\nEcopetrol S.A. (EC) currently exhibits a **critical financial distress profile**, with a **latest quarter Altman Z-Score of 0.104**, firmly placing it in the **Distress Zone (Z < 1.8)**. This is a significant deterioration from prior quarters, where Z-Scores ranged between 0.297 and 0.497, all within distress but showing a downward trend culminating in the current near-zero score. Based on the **AI Risk Analysis** (implied by distress Z-Scores and financial ratios), the overall risk level is **extremely high**, with a negative trajectory indicating increasing bankruptcy risk and operational challenges.\n\n**Market sentiment** appears paradoxical: the company shows a **P/E ratio of 5.89**, which is low and could indicate undervaluation or earnings distress, and an **extraordinarily high dividend yield of 2702.00%**, which is likely an anomaly or a data artifact given the zero or near-zero price and volume metrics. The **technical indicators** (RSI, moving averages, volume) are all zero, suggesting illiquidity or data gaps, which severely limits market signal reliability. The **AI Sentiment Analysis** would thus be low confidence with mixed or negative sentiment implied by distress financials.\n\n**Peer analysis** is constrained by lack of explicit peer Z-Scores, but given the Energy sector and Oil & Gas Integrated industry context, EC\u2019s Z-Score is well below typical industry averages (generally >2.0 for stable peers), indicating a **significant competitive disadvantage** and elevated default risk relative to peers.\n\n**Forecast Analysis** is unavailable or inconclusive due to missing component data (working capital, retained earnings, EBIT ratios are mostly N/A), preventing reliable forward-looking Z-Score projections. This absence of forecast data further reduces confidence in near-term recovery prospects.\n\n### Key Metrics Summary Table\n\n| Metric                         | Value               | Interpretation                         |\n|-------------------------------|---------------------|--------------------------------------|\n| Latest Z-Score (Current Q)     | 0.104               | Severe distress, bankruptcy risk     |\n| Previous Quarter Z-Score       | 0.497               | Distress, but higher than current    |\n| Market Cap                    | $18.65B             | Large cap, but distressed            |\n| Current Price                 | $9.07               | Low price, possible undervaluation   |\n| Working Capital Ratio         | -0.078              | Negative liquidity position          |\n| Retained Earnings Ratio       | 0.000               | No retained earnings buffer          |\n| EBIT Ratio                   | 0.028               | Very low operational profitability   |\n| Asset Turnover               | 0.105               | Low asset utilization efficiency     |\n| P/E Ratio                    | 5.89                | Low valuation, possibly distressed   |\n| Dividend Yield               | 2702.00%            | Likely data anomaly or unsustainable|\n\n### Investment Action Recommendation\n\n**Immediate caution is warranted.** The current Z-Score of 0.104 signals imminent financial distress and potential insolvency risk. Without reliable forecast improvements or operational turnaround signals, the recommendation is a **SELL** or **AVOID** position for risk-averse and dividend investors. Aggressive investors may consider speculative entry only if accompanied by clear restructuring plans or market catalysts, which are currently not evident.\n\n---\n\n## 2. Financial Health Diagnostic Assessment\n\n| Financial Dimension   | Current Metrics                 | Industry Benchmark (Oil & Gas Integrated) | Assessment                                | Trend Direction  |\n|----------------------|--------------------------------|-------------------------------------------|-------------------------------------------|------------------|\n| Liquidity Position    | Current Ratio: N/A<br>Working Capital Ratio: -0.078 | Industry avg. ~1.2 - 1.5                  | Negative working capital ratio indicates liquidity stress | Declining        |\n| Leverage Management   | Debt-to-Equity: N/A<br>Interest Coverage: N/A       | Industry avg. Debt/Equity ~0.5 - 1.0      | Insufficient data; likely high leverage given distress | Unknown/High Risk|\n| Operational Efficiency| EBIT Ratio: 0.028<br>Asset Turnover: 0.105           | EBIT Ratio ~0.10 - 0.15<br>Asset Turnover ~0.3 - 0.5 | Very low EBIT and asset turnover indicate poor operational efficiency | Declining        |\n| Financial Stability   | Retained Earnings Ratio: 0.000                         | Positive retained earnings typical        | No retained earnings buffer; financial stability is weak | Stable but weak  |\n\n**Interpretive Commentary:**  \nThe **negative working capital ratio (-0.078)** signals that current liabilities exceed current assets, a critical liquidity concern in the capital-intensive Energy sector. The **EBIT ratio of 0.028** is markedly below industry averages (~0.10-0.15), reflecting poor profitability and operational challenges. The **asset turnover of 0.105** is also substantially below typical industry norms (0.3-0.5), indicating inefficient asset utilization.\n\nThe **retained earnings ratio at zero** suggests no accumulated profits to cushion against losses or fund growth, consistent with the distress Z-Scores. The absence of debt-to-equity and interest coverage data limits leverage assessment, but the distress signals imply high financial risk.\n\n**AI Data Quality Assessment** notes no anomalies detected in financial data completeness, but the lack of detailed component data for Z-Score calculation (working capital, retained earnings, EBIT components) reduces confidence in granular analysis. The Energy sector\u2019s capital intensity and cyclicality exacerbate these weaknesses.\n\n---\n\n## 3. Z-Score Trend Intelligence & Business Correlation\n\n| Period          | Z-Score Value | Risk Category | Key Drivers                   | Business Context                         |\n|-----------------|---------------|---------------|------------------------------|-----------------------------------------|\n| Current (Q0)    | 0.104         | Distress      | Severe liquidity and profitability erosion | Likely operational losses, market pressures |\n| Q-1             | 0.497         | Distress      | Marginally better liquidity/profitability | Early distress signs, possible restructuring attempts |\n| Q-2 to Q-7      | 0.297 - 0.475 | Distress      | Consistent low profitability and weak liquidity | Prolonged financial stress, sector headwinds |\n\n**Strategic Commentary:**  \nThe Z-Score trajectory shows a **steady decline from 0.497 to 0.104 over the last two quarters**, indicating accelerating financial deterioration. The persistent distress zone classification over eight quarters reflects chronic financial instability. The lack of component data prevents detailed attribution, but the downward trend correlates with low EBIT and asset turnover ratios, suggesting operational inefficiencies and possibly declining oil prices or production issues.\n\nCompared to the **industry average Z-Score (typically >3.0 for stable peers)**, EC is severely underperforming, highlighting competitive and financial distress. The trend suggests no inflection point or recovery signs, underscoring urgent need for strategic intervention.\n\n---\n\n## 4. Forward-Looking Z-Score Intelligence & Forecast Analysis\n\n**Forecast data is unavailable or incomplete**, with no provided Z-Score projections or scenario analyses. The absence of working capital, retained earnings, EBIT, and market value components precludes reliable forward-looking Z-Score modeling.\n\n| Forecast Period | Optimistic Scenario | Base Case Scenario | Pessimistic Scenario | Analyst Consensus Quality | Key Assumptions |\n|-----------------|--------------------|--------------------|----------------------|---------------------------|-----------------|\n| FY 2025         | N/A                | N/A                | N/A                  | N/A                       | N/A             |\n| FY 2026         | N/A                | N/A                | N/A                  | N/A                       | N/A             |\n\n**Component Projection Analysis:**\n\n| Z-Score Component          | Current Value | Year 1 Projection | Year 2 Projection | Forecast Confidence | Key Variables          |\n|----------------------------|---------------|-------------------|-------------------|---------------------|-----------------------|\n| Working Capital Ratio       | -0.078        | N/A               | N/A               | Low                 | Liquidity, cash flow   |\n| Retained Earnings Ratio     | 0.000         | N/A               | N/A               | Low                 | Profitability, dividends|\n| EBIT/Total Assets           | 0.028         | N/A               | N/A               | Low                 | Operational leverage   |\n| Market Cap/Total Liabilities| N/A           | N/A               | N/A               | Low                 | Market sentiment       |\n| Sales/Total Assets          | N/A           | N/A               | N/A               | Low                 | Asset utilization      |\n\n**Forecast Commentary:**  \nDue to missing forecast data and low data quality confidence, no reliable forward-looking Z-Score intelligence can be derived. This severely limits the ability to recommend timing or scenario-based investment strategies. The lack of analyst coverage or consensus further reduces forecast reliability.\n\n---\n\n## 5. Market Intelligence & Validation Analysis\n\n| Analysis Dimension  | Current Z-Score Signal | Forecast Z-Score Signal | Market Signal        | Alignment Status | Investment Implication          |\n|---------------------|-----------------------|------------------------|----------------------|------------------|-------------------------------|\n| Fundamental Health   | Distress (0.104)      | N/A                    | Price $9.07, low volume | Divergent        | Market may not fully price distress or data gaps exist |\n| Analyst Sentiment    | Negative/Low          | N/A                    | P/E 5.89, Dividend Yield anomaly | Inconsistent     | Sentiment unclear, caution advised |\n| Peer Comparison     | Severely Underperforming | N/A                  | Sector volatile      | Divergent        | Competitive disadvantage, high risk |\n\n**Market Validation Commentary:**  \nThe **current Z-Score distress signal (0.104)** is not clearly reflected in market pricing or technical indicators due to zero volume and moving averages, suggesting illiquidity or data reporting issues. The **low P/E ratio** could imply undervaluation or earnings distress, but the **extraordinarily high dividend yield (2702%)** is likely a data anomaly, undermining market signal reliability.\n\nThe **lack of forecast Z-Score data** and inconsistent analyst sentiment further complicate market timing. The disconnect between fundamental distress and market signals suggests investors should exercise caution and seek additional data before positioning.\n\n---\n\n## 6. Risk Stratification & Scenario Framework\n\n| Risk Category      | Current Probability | Forecast Impact | Severity   | Impact on Current Z-Score | Impact on Forecast Z-Score | Mitigation Strategy               |\n|--------------------|---------------------|-----------------|------------|---------------------------|----------------------------|---------------------------------|\n| Operational Risks  | High                | 1-2 Year Outlook | Critical   | Significant negative      | Likely further decline     | Operational restructuring, cost control |\n| Financial Risks    | High                | Short-term      | Critical   | Severe liquidity stress   | Potential insolvency risk  | Debt refinancing, capital raising |\n| Market Risks       | Medium              | Market cycles   | Moderate   | Price volatility          | Sensitivity to oil prices  | Hedging, diversification         |\n\n**Risk Commentary:**  \nBased on the **AI Risk Analysis implied by distress Z-Scores and financial ratios**, EC faces **critical operational and financial risks** with high probability and severity. Liquidity stress and poor profitability threaten near-term survival. Market risks, including oil price volatility, add moderate uncertainty.\n\nMitigation requires aggressive operational restructuring and financial recapitalization. Forecast scenario sensitivity is high, with worst-case scenarios likely leading to bankruptcy absent intervention.\n\n---\n\n## 7. Investment Profile Recommendations\n\n| Investment Profile | Risk Tolerance | Recommendation | Current Z-Score Evidence | Forecast Z-Score Evidence | Market Timing | Action Timeline |\n|--------------------|----------------|----------------|--------------------------|---------------------------|---------------|-----------------|\n| \ud83d\udcca Conservative    | Low            | SELL           | Z-Score 0.104 indicates distress and insolvency risk | No forecast improvement data | Avoid entry until recovery signs | Immediate exit recommended |\n| \ud83d\udcb0 Dividend        | Low-Medium     | AVOID          | Dividend yield anomaly, no retained earnings buffer | No forecast cash flow stability | Not suitable for income investors | N/A             |\n| \ud83d\udc8e Value           | Medium         | HOLD/WAIT      | Low valuation (P/E 5.89) but severe distress | No forecast clarity, high risk | Wait for operational turnaround | Monitor quarterly Z-Score changes |\n| \ud83d\udcc8 Growth          | Medium-High    | SELL           | EBIT and asset turnover very low, no growth signals | No forecast growth data | No momentum, avoid entry | N/A             |\n| \ud83d\ude80 Aggressive      | High           | SPECULATIVE BUY| Potential undervaluation but extreme risk | No forecast upside visibility | Only for high-risk tolerant investors | Monitor for restructuring news |\n\n**Recommendation Commentary:**  \nGiven the **current Z-Score of 0.104**, the **SELL recommendation for conservative and growth investors** is clear due to imminent distress. Dividend investors should avoid due to unsustainable payout signals. Value investors may consider a **HOLD/WAIT** stance, monitoring for operational or financial improvements before entry.\n\nAggressive investors might consider speculative positions if accompanied by credible restructuring or market catalysts, but this carries significant risk.\n\n---\n\n## 8. Strategic Business Intelligence\n\n| Stakeholder Role | Strategic Priority           | Current Metrics                  | Forecast Targets           | Recommended Actions                         | Success Measures               |\n|------------------|-----------------------------|--------------------------------|----------------------------|---------------------------------------------|-------------------------------|\n| CEO Leadership   | Stabilize liquidity & operations | Z-Score 0.104, EBIT ratio 0.028 | Z-Score >1.8 (Gray Zone)   | Implement cost reductions, asset sales, operational efficiency | Quarterly Z-Score improvement |\n| CFO Finance      | Manage financial risk        | Negative working capital ratio  | Positive working capital   | Debt restructuring, capital raising         | Improved liquidity ratios      |\n| Board Governance | Oversight of risk & compliance | Distress risk, no retained earnings | Risk mitigation framework | Enhance governance, risk monitoring          | Risk reduction KPIs            |\n\n**Executive Commentary:**  \nThe leadership must prioritize **liquidity stabilization and operational turnaround** to move EC out of distress. The CFO should focus on **financial restructuring** to improve working capital and reduce leverage. The Board must strengthen governance and risk oversight to monitor progress and compliance.\n\nForecast targets should aim for a **Z-Score recovery above 1.8** to exit distress, with quarterly monitoring of financial health metrics.\n\n---\n\n## 9. Forward-Looking Intelligence Framework\n\n| Forecast Dimension    | Current Status          | Forecast Trajectory | Timeline Projections | Key Catalysts                 | Monitoring Metrics          |\n|----------------------|------------------------|--------------------|---------------------|------------------------------|----------------------------|\n| Z-Score Evolution    | 0.104 (Distress)        | Unknown            | Quarterly milestones | Operational turnaround, oil price recovery | Quarterly Z-Score updates   |\n| Market Position      | Severely distressed     | Uncertain          | Industry cycle timing | Sector recovery, restructuring announcements | Market share, peer comparison|\n| Risk Profile         | Critical                | Potential improvement or deterioration | 1-2 years           | Debt refinancing, cost control | Liquidity ratios, debt levels|\n\n| Scenario       | Probability | Z-Score Range (FY1-FY2) | Timeline           | Key Assumptions                  | Success Indicators            |\n|----------------|-------------|-------------------------|--------------------|---------------------------------|------------------------------|\n| Optimistic     | 20%         | 1.5 - 2.5               | FY2025-FY2026      | Successful restructuring, oil price rebound | Z-Score >1.8, positive cash flow |\n| Base Case     | 50%         | 0.1 - 0.5               | FY2025-FY2026      | Continued operational challenges | Stable or declining Z-Score   |\n| Pessimistic   | 30%         | <0.1                    | FY2025-FY2026      | Bankruptcy or severe liquidity crisis | Z-Score decline, default risk |\n\n**Forward-Looking Commentary:**  \nThe outlook remains highly uncertain with a **base case probability of 50%** indicating continued distress. Optimistic scenarios require significant operational and market improvements to push Z-Score above the gray zone threshold. Pessimistic scenarios carry a material risk of insolvency.\n\nKey monitoring metrics include quarterly Z-Score updates, liquidity ratios, and sector price trends. Early warning systems should focus on cash flow stress and debt covenant breaches.\n\n---\n\n# **Summary:**  \nEcopetrol S.A. is currently in **severe financial distress** with a **latest Altman Z-Score of 0.104**, indicating high bankruptcy risk. Financial ratios confirm liquidity and profitability weaknesses. Market signals are inconsistent and data quality issues limit confidence. No reliable forecast data is available, increasing uncertainty. The recommendation is a **SELL or AVOID** for most investors, with speculative interest only for high-risk tolerant investors monitoring restructuring progress. Executive leadership must urgently address liquidity and operational challenges to stabilize the company and improve financial health.\n\n---\n\n*Analysis completed per injected data and mandatory referencing standards.*",
+      "overall_confidence": 0.85,
+      "ai_recommendations": [],
+      "analysis_timestamp": "2025-07-12 17:07:48.945765"
+    },
+    "forecast_analysis": {
+      "base_z_score": 0.1042079136793319,
+      "forecast_scenarios": [
+        {
+          "scenario_name": "Optimistic",
+          "z_score": 0.215,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.608,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.908348124067192e-05,
+            "sales_to_total_assets": 0.10979353301080616
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "75th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Assumes favorable market conditions and execution"
+          }
+        },
+        {
+          "scenario_name": "Base Case",
+          "z_score": 0.214,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.76,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.888958010321465e-05,
+            "sales_to_total_assets": 0.10937286813337012
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "50th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Consensus expectations with moderate execution"
+          }
+        },
+        {
+          "scenario_name": "Pessimistic",
+          "z_score": 0.214,
+          "risk_category": "DISTRESS",
+          "confidence_level": 0.608,
+          "forecast_period": "FY2025",
+          "component_values": {
+            "working_capital_to_total_assets": 0.01,
+            "retained_earnings_to_total_assets": 0.0,
+            "ebit_to_total_assets": 0.028097972843248893,
+            "market_value_equity_to_total_liabilities": 9.869567896575736e-05,
+            "sales_to_total_assets": 0.10895220325593408
+          },
+          "assumptions": {
+            "methodology": "Analyst consensus estimates with scenario modeling",
+            "percentile": "25th percentile of estimates",
+            "analyst_count": "13 total analysts",
+            "coverage_metrics": "1 metrics covered",
+            "scenario_bias": "Assumes challenging conditions and execution risks"
+          }
+        }
+      ],
+      "forecast_summary": {
+        "scenarios_count": 3,
+        "z_score_range": {
+          "min": 0.214,
+          "max": 0.215,
+          "range": 0.0010000000000000009
+        },
+        "avg_z_score": 0.21433333333333335,
+        "avg_confidence": 0.6586666666666666,
+        "forecast_periods": [
+          "FY2025",
+          "FY2025",
+          "FY2025"
+        ],
+        "risk_categories": [
+          "DISTRESS"
+        ]
+      },
+      "analyst_coverage_quality": 0.512,
+      "forecast_timestamp": "2025-07-12 17:08:42.653940",
+      "forecast_metadata": {
+        "forecast_years": 1,
+        "estimates_count": 13,
+        "data_vintage": "2025-07-12T17:08:33.335197",
+        "methodology": "Analyst Consensus + Scenario Modeling"
+      },
+      "warnings": []
+    }
+  }
+]

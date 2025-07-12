@@ -454,9 +454,9 @@ batch_zscores = [calculate_zscore_from_fmp_ratios(s) for s in symbols]
 
 Only upgrade to ULTIMATE if you specifically need:
 - 🔄 **Convenience**: Pre-calculated scores vs 2-minute calculation
-- � **Piotroski Scores**: If you want additional scoring metrics
+- 💎 **Piotroski Scores**: If you want additional scoring metrics
 - 🌍 **Global Coverage**: Beyond US/UK/Canada markets
-- � **Time vs Money**: If $600/year is cheaper than 1 hour/month of calculation time
+- 💎 **Time vs Money**: If $600/year is cheaper than 1 hour/month of calculation time
 
 ---
 

@@ -127,7 +127,8 @@ CLI_EPILOG = ("Examples:\n"
               "  python main.py --progress always           # Always show progress bars\n"
               "  python main.py --progress never            # Never show progress bars\n"
               "  python main.py AAPL --forecast-off         # Disable Z-Score forecasting\n"
-              "  python main.py TSLA --forecast-years 3     # 3-year forecast (default: 1 year)")
+              "  python main.py TSLA --forecast-years 3     # 3-year forecast (default: 1 year)\n"
+              "  python main.py --portfolio-file portfolio.txt --skip-existing  # Process only new tickers")
 
 # CLI description - single source of truth
 CLI_DESCRIPTION = "AI-Powered Altman Z-Score Analysis - Comprehensive financial analysis with LLM insights"
@@ -148,16 +149,13 @@ class HelpAction(argparse._HelpAction):
         parser.exit()
 
 def load_portfolio_from_file(file_path: str) -> list:
-    """Load ticker symbols from a portfolio file."""
+    """Load ticker symbols from a portfolio file with inline comment support."""
+    from altman_zscore.common.utils import load_portfolio_from_file as centralized_loader
+    
     try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            tickers = [line.strip().upper() for line in f if line.strip() and not line.startswith('#')]
-        return tickers
-    except FileNotFoundError:
-        print(f"Error: Portfolio file not found: {file_path}")
-        return []
+        return centralized_loader(file_path, validate_tickers=True)
     except Exception as e:
-        print(f"Error reading portfolio file {file_path}: {e}")
+        print(f"Error loading portfolio file {file_path}: {e}")
         return []
 
 
@@ -171,6 +169,43 @@ def get_sector_portfolio(sector: str) -> list:
         'energy': ['XOM', 'CVX', 'COP', 'EOG', 'PXD', 'SLB', 'HAL', 'KMI', 'WMB', 'NEE']
     }
     return sector_portfolios.get(sector.lower(), [])
+
+
+def check_existing_analysis(ticker: str, output_base_dir: str = "output") -> bool:
+    """
+    Check if analysis outputs already exist for a ticker.
+    
+    Args:
+        ticker: Stock ticker symbol
+        output_base_dir: Base output directory (default: "output")
+    
+    Returns:
+        bool: True if existing analysis files are found, False otherwise
+    """
+    from pathlib import Path
+    
+    ticker_dir = Path(output_base_dir) / ticker.upper()
+    
+    if not ticker_dir.exists():
+        return False
+    
+    # Check for key output files that indicate completed analysis
+    expected_files = [
+        f"zscore_{ticker.upper()}.csv",  # CSV output
+        f"zscore_{ticker.upper()}.json",  # JSON output
+        f"zscore_{ticker.upper()}_zscore_full_report.md"  # Full report
+    ]
+    
+    existing_files = []
+    for expected_file in expected_files:
+        file_path = ticker_dir / expected_file
+        if file_path.exists() and file_path.stat().st_size > 0:  # File exists and is not empty
+            existing_files.append(expected_file)
+    
+    # Consider analysis complete if we have at least CSV and JSON outputs
+    has_core_outputs = any(f.endswith('.csv') for f in existing_files) and any(f.endswith('.json') for f in existing_files)
+    
+    return has_core_outputs
 
 
 def get_env_default(key: str, default_value, value_type=str):
@@ -335,6 +370,13 @@ def parse_args():
         choices=[1, 2, 3],
         help="Number of years to forecast Z-Scores (1-3 years). "
              "Default: 1 year. Requires analyst consensus data availability."
+    )
+    parser.add_argument(
+        "--skip-existing",
+        action="store_true",
+        help="Skip tickers that already have analysis outputs in the output directory. "
+             "Useful for processing only new entries when portfolio is updated. "
+             "Checks for existence of CSV, JSON, and report files before processing."
     )
     # Add more feature toggles here as needed
     return parser.parse_args()
@@ -654,6 +696,36 @@ def main():
         if not ticker_list:
             logger.error("No tickers specified. Use --help for usage instructions.")
             sys.exit(1)
+        
+        # Filter out existing tickers if --skip-existing is enabled
+        original_count = len(ticker_list)
+        if getattr(args, 'skip_existing', False):
+            logger.info("Checking for existing analysis outputs...")
+            filtered_list = []
+            skipped_tickers = []
+            
+            for ticker in ticker_list:
+                if check_existing_analysis(ticker):
+                    skipped_tickers.append(ticker)
+                    logger.debug(f"Skipping {ticker} - analysis outputs already exist")
+                else:
+                    filtered_list.append(ticker)
+            
+            ticker_list = filtered_list
+            
+            if skipped_tickers:
+                logger.info(f"Skipped {len(skipped_tickers)} tickers with existing analysis: {', '.join(skipped_tickers[:10])}")
+                if len(skipped_tickers) > 10:
+                    logger.info(f"... and {len(skipped_tickers) - 10} more")
+            
+            if not ticker_list:
+                logger.info(f"All {original_count} tickers already have analysis outputs. Nothing to process.")
+                logger.info("Use without --skip-existing to re-analyze all tickers.")
+                print()  # Empty line before exit
+                sys.exit(0)
+            elif len(ticker_list) < original_count:
+                logger.info(f"Processing {len(ticker_list)} new tickers (out of {original_count} total)")
+        
         failed_tickers = []
         successful_tickers = []
 

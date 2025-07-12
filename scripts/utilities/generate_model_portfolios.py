@@ -401,13 +401,18 @@ def analyze_portfolio_with_model(portfolio_file, model_type, force_model=True):
     # Read portfolio stocks
     stocks = []
     try:
-        with open(f"portfolios/{portfolio_file}", 'r') as f:
-            for line in f:
-                line = line.strip()
-                if line and not line.startswith('#') and len(line) <= 10:
-                    stocks.append(line)
+        # Import and use centralized portfolio loader
+        import sys
+        import os
+        sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
+        from altman_zscore.common.utils import load_portfolio_from_file
+        
+        stocks = load_portfolio_from_file(f"portfolios/{portfolio_file}", validate_tickers=True)
     except FileNotFoundError:
         print(f"❌ Portfolio file not found: portfolios/{portfolio_file}")
+        return []
+    except Exception as e:
+        print(f"❌ Error loading portfolio: {e}")
         return []
     
     print(f"   Found {len(stocks)} stocks to analyze")

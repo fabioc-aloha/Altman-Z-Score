@@ -6,6 +6,7 @@ Extracts specific model sections from the comprehensive portfolio file
 import os
 import re
 from typing import List, Dict, Optional
+from altman_zscore.common.utils import load_portfolio_from_file, parse_tickers_from_content
 
 
 class PortfolioSectionExtractor:
@@ -44,16 +45,21 @@ class PortfolioSectionExtractor:
                 self.sections[model_name] = self._extract_tickers_from_section(section_content)
     
     def _extract_tickers_from_section(self, section_content: str) -> List[str]:
-        """Extract ticker symbols from a section."""
-        tickers = []
+        """Extract ticker symbols from a section with inline comment support."""
+        # Create a temporary file-like content for processing
         lines = section_content.split('\n')
+        filtered_lines = []
         
-        for line in lines:
+        for line_num, line in enumerate(lines, 1):
+            original_line = line
             line = line.strip()
-            # Skip comments, empty lines, headers
-            if (line.startswith('#') or 
-                line.startswith('=') or 
-                not line or
+            
+            # Skip empty lines and full-line comments
+            if not line or line.startswith('#'):
+                continue
+                
+            # Skip section headers and descriptive content
+            if (line.startswith('=') or
                 line.startswith('Formula:') or
                 line.startswith('Models:') or
                 line.startswith('Focus:') or
@@ -75,9 +81,19 @@ class PortfolioSectionExtractor:
                 'International' in line):
                 continue
             
-            # Check if line looks like a ticker (all caps, sometimes with dots/numbers)
-            if re.match(r'^[A-Z0-9\.\-]+$', line) and len(line) <= 10:
-                tickers.append(line)
+            filtered_lines.append(line)
+        
+        # Use the centralized portfolio parsing function
+        # Create a temporary content string with filtered lines
+        filtered_content = '\n'.join(filtered_lines)
+        
+        # Use centralized function to extract tickers with robust inline comment support
+        try:
+            tickers = parse_tickers_from_content(filtered_content, validate_tickers=True)
+        except Exception as e:
+            print(f"Error using centralized portfolio parser: {e}")
+            # Fallback to empty list if centralized function fails
+            tickers = []
         
         return tickers
     

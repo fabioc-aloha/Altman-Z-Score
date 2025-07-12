@@ -190,33 +190,35 @@ def get_category_for_ticker(ticker: str) -> str:
 
 def load_portfolio_tickers(portfolio_file: str = None) -> List[str]:
     """
-    Load ticker symbols from portfolio file.
+    Load ticker symbols from portfolio file using centralized utility.
     
     Args:
         portfolio_file: Path to portfolio file (defaults to retail backtest portfolio)
         
     Returns:
-        List of ticker symbols
+        List of ticker symbols (cleaned and validated)
     """
     if portfolio_file is None:
         portfolio_file = PORTFOLIO_FILE
     
-    tickers = []
     try:
-        with open(portfolio_file, 'r', encoding='utf-8') as f:
-            for line in f:
-                line = line.strip()
-                # Skip comments and empty lines
-                if line and not line.startswith('#'):
-                    # Handle potential inline comments
-                    ticker = line.split('#')[0].strip()
-                    if ticker and len(ticker) <= 10:  # Basic ticker validation
-                        tickers.append(ticker)
-    except FileNotFoundError:
-        print(f"Portfolio file {portfolio_file} not found")
+        # Use centralized portfolio loader from common utilities
+        from altman_zscore.common.utils import load_portfolio_from_file
+        return load_portfolio_from_file(portfolio_file, validate_tickers=True)
+    except Exception as e:
+        print(f"Error loading portfolio from {portfolio_file}: {str(e)}")
         return []
     
-    return tickers
+    # Remove duplicates while preserving order
+    seen = set()
+    unique_tickers = []
+    for ticker in tickers:
+        if ticker not in seen:
+            seen.add(ticker)
+            unique_tickers.append(ticker)
+    
+    print(f"Loaded {len(unique_tickers)} unique tickers from {portfolio_file}")
+    return unique_tickers
 
 def get_validation_summary() -> Dict:
     """

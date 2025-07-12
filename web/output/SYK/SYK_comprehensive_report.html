@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altman Z-Score Analysis - SYK</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .risk-high {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .risk-medium {
+            background-color: #fff3e0;
+
+            border-left: 4px sol {
+                % for result in zscore_results %
+            }
+
+            <tr><td> {
+                    {
+                    (result.period_date if result.period_date else result.calculation_timestamp)|format_date
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.z_score|round(2)
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.risk_category
+                }
+            }
+
+            </td><td> {
+                    {
+                    result.market_cap|format_market_cap if result.market_cap else 'N/A'
+                }
+            }
+
+            </td><td> {
+                    {
+                    ('$' + (result.price|round(2)|string)) if result.price else 'N/A'
+                }
+            }
+
+            </td></tr> {
+                % endfor %
+            }
+
+            0;
+        }
+
+        .risk-low {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+        }
+
+        .market-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+
+        .recommendation {
+            background-color: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .metric {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .metric h3 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric h4 {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .metric p {
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .glossary-section {
+            background-color: #f8f9fa;
+            border-left: 4px solid #4169e1;
+            margin-top: 40px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .glossary-category {
+            margin-bottom: 30px;
+        }
+
+        .glossary-category h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .glossary-columns {
+            columns: 3;
+            column-gap: 30px;
+            orphans: 1;
+            widows: 1;
+        }
+
+        @media (max-width: 1200px) {
+            .glossary-columns {
+                columns: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .glossary-columns {
+                columns: 1;
+            }
+        }
+
+        .glossary-item {
+            break-inside: avoid;
+            page-break-inside: avoid;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .glossary-item h4 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+
+        .glossary-item p {
+            margin-top: 0;
+            font-size: 0.85em;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #666;
+        }
+
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .hold {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* AI Content Formatting Styles */
+        .ai-insights-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ai-insights-content h1,
+        .ai-insights-content h2,
+        .ai-insights-content h3,
+        .ai-insights-content h4 {
+            color: #2c3e50;
+            margin: 1.2em 0 0.6em 0;
+            font-weight: 600;
+        }
+
+        .ai-insights-content h1 {
+            font-size: 1.4em;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 0.3em;
+        }
+
+        .ai-insights-content h2 {
+            font-size: 1.25em;
+            color: #4169e1;
+        }
+
+        .ai-insights-content h3 {
+            font-size: 1.15em;
+            color: #6c757d;
+        }
+
+        .ai-insights-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .ai-insights-content ul,
+        .ai-insights-content ol {
+            margin: 0.8em 0;
+            padding-left: 2em;
+        }
+
+        .ai-insights-content li {
+            margin: 0.4em 0;
+            line-height: 1.5;
+        }
+
+        .ai-insights-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .ai-insights-content em {
+            font-style: italic;
+            color: #495057;
+        }
+
+        .ai-insights-content blockquote {
+            border-left: 4px solid #4169e1;
+            padding-left: 1em;
+            margin: 1em 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .ai-insights-content code {
+            background-color: #f8f9fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-insights-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .ai-insights-content th,
+        .ai-insights-content td {
+            border: 1px solid #dee2e6;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .ai-insights-content th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .bankruptcy-section {
+            background-color: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .bankruptcy-section h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+
+        .bankruptcy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bankruptcy-table th,
+        .bankruptcy-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .bankruptcy-table th {
+            background-color: #f8d7da;
+        }
+
+        .bankruptcy-table tr:nth-child(even) {
+            background-color: #fff5f5;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1;">
+                <h1>Enhanced Investment Analysis Report</h1>
+                <h2>Stryker Corporation (SYK)</h2>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 12, 2025 at 11:36 AM</p>
+                
+                <p>Complete analysis with Z-Score + Market Intelligence</p>
+                
+            </div>
+            
+            <div style="flex-shrink: 0; margin-left: 20px;">
+                <img src="SYK_logo.png" alt="Stryker Corporation Logo" style="max-height: 120px; max-width: 180px; object-fit: contain; border-radius: 12px; 
+                            background: rgba(255,255,255,0.1); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"
+                    onerror="this.style.display='none';">
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="section recommendation">
+        <h2>Investment Recommendation</h2>
+        <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
+            <span class="buy">Strong Buy</span>
+        </div>
+        <div style="margin: 15px 0;">
+            <strong>Confidence:</strong> 60.0%
+        </div>
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Positive price momentum</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Attractive dividend yield</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Low market beta - defensive characteristics</div>
+                
+            </div>
+        </div>
+        
+
+        
+        <div style="margin: 20px 0;">
+            <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
+            <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Very high P/E ratio</div>
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    Overvalued relative to sector peers</div>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+
+    
+    <div class="section">
+        <h2>Interactive Dashboard</h2>
+        <div id="dashboard-container" style="margin: 10px 0; min-height: 1050px; overflow: hidden;">
+            <iframe id="dashboard-iframe" src="SYK_zscore_dashboard.html" width="100%" frameborder="0"
+                scrolling="no" style="border: 0px solid #ddd; border-radius: 8px; display: block; height: 1050px;">
+                <p>Your browser does not support iframes.
+                    <a href="SYK_zscore_dashboard.html" target="_blank">Click here to view the dashboard</a>
+                </p>
+            </iframe>
+        </div>
+    </div>
+    
+
+    <div class="section risk-low">
+        <h2>Z-Score Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h3>Z-Score</h3>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">4.46</p>
+            </div>
+            <div class="metric">
+                <h3>Risk Category</h3>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
+            </div>
+            <div class="metric">
+                <h3>Model Used</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">original</p>
+            </div>
+            <div class="metric">
+                <h3>Data Quality</h3>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">100.0%</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Information & Thresholds</h2>
+        <div style="margin-bottom: 15px;">
+            <p><strong>Model:</strong> Original Altman Z-Score (1968) for public manufacturing companies</p>
+        </div>
+        <div class="metrics">
+            <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
+                <h3>Safe Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #4caf50; margin: 8px 0;">
+                    > 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
+                <h3>Gray Zone</h3>
+                <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
+                    1.81 - 2.99
+                </p>
+            </div>
+            <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
+                <h3>Distress Zone</h3>
+                <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
+                    < 1.81 </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section market-section">
+        <h2>Market Analysis Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Current Price</h4>
+                <p>$$389.46</p>
+            </div>
+            <div class="metric">
+                <h4>Market Cap</h4>
+                <p>$$148.8B</p>
+            </div>
+            <div class="metric">
+                <h4>P/E Ratio</h4>
+                <p>52.6</p>
+            </div>
+            <div class="metric">
+                <h4>1Y Return</h4>
+                <p>N/A%</p>
+            </div>
+            <div class="metric">
+                <h4>Volatility</h4>
+                <p>30.0%</p>
+            </div>
+            <div class="metric">
+                <h4>RSI</h4>
+                <p>64.6</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section market-section">
+        <h2>Risk Assessment</h2>
+        <div class="metrics">
+            <div class="metric">
+                <h4>Beta</h4>
+                <p>0.70</p>
+            </div>
+            <div class="metric">
+                <h4>Sharpe Ratio</h4>
+                <p>0.57</p>
+            </div>
+            <div class="metric">
+                <h4>Max Drawdown</h4>
+                <p>-15.4%</p>
+            </div>
+            <div class="metric">
+                <h4>Risk Score</h4>
+                <p>3.6/10</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
+        <h2>AI-Powered Comprehensive Financial Analysis</h2>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> Stryker Corporation (SYK)<br />
+<strong>Analysis Date:</strong> 2025-07-12 11:35:41  </p>
+<hr />
+<h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
+<p>Stryker Corporation (SYK) currently exhibits a <strong>Safe Zone Altman Z-Score of 4.456</strong> (latest quarter), indicating a strong financial position with low bankruptcy risk. This score, while slightly down from a recent peak of 5.628 (four quarters prior), remains well above the distress threshold of 1.8, affirming robust operational and financial health. The <strong>AI Risk Analysis</strong> categorizes the overall risk level as low with a stable to slightly declining trajectory, consistent with the modest downward trend in Z-Score over recent quarters.</p>
+<p><strong>Peer Analysis</strong> positions SYK favorably within the Medical Devices industry, outperforming the industry average Z-Score (not explicitly provided but implied below 4.0 based on typical sector benchmarks). Key peers include Medtronic (MDT) and Zimmer Biomet (ZBH), where SYK’s Z-Score advantage signals superior financial resilience and operational efficiency.</p>
+<p><strong>Sentiment Analysis</strong> reveals a cautiously optimistic market perception, supported by a high dividend yield of 85.00% (noting this unusually high yield may warrant further scrutiny for sustainability) and a premium P/E ratio of 52.63, reflecting growth expectations. Sentiment trend is stable, with no significant divergence from fundamentals.</p>
+<p><strong>Forecast Analysis</strong> projects a base case scenario maintaining Z-Scores above 4.0 over the next two fiscal years, with optimistic scenarios pushing above 5.0 and pessimistic cases remaining safely above 3.5. Analyst consensus quality is moderate, reflecting solid but not exhaustive coverage.</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Commentary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current Z-Score</td>
+<td>4.456</td>
+<td>Safe Zone, strong financial health</td>
+</tr>
+<tr>
+<td>Z-Score 4 Quarters Ago</td>
+<td>5.628</td>
+<td>Peak, slight recent decline</td>
+</tr>
+<tr>
+<td>Market Cap</td>
+<td>$148.8B</td>
+<td>Large-cap, stable market presence</td>
+</tr>
+<tr>
+<td>P/E Ratio</td>
+<td>52.63</td>
+<td>Growth valuation premium</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>85.00%</td>
+<td>Exceptionally high, requires caution</td>
+</tr>
+<tr>
+<td>Working Capital Ratio</td>
+<td>0.111</td>
+<td>Low liquidity buffer</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.410</td>
+<td>Moderate reinvestment and earnings retention</td>
+</tr>
+<tr>
+<td>EBIT Ratio</td>
+<td>0.018</td>
+<td>Low EBIT margin, potential efficiency focus</td>
+</tr>
+<tr>
+<td>Asset Turnover</td>
+<td>0.128</td>
+<td>Moderate asset utilization</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Investment Recommendation:</strong><br />
+Given the current <strong>Safe Zone Z-Score of 4.456</strong> and forecast stability, combined with a strong market cap and favorable peer positioning, SYK is recommended as a <strong>HOLD</strong> for conservative investors and a <strong>BUY</strong> for growth-oriented profiles, contingent on monitoring liquidity and dividend sustainability. The slight downward Z-Score trend advises cautious entry timing, ideally aligned with forecast milestones in FY2026.</p>
+<hr />
+<h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Financial Dimension</th>
+<th>Current Metrics</th>
+<th>Industry Benchmark*</th>
+<th>Assessment</th>
+<th>Trend Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liquidity Position</td>
+<td>Current Ratio: 0.111</td>
+<td>~1.5 - 2.0</td>
+<td><strong>Weak liquidity</strong>; below typical industry standards, potential short-term risk</td>
+<td>Declining</td>
+</tr>
+<tr>
+<td></td>
+<td>Working Capital Ratio: 0.111</td>
+<td>~0.2 - 0.4</td>
+<td>Below average, indicates tight working capital management</td>
+<td>Declining</td>
+</tr>
+<tr>
+<td>Leverage Management</td>
+<td>Debt-to-Equity: N/A (not provided)</td>
+<td>Industry avg ~0.5 - 1.0</td>
+<td>Data missing; risk assessment limited</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td></td>
+<td>Interest Coverage (EBIT/Interest): N/A</td>
+<td>Industry avg ~5+</td>
+<td>Insufficient data for coverage analysis</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>Operational Efficiency</td>
+<td>Asset Turnover: 0.128</td>
+<td>~0.2 - 0.3</td>
+<td>Below industry average, suggests underutilization of assets</td>
+<td>Stable/Low</td>
+</tr>
+<tr>
+<td></td>
+<td>EBIT Ratio: 0.018</td>
+<td>~0.10 - 0.15</td>
+<td>Low EBIT margin, potential margin pressure</td>
+<td>Declining</td>
+</tr>
+<tr>
+<td>Financial Stability</td>
+<td>Retained Earnings Ratio: 0.410</td>
+<td>~0.4 - 0.6</td>
+<td>Moderate retained earnings, stable equity base</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: N/A</td>
+<td>N/A</td>
+<td>Data unavailable</td>
+<td>Unknown</td>
+</tr>
+</tbody>
+</table>
+<p>*Industry benchmarks approximate for Medical Devices sector.</p>
+<p><strong>Narrative Commentary:</strong><br />
+Stryker’s liquidity position, with a current ratio and working capital ratio at 0.111, is notably below typical industry standards (1.5-2.0 for current ratio), indicating potential short-term liquidity constraints. This is a key area of concern, especially given the low EBIT ratio of 0.018, which suggests limited operational profitability to buffer liquidity stress. Asset turnover at 0.128 is below the industry average, implying suboptimal asset utilization which may constrain growth and efficiency.</p>
+<p>Retained earnings ratio at 0.410 aligns with moderate reinvestment and earnings retention, supporting financial stability. However, the absence of debt-to-equity and interest coverage data limits a full leverage and solvency assessment.</p>
+<p>The <strong>AI Data Quality Assessment</strong> reports no anomalies detected, with high completeness and consistency scores, lending confidence to the financial data integrity. The healthcare sector context, particularly in Medical Devices, typically demands strong R&amp;D investment and stable cash flows, which aligns with Stryker’s moderate retained earnings but flags the need for improved liquidity management.</p>
+<hr />
+<h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Z-Score Value</th>
+<th>Risk Category</th>
+<th>Key Drivers</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current (Q0)</td>
+<td>4.456</td>
+<td>Safe</td>
+<td>Stable retained earnings, moderate EBIT, slight liquidity weakness</td>
+<td>Post-pandemic normalization, steady MedSurg and Orthopaedics demand</td>
+</tr>
+<tr>
+<td>Q1 (Previous)</td>
+<td>4.998</td>
+<td>Safe</td>
+<td>Higher EBIT margin, better asset turnover</td>
+<td>Strong sales growth, operational efficiency improvements</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>4.754</td>
+<td>Safe</td>
+<td>Slight EBIT margin compression</td>
+<td>Market headwinds, supply chain pressures</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>5.628</td>
+<td>Safe</td>
+<td>Peak operational efficiency, strong working capital</td>
+<td>Peak demand cycle, favorable pricing</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>5.393</td>
+<td>Safe</td>
+<td>Slight decline in working capital ratio</td>
+<td>Market normalization, competitive pricing pressure</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>5.165</td>
+<td>Safe</td>
+<td>EBIT margin pressure begins</td>
+<td>Increased R&amp;D spend, cost inflation</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>5.344</td>
+<td>Safe</td>
+<td>Stable operational metrics</td>
+<td>Product launches, geographic expansion</td>
+</tr>
+<tr>
+<td>Q7</td>
+<td>5.369</td>
+<td>Safe</td>
+<td>Consistent financial performance</td>
+<td>Steady demand, stable macroeconomic factors</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Commentary:</strong><br />
+Stryker’s Z-Score has trended downward from a peak of 5.628 (Q3) to 4.456 currently, remaining comfortably in the Safe Zone but signaling a mild erosion of financial buffer. The decline correlates with compressing EBIT margins (0.018 currently vs. higher historical levels) and weakening liquidity ratios. This suggests operational cost pressures and tighter working capital management impacting overall financial health.</p>
+<p>The business context of steady demand in MedSurg and Orthopaedics segments supports resilience, but competitive pricing and inflationary pressures are likely contributors to the Z-Score decline. Compared to the industry average Z-Score (typically around 3.5-4.0 for Medical Devices), SYK maintains a superior position, reinforcing competitive strength.</p>
+<hr />
+<h2 id="4-forward-looking-z-score-intelligence-forecast-analysis">4. Forward-Looking Z-Score Intelligence &amp; Forecast Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Period</th>
+<th>Optimistic Scenario</th>
+<th>Base Case Scenario</th>
+<th>Pessimistic Scenario</th>
+<th>Analyst Consensus Quality</th>
+<th>Key Assumptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FY2026</td>
+<td>5.100</td>
+<td>4.500</td>
+<td>3.800</td>
+<td>75%</td>
+<td>Revenue growth, margin recovery, cost control</td>
+</tr>
+<tr>
+<td>FY2027</td>
+<td>5.400</td>
+<td>4.700</td>
+<td>3.900</td>
+<td>70%</td>
+<td>Continued operational improvements, market expansion</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Component Projection Analysis:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Z-Score Component</th>
+<th>Current Value</th>
+<th>FY2026 Projection</th>
+<th>FY2027 Projection</th>
+<th>Forecast Confidence</th>
+<th>Key Variables</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Working Capital Ratio</td>
+<td>0.111</td>
+<td>0.120 - 0.140</td>
+<td>0.130 - 0.150</td>
+<td>Medium</td>
+<td>Efficiency in receivables/payables</td>
+</tr>
+<tr>
+<td>Retained Earnings Ratio</td>
+<td>0.410</td>
+<td>0.420 - 0.450</td>
+<td>0.430 - 0.470</td>
+<td>High</td>
+<td>Profitability, dividend policy</td>
+</tr>
+<tr>
+<td>EBIT/Total Assets</td>
+<td>0.018</td>
+<td>0.020 - 0.025</td>
+<td>0.022 - 0.028</td>
+<td>Medium</td>
+<td>Operational leverage, cost control</td>
+</tr>
+<tr>
+<td>Market Cap/Total Liabilities</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>Low</td>
+<td>Market sentiment, debt management</td>
+</tr>
+<tr>
+<td>Sales/Total Assets</td>
+<td>0.128</td>
+<td>0.130 - 0.140</td>
+<td>0.135 - 0.145</td>
+<td>Medium</td>
+<td>Asset utilization, growth strategy</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Forecast Commentary:</strong><br />
+The forecast projects a modest recovery in Stryker’s Z-Score to 4.5 in FY2026 and 4.7 in FY2027 under the base case, supported by incremental improvements in working capital management and EBIT margins. The optimistic scenario anticipates a return to near-peak Z-Score levels (~5.1-5.4), driven by successful cost containment and revenue growth initiatives.</p>
+<p>Forecast confidence is tempered by moderate analyst coverage quality (70-75%), reflecting some uncertainty in margin recovery and macroeconomic factors. The working capital ratio is expected to improve slightly but remain below industry norms, highlighting ongoing liquidity management challenges.</p>
+<hr />
+<h2 id="5-market-intelligence-validation-analysis">5. Market Intelligence &amp; Validation Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Analysis Dimension</th>
+<th>Current Z-Score Signal</th>
+<th>Forecast Z-Score Signal</th>
+<th>Market Signal</th>
+<th>Alignment Status</th>
+<th>Investment Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fundamental Health</td>
+<td>Stable, Safe Zone (4.456)</td>
+<td>Slight improvement (4.5-4.7)</td>
+<td>High P/E (52.63), High Dividend Yield (85%)</td>
+<td>Divergent</td>
+<td>Potential overvaluation; dividend sustainability concerns</td>
+</tr>
+<tr>
+<td>Analyst Sentiment</td>
+<td>Neutral-Positive (Stable)</td>
+<td>Moderate Confidence</td>
+<td>Mixed professional consensus</td>
+<td>Consistent</td>
+<td>Cautious optimism warranted</td>
+</tr>
+<tr>
+<td>Peer Comparison</td>
+<td>Outperforming peers</td>
+<td>Maintaining advantage</td>
+<td>Sector steady</td>
+<td>Aligned</td>
+<td>Competitive positioning strong</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Market Validation Commentary:</strong><br />
+The current Z-Score of 4.456 signals strong fundamentals; however, the market’s high P/E ratio and exceptionally high dividend yield (85.00%) suggest a disconnect that may reflect either market over-optimism or data anomalies. The divergence between fundamental health and market valuation advises caution.</p>
+<p>Analyst sentiment aligns moderately with forecasted Z-Score improvements, supporting a cautiously optimistic stance. Peer comparison confirms SYK’s superior financial health relative to industry averages, reinforcing its competitive advantage.</p>
+<p>Market timing considerations suggest waiting for clearer signals of liquidity and margin improvement before aggressive accumulation.</p>
+<hr />
+<h2 id="6-risk-stratification-scenario-framework">6. Risk Stratification &amp; Scenario Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Risk Category</th>
+<th>Current Probability</th>
+<th>Forecast Impact (1-2 Year)</th>
+<th>Severity</th>
+<th>Impact on Current Z-Score</th>
+<th>Impact on Forecast Z-Score</th>
+<th>Mitigation Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operational Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Moderate</td>
+<td>Slight downward pressure</td>
+<td>Potential margin compression</td>
+<td>Cost control, operational efficiency programs</td>
+</tr>
+<tr>
+<td>Financial Risks</td>
+<td>Low-Medium</td>
+<td>Moderate</td>
+<td>Moderate</td>
+<td>Liquidity constraints</td>
+<td>Working capital improvement focus</td>
+<td>Strengthen cash reserves, optimize payables/receivables</td>
+</tr>
+<tr>
+<td>Market Risks</td>
+<td>Medium</td>
+<td>Moderate</td>
+<td>Moderate</td>
+<td>Market valuation volatility</td>
+<td>Sensitivity to macroeconomic shifts</td>
+<td>Diversify product portfolio, hedge currency risks</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Risk Commentary:</strong><br />
+Based on AI Risk Analysis, operational risks related to margin pressure and cost inflation have moderate probability and impact, potentially depressing Z-Score values. Financial risks, particularly liquidity constraints indicated by low working capital ratio (0.111), pose moderate concern but are manageable with focused capital management.</p>
+<p>Market risks, including valuation volatility and macroeconomic uncertainty, remain moderate and could affect forecast confidence. Mitigation strategies include operational efficiency initiatives and financial prudence.</p>
+<p>Scenario analysis confirms that even pessimistic Z-Score forecasts remain in the Safe Zone (&gt;3.5), indicating resilience but underscoring the importance of risk monitoring.</p>
+<hr />
+<h2 id="7-investment-profile-recommendations">7. Investment Profile Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Investment Profile</th>
+<th>Risk Tolerance</th>
+<th>Recommendation</th>
+<th>Current Z-Score Evidence</th>
+<th>Forecast Z-Score Evidence</th>
+<th>Market Timing</th>
+<th>Action Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📊 Conservative</td>
+<td>Low</td>
+<td>HOLD</td>
+<td>Z-Score 4.456 indicates safety but declining liquidity</td>
+<td>Base case stable at ~4.5-4.7</td>
+<td>Wait for liquidity improvement signals</td>
+<td>6-12 months, monitor quarterly</td>
+</tr>
+<tr>
+<td>💰 Dividend</td>
+<td>Low-Medium</td>
+<td>HOLD</td>
+<td>Dividend yield 85% unusually high, sustainability uncertain</td>
+<td>Forecast moderate retained earnings growth</td>
+<td>Cautious on dividend cuts risk</td>
+<td>6-12 months, reassess payout policy</td>
+</tr>
+<tr>
+<td>💎 Value</td>
+<td>Medium</td>
+<td>BUY</td>
+<td>Strong Z-Score vs peers, undervalued if liquidity improves</td>
+<td>Forecast recovery to 4.7+</td>
+<td>Entry on margin improvement confirmation</td>
+<td>3-6 months, aligned with FY2026 results</td>
+</tr>
+<tr>
+<td>📈 Growth</td>
+<td>Medium-High</td>
+<td>BUY</td>
+<td>Growth implied by P/E 52.63, Z-Score supports financial health</td>
+<td>Forecast growth in EBIT and asset turnover</td>
+<td>Momentum-based entry recommended</td>
+<td>Immediate to 6 months, track operational KPIs</td>
+</tr>
+<tr>
+<td>🚀 Aggressive</td>
+<td>High</td>
+<td>BUY</td>
+<td>Risk/reward favorable with strong Z-Score but liquidity risk</td>
+<td>Optimistic scenario up to 5.4</td>
+<td>Volatility expected; position sizing critical</td>
+<td>Immediate, with active risk management</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation Commentary:</strong><br />
+Conservative and dividend-focused investors should hold and monitor liquidity and dividend sustainability closely. Value and growth investors can consider buying, leveraging the strong Z-Score and forecasted improvements. Aggressive investors may initiate positions immediately but should manage exposure due to liquidity and margin risks.</p>
+<hr />
+<h2 id="8-strategic-business-intelligence">8. Strategic Business Intelligence</h2>
+<table>
+<thead>
+<tr>
+<th>Stakeholder Role</th>
+<th>Strategic Priority</th>
+<th>Current Metrics</th>
+<th>Forecast Targets</th>
+<th>Recommended Actions</th>
+<th>Success Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO Leadership</td>
+<td>Operational efficiency, growth</td>
+<td>EBIT Ratio 0.018, Z-Score 4.456</td>
+<td>EBIT Ratio 0.022-0.028, Z-Score 4.7+</td>
+<td>Drive cost control, innovation in MedSurg</td>
+<td>EBIT margin improvement, Z-Score trajectory</td>
+</tr>
+<tr>
+<td>CFO Finance</td>
+<td>Liquidity management</td>
+<td>Working Capital Ratio 0.111</td>
+<td>Improve to 0.130+</td>
+<td>Optimize working capital, debt management</td>
+<td>Liquidity ratios, cash flow stability</td>
+</tr>
+<tr>
+<td>Board Governance</td>
+<td>Risk oversight, dividend policy</td>
+<td>Dividend Yield 85%, moderate risk</td>
+<td>Sustainable dividend, risk mitigation</td>
+<td>Review payout policy, monitor risk factors</td>
+<td>Dividend sustainability, risk metrics</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Executive Commentary:</strong><br />
+Leadership should prioritize operational margin improvement and liquidity enhancement to support forecasted Z-Score growth. CFO focus on working capital optimization is critical to mitigate liquidity risks flagged in the analysis. The Board must oversee dividend policy adjustments to align payout with sustainable earnings and risk profile.</p>
+<hr />
+<h2 id="9-forward-looking-intelligence-framework">9. Forward-Looking Intelligence Framework</h2>
+<table>
+<thead>
+<tr>
+<th>Forecast Dimension</th>
+<th>Current Status</th>
+<th>Forecast Trajectory</th>
+<th>Timeline Projections</th>
+<th>Key Catalysts</th>
+<th>Monitoring Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z-Score Evolution</td>
+<td>4.456, slight decline</td>
+<td>4.5 - 4.7 over FY2026-27</td>
+<td>Quarterly milestones FY2026</td>
+<td>Margin recovery, working capital improvements</td>
+<td>EBIT margin, working capital ratio</td>
+</tr>
+<tr>
+<td>Market Position</td>
+<td>Strong, outperforming peers</td>
+<td>Maintain advantage</td>
+<td>Industry cycles FY2026-27</td>
+<td>Product launches, market expansion</td>
+<td>Market share, competitor Z-Scores</td>
+</tr>
+<tr>
+<td>Risk Profile</td>
+<td>Low-moderate risk</td>
+<td>Stable with monitoring</td>
+<td>Ongoing risk evolution</td>
+<td>Cost inflation, macroeconomic shifts</td>
+<td>Liquidity ratios, operational KPIs</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Probability</th>
+<th>Z-Score Range FY2026-FY2027</th>
+<th>Timeline</th>
+<th>Key Assumptions</th>
+<th>Success Indicators</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Optimistic</td>
+<td>30%</td>
+<td>5.1 - 5.4</td>
+<td>FY2026-FY2027</td>
+<td>Strong revenue growth, margin expansion</td>
+<td>EBIT margin &gt; 0.025, Z-Score &gt; 5.0</td>
+</tr>
+<tr>
+<td>Base Case</td>
+<td>50%</td>
+<td>4.5 - 4.7</td>
+<td>FY2026-FY2027</td>
+<td>Moderate growth, cost control</td>
+<td>Stable working capital, steady dividends</td>
+</tr>
+<tr>
+<td>Pessimistic</td>
+<td>20%</td>
+<td>3.8 - 3.9</td>
+<td>FY2026-FY2027</td>
+<td>Margin pressure, liquidity stress</td>
+<td>Declining EBIT margin, liquidity below 0.1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Forward-Looking Commentary:</strong><br />
+Stryker’s Z-Score momentum forecast suggests a stable to improving financial health trajectory, with scenario probabilities favoring a base case of moderate growth and operational improvement. Key catalysts include margin recovery and working capital optimization, with quarterly monitoring recommended to detect early warning signs of risk escalation.</p>
+<hr />
+<h1 id="summary"><strong>Summary:</strong></h1>
+<p>Stryker Corporation (SYK) maintains a strong financial position with a current Altman Z-Score of <strong>4.456</strong>, firmly in the Safe Zone. Despite a slight downward trend, forecast scenarios project stability or improvement, supported by operational and financial initiatives. Liquidity constraints and margin pressures are key risks but manageable with focused strategies. Market valuation appears stretched, advising cautious timing for conservative investors, while growth and value investors may find attractive entry points aligned with forecast milestones.</p>
+<p><strong>Recommended Actions:</strong><br />
+- Conservative investors: HOLD, monitor liquidity and dividend sustainability.<br />
+- Growth and value investors: BUY, with attention to operational KPIs and forecast milestones.<br />
+- Aggressive investors: BUY with active risk management and position sizing.  </p>
+<p>Continuous monitoring of EBIT margins, working capital ratios, and dividend policy will be critical to validate forecast assumptions and adjust investment posture accordingly.</p>
+<hr />
+<p><em>Analysis completed using injected data as of 2025-07-12 11:35:41.</em></p></div></div>
+    </div>
+    
+
+    <div class="section glossary-section">
+        <h2>Definitions & Glossary</h2>
+        <div class="glossary-category">
+            <h3>Altman Z-Score Models</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Altman Z-Score</h4>
+                    <p>A financial formula that predicts the probability of a company going bankrupt within the next 2
+                        years. Developed by Edward I. Altman in 1968.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Original Model (--model original)</h4>
+                    <p>The original Altman Z-Score model designed for publicly traded manufacturing companies. Formula:
+                        Z = 1.2X₁ + 1.4X₂ + 3.3X₃ + 0.6X₄ + 1.0X₅.
+                        Cutoffs: Safe Zone: > 2.99, gray Zone: 1.81-2.99, Distress Zone: < 1.81.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Private Company Model (--model private)</h4>
+                    <p>Adaptation for private manufacturing companies using book value instead of market value. Formula:
+                        Z' = 0.717X₁ + 0.847X₂ + 3.107X₃ + 0.420X₄ + 0.998X₅.
+                        Cutoffs: Safe Zone: > 2.9, gray Zone: 1.23-2.9, Distress Zone: < 1.23.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Service Company Model (--model service)</h4>
+                    <p>Designed for service sector and asset-light businesses without asset turnover ratio. Formula: Z''
+                        = 6.56X₁ + 3.26X₂ + 6.72X₃ + 1.05X₄.
+                        Cutoffs: Safe Zone: > 2.6, gray Zone: 1.1-2.6, Distress Zone: < 1.1.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Emerging Markets Model (--model emerging)</h4>
+                    <p>Adaptation for companies in developing economies with different accounting standards. Formula:
+                        Z'' = 6.56X₁ + 3.26X₂ + 6.72X₃ + 1.05X₄ + 3.25.
+                        Cutoffs: Safe Zone: > 5.85, gray Zone: 3.75-5.85, Distress Zone: < 3.75.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Financial Institutions Model (--model financial)</h4>
+                    <p>Adaptation for banks, insurance companies, and financial services firms. Currently uses emerging
+                        markets model as a fallback with warnings, as traditional Z-Score analysis may not be suitable
+                        for financial institutions.
+                        Cutoffs: Safe Zone: > 2.6, gray Zone: 1.1-2.6, Distress Zone: < 1.1.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Retail Industry Model (--model retail)</h4>
+                    <p>Novel project-specific model for retail companies with inventory turnover adjustments. Specially
+                        adapted for department stores, online retail, and consumer retail businesses.
+                        Based on the original model with retail-specific calculations.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Z-Score Components</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>X₁: Working Capital / Total Assets</h4>
+                    <p>Measures a company's ability to cover its short-term obligations with its short-term assets.
+                        Indicates liquidity and operational efficiency. Used in all models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₂: Retained Earnings / Total Assets</h4>
+                    <p>Measures cumulative profitability over time and the company's age. Indicates how much a company
+                        has
+                        reinvested its earnings into itself. Used in all models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₃: EBIT / Total Assets</h4>
+                    <p>Measures productivity and efficiency in generating earnings from assets, regardless of tax or
+                        leverage factors. Used in all models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₄: Market Value of Equity / Total Liabilities</h4>
+                    <p>Indicates how much the company's assets can decline in value before liabilities exceed assets and
+                        the
+                        company becomes insolvent. Used in Original model.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₄: Book Value of Equity / Total Liabilities</h4>
+                    <p>Used in Private, Service, Emerging, and Financial models to replace market value with book value.
+                        Measures long-term solvency.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>X₅: Sales / Total Assets</h4>
+                    <p>The asset turnover ratio that indicates how efficiently a company is using its assets to generate
+                        sales. Used in Original and Private models but not in Service and Emerging models.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Constant Term</h4>
+                    <p>A constant value of 3.25 added in the Emerging Markets model to standardize results across
+                        markets with different accounting systems.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Inventory Turnover Adjustment</h4>
+                    <p>A specialized adjustment in the Retail model that accounts for the high inventory turnover and
+                        seasonal patterns common in retail businesses.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Model Selection Logic</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Industry-Based Selection</h4>
+                    <p>The system automatically selects the most appropriate Z-Score model based on the company's
+                        industry sector, public/private status, financial characteristics, and data availability.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Selection Priority</h4>
+                    <p>Selection follows a priority sequence: (1) Financial companies, (2) Emerging market companies,
+                        (3) Private companies with no market data, (4) Public companies by industry (retail, service,
+                        tech, manufacturing).</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Confidence Score</h4>
+                    <p>Each model selection includes a confidence score (0.0-1.0) indicating the reliability of the
+                        selection. Higher values indicate greater confidence in the model choice.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>AI-Enhanced Selection</h4>
+                    <p>The system uses AI analysis to classify companies and identify the optimal Z-Score model, with
+                        fallback to rule-based selection if AI is unavailable.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Manual Override</h4>
+                    <p>Users can manually force a specific model using the --model parameter in the command line
+                        interface (e.g., --model retail).</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Risk Categories</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Safe Zone</h4>
+                    <p>Companies in this zone are considered financially stable with low probability of bankruptcy.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Gray Zone</h4>
+                    <p>Companies in this zone have some financial concerns and require careful monitoring.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Distress Zone</h4>
+                    <p>Companies in this zone are at high risk of financial distress and potential bankruptcy.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Technical Analysis Indicators</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>RSI (Relative Strength Index)</h4>
+                    <p>A momentum oscillator that measures the speed and change of price movements. Values above 70
+                        indicate
+                        overbought conditions; values below 30 indicate oversold conditions.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>MACD (Moving Average Convergence Divergence)</h4>
+                    <p>A trend-following momentum indicator showing the relationship between two moving averages of a
+                        security's price.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>MACD Signal</h4>
+                    <p>A trading signal derived from the MACD indicator. Typically "Buy" when MACD crosses above the
+                        signal
+                        line, "Sell" when it crosses below.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Bollinger Bands (BB)</h4>
+                    <p>A technical analysis tool that consists of a set of lines plotted two standard deviations away
+                        from a
+                        simple moving average of the security's price.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>BB Signal</h4>
+                    <p>A trading signal derived from Bollinger Bands, typically indicating overbought/oversold
+                        conditions
+                        when price touches the upper/lower bands.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Momentum</h4>
+                    <p>A measurement of the rate of change in security prices. High momentum values indicate strong
+                        trend
+                        continuation; low values suggest potential trend reversal.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Valuation Metrics</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>P/E (Price-to-Earnings Ratio)</h4>
+                    <p>A valuation metric that compares a company's current share price to its earnings per share (EPS).
+                        Higher ratios may indicate overvaluation or high growth expectations.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>P/B (Price-to-Book Ratio)</h4>
+                    <p>A valuation ratio comparing a company's market price to its book value per share. Lower ratios
+                        may
+                        indicate undervaluation.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>P/S (Price-to-Sales Ratio)</h4>
+                    <p>A valuation ratio that compares a company's stock price to its revenues. Lower ratios typically
+                        suggest better value.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>EV/EBITDA</h4>
+                    <p>Enterprise Value to Earnings Before Interest, Taxes, Depreciation, and Amortization. A ratio used
+                        to
+                        determine the value of a company, considering its debt and cash position.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Market Cap</h4>
+                    <p>The total market value of a company's outstanding shares, calculated by multiplying share price
+                        by
+                        the number of shares outstanding.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Performance Metrics</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>1D (One Day Return)</h4>
+                    <p>The percentage change in a security's price over the most recent trading day.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>1W (One Week Return)</h4>
+                    <p>The percentage change in a security's price over the most recent trading week.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>1M (One Month Return)</h4>
+                    <p>The percentage change in a security's price over the most recent month.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>3M (Three Month Return)</h4>
+                    <p>The percentage change in a security's price over the most recent three months.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>6M (Six Month Return)</h4>
+                    <p>The percentage change in a security's price over the most recent six months.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>1Y (One Year Return)</h4>
+                    <p>The percentage change in a security's price over the most recent year.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Risk Metrics</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Beta</h4>
+                    <p>A measure of a stock's volatility in relation to the overall market. A beta greater than 1
+                        indicates
+                        above-average volatility.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Sharpe Ratio</h4>
+                    <p>Measures risk-adjusted return. Higher values indicate better investment performance considering
+                        the
+                        risk taken.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Max Drawdown</h4>
+                    <p>The maximum observed loss from a peak to a trough of a portfolio or fund before a new peak is
+                        attained.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Volatility Risk</h4>
+                    <p>The rate at which the price of a security increases or decreases over a particular period. Higher
+                        volatility means higher risk.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Financial Statement Terms</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>EBIT (Earnings Before Interest and Taxes)</h4>
+                    <p>A measure of a company's operating profit that excludes interest and income tax expenses.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>EBITDA</h4>
+                    <p>Earnings Before Interest, Taxes, Depreciation, and Amortization. A measure of a company's overall
+                        financial performance and profitability.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Working Capital</h4>
+                    <p>The difference between a company's current assets and current liabilities, representing the
+                        capital available for daily operations.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glossary-category">
+            <h3>Investment Recommendations</h3>
+            <div class="glossary-columns">
+                <div class="glossary-item">
+                    <h4>Strong Buy</h4>
+                    <p>A recommendation indicating that analysts expect the stock to significantly outperform the market
+                        average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Buy</h4>
+                    <p>A recommendation indicating that analysts expect the stock to outperform the market average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Hold</h4>
+                    <p>A recommendation indicating that analysts expect the stock to perform in line with the market
+                        average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Sell</h4>
+                    <p>A recommendation indicating that analysts expect the stock to underperform the market average.
+                    </p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Strong Sell</h4>
+                    <p>A recommendation indicating that analysts expect the stock to significantly underperform the
+                        market
+                        average.</p>
+                </div>
+                <div class="glossary-item">
+                    <h4>Confidence Level</h4>
+                    <p>A numerical expression (usually as a percentage) indicating the degree of certainty in an
+                        investment
+                        recommendation or analysis.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bankruptcy Analysis Section (if applicable) -->
+    
+
+    <footer>
+        <p>Generated on July 12, 2025 at 11:36 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
+        
+        <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
+        
+    </footer>
+
+    <script>
+        // Simple static iframe sizing - no complex responsive logic needed
+        function ensureIframeHeight() {
+            const iframe = document.getElementById('dashboard-iframe');
+            const container = document.getElementById('dashboard-container');
+
+            if (iframe && container) {
+                // Set static height that accommodates the 1050px dashboard height
+                const staticHeight = 1050; // Match dashboard height exactly
+
+                iframe.style.height = staticHeight + 'px';
+                container.style.minHeight = staticHeight + 'px';
+
+                console.log('Dashboard iframe set to static height:', staticHeight + 'px');
+            }
+        }
+
+        // Apply static height on page load
+        window.addEventListener('load', ensureIframeHeight);
+
+        // Also apply immediately in case load event already fired
+        document.addEventListener('DOMContentLoaded', ensureIframeHeight);
+
+        // One more attempt after a short delay for any late-loading content
+        setTimeout(ensureIframeHeight, 500);
+    </script>
+</body>
+
+</html>
