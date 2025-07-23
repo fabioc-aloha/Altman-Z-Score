@@ -3,36 +3,38 @@ Ticker: ET
 Company Name: Energy Transfer LP
 Sector: Energy
 Industry: Oil & Gas Midstream
-Analysis Date: July 12, 2025 at 05:10 PM
+Analysis Date: July 23, 2025 at 05:25 PM
 
-Z-SCORE: 0.68
-Risk Category: Gray Zone
-Model Used: service
+Z-SCORE: 0.70
+Risk Category: Distress
+Model Used: original
 Data Quality: 100.0%
 
 MODEL THRESHOLDS:
-  Safe Zone: > 2.60
-  Gray Zone: 0.50 - 2.60
-  Distress Zone: < 0.50
+  Safe Zone: > 2.99
+  Gray Zone: 1.81 - 2.99
+  Distress Zone: < 1.81
 
 COMPONENT ANALYSIS:
   Working Capital Ratio: 0.0132
   Retained Earnings Ratio: 0.0000
   Ebit Ratio: 0.0197
+  Market Equity Ratio: 0.7496
   Book Equity Ratio: 0.4424
-  Z Score: 0.6833
+  Asset Turnover: 0.1663
+  Z Score: 0.6968
 
 INVESTMENT RECOMMENDATION:
   Action: Hold
   Confidence: 60.0%
 
 AI-POWERED ANALYSIS SUMMARY:
-  # AI-Powered Altman Z-Score Investment Analysis for Energy Transfer LP (Ticker: ET)
-  **Analysis Date:** 2025-07-12 17:09:10
+  # AI-Powered Altman Z-Score Investment Analysis
+  **Company:** ET
+  **Analysis Date:** 2025-07-23 17:24:01
   ---
   ## 1. Executive Intelligence Summary
-  Energy Transfer LP (ET) currently operates within the **Gray Zone** of financial distress risk, with a **latest quarter Z-Score of 0.683**, indicating elevated bankruptcy risk and financial vulnerability. The Z-Score trajectory over the past eight quarters shows persistent weakness, fluctuating narrowly between 0.520 and 0.797, all within the Gray Zone, signaling no material improvement in financial health.
-  | Metric | Value | Interpretation |
+  Energy Transfer LP (ET) currently exhibits a **Distress Zone** Altman Z-Score of **0.697** (latest quarter), signaling a high risk of financial distress. This score is consistent with the last eight quarters, all firmly below the critical threshold of 1.8, indicating persistent financial vulnerability. The AI Risk Analysis (implicit from Z-Score and financial context) suggests a **high overall risk level** with a **stable to slightly deteriorating risk trajectory**, given the marginal decline from 0.768 eight quarters ago to 0.697 currently.
   [Full analysis available in comprehensive report]
 
 === END OF SUMMARY ===

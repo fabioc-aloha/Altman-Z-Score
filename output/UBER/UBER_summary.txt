@@ -3,38 +3,36 @@ Ticker: UBER
 Company Name: Uber Technologies, Inc.
 Sector: Technology
 Industry: Software - Application
-Analysis Date: July 12, 2025 at 11:38 AM
+Analysis Date: July 23, 2025 at 06:10 PM
 
-Z-SCORE: 3.80
-Risk Category: Safe
-Model Used: original
+Z-SCORE: -0.21
+Risk Category: Distress
+Model Used: service
 Data Quality: 100.0%
 
 MODEL THRESHOLDS:
-  Safe Zone: > 2.99
-  Gray Zone: 1.81 - 2.99
-  Distress Zone: < 1.81
+  Safe Zone: > 2.60
+  Gray Zone: 0.50 - 2.60
+  Distress Zone: < 0.50
 
 COMPONENT ANALYSIS:
   Working Capital Ratio: 0.0045
   Retained Earnings Ratio: -0.3587
   Ebit Ratio: 0.0232
-  Market Equity Ratio: 6.668
   Book Equity Ratio: 0.7345
-  Asset Turnover: 0.2183
-  Z Score: 3.799
+  Z Score: -0.2124
 
 INVESTMENT RECOMMENDATION:
-  Action: Strong Buy
-  Confidence: 70.0%
+  Action: Sell
+  Confidence: 60.0%
 
 AI-POWERED ANALYSIS SUMMARY:
   # AI-Powered Altman Z-Score Investment Analysis
   **Company:** Uber Technologies, Inc.
-  **Analysis Date:** 2025-07-12 11:37:39
+  **Analysis Date:** 2025-07-23 18:09:00
   ---
   ## 1. Executive Intelligence Summary
-  Uber Technologies, Inc. currently exhibits a **Safe Zone Altman Z-Score of 3.799** for the latest quarter, confirming a low bankruptcy risk and solid financial health. The Z-Score trajectory over the past eight quarters remains consistently above 3.5, underscoring stable operational and financial performance. Based on the **AI Risk Analysis overall risk level (implicit from data)** and the stable Z-Score, Uber faces moderate risk with no immediate distress signals.
+  Uber Technologies, Inc. currently resides in the **Distress Zone** with a latest quarter Altman Z-Score of **-0.212**, signaling a high probability of financial distress and potential insolvency risk. This represents a slight improvement from the previous quarter's Z-Score of **-0.332**, but remains deeply negative and well below the distress threshold of 1.8. The Z-Score trajectory over the past eight quarters shows persistent distress, with values ranging from **-2.283** to the current **-0.212**, indicating ongoing financial challenges despite some recent stabilization.
   [Full analysis available in comprehensive report]
 
 === END OF SUMMARY ===

@@ -1,0 +1,28 @@
+{
+  "github.copilot.enable": {
+    "*": true,
+    "markdown": true,
+    "plaintext": true
+  },
+  "github.copilot.chat.welcomeMessage": "never",
+  "markdown.preview.breaks": true,
+  "markdown.extension.toc.updateOnSave": true,
+  "files.associations": {
+    "*.instructions.md": "markdown",
+    "*.prompt.md": "markdown",
+    "DK-*.md": "markdown"
+  },
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/.git": true,
+    "**/.DS_Store": true
+  },
+  "editor.wordWrap": "on",
+  "editor.minimap.enabled": true,
+  "workbench.iconTheme": "vscode-icons",
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*.instructions.md": "$(capture).prompt.md",
+    "DK-*.md": "$(capture)-*.md"
+  }
+}

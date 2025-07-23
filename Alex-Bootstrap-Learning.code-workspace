@@ -1,0 +1,104 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "github.copilot.enable": {
+      "*": true,
+      "markdown": true,
+      "plaintext": true
+    },
+    "github.copilot.chat.welcomeMessage": "never",
+    "markdown.preview.breaks": true,
+    "markdown.extension.toc.updateOnSave": true,
+    "files.associations": {
+      "*.instructions.md": "markdown",
+      "*.prompt.md": "markdown",
+      "DK-*.md": "markdown"
+    },
+    "files.exclude": {
+      "**/node_modules": true,
+      "**/.git": true,
+      "**/.DS_Store": true
+    },
+    "editor.wordWrap": "on",
+    "editor.minimap.enabled": true,
+    "workbench.iconTheme": "vscode-icons",
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+      "*.instructions.md": "$(capture).prompt.md",
+      "DK-*.md": "$(capture)-*.md"
+    },
+    "markdown.extension.preview.autoShowPreviewToSide": true,
+    "markdown.extension.completion.respectVscodeSearchExclude": false
+  },
+  "extensions": {
+    "recommendations": [
+      "GitHub.copilot",
+      "GitHub.copilot-chat",
+      "yzhang.markdown-all-in-one",
+      "shd101wyy.markdown-preview-enhanced",
+      "alefragnani.project-manager",
+      "vscode-icons-team.vscode-icons",
+      "ms-vscode.vscode-json",
+      "redhat.vscode-yaml",
+      "eamodio.gitlens",
+      "streetsidesoftware.code-spell-checker"
+    ]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "ALEX: Validate Learning Framework",
+        "type": "shell",
+        "command": "pwsh",
+        "args": ["-c", "Write-Host '🧠 Validating Alex Bootstrap Learning Framework...' -ForegroundColor Cyan; (Get-ChildItem .github/instructions -Name '*.md').Count; Write-Host 'Learning instruction files found' -ForegroundColor Green"],
+        "group": "build",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "ALEX: Create Financial Domain Protocol",
+        "type": "shell",
+        "command": "pwsh",
+        "args": ["-c", "Copy-Item 'domain-knowledge/DK-TEMPLATE.md' 'domain-knowledge/DK-${input:domainName}.md'; Write-Host 'Created financial domain: ${input:domainName}' -ForegroundColor Green"],
+        "group": "build",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared"
+        }
+      },
+      {
+        "label": "ALEX: Financial Analysis Portfolio",
+        "type": "shell",
+        "command": "pwsh",
+        "args": ["-File", ".\\analyze_portfolio_parallel_v2.ps1", "-PortfolioFile", "portfolios\\comprehensive_portfolio.txt", "-SkipExisting"],
+        "group": "build",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared"
+        }
+      }
+    ],
+    "inputs": [
+      {
+        "id": "domainName",
+        "description": "Enter financial domain name (e.g., PORTFOLIO-MGMT, RISK-ANALYSIS, FINTECH-INTEGRATION)",
+        "default": "NEW-FINANCIAL-DOMAIN",
+        "type": "promptString"
+      }
+    ]
+  }
+}

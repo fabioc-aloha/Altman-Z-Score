@@ -353,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>S&P Global Inc. (SPGI)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 12, 2025 at 11:36 AM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 23, 2025 at 06:06 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -372,16 +372,20 @@
     <div class="section recommendation">
         <h2>Investment Recommendation</h2>
         <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
-            <span class="sell">Sell</span>
+            <span class="buy">Strong Buy</span>
         </div>
         <div style="margin: 15px 0;">
-            <strong>Confidence:</strong> 60.0%
+            <strong>Confidence:</strong> 70.0%
         </div>
 
         
         <div style="margin: 20px 0;">
             <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
             <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
+                    Strong fundamental health (Z-Score)</div>
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
@@ -403,10 +407,6 @@
         <div style="margin: 20px 0;">
             <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
             <div style="margin-left: 15px;">
-                
-                <div
-                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
-                    High bankruptcy risk based on Z-Score</div>
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
@@ -436,20 +436,20 @@
     </div>
     
 
-    <div class="section risk-high">
+    <div class="section risk-low">
         <h2>Z-Score Summary</h2>
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.69</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">4.94</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
-                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Gray Zone</p>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
             </div>
             <div class="metric">
                 <h3>Model Used</h3>
-                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">service</p>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">financial</p>
             </div>
             <div class="metric">
                 <h3>Data Quality</h3>
@@ -461,7 +461,7 @@
     <div class="section">
         <h2>Model Information & Thresholds</h2>
         <div style="margin-bottom: 15px;">
-            <p><strong>Model:</strong> Service and non-manufacturing Z''-Score (no constant) - Adjusted thresholds</p>
+            <p><strong>Model:</strong> Modified Z-Score for financial institutions</p>
         </div>
         <div class="metrics">
             <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
@@ -473,13 +473,13 @@
             <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
                 <h3>Gray Zone</h3>
                 <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
-                    0.50 - 2.60
+                    1.10 - 2.60
                 </p>
             </div>
             <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
                 <h3>Distress Zone</h3>
                 <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
-                    < 0.50 </p>
+                    < 1.10 </p>
             </div>
         </div>
     </div>
@@ -490,11 +490,11 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$$527.07</p>
+                <p>$$525.66</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$$161.6B</p>
+                <p>$$161.2B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
@@ -510,7 +510,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>69.3</p>
+                <p>50.0</p>
             </div>
         </div>
     </div>
@@ -524,7 +524,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.38</p>
+                <p>0.34</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -532,92 +532,99 @@
             </div>
             <div class="metric">
                 <h4>Risk Score</h4>
-                <p>7.2/10</p>
+                <p>3.6/10</p>
             </div>
         </div>
     </div>
     
 
     
+    <div class="section warning">
+        <h2>Warnings & Notes</h2>
+        <ul>
+            
+            <li>Financial institutions may not be suitable for Z-Score analysis</li>
+            
+        </ul>
+    </div>
+    
 
     
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
         <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
-<p><strong>Company:</strong> S&amp;P Global Inc. (Ticker: SPGI)<br />
-<strong>Analysis Date:</strong> 2025-07-12 11:35:38  </p>
+<p><strong>Company:</strong> SPGI (S&amp;P Global Inc.)<br />
+<strong>Analysis Date:</strong> 2025-07-23 18:04:52  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>S&amp;P Global Inc. (SPGI) currently exhibits a <strong>Gray Zone</strong> Altman Z-Score of <strong>1.694</strong> (latest quarter), signaling elevated financial distress risk compared to its historical performance where it mostly resided in the Safe Zone (Z-Score &gt; 3.0). This downward trajectory from a prior high of 2.918 to 1.694 indicates a material deterioration in financial health. Based on the AI Risk Analysis, the overall risk level is elevated with a negative trajectory, underscoring caution.</p>
-<p><strong>Peer Analysis</strong> positions SPGI below the industry average Z-Score (historically above 2.7), indicating relative underperformance versus peers in the Financial - Data &amp; Stock Exchanges sector. Key peers, though not explicitly named here, typically maintain Z-Scores in the Safe Zone, highlighting SPGI’s current vulnerability.</p>
-<p><strong>Sentiment Analysis</strong> reveals a mixed market perception with a high dividend yield of 73.00% but valuation multiples such as P/E at 41.31 and EV/EBITDA at 24.72, suggesting market expectations of growth but also potential risk premium pricing. The sentiment trend is neutral to cautious, reflecting uncertainty.</p>
-<p><strong>Forecast Analysis</strong> is limited by incomplete Z-Score component data but suggests a cautious outlook given the current downward trend and financial ratios. The lack of working capital and retained earnings ratios in the latest quarter constrains confidence in forecast precision.</p>
-<hr />
-<h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
+<p>S&amp;P Global Inc. (SPGI) currently exhibits a <strong>strong financial health profile</strong> with a latest quarter Altman Z-Score of <strong>4.944</strong>, categorizing the company firmly in the <strong>Safe Zone</strong> (Z &gt; 3.0). This represents a slight decline from previous quarters, where Z-Scores peaked at 6.168, but remains well above distress or gray zone thresholds, indicating robust solvency and low bankruptcy risk.</p>
+<p><strong>AI Risk Analysis</strong> rates SPGI’s overall risk level as <strong>Low</strong>, with a stable risk trajectory, supported by minimal volatility and a consistent operational model in the Financial Services sector. The risk factors identified are moderate and well-managed, with no critical anomalies detected in financial data quality or operational metrics.</p>
+<p><strong>AI Peer Analysis</strong> places SPGI above the industry average Z-Score of approximately 3.5 for Financial - Data &amp; Stock Exchanges, confirming its competitive strength relative to peers such as MSCI and Moody’s. This relative positioning supports a confident investment stance.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a <strong>positive overall market sentiment</strong> with a stable sentiment trend, reinforcing market confidence in SPGI’s business model and growth prospects. Divergence analysis shows alignment between sentiment and fundamental strength, reducing contrarian risk.</p>
+<p><strong>Forecast Analysis</strong> projects a base case Z-Score trajectory maintaining above 4.5 over the next two fiscal years, with optimistic scenarios reaching above 5.5 and pessimistic scenarios not falling below 3.8. Analyst consensus quality is high at approximately 85%, lending strong credibility to these forecasts.</p>
 <table>
 <thead>
 <tr>
-<th>Metric Category</th>
-<th>Value / Status</th>
+<th>Key Metrics Summary</th>
+<th>Value</th>
 <th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Current Z-Score</strong></td>
-<td>1.694 (Gray Zone)</td>
-<td>Significant decline from prior quarters</td>
+<td>Current Z-Score (Latest Quarter)</td>
+<td>4.944</td>
+<td>Safe Zone, slight downward trend</td>
 </tr>
 <tr>
-<td><strong>Historical Z-Score</strong></td>
-<td>2.668 - 2.918 (Safe Zone)</td>
-<td>Mostly Safe Zone in prior 7 quarters</td>
+<td>Market Cap</td>
+<td>$161.21B</td>
+<td>Large-cap, stable valuation</td>
 </tr>
 <tr>
-<td><strong>Market Cap</strong></td>
-<td>$161.64B</td>
-<td>Large-cap financial services</td>
+<td>P/E Ratio</td>
+<td>41.26</td>
+<td>Reflects growth premium</td>
 </tr>
 <tr>
-<td><strong>Current Price</strong></td>
-<td>$527.07</td>
-<td>High valuation reflecting growth expectations</td>
+<td>Dividend Yield</td>
+<td>74.00%</td>
+<td>Unusually high, warrants caution</td>
 </tr>
 <tr>
-<td><strong>P/E Ratio</strong></td>
-<td>41.31</td>
-<td>Elevated, growth priced in</td>
-</tr>
-<tr>
-<td><strong>Dividend Yield</strong></td>
-<td>73.00%</td>
-<td>Exceptionally high, possibly unsustainable</td>
-</tr>
-<tr>
-<td><strong>Working Capital Ratio</strong></td>
+<td>Working Capital Ratio</td>
 <td>-0.010</td>
-<td>Negative liquidity indicator</td>
+<td>Slightly negative, requires monitoring</td>
 </tr>
 <tr>
-<td><strong>EBIT Ratio</strong></td>
+<td>EBIT Ratio</td>
 <td>0.026</td>
-<td>Low operational profitability</td>
+<td>Modest operational profitability</td>
 </tr>
 <tr>
-<td><strong>Asset Turnover</strong></td>
+<td>Asset Turnover</td>
 <td>0.063</td>
-<td>Low asset utilization</td>
+<td>Low asset utilization typical for sector</td>
+</tr>
+<tr>
+<td>AI Risk Level</td>
+<td>Low</td>
+<td>Stable risk trajectory</td>
+</tr>
+<tr>
+<td>AI Sentiment</td>
+<td>Positive</td>
+<td>Consistent with fundamentals</td>
+</tr>
+<tr>
+<td>Industry Avg Z-Score</td>
+<td>~3.5</td>
+<td>SPGI outperforms peers</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
-<ul>
-<li><strong>Cautious Hold / Selective Buy:</strong> Given the current Z-Score of 1.694 (Gray Zone) and declining trend, investors should exercise caution. The company’s large market cap and sector positioning provide resilience, but liquidity and profitability metrics warrant close monitoring.</li>
-<li><strong>Monitor Dividend Sustainability:</strong> The unusually high dividend yield (73.00%) is a red flag for potential payout risk.</li>
-<li><strong>Watch Forward Z-Score Trajectory:</strong> Without clear forecast data, investors should await signs of Z-Score stabilization above 1.8 before increasing exposure.</li>
-<li><strong>Risk-Aware Positioning:</strong> Suitable for investors with medium risk tolerance who can monitor quarterly financials closely.</li>
-</ul>
+<p><strong>Investment Recommendation:</strong><br />
+Given the current strong Z-Score of <strong>4.944</strong>, stable risk profile, and positive sentiment, SPGI is recommended as a <strong>Hold to Buy</strong> for conservative and growth-oriented investors. The slight recent decline in Z-Score suggests monitoring for potential operational or market shifts, but forward-looking forecasts support sustained financial health and moderate growth. Dividend yield appears anomalously high at 74%, suggesting a data anomaly or special dividend event; investors should verify this before relying on income strategies.</p>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
 <table>
@@ -625,7 +632,7 @@
 <tr>
 <th>Financial Dimension</th>
 <th>Current Metrics</th>
-<th>Industry Benchmark (Financial Services)</th>
+<th>Industry Benchmark</th>
 <th>Assessment</th>
 <th>Trend Direction</th>
 </tr>
@@ -633,44 +640,41 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: N/A; Working Capital Ratio: -0.010</td>
-<td>Industry avg. current ratio ~1.2-1.5; Working Capital Ratio typically positive</td>
-<td><strong>Weak liquidity</strong>; negative working capital ratio signals potential short-term stress</td>
-<td>Declining</td>
+<td>Current Ratio: N/A, Working Capital Ratio: -0.010</td>
+<td>Industry avg ~1.2-1.5</td>
+<td>Slightly negative working capital ratio indicates tight liquidity but typical for financial services</td>
+<td>Stable/Neutral</td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A; Interest Coverage: N/A</td>
-<td>Industry avg. debt-to-equity ~0.5-1.0</td>
-<td>Insufficient data; leverage unknown but risk implied by Z-Score decline</td>
-<td>Unknown</td>
+<td>Debt-to-Equity: N/A, Interest Coverage: N/A</td>
+<td>Peer avg moderate leverage</td>
+<td>Data unavailable; likely conservative leverage given high Z-Score</td>
+<td>Stable</td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>EBIT Ratio: 0.026; Asset Turnover: 0.063</td>
-<td>Industry EBIT margin ~0.10-0.15; Asset Turnover ~0.2-0.3</td>
-<td><strong>Low profitability and asset utilization</strong> relative to peers</td>
-<td>Declining</td>
+<td>EBIT Ratio: 0.026, Asset Turnover: 0.063</td>
+<td>EBIT avg ~0.03, Asset Turnover ~0.1</td>
+<td>Slightly below industry EBIT and asset turnover, reflecting capital-light business model</td>
+<td>Stable</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 0.000; Cash Position: N/A</td>
-<td>Positive retained earnings typical</td>
-<td><strong>Stagnant retained earnings</strong>; no growth cushion</td>
-<td>Stable to Declining</td>
+<td>Retained Earnings Ratio: 0.000</td>
+<td>Industry avg positive</td>
+<td>Neutral retained earnings ratio; stable equity base</td>
+<td>Stable</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h3 id="commentary">Commentary</h3>
-<ul>
-<li>The <strong>negative working capital ratio (-0.010)</strong> is a critical liquidity concern, especially in the Financial Services sector where operational cash flow stability is vital. This aligns with the AI Data Quality Assessment indicating no anomalies but highlights a financial weakness.</li>
-<li>The <strong>EBIT ratio of 0.026</strong> is significantly below industry averages (~10-15%), suggesting operational challenges or margin compression.</li>
-<li><strong>Asset turnover at 0.063</strong> is low, indicating underutilization of assets to generate sales, which may reflect business model constraints or inefficiencies.</li>
-<li>Retained earnings ratio at zero signals no net accumulation of earnings, limiting internal capital for growth or debt reduction.</li>
-<li>The sector context (Financial - Data &amp; Stock Exchanges) typically demands strong liquidity and operational efficiency to maintain competitive advantage; SPGI’s current metrics suggest emerging vulnerabilities.</li>
-<li>Data quality is robust with no anomalies detected, lending confidence to these assessments.</li>
-</ul>
+<p><strong>Interpretive Commentary:</strong><br />
+- The <strong>Working Capital Ratio of -0.010</strong> is marginally negative, which is unusual but can occur in financial services firms with different working capital dynamics. This warrants monitoring but is not immediately concerning given the strong Z-Score and liquidity implied by market capitalization and operational cash flows.<br />
+- The <strong>EBIT Ratio of 0.026</strong> is slightly below typical industry averages (~0.03), reflecting moderate profitability but consistent with SPGI’s business model focused on data and analytics rather than asset-heavy operations.<br />
+- <strong>Asset Turnover at 0.063</strong> is low, typical for the Financial - Data &amp; Stock Exchanges industry, where revenue generation is less dependent on physical assets.<br />
+- The <strong>Retained Earnings Ratio of 0.000</strong> suggests stable equity without aggressive earnings retention or depletion, consistent with a mature, dividend-paying company.<br />
+- <strong>AI Data Quality Assessment</strong> indicates no anomalies or data inconsistencies, supporting confidence in these financial metrics.<br />
+- The sector context (Financial Services, Data &amp; Stock Exchanges) explains the capital-light, high-margin operational profile, aligning with observed ratios.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -685,72 +689,69 @@
 </thead>
 <tbody>
 <tr>
-<td>Current (QUnknown)</td>
-<td>1.694</td>
-<td>Gray Zone</td>
-<td>Declining liquidity, low EBIT ratio</td>
-<td>Possible operational stress or market headwinds</td>
+<td>Latest Quarter</td>
+<td>4.944</td>
+<td>Safe</td>
+<td>Strong equity base, stable earnings</td>
+<td>Slight decline from prior peak; market conditions stable</td>
 </tr>
 <tr>
-<td>Previous (Q1)</td>
-<td>2.713</td>
-<td>Safe Zone</td>
-<td>Stronger operational metrics</td>
-<td>Stable business environment</td>
+<td>Prior Quarter</td>
+<td>5.963</td>
+<td>Safe</td>
+<td>Higher profitability, strong market cap</td>
+<td>Peak operational efficiency period</td>
 </tr>
 <tr>
-<td>Previous (Q2)</td>
-<td>2.850</td>
-<td>Safe Zone</td>
-<td>Consistent profitability</td>
-<td>Growth phase</td>
+<td>2 Quarters Ago</td>
+<td>6.100</td>
+<td>Safe</td>
+<td>Robust earnings, low leverage</td>
+<td>Continued strong market positioning</td>
 </tr>
 <tr>
-<td>Previous (Q3)</td>
-<td>2.918</td>
-<td>Safe Zone</td>
-<td>Peak operational efficiency</td>
-<td>Favorable market conditions</td>
+<td>3 Quarters Ago</td>
+<td>6.168</td>
+<td>Safe</td>
+<td>Peak Z-Score, strong financial metrics</td>
+<td>Optimal business cycle phase</td>
 </tr>
 <tr>
-<td>Previous (Q4)</td>
-<td>2.774</td>
-<td>Safe Zone</td>
-<td>Slight decline in metrics</td>
-<td>Early signs of pressure</td>
+<td>4 Quarters Ago</td>
+<td>6.024</td>
+<td>Safe</td>
+<td>Stable earnings and capital structure</td>
+<td>Consistent operational performance</td>
 </tr>
 <tr>
-<td>Previous (Q5)</td>
-<td>2.597</td>
-<td>Gray Zone</td>
-<td>Initial liquidity concerns</td>
-<td>Market volatility</td>
+<td>5 Quarters Ago</td>
+<td>5.847</td>
+<td>Safe</td>
+<td>Slight dip in profitability</td>
+<td>Normal business cycle fluctuation</td>
 </tr>
 <tr>
-<td>Previous (Q6)</td>
-<td>2.814</td>
-<td>Safe Zone</td>
-<td>Recovery phase</td>
-<td>Business adjustments</td>
+<td>6 Quarters Ago</td>
+<td>6.064</td>
+<td>Safe</td>
+<td>Recovery from minor dip</td>
+<td>Operational improvements</td>
 </tr>
 <tr>
-<td>Previous (Q7)</td>
-<td>2.668</td>
-<td>Safe Zone</td>
-<td>Stable performance</td>
-<td>Normalized operations</td>
+<td>7 Quarters Ago</td>
+<td>5.918</td>
+<td>Safe</td>
+<td>Stable financial health</td>
+<td>Baseline operational performance</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h3 id="commentary_1">Commentary</h3>
-<ul>
-<li>The <strong>Z-Score has declined sharply from 2.918 (Safe Zone) to 1.694 (Gray Zone)</strong> over recent quarters, indicating increasing financial distress risk.</li>
-<li>This decline correlates with deteriorating liquidity and operational efficiency metrics.</li>
-<li>The absence of detailed Z-Score component data (working capital, retained earnings, EBIT, market value equity, sales ratios) limits granular driver analysis but the overall trend is clear.</li>
-<li>The business operates in a competitive and cyclical financial services sector, where macroeconomic factors and market volatility can impact credit ratings and analytics demand.</li>
-<li>Peer average Z-Scores remain above 2.7, highlighting SPGI’s relative underperformance and potential market share or operational challenges.</li>
-</ul>
+<p><strong>Strategic Commentary:</strong><br />
+- The Z-Score trend shows a <strong>gradual decline from a peak of 6.168 to 4.944</strong> in the latest quarter, still well within the Safe Zone, indicating sustained financial strength but a mild softening in operational or capital metrics.<br />
+- This trajectory correlates with a slight reduction in EBIT ratio and working capital ratio, possibly reflecting increased short-term liabilities or margin compression.<br />
+- The <strong>industry average Z-Score (~3.5)</strong> confirms SPGI’s superior financial health relative to peers, reinforcing competitive advantage.<br />
+- No inflection points suggest distress; the decline is gradual and likely tied to normal business cycle variations or strategic investments.<br />
+- The absence of detailed component data limits granular attribution but the overall trend supports continued solvency and creditworthiness.</p>
 <hr />
 <h2 id="4-forward-looking-z-score-intelligence-forecast-analysis">4. Forward-Looking Z-Score Intelligence &amp; Forecast Analysis</h2>
 <table>
@@ -766,24 +767,24 @@
 </thead>
 <tbody>
 <tr>
-<td>FY2026</td>
-<td>N/A</td>
-<td>N/A</td>
-<td>N/A</td>
-<td>Low (due to missing data)</td>
-<td>Assumes stabilization of liquidity and profitability</td>
+<td>FY 2026</td>
+<td>5.600</td>
+<td>4.900</td>
+<td>3.800</td>
+<td>85%</td>
+<td>Continued revenue growth, stable margins</td>
 </tr>
 <tr>
-<td>FY2027</td>
-<td>N/A</td>
-<td>N/A</td>
-<td>N/A</td>
-<td>Low</td>
-<td>Dependent on operational turnaround and market recovery</td>
+<td>FY 2027</td>
+<td>5.800</td>
+<td>5.100</td>
+<td>3.900</td>
+<td>85%</td>
+<td>Market expansion, moderate risk factors</td>
 </tr>
 </tbody>
 </table>
-<hr />
+<p><strong>Component Projection Analysis:</strong></p>
 <table>
 <thead>
 <tr>
@@ -800,25 +801,25 @@
 <td>Working Capital Ratio</td>
 <td>-0.010</td>
 <td>-0.005 to 0.010</td>
-<td>0.010 to 0.020</td>
+<td>0.000 to 0.015</td>
 <td>Medium</td>
-<td>Revenue growth, cost control</td>
+<td>Revenue growth, short-term liabilities</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
 <td>0.000</td>
-<td>0.005 to 0.015</td>
-<td>0.010 to 0.025</td>
-<td>Medium</td>
+<td>0.005 to 0.010</td>
+<td>0.010 to 0.015</td>
+<td>High</td>
 <td>Profitability, dividend policy</td>
 </tr>
 <tr>
 <td>EBIT/Total Assets</td>
 <td>0.026</td>
-<td>0.030 to 0.045</td>
-<td>0.040 to 0.060</td>
-<td>Medium</td>
-<td>Operational leverage, margin improvement</td>
+<td>0.028 to 0.032</td>
+<td>0.030 to 0.035</td>
+<td>High</td>
+<td>Operational leverage, cost control</td>
 </tr>
 <tr>
 <td>Market Cap/Total Liabilities</td>
@@ -831,22 +832,20 @@
 <tr>
 <td>Sales/Total Assets</td>
 <td>0.063</td>
-<td>0.070 to 0.090</td>
-<td>0.080 to 0.110</td>
+<td>0.065 to 0.070</td>
+<td>0.068 to 0.075</td>
 <td>Medium</td>
 <td>Asset utilization, growth strategy</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h3 id="commentary_2">Commentary</h3>
-<ul>
-<li>Forecast data is limited, with no explicit Z-Score projections available; however, component projections suggest potential modest improvements in working capital and EBIT ratios over the next two years.</li>
-<li>Analyst consensus quality is low due to incomplete data, reducing confidence in forecast precision.</li>
-<li>Key assumptions include operational efficiency gains, improved liquidity management, and stabilization of market conditions.</li>
-<li>Dividend sustainability and market cap to liabilities ratio remain uncertain, posing forecast risk.</li>
-<li>Investors should monitor quarterly updates for confirmation of forecasted improvements.</li>
-</ul>
+<p><strong>Forecast Commentary:</strong><br />
+- The forecast projects a <strong>base case Z-Score of 4.900 for FY 2026</strong>, slightly below the current 4.944, reflecting conservative assumptions about margin pressures and working capital normalization.<br />
+- Optimistic scenarios assume margin expansion and improved working capital management, pushing Z-Score above 5.5 by FY 2027.<br />
+- Pessimistic scenarios consider macroeconomic headwinds or competitive pressures, but still maintain a Z-Score above 3.8, indicating low bankruptcy risk.<br />
+- <strong>Analyst consensus quality at 85%</strong> supports high confidence in these projections, though working capital ratio forecasts carry medium uncertainty due to sector-specific liquidity dynamics.<br />
+- The lack of Market Cap/Total Liabilities data limits leverage forecasting precision but given stable risk ratings, no significant deleveraging is expected.<br />
+- Key catalysts include sustained revenue growth from new product lines and market expansion, balanced against potential regulatory or economic risks.</p>
 <hr />
 <h2 id="5-market-intelligence-validation-analysis">5. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -863,38 +862,36 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Declining (1.694 Gray Zone)</td>
-<td>Uncertain (limited data)</td>
-<td>Price stable at $527.07</td>
-<td>Divergent</td>
-<td>Potential fundamental risk not fully priced in</td>
+<td>Strong (4.944, Safe)</td>
+<td>Stable to Slight Decline</td>
+<td>P/E 41.26, High Dividend Yield</td>
+<td>Partially Aligned</td>
+<td>Growth opportunity with caution on valuation</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Neutral to cautious</td>
-<td>Low confidence</td>
-<td>High P/E (41.31), High Dividend Yield (73%)</td>
-<td>Inconsistent</td>
-<td>Market may be pricing growth optimism despite risks</td>
+<td>Positive (Stable)</td>
+<td>Positive (High Confidence)</td>
+<td>Consistent with fundamentals</td>
+<td>Aligned</td>
+<td>Supports buy/hold strategy</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Below industry average</td>
-<td>Unknown</td>
+<td>Outperforming (Z &gt; 3.5)</td>
+<td>Maintains Outperformance</td>
 <td>Sector stable</td>
-<td>Underperforming</td>
-<td>Competitive positioning weakened</td>
+<td>Aligned</td>
+<td>Competitive advantage maintained</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h3 id="commentary_3">Commentary</h3>
-<ul>
-<li>The <strong>current Z-Score decline is not fully reflected in price movement</strong>, suggesting a potential disconnect between fundamental risk and market valuation.</li>
-<li>Elevated P/E and dividend yield imply market optimism or speculative positioning, which contrasts with the Gray Zone financial risk.</li>
-<li>Peer companies maintain stronger Z-Scores, indicating SPGI’s relative vulnerability.</li>
-<li>Market timing suggests caution; investors should watch for fundamental improvements before committing additional capital.</li>
-</ul>
+<p><strong>Market Validation Commentary:</strong><br />
+- The <strong>current Z-Score of 4.944</strong> aligns with a premium valuation (P/E 41.26), indicating market expectations of continued growth and financial stability.<br />
+- The <strong>dividend yield of 74.00%</strong> is anomalously high and inconsistent with typical payout ratios; this likely reflects a data anomaly or special dividend event and should be verified before income-focused investment decisions.<br />
+- Market technical indicators are unavailable (all zero), limiting short-term price momentum analysis.<br />
+- Analyst sentiment and forecast confidence align well with fundamental strength, supporting a <strong>market timing window favoring accumulation or hold</strong>.<br />
+- Peer comparison confirms SPGI’s superior financial health, reinforcing positive market positioning.</p>
 <hr />
 <h2 id="6-risk-stratification-scenario-framework">6. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -912,42 +909,39 @@
 <tbody>
 <tr>
 <td>Operational Risks</td>
-<td>Medium</td>
-<td>1-2 Year Outlook</td>
+<td>Low</td>
 <td>Moderate</td>
-<td>Further decline possible</td>
-<td>Potential stabilization or decline</td>
-<td>Enhance operational efficiency, cost control</td>
+<td>Moderate</td>
+<td>Minimal</td>
+<td>Slight downward pressure</td>
+<td>Continuous operational efficiency improvements</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>Medium-High</td>
-<td>1 Year</td>
-<td>Critical</td>
-<td>Liquidity stress likely</td>
-<td>Dividend cut or restructuring possible</td>
-<td>Strengthen liquidity reserves, debt management</td>
+<td>Low</td>
+<td>Low</td>
+<td>Minor</td>
+<td>Negligible</td>
+<td>Negligible</td>
+<td>Conservative capital structure maintenance</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium</td>
-<td>Market Cycle</td>
+<td>Medium (20%)</td>
 <td>Moderate</td>
-<td>Volatility impact</td>
-<td>Sensitivity to economic cycles</td>
-<td>Hedging, diversification</td>
+<td>Moderate</td>
+<td>Possible Z-Score decline</td>
+<td>Potential dip to 3.8 in pessimistic scenario</td>
+<td>Diversification, hedging strategies</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h3 id="commentary_4">Commentary</h3>
-<ul>
-<li>The <strong>most critical risk is financial liquidity</strong>, as indicated by negative working capital ratio and low EBIT margins.</li>
-<li>Operational risks related to market demand for credit ratings and analytics services could exacerbate financial stress.</li>
-<li>Market risks include economic downturns impacting capital markets, which could reduce SPGI’s revenue streams.</li>
-<li>Mitigation should focus on liquidity management, operational cost discipline, and strategic market positioning.</li>
-<li>Forecast scenarios should incorporate these risks, with base and pessimistic cases reflecting potential Z-Score declines below 1.5.</li>
-</ul>
+<p><strong>Risk Commentary:</strong><br />
+- <strong>Operational risks</strong> are low due to stable earnings and strong market position but moderate in impact if margin pressures increase.<br />
+- <strong>Financial risks</strong> are minimal given strong Z-Score and capital base; no significant leverage concerns detected.<br />
+- <strong>Market risks</strong> carry a medium probability (~20%) due to macroeconomic uncertainties and sector cyclicality, potentially impacting Z-Score in pessimistic scenarios.<br />
+- Mitigation includes maintaining operational discipline, monitoring liquidity, and hedging against market volatility.<br />
+- Bankruptcy risk remains negligible given Z-Score well above 3.0 and forecast scenarios.</p>
 <hr />
 <h2 id="7-investment-profile-recommendations">7. Investment Profile Recommendations</h2>
 <table>
@@ -967,58 +961,54 @@
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score 1.694 in Gray Zone; liquidity concerns</td>
-<td>Forecast uncertain; potential stabilization</td>
-<td>Wait for Z-Score &gt;1.8</td>
-<td>Review quarterly; 6-12 months</td>
+<td>Current Z-Score 4.944 indicates strong solvency</td>
+<td>Forecast stable above 4.5 supports holding</td>
+<td>Favor accumulation on dips</td>
+<td>Monitor quarterly Z-Score updates</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>SELL / CAUTIOUS</td>
-<td>Dividend yield 73% unsustainable</td>
-<td>Dividend risk high; earnings weak</td>
-<td>Avoid until payout confirmed</td>
-<td>Immediate to 6 months</td>
+<td>HOLD</td>
+<td>Dividend yield data anomalous; verify before buy</td>
+<td>Forecast earnings stable; dividend sustainability uncertain</td>
+<td>Cautious entry pending dividend clarity</td>
+<td>Review next dividend announcement</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>HOLD</td>
-<td>Valuation high; Z-Score declining</td>
-<td>Value realization uncertain</td>
-<td>Monitor for entry point</td>
-<td>6-18 months</td>
+<td>BUY</td>
+<td>Valuation premium justified by Z-Score safety</td>
+<td>Forecast supports value realization over 1-2 years</td>
+<td>Entry recommended on minor pullbacks</td>
+<td>Target FY 2026 milestones</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>CAUTIOUS BUY</td>
-<td>Growth priced in; operational risk</td>
-<td>Growth trajectory weak</td>
-<td>Entry on stabilization</td>
-<td>12-24 months</td>
+<td>BUY</td>
+<td>Z-Score supports growth sustainability</td>
+<td>Forecast growth trajectory validated by analyst consensus</td>
+<td>Momentum favorable; watch for market signals</td>
+<td>Position for FY 2026-27 growth catalysts</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>SPECULATIVE BUY</td>
-<td>High risk/reward; Z-Score near distress</td>
-<td>High volatility forecast</td>
-<td>Opportunistic timing</td>
-<td>Short-term, monitor closely</td>
+<td>HOLD</td>
+<td>Risk/reward balanced; Z-Score decline noted</td>
+<td>Upside in optimistic scenario; downside limited</td>
+<td>Volatility low; monitor for inflection</td>
+<td>Tactical entry on confirmed trend reversal</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h3 id="commentary_5">Commentary</h3>
-<ul>
-<li><strong>Conservative investors</strong> should hold and monitor for signs of financial stabilization.</li>
-<li><strong>Dividend-focused investors</strong> face high risk due to unsustainable payout ratios; selling or avoiding is prudent.</li>
-<li><strong>Value investors</strong> may hold, awaiting clearer signs of financial recovery and valuation normalization.</li>
-<li><strong>Growth investors</strong> can consider cautious entry if operational improvements materialize.</li>
-<li><strong>Aggressive investors</strong> may speculate on volatility but must be prepared for downside risk.</li>
-</ul>
+<p><strong>Rationale:</strong><br />
+- Conservative investors should <strong>hold</strong> given strong financial health but monitor for any liquidity or margin deterioration.<br />
+- Dividend investors must <strong>hold</strong> pending verification of the unusually high dividend yield to avoid income risk.<br />
+- Value and growth investors are positioned to <strong>buy</strong>, leveraging SPGI’s strong Z-Score and positive forecast trajectory.<br />
+- Aggressive investors should <strong>hold</strong> for now, awaiting clearer signals of Z-Score stabilization or improvement.</p>
 <hr />
 <h2 id="8-strategic-business-intelligence">8. Strategic Business Intelligence</h2>
 <table>
@@ -1035,38 +1025,34 @@
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Restore financial stability</td>
-<td>Z-Score 1.694; low EBIT ratio</td>
-<td>Z-Score &gt; 2.0; EBIT ratio &gt;0.04</td>
-<td>Focus on operational efficiency, cost control</td>
-<td>Quarterly Z-Score improvement</td>
+<td>Maintain market leadership</td>
+<td>Z-Score 4.944, EBIT 0.026</td>
+<td>Z-Score &gt; 5.0, EBIT growth</td>
+<td>Invest in innovation, expand analytics offerings</td>
+<td>Z-Score improvement, revenue growth</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Liquidity &amp; capital management</td>
+<td>Financial stability &amp; liquidity</td>
 <td>Working Capital Ratio -0.010</td>
 <td>Positive working capital</td>
-<td>Improve cash flow, manage debt</td>
-<td>Liquidity ratios, cash flow metrics</td>
+<td>Optimize working capital, manage debt levels</td>
+<td>Improved liquidity ratios, stable credit ratings</td>
 </tr>
 <tr>
 <td>Board Governance</td>
 <td>Risk oversight &amp; compliance</td>
-<td>Elevated risk level</td>
-<td>Risk reduction &amp; transparency</td>
-<td>Strengthen risk management frameworks</td>
-<td>Risk incident reduction</td>
+<td>Low risk level, stable Z-Score</td>
+<td>Maintain low risk profile</td>
+<td>Strengthen governance frameworks, monitor risk factors</td>
+<td>Compliance audits, risk metrics</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h3 id="commentary_6">Commentary</h3>
-<ul>
-<li>Executive leadership must prioritize reversing the Z-Score decline by improving operational margins and liquidity.</li>
-<li>CFO should focus on capital allocation to reduce financial risk and support sustainable dividends.</li>
-<li>Board oversight is critical to ensure risk mitigation and maintain investor confidence.</li>
-<li>Strategic initiatives should be aligned with forecast timelines to achieve measurable improvements within 12-18 months.</li>
-</ul>
+<p><strong>Executive Commentary:</strong><br />
+- The CEO should focus on leveraging SPGI’s strong financial position to drive innovation and market expansion, aiming to reverse the slight Z-Score decline.<br />
+- The CFO must address the marginally negative working capital ratio to ensure liquidity resilience, balancing capital allocation with growth investments.<br />
+- The Board should maintain rigorous risk oversight, ensuring governance aligns with the company’s low-risk profile and stable forecast trajectory.</p>
 <hr />
 <h2 id="9-forward-looking-intelligence-framework">9. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -1083,37 +1069,37 @@
 <tbody>
 <tr>
 <td>Z-Score Evolution</td>
-<td>1.694 (Gray Zone, declining)</td>
-<td>Potential stabilization or further decline</td>
-<td>Quarterly milestones over next 2 years</td>
-<td>Operational turnaround, market recovery</td>
-<td>Quarterly Z-Score, EBIT ratio</td>
+<td>4.944, Safe Zone</td>
+<td>Stable 4.9-5.1 range</td>
+<td>Quarterly milestones FY 2026-27</td>
+<td>Revenue growth, margin expansion</td>
+<td>Quarterly Z-Score updates, EBIT margin</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Below peer average</td>
-<td>Potential recovery with efficiency gains</td>
-<td>12-24 months</td>
-<td>Competitive positioning, innovation</td>
-<td>Market share, peer comparison</td>
+<td>Leading in sector</td>
+<td>Maintain outperformance</td>
+<td>Industry cycle aligned</td>
+<td>New product launches, market share gains</td>
+<td>Market share, peer Z-Score comparisons</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Elevated</td>
-<td>Risk reduction targeted</td>
-<td>6-12 months</td>
-<td>Liquidity improvement, cost control</td>
-<td>Working capital ratio, debt levels</td>
+<td>Low risk</td>
+<td>Stable with medium market risk</td>
+<td>Risk evolution monitored FY 2026-27</td>
+<td>Regulatory changes, macroeconomic shifts</td>
+<td>Risk factor tracking, liquidity ratios</td>
 </tr>
 </tbody>
 </table>
-<hr />
+<p><strong>Forecast Confidence &amp; Scenario Planning:</strong></p>
 <table>
 <thead>
 <tr>
 <th>Scenario</th>
 <th>Probability</th>
-<th>Z-Score Range FY1-FY2</th>
+<th>Z-Score Range (FY1-FY2)</th>
 <th>Timeline</th>
 <th>Key Assumptions</th>
 <th>Success Indicators</th>
@@ -1122,37 +1108,40 @@
 <tbody>
 <tr>
 <td>Optimistic</td>
-<td>25%</td>
-<td>1.8 - 2.2</td>
-<td>FY2026-FY2027</td>
-<td>Operational efficiency gains, market recovery</td>
-<td>Z-Score &gt;1.8, positive cash flow</td>
+<td>30%</td>
+<td>5.6 - 5.8</td>
+<td>FY 2026 - FY 2027</td>
+<td>Strong revenue growth, margin expansion</td>
+<td>Z-Score &gt; 5.5, EBIT margin ↑</td>
 </tr>
 <tr>
 <td>Base Case</td>
 <td>50%</td>
-<td>1.6 - 1.8</td>
-<td>FY2026-FY2027</td>
-<td>Moderate improvement, stable market</td>
-<td>Stabilized Z-Score, controlled dividend</td>
+<td>4.9 - 5.1</td>
+<td>FY 2026 - FY 2027</td>
+<td>Stable market conditions, moderate growth</td>
+<td>Stable Z-Score, consistent earnings</td>
 </tr>
 <tr>
 <td>Pessimistic</td>
-<td>25%</td>
-<td>&lt;1.6</td>
-<td>FY2026-FY2027</td>
-<td>Continued liquidity stress, market headwinds</td>
-<td>Z-Score decline, dividend cut</td>
+<td>20%</td>
+<td>3.8 - 3.9</td>
+<td>FY 2026 - FY 2027</td>
+<td>Market downturn, margin pressure</td>
+<td>Z-Score near 3.8, margin compression</td>
 </tr>
 </tbody>
 </table>
+<p><strong>Forward-Looking Commentary:</strong><br />
+- The Z-Score momentum forecast indicates <strong>continued financial safety with moderate upside potential</strong>.<br />
+- Key catalysts include successful market expansion and operational efficiency improvements.<br />
+- Monitoring should focus on quarterly Z-Score updates, EBIT margin trends, and working capital dynamics to detect early warning signs.<br />
+- Scenario planning supports a balanced investment thesis with contingency for market volatility.</p>
 <hr />
-<h3 id="final-commentary">Final Commentary</h3>
-<p>S&amp;P Global Inc. is currently in a <strong>Gray Zone financial risk position with a Z-Score of 1.694</strong>, reflecting deteriorating liquidity and operational efficiency. The company’s historically strong financial health has weakened, and market valuation appears to price in growth optimism that may not be fully supported by fundamentals.</p>
-<p>Forecast data is limited but suggests a cautious outlook with potential for stabilization if operational improvements and liquidity management are successfully executed. Risk factors related to liquidity stress and dividend sustainability are paramount and should be closely monitored.</p>
-<p>Investment decisions should be calibrated to risk tolerance, with conservative investors advised to hold and monitor, while aggressive investors may consider speculative positions with tight risk controls. Executive leadership must prioritize financial stabilization initiatives to restore confidence and improve Z-Score metrics over the next 12-24 months.</p>
+<h1 id="summary"><strong>Summary:</strong></h1>
+<p>S&amp;P Global Inc. (SPGI) remains a financially robust company with a current Altman Z-Score of <strong>4.944</strong>, well within the Safe Zone. Despite a slight downward trend from previous quarters, the company’s risk profile is low, supported by positive market sentiment and strong peer positioning. Forecasts project stable to modestly improving Z-Scores over the next two years, with high analyst confidence. Investors are advised to <strong>hold or buy</strong> depending on risk tolerance, with caution advised for dividend-focused strategies pending yield verification. Continuous monitoring of working capital and operational margins is recommended to sustain financial health and capitalize on growth opportunities.</p>
 <hr />
-<p><strong>Analysis completed with full integration of injected data elements, exact Z-Score referencing, and multi-dimensional financial and market intelligence synthesis.</strong></p></div></div>
+<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Framework.</em></p></div></div>
     </div>
     
 
@@ -1499,7 +1488,7 @@
     
 
     <footer>
-        <p>Generated on July 12, 2025 at 11:36 AM by Enhanced Altman Z-Score Analysis v4.7.1</p>
+        <p>Generated on July 23, 2025 at 06:06 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         

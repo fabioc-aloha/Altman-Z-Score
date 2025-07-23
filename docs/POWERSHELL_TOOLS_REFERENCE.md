@@ -1,10 +1,16 @@
-# PowerShell Tools Reference - v4.10.0 DIAMOND
+# PowerShell Tools Reference - v5.1.0 EMERALD
 
-This document provides quick reference for the PowerShell tools in the Altman Z-Score project v4.10.0 DIAMOND.
+This document provides quick reference for the PowerShell tools in the Altman Z-Score project v5.1.0 EMERALD.
 
-## 💎 DIAMOND v4.10.0: Portfolio Efficiency Excellence
+## 💎 EMERALD v5.1.0: Major Version 5.1 & IUPAC Element Naming
 
-**Skip-Existing Mastery**: Complete cross-tool implementation with intelligent detection capabilities for enterprise-scale portfolio management.
+**IUPAC Element Naming**: Systematic scientific naming convention (PENTUNNILIUM) with enhanced architecture and production-ready stability for enterprise-scale portfolio management.Shell Tools Reference - v5.0.0 EMERALD
+
+This document provides quick reference for the PowerShell tools in the Altman Z-Score project v5.0.0 EMERALD.
+
+## � EMERALD v5.0.0: Major Version 5.0 & IUPAC Element Naming
+
+**IUPAC Element Naming**: Systematic scientific naming convention (PENTNILNILIUM) with enhanced architecture and production-ready stability for enterprise-scale portfolio management.
 
 ## Main Tools
 
@@ -110,7 +116,7 @@ AAPL    # Apple Inc.
 MSFT    # Microsoft Corporation
 GOOGL   # Alphabet Inc.
 
-# Financial Services  
+# Financial Services
 JPM     # JPMorgan Chase
 BAC     # Bank of America
 WFC     # Wells Fargo

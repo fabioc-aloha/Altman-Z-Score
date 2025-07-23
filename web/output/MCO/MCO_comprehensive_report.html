@@ -353,7 +353,7 @@
             <div style="flex: 1;">
                 <h1>Enhanced Investment Analysis Report</h1>
                 <h2>Moody's Corporation (MCO)</h2>
-                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 12, 2025 at 05:14 PM</p>
+                <p style="font-size: 1.1em; margin: 8px 0 0 0; opacity: 0.9;">July 23, 2025 at 05:43 PM</p>
                 
                 <p>Complete analysis with Z-Score + Market Intelligence</p>
                 
@@ -372,20 +372,16 @@
     <div class="section recommendation">
         <h2>Investment Recommendation</h2>
         <div style="font-size: 1.8em; margin: 15px 0; font-weight: bold;">
-            <span class="buy">Strong Buy</span>
+            <span class="sell">Sell</span>
         </div>
         <div style="margin: 15px 0;">
-            <strong>Confidence:</strong> 70.0%
+            <strong>Confidence:</strong> 60.0%
         </div>
 
         
         <div style="margin: 20px 0;">
             <h4 style="color: #28a745; margin-bottom: 12px;">Key Opportunities:</h4>
             <div style="margin-left: 15px;">
-                
-                <div
-                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
-                    Strong fundamental health (Z-Score)</div>
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #28a745; border-radius: 4px;">
@@ -403,6 +399,10 @@
         <div style="margin: 20px 0;">
             <h4 style="color: #dc3545; margin-bottom: 12px;">Key Risks:</h4>
             <div style="margin-left: 15px;">
+                
+                <div
+                    style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
+                    High bankruptcy risk based on Z-Score</div>
                 
                 <div
                     style="margin: 8px 0; padding: 8px 12px; background-color: #f8f9fa; border-left: 3px solid #dc3545; border-radius: 4px;">
@@ -432,20 +432,20 @@
     </div>
     
 
-    <div class="section risk-low">
+    <div class="section risk-high">
         <h2>Z-Score Summary</h2>
         <div class="metrics">
             <div class="metric">
                 <h3>Z-Score</h3>
-                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">8.26</p>
+                <p style="font-size: 1.8em; font-weight: bold; color: #2c3e50; margin: 8px 0;">1.56</p>
             </div>
             <div class="metric">
                 <h3>Risk Category</h3>
-                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Safe</p>
+                <p style="font-size: 1.2em; font-weight: 600; margin: 8px 0;">Gray Zone</p>
             </div>
             <div class="metric">
                 <h3>Model Used</h3>
-                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">financial</p>
+                <p style="font-size: 1.1em; font-weight: 500; margin: 8px 0;">service</p>
             </div>
             <div class="metric">
                 <h3>Data Quality</h3>
@@ -457,7 +457,7 @@
     <div class="section">
         <h2>Model Information & Thresholds</h2>
         <div style="margin-bottom: 15px;">
-            <p><strong>Model:</strong> Modified Z-Score for financial institutions</p>
+            <p><strong>Model:</strong> Service and non-manufacturing Z''-Score (no constant) - Adjusted thresholds</p>
         </div>
         <div class="metrics">
             <div class="metric" style="background-color: #e8f5e8; border-left: 3px solid #4caf50;">
@@ -469,13 +469,13 @@
             <div class="metric" style="background-color: #fff3e0; border-left: 3px solid #ff9800;">
                 <h3>Gray Zone</h3>
                 <p style="font-size: 1.1em; font-weight: 600; color: #ff9800; margin: 8px 0;">
-                    1.10 - 2.60
+                    0.50 - 2.60
                 </p>
             </div>
             <div class="metric" style="background-color: #ffebee; border-left: 3px solid #f44336;">
                 <h3>Distress Zone</h3>
                 <p style="font-size: 1.3em; font-weight: bold; color: #f44336; margin: 8px 0;">
-                    < 1.10 </p>
+                    < 0.50 </p>
             </div>
         </div>
     </div>
@@ -486,15 +486,15 @@
         <div class="metrics">
             <div class="metric">
                 <h4>Current Price</h4>
-                <p>$$499.53</p>
+                <p>$$507.88</p>
             </div>
             <div class="metric">
                 <h4>Market Cap</h4>
-                <p>$$89.9B</p>
+                <p>$$91.4B</p>
             </div>
             <div class="metric">
                 <h4>P/E Ratio</h4>
-                <p>43.1</p>
+                <p>43.9</p>
             </div>
             <div class="metric">
                 <h4>1Y Return</h4>
@@ -506,7 +506,7 @@
             </div>
             <div class="metric">
                 <h4>RSI</h4>
-                <p>68.5</p>
+                <p>59.2</p>
             </div>
         </div>
     </div>
@@ -520,7 +520,7 @@
             </div>
             <div class="metric">
                 <h4>Sharpe Ratio</h4>
-                <p>0.42</p>
+                <p>0.59</p>
             </div>
             <div class="metric">
                 <h4>Max Drawdown</h4>
@@ -528,115 +528,110 @@
             </div>
             <div class="metric">
                 <h4>Risk Score</h4>
-                <p>3.6/10</p>
+                <p>7.2/10</p>
             </div>
         </div>
     </div>
     
 
     
-    <div class="section warning">
-        <h2>Warnings & Notes</h2>
-        <ul>
-            
-            <li>Financial institutions may not be suitable for Z-Score analysis</li>
-            
-        </ul>
-    </div>
-    
 
     
     <div class="section" style="background-color: #f8fbff; border-left: 4px solid #4169e1;">
         <h2>AI-Powered Comprehensive Financial Analysis</h2>
-        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis-for-moodys-corporation-mco">AI-Powered Altman Z-Score Investment Analysis for Moody's Corporation (MCO)</h1>
-<p><strong>Analysis Date:</strong> 2025-07-12 17:13:19</p>
+        <div><div class="ai-insights-content"><h1 id="ai-powered-altman-z-score-investment-analysis">AI-Powered Altman Z-Score Investment Analysis</h1>
+<p><strong>Company:</strong> Moody's Corporation (MCO)<br />
+<strong>Analysis Date:</strong> 2025-07-23 17:42:26  </p>
 <hr />
 <h2 id="1-executive-intelligence-summary">1. Executive Intelligence Summary</h2>
-<p>Moody's Corporation (MCO) currently exhibits a <strong>very strong financial health profile</strong> as evidenced by its latest Altman Z-Score of <strong>8.257</strong> (latest quarter), placing it firmly in the <strong>Safe Zone</strong> (Z &gt; 3.0). This score is significantly above the industry average Z-Score of <strong>4.12</strong> (from AI Peer Analysis), indicating Moody's superior risk resilience relative to its Financial - Data &amp; Stock Exchanges peers such as S&amp;P Global (SPGI) and FactSet (FDS). The Z-Score trajectory over the past 8 quarters shows consistent safety with minor fluctuations but an overall upward trend from 7.715 to 8.257, signaling improving financial stability.</p>
-<p><strong>AI Risk Analysis</strong> rates Moody's overall risk level as <strong>Low</strong> with a <strong>stable to improving risk trajectory</strong>, supported by strong liquidity and moderate leverage metrics. Key risk themes include sector cyclicality and regulatory scrutiny, but these are mitigated by Moody's diversified revenue streams and strong market positioning.</p>
-<p><strong>AI Sentiment Analysis</strong> reflects a <strong>positive overall sentiment</strong> with a stable upward trend, consistent with Moody's strong market fundamentals and growth outlook. Divergence analysis shows alignment between market perception and fundamental strength, reinforcing confidence in Moody's investment profile.</p>
-<p><strong>Forecast Analysis</strong> projects Moody's Z-Score to remain in the Safe Zone with base case scenarios forecasting a Z-Score of <strong>8.50</strong> in FY2026 and <strong>8.75</strong> in FY2027, supported by high analyst consensus quality at <strong>85%</strong> coverage. Optimistic scenarios suggest potential further improvement to <strong>9.10</strong>, while pessimistic cases still maintain a safe threshold above 7.5.</p>
+<p>Moody's Corporation (MCO) currently exhibits a <strong>Gray Zone</strong> Altman Z-Score of <strong>1.563</strong> (latest quarter), indicating moderate financial distress risk but not immediate bankruptcy threat. This represents a significant decline from prior quarters where the Z-Score was consistently in the <strong>Safe Zone</strong> (above 3.0), with values such as <strong>5.007</strong> and <strong>4.840</strong> in recent historical periods. The downward trajectory signals emerging financial challenges or operational pressures.</p>
+<p><strong>AI Risk Analysis</strong> classifies the overall risk level as elevated with a <strong>moderate to worsening trajectory</strong>, reflecting concerns about liquidity and operational efficiency. The <strong>AI Peer Analysis</strong> positions Moody’s below the industry average Z-Score benchmark of approximately <strong>4.5</strong>, indicating underperformance relative to key peers in the Financial - Data &amp; Stock Exchanges sector. Key peers include major credit rating agencies and financial analytics firms, which maintain stronger Z-Scores and healthier financial profiles.</p>
+<p><strong>AI Sentiment Analysis</strong> reveals a cautious market perception with a <strong>neutral to slightly negative sentiment trend</strong>, consistent with the declining Z-Score and elevated risk signals. The sentiment divergence suggests market participants are factoring in uncertainty about Moody’s near-term financial stability and growth prospects.</p>
+<p><strong>Forecast Analysis</strong> projects a mixed outlook with base case Z-Score scenarios hovering around the <strong>Gray Zone threshold (1.8-3.0)</strong> over the next 1-2 fiscal years. Analyst consensus quality is moderate, reflecting some uncertainty in earnings and operational leverage forecasts. Optimistic scenarios anticipate recovery into the Safe Zone, while pessimistic cases foresee further deterioration.</p>
 <hr />
 <h3 id="key-metrics-summary-table">Key Metrics Summary Table</h3>
 <table>
 <thead>
 <tr>
 <th>Metric Category</th>
-<th>Value / Status</th>
-<th>Benchmark / Industry Average</th>
-<th>Implication</th>
+<th>Current Value</th>
+<th>Historical Range</th>
+<th>Industry Benchmark</th>
+<th>Investment Implication</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Current Z-Score</td>
-<td>8.257 (Latest Quarter)</td>
-<td>4.12 (Industry Average)</td>
-<td>Strong financial safety</td>
+<td>Current Z-Score (Latest)</td>
+<td>1.563 (Gray Zone)</td>
+<td>1.277 - 5.007</td>
+<td>~4.5 (Safe Zone)</td>
+<td>Elevated risk, caution advised</td>
 </tr>
 <tr>
 <td>Market Cap</td>
-<td>$89.88B</td>
+<td>$91.39B</td>
 <td>N/A</td>
-<td>Large-cap, stable market presence</td>
+<td>Large-cap financials</td>
+<td>Strong market presence</td>
 </tr>
 <tr>
-<td>Current Price</td>
-<td>$499.53</td>
+<td>Current Ratio</td>
+<td>0.129</td>
 <td>N/A</td>
-<td>Reflects premium valuation</td>
+<td>~1.5+</td>
+<td>Liquidity concerns</td>
 </tr>
 <tr>
-<td>Working Capital Ratio</td>
-<td>0.109</td>
-<td>~0.10 (Industry Avg.)</td>
-<td>Adequate liquidity</td>
-</tr>
-<tr>
-<td>Retained Earnings Ratio</td>
-<td>1.095</td>
-<td>~1.0 (Industry Avg.)</td>
-<td>Strong earnings retention</td>
+<td>Debt-to-Equity</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>Industry average ~0.5</td>
+<td>Data unavailable, risk unknown</td>
 </tr>
 <tr>
 <td>EBIT Ratio</td>
-<td>0.056</td>
-<td>~0.05 (Industry Avg.)</td>
-<td>Efficient operational profitability</td>
+<td>0.053</td>
+<td>N/A</td>
+<td>~0.10+</td>
+<td>Below average operational profitability</td>
 </tr>
 <tr>
 <td>Asset Turnover</td>
-<td>0.127</td>
-<td>~0.12 (Industry Avg.)</td>
-<td>Effective asset utilization</td>
+<td>0.123</td>
+<td>N/A</td>
+<td>~0.20+</td>
+<td>Operational efficiency below peers</td>
+</tr>
+<tr>
+<td>Dividend Yield</td>
+<td>75.00%</td>
+<td>N/A</td>
+<td>~2-4%</td>
+<td>Potentially unsustainable payout</td>
+</tr>
+<tr>
+<td>AI Sentiment Score</td>
+<td>Neutral to Slightly Negative</td>
+<td>N/A</td>
+<td>Positive</td>
+<td>Market cautious, risk reflected</td>
 </tr>
 <tr>
 <td>AI Risk Level</td>
-<td>Low</td>
+<td>Elevated</td>
 <td>N/A</td>
-<td>Low probability of distress</td>
-</tr>
-<tr>
-<td>AI Sentiment</td>
-<td>Positive, Stable Uptrend</td>
-<td>N/A</td>
-<td>Market confidence</td>
-</tr>
-<tr>
-<td>Forecast Z-Score FY2026</td>
-<td>8.50 (Base Case)</td>
-<td>N/A</td>
-<td>Continued financial strength</td>
+<td>Moderate</td>
+<td>Heightened risk, requires monitoring</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h3 id="investment-action-recommendations">Investment Action Recommendations</h3>
 <ul>
-<li><strong>Recommendation:</strong> <strong>BUY / HOLD</strong> for conservative to growth-oriented investors.</li>
-<li><strong>Rationale:</strong> Current Z-Score of 8.257 and forecasted upward trajectory indicate low bankruptcy risk and strong financial stability. Market sentiment and peer benchmarking support a positive outlook.</li>
-<li><strong>Timing:</strong> Favorable entry points aligned with forecast milestones in FY2026 Q2 and FY2027 Q1, where Z-Score improvements are expected.</li>
-<li><strong>Risk Considerations:</strong> Monitor regulatory developments and sector cyclicality as potential downside risks.</li>
+<li><strong>Short-Term:</strong> Exercise caution due to current Gray Zone Z-Score of <strong>1.563</strong> and liquidity concerns (Working Capital Ratio 0.129). Avoid initiating new positions until signs of financial stabilization emerge.</li>
+<li><strong>Medium-Term:</strong> Monitor forecast Z-Score trajectories and operational improvements. Consider accumulation if Z-Score recovers above 1.8 with improving liquidity and EBIT margins.</li>
+<li><strong>Long-Term:</strong> If Moody’s returns to Safe Zone Z-Scores (&gt;3.0) supported by stronger operational metrics and peer-relative performance, consider a buy for growth and income, given the large market cap and sector positioning.</li>
 </ul>
 <hr />
 <h2 id="2-financial-health-diagnostic-assessment">2. Financial Health Diagnostic Assessment</h2>
@@ -653,38 +648,69 @@
 <tbody>
 <tr>
 <td>Liquidity Position</td>
-<td>Current Ratio: 0.109<br>Working Capital Ratio: 0.109</td>
-<td>Industry Avg. Current Ratio ~0.10</td>
-<td>Adequate liquidity; meets industry norms but on the lower side, indicating efficient working capital management without excess idle assets</td>
-<td>Stable</td>
+<td>Current Ratio: 0.129</td>
+<td>~1.5+</td>
+<td><strong>Weak liquidity</strong>, below industry norms; risk of short-term cash flow constraints</td>
+<td>Declining</td>
+</tr>
+<tr>
+<td></td>
+<td>Working Capital Ratio: 0.129</td>
+<td>N/A</td>
+<td>Indicates limited buffer for operational needs</td>
+<td></td>
 </tr>
 <tr>
 <td>Leverage Management</td>
-<td>Debt-to-Equity: N/A (Data not provided)<br>Interest Coverage: N/A</td>
-<td>Peer Debt-to-Equity ~0.5-1.0 (typical for sector)</td>
-<td>Insufficient data for leverage; however, strong Z-Score and EBIT ratio imply manageable leverage</td>
-<td>Stable</td>
+<td>Debt-to-Equity: N/A</td>
+<td>~0.5</td>
+<td>Data unavailable; leverage risk unknown, requires further disclosure</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td></td>
+<td>Interest Coverage: N/A</td>
+<td>N/A</td>
+<td>Insufficient data for assessment</td>
+<td></td>
 </tr>
 <tr>
 <td>Operational Efficiency</td>
-<td>Asset Turnover: 0.127<br>EBIT Ratio: 0.056</td>
-<td>Industry Avg. Asset Turnover ~0.12<br>EBIT Ratio ~0.05</td>
-<td>Slightly above average asset utilization and EBIT margin, indicating operational efficiency</td>
-<td>Improving</td>
+<td>EBIT Ratio: 0.053</td>
+<td>~0.10+</td>
+<td>Below average profitability; operational margins under pressure</td>
+<td>Declining</td>
+</tr>
+<tr>
+<td></td>
+<td>Asset Turnover: 0.123</td>
+<td>~0.20+</td>
+<td>Suboptimal asset utilization compared to peers</td>
+<td>Declining</td>
 </tr>
 <tr>
 <td>Financial Stability</td>
-<td>Retained Earnings Ratio: 1.095<br>Cash Position: N/A</td>
-<td>Industry Avg. Retained Earnings ~1.0</td>
-<td>Strong retained earnings support long-term stability and reinvestment capacity</td>
-<td>Stable to Improving</td>
+<td>Retained Earnings Ratio: 0.000</td>
+<td>Positive</td>
+<td>No retained earnings growth; potential dividend strain</td>
+<td>Stable to Weak</td>
+</tr>
+<tr>
+<td></td>
+<td>Cash Position: N/A</td>
+<td>N/A</td>
+<td>Data unavailable; liquidity concerns persist</td>
+<td>Unknown</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h3 id="commentary">Commentary</h3>
-<p>Moody's liquidity position, with a working capital ratio of <strong>0.109</strong>, aligns closely with industry standards, reflecting prudent cash and short-term asset management. The absence of explicit debt-to-equity data limits leverage analysis, but the robust EBIT ratio of <strong>0.056</strong> and asset turnover of <strong>0.127</strong> indicate efficient operations and profitability. The retained earnings ratio of <strong>1.095</strong> surpasses the industry average, underscoring Moody's ability to retain earnings for growth and risk mitigation.</p>
-<p>AI Data Quality Assessment indicates <strong>high completeness and consistency</strong>, with no anomalies detected, lending high confidence to these financial metrics. Moody's sector, Financial Services—specifically Financial - Data &amp; Stock Exchanges—demands strong operational efficiency and risk management, both of which Moody's metrics support.</p>
+<p>The <strong>Liquidity Position</strong> is notably weak, with a current ratio of <strong>0.129</strong>, significantly below the typical financial services industry benchmark of approximately 1.5. This suggests Moody’s may face challenges meeting short-term obligations, increasing operational risk. The <strong>Working Capital Ratio</strong> mirrors this low liquidity stance.</p>
+<p><strong>Leverage Management</strong> data is incomplete, limiting precise risk quantification. However, given the elevated risk signals from the Z-Score and liquidity metrics, leverage could be a contributing factor to financial stress.</p>
+<p><strong>Operational Efficiency</strong> is underperforming with an EBIT ratio of <strong>0.053</strong> and asset turnover of <strong>0.123</strong>, both below industry averages. This indicates Moody’s is generating lower returns on assets and operating with thinner margins, which may be pressuring profitability and cash flow.</p>
+<p><strong>Financial Stability</strong> is concerning, with a retained earnings ratio of <strong>0.000</strong>, implying no accumulation of earnings to buffer against downturns or support growth. The exceptionally high dividend yield of <strong>75.00%</strong> is likely unsustainable and could be eroding retained capital, exacerbating financial vulnerability.</p>
+<p>The <strong>AI Data Quality Assessment</strong> indicates no anomalies detected but highlights incomplete leverage and cash position data, which reduces confidence in full risk assessment. The sector context—Financial Services, specifically Financial - Data &amp; Stock Exchanges—typically demands strong liquidity and operational efficiency, areas where Moody’s currently lags.</p>
 <hr />
 <h2 id="3-z-score-trend-intelligence-business-correlation">3. Z-Score Trend Intelligence &amp; Business Correlation</h2>
 <table>
@@ -699,39 +725,68 @@
 </thead>
 <tbody>
 <tr>
-<td>Latest Quarter</td>
-<td>8.257</td>
-<td>Safe</td>
-<td>Strong retained earnings, EBIT margin, stable working capital</td>
-<td>Continued growth in Moody's Analytics and Investors Service segments</td>
+<td>Current (Q0)</td>
+<td>1.563</td>
+<td>Gray Zone</td>
+<td>Declining liquidity, weak EBIT</td>
+<td>Emerging financial stress, possible operational challenges</td>
 </tr>
 <tr>
-<td>Previous Quarter</td>
-<td>4.527</td>
-<td>Safe</td>
-<td>Temporary dip possibly due to market volatility or one-time expenses</td>
-<td>Market fluctuations impacting short-term profitability</td>
+<td>Q1 (Prior)</td>
+<td>5.007</td>
+<td>Safe Zone</td>
+<td>Strong liquidity, profitability</td>
+<td>Stable business conditions, strong credit rating demand</td>
 </tr>
 <tr>
-<td>2 Quarters Ago</td>
-<td>8.090</td>
-<td>Safe</td>
-<td>Recovery in operational efficiency and earnings retention</td>
-<td>Resumption of growth initiatives post volatility</td>
+<td>Q2</td>
+<td>1.277</td>
+<td>Gray Zone</td>
+<td>Liquidity tightening, margin pressure</td>
+<td>Early signs of financial strain</td>
 </tr>
 <tr>
-<td>3-7 Quarters Ago</td>
-<td>7.997 - 7.715</td>
-<td>Safe</td>
-<td>Consistent operational performance and risk management</td>
-<td>Stable business environment with steady revenue streams</td>
+<td>Q3</td>
+<td>4.840</td>
+<td>Safe Zone</td>
+<td>Healthy operational metrics</td>
+<td>Robust credit market activity</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>4.747</td>
+<td>Safe Zone</td>
+<td>Consistent profitability</td>
+<td>Stable business environment</td>
+</tr>
+<tr>
+<td>Q5</td>
+<td>4.537</td>
+<td>Safe Zone</td>
+<td>Strong asset utilization</td>
+<td>Positive credit market trends</td>
+</tr>
+<tr>
+<td>Q6</td>
+<td>4.600</td>
+<td>Safe Zone</td>
+<td>Operational efficiency</td>
+<td>Continued sector growth</td>
+</tr>
+<tr>
+<td>Q7</td>
+<td>4.702</td>
+<td>Safe Zone</td>
+<td>Stable financials</td>
+<td>Market confidence maintained</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h3 id="commentary_1">Commentary</h3>
-<p>Moody's Z-Score trajectory shows a strong recovery from a dip at the second most recent quarter (4.527) back to a peak of 8.257 in the latest quarter, indicating resilience and effective management response to short-term challenges. The consistently high Z-Scores over the past 8 quarters, all within the Safe Zone, reflect Moody's robust financial health and low bankruptcy risk.</p>
-<p>The dip to 4.527 may correlate with transient market or operational disruptions, but the swift rebound highlights strong business fundamentals. Compared to the industry average Z-Score of 4.12, Moody's maintains a superior risk profile, reinforcing its competitive advantage.</p>
+<p>Moody’s Z-Score trajectory reveals <strong>significant volatility</strong>, with sharp declines from Safe Zone levels above 4.5 to Gray Zone lows near 1.3 and currently 1.563. This pattern suggests episodic financial stress possibly linked to market cycles, operational disruptions, or capital structure changes.</p>
+<p>The <strong>key drivers</strong> of the recent decline appear to be deteriorating liquidity and operational profitability, consistent with the Financial Health Diagnostic findings. The business context includes potential credit market volatility impacting Moody’s core rating and analytics services.</p>
+<p>Compared to the <strong>industry average Z-Score of ~4.5</strong>, Moody’s current position is weak, signaling competitive disadvantage and elevated bankruptcy risk relative to peers. The inflection points in the Z-Score align with possible shifts in credit market demand and internal financial management effectiveness.</p>
 <hr />
 <h2 id="4-forward-looking-z-score-intelligence-forecast-analysis">4. Forward-Looking Z-Score Intelligence &amp; Forecast Analysis</h2>
 <table>
@@ -747,20 +802,20 @@
 </thead>
 <tbody>
 <tr>
-<td>FY2026</td>
-<td>9.10</td>
-<td>8.50</td>
-<td>7.60</td>
-<td>85%</td>
-<td>Continued revenue growth, stable margins, low leverage</td>
+<td>FY 2026</td>
+<td>3.200</td>
+<td>2.100</td>
+<td>1.200</td>
+<td>65%</td>
+<td>Recovery in liquidity, margin improvement, stable credit markets</td>
 </tr>
 <tr>
-<td>FY2027</td>
-<td>9.40</td>
-<td>8.75</td>
-<td>7.80</td>
-<td>85%</td>
-<td>Market expansion, operational efficiency gains</td>
+<td>FY 2027</td>
+<td>3.800</td>
+<td>2.500</td>
+<td>1.000</td>
+<td>60%</td>
+<td>Continued operational efficiency gains, moderate dividend policy adjustment</td>
 </tr>
 </tbody>
 </table>
@@ -771,8 +826,8 @@
 <tr>
 <th>Z-Score Component</th>
 <th>Current Value</th>
-<th>FY2026 Projection</th>
-<th>FY2027 Projection</th>
+<th>FY 2026 Projection</th>
+<th>FY 2027 Projection</th>
 <th>Forecast Confidence</th>
 <th>Key Variables</th>
 </tr>
@@ -780,25 +835,25 @@
 <tbody>
 <tr>
 <td>Working Capital Ratio</td>
-<td>0.109</td>
-<td>0.110 - 0.115</td>
-<td>0.112 - 0.118</td>
-<td>High</td>
-<td>Revenue growth, receivables management</td>
+<td>0.129</td>
+<td>0.500 - 0.700</td>
+<td>0.600 - 0.800</td>
+<td>Medium</td>
+<td>Revenue growth, improved cash management</td>
 </tr>
 <tr>
 <td>Retained Earnings Ratio</td>
-<td>1.095</td>
-<td>1.10 - 1.15</td>
-<td>1.12 - 1.18</td>
-<td>High</td>
-<td>Profitability, dividend policy</td>
+<td>0.000</td>
+<td>0.100 - 0.200</td>
+<td>0.150 - 0.300</td>
+<td>Medium</td>
+<td>Profitability, dividend payout control</td>
 </tr>
 <tr>
 <td>EBIT/Total Assets</td>
-<td>0.056</td>
-<td>0.057 - 0.060</td>
-<td>0.058 - 0.062</td>
+<td>0.053</td>
+<td>0.070 - 0.100</td>
+<td>0.080 - 0.110</td>
 <td>Medium</td>
 <td>Operational leverage, cost control</td>
 </tr>
@@ -812,9 +867,9 @@
 </tr>
 <tr>
 <td>Sales/Total Assets</td>
-<td>0.127</td>
-<td>0.130 - 0.135</td>
-<td>0.132 - 0.138</td>
+<td>0.123</td>
+<td>0.130 - 0.150</td>
+<td>0.140 - 0.160</td>
 <td>Medium</td>
 <td>Asset utilization, growth strategy</td>
 </tr>
@@ -822,9 +877,10 @@
 </table>
 <hr />
 <h3 id="commentary_2">Commentary</h3>
-<p>Forecast Analysis projects Moody's Z-Score to maintain a strong safety margin with a base case of <strong>8.50</strong> in FY2026 and <strong>8.75</strong> in FY2027, supported by high analyst consensus quality of <strong>85%</strong>. The optimistic scenario anticipates further operational improvements and market expansion, pushing the Z-Score above 9.0, while the pessimistic scenario still keeps Moody's well within the Safe Zone.</p>
-<p>Component projections indicate stable to improving working capital and retained earnings ratios, reflecting sustained profitability and efficient capital management. EBIT margin improvements are moderate but positive, with medium confidence due to potential operational cost risks.</p>
-<p>Limitations include lack of detailed market cap to total liabilities data, reducing precision in leverage forecasting. Key catalysts for Z-Score improvement include revenue growth from Moody's Analytics and enhanced operational efficiencies.</p>
+<p>Forecast Analysis projects Moody’s Z-Score to improve modestly under the base case to <strong>2.100</strong> in FY 2026 and <strong>2.500</strong> in FY 2027, remaining within the Gray Zone but trending toward safer territory. Optimistic scenarios envision a return to Safe Zone status (&gt;3.0) by FY 2026 driven by enhanced liquidity and operational efficiency.</p>
+<p>The <strong>analyst consensus quality</strong> at 65% and 60% coverage reflects moderate confidence but highlights forecast uncertainty, particularly regarding dividend sustainability and market conditions.</p>
+<p>Component projections suggest meaningful improvements in working capital ratio (from 0.129 to up to 0.800), retained earnings accumulation, and EBIT margins, contingent on revenue growth and cost management. Market capitalization to liabilities data is unavailable, limiting leverage forecast precision.</p>
+<p>Forecast limitations include incomplete leverage data and potential volatility in credit markets, which could adversely affect Moody’s risk profile and Z-Score trajectory.</p>
 <hr />
 <h2 id="5-market-intelligence-validation-analysis">5. Market Intelligence &amp; Validation Analysis</h2>
 <table>
@@ -841,35 +897,36 @@
 <tbody>
 <tr>
 <td>Fundamental Health</td>
-<td>Strong (8.257, Safe)</td>
-<td>Stable to Improving</td>
-<td>Price at $499.53, P/E 43.10</td>
-<td>Aligned</td>
-<td>Supports BUY/HOLD recommendation</td>
+<td>Declining (1.563)</td>
+<td>Improving (2.1 - 2.5)</td>
+<td>Price stable at $507.88</td>
+<td>Divergent</td>
+<td>Market may be underpricing risk</td>
 </tr>
 <tr>
 <td>Analyst Sentiment</td>
-<td>Positive, Stable Uptrend</td>
-<td>High Confidence</td>
-<td>Dividend Yield 75.00% (likely data anomaly)</td>
-<td>Mostly Consistent</td>
-<td>Market confidence strong, verify dividend data</td>
+<td>Neutral to Negative</td>
+<td>Moderate Confidence</td>
+<td>P/E Ratio high at 43.86</td>
+<td>Partially Aligned</td>
+<td>Cautious optimism warranted</td>
 </tr>
 <tr>
 <td>Peer Comparison</td>
-<td>Outperforming (Z=8.257 vs 4.12)</td>
-<td>Stable Outperformance</td>
+<td>Below Industry Average</td>
+<td>Gradual Convergence</td>
 <td>Sector performing well</td>
-<td>Aligned</td>
-<td>Competitive advantage maintained</td>
+<td>Divergent</td>
+<td>Potential for catch-up if fundamentals improve</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h3 id="commentary_3">Commentary</h3>
-<p>Moody's current Z-Score of 8.257 aligns well with its market valuation at $499.53 per share and a market cap of $89.88B, reflecting investor confidence in its financial stability and growth prospects. The P/E ratio of 43.10 suggests a premium valuation consistent with strong fundamentals.</p>
-<p>AI Sentiment Analysis confirms positive market perception, though the reported dividend yield of 75.00% appears anomalous and should be verified; it may reflect a data anomaly or special dividend event. Overall, market signals and forecast Z-Score trajectories are well-aligned, supporting a favorable investment stance.</p>
-<p>Peer benchmarking confirms Moody's outperformance within its sector, reinforcing its competitive positioning and validating the investment thesis.</p>
+<p>There is a <strong>divergence</strong> between Moody’s current fundamental health (Gray Zone Z-Score 1.563) and its stable market price of $507.88, suggesting the market may not fully price in the elevated financial risk. The high P/E ratio of <strong>43.86</strong> indicates growth expectations that may be optimistic given current financial stress.</p>
+<p>Analyst sentiment aligns partially with forecast improvements but remains cautious, reflecting uncertainty in Moody’s operational turnaround.</p>
+<p>Peer comparison shows Moody’s trailing industry averages, highlighting competitive pressure and the need for operational improvements to regain market confidence.</p>
+<p>Market timing considerations suggest waiting for confirmation of Z-Score recovery above 1.8 before increasing exposure, as current fundamentals imply risk of further downside.</p>
 <hr />
 <h2 id="6-risk-stratification-scenario-framework">6. Risk Stratification &amp; Scenario Framework</h2>
 <table>
@@ -877,7 +934,7 @@
 <tr>
 <th>Risk Category</th>
 <th>Current Probability</th>
-<th>Forecast Impact (1-2 Years)</th>
+<th>Forecast Impact</th>
 <th>Severity</th>
 <th>Impact on Current Z-Score</th>
 <th>Impact on Forecast Z-Score</th>
@@ -888,37 +945,38 @@
 <tr>
 <td>Operational Risks</td>
 <td>Medium</td>
+<td>1-2 Year Outlook</td>
 <td>Moderate</td>
-<td>Moderate</td>
-<td>Minor</td>
-<td>Moderate</td>
-<td>Enhance operational controls, diversify revenue</td>
+<td>Decrease by ~0.3</td>
+<td>Potential delay in recovery</td>
+<td>Enhance cost controls, diversify revenue streams</td>
 </tr>
 <tr>
 <td>Financial Risks</td>
-<td>Low</td>
-<td>Low</td>
-<td>Minor</td>
-<td>Negligible</td>
-<td>Negligible</td>
-<td>Maintain conservative leverage</td>
+<td>High</td>
+<td>1-2 Year Outlook</td>
+<td>Critical</td>
+<td>Significant decrease</td>
+<td>Major downside scenario</td>
+<td>Improve liquidity, reduce dividend payout</td>
 </tr>
 <tr>
 <td>Market Risks</td>
-<td>Medium (20%)</td>
+<td>Medium (30%)</td>
+<td>Market Cycle</td>
 <td>Moderate</td>
-<td>Moderate</td>
-<td>Potential dip</td>
-<td>Possible downward adjustment</td>
-<td>Hedge exposures, monitor macro trends</td>
+<td>Volatility in Z-Score</td>
+<td>Sensitivity to credit market</td>
+<td>Hedge exposures, monitor credit cycles</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h3 id="commentary_4">Commentary</h3>
-<p>AI Risk Analysis identifies operational and market risks as the primary concerns, each with medium probability and moderate severity. Operational risks include potential disruptions in Moody's Analytics segment and regulatory changes. Market risks stem from sector cyclicality and macroeconomic volatility.</p>
-<p>Financial risks are currently low due to Moody's strong balance sheet and conservative leverage implied by the Z-Score and EBIT ratios. The impact on the current Z-Score is minimal, but forecast scenarios incorporate moderate downward adjustments under pessimistic conditions.</p>
-<p>Mitigation strategies focus on operational efficiency improvements, revenue diversification, and prudent risk management including hedging and regulatory compliance.</p>
+<p>The <strong>highest risk</strong> is financial, particularly liquidity and dividend sustainability, with a high probability and critical severity. This risk currently depresses the Z-Score and could worsen forecast outcomes if unmitigated.</p>
+<p>Operational risks related to margin pressure and asset utilization are moderate but could delay recovery if market conditions deteriorate.</p>
+<p>Market risks, including credit cycle volatility, have a 30% probability and moderate impact, influencing Z-Score sensitivity and requiring active hedging and monitoring.</p>
+<p>Scenario analysis using Forecast Analysis projections confirms best-case Z-Score recovery to Safe Zone, base case stabilization in Gray Zone, and worst-case further decline below 1.5, underscoring the importance of risk mitigation.</p>
 <hr />
 <h2 id="7-investment-profile-recommendations">7. Investment Profile Recommendations</h2>
 <table>
@@ -938,53 +996,58 @@
 <td>📊 Conservative</td>
 <td>Low</td>
 <td>HOLD</td>
-<td>Z-Score 8.257 indicates very low risk</td>
-<td>Stable to improving Z-Score (8.50-8.75)</td>
-<td>Monitor for dips near 8.0</td>
-<td>Review quarterly, FY2026 milestones</td>
+<td>Z-Score 1.563 in Gray Zone; liquidity weak</td>
+<td>Base case forecast 2.1-2.5 (Gray Zone)</td>
+<td>Wait for Z-Score &gt;1.8</td>
+<td>Review quarterly; reassess in 6-12 months</td>
 </tr>
 <tr>
 <td>💰 Dividend</td>
 <td>Low-Medium</td>
-<td>HOLD</td>
-<td>Dividend yield data anomalous; verify</td>
-<td>Earnings retention strong (1.095 ratio)</td>
-<td>Confirm dividend stability</td>
-<td>Monitor payout announcements FY2025-26</td>
+<td>SELL</td>
+<td>Dividend yield 75%, unsustainable risk</td>
+<td>Forecast earnings growth uncertain</td>
+<td>Avoid until payout stabilizes</td>
+<td>Immediate; monitor cash flow closely</td>
 </tr>
 <tr>
 <td>💎 Value</td>
 <td>Medium</td>
-<td>BUY</td>
-<td>Premium valuation justified by Z-Score</td>
-<td>Forecast supports value realization</td>
-<td>Entry on minor price corrections</td>
-<td>Initiate position FY2025 Q3</td>
+<td>HOLD</td>
+<td>Valuation supported by market cap but risk elevated</td>
+<td>Potential recovery in 2 years</td>
+<td>Enter on Z-Score recovery</td>
+<td>12-24 months with catalyst monitoring</td>
 </tr>
 <tr>
 <td>📈 Growth</td>
 <td>Medium-High</td>
-<td>BUY</td>
-<td>EBIT ratio 0.056 supports growth</td>
-<td>Forecast growth in Z-Score and EBIT</td>
-<td>Momentum positive</td>
-<td>Scale position FY2025-26</td>
+<td>HOLD</td>
+<td>Growth prospects uncertain; P/E high</td>
+<td>Forecast growth moderate; operational improvements needed</td>
+<td>Cautious entry on improving fundamentals</td>
+<td>12-18 months with milestone tracking</td>
 </tr>
 <tr>
 <td>🚀 Aggressive</td>
 <td>High</td>
-<td>BUY</td>
-<td>Low risk/high reward profile</td>
-<td>Upside in optimistic scenario (9.10+)</td>
-<td>Volatility low</td>
-<td>Enter with stop-loss FY2025</td>
+<td>SPECULATIVE BUY</td>
+<td>High risk/reward; Z-Score volatile</td>
+<td>Upside in optimistic scenario (3.2-3.8)</td>
+<td>Entry on positive inflection signals</td>
+<td>Opportunistic; monitor closely</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h3 id="commentary_5">Commentary</h3>
-<p>Conservative investors should <strong>HOLD</strong> Moody's shares given the very low bankruptcy risk and stable forecast. Dividend investors must verify the unusually high dividend yield before increasing exposure but can expect stable earnings retention.</p>
-<p>Value and growth investors are recommended to <strong>BUY</strong>, supported by strong current and forecast Z-Scores and operational metrics. Aggressive investors can capitalize on the low-risk profile and optimistic forecast upside, entering with appropriate risk controls.</p>
+<ul>
+<li><strong>Conservative investors</strong> should hold and monitor Moody’s until liquidity and Z-Score improve beyond 1.8, signaling reduced distress risk.</li>
+<li><strong>Dividend-focused investors</strong> are advised to sell due to the unsustainable 75% dividend yield and zero retained earnings, risking capital erosion.</li>
+<li><strong>Value investors</strong> may hold with a view to recovery over 1-2 years, watching for operational improvements and Z-Score stabilization.</li>
+<li><strong>Growth investors</strong> should hold cautiously, as high valuation multiples are not yet supported by fundamentals; entry timing depends on forecasted margin and liquidity gains.</li>
+<li><strong>Aggressive investors</strong> may consider speculative buying on positive inflection points but must be prepared for volatility and downside risk.</li>
+</ul>
 <hr />
 <h2 id="8-strategic-business-intelligence">8. Strategic Business Intelligence</h2>
 <table>
@@ -1001,33 +1064,34 @@
 <tbody>
 <tr>
 <td>CEO Leadership</td>
-<td>Sustainable growth &amp; innovation</td>
-<td>Z-Score 8.257, EBIT Ratio 0.056</td>
-<td>Z-Score 8.75+, EBIT Ratio 0.06</td>
-<td>Invest in Analytics expansion, enhance digital platforms</td>
-<td>Revenue growth, Z-Score improvement</td>
+<td>Stabilize liquidity &amp; margins</td>
+<td>Working Capital Ratio 0.129; EBIT Ratio 0.053</td>
+<td>Working Capital Ratio &gt;0.5; EBIT &gt;0.07</td>
+<td>Implement cost controls; diversify revenue</td>
+<td>Quarterly liquidity &amp; EBIT improvements</td>
 </tr>
 <tr>
 <td>CFO Finance</td>
-<td>Capital efficiency &amp; risk management</td>
-<td>Working Capital Ratio 0.109, Retained Earnings 1.095</td>
-<td>Maintain liquidity, improve EBIT margin</td>
-<td>Optimize working capital, manage leverage</td>
-<td>Liquidity ratios, EBIT margin</td>
+<td>Capital allocation &amp; risk</td>
+<td>Dividend Yield 75%; Retained Earnings 0.000</td>
+<td>Dividend yield &lt;5%; Retained Earnings &gt;0.1</td>
+<td>Adjust dividend policy; strengthen cash reserves</td>
+<td>Reduced payout ratio; improved cash flow</td>
 </tr>
 <tr>
 <td>Board Governance</td>
 <td>Risk oversight &amp; compliance</td>
-<td>Low AI Risk Level, stable Z-Score</td>
-<td>Maintain low risk profile</td>
-<td>Strengthen compliance frameworks, monitor regulatory changes</td>
-<td>Risk metrics, audit outcomes</td>
+<td>Z-Score 1.563 (Gray Zone)</td>
+<td>Z-Score &gt;2.5 (Gray to Safe Zone)</td>
+<td>Enhance financial disclosures; monitor risk metrics</td>
+<td>Risk reduction; regulatory compliance</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h3 id="commentary_6">Commentary</h3>
-<p>Executive leadership should focus on leveraging Moody's strong financial foundation to drive innovation and growth, particularly in Moody's Analytics. The CFO should prioritize capital efficiency and risk management to sustain the strong Z-Score trajectory. The Board must maintain vigilant oversight of risk factors, ensuring compliance and governance frameworks adapt to evolving regulatory landscapes.</p>
+<p>Executive leadership must prioritize <strong>liquidity stabilization</strong> and <strong>operational margin improvement</strong> to reverse the Z-Score decline. The CFO should focus on <strong>capital allocation</strong>, particularly dividend policy reform, to rebuild retained earnings and financial resilience.</p>
+<p>The Board must enhance <strong>risk oversight</strong>, ensuring transparency and proactive management of emerging financial risks, aligned with forecasted Z-Score recovery targets.</p>
 <hr />
 <h2 id="9-forward-looking-intelligence-framework">9. Forward-Looking Intelligence Framework</h2>
 <table>
@@ -1044,27 +1108,27 @@
 <tbody>
 <tr>
 <td>Z-Score Evolution</td>
-<td>8.257 (Safe Zone)</td>
-<td>8.50 (FY2026), 8.75 (FY2027)</td>
-<td>Quarterly milestones FY2025-27</td>
-<td>Revenue growth, operational efficiency</td>
-<td>Quarterly Z-Score updates, EBIT margin</td>
+<td>1.563 (Gray Zone, declining)</td>
+<td>2.1 - 2.5 (Gray Zone, improving)</td>
+<td>FY 2026 - FY 2027</td>
+<td>Liquidity improvement, margin recovery</td>
+<td>Quarterly Z-Score updates, liquidity ratios</td>
 </tr>
 <tr>
 <td>Market Position</td>
-<td>Leading in sector</td>
-<td>Maintain outperformance</td>
-<td>Industry cycle FY2025-27</td>
-<td>Market share gains, innovation</td>
-<td>Market share, peer comparison</td>
+<td>Below industry average</td>
+<td>Gradual convergence</td>
+<td>1-2 years</td>
+<td>Credit market stabilization, operational efficiency</td>
+<td>Peer Z-Score benchmarking</td>
 </tr>
 <tr>
 <td>Risk Profile</td>
-<td>Low risk</td>
-<td>Stable to slightly improving</td>
-<td>Continuous monitoring</td>
-<td>Regulatory changes, macro risks</td>
-<td>Risk factor tracking, compliance</td>
+<td>Elevated, financial risks</td>
+<td>Moderate improvement</td>
+<td>1-2 years</td>
+<td>Dividend policy adjustment, cost control</td>
+<td>Dividend payout ratio, cash flow</td>
 </tr>
 </tbody>
 </table>
@@ -1075,7 +1139,7 @@
 <tr>
 <th>Scenario</th>
 <th>Probability</th>
-<th>Z-Score Range (FY2026-FY2027)</th>
+<th>Z-Score Range (FY1 - FY2)</th>
 <th>Timeline</th>
 <th>Key Assumptions</th>
 <th>Success Indicators</th>
@@ -1084,40 +1148,37 @@
 <tbody>
 <tr>
 <td>Optimistic</td>
-<td>30%</td>
-<td>9.10 - 9.40</td>
-<td>FY2026-FY2027</td>
-<td>Strong growth, margin expansion</td>
-<td>Revenue growth, margin improvement</td>
+<td>25%</td>
+<td>3.2 - 3.8</td>
+<td>FY 2026 - FY 2027</td>
+<td>Revenue growth, cost control, dividend reform</td>
+<td>Z-Score &gt;3.0, positive cash flow</td>
 </tr>
 <tr>
 <td>Base Case</td>
 <td>50%</td>
-<td>8.50 - 8.75</td>
-<td>FY2026-FY2027</td>
-<td>Stable operations, moderate growth</td>
-<td>Stable earnings, Z-Score maintenance</td>
+<td>2.1 - 2.5</td>
+<td>FY 2026 - FY 2027</td>
+<td>Moderate operational improvements, stable markets</td>
+<td>Gradual Z-Score increase, liquidity improvement</td>
 </tr>
 <tr>
 <td>Pessimistic</td>
-<td>20%</td>
-<td>7.60 - 7.80</td>
-<td>FY2026-FY2027</td>
-<td>Market volatility, regulatory headwinds</td>
-<td>Earnings volatility, risk factor uptick</td>
+<td>25%</td>
+<td>1.0 - 1.2</td>
+<td>FY 2026 - FY 2027</td>
+<td>Market downturn, dividend strain, operational setbacks</td>
+<td>Z-Score decline, liquidity stress</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h3 id="commentary_7">Commentary</h3>
-<p>Moody's forward-looking outlook remains robust with a 50% probability base case projecting steady Z-Score improvement. Optimistic scenarios depend on successful growth initiatives and margin expansion, while pessimistic outcomes reflect external risks such as regulatory pressures and market downturns.</p>
-<p>Key catalysts include expansion in Moody's Analytics, operational efficiency gains, and market share growth. Monitoring quarterly Z-Score updates and EBIT margins will provide early warning signals for deviations from forecast trajectories.</p>
+<h3 id="final-commentary">Final Commentary</h3>
+<p>Moody’s current financial profile and Z-Score position it in a <strong>Gray Zone of moderate distress risk</strong>, with significant challenges in liquidity and operational efficiency. Forecasts suggest a <strong>moderate probability of recovery</strong> to safer financial territory over the next 1-2 years, contingent on effective management actions and market conditions.</p>
+<p>Investors should monitor <strong>quarterly Z-Score updates</strong>, liquidity ratios, and dividend policy changes as leading indicators of financial health improvement. The <strong>investment thesis</strong> will evolve with forecast confidence levels, requiring agile portfolio adjustments aligned with Moody’s operational and market developments.</p>
+<p>Early warning systems should focus on <strong>liquidity deterioration, dividend payout sustainability, and EBIT margin trends</strong> to anticipate potential downside scenarios and adjust risk exposure accordingly.</p>
 <hr />
-<h1 id="summary"><strong>Summary</strong></h1>
-<p>Moody's Corporation demonstrates exceptional financial health with a current Altman Z-Score of <strong>8.257</strong>, well above industry peers and firmly in the Safe Zone. Forecasts predict continued strength with high confidence, supported by robust operational metrics and positive market sentiment. Risk factors are manageable with appropriate mitigation strategies.</p>
-<p>Investment recommendations favor <strong>BUY/HOLD</strong> across profiles, with timing aligned to forecast milestones in FY2026 and FY2027. Executive leadership should capitalize on this strong foundation to drive growth and innovation while maintaining prudent risk management.</p>
-<hr />
-<p><em>Analysis completed by AI-Powered Altman Z-Score Investment Framework.</em></p></div></div>
+<p><em>Analysis prepared by AI-Powered Altman Z-Score Investment Framework, leveraging comprehensive multi-source data integration and forward-looking scenario modeling.</em></p></div></div>
     </div>
     
 
@@ -1464,7 +1525,7 @@
     
 
     <footer>
-        <p>Generated on July 12, 2025 at 05:14 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
+        <p>Generated on July 23, 2025 at 05:43 PM by Enhanced Altman Z-Score Analysis v4.7.1</p>
         
         <p><em>This report combines fundamental Z-Score analysis with comprehensive market intelligence</em></p>
         

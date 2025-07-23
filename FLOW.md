@@ -8,7 +8,7 @@
 4. [Modern Pipeline Architecture](#modern-pipeline-architecture)
 5. [Modern Dashboard Architecture](#modern-dashboard-architecture-v480)
 6. [Executive Summary](#-executive-summary)
-7. [Architecture Features](#-architecture-features-v4100-diamond)
+7. [Architecture Features](#-architecture-features-v500-emerald)
 8. [Architecture Overview](#️-architecture-overview-modern-layered-system)
 9. [Investment Recommendation Engine](#-investment-recommendation-engine)
 10. [Portfolio Generation & Management](#-portfolio-generation--management-system)
@@ -21,7 +21,7 @@
 17. [Output Formats & Professional Reports](#-output-formats--professional-reports)
 18. [Modern Recommendation Generation Process Flow](#-modern-recommendation-generation-process-flow)
 19. [Professional Use Cases](#-professional-use-cases)
-20. [Key Technical Advantages](#-key-technical-advantages-v4100-diamond)
+20. [Key Technical Advantages](#-key-technical-advantages-v500-emerald)
 21. [Confidence & Quality Metrics](#-confidence--quality-metrics)
 22. [Strategic Innovation](#-strategic-innovation)
 
@@ -42,7 +42,7 @@
 - **🗓️ Bankruptcy Database**: Automated bankruptcy detection and routing
 - **💎 Novel Enhancement**: Retail-specific inventory turnover integration
 
-**DESIGN PRINCIPLES**: 
+**DESIGN PRINCIPLES**:
 - ⚡ **Direct Data Access**: FMP provides standardized financial fields for active companies
 - 🚀 **Performance Optimized**: Smart caching with 48-hour TTL
 - 🔧 **Simplified Integration**: No complex field mapping required
@@ -77,7 +77,7 @@ The system automatically detects bankruptcy/delisted status and routes to the ap
 Data Source: SEC EDGAR historical filings (10-K/10-Q)
 Processing: retail_validation/data/sec_edgar/filing_parser.py
 Output: MergedFinancialData schema-compatible format
-Features: 
+Features:
   - Pre-calculated Z-Score ratios
   - Historical quarterly data
   - Bankruptcy date integration
@@ -107,7 +107,7 @@ Features:
 
 ### Smart Caching System
 
-**Intelligent API Call Caching**: 
+**Intelligent API Call Caching**:
 - **📁 Cache Location**: `altman_zscore/cache/` directory with organized data storage
 - **⏰ Time-To-Live (TTL)**: 48-hour cache expiration for optimal data freshness
 - **🔄 Cache Strategy**: Automatic cache validation and refresh mechanisms
@@ -237,18 +237,18 @@ web/
 The Altman Z-Score Investment Analysis Platform provides sophisticated investment recommendations through a **modern modular architecture** that combines:
 
 - **Rigorous quantitative analysis** (Altman Z-Score methodology + Novel Retail Model)
-- **Modern market intelligence** (technical + valuation metrics)  
+- **Modern market intelligence** (technical + valuation metrics)
 - **AI-powered insights** (Azure OpenAI narrative generation)
 - **Risk-aware investor profiling** (tailored recommendations by investor type)
 - **💎 Academic Innovation** (Novel retail-specific Z-Score model with inventory integration)
 
 The system generates **three types of investment guidance**: quantitative ratings (Buy/Hold/Sell), AI-powered narratives, and investor profile-specific recommendations.
 
-## 💎 **DIAMOND v4.10.0: Portfolio Efficiency & Skip-Existing Excellence**
+## 💎 **EMERALD v5.1.0: Major Version 5.1 Release & IUPAC Element Naming**
 
-### 🚀 **Portfolio Efficiency Revolution (v4.10.0)**
+### 🧪 **IUPAC Systematic Element Naming (v5.1.0)**
 - **Skip-Existing Mastery**: Complete implementation across Python CLI and PowerShell parallel processor
-- **Cross-Tool Consistency**: Feature parity between `--skip-existing` and `-SkipExisting` parameters  
+- **Cross-Tool Consistency**: Feature parity between `--skip-existing` and `-SkipExisting` parameters
 - **Smart Detection**: Intelligent analysis completion validation with comprehensive file checks
 - **Workflow Optimization**: Seamless incremental updates for enterprise-scale portfolios (427+ companies)
 - **Progress Intelligence**: Advanced reporting with original/skipped/remaining ticker statistics
@@ -279,7 +279,7 @@ The system generates **three types of investment guidance**: quantitative rating
 - **📈 Statistical Validation**: Performance comparison vs traditional Z-Score methodology
 - **🔧 One-Click Validation**: Easy retail model testing with detailed reporting
 
-## 🆕 Architecture Features (v4.10.0 DIAMOND)
+## 🆕 Architecture Features (v5.1.0 EMERALD)
 
 ### Modern Pipeline Design
 - **✅ Clean Architecture**: Streamlined codebase with improved maintainability
@@ -304,7 +304,7 @@ The system generates **three types of investment guidance**: quantitative rating
 
 ### Centralized Logging System
 
-**Configurable Multi-Level Logging**: 
+**Configurable Multi-Level Logging**:
 - **🔍 Debug Levels**: Console (INFO) and File (DEBUG) with separate control
 - **⚙️ Configuration**: CLI arguments with `.env` fallback support
 - **📁 Log Management**: Configurable directory, structured JSON option
@@ -333,7 +333,7 @@ python main.py --portfolio-file portfolios/comprehensive_portfolio.txt --skip-ex
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                      USER INPUT & CONFIGURATION                         │
 │              python main.py AAPL --quarters 8 --forecast-years 2        │
-│                   AltmanZScorePipeline.analyze_ticker()                  │
+│                   AltmanZScorePipeline.analyze_ticker()                 │
 └─────────────────────────┬───────────────────────────────────────────────┘
                           │
                           ▼
@@ -352,10 +352,10 @@ python main.py --portfolio-file portfolios/comprehensive_portfolio.txt --skip-ex
 │  └────────────────────────────────────────────────────────────────────┘ │
 │                                   │                                     │
 │                                   │ AUTO-ROUTING                        │
-│                                   │ BASED ON                           │
-│                                   │ BANKRUPTCY                         │
-│                                   │ STATUS                             │
-│                                   │                                     │
+│                                   │ BASED ON                            │
+│                                   │ BANKRUPTCY                          │
+│                                   │ STATUS                              │
+│                                   ▼                                     │
 │  ┌────────────────────────────────────────────────────────────────────┐ │
 │  │                 DELISTED/BANKRUPT COMPANIES PATH                   │ │
 │  │  ┌─────────────────┐           ┌─────────────────┐                 │ │
@@ -400,7 +400,7 @@ python main.py --portfolio-file portfolios/comprehensive_portfolio.txt --skip-ex
 │   │(Manufacturing)│(Non-Mfg)    │ │  (Banks)    │ │(Novel Model)│       │
 │   └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘       │
 │   ┌─────────────┐ ┌─────────────┐                                       │
-│   │  Service    │ │  Emerging   │     ✅ Rule-based Selection            │
+│   │  Service    │ │  Emerging   │     ✅ Rule-based Selection           │
 │   │ (Services)  │ │ (EM Mkts)   │     ✅ Industry-specific Models       │
 │   └─────────────┘ └─────────────┘     ✅ Novel Retail X₆ Component      │
 └─────────────────────────┬───────────────────────────────────────────────┘
@@ -432,9 +432,9 @@ python main.py --portfolio-file portfolios/comprehensive_portfolio.txt --skip-ex
 │   │  Estimates)     │ │                 │ │  Pessimistic)           │   │
 │   └─────────────────┘ └─────────────────┘ └─────────────────────────┘   │
 │                                                                         │
-│     ✅ Analyst Consensus Integration  ✅ Component-Level Projection      │
+│     ✅ Analyst Consensus Integration  ✅ Component-Level Projection     │
 │     ✅ Multi-Year Forecasting (1-3y) ✅ Quality-Weighted Scenarios      │
-│     ✅ Fiscal Year Alignment         ✅ Visual Forecast Integration      │
+│     ✅ Fiscal Year Alignment         ✅ Visual Forecast Integration     │
 └─────────────────────────┬───────────────────────────────────────────────┘
                           │
                           ▼
@@ -508,7 +508,7 @@ else:
 # Return Potential Assessment
 if expected_return > 0.15:         # 15%+ expected return
     recommendation_score += 0.3
-elif expected_return > 0.05:       # 5%+ expected return  
+elif expected_return > 0.05:       # 5%+ expected return
     recommendation_score += 0.1
 elif expected_return < -0.05:      # Negative expectation
     recommendation_score -= 0.2
@@ -537,7 +537,7 @@ elif relative_valuation == 'overvalued':
 ```python
 # Convert score to investment rating
 if recommendation_score >= 0.4:    rating = 'STRONG_BUY'
-elif recommendation_score >= 0.2:  rating = 'BUY'  
+elif recommendation_score >= 0.2:  rating = 'BUY'
 elif recommendation_score >= -0.1: rating = 'HOLD'
 elif recommendation_score >= -0.3: rating = 'SELL'
 else:                              rating = 'STRONG_SELL'
@@ -550,7 +550,7 @@ confidence = 0.5  # Base confidence (50%)
 
 # Data availability bonuses
 if technical_analysis_available: confidence += 0.1
-if valuation_metrics_available:  confidence += 0.1  
+if valuation_metrics_available:  confidence += 0.1
 if supporting_factors >= 4:      confidence += 0.1   # 4+ confidence factors
 
 # Signal consistency analysis
@@ -822,7 +822,7 @@ def get_risk_appropriate_tone(risk_category):
 
 **Valuation Metrics**:
 - **P/E Ratio**: Relative valuation vs sector peers
-- **PEG Ratio**: Growth at reasonable price assessment  
+- **PEG Ratio**: Growth at reasonable price assessment
 - **P/B Ratio**: Book value comparison
 - **Dividend Yield**: Income potential evaluation
 
@@ -861,7 +861,7 @@ def get_risk_appropriate_tone(risk_category):
 ### **Paid Account Enhancements**
 - **Analysis Depth**: 8-20+ quarters historical
 - **Batch Processing**: 20-50 stocks
-- **API Rate Limit**: 300 calls/minute  
+- **API Rate Limit**: 300 calls/minute
 - **Enhanced Features**:
   - Peer comparison analysis
   - Industry benchmarking
@@ -905,33 +905,33 @@ Key Opportunities: [Strong fundamental health, market leadership]
 ```mermaid
 flowchart TD
     A["📊 Input: Ticker Symbol"] --> B["🚀 Main Pipeline"]
-    
+
     B --> C["📥 Data Fetching Layer"]
     C --> D["🔍 FMP Financial Data"]
     C --> E["📈 Yahoo Market Data"]
-    
+
     D --> F["🔗 Data Integration Layer"]
     E --> F
     F --> G["✅ Quality Validation"]
     G --> H["📊 Data Completeness Scoring"]
-    
+
     H --> I["🧮 Z-Score Calculation Layer"]
     I --> J["🎯 Automatic Model Selection"]
     J --> K["📉 Multi-Quarter Z-Score Trends"]
     K --> L["🚨 Risk Zone Classification"]
-    
+
     L --> M["🏢 Market Analysis Layer"]
     M --> N["📊 Technical Analysis"]
     M --> O["💰 Valuation Metrics"]
     M --> P["⚡ Performance Analysis"]
-    
+
     N --> Q["🤖 AI Analysis Layer"]
     O --> Q
     P --> Q
     Q --> R["🧠 Risk-Return Scoring"]
     Q --> S["📝 Investment Commentary"]
     Q --> T["🎯 Investment Recommendations"]
-    
+
     R --> U["📊 Output Generation Layer"]
     S --> U
     T --> U
@@ -939,12 +939,12 @@ flowchart TD
     U --> W["📄 Professional Reports"]
     U --> X["📈 Interactive Charts"]
     U --> Y["📊 Data Export"]
-    
+
     V --> Z["🎯 Professional Output"]
     W --> Z
     X --> Z
     Y --> Z
-    
+
     style A fill:#e1f5fe,color:#000000
     style B fill:#f3e5f5,color:#000000
     style I fill:#fff3e0,color:#000000
@@ -993,7 +993,7 @@ flowchart TD
 
 ---
 
-## 🚀 Key Technical Advantages (v4.10.0 DIAMOND)
+## 🚀 Key Technical Advantages (v5.1.0 EMERALD)
 
 ### **1. Portfolio Efficiency Excellence**
 - **🚀 Skip-Existing Mastery**: Intelligent analysis completion detection across Python CLI and PowerShell tools
@@ -1051,7 +1051,7 @@ flowchart TD
 ### **Recommendation Confidence Factors**
 - **Base Confidence**: 50% (minimum viable recommendation)
 - **Data Quality Bonus**: +10% for technical analysis availability
-- **Comprehensive Data Bonus**: +10% for valuation metrics availability  
+- **Comprehensive Data Bonus**: +10% for valuation metrics availability
 - **Signal Consistency Bonus**: +10% for 4+ supporting factors
 - **Conflicting Signals Penalty**: -10% for contradictory indicators
 
@@ -1085,26 +1085,28 @@ The Altman Z-Score Investment Analysis Platform represents a **strategic advance
 
 ---
 
-## 💎 **DIAMOND v4.10.0: A New Standard in Portfolio Efficiency & Financial Analysis**
+## 💎 **EMERALD v5.1.0: A New Standard in Major Version Releases & IUPAC Element Naming**
 
-This release establishes the platform as the **industry leader in portfolio efficiency** with **cross-tool skip-existing mastery** while building on our **significant academic contribution** to the field of financial risk assessment. The portfolio efficiency revolution, comprehensive skip-existing functionality, and workflow optimization capabilities establish a new standard in enterprise-scale financial analysis methodology.
+This release establishes the platform as the **industry leader in systematic version management** with **IUPAC element naming convention** while building on our **significant academic contribution** to the field of financial risk assessment. The Major Version 5.1 release, enhanced architecture, and systematic scientific naming establish a new standard in enterprise-scale financial analysis methodology.
 
-### **🚀 DIAMOND v4.10.0: Portfolio Efficiency Excellence**
-- **Skip-Existing Mastery**: Complete cross-tool implementation with intelligent detection
-- **Workflow Optimization**: Enterprise-grade efficiency for large portfolios (427+ companies)
-- **Cross-Tool Consistency**: Seamless integration between Python CLI and PowerShell tools
-- **User Experience Excellence**: Advanced progress reporting and comprehensive documentation
-
----
-
-*This documentation provides the complete technical understanding of how investment recommendations are generated, calculated, and delivered through the Altman Z-Score Investment Analysis Platform v4.10.0 DIAMOND, including the portfolio efficiency revolution, skip-existing mastery, comprehensive model glossary, enhanced visualizations, improved navigation, the groundbreaking novel retail Z-Score model, the bifurcated data flow architecture, and the advanced Z-Score forecasting engine.*
+### **🧪 EMERALD v5.0.0: Major Version 5.1 & Scientific Naming Excellence**
+- **IUPAC Element Naming**: Systematic scientific naming convention (PENTUNNILIUM)
+- **Enhanced Architecture**: Improved modular design with better separation of concerns
+- **Performance Optimization**: Refined algorithms for enterprise-scale portfolio management
+- **Documentation Excellence**: Comprehensive guides and production-ready stability
 
 ---
 
-### 📊 **v4.10.0: Current Architecture Documentation**
+*This documentation provides the complete technical understanding of how investment recommendations are generated, calculated, and delivered through the Altman Z-Score Investment Analysis Platform v5.1.0 EMERALD, including the IUPAC systematic element naming convention, enhanced architecture, major version 5.1 release, comprehensive model glossary, enhanced visualizations, improved navigation, the groundbreaking novel retail Z-Score model, the bifurcated data flow architecture, and the advanced Z-Score forecasting engine.*
+
+---
+
+### 📊 **v5.1.0: Current Architecture Documentation**
 
 **KEY ARCHITECTURAL FEATURES:**
-- **🚀 Portfolio Efficiency Revolution**: Complete skip-existing functionality with cross-tool consistency
+- **🧪 IUPAC Element Naming**: Systematic scientific naming convention for all versions (PENTUNNILIUM)
+- **🚀 Enhanced Architecture**: Improved modular design with better separation of concerns
+- **💚 Major Version 5.1**: Production-ready codebase with extensive testing and validation
 - **🔀 Bifurcated Data Flow**: Complete documentation of the dual-path architecture
 - **📂 SEC EDGAR Integration**: Detailed explanation of exclusive SEC EDGAR usage for bankrupt companies
 - **🎯 Intelligent Routing**: Comprehensive documentation of automatic bankruptcy detection system

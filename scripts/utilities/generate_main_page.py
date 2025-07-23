@@ -284,6 +284,18 @@ def generate_overview_stats(dashboards):
     </div>
     """
 
+def get_version_info():
+    """Get version information from the version file."""
+    try:
+        # Import version from the main package
+        import sys
+        sys.path.insert(0, os.path.join(PROJECT_ROOT, 'altman_zscore'))
+        from _version import __version__, __element_name__
+        return f"v{__version__} {__element_name__}"
+    except ImportError:
+        # Fallback to hardcoded version
+        return "v5.1.0 PENTUNNILIUM"
+
 def generate_main_page(dashboards):
     """Generate the main navigation page."""
     # Ensure the assets directory exists
@@ -313,7 +325,7 @@ def generate_main_page(dashboards):
         
         # Add date and version
         sections["{{GENERATION_DATE}}"] = current_date
-        sections["{{VERSION}}"] = "v4.5.1"  # TODO: Get from version file
+        sections["{{VERSION}}"] = get_version_info()  # Dynamic version from version file
         
         # Replace all placeholders
         for placeholder, content in sections.items():
