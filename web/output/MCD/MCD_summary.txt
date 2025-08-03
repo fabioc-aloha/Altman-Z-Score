@@ -3,24 +3,26 @@ Ticker: MCD
 Company Name: McDonald's Corporation
 Sector: Consumer Cyclical
 Industry: Restaurants
-Analysis Date: July 28, 2025 at 11:09 AM
+Analysis Date: August 02, 2025 at 09:06 PM
 
-Z-SCORE: 4.24
+Z-SCORE: 4.71
 Risk Category: Safe
-Model Used: service
+Model Used: retail
 Data Quality: 100.0%
 
 MODEL THRESHOLDS:
-  Safe Zone: > 2.60
-  Gray Zone: 0.50 - 2.60
-  Distress Zone: < 0.50
+  Safe Zone: > 2.99
+  Gray Zone: 1.81 - 2.99
+  Distress Zone: < 1.81
 
 COMPONENT ANALYSIS:
-  Working Capital Ratio: 0.0129
+  Working Capital Ratio: 0.0832
   Retained Earnings Ratio: 1.197
   Ebit Ratio: 0.0470
-  Book Equity Ratio: -0.0578
-  Z Score: 4.243
+  Market Equity Ratio: 3.623
+  Asset Turnover: 0.1057
+  Inventory Adjustment: 1.000
+  Z Score: 4.710
 
 INVESTMENT RECOMMENDATION:
   Action: Strong Buy
@@ -29,10 +31,10 @@ INVESTMENT RECOMMENDATION:
 AI-POWERED ANALYSIS SUMMARY:
   # AI-Powered Altman Z-Score Investment Analysis
   **Company:** McDonald's Corporation (MCD)
-  **Analysis Date:** 2025-07-28 11:08:12
+  **Analysis Date:** 2025-08-02 21:05:46
   ---
   ## 1. Executive Intelligence Summary
-  McDonald's Corporation (MCD) currently exhibits a **strong financial health profile** with a latest quarter Altman Z-Score of **4.243**, positioning it firmly in the **Safe Zone** (Z > 3.0). This score reflects a low bankruptcy risk and robust operational stability. The Z-Score trajectory over the past eight quarters has remained consistently above 3.8, peaking at 4.604 and maintaining a stable range, indicating sustained financial resilience.
+  McDonald's Corporation (MCD) currently exhibits a **strong financial health profile** with a latest Altman Z-Score of **4.710** (latest quarter), firmly placing it in the **Safe Zone** (Z > 3.0). This score reflects a low bankruptcy risk and robust operational stability. The Z-Score trajectory over the past eight quarters has remained consistently above 4.6, peaking at 4.997, indicating sustained financial resilience.
   [Full analysis available in comprehensive report]
 
 === END OF SUMMARY ===

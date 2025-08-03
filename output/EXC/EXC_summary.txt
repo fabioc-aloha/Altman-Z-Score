@@ -3,12 +3,12 @@ Ticker: EXC
 Company Name: Exelon Corporation
 Sector: Utilities
 Industry: Regulated Electric
-Analysis Date: July 28, 2025 at 10:49 AM
+Analysis Date: August 02, 2025 at 08:48 PM
 
-Z-SCORE: 0.70
-Risk Category: Gray Zone
+Z-SCORE: 0.35
+Risk Category: Distress
 Model Used: service
-Data Quality: 100.0%
+Data Quality: 0.0%
 
 MODEL THRESHOLDS:
   Safe Zone: > 2.60
@@ -16,11 +16,11 @@ MODEL THRESHOLDS:
   Distress Zone: < 0.50
 
 COMPONENT ANALYSIS:
-  Working Capital Ratio: 0.0064
-  Retained Earnings Ratio: 0.0633
-  Ebit Ratio: 0.0140
-  Book Equity Ratio: 0.3372
-  Z Score: 0.6964
+  Working Capital Ratio: 0.0000
+  Retained Earnings Ratio: 0.0000
+  Ebit Ratio: 0.0000
+  Book Equity Ratio: 0.3307
+  Z Score: 0.3472
 
 INVESTMENT RECOMMENDATION:
   Action: Hold
@@ -29,10 +29,14 @@ INVESTMENT RECOMMENDATION:
 AI-POWERED ANALYSIS SUMMARY:
   # AI-Powered Altman Z-Score Investment Analysis
   **Company:** EXC (Exelon Corporation)
-  **Analysis Date:** 2025-07-28 10:47:42
+  **Analysis Date:** 2025-08-02 20:47:44
   ---
   ## 1. Executive Intelligence Summary
-  Exelon Corporation (EXC) currently operates within the **Gray Zone** of financial distress risk, with a **latest quarter Z-Score of 0.696**, indicating elevated bankruptcy risk but not yet in the Distress Zone (<1.8). The Z-Score trajectory over the past eight quarters shows persistent weakness, fluctuating narrowly between 0.488 and 0.696, with no clear recovery trend. This signals ongoing financial stress and operational challenges.
+  Exelon Corporation (EXC), operating in the Utilities sector under the Regulated Electric industry, currently exhibits a **Distress Zone Altman Z-Score of 0.347** (latest quarter), signaling a high risk of financial distress. This is a significant deterioration from prior quarters where Z-Scores hovered in the Gray Zone (0.488 to 0.696), indicating a downward trajectory in financial health. Based on AI Risk Analysis, the overall risk level is **critical**, with a trajectory pointing towards increasing financial vulnerability.
   [Full analysis available in comprehensive report]
+
+WARNINGS:
+  • Total assets missing - ratios cannot be calculated reliably
+  • Working capital components not available
 
 === END OF SUMMARY ===

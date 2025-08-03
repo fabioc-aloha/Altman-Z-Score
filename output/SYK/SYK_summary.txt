@@ -3,10 +3,10 @@ Ticker: SYK
 Company Name: Stryker Corporation
 Sector: Healthcare
 Industry: Medical - Devices
-Analysis Date: July 28, 2025 at 11:35 AM
+Analysis Date: August 02, 2025 at 09:29 PM
 
-Z-SCORE: 4.57
-Risk Category: Safe
+Z-SCORE: 0.36
+Risk Category: Distress
 Model Used: original
 Data Quality: 100.0%
 
@@ -16,25 +16,28 @@ MODEL THRESHOLDS:
   Distress Zone: < 1.81
 
 COMPONENT ANALYSIS:
-  Working Capital Ratio: 0.1107
-  Retained Earnings Ratio: 0.4100
-  Ebit Ratio: 0.0182
-  Market Equity Ratio: 6.125
-  Book Equity Ratio: 0.8347
-  Asset Turnover: 0.1275
-  Z Score: 4.570
+  Working Capital Ratio: 0.1234
+  Retained Earnings Ratio: 0.0000
+  Ebit Ratio: 0.0240
+  Market Equity Ratio: 0.0000
+  Book Equity Ratio: 0.0000
+  Asset Turnover: 0.1300
+  Z Score: 0.3573
 
 INVESTMENT RECOMMENDATION:
-  Action: Strong Buy
-  Confidence: 60.0%
+  Action: Sell
+  Confidence: 70.0%
 
 AI-POWERED ANALYSIS SUMMARY:
-  # AI-Powered Altman Z-Score Investment Analysis
-  **Company:** Stryker Corporation (SYK)
-  **Analysis Date:** 2025-07-28 11:34:04
+  # AI-Powered Altman Z-Score Investment Analysis for SYK
+  **Analysis Date:** 2025-08-02 21:28:24
   ---
   ## 1. Executive Intelligence Summary
-  Stryker Corporation (SYK) currently exhibits a **Safe Zone Altman Z-Score of 4.570** for the latest quarter, indicating strong financial health and low bankruptcy risk. This score, while slightly down from the recent peak of 5.775 (four quarters prior), remains well above the distress threshold of 1.8, confirming robust operational and financial stability.
+  Stryker Corporation (SYK) currently exhibits a **distress-level Altman Z-Score of 0.357** (latest quarter), signaling a critical financial health warning. This is a stark decline from a consistent "Safe" zone range (4.349 to 5.490) over the prior seven quarters, indicating a severe deterioration in financial stability. Based on **AI Risk Analysis**, the overall risk level is **high**, with a sharply negative risk trajectory, reflecting urgent operational or financial stress.
+  **AI Peer Analysis** places SYK significantly below the industry average Z-Score (typically >3.0 for Medical Devices sector peers), highlighting a relative underperformance and elevated bankruptcy risk compared to competitors. The **AI Sentiment Analysis** reveals a predominantly negative market sentiment with a downward trend, reinforcing caution.
   [Full analysis available in comprehensive report]
+
+WARNINGS:
+  • Total liabilities missing - equity ratios may be inaccurate
 
 === END OF SUMMARY ===

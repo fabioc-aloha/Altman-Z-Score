@@ -3,36 +3,38 @@ Ticker: LNG
 Company Name: Cheniere Energy, Inc.
 Sector: Energy
 Industry: Oil & Gas Midstream
-Analysis Date: July 28, 2025 at 11:08 AM
+Analysis Date: August 02, 2025 at 09:06 PM
 
-Z-SCORE: 1.01
-Risk Category: Gray Zone
-Model Used: service
+Z-SCORE: 1.41
+Risk Category: Distress
+Model Used: original
 Data Quality: 100.0%
 
 MODEL THRESHOLDS:
-  Safe Zone: > 2.60
-  Gray Zone: 0.50 - 2.60
-  Distress Zone: < 0.50
+  Safe Zone: > 2.99
+  Gray Zone: 1.81 - 2.99
+  Distress Zone: < 1.81
 
 COMPONENT ANALYSIS:
   Working Capital Ratio: 0.0172
   Retained Earnings Ratio: 0.1750
   Ebit Ratio: 0.0221
+  Market Equity Ratio: 1.580
   Book Equity Ratio: 0.1669
-  Z Score: 1.007
+  Asset Turnover: 0.1250
+  Z Score: 1.412
 
 INVESTMENT RECOMMENDATION:
   Action: Strong Sell
   Confidence: 70.0%
 
 AI-POWERED ANALYSIS SUMMARY:
-  # AI-Powered Altman Z-Score Investment Analysis for Cheniere Energy, Inc. (Ticker: LNG)
-  **Analysis Date:** 2025-07-28 11:06:44
+  # AI-Powered Altman Z-Score Investment Analysis for LNG
+  **Analysis Date:** 2025-08-02 21:05:17
   ---
   ## 1. Executive Intelligence Summary
-  Cheniere Energy, Inc. (LNG) currently operates within the **Gray Zone** of financial distress risk with a **latest quarter Altman Z-Score of 1.007**, indicating elevated but not critical financial risk. The Z-Score trajectory over the past eight quarters shows volatility within the Gray Zone, with scores oscillating between 0.670 and 1.252, reflecting ongoing operational and financial challenges.
-  **AI Risk Analysis** classifies the overall risk level as **moderate**, with a trajectory suggesting persistent financial strain but no immediate distress. This is consistent with the company's sector dynamics in Energy, specifically Oil & Gas Midstream, which faces cyclical commodity price pressures and capital-intensive infrastructure demands.
+  Cheniere Energy, Inc. (Ticker: LNG) currently exhibits a **Distress Zone** Altman Z-Score of **1.412** (latest quarter), signaling a high risk of financial distress. This score is consistent with the prior seven quarters, all below the critical threshold of 1.8, confirming a persistent vulnerability in the company’s financial health. The Z-Score trajectory shows minor fluctuations but no material improvement, with values ranging narrowly between 1.263 and 1.445 over the last eight quarters.
+  **AI Risk Analysis** indicates an **overall risk level of high distress** with a negative trajectory, underscoring urgent concerns about liquidity and solvency. The **AI Peer Analysis** positions LNG significantly below the industry average Z-Score (not explicitly provided but implied safe zone >3.0), indicating underperformance relative to Oil & Gas Midstream peers. This weak relative positioning is compounded by a **high dividend yield of 84.00%**, which is unusually elevated and may reflect unsustainable payout policies or market distress.
   [Full analysis available in comprehensive report]
 
 === END OF SUMMARY ===

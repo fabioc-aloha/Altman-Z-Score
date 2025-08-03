@@ -3,10 +3,10 @@ Ticker: BK
 Company Name: The Bank of New York Mellon Corporation
 Sector: Financial Services
 Industry: Asset Management
-Analysis Date: July 28, 2025 at 10:29 AM
+Analysis Date: August 02, 2025 at 08:30 PM
 
-Z-SCORE: 1139.68
-Risk Category: Safe
+Z-SCORE: 1.01
+Risk Category: Distress
 Model Used: financial
 Data Quality: 100.0%
 
@@ -16,27 +16,26 @@ MODEL THRESHOLDS:
   Distress Zone: < 1.10
 
 COMPONENT ANALYSIS:
-  Working Capital Ratio: 0.0000
-  Retained Earnings Ratio: 0.0000
-  Ebit Ratio: 169.11
-  Book Equity Ratio: 0.0000
-  Z Score: 1,139.7
+  Working Capital Ratio: -0.4062
+  Retained Earnings Ratio: 0.0914
+  Ebit Ratio: 0.0036
+  Book Equity Ratio: 0.0996
+  Z Score: 1.012
 
 INVESTMENT RECOMMENDATION:
-  Action: Strong Buy
-  Confidence: 70.0%
+  Action: Hold
+  Confidence: 60.0%
 
 AI-POWERED ANALYSIS SUMMARY:
   # AI-Powered Altman Z-Score Investment Analysis
   **Company:** BK (The Bank of New York Mellon Corporation)
-  **Analysis Date:** 2025-07-28 10:27:55
+  **Analysis Date:** 2025-08-02 20:29:20
   ---
   ## 1. Executive Intelligence Summary
-  The latest Altman Z-Score for BK stands at an exceptionally high **1139.677**, categorizing the company firmly in the **Safe Zone** and signaling an extraordinarily low risk of financial distress. This represents a dramatic increase from the prior quarter’s Z-Score of **3.707**, which was already in the Safe Zone, and a significant improvement compared to the preceding Gray Zone values ranging from **1.908** to **2.595** over the past eight quarters. This surge suggests a fundamental shift in financial health or a data anomaly requiring cautious interpretation.
+  The latest Altman Z-Score for BK is **1.012**, placing the company firmly in the **Distress Zone** (<1.8), signaling significant financial distress risk. This represents a sharp decline from prior quarters where BK hovered in the Gray Zone (Z-Scores between 1.900 and 2.573). The downward trajectory is concerning, indicating deteriorating financial health.
   [Full analysis available in comprehensive report]
 
 WARNINGS:
-  • Total liabilities missing - equity ratios may be inaccurate
   • Financial institutions may not be suitable for Z-Score analysis
 
 === END OF SUMMARY ===

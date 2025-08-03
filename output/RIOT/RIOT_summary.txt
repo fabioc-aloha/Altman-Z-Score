@@ -3,24 +3,26 @@ Ticker: RIOT
 Company Name: Riot Platforms, Inc.
 Sector: Financial Services
 Industry: Financial - Capital Markets
-Analysis Date: July 28, 2025 at 11:27 AM
+Analysis Date: August 02, 2025 at 09:22 PM
 
-Z-SCORE: 6.50
-Risk Category: Safe
-Model Used: financial
+Z-SCORE: 2.46
+Risk Category: Gray Zone
+Model Used: original
 Data Quality: 100.0%
 
 MODEL THRESHOLDS:
-  Safe Zone: > 2.60
-  Gray Zone: 1.10 - 2.60
-  Distress Zone: < 1.10
+  Safe Zone: > 2.99
+  Gray Zone: 1.81 - 2.99
+  Distress Zone: < 1.81
 
 COMPONENT ANALYSIS:
-  Working Capital Ratio: 0.0834
-  Retained Earnings Ratio: -0.2653
-  Ebit Ratio: -0.0629
-  Book Equity Ratio: 3.804
-  Z Score: 6.504
+  Working Capital Ratio: 0.0329
+  Retained Earnings Ratio: -0.1791
+  Ebit Ratio: 0.0504
+  Market Equity Ratio: 4.120
+  Book Equity Ratio: 3.331
+  Asset Turnover: 0.0357
+  Z Score: 2.463
 
 INVESTMENT RECOMMENDATION:
   Action: Strong Buy
@@ -29,13 +31,10 @@ INVESTMENT RECOMMENDATION:
 AI-POWERED ANALYSIS SUMMARY:
   # AI-Powered Altman Z-Score Investment Analysis
   **Company:** Riot Platforms, Inc. (Ticker: RIOT)
-  **Analysis Date:** 2025-07-28 11:26:17
+  **Analysis Date:** 2025-08-02 21:20:52
   ---
   ## 1. Executive Intelligence Summary
-  Riot Platforms, Inc. currently exhibits a **strong financial safety profile** with a latest Altman Z-Score of **6.504** (QUnknown Unknown, current quarter), well above the distress threshold of 1.8 and comfortably in the Safe Zone (>3.0). This indicates a very low probability of bankruptcy risk in the near term. Historically, the company’s Z-Score has fluctuated significantly, peaking at **23.915** and trending downward over recent quarters to the current level, suggesting some erosion in financial robustness but still maintaining a strong buffer.
+  Riot Platforms, Inc. currently exhibits a **Gray Zone** Altman Z-Score of **2.463** (latest quarter), indicating moderate financial distress risk but not immediate danger. This is a decline from the prior quarter’s 2.724 and a notable drop from earlier Safe Zone levels above 3.0, including a peak of 20.770 eight quarters ago. The downward trajectory signals emerging financial pressures requiring close monitoring.
   [Full analysis available in comprehensive report]
-
-WARNINGS:
-  • Financial institutions may not be suitable for Z-Score analysis
 
 === END OF SUMMARY ===

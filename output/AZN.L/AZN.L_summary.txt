@@ -3,36 +3,38 @@ Ticker: AZN.L
 Company Name: AstraZeneca PLC
 Sector: Healthcare
 Industry: Drug Manufacturers - General
-Analysis Date: July 28, 2025 at 10:28 AM
+Analysis Date: August 02, 2025 at 08:28 PM
 
-Z-SCORE: 0.81
+Z-SCORE: 1.87
 Risk Category: Gray Zone
-Model Used: service
+Model Used: original
 Data Quality: 100.0%
 
 MODEL THRESHOLDS:
-  Safe Zone: > 2.60
-  Gray Zone: 0.50 - 2.60
-  Distress Zone: < 0.50
+  Safe Zone: > 2.99
+  Gray Zone: 1.81 - 2.99
+  Distress Zone: < 1.81
 
 COMPONENT ANALYSIS:
   Working Capital Ratio: -0.0281
   Retained Earnings Ratio: 0.0317
   Ebit Ratio: 0.0346
+  Market Equity Ratio: 2.696
   Book Equity Ratio: 0.6302
-  Z Score: 0.8127
+  Asset Turnover: 0.1279
+  Z Score: 1.870
 
 INVESTMENT RECOMMENDATION:
-  Action: Hold
+  Action: Buy
   Confidence: 60.0%
 
 AI-POWERED ANALYSIS SUMMARY:
-  # AI-Powered Altman Z-Score Investment Analysis for AstraZeneca PLC (Ticker: AZN.L)
-  **Analysis Date:** 2025-07-28 10:27:15
+  # AI-Powered Altman Z-Score Investment Analysis
+  **Company:** AstraZeneca PLC (Ticker: AZN.L)
+  **Analysis Date:** 2025-08-02 20:27:12
   ---
   ## 1. Executive Intelligence Summary
-  AstraZeneca PLC (AZN.L) currently exhibits a **Z-Score of 0.813** in the latest quarter, placing it firmly in the **Gray Zone** (Z between 1.8 and 3.0), signaling elevated financial distress risk but not immediate bankruptcy threat. This is a slight improvement from the previous quarter’s 0.780 but remains well below the safe threshold of 3.0. The company’s Z-Score has shown a gradual upward trend from a low of 0.370 eight quarters ago, indicating some recovery in financial health.
-  **AI Risk Analysis** classifies AstraZeneca’s overall risk level as **elevated**, with a trajectory showing slow improvement but persistent vulnerabilities. The risk factors include liquidity stress and operational leverage concerns, consistent with the low working capital ratio of -0.028 and modest EBIT ratio of 0.035 (Financial Data Context).
+  AstraZeneca PLC currently resides in the **Gray Zone** of financial distress with a **latest quarter Z-Score of 1.870**, indicating moderate risk of financial distress but not immediate danger. The Z-Score trajectory over the past eight quarters shows a relatively stable but slightly fluctuating trend within the Gray Zone, with a low point of 1.808 (Distress Zone) and a recent recovery to 1.870. This signals cautious optimism but necessitates close monitoring.
   [Full analysis available in comprehensive report]
 
 === END OF SUMMARY ===
